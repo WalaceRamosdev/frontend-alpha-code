@@ -2096,15 +2096,17 @@ footer {
 .modal-content h2 {
     font-family: 'Montserrat', sans-serif;
     font-size: 1.5rem;
-    margin-bottom: 10px;
-    color: var(--text-primary);
+    margin-bottom: 15px;
+    color: #ffffff;
+    /* White text for better visibility */
 }
 
 .modal-content p {
     font-size: 1rem;
-    color: var(--text-secondary);
+    color: #e0e0e0;
+    /* Off-white for subtitle */
     margin-bottom: 30px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .modal-content .btn {
@@ -2117,7 +2119,6 @@ footer {
     color: #fff;
     border: none;
     text-decoration: none;
-    /* Ensure link looks like button */
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -2135,26 +2136,32 @@ footer {
 }
 
 /* ==========================================
-   Loader / Spinner Styles
+   Logo Loader Animation
    ========================================== */
-.loader {
-    border: 5px solid #f3f3f3;
-    /* Light grey */
-    border-top: 5px solid var(--accent-color);
-    /* Blue or Accent */
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-    margin: 0 auto 20px auto;
+.logo-loader {
+    width: 80px;
+    /* Adjust size as needed */
+    height: auto;
+    margin-bottom: 20px;
+    animation: pulse-glow 2s infinite ease-in-out;
 }
 
-@keyframes spin {
+@keyframes pulse-glow {
     0% {
-        transform: rotate(0deg);
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        opacity: 0.8;
+    }
+
+    50% {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6));
+        opacity: 1;
     }
 
     100% {
-        transform: rotate(360deg);
+        transform: scale(1);
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
+        opacity: 0.8;
     }
 }
