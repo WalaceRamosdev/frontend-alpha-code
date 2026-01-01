@@ -2088,10 +2088,8 @@ footer {
     transform: translateY(0);
 }
 
-.modal-icon {
-    font-size: 3rem;
-    margin-bottom: 20px;
-}
+/* Old Icon Removed */
+
 
 .modal-content h2 {
     font-family: 'Montserrat', sans-serif;
@@ -2136,6 +2134,21 @@ footer {
 }
 
 /* ==========================================
+   Logo Styles (Success Modal)
+   ========================================== */
+.modal-logo {
+    width: 100px;
+    max-width: 30%;
+    /* Responsive sizing */
+    height: auto;
+    margin-bottom: 20px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /* Centering */
+}
+
+/* ==========================================
    Logo Loader Animation
    ========================================== */
 .logo-loader {
@@ -2143,6 +2156,8 @@ footer {
     /* Adjust size as needed */
     height: auto;
     margin-bottom: 20px;
+    display: inline-block;
+    /* Centered by text-align: center in parent */
     animation: pulse-glow 2s infinite ease-in-out;
 }
 
