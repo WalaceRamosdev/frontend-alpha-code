@@ -2152,6 +2152,57 @@ footer {
 /* ==========================================
    Logo Loader Animation
    ========================================== */
+.modal-close-x {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    border: none;
+    font-size: 2rem;
+    color: #888;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.3s;
+}
+
+.modal-close-x:hover {
+    color: var(--color-primary);
+}
+
+.full-width {
+    width: 100%;
+}
+
+.mb-2 {
+    margin-bottom: 10px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+}
+
+.modal-actions .btn {
+    flex: 1;
+    margin: 0;
+    /* Override default btn margin */
+    font-size: 0.9rem;
+    padding: 10px 15px;
+}
+
+@media (max-width: 600px) {
+    .modal-actions {
+        flex-direction: column;
+    }
+
+    .modal-content {
+        width: 95%;
+        padding: 30px 20px;
+    }
+}
+
 .logo-loader {
     width: 80px;
     /* Adjust size as needed */

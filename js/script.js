@@ -415,8 +415,12 @@ document.addEventListener('DOMContentLoaded', () => {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         nome: nome,
-                        email: email, // Resend needs this to send the auto-reply
-                        mensagem: messagePlain
+                        email: email,
+                        whatsapp: whatsapp,
+                        servico: objetivo, // Mapped from 'objetivo'
+                        detalhes: detalhes,
+                        plano: plano,
+                        orcamento: cores // Mapped from 'cores'
                     })
                 });
 
@@ -495,13 +499,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Close Modal Logic (Redirect to Home)
-        const closeModalBtn = document.getElementById('close-modal');
+        // Close Modal Logic (X Button)
+        const closeModalBtn = document.getElementById('close-modal-x');
         const modal = document.getElementById('success-modal');
         if (closeModalBtn && modal) {
             closeModalBtn.addEventListener('click', () => {
-                // Redirect to Home Page
-                window.location.href = 'index.html';
+                modal.classList.remove('active');
+                // Optional: Redirect to Home?
+                // window.location.href = 'index.html'; 
             });
 
             // Allow outside click to close (optional: maybe remove to force button click?)
