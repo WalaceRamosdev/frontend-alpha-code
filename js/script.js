@@ -16,7 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Initialize State
     // Light Mode (Default) = Unchecked (Knob Right)
     // Dark Mode = Checked (Knob Left)
-    if (savedTheme === 'dark' || (!savedTheme && systemPrefersDark)) {
+    // User requested default to be LIGHT, ignoring system preference unless already saved.
+    if (savedTheme === 'dark') {
         htmlElement.setAttribute('data-theme', 'dark');
         if (themeCheckbox) themeCheckbox.checked = true;
         updateLogo(true);
