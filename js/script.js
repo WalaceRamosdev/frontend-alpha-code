@@ -455,15 +455,19 @@ document.addEventListener('DOMContentLoaded', () => {
                                     })
                                 });
 
+                                if (!res.ok) {
+                                    throw new Error(`Erro no Servidor: ${res.status} ${res.statusText}`);
+                                }
+
                                 const data = await res.json();
                                 if (data.url) {
                                     window.location.href = data.url;
                                 } else {
-                                    throw new Error('Sem URL de pagamento');
+                                    throw new Error('Sem URL de pagamento na resposta');
                                 }
                             } catch (err) {
-                                console.error('Erro Pagamento:', err);
-                                alert('Não foi possível iniciar o pagamento. Tente pelo WhatsApp.');
+                                console.error('Erro detalhado do Pagamento:', err);
+                                alert(`Não foi possível iniciar o pagamento. Detalhe: ${err.message}. Tente pelo WhatsApp.`);
                                 btnPay.innerText = 'Pagar Agora (Pix ou Cartão) 💳';
                                 btnPay.disabled = false;
                             }
