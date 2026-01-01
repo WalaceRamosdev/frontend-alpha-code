@@ -428,7 +428,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Success! Show Modal
                     const modal = document.getElementById('success-modal');
                     const btnWhatsappModal = document.getElementById('btn-whatsapp-modal');
-                    const btnPayStripe = document.getElementById('btn-pay-stripe');
+                    const btnPay = document.getElementById('btn-pay');
 
                     // Prepare WhatsApp Url (Dynamic)
                     const whatsappUrl = `https://wa.me/5521999064502?text=${messageWhatsapp}`;
@@ -437,18 +437,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         btnWhatsappModal.href = whatsappUrl;
                     }
 
-                    // --- STRIPE PAYMENT LOGIC ---
-                    if (btnPayStripe) {
-                        btnPayStripe.onclick = async () => {
-                            btnPayStripe.innerText = 'Redirecionando... 🔒';
-                            btnPayStripe.disabled = true;
+                    // --- PAYMENT LOGIC (MERCADO PAGO) ---
+                    if (btnPay) {
+                        btnPay.onclick = async () => {
+                            btnPay.innerText = 'Redirecionando... 🔒';
+                            btnPay.disabled = true;
 
                             try {
-                                // Use the same backend, different endpoint
-                                const stripeUrl = 'https://backend-rp7j.onrender.com/create-checkout-session';
-                                // const stripeUrl = 'http://localhost:3000/create-checkout-session'; // Local test
+                                const backendUrl = 'https://backend-rp7j.onrender.com/create-checkout-session';
 
-                                const res = await fetch(stripeUrl, {
+                                const res = await fetch(backendUrl, {
                                     method: 'POST',
                                     headers: { 'Content-Type': 'application/json' },
                                     body: JSON.stringify({
@@ -457,17 +455,17 @@ document.addEventListener('DOMContentLoaded', () => {
                                     })
                                 });
 
-                                const session = await res.json();
-                                if (session.url) {
-                                    window.location.href = session.url;
+                                const data = await res.json();
+                                if (data.url) {
+                                    window.location.href = data.url;
                                 } else {
                                     throw new Error('Sem URL de pagamento');
                                 }
                             } catch (err) {
                                 console.error('Erro Pagamento:', err);
                                 alert('Não foi possível iniciar o pagamento. Tente pelo WhatsApp.');
-                                btnPayStripe.innerText = 'Pagar Agora (Pix ou Cartão) 💳';
-                                btnPayStripe.disabled = false;
+                                btnPay.innerText = 'Pagar Agora (Pix ou Cartão) 💳';
+                                btnPay.disabled = false;
                             }
                         };
                     }
