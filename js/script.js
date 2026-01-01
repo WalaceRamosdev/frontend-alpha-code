@@ -403,46 +403,56 @@ document.addEventListener('DOMContentLoaded', () => {
                 `*DETALHES / EXPECTATIVAS:*%0A` +
                 `${detalhes}`;
 
-            // A. Enviar Email (API Própria)
+
+            // 3.5 Show Loading Overlay
+            const loadingOverlay = document.getElementById('loading-overlay');
+            if (loadingOverlay) loadingOverlay.classList.add('active');
+
             try {
-                await fetch(apiUrl, {
+                // A. Enviar Email (API Própria)
+                const response = await fetch(apiUrl, {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
+                    headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
                         nome: nome,
-                        email: email,
+                        email: email, // Resend needs this to send the auto-reply
                         mensagem: messagePlain
                     })
                 });
-                console.log('Email enviado com sucesso via API!');
+
+                if (loadingOverlay) loadingOverlay.classList.remove('active'); // Hide Loader
+
+                if (response.ok) {
+                    console.log('Email enviado com sucesso via API!');
+
+                    // Success! Show Modal
+                    const modal = document.getElementById('success-modal');
+                    const btnWhatsappModal = document.getElementById('btn-whatsapp-modal');
+
+                    // Prepare WhatsApp Url (Dynamic)
+                    const whatsappUrl = `https://wa.me/5521999064502?text=${messageWhatsapp}`;
+
+                    if (btnWhatsappModal) {
+                        btnWhatsappModal.href = whatsappUrl;
+                    }
+                    if (modal) {
+                        modal.classList.add('active');
+                    }
+                    orderForm.reset();
+
+                } else {
+                    throw new Error('Erro na resposta do servidor');
+                }
+
             } catch (err) {
                 console.error('Erro ao enviar email:', err);
-                // Continue flow even if email fails
+                if (loadingOverlay) loadingOverlay.classList.remove('active'); // Hide Loader
+
+                // Fallback: Show success modal anyway? Or Alert?
+                // User wants to ensure they know it connected. If it fails, we should tell them.
+                alert('Ocorreu um erro ao enviar o pedido. Por favor, tente novamente ou nos chame no WhatsApp.');
+                btn.disabled = false;
             }
-
-            // B. Prepare WhatsApp Url
-            // Substitua o número abaixo pelo seu WhatsApp real
-            const whatsappUrl = `https://wa.me/5521999064502?text=${messageWhatsapp}`;
-
-            // REMOVED: window.open(whatsappUrl, '_blank'); 
-            // User requested to stop auto-redirect.
-
-            // C. Mostrar Modal
-            const modal = document.getElementById('success-modal');
-            const btnWhatsappModal = document.getElementById('btn-whatsapp-modal');
-
-            if (btnWhatsappModal) {
-                btnWhatsappModal.href = whatsappUrl; // Set dynamic URL
-            }
-
-            if (modal) {
-                modal.classList.add('active');
-            }
-
-            // Re-enable button
-            btn.disabled = false;
         });
 
         // Close Modal Logic (Redirect to Home)
