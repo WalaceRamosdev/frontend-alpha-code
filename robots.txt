@@ -1,3 +1,3 @@
 User-agent: *
 Allow: /
-Sitemap: https://www.alphacode.com/sitemap.xml
+Sitemap: https://sitesalphacode.vercel.app/sitemap.xml

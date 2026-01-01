@@ -2231,4 +2231,78 @@ footer {
         filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
         opacity: 0.8;
     }
+}/* Marquee Animation Support */
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+    user-select: none;
+    gap: 0;
+    width: 100%;
+    position: relative;
+    padding: 20px 0;
+    /* Soft Fade Edges */
+    mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 5%, black 95%, transparent);
+}
+
+.marquee-content {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: 100%;
+    gap: 0;
+    animation: scroll 40s linear infinite;
+}
+
+.marquee-content span {
+    white-space: nowrap;
+    padding: 0 1rem;
+    /* Horizontal spacing */
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--color-text-light);
+    display: inline-block;
+}
+
+.marquee-content .separator {
+    color: var(--color-primary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+/* Keyframes */
+@keyframes scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Pause on hover */
+.marquee-container:hover .marquee-content {
+    animation-play-state: paused;
+}
+
+/* Dark Mode Overrides */
+[data-theme="dark"] .marquee-content span {
+    color: var(--color-text-main);
+}
+/* Trust Bar Contrast Fix */
+#trust-bar p {
+    color: var(--color-primary);
+    /* Primary color for the "Especialistas..." text */
+    font-weight: 700;
+    /* Make it bolder */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+[data-theme="dark"] #trust-bar p {
+    color: #FFFFFF;
+    /* High contrast white for dark mode */
 }
