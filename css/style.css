@@ -1423,6 +1423,19 @@ section {
     /* Icons are now Gold */
 }
 
+/* Image Logic for Theme */
+/* Default (Light Mode) - Targets Lead Gray #303030 via filter */
+.img-fluid {
+    filter: brightness(0) invert(1) brightness(0.2);
+    /* Logic: Force Black -> Invert to White -> Darken to ~#333333 */
+    transition: filter 0.3s ease;
+}
+
+[data-theme="dark"] .img-fluid {
+    /* Dark Mode - Targets White */
+    filter: brightness(0) invert(1);
+}
+
 .card h3 {
     font-size: 1.3rem;
     margin-bottom: 15px;
@@ -2231,7 +2244,9 @@ footer {
         filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.2));
         opacity: 0.8;
     }
-}/* Marquee Animation Support */
+}
+
+/* Marquee Animation Support */
 .marquee-container {
     display: flex;
     overflow: hidden;
@@ -2291,6 +2306,7 @@ footer {
 [data-theme="dark"] .marquee-content span {
     color: var(--color-text-main);
 }
+
 /* Trust Bar Contrast Fix */
 #trust-bar p {
     color: var(--color-primary);
