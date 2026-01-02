@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // Update Payment Description
                 const paymentDesc = document.getElementById('payment-description');
-                if (paymentDesc) paymentDesc.textContent = 'Pagamento por manutenção';
+                if (paymentDesc) paymentDesc.textContent = 'Pagamento por Manutenção';
 
                 // Hide Section 2 Header if desired
                 const section2Header = document.querySelector('.form-group-section:nth-of-type(2) h3');
@@ -424,7 +424,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Construct Message (Used for both WhatsApp and Email)
-            let messagePlain = `
+            // Construct Message (Used for both WhatsApp and Email)
+            let messagePlain = '';
+            let messageWhatsapp = '';
+
+            if (plano === 'Manutenção') {
+                // Simplified Message for Maintenance
+                messagePlain = `
+                NOVO PEDIDO DE SITE - ALPHA CODE 🚀
+
+                DADOS DO CLIENTE:
+                👤 Nome: ${nome}
+                📱 WhatsApp: ${whatsapp}
+                📧 Email: ${email}
+                💼 ${labelCampoOpcional}: ${valorCampoOpcional}
+
+                ----------------------------------
+                RESUMO DO PEDIDO:
+                🎯 Objetivo: Manutenção
+                💰 Valor: ${precoPlano} (Pgto Único)
+
+                DETALHES / EXPECTATIVAS:
+                ${detalhes}
+            `;
+
+                messageWhatsapp = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀%0A%0A` +
+                    `*DADOS DO CLIENTE:*%0A` +
+                    `👤 *Nome:* ${nome}%0A` +
+                    `📱 *WhatsApp:* ${whatsapp}%0A` +
+                    `📧 *Email:* ${email}%0A` +
+                    `💼 *${labelCampoOpcional}:* ${valorCampoOpcional}%0A%0A` +
+                    `----------------------------------%0A` +
+                    `*RESUMO DO PEDIDO:*%0A` +
+                    `🎯 *Objetivo:* Manutenção%0A` +
+                    `💰 *Valor:* ${precoPlano} (Pgto Único)%0A` +
+                    `----------------------------------%0A` +
+                    `*DETALHES / EXPECTATIVAS:*%0A` +
+                    `${detalhes}`;
+
+            } else {
+                // Standard Message for Other Plans
+                messagePlain = `
                 NOVO PEDIDO DE SITE - ALPHA CODE 🚀
 
                 DADOS DO CLIENTE:
@@ -446,23 +486,23 @@ document.addEventListener('DOMContentLoaded', () => {
                 ${detalhes}
             `;
 
-            // WhatsApp format (URL encoded)
-            let messageWhatsapp = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀%0A%0A` +
-                `*DADOS DO CLIENTE:*%0A` +
-                `👤 *Nome:* ${nome}%0A` +
-                `📱 *WhatsApp:* ${whatsapp}%0A` +
-                `📧 *Email:* ${email}%0A` +
-                `💼 *${labelCampoOpcional}:* ${valorCampoOpcional}%0A%0A` +
-                `----------------------------------%0A` +
-                `*RESUMO DO PEDIDO:*%0A` +
-                `📊 *Plano Escolhido:* ${plano}%0A` +
-                `💰 *Valor:* ${precoPlano} (Pgto Único)%0A` +
-                `🎯 *Objetivo:* ${objetivo}%0A` +
-                `🎨 *Cores:* ${cores}%0A` +
-                `🔗 *Ref:* ${referencias}%0A` +
-                `----------------------------------%0A` +
-                `*DETALHES / EXPECTATIVAS:*%0A` +
-                `${detalhes}`;
+                messageWhatsapp = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀%0A%0A` +
+                    `*DADOS DO CLIENTE:*%0A` +
+                    `👤 *Nome:* ${nome}%0A` +
+                    `📱 *WhatsApp:* ${whatsapp}%0A` +
+                    `📧 *Email:* ${email}%0A` +
+                    `💼 *${labelCampoOpcional}:* ${valorCampoOpcional}%0A%0A` +
+                    `----------------------------------%0A` +
+                    `*RESUMO DO PEDIDO:*%0A` +
+                    `📊 *Plano Escolhido:* ${plano}%0A` +
+                    `💰 *Valor:* ${precoPlano} (Pgto Único)%0A` +
+                    `🎯 *Objetivo:* ${objetivo}%0A` +
+                    `🎨 *Cores:* ${cores}%0A` +
+                    `🔗 *Ref:* ${referencias}%0A` +
+                    `----------------------------------%0A` +
+                    `*DETALHES / EXPECTATIVAS:*%0A` +
+                    `${detalhes}`;
+            }
 
 
             // 3.5 Show Loading Overlay
@@ -474,8 +514,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Prepare final details for backend
                 let finalDetalhes = detalhes;
                 if (plano === 'Manutenção') {
-                    // Force the link to appear in 'detalhes' since backend might ignore 'profissao'
-                    finalDetalhes = `LINK DO SITE PARA MANUTENÇÃO: ${profissao}\n\n` + detalhes;
+                    // Force the link to appear in 'detalhes' with clear separation
+                    finalDetalhes = `🔗 LINK DO SITE:\n${profissao}\n\n-----------------------------------\n\n📝 DESCRIÇÃO / PROBLEMA:\n${detalhes}`;
                 }
 
                 const response = await fetch(apiUrl, {
