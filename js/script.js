@@ -357,9 +357,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (detalhesLabel) detalhesLabel.textContent = 'O que precisa ser feito? *';
                 if (detalhesHint) detalhesHint.textContent = 'Descreva as alterações ou correções necessárias.';
 
+                // Update Payment Description
+                const paymentDesc = document.getElementById('payment-description');
+                if (paymentDesc) paymentDesc.textContent = 'Pagamento por manutenção';
+
                 // Hide Section 2 Header if desired
                 const section2Header = document.querySelector('.form-group-section:nth-of-type(2) h3');
                 if (section2Header) section2Header.style.display = 'none';
+            } else {
+                // Reset Payment Description for Regular Plans
+                const paymentDesc = document.getElementById('payment-description');
+                if (paymentDesc) paymentDesc.textContent = 'Pagamento único';
             }
         } else {
             // Default or Error state
@@ -576,5 +584,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             });
         }
+    }
+});
+
+/* ==========================================
+   Mobile Menu Submenu Toggle
+   ========================================== */
+document.addEventListener('DOMContentLoaded', function () {
+    const mobilePlansLink = document.getElementById('mobile-plans-link');
+    const mobileMaintItem = document.getElementById('mobile-maintenance-item');
+
+    if (mobilePlansLink && mobileMaintItem) {
+        mobilePlansLink.addEventListener('click', function (e) {
+            e.preventDefault(); // Stop scrolling to #plans
+            e.stopPropagation();
+
+            if (mobileMaintItem.style.display === 'none') {
+                mobileMaintItem.style.display = 'block';
+                mobilePlansLink.innerHTML = 'Planos ▴';
+            } else {
+                mobileMaintItem.style.display = 'none';
+                mobilePlansLink.innerHTML = 'Planos ▾';
+            }
+        });
     }
 });
