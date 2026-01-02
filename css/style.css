@@ -2448,3 +2448,12 @@ footer {
 [data-theme='dark'] .dropdown-menu a:hover {
     background: rgba(255, 255, 255, 0.05);
 }
+
+/* Order Header Spacing Fix */
+#order-header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    gap: 50px; /* Force gap between logo and badge */
+}

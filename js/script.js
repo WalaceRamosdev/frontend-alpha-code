@@ -308,7 +308,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 id: 'Página Premium'
             },
             'manutencao': {
-                name: 'Manutenção Mensal',
+                name: 'Manutenção',
                 price: 'R$ 100',
                 id: 'Manutenção'
             }
@@ -406,14 +406,24 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             // Construct Message (Used for both WhatsApp and Email)
-            const messagePlain = `
+            // Determine labels based on plan
+            let labelCampoOpcional = 'Profissão';
+            let valorCampoOpcional = profissao;
+
+            if (plano === 'Manutenção') {
+                labelCampoOpcional = 'Link do Site';
+                // If the user didn't type http/https, maybe we can accept it as is, or rely on them.
+            }
+
+            // Construct Message (Used for both WhatsApp and Email)
+            let messagePlain = `
                 NOVO PEDIDO DE SITE - ALPHA CODE 🚀
 
                 DADOS DO CLIENTE:
                 👤 Nome: ${nome}
                 📱 WhatsApp: ${whatsapp}
                 📧 Email: ${email}
-                💼 Profissão: ${profissao}
+                💼 ${labelCampoOpcional}: ${valorCampoOpcional}
 
                 ----------------------------------
                 RESUMO DO PEDIDO:
@@ -429,12 +439,12 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
 
             // WhatsApp format (URL encoded)
-            const messageWhatsapp = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀%0A%0A` +
+            let messageWhatsapp = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀%0A%0A` +
                 `*DADOS DO CLIENTE:*%0A` +
                 `👤 *Nome:* ${nome}%0A` +
                 `📱 *WhatsApp:* ${whatsapp}%0A` +
                 `📧 *Email:* ${email}%0A` +
-                `💼 *Profissão:* ${profissao}%0A%0A` +
+                `💼 *${labelCampoOpcional}:* ${valorCampoOpcional}%0A%0A` +
                 `----------------------------------%0A` +
                 `*RESUMO DO PEDIDO:*%0A` +
                 `📊 *Plano Escolhido:* ${plano}%0A` +
@@ -453,6 +463,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // A. Enviar Email (API Própria)
+                // Prepare final details for backend
+                let finalDetalhes = detalhes;
+                if (plano === 'Manutenção') {
+                    // Force the link to appear in 'detalhes' since backend might ignore 'profissao'
+                    finalDetalhes = `LINK DO SITE PARA MANUTENÇÃO: ${profissao}\n\n` + detalhes;
+                }
+
                 const response = await fetch(apiUrl, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -461,7 +478,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         email: email,
                         whatsapp: whatsapp,
                         servico: objetivo, // Mapped from 'objetivo'
-                        detalhes: detalhes,
+                        detalhes: finalDetalhes,
                         plano: plano,
                         orcamento: cores // Mapped from 'cores'
                     })
