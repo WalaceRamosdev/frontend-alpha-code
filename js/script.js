@@ -306,6 +306,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: 'Página Premium',
                 price: 'R$ 497',
                 id: 'Página Premium'
+            },
+            'manutencao': {
+                name: 'Manutenção Mensal',
+                price: 'R$ 100',
+                id: 'Manutenção'
             }
         };
 
@@ -319,6 +324,43 @@ document.addEventListener('DOMContentLoaded', () => {
             if (planNameEl) planNameEl.textContent = plan.name;
             if (planPriceEl) planPriceEl.textContent = plan.price;
             if (planInput) planInput.value = plan.name;
+
+            // --- Maintenance Mode Adapter ---
+            if (selectedPlan === 'manutencao') {
+                // Change Header
+                const formHeader = document.querySelector('.form-header h1');
+                const formDesc = document.querySelector('.form-header p');
+                if (formHeader) formHeader.textContent = 'Solicitar Manutenção';
+                if (formDesc) formDesc.textContent = 'Informe os dados e o link do site para ajuste.';
+
+                // Repurpose "Profissão" -> "Link do Site"
+                const profissaoLabel = document.querySelector('label[for="profissao"]');
+                const profissaoInput = document.getElementById('profissao');
+                if (profissaoLabel) profissaoLabel.textContent = 'Link do Site (para manutenção) *';
+                if (profissaoInput) {
+                    profissaoInput.placeholder = 'https://www.seusite.com.br';
+                }
+
+                // Hide Unnecessary Fields (Objetivo, Cores, Referencias)
+                ['objetivo', 'cores', 'referencias'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.closest('.form-control').style.display = 'none';
+                        el.removeAttribute('required');
+                        if (id === 'objetivo') el.value = 'Manutenção'; // Set dummy value
+                    }
+                });
+
+                // Update "Detalhes" Label
+                const detalhesLabel = document.querySelector('label[for="detalhes"]');
+                const detalhesHint = document.querySelector('.input-hint');
+                if (detalhesLabel) detalhesLabel.textContent = 'O que precisa ser feito? *';
+                if (detalhesHint) detalhesHint.textContent = 'Descreva as alterações ou correções necessárias.';
+
+                // Hide Section 2 Header if desired
+                const section2Header = document.querySelector('.form-group-section:nth-of-type(2) h3');
+                if (section2Header) section2Header.style.display = 'none';
+            }
         } else {
             // Default or Error state
             if (planNameEl) planNameEl.textContent = 'Escolha um plano';
