@@ -1,9 +1,13 @@
 :root {
     /* Color Palette */
+    /* Color Palette */
     --color-primary: #6E0F18;
-    /* Bordô Alpha */
-    --color-primary-dark: #4a0a10;
-    --color-primary-light: #8f232e;
+    /* Red Alpha Base (Bottom of Gradient) */
+    --color-primary-dark: #6E0F18;
+    /* User Specific Top Color */
+    --color-primary-light: #DF3761;
+    /* Gradient: Base to New Top */
+    --gradient-primary: linear-gradient(to top, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
 
     /* Removed Gold - Replaced with Primary or Neutral */
     /* --color-accent: #D4AF37; */
@@ -93,7 +97,10 @@
 
 /* Icons */
 [data-theme="dark"] .price-card.featured ul li i {
-    color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 /* Standard cards revert to default dark styling */
@@ -221,7 +228,10 @@ html {
     font-size: 0.85rem;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     margin-bottom: 15px;
     font-weight: 600;
 }
@@ -352,7 +362,11 @@ ul {
 
 /* Utility Classes */
 .text-primary {
-    color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    font-weight: 700;
 }
 
 /* Replaced Gold with Primary/Neutral */
@@ -401,15 +415,20 @@ ul {
 }
 
 .btn-primary {
-    background-color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    background-size: 100% 200%;
+    background-position: bottom;
     color: var(--color-text-inverted);
+    border: none;
 }
 
 .btn-primary:hover {
-    background-color: var(--color-primary-dark);
+    background-position: top;
+    box-shadow: 0 4px 15px rgba(110, 15, 24, 0.4);
     transform: translateY(-2px);
-    box-shadow: var(--shadow-medium);
 }
+
+
 
 .btn-outline {
     background-color: transparent;
@@ -507,8 +526,10 @@ ul {
 }
 
 .desktop-nav a:hover {
-    background-color: rgba(110, 15, 24, 0.08);
-    color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 [data-theme="dark"] .desktop-nav a:hover {
@@ -839,10 +860,10 @@ input:checked+.slider .icon-moon svg {
     gap: 8px;
     font-size: 0.85rem;
     color: var(--color-primary);
-    /* #8F232E */
+    /* Fallback */
+    background: linear-gradient(145deg, rgba(110, 15, 24, 0.1), rgba(143, 35, 46, 0.1));
+    border: 1px solid var(--color-primary-light);
     font-weight: 600;
-    background-color: rgba(143, 35, 46, 0.05);
-    /* very light primary */
     padding: 6px 12px;
     border-radius: 20px;
 }
@@ -930,8 +951,10 @@ input:checked+.slider .icon-moon svg {
 }
 
 .trust-item .check {
-    color: var(--color-primary);
-    /* #8F232E */
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
     font-weight: bold;
 }
 
@@ -964,6 +987,15 @@ input:checked+.slider .icon-moon svg {
 
 .form-group-section:last-of-type {
     border-bottom: none;
+}
+
+.form-group-se.card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .form-group-section h3 {
@@ -1439,7 +1471,10 @@ section {
 .card h3 {
     font-size: 1.3rem;
     margin-bottom: 15px;
-    color: var(--color-primary);
+    background-image: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
 }
 
 .modal-content {
@@ -1593,7 +1628,7 @@ section {
     top: -15px;
     left: 50%;
     transform: translateX(-50%);
-    background-color: var(--color-primary);
+    background-image: var(--gradient-primary);
     color: white;
     padding: 5px 15px;
     border-radius: 20px;
@@ -1741,10 +1776,30 @@ footer {
     box-shadow: var(--shadow-strong);
     z-index: 1000;
     transition: transform 0.3s;
+    animation: whatsapp-pulse 2s infinite;
 }
 
 .whatsapp-float:hover {
     transform: scale(1.1);
+    animation: none;
+    /* Stop pulsing on hover */
+}
+
+@keyframes whatsapp-pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+    }
+
+    70% {
+        transform: scale(1.05);
+        box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+    }
+
+    100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+    }
 }
 
 /* Animations */
@@ -2321,4 +2376,5 @@ footer {
 [data-theme="dark"] #trust-bar p {
     color: #FFFFFF;
     /* High contrast white for dark mode */
+}
 }
