@@ -187,18 +187,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://ctim.vercel.app/'
             },
             {
+                name: 'Alessandro Silva',
+                type: 'Psicologia',
+                category: 'saude',
+                image: './assets/imagens-de-paginas/alessandroSilva.svg',
+                link: 'https://alessandro-silva-psi.vercel.app/'
+            },
+            {
                 name: 'Drª. Silvia Orlandi',
                 type: 'Terapeutas',
                 category: 'saude',
                 image: './assets/imagens-de-paginas/silviaOrlandi.svg',
                 link: 'https://silvia-terapeuta.vercel.app/'
-            },
-            {
-                name: 'Tech Solutions',
-                type: 'Tecnologia',
-                category: 'institucional',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Tech+Solutions',
-                link: '#'
             },
         ];
 
