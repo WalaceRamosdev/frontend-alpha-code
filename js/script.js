@@ -180,6 +180,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://nutricao-pied.vercel.app/'
             },
             {
+                name: 'Joalheria LUMIÈRE',
+                type: 'Joalheria',
+                category: 'institucional',
+                image: './assets/imagens-de-paginas/lumiere.svg',
+                link: 'https://lumiere-joias.vercel.app/'
+            },
+            {
                 name: 'CTIM | Clínica de Terapias Integradas',
                 type: 'Institucional',
                 category: 'institucional',
