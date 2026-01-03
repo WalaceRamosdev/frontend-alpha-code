@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
-                name: 'Drª. Silvia Orlandi',
-                type: 'Terapeutas',
+                name: 'Amanda Toledo',
+                type: 'Nutricionista',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/silviaOrlandi.svg',
-                link: 'https://silvia-terapeuta.vercel.app/'
+                image: './assets/imagens-de-paginas/amandaToledo.svg',
+                link: 'https://amanda-toledo.vercel.app/'
             },
             {
                 name: 'Camila Ferraz Personal',
@@ -187,11 +187,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://ctim.vercel.app/'
             },
             {
-                name: 'Amanda Toledo',
-                type: 'Nutricionista',
+                name: 'Drª. Silvia Orlandi',
+                type: 'Terapeutas',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/amandaToledo.svg',
-                link: 'https://amanda-toledo.vercel.app/'
+                image: './assets/imagens-de-paginas/silviaOrlandi.svg',
+                link: 'https://silvia-terapeuta.vercel.app/'
             },
             {
                 name: 'Tech Solutions',
