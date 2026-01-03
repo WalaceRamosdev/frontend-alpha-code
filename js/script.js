@@ -134,59 +134,69 @@ document.addEventListener('DOMContentLoaded', () => {
     if (projectsGrid) {
         // Data Array - Easy to Edit
         // Add or remove objects here to change the projects displayed.
+        // Data Array - Easy to Edit
+        // Add or remove objects here to change the projects displayed.
         const projectsData = [
             {
                 name: 'Aline Barbosa',
                 type: 'Advogados',
+                category: 'juridico',
                 image: './assets/imagens-de-paginas/alineBarbosa.svg',
                 link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
                 name: 'Drª. Silvia Orlandi',
                 type: 'Terapeutas',
+                category: 'saude',
                 image: './assets/imagens-de-paginas/silviaOrlandi.svg',
                 link: 'https://silvia-terapeuta.vercel.app/'
             },
             {
                 name: 'Camila Ferraz Personal',
-                type: 'Pesronal',
+                type: 'Personal Trainer',
+                category: 'saude',
                 image: './assets/imagens-de-paginas/camilaFerrazPersonal.svg',
                 link: 'https://camilaferrazpersonal.vercel.app/'
             },
             {
                 name: 'João Silva',
                 type: 'Professores Particular',
+                category: 'educacao',
                 image: './assets/imagens-de-paginas/profJoao.svg',
                 link: 'https://landing-page-professor.vercel.app/'
             },
             {
                 name: 'Cafeteria Premium',
                 type: 'Gastronomia',
+                category: 'gastronomia',
                 image: './assets/imagens-de-paginas/cafeteria.svg',
                 link: 'https://cafeteria-premium.vercel.app/'
             },
             {
                 name: 'Ana Ribeiro',
                 type: 'Nutricionista',
+                category: 'saude',
                 image: './assets/imagens-de-paginas/anaRibeiroNutri.svg',
                 link: 'https://nutricao-pied.vercel.app/'
             },
             {
                 name: 'Tech Solutions',
                 type: 'Tecnologia',
+                category: 'institucional',
                 image: 'https://placehold.co/600x400/252525/FFF?text=Tech+Solutions',
                 link: '#'
             },
             {
-                name: 'Studio Fitness',
-                type: 'Esporte',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Studio+Fitness',
-                link: '#'
+                name: 'CTIM | Clínica de Terapias Integradas',
+                type: 'saúde',
+                category: 'institucional',
+                image: './assets/imagens-de-paginas/ctim.svg',
+                link: 'https://ctim.vercel.app/'
             }
         ];
 
         // Initialize render functionality
-        function renderProjects() {
+        function renderProjects(filter = 'all') {
             // Determine Context
             const isProjectsPage = window.location.pathname.includes('projetos.html');
             const targetGrid = isProjectsPage ? document.getElementById('full-projects-grid') : projectsGrid;
@@ -195,7 +205,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
             targetGrid.innerHTML = ''; // Clear content
 
-            projectsData.forEach((project, index) => {
+            // Filter Data
+            const filteredProjects = filter === 'all'
+                ? projectsData
+                : projectsData.filter(project => project.category === filter);
+
+            filteredProjects.forEach((project, index) => {
                 const card = document.createElement('div');
                 card.classList.add('project-card', 'fade-up');
 
@@ -259,7 +274,47 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
 
-        renderProjects();
+        renderProjects('all');
+
+        // Custom Dropdown Logic
+        const customSelect = document.querySelector('.custom-select');
+        if (customSelect) {
+            const trigger = customSelect.querySelector('.custom-select-trigger');
+            const options = customSelect.querySelectorAll('.custom-option');
+            const triggerText = trigger.querySelector('span');
+
+            // Toggle Dropdown
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent closing immediately
+                customSelect.classList.toggle('open');
+            });
+
+            // Option Selection
+            options.forEach(option => {
+                option.addEventListener('click', () => {
+                    // Update Text
+                    triggerText.textContent = option.textContent;
+
+                    // Update Active State
+                    options.forEach(opt => opt.classList.remove('selected'));
+                    option.classList.add('selected');
+
+                    // Filter Logic
+                    const filterValue = option.getAttribute('data-value');
+                    renderProjects(filterValue);
+
+                    // Close Dropdown
+                    customSelect.classList.remove('open');
+                });
+            });
+
+            // Close when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!customSelect.contains(e.target)) {
+                    customSelect.classList.remove('open');
+                }
+            });
+        }
 
         // Scroll Triggered Popup Logic
         const ctaPopup = document.getElementById('cta-popup');
