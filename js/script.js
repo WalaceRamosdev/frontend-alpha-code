@@ -136,7 +136,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add or remove objects here to change the projects displayed.
         const projectsData = [
             {
-                name: 'Silva & Associados',
+                name: 'Aline Barbosa',
                 type: 'Advogados',
                 image: 'https://placehold.co/600x400/252525/FFF?text=Advocacia+Silva',
                 link: '#'
@@ -627,25 +627,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-/* ==========================================
-   Mobile Menu Submenu Toggle
-   ========================================== */
-document.addEventListener('DOMContentLoaded', function () {
-    const mobilePlansLink = document.getElementById('mobile-plans-link');
-    const mobileMaintItem = document.getElementById('mobile-maintenance-item');
-
-    if (mobilePlansLink && mobileMaintItem) {
-        mobilePlansLink.addEventListener('click', function (e) {
-            e.preventDefault(); // Stop scrolling to #plans
-            e.stopPropagation();
-
-            if (mobileMaintItem.style.display === 'none') {
-                mobileMaintItem.style.display = 'block';
-                mobilePlansLink.innerHTML = 'Planos ▴';
-            } else {
-                mobileMaintItem.style.display = 'none';
-                mobilePlansLink.innerHTML = 'Planos ▾';
-            }
-        });
-    }
-});
