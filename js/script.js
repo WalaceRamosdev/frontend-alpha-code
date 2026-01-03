@@ -136,16 +136,22 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add or remove objects here to change the projects displayed.
         const projectsData = [
             {
-                name: 'Aline Barbosa',
-                type: 'Advogados',
-                image: './assets/imagens-de-paginas/alineBarbosa.svg',
-                link: 'https://advogada-aline-barbosa.vercel.app/'
+                name: 'Camila Ferraz Personal',
+                type: 'Pesronal',
+                image: './assets/imagens-de-paginas/camilaFerrazPersonal.svg',
+                link: 'https://camilaferrazpersonal.vercel.app/'
             },
             {
                 name: 'Drª. Silvia Orlandi',
                 type: 'Terapeutas',
                 image: './assets/imagens-de-paginas/silviaOrlandi.svg',
                 link: 'https://silvia-terapeuta.vercel.app/'
+            },
+            {
+                name: 'Aline Barbosa',
+                type: 'Advogados',
+                image: './assets/imagens-de-paginas/alineBarbosa.svg',
+                link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
                 name: 'Ana Ribeiro',
@@ -158,12 +164,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 type: 'Professores Particular',
                 image: './assets/imagens-de-paginas/profJoao.svg',
                 link: 'https://landing-page-professor.vercel.app/'
-            },
-            {
-                name: 'Escola Aprender',
-                type: 'Educação',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Escola+Aprender',
-                link: '#'
             },
             {
                 name: 'Tech Solutions',
