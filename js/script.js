@@ -138,26 +138,26 @@ document.addEventListener('DOMContentLoaded', () => {
             {
                 name: 'Aline Barbosa',
                 type: 'Advogados',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Advocacia+Silva',
-                link: '#'
+                image: './assets/imagens-de-paginas/alineBarbosa.svg',
+                link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
-                name: 'Dra. Ana Souza',
-                type: 'Psicólogos',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Dra.+Ana+Souza',
-                link: '#'
+                name: 'Drª. Silvia Orlandi',
+                type: 'Terapeutas',
+                image: './assets/imagens-de-paginas/silviaOrlandi.svg',
+                link: 'https://silvia-terapeuta.vercel.app/'
             },
             {
-                name: 'Clínica Bem-Estar',
-                type: 'Clínicas',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Clinica+Bem-Estar',
-                link: '#'
+                name: 'Ana Ribeiro',
+                type: 'Nutricionista',
+                image: './assets/imagens-de-paginas/anaRibeiroNutri.svg',
+                link: 'https://nutricao-pied.vercel.app/'
             },
             {
-                name: 'Dr. Roberto Mendes',
-                type: 'Cardiologista',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Dr.+Roberto',
-                link: '#'
+                name: 'João Silva',
+                type: 'Professores Particular',
+                image: './assets/imagens-de-paginas/profJoao.svg',
+                link: 'https://landing-page-professor.vercel.app/'
             },
             {
                 name: 'Escola Aprender',
@@ -218,7 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="project-info">
                         <span class="project-type">${project.type}</span>
                         <h3>${project.name}</h3>
-                        <a href="${project.link}" class="project-link">Ver Site <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                        <a href="${project.link}" class="project-link" target="_blank">Ver Site <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
                     </div>
                 `;
 
