@@ -180,19 +180,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://nutricao-pied.vercel.app/'
             },
             {
+                name: 'CTIM | Clínica de Terapias Integradas',
+                type: 'Institucional',
+                category: 'institucional',
+                image: './assets/imagens-de-paginas/ctim.svg',
+                link: 'https://ctim.vercel.app/'
+            },
+            {
                 name: 'Tech Solutions',
                 type: 'Tecnologia',
                 category: 'institucional',
                 image: 'https://placehold.co/600x400/252525/FFF?text=Tech+Solutions',
                 link: '#'
             },
-            {
-                name: 'CTIM | Clínica de Terapias Integradas',
-                type: 'Institucional',
-                category: 'institucional',
-                image: './assets/imagens-de-paginas/ctim.svg',
-                link: 'https://ctim.vercel.app/'
-            }
         ];
 
         // Initialize render functionality
@@ -566,11 +566,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
             try {
                 // A. Enviar Email (API Própria)
-                // Prepare final details for backend
-                let finalDetalhes = detalhes;
+                // Prepare details based on plan
+                let payloadOrcamento = cores;
+                let payloadDetalhes = detalhes;
+
                 if (plano === 'Manutenção') {
-                    // Force the link to appear in 'detalhes' with clear separation
-                    finalDetalhes = `🔗 LINK DO SITE:\n${profissao}\n\n-----------------------------------\n\n📝 DESCRIÇÃO / PROBLEMA:\n${detalhes}`;
+                    // For maintenance, 'profissao' input holds the Site Link.
+                    // We send it in 'orcamento' field to be cleaner in backend.
+                    payloadOrcamento = profissao;
+                    // 'detalhes' remains just the description
                 }
 
                 const response = await fetch(apiUrl, {
@@ -580,10 +584,10 @@ document.addEventListener('DOMContentLoaded', () => {
                         nome: nome,
                         email: email,
                         whatsapp: whatsapp,
-                        servico: objetivo, // Mapped from 'objetivo'
-                        detalhes: finalDetalhes,
+                        servico: objetivo,
+                        detalhes: payloadDetalhes,
                         plano: plano,
-                        orcamento: cores // Mapped from 'cores'
+                        orcamento: payloadOrcamento
                     })
                 });
 
@@ -628,9 +632,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 const data = await res.json();
                                 if (data.url) {
-                                    window.location.href = data.url;
+                                    // Open in new tab
+                                    window.open(data.url, '_blank');
                                 } else {
-                                    throw new Error('Sem URL de pagamento na resposta');
+                                    alert('Erro ao gerar link de pagamento. Tente novamente.');
                                 }
                             } catch (err) {
                                 console.error('Erro detalhado do Pagamento:', err);

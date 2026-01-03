@@ -2376,16 +2376,17 @@ footer {
    ========================================== */
 .modal-close-x {
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 10px;
+    right: 15px;
     background: transparent;
     border: none;
     font-size: 2rem;
-    color: #888;
+    color: var(--color-primary);
+    /* Changed from generic or white to primary red */
     cursor: pointer;
+    transition: transform 0.3s;
     line-height: 1;
-    padding: 0;
-    transition: color 0.3s;
+    z-index: 10;
 }
 
 .modal-close-x:hover {
