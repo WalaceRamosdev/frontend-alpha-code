@@ -188,7 +188,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 name: 'CTIM | Clínica de Terapias Integradas',
-                type: 'saúde',
+                type: 'Institucional',
                 category: 'institucional',
                 image: './assets/imagens-de-paginas/ctim.svg',
                 link: 'https://ctim.vercel.app/'
