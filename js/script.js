@@ -187,6 +187,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://ctim.vercel.app/'
             },
             {
+                name: 'Amanda Toledo',
+                type: 'Nutricionista',
+                category: 'saude',
+                image: './assets/imagens-de-paginas/amandaToledo.svg',
+                link: 'https://amanda-toledo.vercel.app/'
+            },
+            {
                 name: 'Tech Solutions',
                 type: 'Tecnologia',
                 category: 'institucional',
