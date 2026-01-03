@@ -136,10 +136,10 @@ document.addEventListener('DOMContentLoaded', () => {
         // Add or remove objects here to change the projects displayed.
         const projectsData = [
             {
-                name: 'Camila Ferraz Personal',
-                type: 'Pesronal',
-                image: './assets/imagens-de-paginas/camilaFerrazPersonal.svg',
-                link: 'https://camilaferrazpersonal.vercel.app/'
+                name: 'Aline Barbosa',
+                type: 'Advogados',
+                image: './assets/imagens-de-paginas/alineBarbosa.svg',
+                link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
                 name: 'Drª. Silvia Orlandi',
@@ -148,16 +148,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://silvia-terapeuta.vercel.app/'
             },
             {
-                name: 'Aline Barbosa',
-                type: 'Advogados',
-                image: './assets/imagens-de-paginas/alineBarbosa.svg',
-                link: 'https://advogada-aline-barbosa.vercel.app/'
-            },
-            {
-                name: 'Ana Ribeiro',
-                type: 'Nutricionista',
-                image: './assets/imagens-de-paginas/anaRibeiroNutri.svg',
-                link: 'https://nutricao-pied.vercel.app/'
+                name: 'Camila Ferraz Personal',
+                type: 'Pesronal',
+                image: './assets/imagens-de-paginas/camilaFerrazPersonal.svg',
+                link: 'https://camilaferrazpersonal.vercel.app/'
             },
             {
                 name: 'João Silva',
@@ -166,15 +160,21 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://landing-page-professor.vercel.app/'
             },
             {
+                name: 'Cafeteria Premium',
+                type: 'Gastronomia',
+                image: './assets/imagens-de-paginas/cafeteria.svg',
+                link: 'https://cafeteria-premium.vercel.app/'
+            },
+            {
+                name: 'Ana Ribeiro',
+                type: 'Nutricionista',
+                image: './assets/imagens-de-paginas/anaRibeiroNutri.svg',
+                link: 'https://nutricao-pied.vercel.app/'
+            },
+            {
                 name: 'Tech Solutions',
                 type: 'Tecnologia',
                 image: 'https://placehold.co/600x400/252525/FFF?text=Tech+Solutions',
-                link: '#'
-            },
-            {
-                name: 'Café & Aroma',
-                type: 'Gastronomia',
-                image: 'https://placehold.co/600x400/252525/FFF?text=Cafe+Aroma',
                 link: '#'
             },
             {
