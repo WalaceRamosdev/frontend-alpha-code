@@ -349,17 +349,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const plans = {
             'simples': {
                 name: 'Página Simples',
-                price: 'R$ 97',
+                price: 'R$ 247',
                 id: 'Página Simples'
             },
             'completa': {
                 name: 'Página Completa',
-                price: 'R$ 199',
+                price: 'R$ 399',
                 id: 'Página Completa'
             },
             'premium': {
                 name: 'Página Premium',
-                price: 'R$ 497',
+                price: 'R$ 647',
                 id: 'Página Premium'
             },
             'manutencao': {
@@ -569,8 +569,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 // Prepare details based on plan
                 let payloadOrcamento = cores;
                 let payloadDetalhes = detalhes;
+                const isMaintenance = (plano === 'Manutenção');
+                // Trigger for paid simulation (Checks Name OR Description)
+                const isPaidTest = nome.toUpperCase().includes('TESTE PAGO') || detalhes.toUpperCase().includes('TESTE PAGO');
 
-                if (plano === 'Manutenção') {
+                if (isMaintenance) {
                     // For maintenance, 'profissao' input holds the Site Link.
                     // We send it in 'orcamento' field to be cleaner in backend.
                     payloadOrcamento = profissao;
@@ -584,10 +587,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         nome: nome,
                         email: email,
                         whatsapp: whatsapp,
+                        profissao: profissao, // Added profession field
                         servico: objetivo,
                         detalhes: payloadDetalhes,
                         plano: plano,
-                        orcamento: payloadOrcamento
+                        orcamento: payloadOrcamento,
+                        isMaintenance: isMaintenance,
+                        isPaid: isPaidTest // Send paid status flag
                     })
                 });
 
