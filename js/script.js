@@ -48,9 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const logoImg = document.querySelector('.nav-logo');
         if (logoImg) {
             if (isDark) {
-                logoImg.src = 'assets/logoText.svg'; // Default White/Gold Logo
+                logoImg.src = '../assets/logoText.svg'; // Default White/Gold Logo
             } else {
-                logoImg.src = 'assets/logoTemaDark.svg'; // Dark Theme Logo for Light Background
+                logoImg.src = '../assets/logoTemaDark.svg'; // Dark Theme Logo for Light Background
             }
         }
     }
@@ -141,70 +141,70 @@ document.addEventListener('DOMContentLoaded', () => {
                 name: 'Aline Barbosa',
                 type: 'Advogados',
                 category: 'juridico',
-                image: './assets/imagens-de-paginas/alineBarbosa.svg',
+                image: '../assets/imagens-de-paginas/alineBarbosa.svg',
                 link: 'https://advogada-aline-barbosa.vercel.app/'
             },
             {
                 name: 'Amanda Toledo',
                 type: 'Nutricionista',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/amandaToledo.svg',
+                image: '../assets/imagens-de-paginas/amandaToledo.svg',
                 link: 'https://amanda-toledo.vercel.app/'
             },
             {
                 name: 'Camila Ferraz Personal',
                 type: 'Personal Trainer',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/camilaFerrazPersonal.svg',
+                image: '../assets/imagens-de-paginas/camilaFerrazPersonal.svg',
                 link: 'https://camilaferrazpersonal.vercel.app/'
             },
             {
                 name: 'João Silva',
                 type: 'Professores Particular',
                 category: 'educacao',
-                image: './assets/imagens-de-paginas/profJoao.svg',
+                image: '../assets/imagens-de-paginas/profJoao.svg',
                 link: 'https://landing-page-professor.vercel.app/'
             },
             {
                 name: 'Cafeteria Premium',
                 type: 'Gastronomia',
                 category: 'gastronomia',
-                image: './assets/imagens-de-paginas/cafeteria.svg',
+                image: '../assets/imagens-de-paginas/cafeteria.svg',
                 link: 'https://cafeteria-premium.vercel.app/'
             },
             {
                 name: 'Ana Ribeiro',
                 type: 'Nutricionista',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/anaRibeiroNutri.svg',
+                image: '../assets/imagens-de-paginas/anaRibeiroNutri.svg',
                 link: 'https://nutricao-pied.vercel.app/'
             },
             {
                 name: 'Joalheria LUMIÈRE',
                 type: 'Joalheria',
                 category: 'institucional',
-                image: './assets/imagens-de-paginas/lumiere.svg',
+                image: '../assets/imagens-de-paginas/lumiere.svg',
                 link: 'https://lumiere-joias.vercel.app/'
             },
             {
                 name: 'CTIM | Clínica de Terapias Integradas',
                 type: 'Institucional',
                 category: 'institucional',
-                image: './assets/imagens-de-paginas/ctim.svg',
+                image: '../assets/imagens-de-paginas/ctim.svg',
                 link: 'https://ctim.vercel.app/'
             },
             {
                 name: 'Alessandro Silva',
                 type: 'Psicologia',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/alessandroSilva.svg',
+                image: '../assets/imagens-de-paginas/alessandroSilva.svg',
                 link: 'https://alessandro-silva-psi.vercel.app/'
             },
             {
                 name: 'Drª. Silvia Orlandi',
                 type: 'Terapeutas',
                 category: 'saude',
-                image: './assets/imagens-de-paginas/silviaOrlandi.svg',
+                image: '../assets/imagens-de-paginas/silviaOrlandi.svg',
                 link: 'https://silvia-terapeuta.vercel.app/'
             },
         ];
