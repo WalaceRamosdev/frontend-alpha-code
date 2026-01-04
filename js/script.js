@@ -742,37 +742,5 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ==========================================
-    // Floating WhatsApp Button Avoid Footer
-    // ==========================================
-    const footer = document.querySelector('footer');
-    const whatsappBtn = document.querySelector('.whatsapp-float');
-
-    if (footer && whatsappBtn) {
-        window.addEventListener('scroll', () => {
-            const footerRect = footer.getBoundingClientRect();
-            const windowHeight = window.innerHeight;
-
-            // Calculate how much of the footer is visible
-            // If footerTop is less than windowHeight, the footer is entering the viewport
-            const footerTop = footerRect.top;
-
-            if (footerTop < windowHeight) {
-                // Determine the lift amount. 
-                // We want the button to stay 20px above the *bottom of the screen* usually,
-                // but if the footer is there, we want it 20px above the *footer*.
-                // Wait, if we add visible height to bottom, it pushes it up relative to screen bottom.
-                // So it visually rides the top of the footer.
-
-                const visibleFooterHeight = windowHeight - footerTop;
-                // Add a small buffer or limit?
-                // Apply the new bottom position
-                whatsappBtn.style.bottom = (20 + visibleFooterHeight) + 'px';
-            } else {
-                // Reset to default
-                whatsappBtn.style.bottom = '20px';
-            }
-        });
-    }
 });
 
