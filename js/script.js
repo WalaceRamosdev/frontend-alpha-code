@@ -705,5 +705,41 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
     }
+
+    // ==========================================
+    // ==========================================
+    // Plan Card Expansion Logic (Accordion Style)
+    // ==========================================
+    const planCards = document.querySelectorAll('.detailed-plan-card');
+
+    if (planCards.length > 0) {
+        planCards.forEach(card => {
+            // Main Card Click
+            card.addEventListener('click', (e) => {
+                // Prevent interfering with actual buttons/links
+                if (e.target.closest('a') || e.target.closest('button')) {
+                    return;
+                }
+
+                const isOpen = card.classList.contains('open');
+
+                if (isOpen) {
+                    // Clicking an open card closes it
+                    card.classList.remove('open');
+                } else {
+                    // Open this card
+                    // First, close all others (Accordion behavior)
+                    planCards.forEach(otherCard => {
+                        if (otherCard !== card) {
+                            otherCard.classList.remove('open');
+                        }
+                    });
+
+                    // Then open this one
+                    card.classList.add('open');
+                }
+            });
+        });
+    }
 });
 

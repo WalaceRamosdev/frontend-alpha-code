@@ -2544,3 +2544,223 @@ footer {
     gap: 50px;
     /* Force gap between logo and badge */
 }
+/* =========================================
+   PAGE: PLANOS.HTML
+   ========================================= */
+.plans-hero {
+    padding: 140px 0 60px; /* Account for fixed header */
+    text-align: center;
+    background-color: var(--color-bg-alt);
+}
+
+.detailed-plans-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 40px;
+    margin-top: -40px; /* Overlap hero slightly or just spacing */
+    padding-bottom: 80px;
+}
+
+.detailed-plan-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 40px;
+    box-shadow: var(--shadow-medium);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.detailed-plan-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-strong);
+    border-color: var(--color-primary);
+}
+
+.detailed-plan-card.featured {
+    border: 2px solid var(--color-primary);
+    position: relative;
+}
+
+[data-theme='dark'] .detailed-plan-card.featured {
+    background: linear-gradient(145deg, rgba(143, 35, 46, 0.1) 0%, rgba(44, 47, 51, 0.6) 100%);
+}
+
+.detailed-plan-card h2 {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+}
+
+.plan-objective {
+    font-size: 1.1rem;
+    font-weight: 500;
+    margin-bottom: 1.5rem;
+    color: var(--color-text-main);
+    min-height: 50px;
+}
+
+.spec-group {
+    margin-bottom: 1.5rem;
+}
+
+.spec-group h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--color-text-light);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+
+.spec-list {
+    list-style: none;
+    padding: 0;
+}
+
+.spec-list li {
+    margin-bottom: 6px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 0.95rem;
+}
+
+.spec-list li::before {
+    content: '';
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+.plan-limitation {
+    background-color: rgba(0,0,0,0.03);
+    padding: 15px;
+    border-radius: var(--radius-sm);
+    margin-top: auto; /* Push to bottom */
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
+
+[data-theme='dark'] .plan-limitation {
+    background-color: rgba(255,255,255,0.05);
+}
+
+.plan-limitation h4 {
+    font-size: 0.9rem;
+    margin-bottom: 5px;
+    color: var(--color-text-main);
+}
+
+.plan-price-block {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+}
+
+.plan-price {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-text-main);
+    display: block;
+    margin-bottom: 10px;
+}
+
+/* =========================================
+   Expanded Plan Cards Logic
+   ========================================= */
+
+.detailed-plan-card {
+    cursor: pointer; /* Indicate clickable */
+    position: relative;
+    /* transition: all 0.3s ease; Already defined but ensuring */
+}
+
+/* Header for the toggle state */
+.plan-toggle-header {
+    margin: 10px 0 20px 0;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-primary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s;
+}
+
+.detailed-plan-card:hover .plan-toggle-header {
+    color: var(--color-primary-light);
+}
+
+/* Hidden Content by Default */
+.plan-details-content {
+    display: none; /* Hidden strictly */
+    opacity: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Open State */
+.detailed-plan-card.open .plan-details-content {
+    display: block;
+    animation: fadeIn 0.5s forwards;
+}
+
+.detailed-plan-card.open .toggle-text {
+    display: none; /* Hide 'Ver mais' text or change it via JS */
+}
+
+/* Just hiding the text logic is handled in JS or CSS? 
+   Better in CSS: swap text via pseudo-element? 
+   No, let's just rotate an icon or hide the header entirely?
+   The user wants 'click card' to show info.
+   Maybe hide the 'Toggle Header' when open?
+*/
+.detailed-plan-card.open .plan-toggle-header {
+    display: none; 
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Prevent clicking button from toggling card */
+.detailed-plan-card .btn {
+    position: relative;
+    z-index: 10;
+}
+
+
+/* Collapse Button Logic */
+.plan-toggle-footer {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 15px;
+    border-top: 1px dashed var(--border-color);
+}
+
+.toggle-text-close {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--color-text-light);
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.toggle-text-close:hover {
+    color: var(--color-primary);
+}
+
+/* Ensure card expands visually */
+.detailed-plan-card.open {
+    /* Optional: scale slightly or add stronger shadow to emphasize 'selection' */
+    transform: scale(1.02);
+    box-shadow: 0 15px 40px rgba(0,0,0,0.15);
+    z-index: 5; /* Bring to front */
+}
+
