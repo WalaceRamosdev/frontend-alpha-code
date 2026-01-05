@@ -194,6 +194,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://ctim.vercel.app/'
             },
             {
+                name: 'Nexus Contabilidade',
+                type: 'contabilidade',
+                category: 'institucional',
+                image: '../assets/imagens-de-paginas/nexusContabilidade.svg',
+                link: 'https://nexuscontabilidades.vercel.app/'
+            },
+            {
+                name: 'Elegance Advocacia',
+                type: 'Direitos e Advogados',
+                category: 'institucional',
+                image: '../assets/imagens-de-paginas/eleganceAdvocacia.svg',
+                link: 'https://eleganceadvocacia.vercel.app/'
+            },
+            {
                 name: 'Alessandro Silva',
                 type: 'Psicologia',
                 category: 'saude',
