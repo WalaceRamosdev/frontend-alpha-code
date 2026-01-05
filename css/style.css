@@ -399,7 +399,7 @@ html {
     font-size: 0.95rem;
 }
 
-.project-link:hover {
+.project-card:hover .project-link {
     color: var(--color-primary);
 }
 

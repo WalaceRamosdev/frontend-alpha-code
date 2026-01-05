@@ -239,8 +239,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 : projectsData.filter(project => project.category === filter);
 
             filteredProjects.forEach((project, index) => {
-                const card = document.createElement('div');
+                const card = document.createElement('a');
                 card.classList.add('project-card', 'fade-up');
+                card.href = project.link;
+                card.target = "_blank"; // Open in new tab
 
                 // Animation delays
                 if (index > 0 && index < 6) card.classList.add(`delay-${index % 3}`);
@@ -261,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="project-info">
                         <span class="project-type">${project.type}</span>
                         <h3>${project.name}</h3>
-                        <a href="${project.link}" class="project-link" target="_blank">Ver Site <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></a>
+                        <span class="project-link">Ver Site <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span>
                     </div>
                 `;
 
