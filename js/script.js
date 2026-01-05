@@ -208,18 +208,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 link: 'https://eleganceadvocacia.vercel.app/'
             },
             {
-                name: 'Alessandro Silva',
-                type: 'Psicologia',
-                category: 'saude',
-                image: '../assets/imagens-de-paginas/alessandroSilva.svg',
-                link: 'https://alessandro-silva-psi.vercel.app/'
-            },
-            {
                 name: 'Drª. Silvia Orlandi',
                 type: 'Terapeutas',
                 category: 'saude',
                 image: '../assets/imagens-de-paginas/silviaOrlandi.svg',
                 link: 'https://silvia-terapeuta.vercel.app/'
+            },
+            {
+                name: 'Alessandro Silva',
+                type: 'Psicologia',
+                category: 'saude',
+                image: '../assets/imagens-de-paginas/alessandroSilva.svg',
+                link: 'https://alessandro-silva-psi.vercel.app/'
             },
         ];
 
