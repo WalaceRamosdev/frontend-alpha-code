@@ -1,0 +1,76 @@
+:root {
+    /* Color Palette */
+    --color-primary: #6E0F18;
+    --color-primary-dark: #4a0910;
+    --color-primary-light: #9c1f2e;
+    /* Sophisticated Gradient: Deep Wine to Bright Crimson */
+    --gradient-primary: linear-gradient(135deg, var(--color-primary-dark) 0%, var(--color-primary-light) 100%);
+
+    /* Gold Accent - Premium Feel */
+    --color-gold: #D4AF37;
+    --color-gold-light: #F3E5AB;
+    --gradient-gold: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+
+    /* Text Colors */
+    --color-text-main: #1A1A1A;
+    /* Extremely dark grey, better than pure black */
+    --color-text-light: #666666;
+    --color-text-inverted: #FFFFFF;
+
+    /* Background Colors */
+    --color-bg-body: #FAFAFA;
+    /* Crisp white-grey */
+    --color-bg-surface: #FFFFFF;
+    --color-bg-alt: #F4F4F4;
+    --color-bg-header: rgba(255, 255, 255, 0.85);
+
+    /* Borders */
+    --border-color: #E5E5E5;
+
+    /* Functional */
+    --transition-speed: 0.4s;
+    /* Slower, more elegant transition */
+    /* Sophisticated Shadows */
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.05);
+    --shadow-medium: 0 20px 40px -10px rgba(0, 0, 0, 0.1);
+    --shadow-strong: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 24px;
+
+    --glass-blur: blur(20px);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.2);
+
+    /* Typography */
+    --font-main: 'Inter', system-ui, sans-serif;
+    --font-heading: 'Montserrat', sans-serif;
+
+    --container-max-width: 1280px;
+    /* Slightly wider for modern look */
+    --spacing-unit: 0.25rem;
+}
+
+[data-theme="dark"] {
+    --color-bg-body: #0a0a0a;
+    /* Deep, rich black */
+    --color-bg-surface: #141414;
+    /* Slightly lighter black */
+    --color-bg-alt: #1a1a1a;
+    --color-bg-header: rgba(10, 10, 10, 0.8);
+
+    --color-primary: #D62839;
+    /* Brighter red for dark mode contrast */
+    --color-primary-dark: #6E0F18;
+    --color-primary-light: #FF4D5E;
+
+    --color-text-main: #F0F0F0;
+    /* Off-white, easier on eyes */
+    --color-text-light: #A0A0A0;
+
+    --border-color: #333333;
+
+    --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
+    --shadow-medium: 0 20px 40px -10px rgba(0, 0, 0, 0.7);
+    --glass-border: 1px solid rgba(255, 255, 255, 0.08);
+}

@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProjectsGrid from '../components/react/ProjectsGrid.jsx';
+
+const title = "Portfólio - Alpha Code";
+const description = "Confira os projetos desenvolvidos pela Alpha Code. Sites para advogados, psicólogos, clínicas e mais.";
+---
+
+<BaseLayout title={title} description={description}>
+    <section id="projects-page">
+        <div class="container">
+            <div class="page-header">
+                <h1>Nossos Projetos</h1>
+                <p>Explore nosso portfólio de cases de sucesso.</p>
+            </div>
+            
+            <ProjectsGrid client:load />
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+#projects-page {
+    padding: 120px 0 80px;
+}
+.page-header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+</style>

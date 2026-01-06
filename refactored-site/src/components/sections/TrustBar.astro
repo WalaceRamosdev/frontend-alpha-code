@@ -1,0 +1,114 @@
+<section id="trust-bar">
+    <div class="container">
+        <p>Especialistas em criar autoridade para:</p>
+        <div class="marquee-container">
+            <div class="marquee-content">
+                <span>Psicólogos</span> <span class="separator">•</span>
+                <span>Advogados</span> <span class="separator">•</span>
+                <span>Terapeutas</span> <span class="separator">•</span>
+                <span>Nutricionistas</span> <span class="separator">•</span>
+                <span>Clínicas</span> <span class="separator">•</span>
+                <span>Fisioterapeutas</span> <span class="separator">•</span>
+                <span>Contadores</span> <span class="separator">•</span>
+                <span>Médicos</span> <span class="separator">•</span>
+                <span>Consultores</span> <span class="separator">•</span>
+                <!-- Duplicate for seamless loop -->
+                <span>Psicólogos</span> <span class="separator">•</span>
+                <span>Advogados</span> <span class="separator">•</span>
+                <span>Terapeutas</span> <span class="separator">•</span>
+                <span>Nutricionistas</span> <span class="separator">•</span>
+                <span>Clínicas</span> <span class="separator">•</span>
+                <span>Fisioterapeutas</span> <span class="separator">•</span>
+                <span>Contadores</span> <span class="separator">•</span>
+                <span>Médicos</span> <span class="separator">•</span>
+                <span>Consultores</span> <span class="separator">•</span>
+            </div>
+            <div class="marquee-content" aria-hidden="true">
+                 <span>Psicólogos</span> <span class="separator">•</span>
+                <span>Advogados</span> <span class="separator">•</span>
+                <span>Terapeutas</span> <span class="separator">•</span>
+                <span>Nutricionistas</span> <span class="separator">•</span>
+                <span>Clínicas</span> <span class="separator">•</span>
+                <span>Fisioterapeutas</span> <span class="separator">•</span>
+                <span>Contadores</span> <span class="separator">•</span>
+                <span>Médicos</span> <span class="separator">•</span>
+                <span>Consultores</span> <span class="separator">•</span>
+                <!-- Duplicate for seamless loop -->
+                <span>Psicólogos</span> <span class="separator">•</span>
+                <span>Advogados</span> <span class="separator">•</span>
+                <span>Terapeutas</span> <span class="separator">•</span>
+                <span>Nutricionistas</span> <span class="separator">•</span>
+                <span>Clínicas</span> <span class="separator">•</span>
+                <span>Fisioterapeutas</span> <span class="separator">•</span>
+                <span>Contadores</span> <span class="separator">•</span>
+                <span>Médicos</span> <span class="separator">•</span>
+                <span>Consultores</span> <span class="separator">•</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+#trust-bar {
+    background-color: var(--color-bg-surface);
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    overflow: hidden;
+}
+
+#trust-bar p {
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.marquee-container {
+    display: flex;
+    overflow: hidden;
+    white-space: nowrap;
+    position: relative;
+    mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marquee-content {
+    display: flex;
+    animation: marquee 40s linear infinite;
+    padding-left: 20px;
+}
+
+.marquee-content:hover {
+    animation-play-state: paused;
+}
+
+.marquee-content span {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--color-text-main);
+    display: inline-block;
+    padding: 0 10px; /* Reduced padding */
+}
+
+.separator {
+    color: var(--color-primary);
+    font-weight: bold;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+:global([data-theme="dark"]) #trust-bar p {
+    color: var(--color-text-main);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+:global([data-theme="dark"]) .marquee-content span {
+    color: #FFFFFF;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+}
+
+</style>

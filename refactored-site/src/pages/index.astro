@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import TrustBar from '../components/sections/TrustBar.astro';
+import Features from '../components/sections/Features.astro';
+import Audience from '../components/sections/Audience.astro';
+import Projects from '../components/sections/Projects.astro';
+import Testimonials from '../components/sections/Testimonials.astro';
+import Services from '../components/sections/Services.astro';
+import Plans from '../components/sections/Plans.astro';
+import About from '../components/sections/About.astro';
+import Contact from '../components/sections/Contact.astro';
+import { createSEOMeta } from '../utils/seo';
+
+const title = "Criação de Sites Profissionais e Marketing";
+const description = "Alpha Code - Criação de sites profissionais para psicólogos, terapeutas, advogados e saúde. Aumente sua autoridade e converta mais pacientes.";
+---
+
+<BaseLayout 
+  title={title} 
+  description={description}
+>
+  <Hero />
+  <TrustBar />
+  <Features /> <!-- Why Section -->
+  <Audience />
+  <Projects />
+  <Testimonials />
+  <Services />
+  <Plans />
+  <About />
+  <Contact />
+</BaseLayout>

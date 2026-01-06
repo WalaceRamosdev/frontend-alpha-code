@@ -1,0 +1,116 @@
+---
+import { projectsData } from '../../data/projects';
+import Card from '../ui/Card.astro';
+import Button from '../ui/Button.astro';
+
+// Limit to 3 for home page
+const displayedProjects = projectsData.slice(0, 3);
+---
+
+<section id="projects">
+    <div class="container">
+        <div class="section-header">
+            <h2>Projetos Recentes</h2>
+            <p>Confira alguns dos sites que desenvolvemos para nossos clientes.</p>
+        </div>
+        <div class="projects-grid">
+            {displayedProjects.map((project, index) => (
+                <Card variant="project" class={`fade-up delay-${index}`}>
+                    <a href={project.link} target="_blank" rel="noopener noreferrer" class="project-card-link">
+                        <div class="project-image">
+                            <!-- Ideally use <Image /> here if image paths are resolute, 
+                                 but for public folder images, normal img tag is fine or Image with width/height explicitly.
+                                 Since SVG, img tag is better. -->
+                            <img src={project.image} alt={`Site ${project.type} - ${project.name}`} loading="lazy" />
+                        </div>
+                        <div class="project-info">
+                            <span class="project-type">{project.type}</span>
+                            <h3>{project.name}</h3>
+                            <span class="project-link">Ver Site <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path><polyline points="15 3 21 3 21 9"></polyline><line x1="10" y1="14" x2="21" y2="3"></line></svg></span>
+                        </div>
+                    </a>
+                </Card>
+            ))}
+        </div>
+        <div class="see-more-container">
+            <div class="scroll-hint-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevrons-right"><polyline points="13 17 18 12 13 7"></polyline><polyline points="6 17 11 12 6 7"></polyline></svg>
+                <span>Deslize</span>
+            </div>
+            <Button href="/projects" variant="outline">Ver mais projetos</Button>
+        </div>
+    </div>
+</section>
+
+<style>
+#projects {
+    padding: 80px 0;
+    background-color: var(--color-bg-alt);
+}
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+/* Basic styles for card content - relies on global or specific styling */
+.project-image {
+    width: 100%;
+    height: 200px;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.project-card-link:hover .project-image img {
+    transform: scale(1.05);
+}
+.project-info {
+    padding: 24px;
+}
+.project-type {
+    display: block;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    font-weight: 600;
+    color: var(--color-primary); /* Simplified from gradient for safety, or use utility */
+    margin-bottom: 15px;
+}
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 600;
+}
+.see-more-container {
+    text-align: center;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+.scroll-hint-icon {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+    color: var(--color-text-light);
+    animation: bounceRight 2s infinite;
+}
+@keyframes bounceRight {
+    0%, 100% { transform: translateX(0); }
+    50% { transform: translateX(5px); }
+}
+</style>

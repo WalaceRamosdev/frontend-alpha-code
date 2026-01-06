@@ -1,0 +1,65 @@
+---
+import Card from '../ui/Card.astro';
+---
+
+<section id="audience" class="bg-alt">
+    <div class="container">
+        <div class="section-header">
+            <h2>Para quem é a <br><span class="text-primary">Alpha Code</span>?</h2>
+        </div>
+        <div class="audience-grid">
+            <Card variant="default" class="audience-card">
+                <h3>Profissionais da Saúde</h3>
+                <ul>
+                    <li>Psicólogos, Terapeutas, Nutricionistas.</li>
+                    <li><strong>Problema:</strong> Agenda vazia ou pacientes que pedem desconto.</li>
+                    <li><strong>Solução:</strong> Site que valoriza sua consulta e filtra curiosos.</li>
+                </ul>
+            </Card>
+            <Card variant="default" class="audience-card">
+                <h3>Advogados & Escritórios</h3>
+                <ul>
+                    <li>Cível, Trabalhista, Criminalista.</li>
+                    <li><strong>Problema:</strong> Alta concorrência e dificuldade de passar confiança rápida.</li>
+                    <li><strong>Solução:</strong> Design sóbrio que transmite autoridade e experiência.</li>
+                </ul>
+            </Card>
+            <Card variant="default" class="audience-card">
+                <h3>Professores & Escolas</h3>
+                <ul>
+                    <li>Particulares, Idiomas, Música.</li>
+                    <li><strong>Problema:</strong> Depender apenas de indicação boca a boca.</li>
+                    <li><strong>Solução:</strong> Página de vendas que mostra sua metodologia e resultados.</li>
+                </ul>
+            </Card>
+        </div>
+    </div>
+</section>
+
+<style>
+#audience {
+    padding: 100px 0;
+}
+.audience-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-top: 40px;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+.audience-card h3 {
+    margin-bottom: 1rem;
+    color: var(--color-primary);
+    font-size: 1.5rem;
+}
+.audience-card {
+    padding: 30px;
+}
+.audience-card ul li {
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+</style>

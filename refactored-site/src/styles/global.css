@@ -1,0 +1,201 @@
+@import './variables.css';
+@import './utilities.css';
+
+html {
+    scroll-behavior: smooth;
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    /* Sharper text */
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    font-family: var(--font-main);
+    background-color: var(--color-bg-body);
+    color: var(--color-text-main);
+    line-height: 1.7;
+    /* Increased line-height for readability */
+    transition: background-color var(--transition-speed), color var(--transition-speed);
+    margin: 0;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: var(--font-heading);
+    font-weight: 600;
+    /* Slightly lighter than bold */
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+    letter-spacing: -0.02em;
+    /* Tighten standard headings slightly */
+}
+
+h1 {
+    font-weight: 700;
+    letter-spacing: -0.03em;
+}
+
+p {
+    margin-bottom: 1.5rem;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--transition-speed);
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-up {
+    animation: fadeInUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    /* Smoother curve */
+    opacity: 0;
+    /* Initially hidden */
+}
+
+/* Delays */
+.delay-1 {
+    animation-delay: 0.1s;
+}
+
+.delay-2 {
+    animation-delay: 0.2s;
+}
+
+.delay-3 {
+    animation-delay: 0.3s;
+}
+
+/* Premium Card Styles */
+.card,
+.service-item,
+.price-card,
+.project-card,
+.testimonial-card,
+.audience-card {
+    background-color: var(--color-bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+    position: relative;
+    overflow: hidden;
+    /* For inner glow effects */
+}
+
+.card:hover,
+.service-item:hover,
+.price-card:hover,
+.project-card:hover,
+.testimonial-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-medium);
+    border-color: transparent;
+}
+
+/* Light Glow on Hover (Gradient Border Simulation) */
+.card:hover::before,
+.service-item:hover::before,
+.price-card:hover::before,
+.project-card:hover::before,
+.testimonial-card:hover::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-md);
+    padding: 1px;
+    /* Border width */
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-gold));
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+[data-theme="dark"] .card,
+[data-theme="dark"] .service-item,
+[data-theme="dark"] .price-card,
+[data-theme="dark"] .project-card,
+[data-theme="dark"] .testimonial-card,
+[data-theme="dark"] .audience-card {
+    background-color: rgba(20, 20, 20, 0.6);
+    /* Semi-transparent */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: var(--glass-border);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .card:hover,
+[data-theme="dark"] .service-item:hover,
+[data-theme="dark"] .price-card:hover,
+[data-theme="dark"] .project-card:hover,
+[data-theme="dark"] .testimonial-card:hover {
+    background-color: rgba(20, 20, 20, 0.8);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(214, 40, 57, 0.1);
+    /* Subtle red glow */
+    transform: translateY(-8px);
+}
+
+/* Container */
+.container {
+    width: 90%;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* Specific Section Padding */
+/* Global Dark Mode Icon Fix */
+[data-theme="dark"] .icon-box img,
+[data-theme="dark"] .service-item img,
+[data-theme="dark"] .feature-card img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.4)) !important;
+}
+
+/* Feature Card Specifics */
+.feature-card {
+    padding: 3rem 2.5rem !important;
+    /* Force padding increase */
+}
+
+.feature-card p {
+    line-height: 1.8 !important;
+    margin-top: 1.5rem;
+    font-size: 1.05rem;
+    color: var(--color-text-light);
+}
+
+.feature-card h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 1rem;
+}

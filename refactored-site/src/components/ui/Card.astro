@@ -1,0 +1,23 @@
+---
+interface Props {
+  class?: string;
+  variant?: 'default' | 'service' | 'price' | 'project' | 'testimonial';
+  [key: string]: any;
+}
+
+const { class: className, variant = 'default', ...props } = Astro.props;
+
+const variantMap = {
+  default: 'card',
+  service: 'service-item',
+  price: 'price-card',
+  project: 'project-card',
+  testimonial: 'testimonial-card'
+};
+
+const baseClass = variantMap[variant] || 'card';
+---
+
+<div class:list={[baseClass, className]} {...props}>
+  <slot />
+</div>

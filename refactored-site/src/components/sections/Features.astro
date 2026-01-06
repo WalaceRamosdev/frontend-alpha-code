@@ -1,0 +1,80 @@
+---
+import Card from '../ui/Card.astro';
+---
+
+<section id="why">
+    <div class="container">
+        <div class="section-header">
+            <h2>Por que você precisa de um site <br><span class="text-primary">HOJE ?</span></h2>
+            <p>Redes sociais são importantes, mas não são suas. Um site é seu terreno próprio.</p>
+        </div>
+        <div class="grid-3">
+            <Card class="fade-in feature-card">
+                <div class="icon-box">
+                    <img src="/assets/seloGarantia.svg" width="50" alt="Selo de Credibilidade" loading="lazy" class="img-fluid">
+                </div>
+                <h3>Credibilidade Imediata</h3>
+                <p>O cliente pesquisa no Google antes de fechar. Se não te acha, ele vai para o concorrente que tem site.</p>
+            </Card>
+            <Card class="fade-in delay-1 feature-card">
+                <div class="icon-box">
+                    <img src="/assets/vendaOnline.svg" width="60" alt="Ícone Venda Online" loading="lazy" class="img-fluid">
+                </div>
+                <h3>Vendas 24 horas</h3>
+                <p>Seu site explica seu serviço, quebra objeções e vende por você enquanto você atende ou descansa.</p>
+            </Card>
+            <Card class="fade-in delay-2 feature-card">
+                <div class="icon-box">
+                    <img src="/assets/foguete.svg" width="55" alt="Ícone Resultados Rápidos" loading="lazy" class="img-fluid">
+                </div>
+                <h3>Público Qualificado</h3>
+                <p>Atraia pessoas que já estão procurando pelo seu serviço, não apenas curiosos do Instagram.</p>
+            </Card>
+        </div>
+    </div>
+</section>
+
+<style>
+#why {
+    padding: 100px 0;
+}
+.section-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+.icon-box {
+    margin-bottom: 20px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+/* Default (Light Mode) - Reverted to clean state */
+.icon-box img {
+    transition: all 0.3s ease;
+}
+
+:global([data-theme="dark"]) .icon-box {
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.2)) brightness(1.1); 
+}
+
+:global([data-theme="dark"]) .icon-box img {
+    filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.5));
+}
+
+.img-fluid {
+    height: auto;
+}
+.card {
+    padding: 50px 40px; /* Increased padding */
+    text-align: center;
+}
+h3 {
+    margin-bottom: 1.5rem; /* Increased spacing */
+    font-size: 1.25rem;
+}
+p {
+    line-height: 1.8; /* Increased line-height/spacing for text */
+    color: var(--color-text-light); /* Ensure text color is consistent */
+}
+</style>

@@ -1,0 +1,35 @@
+<section id="about" class="bg-alt">
+    <div class="container split-layout">
+        <div class="text-content">
+            <h2>Sobre a Alpha Code</h2>
+            <p>Nossa missão é eliminar a complexidade do digital para profissionais que não têm tempo a perder. Acreditamos que um site não deve ser apenas um cartão de visitas, mas uma ferramenta ativa de vendas.</p>
+            <p>Focamos em design limpo, código otimizado e estratégias de conversão reais. Sem letras miúdas, sem enrolação.</p>
+        </div>
+        <div class="image-content">
+            <!-- Placeholder for office/team image -->
+            <img src="/assets/teamAlphaCode.svg" class="image-placeholder" alt="Equipe Alpha Code Trabalhando" loading="lazy">
+        </div>
+    </div>
+</section>
+
+<style>
+#about {
+    padding: 100px 0;
+}
+.split-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 50px;
+    align-items: center;
+}
+@media (max-width: 768px) {
+    .split-layout {
+        grid-template-columns: 1fr;
+    }
+}
+.image-placeholder {
+    width: 100%;
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-medium);
+}
+</style>
