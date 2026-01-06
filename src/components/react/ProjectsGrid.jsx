@@ -17,16 +17,45 @@ export default function ProjectsGrid() {
 
     return (
         <div>
-            <div className="project-filters" style={{ display: 'flex', gap: '10px', justifyContent: 'center', flexWrap: 'wrap', marginBottom: '30px' }}>
-                {categories.map(cat => (
-                    <button
-                        key={cat.id}
-                        onClick={() => setFilter(cat.id)}
-                        className={`btn ${filter === cat.id ? 'btn-primary' : 'btn-outline'}`}
+            <div className="project-filters" style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
+                <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
+                    <select
+                        value={filter}
+                        onChange={(e) => setFilter(e.target.value)}
+                        style={{
+                            width: '100%',
+                            padding: '12px 20px',
+                            backgroundColor: 'var(--color-bg-surface)',
+                            color: 'var(--color-text-main)',
+                            border: '1px solid var(--border-color)',
+                            borderRadius: 'var(--radius-md)',
+                            fontSize: '1rem',
+                            appearance: 'none',
+                            cursor: 'pointer',
+                            outline: 'none',
+                            boxShadow: 'var(--shadow-sm)'
+                        }}
                     >
-                        {cat.label}
-                    </button>
-                ))}
+                        {categories.map(cat => (
+                            <option key={cat.id} value={cat.id}>
+                                {cat.label}
+                            </option>
+                        ))}
+                    </select>
+                    {/* Custom Arrow Icon */}
+                    <div style={{
+                        position: 'absolute',
+                        right: '15px',
+                        top: '50%',
+                        transform: 'translateY(-50%)',
+                        pointerEvents: 'none',
+                        color: 'var(--color-text-main)'
+                    }}>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                </div>
             </div>
 
             <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>

@@ -1,3 +1,15 @@
+export interface SEOProps {
+    title: string;
+    description?: string;
+    canonicalUrl?: string;
+    ogImage?: string;
+    keywords?: string[];
+    author?: string;
+    publishedTime?: string;
+    modifiedTime?: string;
+    type?: string;
+}
+
 export const createSEOMeta = ({
     title,
     description,
@@ -8,7 +20,7 @@ export const createSEOMeta = ({
     publishedTime,
     modifiedTime,
     type = 'website'
-}) => ({
+}: SEOProps) => ({
     // Meta básicos
     title: `${title} | Alpha Code`,
     description,
