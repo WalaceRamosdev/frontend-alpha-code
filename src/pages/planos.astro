@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
+
+const title = "Planos e Preços | Alpha Code";
+const description =
+    "Confira os detalhes completos dos nossos planos de criação de sites.";
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    canonicalUrl={`${Astro.site}planos`}
+>
+    <section class="plans-hero">
+        <div class="container text-center">
+            <h1 class="fade-up">Compare Nossos Planos</h1>
+            <p class="fade-up delay-1">
+                Escolha a estrutura ideal para o seu crescimento.
+            </p>
+        </div>
+    </section>
+
+    <section
+        class="plans-page-container container"
+        style="padding-bottom: 80px;"
+    >
+        <div class="pricing-grid">
+            <!-- PLAN 1 -->
+            <Card variant="price" class="plan-regular fade-up">
+                <div class="price-header">
+                    <h3>LANDING PAGE SIMPLES</h3>
+                    <div class="price"><small>R$</small> 247</div>
+                    <p class="subtitle">Entrada Essencial</p>
+                </div>
+
+                <div class="plan-body">
+                    <p class="plan-desc">
+                        Para quem precisa existir online e converter o básico.
+                    </p>
+
+                    <div class="spec-group">
+                        <h4>O que inclui:</h4>
+                        <ul class="features">
+                            <li>
+                                <span class="check">✓</span> Hero section (headline
+                                + CTA)
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Sobre o serviço/profissional
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Benefícios principais
+                            </li>
+                            <li><span class="check">✓</span> CTA final</li>
+                            <li>
+                                <span class="check">✓</span> HTML, CSS e JavaScript
+                                puro
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=simples"
+                        variant="outline"
+                        class="w-full">Selecionar</Button
+                    >
+                </div>
+            </Card>
+
+            <!-- PLAN 2 (Featured) -->
+            <Card variant="price" class="featured fade-up delay-1">
+                <div class="badge-gold">Mais Vendido</div>
+                <div class="price-header">
+                    <h3>PÁGINA COMPLETA</h3>
+                    <div class="price text-primary"><small>R$</small> 399</div>
+                    <p class="subtitle">Autoridade Profissional</p>
+                </div>
+
+                <div class="plan-body">
+                    <p class="plan-desc">
+                        Para quem quer autoridade e presença profissional real.
+                    </p>
+
+                    <div class="spec-group">
+                        <h4>O que inclui:</h4>
+                        <ul class="features">
+                            <li>
+                                <span class="check">✓</span>
+                                <strong>Estrutura Multi-seção</strong>
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Home, Sobre, Serviços,
+                                Contato
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Botão WhatsApp Flutuante
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Design Premium / Dark
+                                Mode
+                            </li>
+                            <li>
+                                <span class="check">✓</span> SEO Intermediário
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=completa"
+                        variant="primary"
+                        class="w-full btn-glow">Quero este Plano</Button
+                    >
+                </div>
+            </Card>
+
+            <!-- PLAN 3 -->
+            <Card variant="price" class="plan-regular fade-up delay-2">
+                <div class="price-header">
+                    <h3>PÁGINA PREMIUM</h3>
+                    <div class="price"><small>R$</small> 647</div>
+                    <p class="subtitle">Solução Definitiva</p>
+                </div>
+
+                <div class="plan-body">
+                    <p class="plan-desc">
+                        Para quem quer escalar e parecer grande no mercado.
+                    </p>
+
+                    <div class="spec-group">
+                        <h4>O que inclui:</h4>
+                        <ul class="features">
+                            <li>
+                                <span class="check">✓</span>
+                                <strong>Tudo do Completo</strong>
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Área restrita/Dashboard
+                            </li>
+                            <li>
+                                <span class="check">✓</span> Sistema de agendamento
+                            </li>
+                            <li><span class="check">✓</span> SEO Avançado</li>
+                            <li>
+                                <span class="check">✓</span> Analytics Integrado
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=premium"
+                        variant="outline"
+                        class="w-full">Selecionar</Button
+                    >
+                </div>
+            </Card>
+        </div>
+    </section>
+</BaseLayout>
+
+<style is:global>
+    .plans-page-container .plans-hero {
+        padding: 80px 0;
+    }
+
+    .plans-page-container .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+        align-items: start;
+    }
+
+    /* Global Card Padding Fix for this page */
+    .plans-page-container .price-card {
+        padding: 3rem 2rem !important; /* Fix button touching edges */
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box; /* Ensure padding doesn't break layout */
+    }
+
+    /* Price Card Header */
+    .plans-page-container .price-header {
+        margin-bottom: 2rem;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 2rem;
+    }
+
+    .plans-page-container .price-header h3 {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-text-light); /* Standard gray in both modes */
+        margin-bottom: 10px;
+    }
+
+    .plans-page-container .price {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--color-text-main);
+        line-height: 1;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .plans-page-container .price small {
+        font-size: 1.2rem;
+        margin-top: 5px;
+        color: var(--color-text-light);
+    }
+
+    .plans-page-container .subtitle {
+        font-size: 0.95rem;
+        color: var(--color-text-light);
+        font-style: italic;
+    }
+
+    .plans-page-container .plan-body {
+        padding: 0 0 1.5rem;
+        flex-grow: 1;
+    }
+
+    .plans-page-container .plan-desc {
+        text-align: center;
+        margin-bottom: 1.5rem;
+        font-size: 1rem;
+        color: var(--color-text-main);
+    }
+
+    .plans-page-container .spec-group h4 {
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        color: var(--color-text-light);
+        margin-bottom: 1rem;
+        font-weight: 700;
+    }
+
+    .plans-page-container .features {
+        text-align: left;
+        margin-bottom: 0;
+    }
+
+    .plans-page-container .features li {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-size: 0.95rem;
+        color: var(--color-text-main); /* Force readable text color */
+    }
+
+    .plans-page-container .check {
+        color: var(--color-primary);
+        font-weight: bold;
+        font-size: 1.2rem;
+    }
+
+    /* Badge */
+    .plans-page-container .badge-gold {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #cfaa34, #f8e698);
+        color: #333;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 15px rgba(207, 170, 52, 0.4);
+        z-index: 10;
+        white-space: nowrap;
+    }
+
+    /* Featured Card Styling - FORCED DARK & WHITE */
+    .plans-page-container .featured {
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+        transform: scale(1.02);
+        z-index: 5;
+        background-color: #151515 !important; /* Always dark background */
+        color: #ffffff !important; /* Always white text */
+        overflow: visible !important;
+    }
+
+    /* Force all text inside featured to be white regardless of mode */
+    .plans-page-container .featured h3,
+    .plans-page-container .featured p,
+    .plans-page-container .featured .price,
+    .plans-page-container .featured small,
+    .plans-page-container .featured li,
+    .plans-page-container .featured span {
+        color: #ffffff !important;
+    }
+
+    .plans-page-container .featured .price-header {
+        border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Simulated Gradient Border for Featured */
+    .plans-page-container .featured::after {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-gold)
+        );
+        z-index: -1;
+        border-radius: var(--radius-md);
+    }
+
+    .plans-page-container .action-btn {
+        text-align: center;
+        margin-top: 2rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .plans-page-container .w-full {
+        width: 80% !important; /* Force width */
+        margin: 0 auto;
+        display: block; /* Ensure block behavior for centering */
+    }
+
+    /* Responsive Padding for Mobile */
+    @media (max-width: 768px) {
+        .plans-page-container .price-card {
+            padding: 2rem 1.5rem 3rem 1.5rem !important; /* Added bottom padding */
+        }
+        .plans-page-container .price {
+            font-size: 3rem;
+        }
+        .plans-page-container .w-full {
+            width: 100% !important; /* Full width on small screens for touch targets */
+        }
+    }
+
+    .plans-page-container .btn-glow {
+        box-shadow: 0 0 20px rgba(214, 40, 57, 0.4);
+    }
+</style>

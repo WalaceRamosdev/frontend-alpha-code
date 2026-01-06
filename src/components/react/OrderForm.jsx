@@ -46,9 +46,12 @@ export default function OrderForm() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const [errorMessage, setErrorMessage] = useState('');
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
+        setErrorMessage('');
 
         const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
 
@@ -125,7 +128,10 @@ export default function OrderForm() {
             }
         } catch (error) {
             console.error('Erro:', error);
-            alert('Erro ao enviar pedido. Tente pelo WhatsApp.');
+            setErrorMessage('Ocorreu um erro ao enviar. Por favor, tente falar diretamente no WhatsApp.');
+            // Fallback: set whatsapp url anyway so user can click the button
+            let messageWhatsapp = `*Olá, tentei enviar um pedido pelo site mas deu erro.*%0AMeu nome: ${formData.nome}`;
+            setWhatsappUrl(`https://wa.me/5521999064502?text=${messageWhatsapp}`);
         } finally {
             setLoading(false);
         }
@@ -133,6 +139,7 @@ export default function OrderForm() {
 
     const handlePayment = async () => {
         setPayBtnText('Redirecionando... 🔒');
+        setErrorMessage('');
         try {
             const backendUrl = 'https://backend-rp7j.onrender.com/create-checkout-session';
             const res = await fetch(backendUrl, {
@@ -149,10 +156,11 @@ export default function OrderForm() {
             if (data.url) {
                 window.open(data.url, '_blank');
             } else {
-                alert('Erro ao gerar link.');
+                throw new Error('URL de pagamento não gerada');
             }
         } catch (err) {
-            alert('Não foi possível iniciar o pagamento. Tente pelo WhatsApp.');
+            console.error(err);
+            setErrorMessage('Não foi possível iniciar o pagamento agora. Tente pelo WhatsApp.');
             setPayBtnText('Pagar Agora (Pix ou Cartão) 💳');
         }
     };
@@ -230,6 +238,17 @@ export default function OrderForm() {
                         <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="5" required className="input-field" placeholder="Descreva..." style={{ width: '100%', padding: '10px' }}></textarea>
                     </div>
                 </div>
+
+                {errorMessage && (
+                    <div style={{ marginTop: '20px', padding: '15px', background: 'rgba(214, 40, 57, 0.1)', border: '1px solid var(--color-primary)', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
+                        <p style={{ color: 'var(--color-primary)', fontWeight: 'bold', marginBottom: '10px' }}>{errorMessage}</p>
+                        {whatsappUrl && (
+                            <a href={whatsappUrl} target="_blank" className="btn btn-outline" style={{ display: 'inline-flex', marginTop: '5px' }}>
+                                Falar no WhatsApp
+                            </a>
+                        )}
+                    </div>
+                )}
 
                 <button type="submit" className="btn btn-primary lg" style={{ width: '100%', marginTop: '40px' }} disabled={loading}>
                     {loading ? 'Enviando...' : 'Enviar Pedido'}

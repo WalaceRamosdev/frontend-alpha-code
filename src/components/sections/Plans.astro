@@ -1,0 +1,339 @@
+---
+import Button from "../ui/Button.astro";
+import Card from "../ui/Card.astro";
+---
+
+<section id="plans" class="bg-alt">
+    <div class="container">
+        <div class="section-header">
+            <h2>Investimento Inteligente</h2>
+            <p>Escolha o plano ideal para escalar seu faturamento.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <!-- Plan 1 -->
+            <Card variant="price" class="plan-regular">
+                <div class="price-header">
+                    <h3>Página Simples</h3>
+                    <div class="price"><small>R$</small> 247</div>
+                    <p class="subtitle">Entrada Essencial</p>
+                </div>
+                <ul class="features">
+                    <li><span class="check">✓</span> Landing Page Única</li>
+                    <li><span class="check">✓</span> Design Otimizado</li>
+                    <li><span class="check">✓</span> 1 Seção de Conversão</li>
+                    <li><span class="check">✓</span> Botão WhatsApp</li>
+                </ul>
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=simples"
+                        variant="outline"
+                        class="w-full">Selecionar</Button
+                    >
+                </div>
+            </Card>
+
+            <!-- Plan 2 (Featured) -->
+            <Card variant="price" class="featured">
+                <div class="badge-gold">Mais Vendido</div>
+                <div class="price-header">
+                    <h3>Página Completa</h3>
+                    <div class="price text-primary"><small>R$</small> 399</div>
+                    <p class="subtitle">
+                        Para Profissionais que querem Autoridade
+                    </p>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="check">✓</span>
+                        <strong>Estrutura Multi-seção</strong>
+                    </li>
+                    <li>
+                        <span class="check">✓</span> Design Premium Exclusivo
+                    </li>
+                    <li><span class="check">✓</span> SEO Otimizado (Google)</li>
+                    <li><span class="check">✓</span> Copywriting Persuasivo</li>
+                    <li>
+                        <span class="check">✓</span>
+                        <strong>Alta Conversão</strong>
+                    </li>
+                </ul>
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=completa"
+                        variant="primary"
+                        class="w-full btn-glow">Quero este Plano</Button
+                    >
+                </div>
+            </Card>
+
+            <!-- Plan 3 -->
+            <Card variant="price" class="plan-regular">
+                <div class="price-header">
+                    <h3>Página Premium</h3>
+                    <div class="price"><small>R$</small> 647</div>
+                    <p class="subtitle">Solução Definitiva</p>
+                </div>
+                <ul class="features">
+                    <li>
+                        <span class="check">✓</span>
+                        <strong>Tudo do Completo</strong>
+                    </li>
+                    <li><span class="check">✓</span> Área de Membros / Blog</li>
+                    <li><span class="check">✓</span> Chatbot IA Integrado</li>
+                    <li>
+                        <span class="check">✓</span> Gestão de Tráfego (Setup)
+                    </li>
+                    <li><span class="check">✓</span> Suporte VIP 24h</li>
+                </ul>
+                <div class="action-btn">
+                    <Button
+                        href="/pedido?plan=premium"
+                        variant="outline"
+                        class="w-full">Selecionar</Button
+                    >
+                </div>
+            </Card>
+        </div>
+        <div class="pricing-footer">
+            <p>* Pagamento único. Sem mensalidades surpresa.</p>
+            <p class="maintenance-note">
+                Manutenção opcional disponível por R$ 100/mês.
+            </p>
+        </div>
+        <div class="compare-cta">
+            <Button href="/planos" variant="outline" class="btn-large"
+                >Ver Comparativo Detalhado <span class="arrow">→</span></Button
+            >
+        </div>
+    </div>
+</section>
+
+<style>
+    #plans {
+        padding: 120px 0;
+        position: relative;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .section-header p {
+        font-size: 1.1rem;
+        color: var(--color-text-light);
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 30px;
+        align-items: flex-start;
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Global targeting for Card component root elements */
+    #plans :global(.price-card) {
+        padding: 3rem 2rem 4rem 2rem !important; /* Increased bottom padding */
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        box-sizing: border-box;
+    }
+
+    .price-header {
+        margin-bottom: 30px;
+        text-align: center;
+        border-bottom: 1px solid var(--border-color);
+        padding-bottom: 20px;
+    }
+
+    .price-header h3 {
+        font-size: 1.2rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-text-light);
+        margin-bottom: 15px;
+    }
+
+    .price {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--color-text-main);
+        line-height: 1;
+        margin-bottom: 10px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 5px;
+    }
+
+    .price small {
+        font-size: 1.2rem;
+        margin-top: 5px;
+        color: var(--color-text-light);
+    }
+
+    .subtitle {
+        font-size: 0.95rem;
+        color: var(--color-text-light);
+        font-style: italic;
+    }
+
+    .features {
+        text-align: left;
+        margin-bottom: 35px;
+        flex-grow: 1;
+        padding: 0 10px;
+    }
+
+    .features li {
+        margin-bottom: 15px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+        color: var(--color-text-main);
+    }
+
+    .check {
+        color: var(--color-primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+    }
+
+    .badge-gold {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(135deg, #cfaa34, #f8e698);
+        color: #333;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 5px 15px rgba(207, 170, 52, 0.4);
+        z-index: 10;
+        white-space: nowrap;
+    }
+
+    /* Featured Card Styling - FORCED DARK & WHITE */
+    #plans :global(.featured) {
+        border: 2px solid transparent;
+        background-clip: padding-box;
+        position: relative;
+        transform: scale(1.05);
+        z-index: 5;
+        background-color: #151515 !important; /* Always dark background */
+        color: #ffffff !important; /* Always white text */
+        overflow: visible !important;
+    }
+
+    /* Force all text inside featured to be white regardless of mode */
+    #plans :global(.featured h3),
+    #plans :global(.featured p),
+    #plans :global(.featured .price),
+    #plans :global(.featured small),
+    #plans :global(.featured li),
+    #plans :global(.featured span) {
+        color: #ffffff !important;
+    }
+
+    #plans :global(.featured .price-header) {
+        border-bottom-color: rgba(255, 255, 255, 0.2) !important;
+    }
+
+    /* Simulated Gradient Border for Featured */
+    #plans :global(.featured::after) {
+        content: "";
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        bottom: -2px;
+        background: linear-gradient(
+            135deg,
+            var(--color-primary),
+            var(--color-gold)
+        );
+        z-index: -1;
+        border-radius: var(--radius-md);
+    }
+
+    .action-btn {
+        text-align: center;
+        margin-top: 2rem; /* More space above button */
+        padding-bottom: 0.5rem;
+    }
+
+    .w-full {
+        width: 80% !important;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .btn-glow {
+        box-shadow: 0 0 20px rgba(214, 40, 57, 0.4);
+    }
+
+    .pricing-footer {
+        text-align: center !important;
+        margin: 30px auto 0; /* Reduced margin */
+        max-width: 800px;
+        color: var(--color-text-light);
+        font-size: 0.9rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px; /* Reduced gap */
+    }
+
+    .compare-cta {
+        text-align: center;
+        margin-top: 20px; /* Reduced margin */
+    }
+
+    .btn-large {
+        padding: 1rem 2.5rem;
+        font-size: 1.1rem;
+        letter-spacing: 0.5px;
+        border: 2px solid var(--color-primary);
+        transition: all 0.3s ease;
+    }
+
+    .btn-large:hover {
+        background-color: var(--color-primary);
+        color: white;
+        box-shadow: 0 0 25px rgba(214, 40, 57, 0.4);
+        transform: translateY(-3px);
+    }
+
+    .arrow {
+        display: inline-block;
+        transition: transform 0.3s;
+        margin-left: 8px;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+        #plans :global(.price-card) {
+            padding: 2rem 1.5rem 3rem 1.5rem !important;
+        }
+        .price {
+            font-size: 3rem;
+        }
+        .w-full {
+            width: 100% !important;
+        }
+    }
+</style>
