@@ -195,14 +195,14 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 name: 'Nexus Contabilidade',
-                type: 'contabilidade',
+                type: 'Escritório de Contabilidade',
                 category: 'institucional',
                 image: '../assets/imagens-de-paginas/nexusContabilidade.svg',
                 link: 'https://nexuscontabilidades.vercel.app/'
             },
             {
                 name: 'Elegance Advocacia',
-                type: 'Direitos e Advogados',
+                type: 'Escritório de Advogados',
                 category: 'juridico',
                 image: '../assets/imagens-de-paginas/eleganceAdvocacia.svg',
                 link: 'https://eleganceadvocacia.vercel.app/'
