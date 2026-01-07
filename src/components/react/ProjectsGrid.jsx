@@ -4,6 +4,9 @@ import { projectsData } from '../../data/projects';
 export default function ProjectsGrid() {
     const [filter, setFilter] = useState('all');
 
+    const [showPopup, setShowPopup] = useState(false);
+    const [hasClosedPopup, setHasClosedPopup] = useState(false);
+
     const filtered = filter === 'all' ? projectsData : projectsData.filter(p => p.category === filter);
 
     const categories = [
@@ -15,8 +18,42 @@ export default function ProjectsGrid() {
         { id: 'institucional', label: 'Institucional' }
     ];
 
+    React.useEffect(() => {
+        // Check session storage first
+        const closed = sessionStorage.getItem('projectsPopupClosed') === 'true';
+        setHasClosedPopup(closed);
+
+        if (closed) return;
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    setShowPopup(true);
+                    // Disconnect after triggering once to avoid annoyance
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        // Observe the 4th project (or the last one if fewer than 4)
+        const targetIndex = Math.min(3, filtered.length - 1);
+        const targetCard = document.querySelector(`#project-card-${targetIndex}`);
+
+        if (targetCard) {
+            observer.observe(targetCard);
+        }
+
+        return () => observer.disconnect();
+    }, [filtered, hasClosedPopup]);
+
+    const handleClosePopup = () => {
+        setShowPopup(false);
+        setHasClosedPopup(true);
+        sessionStorage.setItem('projectsPopupClosed', 'true');
+    };
+
     return (
-        <div>
+        <div style={{ position: 'relative' }}>
             <div className="project-filters" style={{ display: 'flex', justifyContent: 'center', marginBottom: '30px' }}>
                 <div style={{ position: 'relative', width: '100%', maxWidth: '300px' }}>
                     <select
@@ -60,7 +97,7 @@ export default function ProjectsGrid() {
 
             <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '30px' }}>
                 {filtered.map((project, i) => (
-                    <div key={i} className="project-card fade-up" style={{
+                    <div key={i} id={`project-card-${i}`} className="project-card fade-up" style={{
                         backgroundColor: 'var(--color-bg-surface)',
                         borderRadius: 'var(--radius-md)',
                         overflow: 'hidden',
@@ -88,6 +125,67 @@ export default function ProjectsGrid() {
                     </div>
                 ))}
             </div>
+
+            {/* CTA Popup */}
+            {showPopup && !hasClosedPopup && (
+                <div style={{
+                    position: 'fixed',
+                    bottom: '30px',
+                    right: '30px',
+                    backgroundColor: 'var(--color-bg-surface)',
+                    padding: '20px',
+                    borderRadius: '12px',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.15)',
+                    zIndex: 1000,
+                    maxWidth: '300px',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: '15px',
+                    border: '1px solid var(--color-primary)',
+                    animation: 'slideIn 0.5s ease-out'
+                }}>
+                    <button
+                        onClick={handleClosePopup}
+                        style={{
+                            position: 'absolute',
+                            top: '10px',
+                            right: '10px',
+                            background: 'none',
+                            border: 'none',
+                            cursor: 'pointer',
+                            color: 'var(--color-text-light)'
+                        }}
+                    >
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                    </button>
+                    <div>
+                        <h4 style={{ margin: '0 0 5px 0', fontSize: '1.1rem', color: 'var(--color-text-main)' }}>Gostou do que viu?</h4>
+                        <p style={{ margin: 0, fontSize: '0.9rem', color: 'var(--color-text-light)' }}>
+                            Transforme sua ideia em um projeto incrível como estes.
+                        </p>
+                    </div>
+                    <a href="/planos" style={{
+                        display: 'block',
+                        textAlign: 'center',
+                        backgroundColor: 'var(--color-primary)',
+                        color: 'white',
+                        padding: '10px 15px',
+                        borderRadius: '6px',
+                        textDecoration: 'none',
+                        fontWeight: '600',
+                        fontSize: '0.95rem',
+                        transition: 'opacity 0.2s'
+                    }} onMouseOver={e => e.currentTarget.style.opacity = '0.9'} onMouseOut={e => e.currentTarget.style.opacity = '1'}>
+                        Ver Planos
+                    </a>
+                </div>
+            )}
+            <style>{`
+                @keyframes slideIn {
+                    from { transform: translateY(50px); opacity: 0; }
+                    to { transform: translateY(0); opacity: 1; }
+                }
+            `}</style>
         </div>
     );
 }

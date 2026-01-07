@@ -202,7 +202,7 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             {
                 name: 'Elegance Advocacia',
-                type: 'Escritório de Advogados',
+                type: 'Advogados',
                 category: 'juridico',
                 image: '../assets/imagens-de-paginas/eleganceAdvocacia.svg',
                 link: 'https://eleganceadvocacia.vercel.app/'

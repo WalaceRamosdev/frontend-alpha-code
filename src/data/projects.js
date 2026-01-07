@@ -65,7 +65,7 @@ export const projectsData = [
     {
         name: 'Elegance Advocacia',
         type: 'Direitos e Advogados',
-        category: 'institucional',
+        category: 'juridico',
         image: '/assets/imagens-de-paginas/eleganceAdvocacia.svg',
         link: 'https://eleganceadvocacia.vercel.app/'
     },

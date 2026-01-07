@@ -46,71 +46,141 @@ const displayedProjects = projectsData.slice(0, 3);
 #projects {
     padding: 80px 0;
     background-color: var(--color-bg-alt);
+    overflow: hidden; /* Prevent horizontal scroll on page */
 }
+
 .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 30px;
     margin-top: 40px;
+    padding: 10px; /* Prevent shadow clipping */
 }
+
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
 }
-/* Basic styles for card content - relies on global or specific styling */
+
+/* Basic styles for card content */
 .project-image {
     width: 100%;
-    height: 200px;
+    height: 220px; /* Slightly taller for better view */
     background-color: #ddd;
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    position: relative;
 }
+
 .project-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
+
 .project-card-link:hover .project-image img {
-    transform: scale(1.05);
+    transform: scale(1.08); /* Smoother zoom */
 }
+
 .project-info {
     padding: 24px;
+    background: var(--color-bg-surface);
 }
+
 .project-type {
     display: block;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
-    font-weight: 600;
-    color: var(--color-primary); /* Simplified from gradient for safety, or use utility */
-    margin-bottom: 15px;
+    letter-spacing: 0.5px;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin-bottom: 8px;
 }
+
+.project-info h3 {
+    margin-bottom: 12px;
+    font-size: 1.25rem;
+}
+
 .project-link {
     display: inline-flex;
     align-items: center;
     gap: 8px;
     font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--color-text-main);
+    transition: color 0.2s;
 }
+
+.project-link:hover {
+    color: var(--color-primary);
+}
+
 .see-more-container {
     text-align: center;
-    margin-top: 40px;
+    margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 15px;
 }
+
+/* Scroll Hint - Default Hidden on Desktop */
 .scroll-hint-icon {
-    display: flex;
+    display: none;
     align-items: center;
-    gap: 5px;
-    font-size: 0.9rem;
+    gap: 6px;
+    font-size: 0.85rem;
     color: var(--color-text-light);
-    animation: bounceRight 2s infinite;
+    opacity: 0.8;
+    animation: bounceRight 2s infinite ease-in-out;
+    margin-bottom: 10px;
 }
+
 @keyframes bounceRight {
     0%, 100% { transform: translateX(0); }
-    50% { transform: translateX(5px); }
+    50% { transform: translateX(6px); }
+}
+
+/* TABLET AND MOBILE: CAROUSEL MODE */
+@media (max-width: 1024px) {
+    .projects-grid {
+        display: flex;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        gap: 20px;
+        padding: 20px 5px 30px 5px; /* Bottom padding for scrollbar/shadow */
+        margin-top: 20px;
+        
+        /* Hide scrollbar for cleaner look */
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* IE 10+ */
+    }
+    
+    .projects-grid::-webkit-scrollbar {
+        display: none; /* Chrome/Safari */
+    }
+
+    /* Force cards to be carousel items */
+    .projects-grid > :global(*) {
+        flex: 0 0 85%; /* Show snippet of next card */
+        max-width: 85%;
+        scroll-snap-align: center;
+        min-width: 280px;
+    }
+
+    /* Show scroll hint only on these devices */
+    .scroll-hint-icon {
+        display: flex;
+    }
+}
+
+@media (min-width: 1025px) {
+    .projects-grid {
+        justify-content: center; /* Center grid items on desktop if fewer than columns */
+    }
 }
 </style>
