@@ -1,0 +1,63 @@
+---
+interface Props {
+    type?: "Organization" | "WebSite" | "ProfessionalService" | "Article";
+    name?: string;
+    description?: string;
+    url?: string;
+    image?: string;
+    sameAs?: string[];
+}
+
+const {
+    type = "ProfessionalService",
+    name = "Alpha Code",
+    description = "Criação de sites profissionais para psicólogos, terapeutas, advogados e saúde. Aumente sua autoridade e converta mais pacientes.",
+    url = "https://sitesalphacode.vercel.app",
+    image = "https://sitesalphacode.vercel.app/assets/logoText.svg",
+    sameAs = [
+        "https://www.instagram.com/alphacode_br", // Exemplo, deve ser atualizado pelo usuário se tiver
+        "https://www.linkedin.com/company/alphacode", // Exemplo
+    ],
+} = Astro.props;
+
+let schema = {};
+
+if (type === "ProfessionalService" || type === "Organization") {
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        name: name,
+        url: url,
+        logo: image,
+        image: image,
+        description: description,
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Rio de Janeiro",
+            addressRegion: "RJ",
+            addressCountry: "BR",
+        },
+        // "telephone": "+5521999064502", // Adicionar se confirmado
+        priceRange: "$$",
+        openingHoursSpecification: [
+            {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: [
+                    "Monday",
+                    "Tuesday",
+                    "Wednesday",
+                    "Thursday",
+                    "Friday",
+                ],
+                opens: "09:00",
+                closes: "18:00",
+            },
+        ],
+        sameAs: sameAs,
+    };
+}
+
+// Adicionar mais tipos conforme necessário
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -2,6 +2,7 @@
 import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import { createSEOMeta } from "../utils/seo";
+import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -62,6 +63,11 @@ const seo = createSEOMeta({
             href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@500;700&display=swap"
             rel="stylesheet"
         />
+
+        <meta name="geo.region" content="BR-RJ" />
+        <meta name="geo.placename" content="Rio de Janeiro" />
+
+        <SchemaMarkup />
 
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}
