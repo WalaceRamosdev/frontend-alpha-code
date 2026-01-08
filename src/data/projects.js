@@ -73,7 +73,7 @@ export const projectsData = [
         name: 'Ricardo Silva',
         type: 'Psicanalista',
         category: 'saude',
-        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
+        image: '/assets/imagens-de-paginas/ricardoSilva.svg',
         link: 'https://psicanalista-online.vercel.app/'
     },
     {
