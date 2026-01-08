@@ -70,6 +70,13 @@ export const projectsData = [
         link: 'https://eleganceadvocacia.vercel.app/'
     },
     {
+        name: 'Ricardo Silva',
+        type: 'Psicanalista',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
+        link: 'https://psicanalista-online.vercel.app/'
+    },
+    {
         name: 'Drª. Silvia Orlandi',
         type: 'Terapeutas',
         category: 'saude',
@@ -83,4 +90,5 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/alessandroSilva.svg',
         link: 'https://alessandro-silva-psi.vercel.app/'
     }
+    
 ];
