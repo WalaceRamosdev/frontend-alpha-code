@@ -95,19 +95,22 @@ ul {
 }
 
 /* Premium Card Styles */
+/* Premium Card Styles */
 .card,
 .service-item,
 .price-card,
 .project-card,
 .testimonial-card,
 .audience-card {
-    background-color: var(--color-bg-surface);
-    border: 1px solid var(--border-color);
+    background-color: var(--color-bg-card);
+    border: var(--glass-border);
     border-radius: var(--radius-md);
-    transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all var(--transition-speed) var(--transition-bounce);
     position: relative;
     overflow: hidden;
-    /* For inner glow effects */
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    box-shadow: var(--shadow-soft);
 }
 
 .card:hover,
@@ -115,55 +118,9 @@ ul {
 .price-card:hover,
 .project-card:hover,
 .testimonial-card:hover {
-    transform: translateY(-5px);
-    box-shadow: var(--shadow-medium);
-    border-color: transparent;
-}
-
-/* Light Glow on Hover (Gradient Border Simulation) */
-.card:hover::before,
-.service-item:hover::before,
-.price-card:hover::before,
-.project-card:hover::before,
-.testimonial-card:hover::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: var(--radius-md);
-    padding: 1px;
-    /* Border width */
-    background: linear-gradient(135deg, var(--color-primary-light), var(--color-gold));
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    opacity: 0.5;
-    pointer-events: none;
-}
-
-[data-theme="dark"] .card,
-[data-theme="dark"] .service-item,
-[data-theme="dark"] .price-card,
-[data-theme="dark"] .project-card,
-[data-theme="dark"] .testimonial-card,
-[data-theme="dark"] .audience-card {
-    background-color: rgba(20, 20, 20, 0.6);
-    /* Semi-transparent */
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    border: var(--glass-border);
-    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-}
-
-[data-theme="dark"] .card:hover,
-[data-theme="dark"] .service-item:hover,
-[data-theme="dark"] .price-card:hover,
-[data-theme="dark"] .project-card:hover,
-[data-theme="dark"] .testimonial-card:hover {
-    background-color: rgba(20, 20, 20, 0.8);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.5), 0 0 20px rgba(214, 40, 57, 0.1);
-    /* Subtle red glow */
     transform: translateY(-8px);
+    box-shadow: var(--shadow-medium), var(--shadow-glow);
+    border-color: var(--color-primary);
 }
 
 /* Container */
@@ -171,31 +128,85 @@ ul {
     width: 90%;
     max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 1rem;
+    padding: 0 2rem;
 }
 
-/* Specific Section Padding */
-/* Global Dark Mode Icon Fix */
-[data-theme="dark"] .icon-box img,
-[data-theme="dark"] .service-item img,
-[data-theme="dark"] .feature-card img {
-    filter: brightness(0) invert(1) drop-shadow(0 0 5px rgba(255, 255, 255, 0.4)) !important;
+/* Typography & Text Effects */
+.text-gradient {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    display: inline-block;
+}
+
+.text-gold {
+    background: var(--gradient-gold);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+/* Premium Buttons */
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 15px rgba(214, 40, 57, 0.4);
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(214, 40, 57, 0.6);
+    filter: brightness(1.1);
+}
+
+.btn-secondary {
+    background: transparent;
+    border: 1px solid var(--color-primary);
+    color: white;
+    padding: 1rem 2.5rem;
+    border-radius: var(--radius-full);
+    font-weight: 600;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.btn-secondary:hover {
+    background: rgba(214, 40, 57, 0.1);
+    box-shadow: 0 0 15px rgba(214, 40, 57, 0.2);
 }
 
 /* Feature Card Specifics */
 .feature-card {
-    padding: 3rem 2.5rem !important;
-    /* Force padding increase */
-}
-
-.feature-card p {
-    line-height: 1.8 !important;
-    margin-top: 1.5rem;
-    font-size: 1.05rem;
-    color: var(--color-text-light);
+    padding: 3rem 2rem !important;
+    background: linear-gradient(145deg, #111, #0a0a0a);
 }
 
 .feature-card h3 {
+    color: var(--color-text-main);
+    font-size: 1.25rem;
     margin-top: 1.5rem;
-    margin-bottom: 1rem;
+}
+
+.feature-card p {
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Glass Effect Utility */
+.glass-panel {
+    background: var(--color-bg-glass);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: var(--glass-border);
 }
