@@ -139,6 +139,21 @@ const currentYear = new Date().getFullYear();
         letter-spacing: 1px;
     }
 
+    @media (max-width: 768px) {
+        .footer-content {
+            gap: 40px;
+            text-align: center;
+        }
+
+        .footer-social {
+            justify-content: center;
+        }
+
+        .footer-col ul li a:hover {
+            padding-left: 0; /* Disable padding shift on mobile to keep alignment */
+        }
+    }
+
     .footer-col ul li {
         margin-bottom: 0.8rem;
     }

@@ -102,11 +102,12 @@ import Card from "../ui/Card.astro";
 
     .pricing-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
         gap: 30px;
         align-items: flex-start;
         position: relative;
         z-index: 2;
+        justify-content: center; /* Ensure centered if single item */
     }
 
     /* Global targeting for Card component root elements */
@@ -248,13 +249,15 @@ import Card from "../ui/Card.astro";
 
     /* Featured button specific style if needed to contrast with red background */
     #plans :global(.featured .btn-primary) {
-        background: #ffffff !important;
-        color: var(--color-primary) !important;
+        background: #0a0a0a !important; /* Dark/Black background */
+        color: #ffffff !important; /* White text */
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2) !important;
     }
     #plans :global(.featured .btn-primary:hover) {
-        background: #f0f0f0 !important;
+        background: #000000 !important;
         transform: translateY(-2px);
+        border-color: #ffffff !important;
     }
 
     .btn-glow {

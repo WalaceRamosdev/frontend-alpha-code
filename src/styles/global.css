@@ -9,6 +9,13 @@ html {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* Global Reset */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: var(--font-main);
     background-color: var(--color-bg-body);

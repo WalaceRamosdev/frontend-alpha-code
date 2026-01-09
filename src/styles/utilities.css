@@ -44,10 +44,13 @@
 
 .grid-3 {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-    /* Wider cards */
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Wider cards but flexible */
     gap: 40px;
+    justify-content: center;
+    /* Center grid items */
 }
+
 
 /* Premium Buttons - Refined Size */
 .btn {
@@ -71,10 +74,12 @@
 }
 
 /* Primary Button with "Shine" effect */
+/* Primary Button with "Shine" effect */
 .btn-primary {
     background-image: var(--gradient-primary);
     background-size: 200% auto;
-    color: var(--color-text-inverted);
+    color: #ffffff;
+    /* Forced White */
     border: none;
     box-shadow: 0 5px 15px -5px rgba(214, 40, 57, 0.5);
     /* Softer shadow */
@@ -84,19 +89,22 @@
     background-position: right center;
     box-shadow: 0 10px 25px -5px rgba(214, 40, 57, 0.6);
     transform: translateY(-2px);
+    color: #ffffff;
 }
 
 .btn-outline {
     background-color: transparent;
     border-color: var(--color-primary);
-    color: var(--color-primary);
+    color: #ffffff !important;
+    /* Forced White */
 }
 
 .btn-outline:hover {
     background-color: var(--color-primary);
-    color: var(--color-text-inverted);
+    color: #ffffff;
     box-shadow: 0 5px 15px -5px rgba(214, 40, 57, 0.3);
 }
+
 
 /* Large Button - Adjusted */
 .btn.lg {
