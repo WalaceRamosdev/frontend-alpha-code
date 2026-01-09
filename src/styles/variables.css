@@ -1,16 +1,22 @@
 :root {
     /* Premium Dark Palette */
-    --color-bg-body: #020202; /* Ultra dark, almost black */
-    --color-bg-surface: #0a0a0a; /* Rich dark grey for sections */
-    --color-bg-card: #111111; /* Card backgrounds */
-    --color-bg-glass: rgba(20, 20, 20, 0.7); /* Glassmorphism base */
+    --color-bg-body: #020202;
+    /* Ultra dark, almost black */
+    --color-bg-surface: #0a0a0a;
+    /* Rich dark grey for sections */
+    --color-bg-card: #111111;
+    /* Card backgrounds */
+    --color-bg-glass: rgba(20, 20, 20, 0.7);
+    /* Glassmorphism base */
 
     /* Primary Colors (Maintaing Logo Identity) */
-    --color-primary: #8a1c26; /* Slightly brighter for dark mode visibility */
+    --color-primary: #8a1c26;
+    /* Slightly brighter for dark mode visibility */
     --color-primary-dark: #5e0d14;
     --color-primary-light: #b32d3a;
-    --color-primary-glow: rgba(214, 40, 57, 0.5); /* For neon effects */
-    
+    --color-primary-glow: rgba(214, 40, 57, 0.5);
+    /* For neon effects */
+
     /* Gradients */
     --gradient-primary: linear-gradient(135deg, #8a1c26 0%, #b32d3a 100%);
     --gradient-dark: linear-gradient(to bottom, #020202, #0a0a0a);
@@ -34,11 +40,12 @@
     /* Functional */
     --transition-speed: 0.3s;
     --transition-bounce: cubic-bezier(0.34, 1.56, 0.64, 1);
-    
+
     /* Sophisticated Shadows */
     --shadow-soft: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
     --shadow-medium: 0 20px 40px -10px rgba(0, 0, 0, 0.6);
-    --shadow-glow: 0 0 20px rgba(138, 28, 38, 0.3); /* Red glow */
+    --shadow-glow: 0 0 20px rgba(138, 28, 38, 0.3);
+    /* Red glow */
     --shadow-strong: 0 30px 60px -12px rgba(0, 0, 0, 0.8);
 
     --radius-sm: 8px;
@@ -50,9 +57,11 @@
     --glass-border: 1px solid rgba(255, 255, 255, 0.08);
 
     /* Typography */
-    --font-main: 'Inter', system-ui, sans-serif;
-    --font-heading: 'Montserrat', sans-serif;
+    --font-main: 'Plus Jakarta Sans', system-ui, sans-serif;
+    --font-heading: 'Outfit', sans-serif;
 
-    --container-max-width: 1400px; /* Wider for impactful layout */
-    --section-spacing: 8rem; /* More breathing room */
+    --container-max-width: 1400px;
+    /* Wider for impactful layout */
+    --section-spacing: 8rem;
+    /* More breathing room */
 }
