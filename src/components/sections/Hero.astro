@@ -317,21 +317,23 @@ import Button from "../ui/Button.astro";
     }
 
     .pulse-point {
+        transform-origin: center;
+        transform-box: fill-box;
         animation: pulse 2s infinite;
     }
 
     @keyframes pulse {
         0% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+            stroke-width: 2;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
         }
-        70% {
-            transform: scale(1.1);
-            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+        50% {
+            stroke-width: 4;
+            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
         }
         100% {
-            transform: scale(1);
-            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            stroke-width: 2;
+            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
         }
     }
 

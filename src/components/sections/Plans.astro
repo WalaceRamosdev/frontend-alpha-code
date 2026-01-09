@@ -111,10 +111,10 @@ import Card from "../ui/Card.astro";
 
     /* Global targeting for Card component root elements */
     #plans :global(.price-card) {
-        padding: 3rem 2rem 4rem 2rem !important; /* Increased bottom padding */
+        padding: 2rem 1.5rem !important; /* Compact padding */
         display: flex;
         flex-direction: column;
-        height: 100%;
+        height: auto; /* Allow shrinking */
         box-sizing: border-box;
     }
 
