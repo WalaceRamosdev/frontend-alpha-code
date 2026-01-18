@@ -62,35 +62,36 @@ import Card from "../ui/Card.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const section = document.getElementById("testimonials");
+    const section = document.getElementById("testimonials");
 
-        if (section) {
-            gsap.from(".fade-up-testimonials", {
-                scrollTrigger: {
-                    trigger: ".section-header",
-                    start: "top 80%",
-                },
-                y: 30,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-            });
+    if (section) {
+        const header = section.querySelector(".section-header");
+        const grid = section.querySelector(".testimonials-grid");
 
-            gsap.from(".testimonial-card-anim", {
-                scrollTrigger: {
-                    trigger: ".testimonials-grid",
-                    start: "top 75%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-            });
-        }
-    });
+        gsap.from(section.querySelectorAll(".fade-up-testimonials"), {
+            scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+            },
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        });
+
+        gsap.from(section.querySelectorAll(".testimonial-card-anim"), {
+            scrollTrigger: {
+                trigger: grid,
+                start: "top 75%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out",
+        });
+    }
 </script>
 
 <style>

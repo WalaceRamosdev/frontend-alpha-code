@@ -37,23 +37,27 @@ import Button from "../ui/Button.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const section = document.getElementById("contact");
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-        if (section) {
-            gsap.from(".fade-up-contact", {
-                scrollTrigger: {
-                    trigger: "#contact",
-                    start: "top 80%",
-                },
-                y: 50,
-                scale: 0.95,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out",
-            });
-        }
-    });
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.getElementById("contact");
+
+    if (section) {
+        gsap.from(section.querySelectorAll(".fade-up-contact"), {
+            scrollTrigger: {
+                trigger: section,
+                start: "top 80%",
+            },
+            y: 50,
+            scale: 0.95,
+            opacity: 0,
+            duration: 1,
+            ease: "power3.out",
+        });
+    }
 </script>
 
 <style>

@@ -52,35 +52,36 @@ const displayedProjects = projectsData.slice(0, 3);
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const section = document.getElementById("projects");
-        
-        if (section) {
-            gsap.from(".fade-up-projects", {
-                scrollTrigger: {
-                    trigger: ".section-header",
-                    start: "top 80%",
-                },
-                y: 40,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out"
-            });
+    const section = document.getElementById("projects");
+    
+    if (section) {
+        const header = section.querySelector(".section-header");
+        const grid = section.querySelector(".projects-grid");
 
-            gsap.from(".project-card-anim", {
-                scrollTrigger: {
-                    trigger: ".projects-grid",
-                    start: "top 75%",
-                },
-                y: 60,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out"
-            });
-        }
-    });
+        gsap.from(section.querySelectorAll(".fade-up-projects"), {
+            scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+            },
+            y: 40,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+
+        gsap.from(section.querySelectorAll(".project-card-anim"), {
+            scrollTrigger: {
+                trigger: grid,
+                start: "top 75%",
+            },
+            y: 60,
+            opacity: 0,
+            duration: 0.8,
+            stagger: 0.2,
+            ease: "power2.out"
+        });
+    }
 </script>
 
 <style>
