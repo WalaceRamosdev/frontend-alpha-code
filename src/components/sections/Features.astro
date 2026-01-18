@@ -83,29 +83,39 @@ import Card from "../ui/Card.astro";
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".features-grid");
 
-        gsap.from(section.querySelectorAll(".fade-up-title"), {
-            scrollTrigger: {
-                trigger: header,
-                start: "top 80%",
+        // Animate Title
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-title"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%", // Trigger earlier
+                },
             },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-        });
+        );
 
-        gsap.from(section.querySelectorAll(".feature-card"), {
-            scrollTrigger: {
-                trigger: grid,
-                start: "top 75%",
+        // Animate Cards
+        gsap.fromTo(
+            section.querySelectorAll(".feature-card"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%", // Trigger earlier
+                },
             },
-            y: 50,
-            opacity: 0,
-            duration: 1,
-            stagger: 0.2,
-            ease: "power3.out",
-        });
+        );
     }
 </script>
 

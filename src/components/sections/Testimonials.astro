@@ -68,29 +68,37 @@ import Card from "../ui/Card.astro";
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".testimonials-grid");
 
-        gsap.from(section.querySelectorAll(".fade-up-testimonials"), {
-            scrollTrigger: {
-                trigger: header,
-                start: "top 80%",
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-testimonials"),
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%",
+                },
             },
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
 
-        gsap.from(section.querySelectorAll(".testimonial-card-anim"), {
-            scrollTrigger: {
-                trigger: grid,
-                start: "top 75%",
+        gsap.fromTo(
+            section.querySelectorAll(".testimonial-card-anim"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%",
+                },
             },
-            y: 50,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
     }
 </script>
 

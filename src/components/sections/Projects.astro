@@ -58,29 +58,35 @@ const displayedProjects = projectsData.slice(0, 3);
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".projects-grid");
 
-        gsap.from(section.querySelectorAll(".fade-up-projects"), {
-            scrollTrigger: {
-                trigger: header,
-                start: "top 80%",
-            },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out"
-        });
+        gsap.fromTo(section.querySelectorAll(".fade-up-projects"), 
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%",
+                }
+            }
+        );
 
-        gsap.from(section.querySelectorAll(".project-card-anim"), {
-            scrollTrigger: {
-                trigger: grid,
-                start: "top 75%",
-            },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out"
-        });
+        gsap.fromTo(section.querySelectorAll(".project-card-anim"), 
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%",
+                }
+            }
+        );
     }
 </script>
 

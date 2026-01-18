@@ -64,31 +64,39 @@ import Card from "../ui/Card.astro";
 
     if (section) {
         const header = section.querySelector(".section-header");
-        const list = section.querySelector(".services-list");
+        const grid = section.querySelector(".services-grid");
 
-        gsap.from(section.querySelectorAll(".fade-up-services"), {
-            scrollTrigger: {
-                trigger: header,
-                start: "top 80%",
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-services"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%",
+                },
             },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
 
-        gsap.from(section.querySelectorAll(".service-card-anim"), {
-            scrollTrigger: {
-                trigger: list,
-                start: "top 75%",
+        gsap.fromTo(
+            section.querySelectorAll(".service-card-anim"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%",
+                },
             },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
     }
 </script>
 

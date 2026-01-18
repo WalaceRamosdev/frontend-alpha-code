@@ -93,29 +93,37 @@ import Card from "../ui/Card.astro";
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".pricing-grid");
 
-        gsap.from(section.querySelectorAll(".fade-up-plans"), {
-            scrollTrigger: {
-                trigger: header,
-                start: "top 80%",
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-plans"),
+            { opacity: 0, y: 40 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%",
+                },
             },
-            y: 40,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
 
-        gsap.from(section.querySelectorAll(".plan-card-anim"), {
-            scrollTrigger: {
-                trigger: grid,
-                start: "top 75%",
+        gsap.fromTo(
+            section.querySelectorAll(".plan-card-anim"),
+            { opacity: 0, y: 60 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%",
+                },
             },
-            y: 60,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        });
+        );
     }
 </script>
 
