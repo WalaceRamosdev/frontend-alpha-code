@@ -18,7 +18,7 @@ import Button from "../ui/Button.astro";
                         variant="primary"
                         size="lg"
                         target="_blank"
-                        class="glow-effect"
+                        class="glow-effect pulse-anim"
                     >
                         <span class="btn-content"
                             >Quero Meu Site Profissional</span
@@ -57,6 +57,30 @@ import Button from "../ui/Button.astro";
 <style>
     #contact {
         padding: 50px 0 100px;
+    }
+
+    @keyframes pulse-soft {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0.7);
+        }
+        70% {
+            transform: scale(1.02);
+            box-shadow: 0 0 0 10px rgba(220, 38, 38, 0);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(220, 38, 38, 0);
+        }
+    }
+
+    /* Target the button component wrapper for animation */
+    #contact :global(.pulse-anim) {
+        animation: pulse-soft 2s infinite;
+    }
+    #contact :global(.pulse-anim:hover) {
+        animation: none;
+        transform: scale(1.05);
     }
 
     .cta-card {
