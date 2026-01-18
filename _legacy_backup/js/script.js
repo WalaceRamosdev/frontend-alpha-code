@@ -379,17 +379,17 @@ document.addEventListener('DOMContentLoaded', () => {
         const plans = {
             'simples': {
                 name: 'Página Simples',
-                price: 'R$ 247',
+                price: 'R$ 347',
                 id: 'Página Simples'
             },
             'completa': {
                 name: 'Página Completa',
-                price: 'R$ 399',
+                price: 'R$ 599',
                 id: 'Página Completa'
             },
             'premium': {
                 name: 'Página Premium',
-                price: 'R$ 647',
+                price: 'R$ 947',
                 id: 'Página Premium'
             },
             'manutencao': {

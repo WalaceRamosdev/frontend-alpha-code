@@ -4,22 +4,25 @@ import Button from "../ui/Button.astro";
 
 <section id="contact">
     <div class="container">
-        <div class="cta-card fade-up">
+        <div class="cta-card fade-up-contact">
             <div class="cta-content text-center">
-                <h2>Pronto para dominar seu mercado?</h2>
+                <h2>Não Deixe Dinheiro na Mesa</h2>
                 <p>
-                    A diferença entre você e o líder do seu nicho é a estratégia
-                    digital.
+                    Cada dia sem um site profissional é um cliente que você
+                    entrega de bandeja para a concorrência.
+                    <br /><strong>Vamos mudar isso agora?</strong>
                 </p>
                 <div class="actions">
                     <Button
-                        href="https://wa.me/5521999064502"
+                        href="https://wa.me/5521999064502?text=Olá,%20quero%20um%20site%20profissional."
                         variant="primary"
                         size="lg"
                         target="_blank"
                         class="glow-effect"
                     >
-                        <span class="btn-content">Iniciar Projeto Agora</span>
+                        <span class="btn-content"
+                            >Quero Meu Site Profissional</span
+                        >
                     </Button>
                 </div>
             </div>
@@ -27,6 +30,31 @@ import Button from "../ui/Button.astro";
         </div>
     </div>
 </section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("contact");
+
+        if (section) {
+            gsap.from(".fade-up-contact", {
+                scrollTrigger: {
+                    trigger: "#contact",
+                    start: "top 80%",
+                },
+                y: 50,
+                scale: 0.95,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out",
+            });
+        }
+    });
+</script>
 
 <style>
     #contact {
@@ -77,6 +105,7 @@ import Button from "../ui/Button.astro";
         background-clip: text;
         color: transparent;
         display: inline-block;
+        font-weight: 800;
     }
 
     p {
@@ -86,6 +115,11 @@ import Button from "../ui/Button.astro";
         max-width: 600px;
         margin-left: auto;
         margin-right: auto;
+        line-height: 1.6;
+    }
+
+    p strong {
+        color: var(--color-text-main);
     }
 
     @media (max-width: 768px) {

@@ -5,18 +5,18 @@ import Card from "../ui/Card.astro";
 <section id="why">
     <div class="container">
         <div class="section-header">
-            <h2>
-                Por que você precisa de um site <br /><span class="text-primary"
-                    >HOJE ?</span
-                >
+            <h2 class="fade-up-title">
+                Sem site, você é <br /><span class="text-primary"
+                    >INVISÍVEL</span
+                > no Google.
             </h2>
-            <p>
-                Redes sociais são importantes, mas não são suas. Um site é seu
-                terreno próprio.
+            <p class="fade-up-title delay-1">
+                O Instagram é alugado. Seu site é sua casa própria digital. É lá
+                que você converte curiosos em clientes pagantes.
             </p>
         </div>
-        <div class="grid-3">
-            <Card class="fade-in feature-card">
+        <div class="grid-3 features-grid">
+            <Card class="feature-card">
                 <div class="icon-box">
                     <img
                         src="/assets/seloGarantia.svg"
@@ -26,13 +26,14 @@ import Card from "../ui/Card.astro";
                         class="img-fluid"
                     />
                 </div>
-                <h3>Credibilidade Imediata</h3>
+                <h3>Autoridade Instantânea</h3>
                 <p>
-                    O cliente pesquisa no Google antes de fechar. Se não te
-                    acha, ele vai para o concorrente que tem site.
+                    Seu cliente te pesquisa no Google antes de fechar. Se não
+                    encontrar um site profissional, ele assume que você é amador
+                    e vai para o concorrente.
                 </p>
             </Card>
-            <Card class="fade-in delay-1 feature-card">
+            <Card class="feature-card">
                 <div class="icon-box">
                     <img
                         src="/assets/vendaOnline.svg"
@@ -42,13 +43,14 @@ import Card from "../ui/Card.astro";
                         class="img-fluid"
                     />
                 </div>
-                <h3>Vendas 24 horas</h3>
+                <h3>Vendedor 24/7</h3>
                 <p>
-                    Seu site explica seu serviço, quebra objeções e vende por
-                    você enquanto você atende ou descansa.
+                    Seu site nunca dorme. Ele explica seu serviço, quebra
+                    objeções e agenda consultas enquanto você descansa ou atende
+                    seus pacientes.
                 </p>
             </Card>
-            <Card class="fade-in delay-2 feature-card">
+            <Card class="feature-card">
                 <div class="icon-box">
                     <img
                         src="/assets/foguete.svg"
@@ -58,15 +60,53 @@ import Card from "../ui/Card.astro";
                         class="img-fluid"
                     />
                 </div>
-                <h3>Público Qualificado</h3>
+                <h3>Clientes Qualificados</h3>
                 <p>
-                    Atraia pessoas que já estão procurando pelo seu serviço, não
-                    apenas curiosos do Instagram.
+                    Chega de depender do algoritmo. Atraia pessoas que já estão
+                    buscando pelo seu serviço no Google e estão prontas para te
+                    contratar.
                 </p>
             </Card>
         </div>
     </div>
 </section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("why");
+
+        if (section) {
+            gsap.from(".fade-up-title", {
+                scrollTrigger: {
+                    trigger: ".section-header",
+                    start: "top 80%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+            });
+
+            gsap.from(".feature-card", {
+                scrollTrigger: {
+                    trigger: ".features-grid",
+                    start: "top 75%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+            });
+        }
+    });
+</script>
 
 <style>
     #why {
@@ -83,6 +123,13 @@ import Card from "../ui/Card.astro";
     .section-header h2 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
+    }
+
+    .section-header p {
+        max-width: 600px;
+        margin: 0 auto;
+        color: var(--color-text-secondary);
+        font-size: 1.1rem;
     }
 
     .icon-box {

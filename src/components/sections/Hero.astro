@@ -11,47 +11,48 @@ import Button from "../ui/Button.astro";
 
     <div class="container hero-container-grid">
         <div class="hero-text">
-            <div class="badge fade-up">Alto Padrão & Performance</div>
-            <h1 class="fade-up delay-1">
-                A Revolução da sua <br />
-                <span class="text-gradient">Presença Digital.</span>
+            <div class="badge fade-up">Especialistas em Autoridade Digital</div>
+            <h1 class="fade-up">
+                Seu Negócio Precisa de um <br />
+                <span class="text-gradient">Site que Vende.</span>
             </h1>
-            <p class="fade-up delay-2">
-                Combinamos psicologia de vendas, design de luxo e tecnologia de
-                ponta para criar não apenas um site, mas uma máquina de vendas
-                automática para o seu negócio.
+            <p class="fade-up">
+                Médicos, advogados e empresas perdem clientes todos os dias por
+                não terem um site profissional. Transformamos sua presença
+                online em uma máquina de vendas confiável e de alto padrão.
+                <strong>Não seja invisível no Google.</strong>
             </p>
-            <div class="hero-cta fade-up delay-3">
+            <div class="hero-cta fade-up">
                 <Button
-                    href="/planos"
+                    href="#contact"
                     size="lg"
                     variant="primary"
                     class="glow-effect"
                 >
-                    <span class="btn-content">Ver Planos e Preços</span>
+                    <span class="btn-content">Quero Vender Mais</span>
                 </Button>
                 <Button href="#projects" variant="outline" size="lg">
-                    Explorar Portfólio
+                    Ver Portfólio
                 </Button>
             </div>
-            <div class="trust-indicator fade-up delay-3">
+            <div class="trust-indicator fade-up">
                 <span class="stars">⭐⭐⭐⭐⭐</span>
                 <span class="text"
-                    >Escolha nº 1 de profissionais de alto nível.</span
+                    >Mais de 100 profissionais posicionados no digital.</span
                 >
             </div>
         </div>
 
-        <div class="hero-visual fade-in delay-3">
+        <div class="hero-visual fade-in">
             <div class="glass-panel perspective-card">
                 <div class="chart-slider">
                     <!-- Slide 1: Growth Chart -->
                     <div class="slide active">
                         <div class="chart-header">
-                            <span class="icon-box">🚀</span>
+                            <span class="icon-box">📈</span>
                             <div>
-                                <h3>Crescimento Exponencial</h3>
-                                <small>Resultados médios de clientes</small>
+                                <h3>Autoridade & Conversão</h3>
+                                <small>Otimização para máximo resultado</small>
                             </div>
                         </div>
                         <div class="chart-body">
@@ -96,12 +97,12 @@ import Button from "../ui/Button.astro";
                         </div>
                         <div class="stat-row">
                             <div class="stat-item">
-                                <span class="stat-value">+200%</span>
-                                <span class="stat-label">Conversão</span>
+                                <span class="stat-value">+300%</span>
+                                <span class="stat-label">Visibilidade</span>
                             </div>
                             <div class="stat-item">
                                 <span class="stat-value">24h</span>
-                                <span class="stat-label">Ativo</span>
+                                <span class="stat-label">Vendendo</span>
                             </div>
                         </div>
                     </div>
@@ -114,22 +115,78 @@ import Button from "../ui/Button.astro";
 </section>
 
 <script>
-    // Simple parallax effect for orbs
-    document.addEventListener("mousemove", (e) => {
-        const orbs = document.querySelectorAll(".orb");
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
+    import { gsap } from "gsap";
 
-        orbs.forEach((orb, index) => {
-            const speed = (index + 1) * 20;
-            const xOffset = (window.innerWidth / 2 - e.clientX) / speed;
-            const yOffset = (window.innerHeight / 2 - e.clientY) / speed;
-
-            // Type assertion for HTML element to access style
-            if (orb instanceof HTMLElement) {
-                orb.style.transform = `translate(${xOffset}px, ${yOffset}px)`;
-            }
+    document.addEventListener("DOMContentLoaded", () => {
+        const tl = gsap.timeline({
+            defaults: { ease: "power3.out", duration: 1 },
         });
+
+        // Hero Text Animations
+        tl.fromTo(
+            ".hero-text .badge",
+            { y: 20, opacity: 0 },
+            { y: 0, opacity: 1, duration: 0.8 },
+        )
+            .fromTo(
+                ".hero-text h1",
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1 },
+                "-=0.6",
+            )
+            .fromTo(
+                ".hero-text p",
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1 },
+                "-=0.8",
+            )
+            .fromTo(
+                ".hero-cta",
+                { y: 30, opacity: 0 },
+                { y: 0, opacity: 1 },
+                "-=0.8",
+            )
+            .fromTo(
+                ".trust-indicator",
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1 },
+                "-=0.8",
+            );
+
+        // Hero Visual Animation
+        gsap.fromTo(
+            ".hero-visual",
+            { x: 50, opacity: 0, rotationY: 10 },
+            {
+                x: 0,
+                opacity: 1,
+                rotationY: 0,
+                duration: 1.5,
+                ease: "power2.out",
+                delay: 0.5,
+            },
+        );
+
+        // Mouse Parallax for Orbs
+        const orbs = document.querySelectorAll(".orb");
+        const heroSection = document.getElementById("hero");
+
+        if (heroSection) {
+            heroSection.addEventListener("mousemove", (e) => {
+                const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                const y = (e.clientY / window.innerHeight - 0.5) * 20;
+
+                orbs.forEach((orb, index) => {
+                    const factor = (index + 1) * 2;
+                    gsap.to(orb, {
+                        x: x * factor,
+                        y: y * factor,
+                        duration: 1,
+                        ease: "power2.out",
+                    });
+                });
+            });
+        }
     });
 </script>
 

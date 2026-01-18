@@ -5,11 +5,16 @@ import Card from "../ui/Card.astro";
 <section id="testimonials">
     <div class="container">
         <div class="section-header">
-            <h2>O que Dizem Nossos Clientes</h2>
-            <p>Resultados reais de quem confiou na Alpha Code.</p>
+            <h2 class="fade-up-testimonials">
+                O que Dizem Nossos <span class="text-primary">Parceiros</span>
+            </h2>
+            <p class="fade-up-testimonials delay-1 section-desc">
+                Resultados reais de quem confiou na Alpha Code.
+            </p>
         </div>
         <div class="testimonials-grid">
-            <Card variant="testimonial" class="fade-in">
+            <Card variant="testimonial" class="testimonial-card-anim">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
                 <div class="testimonial-text">
                     "Meu agendamento aumentou 40% no primeiro mês com o novo
                     site. O design passou exatamente a seriedade que eu queria."
@@ -21,7 +26,8 @@ import Card from "../ui/Card.astro";
                     </div>
                 </div>
             </Card>
-            <Card variant="testimonial" class="fade-in delay-1">
+            <Card variant="testimonial" class="testimonial-card-anim">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
                 <div class="testimonial-text">
                     "A landing page se pagou em 2 semanas. Muito rápida e
                     bonita, meus pacientes elogiam sempre."
@@ -33,7 +39,8 @@ import Card from "../ui/Card.astro";
                     </div>
                 </div>
             </Card>
-            <Card variant="testimonial" class="fade-in delay-2">
+            <Card variant="testimonial" class="testimonial-card-anim">
+                <div class="stars">⭐⭐⭐⭐⭐</div>
                 <div class="testimonial-text">
                     "Profissionalismo nota 10. O suporte foi incrível e o site
                     ficou pronto antes do prazo."
@@ -49,13 +56,51 @@ import Card from "../ui/Card.astro";
     </div>
 </section>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("testimonials");
+
+        if (section) {
+            gsap.from(".fade-up-testimonials", {
+                scrollTrigger: {
+                    trigger: ".section-header",
+                    start: "top 80%",
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+            });
+
+            gsap.from(".testimonial-card-anim", {
+                scrollTrigger: {
+                    trigger: ".testimonials-grid",
+                    start: "top 75%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+            });
+        }
+    });
+</script>
+
 <style>
     #testimonials {
         padding: 100px 0;
+        background-color: var(--color-bg-surface);
     }
     .testimonials-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
         gap: 30px;
         justify-content: center;
     }
@@ -64,21 +109,15 @@ import Card from "../ui/Card.astro";
         text-align: center;
         margin-bottom: 3rem;
     }
-    .testimonial-card {
-        padding: 30px;
-        position: relative;
-        padding-top: 50px;
+    .section-desc {
+        max-width: 600px;
+        margin: 1rem auto;
+        color: var(--color-text-secondary);
     }
-    .testimonial-card::before {
-        content: '"';
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        font-size: 4rem;
-        color: var(--color-primary);
-        opacity: 0.4;
-        font-family: serif;
-        line-height: 1;
+    .stars {
+        color: #ffc107;
+        margin-bottom: 1rem;
+        font-size: 0.9rem;
     }
     .testimonial-text {
         font-style: italic;
@@ -86,28 +125,29 @@ import Card from "../ui/Card.astro";
         color: var(--color-text-light);
         position: relative;
         z-index: 1;
+        line-height: 1.6;
     }
     .testimonial-author {
         display: flex;
         align-items: center;
         gap: 15px;
+        margin-top: auto;
+    }
+    .author-info h4 {
+        margin-bottom: 2px;
+        font-weight: 700;
+        color: var(--color-heading);
     }
     .author-role {
         font-size: 0.85rem;
         color: var(--color-primary);
+        font-weight: 500;
     }
 
     @media (max-width: 768px) {
-        .testimonial-card,
         .testimonial-author {
-            text-align: center;
             flex-direction: column;
-            justify-content: center;
-        }
-        .testimonial-card::before {
-            left: 50%;
-            transform: translateX(-50%);
-            top: 10px;
+            align-items: flex-start;
         }
     }
 </style>

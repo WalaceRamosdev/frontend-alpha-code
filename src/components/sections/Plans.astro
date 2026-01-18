@@ -6,16 +6,20 @@ import Card from "../ui/Card.astro";
 <section id="plans" class="bg-alt">
     <div class="container">
         <div class="section-header">
-            <h2>Investimento Inteligente</h2>
-            <p>Escolha o plano ideal para escalar seu faturamento.</p>
+            <h2 class="fade-up-plans">
+                Investimento <span class="text-primary">Inteligente</span>
+            </h2>
+            <p class="fade-up-plans delay-1 section-desc">
+                Escolha o plano ideal para escalar seu faturamento.
+            </p>
         </div>
 
         <div class="pricing-grid">
             <!-- Plan 1 -->
-            <Card variant="price" class="plan-regular">
+            <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Simples</h3>
-                    <div class="price"><small>R$</small> 247</div>
+                    <h3>Landing Page</h3>
+                    <div class="price"><small>R$</small> 347</div>
                     <p class="subtitle">Entrada Essencial</p>
                 </div>
                 <!-- Features removed for homepage as requested -->
@@ -29,14 +33,12 @@ import Card from "../ui/Card.astro";
             </Card>
 
             <!-- Plan 2 (Featured) -->
-            <Card variant="price" class="featured">
-                <div class="badge-gold">Mais Vendido</div>
+            <Card variant="price" class="featured plan-card-anim">
+                <div class="badge-gold">Recomendado</div>
                 <div class="price-header">
-                    <h3>Página Completa</h3>
-                    <div class="price text-primary"><small>R$</small> 399</div>
-                    <p class="subtitle">
-                        Para Profissionais que querem Autoridade
-                    </p>
+                    <h3>Site Authority</h3>
+                    <div class="price text-primary"><small>R$</small> 599</div>
+                    <p class="subtitle">Para quem quer ser referência</p>
                 </div>
                 <!-- Features removed for homepage as requested -->
                 <div class="action-btn">
@@ -49,10 +51,10 @@ import Card from "../ui/Card.astro";
             </Card>
 
             <!-- Plan 3 -->
-            <Card variant="price" class="plan-regular">
+            <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Premium</h3>
-                    <div class="price"><small>R$</small> 647</div>
+                    <h3>Ecosistema Premium</h3>
+                    <div class="price"><small>R$</small> 947</div>
                     <p class="subtitle">Solução Definitiva</p>
                 </div>
                 <!-- Features removed for homepage as requested -->
@@ -65,19 +67,56 @@ import Card from "../ui/Card.astro";
                 </div>
             </Card>
         </div>
-        <div class="pricing-footer">
+        <div class="pricing-footer fade-up-plans delay-2">
             <p>* Pagamento único. Sem mensalidades surpresa.</p>
             <p class="maintenance-note">
                 Manutenção opcional disponível por R$ 100/mês.
             </p>
         </div>
-        <div class="compare-cta">
+        <div class="compare-cta fade-up-plans delay-3">
             <Button href="/planos" variant="outline" class="btn-large"
                 >Ver Comparativo Detalhado <span class="arrow">→</span></Button
             >
         </div>
     </div>
 </section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("plans");
+
+        if (section) {
+            gsap.from(".fade-up-plans", {
+                scrollTrigger: {
+                    trigger: ".section-header",
+                    start: "top 80%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+            });
+
+            gsap.from(".plan-card-anim", {
+                scrollTrigger: {
+                    trigger: ".pricing-grid",
+                    start: "top 75%",
+                },
+                y: 60,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+            });
+        }
+    });
+</script>
 
 <style>
     #plans {
@@ -88,6 +127,12 @@ import Card from "../ui/Card.astro";
     .section-header {
         text-align: center;
         margin-bottom: 4rem;
+    }
+
+    .section-desc {
+        max-width: 600px;
+        margin: 1rem auto;
+        color: var(--color-text-container);
     }
 
     .section-header h2 {

@@ -1,65 +1,188 @@
 ---
-import Card from '../ui/Card.astro';
+import Card from "../ui/Card.astro";
 ---
 
 <section id="audience" class="bg-alt">
     <div class="container">
         <div class="section-header">
-            <h2>Para quem é a <br><span class="text-primary">Alpha Code</span>?</h2>
+            <h2 class="fade-up-audience">
+                Para quem é a <br /><span class="text-primary">Alpha Code</span
+                >?
+            </h2>
+            <p class="fade-up-audience delay-1 section-desc">
+                Especialistas em posicionamento digital para quem vende
+                conhecimento, imagem ou serviço premium.
+            </p>
         </div>
         <div class="audience-grid">
             <Card variant="default" class="audience-card">
-                <h3>Profissionais da Saúde</h3>
-                <ul>
-                    <li>Psicólogos, Terapeutas, Nutricionistas.</li>
-                    <li><strong>Problema:</strong> Agenda vazia ou pacientes que pedem desconto.</li>
-                    <li><strong>Solução:</strong> Site que valoriza sua consulta e filtra curiosos.</li>
+                <div class="card-icon">🩺</div>
+                <h3>Saúde & Bem-estar</h3>
+                <p class="audience-role">Médicos, Psicólogos, Nutricionistas</p>
+                <ul class="audience-benefits">
+                    <li>Pare de brigar por preço de consulta.</li>
+                    <li>
+                        Atraia pacientes particulares que valorizam seu
+                        atendimento.
+                    </li>
+                    <li>
+                        Transmita segurança e profissionalismo antes do
+                        agendamento.
+                    </li>
                 </ul>
             </Card>
             <Card variant="default" class="audience-card">
-                <h3>Advogados & Escritórios</h3>
-                <ul>
-                    <li>Cível, Trabalhista, Criminalista.</li>
-                    <li><strong>Problema:</strong> Alta concorrência e dificuldade de passar confiança rápida.</li>
-                    <li><strong>Solução:</strong> Design sóbrio que transmite autoridade e experiência.</li>
+                <div class="card-icon">⚖️</div>
+                <h3>Jurídico & Fiscal</h3>
+                <p class="audience-role">Advogados, Contadores, Consultores</p>
+                <ul class="audience-benefits">
+                    <li>Domine a primeira página do Google na sua região.</li>
+                    <li>
+                        Passe a imagem de um escritório consolidado e
+                        experiente.
+                    </li>
+                    <li>
+                        Gere leads qualificados sem depender de indicações
+                        aleatórias.
+                    </li>
                 </ul>
             </Card>
             <Card variant="default" class="audience-card">
-                <h3>Professores & Escolas</h3>
-                <ul>
-                    <li>Particulares, Idiomas, Música.</li>
-                    <li><strong>Problema:</strong> Depender apenas de indicação boca a boca.</li>
-                    <li><strong>Solução:</strong> Página de vendas que mostra sua metodologia e resultados.</li>
+                <div class="card-icon">📸</div>
+                <h3>Criativos & Arquitetos</h3>
+                <p class="audience-role">Fotógrafos, Arquitetos, Designers</p>
+                <ul class="audience-benefits">
+                    <li>
+                        Um portfólio que valoriza cada detalhe do seu trabalho.
+                    </li>
+                    <li>Layout minimalista que coloca sua obra em destaque.</li>
+                    <li>
+                        Venda o "Sonho" e justifique cobrar o valor que você
+                        merece.
+                    </li>
+                </ul>
+            </Card>
+            <Card variant="default" class="audience-card">
+                <div class="card-icon">💼</div>
+                <h3>Empresas & Serviços</h3>
+                <p class="audience-role">Clínicas, Agências, Prestadores</p>
+                <ul class="audience-benefits">
+                    <li>Automatize a apresentação do seu serviço.</li>
+                    <li>Receba pedidos de orçamento detalhados 24h por dia.</li>
+                    <li>
+                        Mostre que sua empresa é grande, organizada e confiável.
+                    </li>
                 </ul>
             </Card>
         </div>
     </div>
 </section>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("audience");
+
+        if (section) {
+            gsap.from(".fade-up-audience", {
+                scrollTrigger: {
+                    trigger: "#audience",
+                    start: "top 80%",
+                },
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.1,
+            });
+
+            gsap.from(".audience-card", {
+                scrollTrigger: {
+                    trigger: ".audience-grid",
+                    start: "top 80%",
+                },
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+            });
+        }
+    });
+</script>
+
 <style>
-#audience {
-    padding: 100px 0;
-}
-.audience-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-    gap: 30px;
-    margin-top: 40px;
-}
-.section-header {
-    text-align: center;
-    margin-bottom: 3rem;
-}
-.audience-card h3 {
-    margin-bottom: 1rem;
-    color: var(--color-primary);
-    font-size: 1.5rem;
-}
-.audience-card {
-    padding: 30px;
-}
-.audience-card ul li {
-    margin-bottom: 10px;
-    font-size: 0.95rem;
-}
+    #audience {
+        padding: 100px 0;
+    }
+    .section-desc {
+        max-width: 600px;
+        margin: 1rem auto 3rem;
+        color: var(--color-text-secondary);
+        text-align: center;
+    }
+    .audience-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+    .section-header {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+    .audience-card {
+        padding: 30px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease;
+    }
+    .audience-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-primary);
+    }
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    .audience-card h3 {
+        margin-bottom: 0.5rem;
+        color: var(--color-heading);
+        font-size: 1.5rem;
+    }
+    .audience-role {
+        color: var(--color-primary);
+        font-size: 0.9rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .audience-benefits {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        flex-grow: 1; /* Pushes content to fill space */
+    }
+    .audience-benefits li {
+        position: relative;
+        padding-left: 20px;
+        margin-bottom: 12px;
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+        line-height: 1.6;
+    }
+    .audience-benefits li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--color-primary);
+        font-weight: bold;
+    }
 </style>

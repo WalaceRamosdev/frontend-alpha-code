@@ -1,19 +1,27 @@
 <section id="about" class="bg-alt">
     <div class="container split-layout">
         <div class="text-content">
-            <h2>Sobre a Alpha Code</h2>
-            <p>
-                Nossa missão é eliminar a complexidade do digital para
-                profissionais que não têm tempo a perder. Acreditamos que um
-                site não deve ser apenas um cartão de visitas, mas uma
-                ferramenta ativa de vendas.
+            <h2 class="fade-up-about">
+                Sobre a <span class="text-primary">Alpha Code</span>
+            </h2>
+            <p class="fade-up-about delay-1">
+                Não somos apenas "fazedores de sites". Somos estrategistas
+                digitais focados em performance para profissionais de alto
+                nível.
             </p>
-            <p>
-                Focamos em design limpo, código otimizado e estratégias de
-                conversão reais. Sem letras miúdas, sem enrolação.
+            <p class="fade-up-about delay-2">
+                Nossa metodologia une <strong>Psicologia de Vendas</strong>, <strong
+                    >Design Premium</strong
+                > e
+                <strong>SEO Técnico</strong> para transformar visitantes desconhecidos
+                em clientes fiéis.
+            </p>
+            <p class="fade-up-about delay-3">
+                Eliminamos a complexidade tecnológica para que você possa focar
+                no que faz de melhor: atender seus clientes e pacientes.
             </p>
         </div>
-        <div class="image-content">
+        <div class="image-content fade-in-about">
             <!-- Placeholder for office/team image -->
             <img
                 src="/assets/teamAlphaCode.svg"
@@ -25,6 +33,43 @@
     </div>
 </section>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const section = document.getElementById("about");
+
+        if (section) {
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 75%",
+                },
+            });
+
+            tl.from(".fade-up-about", {
+                y: 30,
+                opacity: 0,
+                duration: 0.8,
+                stagger: 0.2,
+                ease: "power2.out",
+            }).from(
+                ".fade-in-about",
+                {
+                    x: 30,
+                    opacity: 0,
+                    duration: 1,
+                    ease: "power2.out",
+                },
+                "-=0.6",
+            );
+        }
+    });
+</script>
+
 <style>
     #about {
         padding: 100px 0;
@@ -32,18 +77,47 @@
     .split-layout {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 50px;
+        gap: 60px;
         align-items: center;
     }
-    @media (max-width: 768px) {
+
+    .text-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .text-content p {
+        font-size: 1.1rem;
+        color: var(--color-text-container);
+        margin-bottom: 1.5rem;
+        line-height: 1.7;
+    }
+
+    .text-content strong {
+        color: var(--color-text-main);
+    }
+
+    @media (max-width: 900px) {
         .split-layout {
             grid-template-columns: 1fr;
-            text-align: center; /* Center text on mobile */
+            text-align: center;
+            gap: 40px;
+        }
+        .image-content {
+            order: -1; /* Image first on mobile? Or last? keeping default order usually better for 'about' text reading first */
+            order: 2;
         }
     }
+
     .image-placeholder {
         width: 100%;
         border-radius: var(--radius-md);
-        box-shadow: var(--shadow-medium);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .image-placeholder:hover {
+        transform: translateY(-5px);
     }
 </style>
