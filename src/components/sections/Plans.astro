@@ -295,10 +295,14 @@ import Card from "../ui/Card.astro";
     }
 
     .w-full {
-        width: auto !important; /* Let content dictate width */
-        min-width: 200px; /* But keep a minimum */
-        padding-left: 2rem;
-        padding-right: 2rem;
+        width: 100% !important; /* Force full width */
+        min-width: 0;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+        font-weight: 700; /* Bold CTA */
+        text-transform: uppercase;
+        font-size: 0.95rem;
+        letter-spacing: 0.5px;
     }
 
     /* Featured button specific style if needed to contrast with red background */

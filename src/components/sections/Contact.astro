@@ -125,7 +125,12 @@ import Button from "../ui/Button.astro";
             font-size: 1.8rem;
         }
         .cta-card {
-            padding: 40px 20px;
+            padding: 40px 10px; /* Reduced side padding */
+        }
+        /* Ensure button text fits */
+        .btn-content {
+            white-space: nowrap;
+            font-size: 0.95rem; /* Slightly smaller font if needed */
         }
     }
 </style>

@@ -126,32 +126,38 @@ import Card from "../ui/Card.astro";
     }
     .audience-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr); /* 2 Columns on Desktop */
-        gap: 30px;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px; /* Slightly tighter gap for mobile */
         margin-top: 40px;
     }
 
     @media (max-width: 900px) {
         .audience-grid {
-            display: flex; /* Carousel on mobile/tablet */
-            overflow-x: auto;
-            scroll-snap-type: x mandatory;
-            padding-bottom: 2rem;
-            gap: 20px;
+            /* Keep it as grid, 2 columns */
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px; /* Tighter gap for small screens */
+            padding-bottom: 0;
+            display: grid;
+            overflow-x: visible;
         }
 
         .audience-card {
-            min-width: 280px; /* Ensure cards have width */
-            scroll-snap-align: center;
+            /* Remove min-width to allow shrinking to column width */
+            min-width: 0;
+            padding: 1.5rem; /* Reduce padding slightly */
         }
+    }
 
-        /* Hide Scrollbar */
-        .audience-grid::-webkit-scrollbar {
-            display: none;
-        }
+    @media (max-width: 480px) {
+        /* On VERY small screens, 2 columns might be unreadable. 
+           However, user asked for "2 columns". 
+           I will try to respect that, but if it breaks content, I'll fallback or adjust text size. 
+           Let's keep 2 columns but reduce side padding significantly. */
         .audience-grid {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+            gap: 10px;
+        }
+        .audience-card {
+            padding: 1rem;
         }
     }
     .section-header {
