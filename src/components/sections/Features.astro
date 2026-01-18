@@ -77,35 +77,36 @@ import Card from "../ui/Card.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const section = document.getElementById("why");
+    const section = document.getElementById("why");
 
-        if (section) {
-            gsap.from(".fade-up-title", {
-                scrollTrigger: {
-                    trigger: ".section-header",
-                    start: "top 80%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-            });
+    if (section) {
+        const header = section.querySelector(".section-header");
+        const grid = section.querySelector(".features-grid");
 
-            gsap.from(".feature-card", {
-                scrollTrigger: {
-                    trigger: ".features-grid",
-                    start: "top 75%",
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-            });
-        }
-    });
+        gsap.from(section.querySelectorAll(".fade-up-title"), {
+            scrollTrigger: {
+                trigger: header,
+                start: "top 80%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+        });
+
+        gsap.from(section.querySelectorAll(".feature-card"), {
+            scrollTrigger: {
+                trigger: grid,
+                start: "top 75%",
+            },
+            y: 50,
+            opacity: 0,
+            duration: 1,
+            stagger: 0.2,
+            ease: "power3.out",
+        });
+    }
 </script>
 
 <style>
