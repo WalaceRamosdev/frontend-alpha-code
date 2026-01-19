@@ -70,7 +70,11 @@ import Button from "../ui/Button.astro";
                         <span class="icon">🚀</span>
                         <h4>Máquina de Vendas</h4>
                         <div class="graph-visual">
-                            <svg viewBox="0 0 100 30" class="mini-graph">
+                            <svg
+                                viewBox="-5 -5 110 40"
+                                class="mini-graph"
+                                preserveAspectRatio="none"
+                            >
                                 <path
                                     d="M0,30 Q30,28 50,15 T100,0"
                                     fill="none"
@@ -453,6 +457,19 @@ import Button from "../ui/Button.astro";
         font-size: 1.5rem;
     }
 
+    .graph-visual {
+        margin-top: 15px;
+        height: 60px;
+        width: 100%;
+        overflow: visible;
+    }
+
+    .mini-graph {
+        width: 100%;
+        height: 100%;
+        overflow: visible !important;
+    }
+
     .path-line {
         stroke: var(--color-primary);
         stroke-width: 3;
@@ -462,22 +479,27 @@ import Button from "../ui/Button.astro";
 
     .path-dot {
         fill: white;
-        filter: drop-shadow(0 0 5px white);
-        animation: pulsePoint 2s infinite;
+        filter: drop-shadow(0 0 8px white);
+        animation: pulsePoint 1.5s infinite ease-in-out;
+        transform-box: fill-box;
+        transform-origin: center;
     }
 
     @keyframes pulsePoint {
         0% {
             transform: scale(1);
             opacity: 1;
+            filter: drop-shadow(0 0 5px white);
         }
         50% {
-            transform: scale(1.5);
-            opacity: 0.7;
+            transform: scale(1.8);
+            opacity: 0.8;
+            filter: drop-shadow(0 0 15px white);
         }
         100% {
             transform: scale(1);
             opacity: 1;
+            filter: drop-shadow(0 0 5px white);
         }
     }
 
