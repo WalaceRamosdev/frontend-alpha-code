@@ -44,71 +44,56 @@ import Button from "../ui/Button.astro";
         </div>
 
         <div class="hero-visual fade-in">
-            <div class="glass-panel perspective-card">
-                <div class="chart-slider">
-                    <!-- Slide 1: Growth Chart -->
-                    <div class="slide active">
-                        <div class="chart-header">
-                            <span class="icon-box">📈</span>
-                            <div>
-                                <h3>Autoridade & Conversão</h3>
-                                <small>Otimização para máximo resultado</small>
-                            </div>
+            <div class="comparison-container">
+                <!-- BEFORE CARD (Background/Dimmed) -->
+                <div class="card-before">
+                    <div class="status-badge offline">OFFLINE</div>
+                    <div class="card-content">
+                        <span class="icon">🚫</span>
+                        <h4>Sem Site Profissional</h4>
+                        <div class="mini-stat">
+                            <span class="label">Visibilidade</span>
+                            <span class="value">0%</span>
                         </div>
-                        <div class="chart-body">
-                            <svg viewBox="0 0 300 150" class="chart-svg">
-                                <defs>
-                                    <linearGradient
-                                        id="chartFill"
-                                        x1="0"
-                                        y1="0"
-                                        x2="0"
-                                        y2="1"
-                                    >
-                                        <stop
-                                            offset="0%"
-                                            stop-color="var(--color-primary)"
-                                            stop-opacity="0.4"></stop>
-                                        <stop
-                                            offset="100%"
-                                            stop-color="var(--color-primary)"
-                                            stop-opacity="0"></stop>
-                                    </linearGradient>
-                                </defs>
+                        <div class="mini-stat">
+                            <span class="label">Clientes</span>
+                            <span class="value">Limitados</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFTER CARD (Foreground/Glowing) -->
+                <div class="card-after">
+                    <div class="status-badge online">ONLINE 24H</div>
+                    <div class="glow-effect"></div>
+                    <div class="card-content">
+                        <span class="icon">🚀</span>
+                        <h4>Máquina de Vendas</h4>
+                        <div class="graph-visual">
+                            <svg viewBox="0 0 100 30" class="mini-graph">
                                 <path
-                                    d="M0,150 L300,150"
-                                    stroke="var(--border-light)"
-                                    stroke-width="1"></path>
-                                <path
-                                    d="M0,150 Q50,140 100,100 T290,20"
-                                    fill="url(#chartFill)"
-                                    stroke="var(--color-primary)"
-                                    stroke-width="3"
-                                    class="draw-path"></path>
-                                <circle
-                                    cx="290"
-                                    cy="20"
-                                    r="5"
-                                    fill="white"
-                                    stroke="var(--color-primary)"
-                                    stroke-width="2"
-                                    class="pulse-point"></circle>
+                                    d="M0,30 Q30,28 50,15 T100,0"
+                                    fill="none"
+                                    class="path-line"></path>
+                                <circle cx="100" cy="0" r="3" class="path-dot"
+                                ></circle>
                             </svg>
                         </div>
-                        <div class="stat-row">
-                            <div class="stat-item">
-                                <span class="stat-value">+300%</span>
-                                <span class="stat-label">Visibilidade</span>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <span class="value">+300%</span>
+                                <span class="label">Alcance</span>
                             </div>
-                            <div class="stat-item">
-                                <span class="stat-value">24h</span>
-                                <span class="stat-label">Vendendo</span>
+                            <div class="stat-box">
+                                <span class="value">Aut.</span>
+                                <span class="label">Vendas</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!-- Reflection -->
-                <div class="glass-shine"></div>
+
+                <!-- Connection/Transformation Element -->
+                <div class="transform-arrow">➔</div>
             </div>
         </div>
     </div>
@@ -153,19 +138,33 @@ import Button from "../ui/Button.astro";
                 "-=0.8",
             );
 
-        // Hero Visual Animation
-        gsap.fromTo(
-            ".hero-visual",
-            { x: 50, opacity: 0, rotationY: 10 },
-            {
-                x: 0,
-                opacity: 1,
-                rotationY: 0,
-                duration: 1.5,
-                ease: "power2.out",
-                delay: 0.5,
-            },
-        );
+        // Comparison Animation
+        const visualTl = gsap.timeline({ delay: 0.5 });
+
+        visualTl
+            .fromTo(
+                ".card-before",
+                { x: 50, opacity: 0, scale: 0.9 },
+                { x: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
+            )
+            .fromTo(
+                ".transform-arrow",
+                { opacity: 0, scale: 0 },
+                { opacity: 1, scale: 1, duration: 0.5 },
+                "-=0.5",
+            )
+            .fromTo(
+                ".card-after",
+                { x: -50, opacity: 0, scale: 1.1 },
+                {
+                    x: 0,
+                    opacity: 1,
+                    scale: 1,
+                    duration: 1.2,
+                    ease: "back.out(1.7)",
+                },
+                "-=0.3",
+            );
 
         // Mouse Parallax for Orbs
         const orbs = document.querySelectorAll(".orb");
@@ -264,8 +263,8 @@ import Button from "../ui/Button.astro";
 
     .hero-container-grid {
         display: grid;
-        grid-template-columns: 1fr 0.8fr;
-        gap: 4rem;
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem;
         align-items: center;
         position: relative;
         z-index: 10;
@@ -305,114 +304,192 @@ import Button from "../ui/Button.astro";
         filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
     }
 
-    /* Glass Card */
-    .glass-panel {
-        background: rgba(20, 20, 20, 0.6);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(20px);
-        border-radius: 24px;
-        padding: 30px;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    /* Comparison Container */
+    .comparison-container {
         position: relative;
-        overflow: hidden;
-        transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
-        transition: transform 0.5s ease;
-    }
-
-    .glass-panel:hover {
-        transform: perspective(1000px) rotateY(0) rotateX(0);
-        border-color: rgba(255, 255, 255, 0.2);
-    }
-
-    .glass-shine {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 100%;
-        background: linear-gradient(
-            120deg,
-            transparent 30%,
-            rgba(255, 255, 255, 0.1) 50%,
-            transparent 70%
-        );
-        transform: translateX(-100%);
-        transition: transform 0.6s;
-    }
-    .glass-panel:hover .glass-shine {
-        transform: translateX(100%);
-        transition: transform 0.8s;
-    }
-
-    .chart-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 20px;
-    }
-    .icon-box {
-        width: 40px;
-        height: 40px;
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 10px;
+        width: 100%;
+        max-width: 500px;
+        height: 400px;
+        margin: 0 auto;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
     }
 
-    .draw-path {
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        animation: drawChart 2s ease-out forwards 0.5s;
+    .card-before,
+    .card-after {
+        position: absolute;
+        width: 280px;
+        border-radius: 20px;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+        backdrop-filter: blur(10px);
+        transition: transform 0.4s ease;
     }
 
-    @keyframes drawChart {
-        to {
-            stroke-dashoffset: 0;
-        }
+    /* Before Card - The "Bad" state */
+    .card-before {
+        background: rgba(30, 30, 30, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        left: 0;
+        top: 20%;
+        z-index: 1;
+        transform: rotate(-5deg) scale(0.95);
+        filter: grayscale(100%) opacity(0.7);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
-    .pulse-point {
-        transform-origin: center;
-        transform-box: fill-box;
-        animation: pulse 2s infinite;
+    .card-before .status-badge {
+        background: rgba(255, 255, 255, 0.1);
+        color: #aaa;
     }
 
-    @keyframes pulse {
-        0% {
-            stroke-width: 2;
-            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
-        }
-        50% {
-            stroke-width: 4;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.9));
-        }
-        100% {
-            stroke-width: 2;
-            filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.5));
-        }
+    .card-before h4 {
+        color: #888;
+        font-size: 1.1rem;
+        margin: 15px 0;
+    }
+    /* After Card - The "Good" state */
+    .card-after {
+        background: rgba(20, 0, 0, 0.9); /* Dark Red tint */
+        border: 1px solid rgba(138, 28, 38, 0.3);
+        right: 0;
+        bottom: 15%;
+        z-index: 3;
+        transform: rotate(3deg) scale(1.05);
+        box-shadow: 0 20px 50px rgba(138, 28, 38, 0.3);
     }
 
-    .stat-row {
+    .card-after .glow-effect {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at top right,
+            rgba(214, 40, 57, 0.2),
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+
+    .card-after .status-badge {
+        background: var(--color-primary);
+        color: white;
+        box-shadow: 0 0 15px rgba(214, 40, 57, 0.6);
+    }
+
+    .card-after h4 {
+        color: white;
+        font-size: 1.3rem;
+        margin: 15px 0;
+        font-weight: 700;
+    }
+
+    .status-badge {
+        align-self: flex-start;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: bold;
+        letter-spacing: 1px;
+    }
+
+    .icon {
+        font-size: 2rem;
+    }
+
+    /* Stats Styling */
+    .mini-stat {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
-        padding-top: 20px;
-        border-top: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        color: #666;
+        font-size: 0.9rem;
     }
-    .stat-item {
+
+    .stats-grid {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+
+    .stat-box {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 10px;
+        border-radius: 10px;
+        flex: 1;
         text-align: center;
+        border: 1px solid rgba(255, 255, 255, 0.1);
     }
-    .stat-value {
+
+    .stat-box .value {
         display: block;
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: white;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: var(--color-primary);
     }
-    .stat-label {
-        font-size: 0.8rem;
-        color: var(--color-text-muted);
+
+    .stat-box .label {
+        font-size: 0.75rem;
+        color: #ccc;
+        text-transform: uppercase;
+    }
+
+    /* Decoration */
+    .transform-arrow {
+        position: absolute;
+        background: white;
+        color: black;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        z-index: 2;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+        font-size: 1.5rem;
+    }
+
+    .path-line {
+        stroke: var(--color-primary);
+        stroke-width: 3;
+        stroke-linecap: round;
+        filter: drop-shadow(0 0 5px var(--color-primary));
+    }
+
+    .path-dot {
+        fill: white;
+        filter: drop-shadow(0 0 5px white);
+        animation: pulsePoint 2s infinite;
+    }
+
+    @keyframes pulsePoint {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+        50% {
+            transform: scale(1.5);
+            opacity: 0.7;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    /* Hover Effects */
+    .comparison-container:hover .card-before {
+        transform: rotate(-10deg) scale(0.9) translateX(-20px);
+        filter: grayscale(100%) opacity(0.5) blur(2px);
+    }
+
+    .comparison-container:hover .card-after {
+        transform: rotate(0deg) scale(1.1) translateX(-10px);
+        z-index: 10;
     }
 
     @media (max-width: 968px) {
@@ -430,10 +507,8 @@ import Button from "../ui/Button.astro";
         .hero-cta {
             justify-content: center;
         }
-        .glass-panel {
-            transform: none;
-            max-width: 500px;
-            margin: 0 auto;
+        .comparison-container {
+            height: 350px;
         }
     }
 </style>
