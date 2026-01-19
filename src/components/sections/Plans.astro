@@ -20,7 +20,10 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Simples</h3>
                     <div class="price"><small>R$</small> 347</div>
-                    <p class="subtitle">Entrada Essencial</p>
+                    <p class="plan-desc">
+                        Estrutura essencial e veloz. Ideal para validar sua
+                        presença online sem complicação.
+                    </p>
                 </div>
                 <!-- Features removed for homepage as requested -->
                 <div class="action-btn">
@@ -38,7 +41,10 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Completa</h3>
                     <div class="price text-primary"><small>R$</small> 599</div>
-                    <p class="subtitle">Para quem quer ser referência</p>
+                    <p class="plan-desc">
+                        Layout profissional e estratégico. Atraia e converta
+                        clientes para seu negócio 24h por dia.
+                    </p>
                 </div>
                 <!-- Features removed for homepage as requested -->
                 <div class="action-btn">
@@ -55,7 +61,10 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Premium</h3>
                     <div class="price"><small>R$</small> 947</div>
-                    <p class="subtitle">Solução Definitiva</p>
+                    <p class="plan-desc">
+                        Autoridade máxima e performance. Design exclusivo e
+                        otimização total: sua máquina de vendas.
+                    </p>
                 </div>
                 <!-- Features removed for homepage as requested -->
                 <div class="action-btn">
@@ -222,10 +231,13 @@ import Card from "../ui/Card.astro";
         font-weight: 400;
     }
 
-    .subtitle {
-        font-size: 1rem;
-        color: rgba(255, 255, 255, 0.6);
-        font-style: normal; /* Cleaner non-italic */
+    .plan-desc {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        max-width: 90%;
+        margin: 0 auto;
+        font-weight: 300;
     }
 
     /* Badge Animation Keyframes */
