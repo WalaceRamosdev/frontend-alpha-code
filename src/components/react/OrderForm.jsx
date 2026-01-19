@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 const plans = {
-    'simples': { name: 'Página Simples', price: 'R$ 247', id: 'Página Simples' },
-    'completa': { name: 'Página Completa', price: 'R$ 399', id: 'Página Completa' },
-    'premium': { name: 'Página Premium', price: 'R$ 647', id: 'Página Premium' },
+    'simples': { name: 'Página Simples', price: 'R$ 347', id: 'Página Simples' },
+    'completa': { name: 'Página Completa', price: 'R$ 599', id: 'Página Completa' },
+    'premium': { name: 'Página Premium', price: 'R$ 947', id: 'Página Premium' },
     'manutencao': { name: 'Manutenção', price: 'R$ 100', id: 'Manutenção' }
 };
 
