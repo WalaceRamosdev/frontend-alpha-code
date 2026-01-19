@@ -28,11 +28,11 @@ export const projectsData = [
         link: 'https://advogada-aline-barbosa.vercel.app/'
     },
     {
-        name: 'Amanda Toledo',
-        type: 'Nutricionista',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/amandaToledo.svg',
-        link: 'https://amanda-toledo.vercel.app/'
+        name: 'ARQ.',
+        type: 'Arquitetura',
+        category: 'institucional',
+        image: '/assets/imagens-de-paginas/arquiteto.svg',
+        link: 'https://projeto-arquiteto.vercel.app/'
     },
     {
         name: 'João Silva',
@@ -61,6 +61,13 @@ export const projectsData = [
         category: 'institucional',
         image: '/assets/imagens-de-paginas/ctim.svg',
         link: 'https://ctim.vercel.app/'
+    },
+    {
+        name: 'Fotografia',
+        type: 'Fotografia',
+        category: 'institucional',
+        image: '/assets/imagens-de-paginas/fotografia.svg',
+        link: 'https://projeto-fotografo-two.vercel.app/'
     },
     {
         name: 'Nexus Contabilidade',
