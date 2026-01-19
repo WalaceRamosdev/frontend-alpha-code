@@ -1,6 +1,6 @@
 ---
-import BaseLayout from '../layouts/BaseLayout.astro';
-import OrderForm from '../components/react/OrderForm.jsx';
+import BaseLayout from "../layouts/BaseLayout.astro";
+import OrderForm from "../components/react/OrderForm.jsx";
 
 const title = "Finalizar Pedido | Alpha Code";
 ---
@@ -12,15 +12,25 @@ const title = "Finalizar Pedido | Alpha Code";
                 <h1>Vamos iniciar seu projeto</h1>
                 <p>Preencha os dados abaixo para oficializar seu pedido.</p>
             </div>
-            
-            <OrderForm client:only="react" />
+
+            <OrderForm client:load />
         </div>
     </section>
 </BaseLayout>
 
 <style>
-.order-page { padding: 80px 0; }
-.order-header { text-align: center; margin-bottom: 40px; }
-h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
-p { color: var(--color-text-light); }
+    .order-page {
+        padding: 80px 0;
+    }
+    .order-header {
+        text-align: center;
+        margin-bottom: 40px;
+    }
+    h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+    }
+    p {
+        color: var(--color-text-light);
+    }
 </style>
