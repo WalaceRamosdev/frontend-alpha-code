@@ -48,7 +48,9 @@ import Button from "../ui/Button.astro";
                 </div>
                 <span class="trust-text">
                     Mais de <strong class="text-white">531 profissionais</strong
-                    > posicionados no digital.<br><strong>SEJA VOCÊ O PRÓXIMO !</strong>
+                    > posicionados no digital.<br /><strong
+                        >SEJA VOCÊ O PRÓXIMO !</strong
+                    >
                 </span>
             </div>
         </div>
@@ -297,7 +299,7 @@ import Button from "../ui/Button.astro";
         font-weight: 800;
         text-transform: uppercase;
         letter-spacing: 2px;
-        margin-bottom: 2.5rem;
+        margin-bottom: 0; /* Margin controlada pelo container */
         box-shadow: 0 0 30px rgba(138, 28, 38, 0.2);
         backdrop-filter: blur(10px);
         animation: badgePulse 4s infinite ease-in-out;
@@ -343,6 +345,40 @@ import Button from "../ui/Button.astro";
             box-shadow: 0 0 45px rgba(214, 40, 57, 0.4);
             transform: translateY(-2px);
         }
+    }
+
+    .badges-container {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+    }
+
+    .badge.international {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.2);
+        box-shadow: none;
+        animation: none;
+        transition: 0.3s;
+    }
+
+    .badge.international:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .flags-only {
+        font-size: 1.1rem;
+        letter-spacing: 2px;
+        opacity: 0.9;
+        filter: grayscale(20%);
+        transition: 0.3s;
+    }
+
+    .badge.international:hover .flags-only {
+        filter: grayscale(0%);
+        opacity: 1;
     }
 
     .hero-text h1 {

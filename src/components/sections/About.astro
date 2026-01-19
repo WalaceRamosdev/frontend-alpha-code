@@ -8,6 +8,16 @@ import Button from "../ui/Button.astro";
             <h2 class="fade-up-about">
                 Sobre a <br /><span class="text-primary">Alpha Code</span>
             </h2>
+
+            <div class="global-presence fade-up-about delay-1">
+                <span class="presence-icon">🌍</span>
+                <span class="presence-text"
+                    >Atendendo <strong>Brasil</strong> e <strong>Europa</strong
+                    ></span
+                >
+                <div class="mini-flags">🇧🇷 🇵🇹 🇪🇺</div>
+            </div>
+
             <p class="fade-up-about delay-1">
                 Não somos apenas "fazedores de sites". Somos estrategistas
                 digitais focados em performance para profissionais de alto
@@ -201,6 +211,51 @@ import Button from "../ui/Button.astro";
 
     .icon-whatsapp {
         margin-right: 10px;
+    }
+
+    /* GLOBAL PRESENCE BADGE */
+    .global-presence {
+        display: inline-flex;
+        align-items: center;
+        gap: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 10px 20px;
+        border-radius: 12px;
+        margin-bottom: 2rem;
+        backdrop-filter: blur(5px);
+        width: fit-content;
+    }
+
+    .presence-icon {
+        font-size: 1.2rem;
+        animation: spin-slow 10s linear infinite;
+    }
+
+    .presence-text {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.95rem;
+    }
+
+    .presence-text strong {
+        color: #fff;
+    }
+
+    .mini-flags {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+        padding-left: 10px;
+        border-left: 1px solid rgba(255, 255, 255, 0.1);
+        letter-spacing: 2px;
+    }
+
+    @keyframes spin-slow {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 
     /* PREMIUM GRAPHIC CARD */
