@@ -290,33 +290,45 @@ import Button from "../ui/Button.astro";
         .split-layout {
             grid-template-columns: 1fr;
             text-align: center;
-            gap: 50px;
+            gap: 40px;
         }
-        .image-content {
-            order: 2; /* Image after text on mobile */
-            display: flex;
-            justify-content: center;
-        }
+
         .text-content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            text-align: center;
         }
+
         .text-content h2 {
             font-size: 2.2rem;
-            text-align: center;
+            margin-bottom: 1.5rem;
         }
+
         .text-content p {
-            text-align: center;
-            max-width: 600px;
+            max-width: 500px;
             margin-left: auto;
             margin-right: auto;
         }
-        /* Target the div wrapper specifically */
-        .text-content div.fade-up-about {
+
+        /* Responsive button centering */
+        .text-content div {
             display: flex;
             justify-content: center;
             width: 100%;
+        }
+
+        .image-content {
+            order: 2;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .premium-graphic-card {
+            padding: 40px 20px;
+            width: 100%;
+            max-width: 400px;
         }
     }
 </style>
