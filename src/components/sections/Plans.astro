@@ -19,7 +19,9 @@ import Card from "../ui/Card.astro";
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
                     <h3>Página Simples</h3>
-                    <div class="price"><small>R$</small> 347</div>
+                    <div class="price price-highlight">
+                        <small>R$</small> 347
+                    </div>
                     <p class="plan-desc">
                         Estrutura essencial e veloz. Ideal para validar sua
                         presença online sem complicação.
@@ -40,7 +42,9 @@ import Card from "../ui/Card.astro";
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
                     <h3>Página Completa</h3>
-                    <div class="price text-primary"><small>R$</small> 599</div>
+                    <div class="price text-primary price-highlight">
+                        <small>R$</small> 599
+                    </div>
                     <p class="plan-desc">
                         Layout profissional e estratégico. Atraia e converta
                         clientes para seu negócio 24h por dia.
@@ -60,7 +64,9 @@ import Card from "../ui/Card.astro";
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
                     <h3>Página Premium</h3>
-                    <div class="price"><small>R$</small> 947</div>
+                    <div class="price price-highlight">
+                        <small>R$</small> 947
+                    </div>
                     <p class="plan-desc">
                         Autoridade máxima e performance. Design exclusivo e
                         otimização total: sua máquina de vendas.
@@ -229,6 +235,19 @@ import Card from "../ui/Card.astro";
         margin-top: 8px;
         color: rgba(255, 255, 255, 0.5);
         font-weight: 400;
+    }
+
+    .price-highlight {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+        display: inline-flex;
+        transform-origin: center;
+        transition: transform 0.3s ease;
+    }
+
+    .featured .price-highlight {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        scale: 1.1;
     }
 
     .plan-desc {
