@@ -15,15 +15,7 @@ const COUPONS = {
 
 export default function OrderForm() {
     const [formData, setFormData] = useState({
-        nome: '',
-        whatsapp: '',
-        email: '',
-        profissao: '',
-        objetivo: '',
-        cores: '',
-        referencias: '',
-        detalhes: '',
-        plano: ''
+        nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '', plano: ''
     });
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [isMaintenance, setIsMaintenance] = useState(false);
@@ -31,40 +23,31 @@ export default function OrderForm() {
     const [modalOpen, setModalOpen] = useState(false);
     const [whatsappUrl, setWhatsappUrl] = useState('');
     const [payBtnText, setPayBtnText] = useState('Pagar Agora (Pix ou Cartão) 💳');
-
-    // Coupon States
     const [couponCode, setCouponCode] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [couponError, setCouponError] = useState('');
     const [finalPrice, setFinalPrice] = useState(0);
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const planKey = urlParams.get('plan');
-
         if (planKey && plans[planKey]) {
             const plan = plans[planKey];
             setSelectedPlan(plan);
             setFormData(prev => ({ ...prev, plano: plan.name }));
             setFinalPrice(plan.numericPrice);
-
-            if (planKey === 'manutencao') {
-                setIsMaintenance(true);
-            }
+            if (planKey === 'manutencao') setIsMaintenance(true);
         }
-
-        fetch('https://backend-rp7j.onrender.com/health').catch(() => { });
     }, []);
 
     useEffect(() => {
         if (selectedPlan) {
             let price = selectedPlan.numericPrice;
             if (appliedCoupon) {
-                if (appliedCoupon.type === 'percent') {
-                    price = price * (1 - appliedCoupon.value / 100);
-                } else {
-                    price = Math.max(0, price - appliedCoupon.value);
-                }
+                price = appliedCoupon.type === 'percent'
+                    ? price * (1 - appliedCoupon.value / 100)
+                    : Math.max(0, price - appliedCoupon.value);
             }
             setFinalPrice(price);
         }
@@ -81,435 +64,233 @@ export default function OrderForm() {
         }
     };
 
-    const removeCoupon = () => {
-        setAppliedCoupon(null);
-    };
-
-    const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const [errorMessage, setErrorMessage] = useState('');
+    const removeCoupon = () => setAppliedCoupon(null);
+    const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
         setErrorMessage('');
-
-        const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
-
-        let payloadOrcamento = formData.cores;
-        if (isMaintenance) {
-            payloadOrcamento = formData.profissao;
-        }
-
-        const isPaidTest = formData.nome.toUpperCase().includes('TESTE PAGO') || formData.detalhes.toUpperCase().includes('TESTE PAGO');
-
         try {
+            const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
+            const isPaidTest = formData.nome.toUpperCase().includes('TESTE PAGO') || formData.detalhes.toUpperCase().includes('TESTE PAGO');
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    nome: formData.nome,
-                    email: formData.email,
-                    whatsapp: formData.whatsapp,
-                    profissao: formData.profissao,
-                    servico: isMaintenance ? 'Manutenção' : formData.objetivo,
-                    detalhes: formData.detalhes,
-                    plano: formData.plano,
-                    orcamento: payloadOrcamento,
-                    isMaintenance: isMaintenance,
-                    isPaid: isPaidTest,
-                    coupon: appliedCoupon ? appliedCoupon.code : null,
-                    price: finalPrice
-                })
+                body: JSON.stringify({ ...formData, isMaintenance, isPaid: isPaidTest, coupon: appliedCoupon?.code, price: finalPrice })
             });
 
             if (response.ok) {
-                let messageBody = `*NOVO PEDIDO DE SITE - ALPHA CODE* 🚀\n\n` +
-                    `*DADOS DO CLIENTE:*\n` +
-                    `- *Nome:* ${formData.nome}\n` +
-                    `- *WhatsApp:* ${formData.whatsapp}\n` +
-                    `- *Email:* ${formData.email}\n` +
-                    `- *${isMaintenance ? 'Link do Site' : 'Profissão'}:* ${formData.profissao}\n\n` +
-                    `----------------------------------\n` +
-                    `*RESUMO DO PEDIDO:*\n` +
-                    `- *Serviço:* ${isMaintenance ? 'Manutenção' : formData.plano}\n` +
-                    `- *Valor Original:* ${selectedPlan?.price}\n` +
-                    (appliedCoupon ? `- *Cupom:* ${appliedCoupon.code} (${appliedCoupon.type === 'percent' ? appliedCoupon.value + '%' : 'R$ ' + appliedCoupon.value} OFF)\n` : '') +
-                    `- *VALOR FINAL:* R$ ${finalPrice.toFixed(2)}\n` +
-                    `----------------------------------\n` +
-                    `*DETALHES / EXPECTATIVAS:*\n` +
-                    `${formData.detalhes}`;
-
-                const encodedMessage = encodeURIComponent(messageBody);
-                setWhatsappUrl(`https://wa.me/5521999064502?text=${encodedMessage}`);
+                let messageBody = `*NOVO PEDIDO - ALPHA CODE* 🚀\n\n` +
+                    `*CLIENTE:* ${formData.nome}\n` +
+                    `*EMAIL:* ${formData.email}\n` +
+                    `*PLANO:* ${formData.plano}\n` +
+                    `*VALOR:* R$ ${finalPrice.toFixed(2).replace('.', ',')}\n\n` +
+                    `*DETALHES:* ${formData.detalhes}`;
+                setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
                 setModalOpen(true);
-                // Don't reset everything yet to keep context for payment, but clear form
                 setFormData({ ...formData, nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '' });
-            } else {
-                throw new Error('Erro na resposta do servidor');
-            }
+            } else throw new Error('Erro servidor');
         } catch (error) {
-            console.error('Erro:', error);
-            setErrorMessage('Ocorreu um erro ao enviar. Por favor, tente falar diretamente no WhatsApp.');
-            let messageWhatsapp = `*Olá, tentei enviar um pedido pelo site mas deu erro.*%0AMeu nome: ${formData.nome}`;
-            setWhatsappUrl(`https://wa.me/5521999064502?text=${messageWhatsapp}`);
-        } finally {
-            setLoading(false);
-        }
+            setErrorMessage('Erro ao enviar. Tente o WhatsApp.');
+        } finally { setLoading(false); }
     };
 
     const handlePayment = async () => {
-        setPayBtnText('Redirecionando... 🔒');
-        setErrorMessage('');
+        setPayBtnText('Redirecionando...');
         try {
-            const backendUrl = 'https://backend-rp7j.onrender.com/create-checkout-session';
-            const res = await fetch(backendUrl, {
+            const res = await fetch('https://backend-rp7j.onrender.com/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({
-                    planName: selectedPlan?.id + (appliedCoupon ? ` (Cupom: ${appliedCoupon.code})` : ''),
-                    price: finalPrice.toFixed(2)
-                })
+                body: JSON.stringify({ planName: selectedPlan?.id + (appliedCoupon ? ` (${appliedCoupon.code})` : ''), price: finalPrice.toFixed(2) })
             });
-
-            if (!res.ok) throw new Error('Erro no pagamento');
             const data = await res.json();
-            if (data.url) {
-                window.open(data.url, '_blank');
-            } else {
-                throw new Error('URL de pagamento não gerada');
-            }
-        } catch (err) {
-            console.error(err);
-            setErrorMessage('Não foi possível iniciar o pagamento agora. Tente pelo WhatsApp.');
-            setPayBtnText('Pagar Agora (Pix ou Cartão) 💳');
-        }
+            if (data.url) window.location.href = data.url;
+        } catch (err) { setPayBtnText('Pagar Agora 💳'); }
     };
 
     return (
-        <div className="order-container-react" style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: '40px',
-            maxWidth: '1200px',
-            margin: '0 auto',
-            padding: '20px'
-        }}>
-            <aside className="plan-summary">
-                <div className="card" style={{
-                    padding: '30px',
-                    borderRadius: 'var(--radius-md)',
-                    backgroundColor: 'var(--color-bg-card)',
-                    border: '1px solid var(--color-primary)',
-                    boxShadow: 'var(--shadow-glow)',
-                    position: 'sticky',
-                    top: '100px',
-                    zIndex: 10
-                }}>
-                    <h3 style={{ fontSize: '1.2rem', marginBottom: '20px', color: 'var(--color-text-secondary)', textTransform: 'uppercase', letterSpacing: '1px' }}>Resumo do Pedido</h3>
+        <div className="order-main-wrapper">
+            <div className="order-grid">
+                {/* SIDEBAR */}
+                <aside className="order-sidebar">
+                    <div className="premium-card sticky-card">
+                        <div className="summary-section">
+                            <span className="label">Resumo do Pedido</span>
+                            <h2 className="plan-name">{selectedPlan ? selectedPlan.name : 'Carregando...'}</h2>
 
-                    <div className="selected-plan-details">
-                        <span className="plan-label" style={{ display: 'block', fontSize: '0.8rem', color: 'var(--color-text-muted)', marginBottom: '5px' }}>Serviço Selecionado:</span>
-                        <h2 style={{ fontSize: '1.8rem', marginBottom: '10px', color: 'var(--color-text-main)' }}>{selectedPlan ? selectedPlan.name : 'Selecione um plano'}</h2>
-
-                        <div style={{ display: 'flex', flexDirection: 'column', gap: '5px' }}>
-                            {appliedCoupon && (
-                                <span style={{ textDecoration: 'line-through', color: 'var(--color-text-muted)', fontSize: '1.2rem' }}>
-                                    {selectedPlan?.price}
-                                </span>
-                            )}
-                            <div className="summary-price" style={{ fontSize: '2.8rem', fontWeight: 'bold', color: 'var(--color-primary)', textShadow: '0 0 15px var(--color-primary-glow)' }}>
-                                R$ {finalPrice.toFixed(2).replace('.', ',')}
+                            <div className="price-stack">
+                                {appliedCoupon && <span className="old-price">{selectedPlan?.price}</span>}
+                                <span className="final-price">R$ {finalPrice.toFixed(2).replace('.', ',')}</span>
                             </div>
-                        </div>
 
-                        <hr style={{ margin: '20px 0', borderColor: 'rgba(255,255,255,0.1)' }} />
-
-                        {/* Coupon Section */}
-                        <div className="coupon-section" style={{ marginBottom: '20px' }}>
-                            {!appliedCoupon ? (
-                                <div style={{ display: 'flex', gap: '10px' }}>
-                                    <input
-                                        type="text"
-                                        placeholder="Cupom de Desconto"
-                                        value={couponCode}
-                                        onChange={(e) => setCouponCode(e.target.value)}
-                                        style={{
-                                            background: 'rgba(255,255,255,0.05)',
-                                            border: '1px solid rgba(255,255,255,0.1)',
-                                            borderRadius: 'var(--radius-sm)',
-                                            padding: '8px 12px',
-                                            color: '#fff',
-                                            width: '100%',
-                                            fontSize: '0.9rem'
-                                        }}
-                                    />
-                                    <button
-                                        onClick={handleApplyCoupon}
-                                        className="btn-primary"
-                                        style={{ padding: '8px 15px', fontSize: '0.8rem' }}
-                                    >
-                                        Aplicar
-                                    </button>
-                                </div>
-                            ) : (
-                                <div style={{
-                                    background: 'rgba(37, 211, 102, 0.1)',
-                                    border: '1px dashed #25D366',
-                                    padding: '10px 15px',
-                                    borderRadius: 'var(--radius-sm)',
-                                    display: 'flex',
-                                    justifyContent: 'space-between',
-                                    alignItems: 'center'
-                                }}>
-                                    <div>
-                                        <span style={{ color: '#25D366', fontWeight: 'bold', fontSize: '0.9rem' }}>{appliedCoupon.code}</span>
-                                        <span style={{ color: '#fff', marginLeft: '10px', fontSize: '0.8rem' }}>Aplicado!</span>
+                            <div className="coupon-box">
+                                {!appliedCoupon ? (
+                                    <div className="coupon-input-group">
+                                        <input type="text" placeholder="Cupom" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} />
+                                        <button type="button" onClick={handleApplyCoupon} className="apply-btn">OK</button>
                                     </div>
-                                    <button onClick={removeCoupon} style={{ background: 'none', border: 'none', color: 'var(--color-primary)', cursor: 'pointer', fontWeight: 'bold' }}>&times;</button>
+                                ) : (
+                                    <div className="applied-badge">
+                                        <span>{appliedCoupon.code} <small>Ativado</small></span>
+                                        <button type="button" onClick={removeCoupon}>&times;</button>
+                                    </div>
+                                )}
+                                {couponError && <p className="error">{couponError}</p>}
+                            </div>
+
+                            <div className="trust-badges">
+                                <span>💎 Pagamento Único</span>
+                                <span>🔒 Seguro</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                {/* FORM */}
+                <main className="order-content">
+                    <form onSubmit={handleSubmit} className="premium-card form-inner">
+                        <section className="form-step">
+                            <div className="step-header">
+                                <span className="step-num">01</span>
+                                <h3>Seus Dados</h3>
+                            </div>
+                            <div className="inputs-grid">
+                                <div className="field">
+                                    <label>Nome Completo</label>
+                                    <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
                                 </div>
-                            )}
-                            {couponError && <p style={{ color: 'var(--color-primary)', fontSize: '0.8rem', mt: '5px', textAlign: 'left' }}>{couponError}</p>}
-                        </div>
-
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--color-text-secondary)' }}>
-                            <span style={{ fontSize: '1.2rem' }}>💎</span>
-                            <p style={{ margin: 0, fontSize: '0.85rem' }}>{isMaintenance ? 'Manutenção Profissional' : 'Pagamento Único • Sem Mensalidades'}</p>
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <form onSubmit={handleSubmit} className="order-form" style={{
-                background: 'var(--color-bg-surface)',
-                padding: '40px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border-light)',
-                boxShadow: 'var(--shadow-soft)'
-            }}>
-                <div style={{ marginBottom: '60px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '40px' }}>
-                        <span style={{ background: 'var(--color-primary)', color: 'white', width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>1</span>
-                        <h3 style={{ margin: 0, fontSize: '1.6rem' }}>Suas Informações</h3>
-                    </div>
-
-                    <div className="grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr', gap: '25px' }}>
-                        <div className="form-control">
-                            <label>Nome Completo *</label>
-                            <input type="text" name="nome" value={formData.nome} onChange={handleChange} required className="input-field" placeholder="Como devemos te chamar?" />
-                        </div>
-                        <div className="form-control">
-                            <label>WhatsApp *</label>
-                            <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required className="input-field" placeholder="(XX) XXXXX-XXXX" />
-                        </div>
-                        <div className="form-control">
-                            <label>E-mail *</label>
-                            <input type="email" name="email" value={formData.email} onChange={handleChange} required className="input-field" placeholder="seu@email.com" />
-                        </div>
-                        <div className="form-control">
-                            <label>{isMaintenance ? 'Link do Site (para manutenção) *' : 'Profissão / Área *'}</label>
-                            <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required className="input-field" placeholder={isMaintenance ? 'https://...' : 'Ex: Psicólogo, Advogado...'} />
-                        </div>
-                    </div>
-                </div>
-
-                {!isMaintenance && (
-                    <div style={{ marginBottom: '60px' }}>
-                        <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '40px' }}>
-                            <span style={{ background: 'var(--color-primary)', color: 'white', width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>2</span>
-                            <h3 style={{ margin: 0, fontSize: '1.6rem' }}>Sobre o Projeto</h3>
-                        </div>
-
-                        <div className="form-control">
-                            <label>Qual o objetivo principal do site? *</label>
-                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required className="input-field dropdown-select">
-                                <option value="" disabled style={{ color: '#888' }}>Selecione uma opção...</option>
-                                <option value="Captar Clientes">Captar mais clientes (Leads)</option>
-                                <option value="Autoridade Profissional">Gerar Autoridade Profissional</option>
-                                <option value="Apresentar Serviços">Apresentar Serviços/Portfólio</option>
-                                <option value="Venda Direta">Venda Direta</option>
-                                <option value="Outro">Outro (especificar nos detalhes)</option>
-                            </select>
-                        </div>
-                        <div className="grid-2" style={{ display: 'grid', gap: '25px', marginTop: '30px' }}>
-                            <div className="form-control">
-                                <label>Ideia de cores</label>
-                                <input type="text" name="cores" value={formData.cores} onChange={handleChange} className="input-field" placeholder="Ex: Azul marinho e Dourado" />
+                                <div className="field">
+                                    <label>WhatsApp</label>
+                                    <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
+                                </div>
+                                <div className="field">
+                                    <label>E-mail</label>
+                                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
+                                </div>
                             </div>
-                            <div className="form-control">
-                                <label>Referências (Opcional)</label>
-                                <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} className="input-field" placeholder="Links de sites que você gosta" />
-                            </div>
-                        </div>
-                    </div>
-                )}
+                        </section>
 
-                <div style={{ marginBottom: '40px' }}>
-                    <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginBottom: '40px' }}>
-                        <span style={{ background: 'var(--color-primary)', color: 'white', width: '35px', height: '35px', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 'bold' }}>3</span>
-                        <h3 style={{ margin: 0, fontSize: '1.6rem' }}>Detalhes Adicionais</h3>
-                    </div>
-                    <div className="form-control">
-                        <label>{isMaintenance ? 'O que precisa ser feito? *' : 'Conte mais sobre o que você precisa *'}</label>
-                        <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="5" required className="input-field" placeholder="Fale um pouco sobre seu negócio e suas expectativas..." style={{ width: '100%', padding: '15px' }}></textarea>
-                    </div>
-                </div>
-
-                {errorMessage && (
-                    <div style={{ marginTop: '20px', padding: '20px', background: 'rgba(214, 40, 57, 0.1)', border: '1px solid var(--color-primary)', borderRadius: 'var(--radius-md)', textAlign: 'center' }}>
-                        <p style={{ color: 'var(--color-primary)', fontWeight: 'bold', marginBottom: '15px' }}>{errorMessage}</p>
-                        {whatsappUrl && (
-                            <a href={whatsappUrl} target="_blank" className="btn btn-outline" style={{ display: 'inline-flex' }}>
-                                Falar no WhatsApp agora
-                            </a>
+                        {!isMaintenance && (
+                            <section className="form-step">
+                                <div className="step-header">
+                                    <span className="step-num">02</span>
+                                    <h3>Projeto</h3>
+                                </div>
+                                <div className="field">
+                                    <label>Objetivo</label>
+                                    <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                        <option value="">Selecione...</option>
+                                        <option value="Captar Clientes">Captar mais clientes</option>
+                                        <option value="Autoridade">Gerar Autoridade</option>
+                                        <option value="Vendas">Venda Direta</option>
+                                    </select>
+                                </div>
+                            </section>
                         )}
-                    </div>
-                )}
 
-                <button type="submit" className="btn btn-primary lg" style={{
-                    width: '100%',
-                    marginTop: '20px',
-                    height: '60px',
-                    fontSize: '1.2rem',
-                    textTransform: 'uppercase',
-                    letterSpacing: '1px'
-                }} disabled={loading}>
-                    {loading ? 'Enviando seu pedido...' : 'Finalizar e Enviar Pedido'}
-                </button>
-                <p style={{ textAlign: 'center', marginTop: '20px', color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
-                    🔒 Seus dados estão seguros e serão usados apenas para o seu projeto.
-                </p>
-            </form>
+                        <section className="form-step">
+                            <div className="step-header">
+                                <span className="step-num">{isMaintenance ? '02' : '03'}</span>
+                                <h3>Expectativas</h3>
+                            </div>
+                            <div className="field">
+                                <label>Conte mais sobre sua ideia</label>
+                                <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" required placeholder="Fale um pouco sobre o que você espera do seu site..."></textarea>
+                            </div>
+                        </section>
 
-            {loading && (
-                <div className="loading-overlay" style={{
-                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                    background: 'rgba(0, 0, 0, 0.85)',
-                    backdropFilter: 'blur(10px)',
-                    WebkitBackdropFilter: 'blur(10px)',
-                    display: 'flex', flexDirection: 'column',
-                    alignItems: 'center', justifyContent: 'center', zIndex: 2000
-                }}>
-                    <div className="loader" style={{
-                        width: '60px',
-                        height: '60px',
-                        border: '5px solid rgba(255,255,255,0.1)',
-                        borderTop: '5px solid var(--color-primary)',
-                        borderRadius: '50%',
-                        animation: 'spin 1s linear infinite',
-                        marginBottom: '20px'
-                    }}></div>
-                    <p style={{ color: '#fff', fontSize: '1.2rem', fontWeight: 'bold' }}>Enviando seu pedido...</p>
-                    <p style={{ color: 'rgba(255,255,255,0.6)', marginTop: '10px' }}>Por favor, aguarde um instante.</p>
-                </div>
-            )}
+                        <button type="submit" className="submit-main-btn" disabled={loading}>
+                            {loading ? 'Processando...' : 'Finalizar Pedido'}
+                        </button>
+                    </form>
+                </main>
+            </div>
 
+            {/* MODAL & LOADER (Simplified) */}
             {modalOpen && (
-                <div className="modal-overlay active" style={{
-                    position: 'fixed', top: 0, left: 0, width: '100%', height: '100%',
-                    background: 'rgba(0,0,0,0.85)', display: 'flex', alignItems: 'center', justifyContent: 'center', zIndex: 1000,
-                    backdropFilter: 'blur(5px)'
-                }}>
-                    <div className="modal-content" style={{
-                        background: 'var(--color-bg-card)',
-                        padding: '40px',
-                        borderRadius: 'var(--radius-md)',
-                        maxWidth: '500px',
-                        width: '95%',
-                        position: 'relative',
-                        color: 'var(--color-text-main)',
-                        border: '1px solid var(--color-primary)',
-                        boxShadow: '0 0 30px var(--color-primary-glow)',
-                        textAlign: 'center'
-                    }}>
-                        <button onClick={() => setModalOpen(false)} style={{
-                            position: 'absolute', top: '15px', right: '15px',
-                            background: 'none', border: 'none', fontSize: '2rem',
-                            cursor: 'pointer', color: 'var(--color-text-muted)'
-                        }}>&times;</button>
-
-                        <div style={{ marginBottom: '30px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-                            <img src="/assets/logo.svg" alt="Alpha Code Logo" style={{ width: '120px', height: 'auto', marginBottom: '20px' }} />
-                            <h2 style={{ marginBottom: '15px', color: 'var(--color-text-main)', fontSize: '2rem' }}>
-                                Pedido Recebido!
-                            </h2>
-                            <p style={{ color: 'var(--color-text-secondary)', marginBottom: '10px', fontSize: '1.1rem' }}>
-                                Seus dados foram enviados com sucesso.
-                            </p>
-                            <p style={{ color: 'var(--color-primary)', fontSize: '0.9rem', fontWeight: '600' }}>
-                                📧 Enviamos uma confirmação para seu e-mail.<br />
-                                <span style={{ opacity: 0.8 }}>(Verifique também sua pasta de SPAM)</span>
-                            </p>
-                        </div>
-
-                        <div style={{ display: 'flex', gap: '15px', flexDirection: 'column' }}>
-                            <button onClick={handlePayment} className="btn btn-primary lg" style={{ width: '100%' }}>
-                                {payBtnText}
-                            </button>
-                            <a href={whatsappUrl} target="_blank" className="btn btn-outline lg" style={{ width: '100%', textDecoration: 'none' }}>
-                                Confirmar no WhatsApp
-                            </a>
+                <div className="fixed-overlay">
+                    <div className="modal-box">
+                        <img src="/assets/logo.svg" className="modal-logo" />
+                        <h2>Sucesso!</h2>
+                        <p>Recebemos seus dados. Vamos finalizar?</p>
+                        <div className="modal-actions">
+                            <button onClick={handlePayment} className="pay-btn">{payBtnText}</button>
+                            <a href={whatsappUrl} target="_blank" className="wa-btn">WhatsApp</a>
                         </div>
                     </div>
                 </div>
             )}
 
             <style>{`
-                 .order-container-react {
-                     animation: fadeIn 0.8s ease-out;
-                 }
-                 @keyframes fadeIn {
-                     from { opacity: 0; transform: translateY(20px); }
-                     to { opacity: 1; transform: translateY(0); }
-                 }
-                 .form-control {
-                     margin-bottom: 5px;
-                 }
-                 .input-field {
-                     width: 100%;
-                     box-sizing: border-box;
-                     padding: 15px;
-                     border: 1px solid rgba(255,255,255,0.1);
-                     border-radius: var(--radius-sm);
-                     background: rgba(255,255,255,0.05);
-                     color: #fff;
-                     font-size: 1rem;
-                     transition: all 0.3s ease;
-                 }
-                 .input-field:focus {
-                     outline: none;
-                     border-color: var(--color-primary);
-                     background: rgba(255,255,255,0.08);
-                     box-shadow: 0 0 15px rgba(138, 28, 38, 0.2);
-                 }
-                 
-                 .dropdown-select option {
-                     background-color: var(--color-bg-card);
-                     color: var(--color-text-main);
-                     padding: 10px;
-                 }
+                .order-main-wrapper {
+                    max-width: 1200px;
+                    margin: 0 auto;
+                    padding: 0 5%;
+                }
+                .order-grid {
+                    display: grid;
+                    grid-template-columns: 1fr;
+                    gap: 30px;
+                    align-items: start;
+                }
+                @media (min-width: 992px) {
+                    .order-grid { grid-template-columns: 350px 1fr; gap: 50px; }
+                }
 
-                 label {
-                     display: block;
-                     margin-bottom: 10px;
-                     font-weight: 500;
-                     font-size: 0.9rem;
-                     color: var(--color-text-secondary);
-                 }
-                 @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-                 @media (min-width: 992px) {
-                     .order-container-react {
-                         grid-template-columns: 350px 1fr !important;
-                     }
-                 }
-                 @media (max-width: 768px) {
-                     .order-form { padding: 25px !important; }
-                     .grid-2 { grid-template-columns: 1fr !important; }
-                     .plan-summary { position: static !important; }
-                 }
-             `}</style>
+                .premium-card {
+                    background: rgba(255, 255, 255, 0.02);
+                    border: 1px solid rgba(255, 255, 255, 0.05);
+                    border-radius: 24px;
+                    backdrop-filter: blur(10px);
+                }
+
+                /* Sidebar Styles */
+                .sticky-card { padding: 30px; position: sticky; top: 100px; border-color: rgba(138, 28, 38, 0.3); }
+                .label { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
+                .plan-name { font-size: 1.8rem; margin: 10px 0; font-weight: 800; }
+                .price-stack { margin: 20px 0; display: flex; flex-direction: column; }
+                .old-price { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; }
+                .final-price { font-size: 2.5rem; font-weight: 900; color: #d62839; text-shadow: 0 0 20px rgba(214, 40, 57, 0.2); }
+
+                /* Form Styles */
+                .form-inner { padding: 40px; }
+                .form-step { margin-bottom: 40px; }
+                .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
+                .step-num { width: 32px; height: 32px; background: #d62839; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: 0.8rem; }
+                .inputs-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+                @media (min-width: 600px) { .inputs-grid { grid-template-columns: 1fr 1fr; } }
+                
+                .field { display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+                .field label { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.6); text-transform: uppercase; }
+                .field input, .field select, .field textarea {
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    padding: 15px; border-radius: 12px; color: #fff; font-size: 1rem;
+                }
+                .field input:focus { border-color: #d62839; outline: none; background: rgba(255,255,255,0.06); }
+
+                .submit-main-btn {
+                    width: 100%; padding: 20px; border-radius: 15px; background: #d62839; color: #fff;
+                    font-weight: 900; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s;
+                }
+                .submit-main-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(214, 40, 57, 0.3); }
+
+                /* Coupon Box */
+                .coupon-box { margin: 20px 0; }
+                .coupon-input-group { display: flex; background: rgba(255,255,255,0.05); border-radius: 10px; overflow: hidden; }
+                .coupon-input-group input { background: none; border: none; padding: 12px; color: #fff; flex: 1; }
+                .apply-btn { background: #fff; color: #000; border: none; padding: 0 20px; font-weight: 800; cursor: pointer; }
+                .applied-badge { background: rgba(37, 211, 102, 0.1); border: 1px dashed #25D366; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; color: #25D366; }
+
+                /* Fixed Overlay */
+                .fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); display: grid; place-items: center; z-index: 1000; padding: 20px; }
+                .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; }
+                .modal-logo { width: 100px; margin-bottom: 20px; }
+                .modal-actions { display: grid; gap: 10px; margin-top: 30px; }
+                .pay-btn { background: #d62839; color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
+                .wa-btn { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; }
+            `}</style>
         </div>
     );
 }

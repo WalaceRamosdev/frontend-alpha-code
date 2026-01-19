@@ -7,14 +7,12 @@ const title = "Finalizar Pedido | Alpha Code";
 
 <BaseLayout title={title} noIndex={true}>
     <section class="order-page">
-        <div class="container">
-            <div class="order-header">
-                <h1>Vamos iniciar seu projeto</h1>
-                <p>Preencha os dados abaixo para oficializar seu pedido.</p>
-            </div>
-
-            <OrderForm client:load />
+        <div class="order-header container">
+            <h1>Vamos iniciar seu projeto</h1>
+            <p>Preencha os dados abaixo para oficializar seu pedido.</p>
         </div>
+
+        <OrderForm client:load />
     </section>
 </BaseLayout>
 
@@ -24,13 +22,15 @@ const title = "Finalizar Pedido | Alpha Code";
     }
     .order-header {
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 60px;
     }
     h1 {
-        font-size: 2.5rem;
-        margin-bottom: 0.5rem;
+        font-size: clamp(2.5rem, 8vw, 3.5rem);
+        font-weight: 800;
+        margin-bottom: 1rem;
     }
     p {
         color: var(--color-text-light);
+        font-size: 1.1rem;
     }
 </style>
