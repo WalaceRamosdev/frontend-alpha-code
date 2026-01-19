@@ -16,9 +16,34 @@ const description =
     <section class="plans-hero">
         <div class="container text-center">
             <h1 class="fade-up">Compare Nossos Planos</h1>
-            <p class="fade-up delay-1">
-                Escolha a estrutura ideal para o seu crescimento.
+            <p class="hero-impact-text fade-up delay-1">
+                Escolha a estrutura ideal para o seu <span class="text-gradient"
+                    >crescimento exponencial</span
+                >.
             </p>
+
+            <!-- Triggers moved to top as requested -->
+            <div class="top-triggers fade-up delay-2">
+                <div class="trigger-item">
+                    <span class="icon">🛡️</span>
+                    <div class="text">
+                        <strong>Risco Zero</strong>
+                        <p>
+                            Garantia de satisfação ou ajustamos até ficar
+                            perfeito
+                        </p>
+                    </div>
+                </div>
+                <div class="trigger-item">
+                    <span class="icon">👑</span>
+                    <div class="text">
+                        <strong>Bônus Exclusivo</strong>
+                        <p>
+                            1 mês de suporte prioritário para quem fechar hoje
+                        </p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -31,19 +56,17 @@ const description =
             <Card variant="price" class="plan-regular fade-up">
                 <div class="price-header">
                     <h3>Página Simples</h3>
-                    <div class="price"><small>R$</small> 347</div>
+                    <div class="price price-highlight"><small>R$</small> 347</div>
                     <p class="plan-desc">
                         Ideal para quem precisa estar na internet <strong
                             >sem complicação</strong
-                        >. Perfeita para <strong>validar presença online</strong
-                        >.
+                        >. Perfeita para <strong>validar presença online</strong>.
                     </p>
                 </div>
 
                 <div class="plan-body">
                     <p class="scarcity-trigger">
-                        ⚡ <strong>Oferta de lançamento:</strong> Vagas limitadas
-                        para este mês.
+                        ⚡ <strong>Oferta de lançamento:</strong> Vagas limitadas para este mês.
                     </p>
                     <div class="spec-group">
                         <h4>O que inclui:</h4>
@@ -84,28 +107,24 @@ const description =
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
                     <h3>Página Completa</h3>
-                    <div class="price text-primary"><small>R$</small> 599</div>
+                    <div class="price text-primary price-highlight"><small>R$</small> 599</div>
                     <p class="plan-desc">
-                        Pensada para quem quer <strong
-                            >atrair e converter</strong
-                        >. Seu negócio trabalhando por você <strong
-                            >24h por dia</strong
+                        Pensada para quem quer <strong>atrair e converter</strong
+                        >. Seu negócio trabalhando por você <strong>24h por dia</strong
                         >.
                     </p>
                 </div>
 
                 <div class="plan-body">
                     <p class="social-proof-trigger">
-                        🔥 <strong>A escolha de 87%</strong> dos nossos clientes que
-                        querem resultado rápido.
+                        🔥 <strong>A escolha de 87%</strong> dos nossos clientes que querem resultado rápido.
                     </p>
                     <div class="spec-group">
                         <h4>O que inclui:</h4>
                         <ul class="features">
                             <li>
                                 <span class="check">✓</span>
-                                <strong>Layout Profissional</strong> que transmite
-                                autoridade
+                                <strong>Layout Profissional</strong> que transmite autoridade
                             </li>
                             <li>
                                 <span class="check">✓</span>
@@ -136,20 +155,16 @@ const description =
             <Card variant="price" class="plan-regular fade-up delay-2">
                 <div class="price-header">
                     <h3>Página Premium</h3>
-                    <div class="price"><small>R$</small> 947</div>
+                    <div class="price price-highlight"><small>R$</small> 947</div>
                     <p class="plan-desc">
-                        Para quem quer <strong
-                            >autoridade e vendas de verdade</strong
-                        >. Não é um site, é uma <strong
-                            >máquina de vendas</strong
-                        >.
+                        Para quem quer <strong>autoridade e vendas de verdade</strong
+                        >. Não é um site, é uma <strong>máquina de vendas</strong>.
                     </p>
                 </div>
 
                 <div class="plan-body">
                     <p class="authority-trigger">
-                        💎 <strong>Exclusividade:</strong> A mesma tecnologia usada
-                        por grandes empresas.
+                        💎 <strong>Exclusividade:</strong> A mesma tecnologia usada por grandes players.
                     </p>
                     <div class="spec-group">
                         <h4>O que inclui:</h4>
@@ -167,8 +182,8 @@ const description =
                                 Total
                             </li>
                             <li>
-                                <span class="check">✓</span> Integração total com
-                                seu ecossistema
+                                <span class="check">✓</span> Integração total com seu
+                                ecossistema
                             </li>
                         </ul>
                     </div>
@@ -183,32 +198,65 @@ const description =
                 </div>
             </Card>
         </div>
-
-        <!-- Section for further mental triggers/guarantees -->
-        <div class="triggers-section fade-up delay-3">
-            <div class="trigger-box">
-                <h4>🛡️ Risco Zero (Aversão à Perda)</h4>
-                <p>
-                    Seu site entregue com qualidade ou ajustamos até ficar
-                    perfeito. Não deixe seu concorrente passar na frente.
-                </p>
-            </div>
-            <div class="trigger-box">
-                <h4>👑 Bônus Exclusivo (Reciprocidade)</h4>
-                <p>
-                    Fechando hoje, você ganha <strong
-                        >1 mês de suporte prioritário grátis</strong
-                    >. Queremos ver você crescer.
-                </p>
-            </div>
-        </div>
     </section>
 </BaseLayout>
 
 <style is:global>
-    .plans-page-container .plans-hero {
-        padding: 80px 0;
+    .plans-hero {
+        padding: 80px 0 40px;
     }
+    .plans-hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+    }
+
+    .hero-impact-text {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #fff;
+        max-width: 800px;
+        margin: 0 auto 3rem;
+        line-height: 1.3;
+    }
+    
+    .top-triggers {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+    }
+
+    .trigger-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 15px;
+        background: rgba(255,255,255,0.05);
+        padding: 15px 25px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+        text-align: left;
+        max-width: 350px;
+    }
+
+    .trigger-item .icon {
+        font-size: 1.5rem;
+    }
+
+    .trigger-item .text strong {
+        display: block;
+        color: #fff;
+        font-size: 1rem;
+        margin-bottom: 4px;
+    }
+
+    .trigger-item .text p {
+        font-size: 0.9rem;
+        color: rgba(255,255,255,0.7);
+        margin: 0;
+        line-height: 1.4;
+    }
+
 
     .plans-page-container .pricing-grid {
         display: grid;
@@ -227,7 +275,155 @@ const description =
         box-sizing: border-box; /* Ensure padding doesn't break layout */
     }
 
-    /* ... skipped ... */
+    /* Price Highlight */
+    .price {
+        font-size: 4rem;
+        font-weight: 800;
+        color: #fff;
+        line-height: 1;
+        margin-bottom: 15px;
+        display: flex;
+        align-items: flex-start;
+        justify-content: center;
+        gap: 8px;
+        letter-spacing: -1px;
+    }
+
+    .price small {
+        font-size: 1.5rem;
+        margin-top: 8px;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 400;
+    }
+    
+    .price-highlight {
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+        transform: scale(1.05);
+        display: inline-flex;
+        transform-origin: center;
+        transition: transform 0.3s ease;
+    }
+
+    .featured .price-highlight {
+        text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        scale: 1.1;
+    }
+
+    .plan-desc {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        margin: 0 auto;
+        font-weight: 300;
+    }
+
+    /* BADGE STYLES */
+    @keyframes pulse-gold {
+        0% {
+            transform: translateX(-50%) scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
+        }
+        70% {
+            transform: translateX(-50%) scale(1.05);
+            box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
+        }
+        100% {
+            transform: translateX(-50%) scale(1);
+            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
+        }
+    }
+
+    .badge-gold {
+        position: absolute;
+        top: -16px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: linear-gradient(
+            135deg,
+            #8e6e34,
+            #c6a257,
+            #8e6e34
+        ); /* "Dourado Black" */
+        background-size: 200% 200%;
+        color: #000;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 1.2px;
+        box-shadow:
+            0 5px 15px rgba(0, 0, 0, 0.3),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        z-index: 100;
+        white-space: nowrap;
+        animation: pulse-gold 3s infinite ease-in-out;
+        border: 1px solid #fff;
+    }
+
+    /* Plan Body & Features */
+    .plan-body {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .spec-group h4 {
+        margin-bottom: 12px;
+        color: var(--color-text-main);
+        opacity: 0.8;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+    }
+
+    .features {
+        padding: 0;
+        list-style: none;
+        margin: 0;
+    }
+
+    .features li {
+        margin-bottom: 12px;
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 0.9rem;
+        line-height: 1.4;
+        color: var(--color-text-container);
+    }
+
+    .check {
+        color: var(--color-primary);
+        font-weight: bold;
+        font-size: 1.1rem;
+        line-height: 1;
+    }
+
+    .scarcity-trigger,
+    .social-proof-trigger,
+    .authority-trigger {
+        font-size: 0.85rem;
+        padding: 10px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        margin-bottom: 5px;
+        line-height: 1.4;
+        color: var(--color-text-light); /* Softer text color */
+    }
+    
+    .social-proof-trigger strong,
+    .scarcity-trigger strong,
+    .authority-trigger strong {
+            color: #fff;
+    }
+
+    .featured .social-proof-trigger {
+            background: rgba(0, 0, 0, 0.2);
+            border-color: rgba(255,255,255,0.1);
+    }
 
     /* Featured Card Styling - FORCED PRIMARY COLOR */
     /* Simplified selector to ensure it applies */
