@@ -76,21 +76,48 @@ const description =
                         <h4>O que inclui:</h4>
                         <ul class="features">
                             <li>
-                                <span class="check">✓</span> Página única com estrutura
-                                enxuta
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Página única</span
+                                    >
+                                    <span class="feature-desc"
+                                        >com estrutura enxuta</span
+                                    >
+                                </div>
                             </li>
                             <li>
                                 <span class="check">✓</span>
-                                <strong>Contato Rápido:</strong> Botões de WhatsApp
-                                estratégicos
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Contato Rápido</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Botões estratégicos</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> Carregamento <br
-                                /><strong>Veloz</strong> Para não perder cliques
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Carga Veloz</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Foco em performance</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> Informações essenciais
-                                organizadas
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Info Premium</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Organização total</span
+                                    >
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -132,21 +159,45 @@ const description =
                         <ul class="features">
                             <li>
                                 <span class="check">✓</span>
-                                <strong>Layout Profissional</strong> Que transmite
-                                autoridade
+                                <div class="feature-content">
+                                    <span class="feature-title">Layout Pro</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Foco em autoridade</span
+                                    >
+                                </div>
                             </li>
                             <li>
                                 <span class="check">✓</span>
-                                <strong>SEO Básico:</strong> Seja encontrado no Google
+                                <div class="feature-content">
+                                    <span class="feature-title">SEO Básico</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Apareça no Google</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> Seções <br
-                                />estratégicas de
-                                <strong>Conversão</strong>
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Seções de Conv.</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Estratégicas</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> CTA bem posicionado <br
-                                />(Chamada para Ação)
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >CTA Posicionado</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Foco em cliques</span
+                                    >
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -180,26 +231,53 @@ const description =
                 <div class="plan-body">
                     <p class="authority-trigger">
                         💎 <strong>Exclusividade:</strong> A mesma tecnologia usada
-                        por grandes <strong>  EMPRESAS</strong>.
+                        por grandes <strong> EMPRESAS</strong>.
                     </p>
                     <div class="spec-group">
                         <h4>O que inclui:</h4>
                         <ul class="features">
                             <li>
                                 <span class="check">✓</span>
-                                <strong>Design Exclusivo</strong> e SEO Avançado
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Design Único</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Identidade exclusiva</span
+                                    >
+                                </div>
                             </li>
                             <li>
                                 <span class="check">✓</span>
-                                <strong>Foco Agressivo</strong> em conversão e vendas
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >SEO Avançado</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Máxima visibilidade</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> Animações Premium e Otimização
-                                Total
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title"
+                                        >Foco em Vendas</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Conversão agressiva</span
+                                    >
+                                </div>
                             </li>
                             <li>
-                                <span class="check">✓</span> Integração total com
-                                seu ecossistema
+                                <span class="check">✓</span>
+                                <div class="feature-content">
+                                    <span class="feature-title">Ecosistema</span
+                                    >
+                                    <span class="feature-desc"
+                                        >Integração total</span
+                                    >
+                                </div>
                             </li>
                         </ul>
                     </div>
@@ -451,29 +529,70 @@ const description =
         gap: 20px;
     }
 
+    .spec-group {
+        margin-top: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     .spec-group h4 {
-        margin-bottom: 12px;
-        color: var(--color-text-main);
-        opacity: 0.8;
+        margin-bottom: 1.5rem;
+        color: rgba(255, 255, 255, 0.5);
         text-transform: uppercase;
-        letter-spacing: 1px;
-        font-size: 0.8rem;
+        letter-spacing: 2px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        width: 100%;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
     }
 
     .features {
         padding: 0;
         list-style: none;
         margin: 0;
+        display: inline-flex;
+        flex-direction: column;
+        gap: 15px;
+        width: fit-content;
     }
 
     .features li {
-        margin-bottom: 12px;
-        display: flex;
+        display: grid;
+        grid-template-columns: 20px 1fr;
+        gap: 12px;
         align-items: flex-start;
-        gap: 10px;
-        font-size: 0.9rem;
-        line-height: 1.4;
-        color: var(--color-text-container);
+        text-align: left;
+    }
+
+    .feature-content {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 15px;
+        align-items: baseline;
+    }
+
+    .feature-title {
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        letter-spacing: -0.2px;
+        white-space: nowrap;
+    }
+
+    .feature-desc {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.85rem;
+        font-weight: 300;
+    }
+
+    @media (max-width: 480px) {
+        .feature-content {
+            grid-template-columns: 1fr;
+            gap: 2px;
+        }
     }
 
     .check {
