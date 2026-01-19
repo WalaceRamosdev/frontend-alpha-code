@@ -181,24 +181,27 @@ import Card from "../ui/Card.astro";
 
     /* Global targeting for Card component root elements */
     /* Global targeting for Card component root elements */
+    /* Global targeting for Card component root elements */
     #plans :global(.price-card) {
-        padding: 2.5rem 2rem !important; /* More spacious padding */
+        padding: 3rem 2.5rem !important;
         display: flex;
         flex-direction: column;
-        height: auto;
+        height: 100%;
         box-sizing: border-box;
-        border-radius: 20px !important;
-        background: #0f0f0f; /* Solid dark background */
-        border: 1px solid rgba(255, 255, 255, 0.08); /* Subtle border */
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); /* Deep shadow */
-        transition:
-            transform 0.3s ease,
-            border-color 0.3s ease;
+        border-radius: 24px !important;
+        background: rgba(15, 15, 15, 0.6); /* Glassy default */
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
     }
 
     #plans :global(.price-card:hover) {
-        transform: translateY(-5px);
-        border-color: rgba(255, 255, 255, 0.2);
+        transform: translateY(-10px);
+        border-color: rgba(255, 255, 255, 0.15);
+        background: rgba(20, 20, 20, 0.8);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     }
 
     .price-header {
@@ -305,14 +308,19 @@ import Card from "../ui/Card.astro";
 
     /* Featured Card Styling - PRIMARY RED */
     #plans :global(.featured) {
-        border: none;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         position: relative;
         transform: scale(1.05); /* Stays larger */
         z-index: 5;
         background: var(--color-primary) !important; /* Solid Site Red */
         color: #ffffff !important;
-        box-shadow: 0 20px 50px rgba(138, 28, 38, 0.5); /* Glowing red shadow */
+        box-shadow: 0 25px 60px rgba(138, 28, 38, 0.6) !important;
         overflow: visible !important;
+    }
+
+    #plans :global(.featured:hover) {
+        transform: scale(1.07) translateY(-5px);
+        box-shadow: 0 35px 80px rgba(138, 28, 38, 0.8) !important;
     }
 
     /* Force all text inside featured to be white */
