@@ -160,7 +160,7 @@ import Button from "../ui/Button.astro";
         }).from(
             section.querySelectorAll(".fade-in-about"),
             {
-                x: 30,
+                y: 30, // Changed from x to y to avoid horizontal shift issues
                 opacity: 0,
                 duration: 1,
                 ease: "power2.out",
@@ -287,35 +287,54 @@ import Button from "../ui/Button.astro";
     }
 
     @media (max-width: 900px) {
+        #about {
+            padding: 60px 0;
+            overflow: hidden;
+            width: 100%;
+        }
+
         .split-layout {
             grid-template-columns: 1fr;
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
             gap: 40px;
+            width: 100%;
+            margin: 0 auto;
         }
 
         .text-content {
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             text-align: center;
+            width: 100%;
+            padding: 0 1rem;
+            margin: 0 auto;
         }
 
         .text-content h2 {
             font-size: 2.2rem;
             margin-bottom: 1.5rem;
+            text-align: center !important;
         }
 
         .text-content p {
-            max-width: 500px;
-            margin-left: auto;
-            margin-right: auto;
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto 1.5rem auto !important;
+            text-align: center !important;
         }
 
-        /* Responsive button centering */
-        .text-content div {
-            display: flex;
-            justify-content: center;
-            width: 100%;
+        /* Centering the button wrapper specifically */
+        .text-content div.fade-up-about {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            width: 100% !important;
+            margin: 1.5rem auto 0 auto !important;
         }
 
         .image-content {
@@ -323,12 +342,16 @@ import Button from "../ui/Button.astro";
             width: 100%;
             display: flex;
             justify-content: center;
+            align-items: center;
+            margin: 20px auto 0 auto;
         }
 
         .premium-graphic-card {
-            padding: 40px 20px;
-            width: 100%;
-            max-width: 400px;
+            padding: 30px 15px;
+            width: 90%;
+            max-width: 320px; /* Safe width for all mobile devices */
+            margin: 0 auto;
+            box-sizing: border-box;
         }
     }
 </style>

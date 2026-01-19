@@ -3,9 +3,16 @@
 .container {
     margin-left: auto;
     margin-right: auto;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    /* max-width controlled by variable */
+    padding-left: 2rem;
+    padding-right: 2rem;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding-left: 1.25rem;
+        padding-right: 1.25rem;
+    }
 }
 
 /* Typography Utilities */

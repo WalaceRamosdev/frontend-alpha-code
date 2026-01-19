@@ -104,6 +104,13 @@ const seo = createSEOMeta({
         </a>
 
         <slot name="scripts" />
+        <script>
+            import { ScrollTrigger } from "gsap/ScrollTrigger";
+            // Globally disable markers just in case
+            ScrollTrigger.config({ limitCallbacks: true });
+            // Direct force disable if needed (though config is better)
+            // ScrollTrigger.defaults({ markers: false });
+        </script>
     </body>
 </html>
 

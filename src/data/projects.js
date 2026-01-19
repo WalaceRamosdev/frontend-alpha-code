@@ -1,5 +1,26 @@
 export const projectsData = [
     {
+        name: 'Alessandro Silva',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
+        link: 'https://alessandro-silva-psi.vercel.app/'
+    },
+    {
+        name: 'Ana Ribeiro',
+        type: 'Nutricionista',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
+        link: 'https://nutricao-pied.vercel.app/'
+    },
+    {
+        name: 'Camila Ferraz Personal',
+        type: 'Personal Trainer',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/camilaFerrazPersonal.svg',
+        link: 'https://camilaferrazpersonal.vercel.app/'
+    },
+    {
         name: 'Aline Barbosa',
         type: 'Advogados',
         category: 'juridico',
@@ -14,13 +35,6 @@ export const projectsData = [
         link: 'https://amanda-toledo.vercel.app/'
     },
     {
-        name: 'Camila Ferraz Personal',
-        type: 'Personal Trainer',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/camilaFerrazPersonal.svg',
-        link: 'https://camilaferrazpersonal.vercel.app/'
-    },
-    {
         name: 'João Silva',
         type: 'Professores Particular',
         category: 'educacao',
@@ -33,13 +47,6 @@ export const projectsData = [
         category: 'gastronomia',
         image: '/assets/imagens-de-paginas/cafeteria.svg',
         link: 'https://cafeteria-premium.vercel.app/'
-    },
-    {
-        name: 'Ana Ribeiro',
-        type: 'Nutricionista',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
-        link: 'https://nutricao-pied.vercel.app/'
     },
     {
         name: 'Joalheria LUMIÈRE',
@@ -83,12 +90,5 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/silviaOrlandi.svg',
         link: 'https://silvia-terapeuta.vercel.app/'
     },
-    {
-        name: 'Alessandro Silva',
-        type: 'Psicologia',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
-        link: 'https://alessandro-silva-psi.vercel.app/'
-    }
     
 ];
