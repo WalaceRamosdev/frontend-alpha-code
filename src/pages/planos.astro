@@ -18,7 +18,8 @@ const description =
             <h1 class="fade-up">Compare Nossos Planos</h1>
             <p class="hero-impact-text fade-up delay-1">
                 Escolha a estrutura ideal para o seu <span class="text-gradient"
-                    >crescimento exponencial</span>
+                    >crescimento exponencial</span
+                >
             </p>
 
             <!-- Triggers moved to top as requested -->
@@ -56,7 +57,7 @@ const description =
                 <div class="price-header">
                     <h3>Página Simples</h3>
                     <div class="price price-highlight">
-                        <small>R$</small> 347
+                        <small class="currency">R$</small> 347
                     </div>
                     <p class="plan-desc">
                         Ideal para quem precisa estar na internet <strong
@@ -193,7 +194,7 @@ const description =
                 <div class="price-header">
                     <h3>Página Completa</h3>
                     <div class="price text-primary price-highlight">
-                        <small>R$</small> 599
+                        <small class="currency">R$</small> 599
                     </div>
                     <p class="plan-desc">
                         Pensada para quem quer <strong
@@ -328,7 +329,7 @@ const description =
                 <div class="price-header">
                     <h3>Página Premium</h3>
                     <div class="price price-highlight">
-                        <small>R$</small> 947
+                        <small class="currency">R$</small> 947
                     </div>
                     <p class="plan-desc">
                         Para quem quer <strong
@@ -579,9 +580,8 @@ const description =
                             <summary>Qual o prazo de entrega?</summary>
                             <p>
                                 O prazo varia conforme o plano, mas a média é de
-                                7 dias úteis após o envio de todo o
-                                material necessário (briefing, textos e
-                                imagens).
+                                7 dias úteis após o envio de todo o material
+                                necessário (briefing, textos e imagens).
                             </p>
                         </details>
                     </div>
@@ -1357,3 +1357,16 @@ const description =
         }
     }
 </style>
+
+<script>
+    // Detecção de moeda para Portugal
+    if (
+        typeof navigator !== "undefined" &&
+        (navigator.language === "pt-PT" ||
+            navigator.languages.includes("pt-PT"))
+    ) {
+        document.querySelectorAll(".currency").forEach((el) => {
+            el.textContent = "€";
+        });
+    }
+</script>

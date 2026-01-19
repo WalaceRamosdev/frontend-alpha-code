@@ -20,7 +20,7 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Simples</h3>
                     <div class="price price-highlight">
-                        <small>R$</small> 347
+                        <small class="currency">R$</small> 347
                     </div>
                     <p class="plan-desc">
                         Estrutura essencial e veloz. Ideal para validar sua
@@ -43,7 +43,7 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Completa</h3>
                     <div class="price text-primary price-highlight">
-                        <small>R$</small> 599
+                        <small class="currency">R$</small> 599
                     </div>
                     <p class="plan-desc">
                         Layout profissional e estratégico. Atraia e converta
@@ -65,7 +65,7 @@ import Card from "../ui/Card.astro";
                 <div class="price-header">
                     <h3>Página Premium</h3>
                     <div class="price price-highlight">
-                        <small>R$</small> 947
+                        <small class="currency">R$</small> 947
                     </div>
                     <p class="plan-desc">
                         Autoridade máxima e performance. Design exclusivo e
@@ -139,6 +139,24 @@ import Card from "../ui/Card.astro";
                 },
             },
         );
+
+        // Detecção de moeda para Portugal
+        if (
+            navigator.language === "pt-PT" ||
+            navigator.languages.includes("pt-PT")
+        ) {
+            document.querySelectorAll(".currency").forEach((el) => {
+                el.textContent = "€";
+            });
+            // Opcional: Ajustar nota de manutenção
+            const maintenanceNote = document.querySelector(".maintenance-note");
+            if (maintenanceNote) {
+                maintenanceNote.innerHTML = maintenanceNote.innerHTML.replace(
+                    "R$ 100",
+                    "100 €",
+                );
+            }
+        }
     }
 </script>
 

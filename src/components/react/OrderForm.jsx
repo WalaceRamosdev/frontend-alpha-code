@@ -1,10 +1,34 @@
 import React, { useState, useEffect } from 'react';
 
 const plans = {
-    'simples': { name: 'Página Simples', price: 'R$ 347', numericPrice: 347, id: 'Página Simples' },
-    'completa': { name: 'Página Completa', price: 'R$ 599', numericPrice: 599, id: 'Página Completa' },
-    'premium': { name: 'Página Premium', price: 'R$ 947', numericPrice: 947, id: 'Página Premium' },
-    'manutencao': { name: 'Manutenção', price: 'R$ 100', numericPrice: 100, id: 'Manutenção' }
+    'simples': {
+        name: 'Página Simples',
+        price: 'R$ 347',
+        numericPrice: 347,
+        numericPriceEUR: 249,
+        id: 'Página Simples',
+        stripeLink: 'https://buy.stripe.com/aFacN7aky67s3jg8Eg93y01',
+        mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_simples'
+    },
+    'completa': {
+        name: 'Página Completa',
+        price: 'R$ 599',
+        numericPrice: 599,
+        numericPriceEUR: 499,
+        id: 'Página Completa',
+        stripeLink: 'https://buy.stripe.com/7sYbJ32S62Vg2fc7Ac93y02',
+        mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_completa'
+    },
+    'premium': {
+        name: 'Página Premium',
+        price: 'R$ 947',
+        numericPrice: 947,
+        numericPriceEUR: 949,
+        id: 'Página Premium',
+        stripeLink: 'https://buy.stripe.com/4gMcN72S6cvQ9HE9Ik93y03',
+        mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_premium'
+    },
+    'manutencao': { name: 'Manutenção', price: 'R$ 100', numericPrice: 100, numericPriceEUR: 50, id: 'Manutenção' }
 };
 
 const COUPONS = {
@@ -22,12 +46,25 @@ export default function OrderForm() {
     const [loading, setLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
     const [whatsappUrl, setWhatsappUrl] = useState('');
-    const [payBtnText, setPayBtnText] = useState('Pagar Agora (Pix ou Cartão) 💳');
+    const [payBtnText, setPayBtnText] = useState('Pagar Agora 💳');
     const [couponCode, setCouponCode] = useState('');
     const [appliedCoupon, setAppliedCoupon] = useState(null);
     const [couponError, setCouponError] = useState('');
     const [finalPrice, setFinalPrice] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
+    const [isRedirecting, setIsRedirecting] = useState(false);
+
+    const isPortugal = typeof navigator !== 'undefined' && (
+        navigator.language === 'pt-PT' ||
+        navigator.languages.includes('pt-PT') ||
+        (typeof window !== 'undefined' && new URLSearchParams(window.location.search).get('locale') === 'pt-PT')
+    );
+    const currency = isPortugal ? '€' : 'R$';
+    const defaultBtnText = isPortugal ? 'Ir para Pagamento 💳' : 'Pagar Agora (Pix ou Cartão) 💳';
+
+    useEffect(() => {
+        setPayBtnText(isRedirecting ? 'Redirecionando...' : defaultBtnText);
+    }, [isPortugal, defaultBtnText, isRedirecting]);
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -36,14 +73,14 @@ export default function OrderForm() {
             const plan = plans[planKey];
             setSelectedPlan(plan);
             setFormData(prev => ({ ...prev, plano: plan.name }));
-            setFinalPrice(plan.numericPrice);
+            setFinalPrice(isPortugal ? plan.numericPriceEUR : plan.numericPrice);
             if (planKey === 'manutencao') setIsMaintenance(true);
         }
-    }, []);
+    }, [isPortugal]);
 
     useEffect(() => {
         if (selectedPlan) {
-            let price = selectedPlan.numericPrice;
+            let price = isPortugal ? selectedPlan.numericPriceEUR : selectedPlan.numericPrice;
             if (appliedCoupon) {
                 price = appliedCoupon.type === 'percent'
                     ? price * (1 - appliedCoupon.value / 100)
@@ -51,7 +88,7 @@ export default function OrderForm() {
             }
             setFinalPrice(price);
         }
-    }, [selectedPlan, appliedCoupon]);
+    }, [selectedPlan, appliedCoupon, isPortugal]);
 
     const handleApplyCoupon = () => {
         setCouponError('');
@@ -85,7 +122,7 @@ export default function OrderForm() {
                     `*CLIENTE:* ${formData.nome}\n` +
                     `*EMAIL:* ${formData.email}\n` +
                     `*PLANO:* ${formData.plano}\n` +
-                    `*VALOR:* R$ ${finalPrice.toFixed(2).replace('.', ',')}\n\n` +
+                    `*VALOR:* ${currency} ${finalPrice.toFixed(2).replace('.', ',')}\n\n` +
                     `*DETALHES:* ${formData.detalhes}`;
                 setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
                 setModalOpen(true);
@@ -98,6 +135,20 @@ export default function OrderForm() {
 
     const handlePayment = async () => {
         setPayBtnText('Redirecionando...');
+        setIsRedirecting(true);
+
+        // LOGICA DE REDIRECIONAMENTO POR REGIÃO
+        if (isPortugal) {
+            if (selectedPlan?.stripeLink && !appliedCoupon) {
+                setTimeout(() => {
+                    window.open(selectedPlan.stripeLink, '_blank');
+                    setIsRedirecting(false);
+                    setPayBtnText(defaultBtnText);
+                }, 1500);
+                return;
+            }
+        }
+
         try {
             const res = await fetch('https://backend-rp7j.onrender.com/create-checkout-session', {
                 method: 'POST',
@@ -105,8 +156,17 @@ export default function OrderForm() {
                 body: JSON.stringify({ planName: selectedPlan?.id + (appliedCoupon ? ` (${appliedCoupon.code})` : ''), price: finalPrice.toFixed(2) })
             });
             const data = await res.json();
-            if (data.url) window.location.href = data.url;
-        } catch (err) { setPayBtnText('Pagar Agora 💳'); }
+            if (data.url) {
+                setTimeout(() => {
+                    window.open(data.url, '_blank');
+                    setIsRedirecting(false);
+                    setPayBtnText(defaultBtnText);
+                }, 1000);
+            }
+        } catch (err) {
+            setPayBtnText(defaultBtnText);
+            setIsRedirecting(false);
+        }
     };
 
     return (
@@ -120,8 +180,8 @@ export default function OrderForm() {
                             <h2 className="plan-name">{selectedPlan ? selectedPlan.name : 'Carregando...'}</h2>
 
                             <div className="price-stack">
-                                {appliedCoupon && <span className="old-price">{selectedPlan?.price}</span>}
-                                <span className="final-price">R$ {finalPrice.toFixed(2).replace('.', ',')}</span>
+                                {appliedCoupon && <span className="old-price">{selectedPlan?.price.replace('R$', currency)}</span>}
+                                <span className="final-price">{currency} {finalPrice.toFixed(2).replace('.', ',')}</span>
                             </div>
 
                             <div className="coupon-box">
@@ -168,6 +228,10 @@ export default function OrderForm() {
                                     <label>E-mail</label>
                                     <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
                                 </div>
+                                <div className="field">
+                                    <label>Sua Profissão / Negócio</label>
+                                    <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required placeholder="Ex: Arquiteto, Psicóloga..." />
+                                </div>
                             </div>
                         </section>
 
@@ -185,6 +249,16 @@ export default function OrderForm() {
                                         <option value="Autoridade">Gerar Autoridade</option>
                                         <option value="Vendas">Venda Direta</option>
                                     </select>
+                                </div>
+                                <div className="inputs-grid">
+                                    <div className="field">
+                                        <label>Cores de Preferência</label>
+                                        <input type="text" name="cores" value={formData.cores} onChange={handleChange} placeholder="Ex: Azul e Branco, Dark Mode..." />
+                                    </div>
+                                    <div className="field">
+                                        <label>Link de Referência</label>
+                                        <input type="url" name="referencias" value={formData.referencias} onChange={handleChange} placeholder="https://..." />
+                                    </div>
                                 </div>
                             </section>
                         )}
@@ -207,8 +281,35 @@ export default function OrderForm() {
                 </main>
             </div>
 
-            {/* MODAL & LOADER (Simplified) */}
-            {modalOpen && (
+            {/* MODAL & LOADERS */}
+            {(loading || isRedirecting) && (
+                <div className="fixed-overlay loader-overlay">
+                    <div className="loader-content">
+                        <div className="logo-pulsar">
+                            <img src="/assets/logo.svg" className="loading-logo" />
+                            <div className="glow-ring"></div>
+                        </div>
+                        <div className="loader-text">
+                            {loading ? (
+                                <>
+                                    <h3>Enviando seu Briefing</h3>
+                                    <p>Organizando os detalhes do seu projeto Alpha...</p>
+                                </>
+                            ) : (
+                                <>
+                                    <h3>Acedendo ao Checkout Seguro</h3>
+                                    <p>Quase lá! Preparando ambiente de pagamento...</p>
+                                </>
+                            )}
+                        </div>
+                        <div className="progress-bar-container">
+                            <div className="progress-bar-fill"></div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {modalOpen && !loading && !isRedirecting && (
                 <div className="fixed-overlay">
                     <div className="modal-box">
                         <img src="/assets/logo.svg" className="modal-logo" />
@@ -268,7 +369,11 @@ export default function OrderForm() {
                     border: 1px solid rgba(255,255,255,0.1);
                     padding: 15px; border-radius: 12px; color: #fff; font-size: 1rem;
                 }
-                .field input:focus { border-color: #d62839; outline: none; background: rgba(255,255,255,0.06); }
+                .field select option {
+                    background: #111;
+                    color: #fff;
+                }
+                .field input:focus, .field select:focus, .field textarea:focus { border-color: #d62839; outline: none; background: rgba(255,255,255,0.06); }
 
                 .submit-main-btn {
                     width: 100%; padding: 20px; border-radius: 15px; background: #d62839; color: #fff;
@@ -284,7 +389,42 @@ export default function OrderForm() {
                 .applied-badge { background: rgba(37, 211, 102, 0.1); border: 1px dashed #25D366; padding: 10px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; color: #25D366; }
 
                 /* Fixed Overlay */
-                .fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(10px); display: grid; place-items: center; z-index: 1000; padding: 20px; }
+                .fixed-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.9); backdrop-filter: blur(15px); display: grid; place-items: center; z-index: 1000; padding: 20px; }
+                .loader-overlay { background: rgba(0,0,0,0.95); }
+                
+                .loader-content { text-align: center; max-width: 400px; }
+                
+                .logo-pulsar { position: relative; margin-bottom: 40px; display: inline-block; }
+                .loading-logo { width: 120px; position: relative; z-index: 2; animation: logo-float 3s infinite ease-in-out; }
+                
+                .glow-ring {
+                    position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+                    width: 150px; height: 150px; border-radius: 50%;
+                    background: radial-gradient(circle, rgba(214,40,57,0.4) 0%, transparent 70%);
+                    animation: glow-pulse 2s infinite ease-in-out;
+                }
+
+                @keyframes logo-float {
+                    0%, 100% { transform: translateY(0); }
+                    50% { transform: translateY(-15px); }
+                }
+
+                @keyframes glow-pulse {
+                    0%, 100% { transform: translate(-50%,-50%) scale(0.8); opacity: 0.3; }
+                    50% { transform: translate(-50%,-50%) scale(1.2); opacity: 0.8; }
+                }
+
+                .loader-text h3 { font-size: 1.5rem; margin-bottom: 10px; color: #fff; }
+                .loader-text p { color: rgba(255,255,255,0.5); font-size: 0.9rem; }
+
+                .progress-bar-container { width: 100%; height: 4px; background: rgba(255,255,255,0.05); border-radius: 10px; margin-top: 30px; overflow: hidden; }
+                .progress-bar-fill { height: 100%; background: #d62839; width: 0; animation: progress-load 3s forwards ease-in-out; box-shadow: 0 0 15px #d62839; }
+
+                @keyframes progress-load {
+                    0% { width: 0; }
+                    100% { width: 100%; }
+                }
+
                 .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; }
                 .modal-logo { width: 100px; margin-bottom: 20px; }
                 .modal-actions { display: grid; gap: 10px; margin-top: 30px; }
