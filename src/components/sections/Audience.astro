@@ -84,39 +84,51 @@ import Card from "../ui/Card.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
-        const section = document.getElementById("audience");
+    const section = document.getElementById("audience");
 
-        if (section) {
-            gsap.from(".fade-up-audience", {
-                scrollTrigger: {
-                    trigger: "#audience",
-                    start: "top 80%",
-                },
-                y: 30,
-                opacity: 0,
+    if (section) {
+        const header = section.querySelector(".section-header");
+        const grid = section.querySelector(".audience-grid");
+
+        // Animate Title
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-audience"),
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
                 duration: 0.8,
                 stagger: 0.1,
-            });
-
-            gsap.from(".audience-card", {
+                ease: "power2.out",
                 scrollTrigger: {
-                    trigger: ".audience-grid",
-                    start: "top 80%",
+                    trigger: header,
+                    start: "top 95%", // Trigger almost immediately when in view
                 },
-                y: 50,
-                opacity: 0,
+            },
+        );
+
+        // Animate Cards
+        gsap.fromTo(
+            section.querySelectorAll(".audience-card"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
                 duration: 0.8,
                 stagger: 0.15,
                 ease: "power2.out",
-            });
-        }
-    });
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%", // Safe trigger
+                },
+            },
+        );
+    }
 </script>
 
 <style>
     #audience {
-        padding: 100px 0;
+        padding: 80px 0;
     }
     .section-desc {
         max-width: 600px;
@@ -126,39 +138,9 @@ import Card from "../ui/Card.astro";
     }
     .audience-grid {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px; /* Slightly tighter gap for mobile */
+        grid-template-columns: repeat(2, 1fr); /* Always 2 columns */
+        gap: 30px;
         margin-top: 40px;
-    }
-
-    @media (max-width: 900px) {
-        .audience-grid {
-            /* Keep it as grid, 2 columns */
-            grid-template-columns: repeat(2, 1fr);
-            gap: 15px; /* Tighter gap for small screens */
-            padding-bottom: 0;
-            display: grid;
-            overflow-x: visible;
-        }
-
-        .audience-card {
-            /* Remove min-width to allow shrinking to column width */
-            min-width: 0;
-            padding: 1.5rem; /* Reduce padding slightly */
-        }
-    }
-
-    @media (max-width: 480px) {
-        /* On VERY small screens, 2 columns might be unreadable. 
-           However, user asked for "2 columns". 
-           I will try to respect that, but if it breaks content, I'll fallback or adjust text size. 
-           Let's keep 2 columns but reduce side padding significantly. */
-        .audience-grid {
-            gap: 10px;
-        }
-        .audience-card {
-            padding: 1rem;
-        }
     }
     .section-header {
         text-align: center;
@@ -170,8 +152,8 @@ import Card from "../ui/Card.astro";
         display: flex;
         flex-direction: column;
         transition: all 0.3s ease;
-        border-radius: 24px; /* Softer, friendlier corners */
-        background: rgba(255, 255, 255, 0.03); /* Subtle depth */
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.05);
     }
     .audience-card:hover {
@@ -186,16 +168,15 @@ import Card from "../ui/Card.astro";
     .audience-card h3 {
         margin-bottom: 0.5rem;
         color: var(--color-heading);
-        font-size: 1.3rem; /* Slightly smaller for better fit */
+        font-size: 1.3rem;
         font-weight: 700;
         line-height: 1.3;
     }
     .audience-role {
         color: var(--color-primary);
         font-size: 0.9rem;
-        font-weight: 500; /* Less aggressive than 600 */
+        font-weight: 500;
         margin-bottom: 1.2rem;
-        /* Removed text-transform: uppercase for a friendlier, space-saving look */
         line-height: 1.4;
     }
     .audience-benefits {
@@ -208,8 +189,8 @@ import Card from "../ui/Card.astro";
         position: relative;
         padding-left: 20px;
         margin-bottom: 10px;
-        font-size: 0.9rem; /* optimized for reading */
-        color: var(--color-text-container); /* Softer white */
+        font-size: 0.9rem;
+        color: var(--color-text-container);
         line-height: 1.5;
     }
     .audience-benefits li::before {
@@ -220,24 +201,49 @@ import Card from "../ui/Card.astro";
         font-weight: bold;
     }
 
+    /* Mobile Optimization for 2-column readability */
     @media (max-width: 900px) {
+        .audience-grid {
+            gap: 12px; /* Tighter gap */
+            margin-top: 30px;
+        }
         .audience-card {
-            padding: 20px 15px; /* Compact padding for mobile */
-            border-radius: 20px;
-        }
-        .audience-card h3 {
-            font-size: 1.15rem; /* Adapt title size */
-        }
-        .audience-role {
-            font-size: 0.85rem;
-            margin-bottom: 1rem;
+            padding: 15px 12px; /* Very compact padding */
+            border-radius: 16px;
         }
         .card-icon {
-            font-size: 2rem;
+            font-size: 1.8rem; /* Smaller icon */
+            margin-bottom: 0.75rem;
+        }
+        .audience-card h3 {
+            font-size: 1rem; /* Smaller title */
+            margin-bottom: 0.25rem;
+            word-wrap: break-word; /* Prevent overflow */
+        }
+        .audience-role {
+            font-size: 0.75rem; /* Smaller role text */
+            margin-bottom: 0.75rem;
+            min-height: 2.2em; /* Reserve space for 2 lines if needed */
         }
         .audience-benefits li {
-            font-size: 0.85rem; /* Readable but compact */
-            line-height: 1.4;
+            font-size: 0.75rem; /* Small but readable text */
+            padding-left: 14px;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+        .audience-benefits li::before {
+            font-size: 0.8rem;
+            top: 1px;
+        }
+    }
+
+    /* Extra Small Screen safeguard */
+    @media (max-width: 360px) {
+        .audience-grid {
+            gap: 8px;
+        }
+        .audience-card {
+            padding: 12px 8px;
         }
     }
 </style>
