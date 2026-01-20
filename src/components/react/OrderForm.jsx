@@ -312,6 +312,7 @@ export default function OrderForm() {
             {modalOpen && !loading && !isRedirecting && (
                 <div className="fixed-overlay">
                     <div className="modal-box">
+                        <button onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
                         <img src="/assets/logo.svg" className="modal-logo" />
                         <h2>Sucesso!</h2>
                         <p>Recebemos seus dados. Vamos finalizar?</p>
@@ -394,7 +395,7 @@ export default function OrderForm() {
                 
                 .loader-content { text-align: center; max-width: 400px; }
                 
-                .logo-pulsar { position: relative; margin-bottom: 40px; display: inline-block; }
+                .logo-pulsar { position: relative; margin: 0 auto 40px auto; display: block; width: fit-content; }
                 .loading-logo { width: 120px; position: relative; z-index: 2; animation: logo-float 3s infinite ease-in-out; }
                 
                 .glow-ring {
@@ -425,11 +426,33 @@ export default function OrderForm() {
                     100% { width: 100%; }
                 }
 
-                .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; }
-                .modal-logo { width: 100px; margin-bottom: 20px; }
+                .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; position: relative; }
+                .modal-logo { width: 100px; margin: 0 auto 20px auto; display: block; }
                 .modal-actions { display: grid; gap: 10px; margin-top: 30px; }
                 .pay-btn { background: #d62839; color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
                 .wa-btn { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; }
+                
+                .close-modal-btn {
+                    position: absolute;
+                    top: 15px;
+                    right: 15px;
+                    background: transparent;
+                    border: none;
+                    color: rgba(255, 255, 255, 0.5);
+                    font-size: 1.5rem;
+                    cursor: pointer;
+                    width: 30px;
+                    height: 30px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-radius: 50%;
+                    transition: all 0.2s ease;
+                }
+                .close-modal-btn:hover {
+                    background: rgba(255, 255, 255, 0.1);
+                    color: #fff;
+                }
             `}</style>
         </div>
     );
