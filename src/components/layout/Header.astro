@@ -1,6 +1,4 @@
 ---
-// import { getSession } from "auth-astro/server";
-// import authConfig from "../../auth.config";
 import { getSession } from "../../lib/auth";
 
 const { request } = Astro;
@@ -9,7 +7,6 @@ let session = null;
 try {
     session = await getSession(request);
 } catch (error) {
-    // Log the error but don't crash the header
     console.error(
         "[Header] Auth error:",
         error instanceof Error ? error.message : String(error),
@@ -22,8 +19,8 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
 
 <header id="main-header">
     <div class="container header-container">
+        <!-- LEFT: Logo -->
         <a href="/" class="logo-link">
-            <!-- Fixed White Logo for Dark Theme -->
             <img
                 src="/assets/logoText.svg"
                 alt="Alpha Code Logo"
@@ -32,6 +29,8 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 height="50"
             />
         </a>
+
+        <!-- CENTER: Desktop Navigation Links -->
         <nav class="desktop-nav">
             <ul>
                 <li><a href="/#services">Serviços</a></li>
@@ -42,84 +41,91 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 <li><a href="/about">Sobre</a></li>
             </ul>
         </nav>
+
+        <!-- RIGHT: Actions (Login/Profile + Contact) -->
         <div class="header-actions">
-            {
-                session ? (
-                    <a
-                        href="/dashboard"
-                        class={`profile-nav-btn desktop-only ${isDashboard ? "active-dash active" : ""}`}
-                        id="desktop-profile-btn"
-                    >
-                        <span class="profile-text-node">Perfil</span>
-                        <div class="profile-avatar-node">
-                            {session.user?.image ? (
-                                <img src={session.user.image} alt="Avatar" />
-                            ) : (
-                                <div class="avatar-letter">
-                                    {session.user?.name?.charAt(0) || "U"}
-                                </div>
-                            )}
-                        </div>
-                    </a>
-                ) : (
-                    <a href="/login" class="btn-login-nav desktop-only">
-                        Login
-                    </a>
-                )
-            }
-            {
-                session ? (
-                    <a
-                        href="/dashboard"
-                        class={`profile-nav-btn mobile-login ${isDashboard ? "active-dash active" : ""}`}
-                        id="mobile-profile-btn"
-                    >
-                        <span class="profile-text-node">Perfil</span>
-                        <div class="profile-avatar-node">
-                            {session.user?.image ? (
-                                <img src={session.user.image} alt="Avatar" />
-                            ) : (
-                                <div class="avatar-letter">
-                                    {session.user?.name?.charAt(0) || "U"}
-                                </div>
-                            )}
-                        </div>
-                    </a>
-                ) : (
-                    <a href="/login" class="btn-login-nav mobile-login">
-                        Login
-                    </a>
-                )
-            }
-            <!-- Mobile Menu Toggle Only -->
-            <button id="mobile-menu-btn" aria-label="Menu">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-            <a
-                href="https://wa.me/5521999064502"
-                target="_blank"
-                class="btn btn-primary desktop-only"
-                style="padding: 0.5rem 1.5rem; font-size: 0.8rem; height: 44px; display: flex; align-items: center;"
+            <!-- Desktop Action Group -->
+            <div class="action-group desktop-only">
+                {
+                    session ? (
+                        <a
+                            href="/dashboard"
+                            class={`profile-nav-btn ${isDashboard ? "active-dash active" : ""}`}
+                            id="desktop-profile-trigger"
+                        >
+                            <span class="profile-text-node">Perfil</span>
+                            <div class="profile-avatar-node">
+                                {session.user?.image ? (
+                                    <img
+                                        src={session.user.image}
+                                        alt="Avatar"
+                                    />
+                                ) : (
+                                    <div class="avatar-letter">
+                                        {session.user?.name?.charAt(0) || "U"}
+                                    </div>
+                                )}
+                            </div>
+                        </a>
+                    ) : (
+                        <a href="/login" class="btn-login-nav">
+                            Login
+                        </a>
+                    )
+                }
+                <a
+                    href="https://wa.me/5521999064502"
+                    target="_blank"
+                    class="btn btn-primary contact-btn"
+                >
+                    CONTATO
+                </a>
+            </div>
+
+            <!-- Mobile Only Toggle -->
+            <button
+                id="mobile-menu-btn"
+                aria-label="Menu"
+                class="mobile-only menu-pill"
             >
-                Contato
-            </a>
+                <div class="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </button>
         </div>
     </div>
-    <!-- Mobile Menu -->
+
+    <!-- Mobile Menu Overlay -->
     <div class="mobile-menu">
-        <ul>
+        <button id="close-menu-btn" class="close-btn" aria-label="Fechar Menu">
+            <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="18" y1="6" x2="6" y2="18"></line>
+                <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+        </button>
+        <ul class="nav-links">
             <li><a href="/#services">Serviços</a></li>
             <li><a href="/#projects">Projetos</a></li>
             <li><a href="/#testimonials">Depoimentos</a></li>
             <li><a href="/planos">Planos</a></li>
             <li><a href="/pedido?plan=manutencao">Manutenção</a></li>
             <li><a href="/about">Sobre</a></li>
+            <li class="menu-divider"></li>
             {
                 session ? (
                     <li>
-                        <a href="/dashboard">Dashboard</a>
+                        <a href="/dashboard">Meu Perfil</a>
                     </li>
                 ) : (
                     <li>
@@ -128,304 +134,308 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 )
             }
             <li>
-                <a href="https://wa.me/5521999064502" class="btn btn-primary"
-                    >Falar no WhatsApp</a
+                <a
+                    href="https://wa.me/5521999064502"
+                    class="whatsapp-menu-link"
                 >
+                    Falar no WhatsApp
+                </a>
             </li>
         </ul>
     </div>
 </header>
+
 <script>
-    // Mobile Menu Logic
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+    const closeMenuBtn = document.getElementById("close-menu-btn");
     const mobileMenu = document.querySelector(".mobile-menu");
     const mobileLinks = document.querySelectorAll(".mobile-menu a");
-    if (mobileMenuBtn && mobileMenu) {
-        mobileMenuBtn.addEventListener("click", () => {
-            const isOpen = mobileMenu.classList.contains("open");
-            if (isOpen) {
-                mobileMenu.classList.remove("open");
-                mobileMenuBtn.classList.remove("active");
-                document.body.style.overflow = "";
-            } else {
-                mobileMenu.classList.add("open");
-                mobileMenuBtn.classList.add("active");
-                document.body.style.overflow = "hidden";
-            }
-        });
+
+    const toggleMenu = (open: boolean) => {
+        if (!mobileMenu || !mobileMenuBtn) return;
+        if (open) {
+            mobileMenu.classList.add("open");
+            mobileMenuBtn.classList.add("active");
+            document.body.style.overflow = "hidden";
+        } else {
+            mobileMenu.classList.remove("open");
+            mobileMenuBtn.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    };
+
+    if (mobileMenuBtn)
+        mobileMenuBtn.addEventListener("click", () => toggleMenu(true));
+    if (closeMenuBtn)
+        closeMenuBtn.addEventListener("click", () => toggleMenu(false));
+    if (mobileLinks) {
         mobileLinks.forEach((link) => {
-            link.addEventListener("click", () => {
-                mobileMenu.classList.remove("open");
-                mobileMenuBtn.classList.remove("active");
-                document.body.style.overflow = "";
-            });
+            link.addEventListener("click", () => toggleMenu(false));
         });
-        document.addEventListener("click", (e) => {
-            const target = e.target as Node;
-            if (
-                !mobileMenu.contains(target) &&
-                !mobileMenuBtn.contains(target) &&
-                mobileMenu.classList.contains("open")
-            ) {
-                mobileMenu.classList.remove("open");
-                mobileMenuBtn.classList.remove("active");
-                document.body.style.overflow = "";
+    }
+
+    // Profile Expansion Logic
+    const profileBtn = document.getElementById("desktop-profile-trigger");
+    if (profileBtn) {
+        profileBtn.addEventListener("click", (e) => {
+            const link = profileBtn.getAttribute("href");
+            if (link && !profileBtn.classList.contains("active-dash")) {
+                e.preventDefault();
+                profileBtn.classList.add("expanded");
+                setTimeout(() => {
+                    window.location.href = link;
+                }, 400);
             }
         });
     }
-    // Profile Button Animation Logic
-    const profileBtns = document.querySelectorAll(".profile-nav-btn");
-    profileBtns.forEach((btn) => {
-        btn.addEventListener("click", (e) => {
-            const link = btn.getAttribute("href");
-            if (link) {
-                e.preventDefault();
-                btn.classList.add("expanded");
-                setTimeout(() => {
-                    window.location.href = link;
-                }, 400); // Wait for animation
-            }
-        });
-    });
 </script>
+
 <style>
-    /* Header Styles */
+    /* Header Container Fluidity */
     #main-header {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        background-color: rgba(2, 2, 2, 0.85); /* Dark glass */
-        backdrop-filter: blur(24px);
-        -webkit-backdrop-filter: blur(24px);
+        background-color: rgba(2, 2, 2, 0.9);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
         z-index: 1000;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05); /* Subtle border */
-        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
-        padding: 15px 0;
-        transition: all var(--transition-speed);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 12px 0;
     }
+
     .header-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 0 40px; /* Fixed symmetrical padding */
+        height: 60px;
     }
+
+    /* LEFT: Logo */
     .logo-link {
-        text-decoration: none;
-        display: flex;
-        align-items: center;
-        transition: opacity var(--transition-speed);
-    }
-    .logo-link:hover {
-        opacity: 0.8;
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+        flex-shrink: 0;
     }
     .nav-logo {
-        height: 50px;
+        height: 42px;
         width: auto;
-        display: block;
-    } /* Nav */
+    }
+
+    /* CENTER: Desktop Links */
+    .desktop-nav {
+        flex-grow: 1;
+        display: flex;
+        justify-content: center;
+    }
     .desktop-nav ul {
         display: flex;
-        gap: 12px;
-        align-items: center;
+        gap: 1.5rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
     }
     .desktop-nav a {
-        position: relative;
+        color: var(--color-text-secondary);
         font-weight: 500;
-        font-size: 0.95rem;
-        padding: 10px 20px;
-        border-radius: 30px;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        color: var(--color-text-secondary); /* Softer white */
+        font-size: 0.9rem;
+        transition: color 0.3s ease;
+        white-space: nowrap;
     }
     .desktop-nav a:hover {
-        background-color: rgba(255, 255, 255, 0.05);
-        color: white;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-    } /* Active/Primary Link if needed */
-    .desktop-nav a.active {
         color: white;
     }
+
+    /* RIGHT: Actions */
+    .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        flex-shrink: 0;
+    }
+
+    .action-group {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    /* Login & Contact Buttons */
     .btn-login-nav {
-        background-color: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.2) !important;
-        padding: 8px 20px !important;
-        border-radius: 20px !important;
-        margin-left: 0;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 8px 24px;
+        border-radius: 50px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        color: white;
+        height: 44px;
+        display: inline-flex;
+        align-items: center;
+        text-decoration: none;
         transition: all 0.3s ease;
     }
     .btn-login-nav:hover {
-        background-color: var(--color-primary) !important;
-        border-color: var(--color-primary) !important;
-        color: white !important;
-        box-shadow: 0 4px 12px rgba(138, 28, 38, 0.3);
+        background: rgba(255, 255, 255, 0.15);
+        transform: translateY(-2px);
     }
 
-    /* New Profile Button Styles */
+    .contact-btn {
+        padding: 0 1.5rem !important;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        font-size: 0.75rem !important;
+        letter-spacing: 1px;
+        font-weight: 800 !important;
+    }
+
+    /* Profile Capsule */
     .profile-nav-btn {
         display: flex;
         align-items: center;
-        justify-content: center;
         background: rgba(255, 255, 255, 0.08);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 50px;
-        text-decoration: none;
         width: 44px;
         height: 44px;
         overflow: hidden;
-        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
-        white-space: nowrap;
-        cursor: pointer;
-        position: relative;
+        transition: all 0.4s ease;
+        justify-content: center;
     }
-
-    /* Keep it permanently expanded on Dashboard or when clicked */
     .profile-nav-btn.active-dash,
     .profile-nav-btn.expanded {
-        width: 135px;
-        justify-content: space-between;
-        padding: 0 4px 0 18px;
+        width: 125px;
         background: var(--color-primary);
+        padding: 0 4px 0 14px;
+        justify-content: space-between;
         border-color: var(--color-primary);
-        box-shadow: 0 0 25px rgba(138, 28, 38, 0.5);
     }
-
     .profile-avatar-node {
         width: 36px;
         height: 36px;
         border-radius: 50%;
         overflow: hidden;
-        background: rgba(255, 255, 255, 0.1);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-        z-index: 2;
-        /* Absolute centering support for the initial state */
-        transition: transform 0.4s ease;
     }
-
     .profile-avatar-node img {
         width: 100%;
         height: 100%;
         object-fit: cover;
-        display: block;
     }
-
-    .avatar-letter {
-        color: white;
-        font-weight: 800;
-        font-size: 1rem;
-        line-height: 1;
-    }
-
     .profile-text-node {
         max-width: 0;
         opacity: 0;
-        transform: translateX(10px);
-        transition: all 0.3s ease;
+        visibility: hidden;
+        transition: 0.3s;
         color: white;
         font-weight: 700;
-        font-size: 0.95rem;
-        pointer-events: none;
-        visibility: hidden;
+        font-size: 0.85rem;
     }
-
     .profile-nav-btn.active-dash .profile-text-node,
     .profile-nav-btn.expanded .profile-text-node {
-        max-width: 100px;
+        max-width: 70px;
         opacity: 1;
-        transform: translateX(0);
         visibility: visible;
-        margin-right: 10px;
     }
-    .header-actions {
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    } /* Mobile Menu */
-    #mobile-menu-btn {
-        display: none;
-        background: none;
-        border: none;
+
+    /* Mobile Menu BTN */
+    .menu-pill {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+        padding: 12px;
         cursor: pointer;
-        flex-direction: column;
-        gap: 6px;
-        width: 32px;
     }
-    #mobile-menu-btn span {
+    .hamburger {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        width: 18px;
+    }
+    .hamburger span {
         display: block;
         width: 100%;
         height: 2px;
         background-color: white;
-        transition: 0.3s;
         border-radius: 2px;
     }
-    #mobile-menu-btn:hover span {
-        background-color: var(--color-primary-light);
-        box-shadow: 0 0 10px var(--color-primary);
-    } /* Hamburger transformation */
-    #mobile-menu-btn.active span:nth-child(1) {
-        transform: rotate(45deg) translate(5px, 6px);
-    }
-    #mobile-menu-btn.active span:nth-child(2) {
-        opacity: 0;
-    }
-    #mobile-menu-btn.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(5px, -6px);
-    }
+
+    /* Overlay */
     .mobile-menu {
         position: fixed;
-        top: 80px;
+        top: 0;
         left: 0;
-        width: 100%;
-        background-color: rgba(10, 10, 10, 0.95);
-        padding: 30px;
-        border-bottom: 1px solid var(--color-primary);
-        transform: translateY(-150%);
-        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        z-index: 999;
-        text-align: center;
-        backdrop-filter: blur(15px);
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.98);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 2000;
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.4s;
     }
     .mobile-menu.open {
-        transform: translateY(0);
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+        opacity: 1;
+        visibility: visible;
     }
-    .mobile-menu ul {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-    .mobile-menu a {
+    .close-btn {
+        position: absolute;
+        top: 30px;
+        right: 40px;
+        background: none;
+        border: none;
         color: white;
-        font-size: 1.1rem;
-        font-weight: 500;
+        cursor: pointer;
     }
-    .mobile-menu .btn {
-        width: auto;
-        min-width: 200px;
-        margin: 10px auto 0;
+    .nav-links li {
+        margin: 20px 0;
     }
+    .nav-links a {
+        color: white;
+        font-size: 1.6rem;
+        font-weight: 700;
+    }
+    .whatsapp-menu-link {
+        color: #25d366 !important;
+        font-size: 1.1rem !important;
+    }
+
+    /* Responsive */
     .desktop-only {
-        display: inline-block;
+        display: flex;
     }
-    .mobile-login {
+    .mobile-only {
         display: none;
     }
-    @media (max-width: 768px) {
+
+    @media (max-width: 1100px) {
+        .header-container {
+            padding: 0 40px;
+        }
+        .desktop-nav ul {
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 968px) {
+        .header-container {
+            padding: 0 20px !important;
+        }
+        .logo-link img {
+            width: 130px;
+        }
         .desktop-nav {
             display: none;
-        }
-        #mobile-menu-btn {
-            display: flex;
         }
         .desktop-only {
             display: none;
         }
-        .mobile-login {
-            display: inline-block;
+        .mobile-only {
+            display: flex;
         }
     }
 </style>
