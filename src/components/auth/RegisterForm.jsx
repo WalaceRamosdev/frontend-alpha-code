@@ -17,8 +17,15 @@ export default function RegisterForm() {
             });
 
             if (!res.ok) {
-                const json = await res.json();
-                throw new Error(json.message || "Erro desconhecido");
+                const contentType = res.headers.get("content-type");
+                if (contentType && contentType.includes("application/json")) {
+                    const json = await res.json();
+                    throw new Error(json.message || "Erro no servidor");
+                } else {
+                    const text = await res.text();
+                    console.error("Erro não-JSON:", text);
+                    throw new Error("Erro no servidor (Resposta inválida)");
+                }
             }
 
             // Auto login
