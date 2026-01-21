@@ -152,71 +152,103 @@ export const prerender = false;
     </div>
 
     <script>
-        const form = document.getElementById("profile-form");
-        const saveBtn = document.getElementById("save-btn");
-        const avatarInput = document.getElementById("avatar-input");
-        const avatarPreview = document.getElementById("avatar-preview");
-        const nameDisplay = document.getElementById("profile-name-display");
+        // Use type assertions and null checks to satisfy TypeScript
+        const form = document.getElementById(
+            "profile-form",
+        ) as HTMLFormElement | null;
+        const saveBtn = document.getElementById(
+            "save-btn",
+        ) as HTMLButtonElement | null;
+        const avatarInput = document.getElementById(
+            "avatar-input",
+        ) as HTMLInputElement | null;
+        const avatarPreview = document.getElementById(
+            "avatar-preview",
+        ) as HTMLElement | null;
+        const nameDisplay = document.getElementById(
+            "profile-name-display",
+        ) as HTMLElement | null;
 
-        let currentImageBase64 = null;
+        let currentImageBase64: string | null = null;
 
         // Avatar Preview Logic
-        avatarInput.addEventListener("change", (e) => {
-            const file = e.target.files[0];
-            if (file) {
-                if (file.size > 1024 * 1024) {
-                    // 1MB limit for base64
-                    alert("A imagem deve ter no máximo 1MB.");
-                    return;
+        if (avatarInput && avatarPreview) {
+            avatarInput.addEventListener("change", (e: Event) => {
+                const target = e.target as HTMLInputElement;
+                const file = target.files ? target.files[0] : null;
+                if (file) {
+                    if (file.size > 1024 * 1024) {
+                        // 1MB limit for base64
+                        alert("A imagem deve ter no máximo 1MB.");
+                        return;
+                    }
+                    const reader = new FileReader();
+                    reader.onload = (
+                        readerEvent: ProgressEvent<FileReader>,
+                    ) => {
+                        const base64 = readerEvent.target?.result as string;
+                        currentImageBase64 = base64;
+                        if (avatarPreview) {
+                            avatarPreview.innerHTML = `<img src="${base64}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" />`;
+                        }
+                    };
+                    reader.readAsDataURL(file);
                 }
-                const reader = new FileReader();
-                reader.onload = (readerEvent) => {
-                    const base64 = readerEvent.target.result;
-                    currentImageBase64 = base64;
-                    avatarPreview.innerHTML = `<img src="${base64}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" />`;
-                };
-                reader.readAsDataURL(file);
-            }
-        });
+            });
+        }
 
         // Form Submit Logic
-        form.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const originalText = saveBtn.innerText;
-            saveBtn.innerText = "Salvando...";
-            saveBtn.disabled = true;
+        if (form && saveBtn && nameDisplay) {
+            form.addEventListener("submit", async (e: Event) => {
+                e.preventDefault();
+                const originalText = saveBtn.innerText;
+                saveBtn.innerText = "Salvando...";
+                saveBtn.disabled = true;
 
-            const name = document.getElementById("input-name").value;
-            const phone = document.getElementById("input-phone").value;
-            const company = document.getElementById("input-company").value;
+                const nameInput = document.getElementById(
+                    "input-name",
+                ) as HTMLInputElement | null;
+                const phoneInput = document.getElementById(
+                    "input-phone",
+                ) as HTMLInputElement | null;
+                const companyInput = document.getElementById(
+                    "input-company",
+                ) as HTMLInputElement | null;
 
-            try {
-                const res = await fetch("/api/user/update", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({
-                        name,
-                        phone,
-                        company,
-                        image: currentImageBase64 || undefined,
-                    }),
-                });
+                const name = nameInput ? nameInput.value : "";
+                const phone = phoneInput ? phoneInput.value : "";
+                const company = companyInput ? companyInput.value : "";
 
-                if (res.ok) {
-                    nameDisplay.innerText = name;
-                    alert("Perfil atualizado com sucesso!");
-                } else {
-                    const data = await res.json();
-                    alert(data.message || "Erro ao atualizar perfil.");
+                try {
+                    const res = await fetch("/api/user/update", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name,
+                            phone,
+                            company,
+                            image: currentImageBase64 || undefined,
+                        }),
+                    });
+
+                    if (res.ok) {
+                        if (nameDisplay) nameDisplay.innerText = name;
+                        alert("Perfil atualizado com sucesso!");
+                    } else {
+                        const data = await res.json();
+                        alert(data.message || "Erro ao atualizar perfil.");
+                    }
+                } catch (err) {
+                    console.error(err);
+                    alert("Erro ao conectar com o servidor.");
+                } finally {
+                    if (saveBtn) {
+                        saveBtn.innerText = originalText;
+                        saveBtn.disabled = false;
+                    }
                 }
-            } catch (err) {
-                console.error(err);
-                alert("Erro ao conectar com o servidor.");
-            } finally {
-                saveBtn.innerText = originalText;
-                saveBtn.disabled = false;
-            }
-        });
+            });
+        }
     </script>
 </Layout>
 
@@ -331,9 +363,36 @@ export const prerender = false;
         grid-template-columns: 1fr 1fr;
         gap: 1.5rem;
     }
+    /* Mobile Optimization */
     @media (max-width: 600px) {
+        .dashboard-wrapper {
+            padding-top: 100px;
+        }
+
+        .user-name {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-card {
+            padding: 1.5rem;
+            border-radius: 20px;
+        }
+
+        .profile-header {
+            flex-direction: column;
+            text-align: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
         .form-grid {
             grid-template-columns: 1fr;
+        }
+
+        .btn-primary-small {
+            width: 100%;
+            text-align: center;
         }
     }
     .password-section {

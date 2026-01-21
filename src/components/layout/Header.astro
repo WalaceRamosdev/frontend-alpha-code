@@ -15,6 +15,9 @@ try {
         error instanceof Error ? error.message : String(error),
     );
 }
+
+const currentPath = Astro.url.pathname;
+const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
 ---
 
 <header id="main-header">
@@ -40,8 +43,25 @@ try {
                 {
                     session ? (
                         <li>
-                            <a href="/dashboard" class="btn-login-nav">
-                                Dashboard
+                            <a
+                                href="/dashboard"
+                                class={`profile-nav-btn ${isDashboard ? "active-dash active" : ""}`}
+                                id="desktop-profile-btn"
+                            >
+                                <span class="profile-text-node">Perfil</span>
+                                <div class="profile-avatar-node">
+                                    {session.user?.image ? (
+                                        <img
+                                            src={session.user.image}
+                                            alt="Avatar"
+                                        />
+                                    ) : (
+                                        <div class="avatar-letter">
+                                            {session.user?.name?.charAt(0) ||
+                                                "U"}
+                                        </div>
+                                    )}
+                                </div>
                             </a>
                         </li>
                     ) : (
@@ -57,8 +77,21 @@ try {
         <div class="header-actions">
             {
                 session ? (
-                    <a href="/dashboard" class="btn-login-nav mobile-login">
-                        Dashboard
+                    <a
+                        href="/dashboard"
+                        class={`profile-nav-btn mobile-login ${isDashboard ? "active-dash active" : ""}`}
+                        id="mobile-profile-btn"
+                    >
+                        <span class="profile-text-node">Perfil</span>
+                        <div class="profile-avatar-node">
+                            {session.user?.image ? (
+                                <img src={session.user.image} alt="Avatar" />
+                            ) : (
+                                <div class="avatar-letter">
+                                    {session.user?.name?.charAt(0) || "U"}
+                                </div>
+                            )}
+                        </div>
                     </a>
                 ) : (
                     <a href="/login" class="btn-login-nav mobile-login">
@@ -148,6 +181,20 @@ try {
             }
         });
     }
+    // Profile Button Animation Logic
+    const profileBtns = document.querySelectorAll(".profile-nav-btn");
+    profileBtns.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const link = btn.getAttribute("href");
+            if (link) {
+                e.preventDefault();
+                btn.classList.add("expanded");
+                setTimeout(() => {
+                    window.location.href = link;
+                }, 400); // Wait for animation
+            }
+        });
+    });
 </script>
 <style>
     /* Header Styles */
@@ -220,6 +267,85 @@ try {
         border-color: var(--color-primary) !important;
         color: white !important;
         box-shadow: 0 4px 12px rgba(138, 28, 38, 0.3);
+    }
+
+    /* New Profile Button Styles */
+    .profile-nav-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        border-radius: 50px;
+        text-decoration: none;
+        width: 44px;
+        height: 44px;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.2);
+        white-space: nowrap;
+        cursor: pointer;
+        position: relative;
+    }
+
+    /* Keep it permanently expanded on Dashboard or when clicked */
+    .profile-nav-btn.active-dash,
+    .profile-nav-btn.expanded {
+        width: 135px;
+        justify-content: space-between;
+        padding: 0 4px 0 18px;
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        box-shadow: 0 0 25px rgba(138, 28, 38, 0.5);
+    }
+
+    .profile-avatar-node {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 2;
+        /* Absolute centering support for the initial state */
+        transition: transform 0.4s ease;
+    }
+
+    .profile-avatar-node img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .avatar-letter {
+        color: white;
+        font-weight: 800;
+        font-size: 1rem;
+        line-height: 1;
+    }
+
+    .profile-text-node {
+        max-width: 0;
+        opacity: 0;
+        transform: translateX(10px);
+        transition: all 0.3s ease;
+        color: white;
+        font-weight: 700;
+        font-size: 0.95rem;
+        pointer-events: none;
+        visibility: hidden;
+    }
+
+    .profile-nav-btn.active-dash .profile-text-node,
+    .profile-nav-btn.expanded .profile-text-node {
+        max-width: 100px;
+        opacity: 1;
+        transform: translateX(0);
+        visibility: visible;
+        margin-right: 10px;
     }
     .header-actions {
         display: flex;
