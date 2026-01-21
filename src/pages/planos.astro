@@ -462,6 +462,48 @@ const description =
             </Card>
         </div>
 
+        <!-- GOOGLE PROOF SECTION -->
+        <div class="google-proof fade-up">
+            <div class="text-center">
+                <h2>Aprovado pelo <span class="text-gradient">Google</span></h2>
+                <p class="proof-subtitle">
+                    Nossos sites seguem os critérios oficiais do Google para
+                    desempenho, SEO e boas práticas. Isso significa páginas mais
+                    rápidas, melhor posicionamento e mais conversões.
+                </p>
+            </div>
+
+            <div class="proof-container">
+                <img
+                    src="/assets/google-pagespeed-score.png"
+                    alt="Pontuação Google PageSpeed Insights"
+                    class="proof-img"
+                    loading="lazy"
+                />
+                <div class="proof-legend">
+                    <p class="legend-main">
+                        Pontuação real no Google PageSpeed:
+                        <strong
+                            >SEO 100 | Boas práticas 100 | Desempenho alto no
+                            mobile e desktop.</strong
+                        >
+                    </p>
+                    <p class="legend-sub">
+                        Isso é o Google dizendo que o site está pronto para
+                        vender.
+                    </p>
+                </div>
+            </div>
+
+            <p class="reinforcement-text">
+                A maioria dos sites no mercado não passa de 60 no PageSpeed
+                mobile.<br />
+                <strong class="text-white"
+                    >Aqui, entregamos sites que o próprio Google recomenda.</strong
+                >
+            </p>
+        </div>
+
         <!-- TECHNICAL EXCELLENCE BASE (Detailed Product Info) -->
         <div class="base-excellence fade-up">
             <div class="excellence-header text-center">
@@ -1356,6 +1398,68 @@ const description =
         .excel-item {
             padding: 30px;
         }
+    }
+
+    /* GOOGLE PROOF SECTION */
+    .google-proof {
+        margin: 100px 0;
+        text-align: center;
+    }
+
+    .proof-subtitle {
+        max-width: 700px;
+        margin: 15px auto 40px;
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .proof-container {
+        background: rgba(10, 10, 10, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 10px;
+        max-width: 900px;
+        margin: 0 auto;
+        box-shadow: 0 0 50px rgba(0, 255, 128, 0.05);
+    }
+
+    .proof-img {
+        width: 100%;
+        height: auto;
+        border-radius: 12px;
+        display: block;
+    }
+
+    .proof-legend {
+        padding: 20px 0 10px;
+    }
+
+    .legend-main {
+        font-size: 1.1rem;
+        color: #4ade80; /* Success green */
+        margin-bottom: 5px;
+    }
+
+    .legend-main strong {
+        font-weight: 700;
+        color: #4ade80;
+    }
+
+    .legend-sub {
+        font-size: 0.95rem;
+        color: rgba(255, 255, 255, 0.6);
+    }
+
+    .reinforcement-text {
+        margin-top: 40px;
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+    }
+
+    .text-white {
+        color: #fff;
     }
 </style>
 
