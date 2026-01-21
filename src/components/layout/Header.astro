@@ -40,41 +40,33 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 <li><a href="/planos">Planos</a></li>
                 <li><a href="/pedido?plan=manutencao">Manutenção</a></li>
                 <li><a href="/about">Sobre</a></li>
-                {
-                    session ? (
-                        <li>
-                            <a
-                                href="/dashboard"
-                                class={`profile-nav-btn ${isDashboard ? "active-dash active" : ""}`}
-                                id="desktop-profile-btn"
-                            >
-                                <span class="profile-text-node">Perfil</span>
-                                <div class="profile-avatar-node">
-                                    {session.user?.image ? (
-                                        <img
-                                            src={session.user.image}
-                                            alt="Avatar"
-                                        />
-                                    ) : (
-                                        <div class="avatar-letter">
-                                            {session.user?.name?.charAt(0) ||
-                                                "U"}
-                                        </div>
-                                    )}
-                                </div>
-                            </a>
-                        </li>
-                    ) : (
-                        <li>
-                            <a href="/login" class="btn-login-nav">
-                                Login
-                            </a>
-                        </li>
-                    )
-                }
             </ul>
         </nav>
         <div class="header-actions">
+            {
+                session ? (
+                    <a
+                        href="/dashboard"
+                        class={`profile-nav-btn desktop-only ${isDashboard ? "active-dash active" : ""}`}
+                        id="desktop-profile-btn"
+                    >
+                        <span class="profile-text-node">Perfil</span>
+                        <div class="profile-avatar-node">
+                            {session.user?.image ? (
+                                <img src={session.user.image} alt="Avatar" />
+                            ) : (
+                                <div class="avatar-letter">
+                                    {session.user?.name?.charAt(0) || "U"}
+                                </div>
+                            )}
+                        </div>
+                    </a>
+                ) : (
+                    <a href="/login" class="btn-login-nav desktop-only">
+                        Login
+                    </a>
+                )
+            }
             {
                 session ? (
                     <a
@@ -109,7 +101,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 href="https://wa.me/5521999064502"
                 target="_blank"
                 class="btn btn-primary desktop-only"
-                style="padding: 0.5rem 1.5rem; font-size: 0.8rem;"
+                style="padding: 0.5rem 1.5rem; font-size: 0.8rem; height: 44px; display: flex; align-items: center;"
             >
                 Contato
             </a>
@@ -350,7 +342,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
     .header-actions {
         display: flex;
         align-items: center;
-        gap: 4px;
+        gap: 12px;
     } /* Mobile Menu */
     #mobile-menu-btn {
         display: none;
