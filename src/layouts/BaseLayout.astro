@@ -12,6 +12,8 @@ interface Props {
     ogImage?: string;
     noIndex?: boolean;
     showWhatsApp?: boolean;
+    showHeader?: boolean;
+    showFooter?: boolean;
 }
 
 const {
@@ -21,6 +23,8 @@ const {
     ogImage = "/assets/logo.svg",
     noIndex = false,
     showWhatsApp = true,
+    showHeader = true,
+    showFooter = true,
 } = Astro.props;
 
 const seo = createSEOMeta({
@@ -79,13 +83,13 @@ const seo = createSEOMeta({
             Pular para conteúdo principal
         </a>
 
-        <Header />
+        {showHeader && <Header />}
 
         <main id="main-content">
             <slot />
         </main>
 
-        <Footer />
+        {showFooter && <Footer />}
 
         {
             showWhatsApp && (

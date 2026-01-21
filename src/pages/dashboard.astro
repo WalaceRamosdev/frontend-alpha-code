@@ -1,0 +1,773 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import { getSession } from "../lib/auth";
+// import authConfig from "../auth.config";
+// import { SignOut } from "auth-astro/components";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Dashboard Auth Error:", e);
+}
+
+if (!session) {
+    return Astro.redirect("/login");
+}
+export const prerender = false;
+---
+
+<Layout title="Dashboard | Alpha Code" showWhatsApp={false}>
+    <div class="dashboard-wrapper">
+        <!-- Background Ambient Glow -->
+        <div class="ambient-glow"></div>
+
+        <div class="container dashboard-container">
+            <!-- Header Section -->
+            <header class="dashboard-header">
+                <div class="user-profile-header">
+                    <div class="header-avatar">
+                        {
+                            session.user?.image ? (
+                                <img
+                                    src={session.user.image}
+                                    alt="Profile"
+                                    id="header-avatar-img"
+                                />
+                            ) : (
+                                <div class="avatar-letter">
+                                    {session.user?.name?.charAt(0) || "U"}
+                                </div>
+                            )
+                        }
+                    </div>
+                    <div class="welcome-text">
+                        <span class="greeting">Bem-vindo de volta,</span>
+                        <h1 class="user-name">
+                            {session.user?.name || "Cliente Alpha"}
+                        </h1>
+                    </div>
+                </div>
+                <div class="header-actions">
+                    <button id="logout-btn" class="logout-btn">
+                        <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            ><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"
+                            ></path><polyline points="16 17 21 12 16 7"
+                            ></polyline><line x1="21" y1="12" x2="9" y2="12"
+                            ></line></svg
+                        >
+                        <span>Sair</span>
+                    </button>
+                </div>
+            </header>
+
+            <!-- Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon project">
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            ><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"
+                            ></path><path
+                                d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"
+                            ></path></svg
+                        >
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Projetos Ativos</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon invoice">
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            ><rect x="2" y="5" width="20" height="14" rx="2"
+                            ></rect><line x1="2" y1="10" x2="22" y2="10"
+                            ></line></svg
+                        >
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">R$ 0,00</span>
+                        <span class="stat-label">Faturas em Aberto</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon support">
+                        <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            ><path
+                                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                            ></path></svg
+                        >
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-value">0</span>
+                        <span class="stat-label">Tickets Abertos</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main Content Area -->
+            <div class="content-grid">
+                <!-- Projects Section -->
+                <section class="main-card projects-section">
+                    <div class="card-header">
+                        <h2>Meus Projetos</h2>
+                        <button id="new-project-btn" class="action-link"
+                            >Novo Projeto +</button
+                        >
+                    </div>
+                    <div class="empty-state">
+                        <div class="empty-icon">
+                            <svg
+                                width="48"
+                                height="48"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1"
+                                ><polygon points="12 2 2 7 12 12 22 7 12 2"
+                                ></polygon><polyline points="2 17 12 22 22 17"
+                                ></polyline><polyline points="2 12 12 17 22 12"
+                                ></polyline></svg
+                            >
+                        </div>
+                        <h3>Nenhum projeto em andamento</h3>
+                        <p>
+                            Inicie um novo projeto conosco para transformar suas
+                            ideias em realidade digital.
+                        </p>
+                        <button id="new-project-cta" class="btn-primary-small"
+                            >Solicitar Orçamento</button
+                        >
+                    </div>
+                </section>
+
+                <!-- Sidebar / Quick Actions -->
+                <aside class="sidebar-actions">
+                    <div class="main-card action-card">
+                        <h3>Ações Rápidas</h3>
+                        <div class="quick-links">
+                            <a href="/suporte" class="quick-link">
+                                <span class="icon">🔧</span>
+                                <div>
+                                    <strong>Suporte Técnico</strong>
+                                    <span>Abrir um chamado</span>
+                                </div>
+                            </a>
+                            <a href="/faturas" class="quick-link">
+                                <span class="icon">📄</span>
+                                <div>
+                                    <strong>Minhas Faturas</strong>
+                                    <span>Ver histórico</span>
+                                </div>
+                            </a>
+                            <a href="/perfil" class="quick-link">
+                                <span class="icon">👤</span>
+                                <div>
+                                    <strong>Perfil</strong>
+                                    <span>Editar dados</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Novo Projeto -->
+    <div id="project-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Iniciar Novo Projeto</h2>
+                <button id="close-modal" class="close-btn">&times;</button>
+            </div>
+            <form class="project-form">
+                <div class="form-group">
+                    <label>Nome do Projeto</label>
+                    <input
+                        type="text"
+                        placeholder="Ex: E-commerce de Roupas"
+                        required
+                    />
+                </div>
+                <div class="form-group">
+                    <label>Tipo de Serviço</label>
+                    <select>
+                        <option>Web Site Institucional</option>
+                        <option>E-commerce / Loja Virtual</option>
+                        <option>Sistema Web Personalizado</option>
+                        <option>Landing Page</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Descrição Breve</label>
+                    <textarea
+                        rows="4"
+                        placeholder="Descreva suas ideias e objetivos..."
+                    ></textarea>
+                </div>
+                <div class="modal-actions">
+                    <button
+                        type="button"
+                        id="cancel-modal"
+                        class="btn-secondary">Cancelar</button
+                    >
+                    <button type="submit" class="btn-submit"
+                        >Enviar Solicitação</button
+                    >
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Modal Logic
+        const modal = document.getElementById("project-modal");
+        const openBtns = [
+            document.getElementById("new-project-btn"),
+            document.getElementById("new-project-cta"),
+        ];
+        const closeBtn = document.getElementById("close-modal");
+        const cancelBtn = document.getElementById("cancel-modal");
+
+        function openModal() {
+            modal?.classList.remove("hidden");
+            document.body.style.overflow = "hidden"; // Prevent scrolling
+        }
+
+        function closeModal() {
+            modal?.classList.add("hidden");
+            document.body.style.overflow = "";
+        }
+
+        openBtns.forEach((btn) => btn?.addEventListener("click", openModal));
+        closeBtn?.addEventListener("click", closeModal);
+        cancelBtn?.addEventListener("click", closeModal);
+
+        // Close on click outside
+        modal?.addEventListener("click", (e) => {
+            if (e.target === modal) closeModal();
+        });
+
+        // Logout Logic
+        const logoutBtn = document.getElementById("logout-btn");
+        if (logoutBtn) {
+            logoutBtn.addEventListener("click", async () => {
+                const originalText = logoutBtn.innerHTML;
+                logoutBtn.innerText = "Saindo...";
+                try {
+                    const csrfRes = await fetch("/api/auth/csrf");
+                    const { csrfToken } = await csrfRes.json();
+
+                    await fetch("/api/auth/signout", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({ csrfToken, callbackUrl: "/" }),
+                    });
+
+                    window.location.href = "/";
+                } catch (e) {
+                    console.error("Logout failed", e);
+                    window.location.href = "/";
+                }
+            });
+        }
+    </script>
+
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.05);
+            --neon-accent: var(--color-primary);
+        }
+
+        .dashboard-wrapper {
+            min-height: 100vh;
+            background-color: var(--color-bg-body);
+            padding-top: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .ambient-glow {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            height: 500px;
+            background: radial-gradient(
+                circle at top,
+                rgba(138, 28, 38, 0.15),
+                transparent 70%
+            );
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .dashboard-container {
+            position: relative;
+            z-index: 1;
+            padding-bottom: 4rem;
+        }
+
+        /* Header */
+        .dashboard-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1.5rem;
+        }
+
+        .user-profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .header-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 18px;
+            background: var(--color-primary);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 8px 20px rgba(138, 28, 38, 0.2);
+        }
+
+        .header-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .avatar-letter {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+        }
+
+        .greeting {
+            display: block;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .user-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-text-heading);
+            margin: 0;
+            background: linear-gradient(
+                to right,
+                #fff,
+                var(--color-text-muted)
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .logout-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 8px;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(220, 38, 38, 0.1);
+            border-color: rgba(220, 38, 38, 0.3);
+            color: #ef4444;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .stat-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: transform 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border-color: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+        }
+
+        .stat-icon.project {
+            background: rgba(59, 130, 246, 0.15);
+            color: #60a5fa;
+        }
+        .stat-icon.invoice {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+        }
+        .stat-icon.support {
+            background: rgba(249, 115, 22, 0.15);
+            color: #fb923c;
+        }
+
+        .stat-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-text-heading);
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Content Grid */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 900px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .main-card {
+            background: rgba(20, 20, 20, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .card-header h2,
+        .action-card h3 {
+            font-size: 1.25rem;
+            color: var(--color-text-heading);
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .action-link {
+            color: var(--color-primary);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 1rem;
+            border: 2px dashed var(--glass-border);
+            border-radius: 12px;
+        }
+
+        .empty-icon {
+            color: var(--color-text-muted);
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            color: var(--color-text-heading);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary-small {
+            background: var(--color-primary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .btn-primary-small:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
+        }
+
+        /* Sidebar Actions */
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .quick-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid transparent;
+            text-decoration: none;
+            color: var(--color-text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .quick-link:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--glass-border);
+            color: var(--color-text-heading);
+            transform: translateX(5px);
+        }
+
+        .quick-link .icon {
+            font-size: 1.2rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+        }
+
+        .quick-link div {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .quick-link strong {
+            color: var(--color-text-heading);
+            font-size: 0.95rem;
+        }
+
+        .quick-link span {
+            font-size: 0.8rem;
+        }
+
+        /* Modal Styles */
+        .modal-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        .modal-backdrop.hidden {
+            display: none;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 500px;
+            padding: 2rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+        }
+
+        .modal-content::-webkit-scrollbar {
+            display: none; /* Chrome, Safari and Opera */
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            border-bottom: 1px solid var(--glass-border);
+            padding-bottom: 1rem;
+        }
+
+        .modal-header h2 {
+            font-size: 1.5rem;
+            color: var(--color-text-heading);
+            margin: 0;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            color: var(--color-text-muted);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--color-text-muted);
+            font-size: 0.9rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+        }
+
+        .form-group select option {
+            background-color: #1a1a1a;
+            color: #fff;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 1px solid var(--glass-border);
+            color: var(--color-text-muted);
+            padding: 0.6rem 1.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .btn-secondary:hover {
+            border-color: #fff;
+            color: #fff;
+        }
+
+        .btn-submit {
+            background: var(--color-primary);
+            color: #fff;
+            border: none;
+            padding: 0.6rem 2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
+            transform: translateY(-2px);
+        }
+    </style>
+</Layout>

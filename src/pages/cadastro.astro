@@ -1,0 +1,38 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import RegisterForm from "../components/auth/RegisterForm";
+import { getSession } from "../lib/auth";
+import "../styles/auth.css";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Cadastro Page Auth Error:", e);
+}
+if (session) {
+    return Astro.redirect("/dashboard");
+}
+export const prerender = false;
+---
+
+<Layout
+    title="Cadastro | Alpha Code"
+    showHeader={false}
+    showFooter={false}
+    showWhatsApp={false}
+>
+    <div
+        class="h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 relative overflow-hidden"
+        style="background-color: var(--color-bg-body);"
+    >
+        <!-- Subtle background glow -->
+        <div
+            class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] opacity-10 blur-[120px] pointer-events-none rounded-full"
+            style="background: var(--color-primary);"
+        >
+        </div>
+
+        <RegisterForm client:load />
+    </div>
+</Layout>

@@ -1,0 +1,164 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import { getSession } from "../lib/auth";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Support Auth Error:", e);
+}
+
+if (!session) {
+    return Astro.redirect("/login");
+}
+export const prerender = false;
+---
+
+<Layout title="Suporte Técnico | Alpha Code" showWhatsApp={false}>
+    <div class="dashboard-wrapper">
+        <div class="ambient-glow"></div>
+        <div class="container dashboard-container">
+            <header class="dashboard-header">
+                <div class="welcome-text">
+                    <a href="/dashboard" class="back-link"
+                        >← Voltar para o Dashboard</a
+                    >
+                    <h1 class="user-name">Suporte Técnico</h1>
+                </div>
+            </header>
+
+            <div class="content-grid single-col">
+                <section class="main-card">
+                    <div class="card-header">
+                        <h2>Abrir Novo Chamado</h2>
+                    </div>
+                    <form class="support-form">
+                        <div class="form-group">
+                            <label>Assunto</label>
+                            <input
+                                type="text"
+                                placeholder="Assunto do atendimento"
+                                required
+                            />
+                        </div>
+                        <div class="form-group">
+                            <label>Prioridade</label>
+                            <select>
+                                <option>Baixa</option>
+                                <option>Média</option>
+                                <option>Alta - Urgente</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Descrição do Problema</label>
+                            <textarea
+                                rows="6"
+                                placeholder="Descreva detalhadamente como podemos te ajudar..."
+                            ></textarea>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn-primary-small"
+                                >Enviar Chamado</button
+                            >
+                        </div>
+                    </form>
+                </section>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<style>
+    .dashboard-wrapper {
+        min-height: 100vh;
+        background-color: var(--color-bg-body);
+        padding-top: 120px;
+        position: relative;
+    }
+    .ambient-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 500px;
+        background: radial-gradient(
+            circle at top,
+            rgba(138, 28, 38, 0.1),
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+    .dashboard-container {
+        position: relative;
+        z-index: 1;
+    }
+    .dashboard-header {
+        margin-bottom: 2rem;
+    }
+    .back-link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    .back-link:hover {
+        color: var(--color-primary);
+    }
+    .user-name {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: white;
+    }
+    .main-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+        padding: 2.5rem;
+        backdrop-filter: blur(10px);
+    }
+    .form-group {
+        margin-bottom: 1.5rem;
+    }
+    .form-group label {
+        display: block;
+        color: #888;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: white;
+        padding: 1rem;
+        font-size: 1rem;
+    }
+    .form-group select option {
+        background-color: #1a1a1a;
+        color: #fff;
+    }
+    .btn-primary-small {
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-primary-small:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(var(--color-primary-rgb), 0.4);
+    }
+    .single-col {
+        max-width: 800px;
+        margin: 0 auto;
+    }
+</style>

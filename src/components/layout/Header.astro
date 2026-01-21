@@ -1,5 +1,20 @@
 ---
-import Button from "../ui/Button.astro";
+// import { getSession } from "auth-astro/server";
+// import authConfig from "../../auth.config";
+import { getSession } from "../../lib/auth";
+
+const { request } = Astro;
+let session = null;
+
+try {
+    session = await getSession(request);
+} catch (error) {
+    // Log the error but don't crash the header
+    console.error(
+        "[Header] Auth error:",
+        error instanceof Error ? error.message : String(error),
+    );
+}
 ---
 
 <header id="main-header">
@@ -22,9 +37,35 @@ import Button from "../ui/Button.astro";
                 <li><a href="/planos">Planos</a></li>
                 <li><a href="/pedido?plan=manutencao">Manutenção</a></li>
                 <li><a href="/about">Sobre</a></li>
+                {
+                    session ? (
+                        <li>
+                            <a href="/dashboard" class="btn-login-nav">
+                                Dashboard
+                            </a>
+                        </li>
+                    ) : (
+                        <li>
+                            <a href="/login" class="btn-login-nav">
+                                Login
+                            </a>
+                        </li>
+                    )
+                }
             </ul>
         </nav>
         <div class="header-actions">
+            {
+                session ? (
+                    <a href="/dashboard" class="btn-login-nav mobile-login">
+                        Dashboard
+                    </a>
+                ) : (
+                    <a href="/login" class="btn-login-nav mobile-login">
+                        Login
+                    </a>
+                )
+            }
             <!-- Mobile Menu Toggle Only -->
             <button id="mobile-menu-btn" aria-label="Menu">
                 <span></span>
@@ -50,20 +91,30 @@ import Button from "../ui/Button.astro";
             <li><a href="/planos">Planos</a></li>
             <li><a href="/pedido?plan=manutencao">Manutenção</a></li>
             <li><a href="/about">Sobre</a></li>
+            {
+                session ? (
+                    <li>
+                        <a href="/dashboard">Dashboard</a>
+                    </li>
+                ) : (
+                    <li>
+                        <a href="/login">Login</a>
+                    </li>
+                )
+            }
             <li>
                 <a href="https://wa.me/5521999064502" class="btn btn-primary"
-                    >Falar no WhatsApp</a>
+                    >Falar no WhatsApp</a
+                >
             </li>
         </ul>
     </div>
 </header>
-
 <script>
     // Mobile Menu Logic
     const mobileMenuBtn = document.getElementById("mobile-menu-btn");
     const mobileMenu = document.querySelector(".mobile-menu");
     const mobileLinks = document.querySelectorAll(".mobile-menu a");
-
     if (mobileMenuBtn && mobileMenu) {
         mobileMenuBtn.addEventListener("click", () => {
             const isOpen = mobileMenu.classList.contains("open");
@@ -77,7 +128,6 @@ import Button from "../ui/Button.astro";
                 document.body.style.overflow = "hidden";
             }
         });
-
         mobileLinks.forEach((link) => {
             link.addEventListener("click", () => {
                 mobileMenu.classList.remove("open");
@@ -85,7 +135,6 @@ import Button from "../ui/Button.astro";
                 document.body.style.overflow = "";
             });
         });
-
         document.addEventListener("click", (e) => {
             const target = e.target as Node;
             if (
@@ -100,7 +149,6 @@ import Button from "../ui/Button.astro";
         });
     }
 </script>
-
 <style>
     /* Header Styles */
     #main-header {
@@ -136,9 +184,7 @@ import Button from "../ui/Button.astro";
         height: 50px;
         width: auto;
         display: block;
-    }
-
-    /* Nav */
+    } /* Nav */
     .desktop-nav ul {
         display: flex;
         gap: 12px;
@@ -157,19 +203,29 @@ import Button from "../ui/Button.astro";
         background-color: rgba(255, 255, 255, 0.05);
         color: white;
         box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
-    }
-    /* Active/Primary Link if needed */
+    } /* Active/Primary Link if needed */
     .desktop-nav a.active {
         color: white;
     }
-
+    .btn-login-nav {
+        background-color: rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
+        padding: 8px 20px !important;
+        border-radius: 20px !important;
+        margin-left: 0;
+        transition: all 0.3s ease;
+    }
+    .btn-login-nav:hover {
+        background-color: var(--color-primary) !important;
+        border-color: var(--color-primary) !important;
+        color: white !important;
+        box-shadow: 0 4px 12px rgba(138, 28, 38, 0.3);
+    }
     .header-actions {
         display: flex;
         align-items: center;
-        gap: 15px;
-    }
-
-    /* Mobile Menu */
+        gap: 4px;
+    } /* Mobile Menu */
     #mobile-menu-btn {
         display: none;
         background: none;
@@ -190,8 +246,7 @@ import Button from "../ui/Button.astro";
     #mobile-menu-btn:hover span {
         background-color: var(--color-primary-light);
         box-shadow: 0 0 10px var(--color-primary);
-    }
-    /* Hamburger transformation */
+    } /* Hamburger transformation */
     #mobile-menu-btn.active span:nth-child(1) {
         transform: rotate(45deg) translate(5px, 6px);
     }
@@ -201,7 +256,6 @@ import Button from "../ui/Button.astro";
     #mobile-menu-btn.active span:nth-child(3) {
         transform: rotate(-45deg) translate(5px, -6px);
     }
-
     .mobile-menu {
         position: fixed;
         top: 80px;
@@ -236,11 +290,12 @@ import Button from "../ui/Button.astro";
         min-width: 200px;
         margin: 10px auto 0;
     }
-
     .desktop-only {
         display: inline-block;
     }
-
+    .mobile-login {
+        display: none;
+    }
     @media (max-width: 768px) {
         .desktop-nav {
             display: none;
@@ -250,6 +305,9 @@ import Button from "../ui/Button.astro";
         }
         .desktop-only {
             display: none;
+        }
+        .mobile-login {
+            display: inline-block;
         }
     }
 </style>
