@@ -30,7 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
                 phone,
                 company,
                 image,
-            },
+            } as any,
         });
 
         return new Response(

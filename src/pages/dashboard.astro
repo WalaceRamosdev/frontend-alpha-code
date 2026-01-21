@@ -769,5 +769,61 @@ export const prerender = false;
             box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
             transform: translateY(-2px);
         }
+
+        /* Melhorias para Mobile */
+        @media (max-width: 600px) {
+            .dashboard-header {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                gap: 1.5rem;
+                padding-bottom: 2rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .user-profile-header {
+                flex-direction: column;
+                gap: 0.8rem;
+            }
+
+            .header-avatar {
+                width: 80px;
+                height: 80px;
+                border-radius: 24px;
+                margin-top: -0.5rem;
+            }
+
+            .greeting {
+                font-size: 0.8rem;
+            }
+
+            .user-name {
+                font-size: 1.6rem;
+                line-height: 1.2;
+            }
+
+            .header-actions {
+                width: 100%;
+                display: flex;
+                justify-content: center;
+            }
+
+            .logout-btn {
+                width: 100%;
+                max-width: 200px;
+                justify-content: center;
+                background: rgba(220, 38, 38, 0.05);
+                border-color: rgba(220, 38, 38, 0.1);
+                color: #ef4444;
+            }
+
+            .dashboard-wrapper {
+                padding-top: 100px; /* Reduzir um pouco no mobile */
+            }
+
+            .stats-grid {
+                gap: 1rem;
+            }
+        }
     </style>
 </Layout>

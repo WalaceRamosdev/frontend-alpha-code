@@ -53,9 +53,9 @@ export default {
     callbacks: {
         session: async ({ session, token }: any) => {
             if (token?.email) {
-                const dbUser = await prisma.user.findUnique({
+                const dbUser = (await prisma.user.findUnique({
                     where: { email: token.email as string },
-                });
+                })) as any;
                 if (dbUser) {
                     session.user = {
                         ...session.user,
