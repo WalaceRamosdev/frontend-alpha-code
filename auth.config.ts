@@ -1,7 +1,7 @@
 import Credentials from "@auth/core/providers/credentials";
 import Google from "@auth/core/providers/google";
 import { PrismaAdapter } from "@auth/prisma-adapter";
-import { prisma } from "./lib/prisma";
+import { prisma } from "./src/lib/prisma";
 import bcrypt from "bcryptjs";
 
 export default {
