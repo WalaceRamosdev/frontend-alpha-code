@@ -1359,25 +1359,62 @@ export const prerender = false;
 
             .card-header {
                 flex-direction: column;
-                gap: 1rem;
+                gap: 1.5rem;
                 text-align: center;
+                align-items: center;
             }
 
             .add-site-trigger {
                 flex-direction: column;
                 text-align: center;
-                gap: 1rem;
+                gap: 1.5rem;
+                align-items: center;
             }
 
             .benefit-item {
                 flex-direction: column;
                 text-align: center;
-                gap: 1rem;
-                padding: 2rem 1rem;
+                gap: 1.5rem;
+                padding: 2.5rem 1.5rem;
+                align-items: center;
             }
 
             .benefit-icon {
                 margin: 0 auto;
+                flex-shrink: 0;
+            }
+
+            .benefit-info {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .sidebar-actions,
+            .quick-link {
+                align-items: center;
+                text-align: center;
+                flex-direction: column;
+                justify-content: center;
+            }
+
+            .quick-link {
+                gap: 1.5rem;
+                padding: 2.5rem 1.5rem;
+                width: 100%;
+            }
+
+            .quick-link .icon {
+                margin: 0 auto;
+            }
+
+            .projects-section .card-header {
+                align-items: center;
+                justify-content: center;
+            }
+
+            .main-card {
+                padding: 1.5rem;
             }
         }
     </style>
