@@ -53,10 +53,13 @@ export const POST: APIRoute = async ({ request }) => {
             }),
             { status: 201, headers: { "Content-Type": "application/json" } }
         );
-    } catch (error) {
+    } catch (error: any) {
         console.error("Erro ao criar usuário:", error);
         return new Response(
-            JSON.stringify({ message: "Erro ao criar usuário. Tente novamente." }),
+            JSON.stringify({
+                message: "Erro no banco de dados",
+                details: error.message || "Erro desconhecido"
+            }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );
     }
