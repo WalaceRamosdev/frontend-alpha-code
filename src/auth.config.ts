@@ -67,7 +67,7 @@ export default {
                     const dbUser = await prisma.user.findUnique({
                         where: { id: token.sub },
                         select: { plan: true, siteUrl: true, image: true, name: true }
-                    });
+                    } as any);
 
                     if (dbUser) {
                         session.user.plan = (dbUser as any).plan || "FREE";

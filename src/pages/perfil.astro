@@ -176,9 +176,13 @@ export const prerender = false;
             avatarInput.addEventListener("change", (e: Event) => {
                 const target = e.target as HTMLInputElement;
                 const file = target.files ? target.files[0] : null;
+                if (file) {
                     if (file.size > 2 * 1024 * 1024) {
                         // 2MB limit
-                        (window as any).showToast("A imagem deve ter no máximo 2MB.", "error");
+                        (window as any).showToast(
+                            "A imagem deve ter no máximo 2MB.",
+                            "error",
+                        );
                         return;
                     }
                     const reader = new FileReader();
@@ -232,17 +236,25 @@ export const prerender = false;
 
                     if (res.ok) {
                         if (nameDisplay) nameDisplay.innerText = name;
-                        (window as any).showToast("Perfil atualizado com sucesso!");
-                        
+                        (window as any).showToast(
+                            "Perfil atualizado com sucesso!",
+                        );
+
                         // Recarregar para atualizar o Header (server-side)
                         setTimeout(() => window.location.reload(), 1500);
                     } else {
                         const data = await res.json();
-                        (window as any).showToast(data.message || "Erro ao atualizar perfil.", "error");
+                        (window as any).showToast(
+                            data.message || "Erro ao atualizar perfil.",
+                            "error",
+                        );
                     }
                 } catch (err) {
                     console.error(err);
-                    (window as any).showToast("Erro ao conectar com o servidor.", "error");
+                    (window as any).showToast(
+                        "Erro ao conectar com o servidor.",
+                        "error",
+                    );
                 } finally {
                     if (saveBtn) {
                         saveBtn.innerText = originalText;
