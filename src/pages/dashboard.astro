@@ -1370,7 +1370,13 @@ export const prerender = false;
             .stat-card {
                 flex-direction: column;
                 text-align: center;
+                align-items: center; /* Força alinhamento central do ícone e info */
                 gap: 1rem;
+            }
+
+            .stat-info {
+                align-items: center; /* Centraliza estatísticas internamente */
+                text-align: center;
             }
 
             .stat-icon {
@@ -1382,7 +1388,9 @@ export const prerender = false;
                 flex-direction: column;
                 text-align: center;
                 align-items: center;
+                justify-content: center;
                 gap: 1rem;
+                width: 100%;
             }
 
             /* Centralização do conteúdo de Meu Projeto Alpha */
@@ -1391,6 +1399,7 @@ export const prerender = false;
                 text-align: center;
                 gap: 1.5rem;
                 align-items: center;
+                width: 100%;
             }
 
             .plus-icon {
@@ -1403,6 +1412,12 @@ export const prerender = false;
                 text-align: center;
                 gap: 1.2rem;
                 align-items: center;
+                width: 100%;
+            }
+
+            .benefit-info {
+                align-items: center;
+                text-align: center;
             }
 
             .benefit-icon {
@@ -1415,17 +1430,26 @@ export const prerender = false;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                width: 100%;
             }
 
             .quick-links {
-                gap: 2.5rem; /* Distância generosa conforme solicitado */
+                gap: 2.5rem;
+                width: 100%;
             }
 
             .quick-link {
-                padding: 3rem 1.5rem; /* Mais robusto conforme solicitado */
+                padding: 3rem 1.5rem;
                 flex-direction: column;
                 text-align: center;
-                gap: 1.2rem;
+                align-items: center; /* Força centralização */
+                gap: 1.5rem;
+                width: 100%;
+            }
+
+            .quick-link div {
+                align-items: center; /* Centraliza textos internos */
+                text-align: center;
             }
 
             .quick-link .icon {
