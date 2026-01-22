@@ -14,7 +14,7 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const body = await request.json();
-        const { name, phone, company, image } = body;
+        const { name, phone, company, image, siteUrl } = body;
 
         if (!name) {
             return new Response(
@@ -30,6 +30,7 @@ export const POST: APIRoute = async ({ request }) => {
                 phone,
                 company,
                 image,
+                siteUrl,
             } as any,
         });
 

@@ -18,6 +18,7 @@ model User {
   company       String?
   password      String?
   plan          String    @default("FREE")
+  siteUrl       String?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
