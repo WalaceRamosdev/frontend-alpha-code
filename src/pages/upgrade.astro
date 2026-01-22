@@ -185,9 +185,35 @@ export const prerender = false;
         </div>
     </div>
 
+    <!-- Success Celebration Overlay -->
+    <div id="celebration-overlay" class="celebration-overlay">
+        <div class="celebration-content">
+            <div class="confetti-container"></div>
+            <div class="glow-circle"></div>
+            <div class="celebration-icon">🚀</div>
+            <h2 class="celebration-title">Bem-vindo ao Próximo Nível!</h2>
+            <p class="celebration-msg">
+                Seu upgrade para <span id="celebration-plan"></span> foi processado
+                com sucesso.
+            </p>
+            <div class="benefits-reveal">
+                <span>Benefícios Exclusivos Desbloqueados ✔</span>
+            </div>
+            <div class="loading-bar-container">
+                <div class="loading-bar-fill"></div>
+            </div>
+            <p class="redirect-text">Preparando seu novo Dashboard...</p>
+        </div>
+    </div>
+
     <script>
+        import { gsap } from "gsap";
+
         const upgradeBtns = document.querySelectorAll(".btn-upgrade");
         const modal = document.getElementById("payment-modal");
+        const celebrationOverlay = document.getElementById(
+            "celebration-overlay",
+        );
         const closeModal = document.querySelector(".close-modal");
         const confirmBtn = document.getElementById(
             "confirm-payment-btn",
@@ -243,6 +269,46 @@ export const prerender = false;
             modal?.classList.remove("active"),
         );
 
+        function startCelebration(plan: string) {
+            const planDisplay = document.getElementById("celebration-plan");
+            if (planDisplay) planDisplay.innerText = plan;
+
+            celebrationOverlay?.classList.add("active");
+
+            // GSAP Animations
+            const tl = gsap.timeline();
+            tl.fromTo(
+                ".celebration-icon",
+                { scale: 0, rotate: -180 },
+                { scale: 1, rotate: 0, duration: 1, ease: "back.out(1.7)" },
+            )
+                .fromTo(
+                    ".celebration-title",
+                    { y: 30, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.6 },
+                    "-=0.4",
+                )
+                .fromTo(
+                    ".celebration-msg",
+                    { opacity: 0 },
+                    { opacity: 1, duration: 0.6 },
+                )
+                .fromTo(
+                    ".benefits-reveal",
+                    { scale: 0.8, opacity: 0 },
+                    { scale: 1, opacity: 1, duration: 0.5, ease: "power2.out" },
+                )
+                .to(".loading-bar-fill", {
+                    width: "100%",
+                    duration: 3,
+                    ease: "power1.inOut",
+                });
+
+            setTimeout(() => {
+                window.location.href = "/dashboard";
+            }, 4500);
+        }
+
         confirmBtn?.addEventListener("click", async () => {
             confirmBtn.disabled = true;
             confirmBtn.innerText = "Processando Pagamento...";
@@ -255,13 +321,8 @@ export const prerender = false;
                 });
 
                 if (response.ok) {
-                    (window as any).showToast(
-                        `Pagamento aprovado! Você agora é ${selectedPlan} 🚀`,
-                    );
-                    setTimeout(
-                        () => (window.location.href = "/dashboard"),
-                        2000,
-                    );
+                    modal?.classList.remove("active");
+                    startCelebration(selectedPlan);
                 } else {
                     const data = await response.json();
                     (window as any).showToast(
@@ -646,5 +707,118 @@ export const prerender = false;
     }
     .btn-confirm:hover {
         transform: scale(1.02);
+    }
+
+    /* Celebration Effects */
+    .celebration-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, #1a0505 0%, #000 100%);
+        z-index: 20000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.8s ease;
+    }
+    .celebration-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .celebration-content {
+        text-align: center;
+        max-width: 600px;
+        position: relative;
+    }
+
+    .celebration-icon {
+        font-size: 8rem;
+        margin-bottom: 2rem;
+        display: inline-block;
+        filter: drop-shadow(0 0 30px rgba(138, 28, 38, 0.5));
+    }
+
+    .celebration-title {
+        font-size: 3.5rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 1rem;
+        line-height: 1.1;
+    }
+
+    .celebration-msg {
+        font-size: 1.3rem;
+        color: var(--color-text-muted);
+        margin-bottom: 2.5rem;
+    }
+    #celebration-plan {
+        color: var(--color-primary);
+        font-weight: 800;
+    }
+
+    .benefits-reveal {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(52, 211, 153, 0.3);
+        color: #34d399;
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        font-weight: 700;
+        display: inline-block;
+        margin-bottom: 3rem;
+        box-shadow: 0 0 30px rgba(52, 211, 153, 0.1);
+    }
+
+    .loading-bar-container {
+        width: 100%;
+        height: 6px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 1rem;
+    }
+    .loading-bar-fill {
+        width: 0%;
+        height: 100%;
+        background: var(--color-primary);
+        box-shadow: 0 0 15px var(--color-primary);
+    }
+
+    .redirect-text {
+        font-size: 0.85rem;
+        color: #444;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .glow-circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 400px;
+        height: 400px;
+        background: radial-gradient(
+            circle,
+            rgba(138, 28, 38, 0.2) 0%,
+            transparent 70%
+        );
+        z-index: -1;
+        animation: pulseGlow 2s infinite alternate;
+    }
+
+    @keyframes pulseGlow {
+        from {
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 0.5;
+        }
+        to {
+            transform: translate(-50%, -50%) scale(1.3);
+            opacity: 0.8;
+        }
     }
 </style>
