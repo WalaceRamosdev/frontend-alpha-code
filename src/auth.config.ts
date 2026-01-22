@@ -65,7 +65,7 @@ export default {
                 try {
                     const dbUser = await prisma.user.findUnique({
                         where: { id: token.sub },
-                        select: { plan: true, siteUrl: true, image: true, name: true }
+                        select: { plan: true, siteUrl: true, image: true, name: true, email: true }
                     } as any);
 
                     if (dbUser) {
@@ -73,6 +73,7 @@ export default {
                         session.user.siteUrl = (dbUser as any).siteUrl || null;
                         session.user.image = dbUser.image || null;
                         session.user.name = dbUser.name || null;
+                        session.user.email = dbUser.email || null;
                     }
                 } catch (e) {
                     console.error("Session sync error:", e);

@@ -25,7 +25,7 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const updatedUser = await prisma.user.update({
-            where: { email: session.user.email },
+            where: { id: session.user.id },
             data: {
                 ...(name && { name }),
                 ...(phone !== undefined && { phone }),
