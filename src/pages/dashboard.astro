@@ -1368,15 +1368,61 @@ export const prerender = false;
             }
 
             .stat-card {
-                justify-content: center;
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+            }
+
+            .stat-icon {
+                margin: 0 auto;
+            }
+
+            /* Centralização de todos os cabeçalhos de card */
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+                align-items: center;
+                gap: 1rem;
+            }
+
+            /* Centralização do conteúdo de Meu Projeto Alpha */
+            .add-site-trigger {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.5rem;
+                align-items: center;
+            }
+
+            .plus-icon {
+                margin: 0 auto;
+            }
+
+            /* Centralização dos itens de benefício */
+            .benefit-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 1.2rem;
+                align-items: center;
+            }
+
+            .benefit-icon {
+                margin: 0 auto;
+            }
+
+            /* Centralização da seção de projetos vazia */
+            .empty-state {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
 
             .quick-links {
-                gap: 2rem; /* Distância maior entre os itens no mobile */
+                gap: 2.5rem; /* Distância generosa conforme solicitado */
             }
 
             .quick-link {
-                padding: 2.5rem 1.5rem; /* Itens mais largos/robustos */
+                padding: 3rem 1.5rem; /* Mais robusto conforme solicitado */
                 flex-direction: column;
                 text-align: center;
                 gap: 1.2rem;
