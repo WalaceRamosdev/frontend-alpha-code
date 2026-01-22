@@ -60,10 +60,24 @@ export default {
         session: async ({ session, token }: any) => {
             if (token?.sub && session.user) {
                 session.user.id = token.sub;
-                session.user.plan = token.plan || "FREE";
-                session.user.siteUrl = token.siteUrl || null;
-                session.user.image = token.picture || null;
-                session.user.name = token.name || null;
+
+                // BUSCA DINÂMICA: Pegamos a imagem e o plano direto do banco 
+                // para NÃO inflar o Cookie com dados pesados (Base64)
+                try {
+                    const dbUser = await prisma.user.findUnique({
+                        where: { id: token.sub },
+                        select: { plan: true, siteUrl: true, image: true, name: true }
+                    });
+
+                    if (dbUser) {
+                        session.user.plan = (dbUser as any).plan || "FREE";
+                        session.user.siteUrl = (dbUser as any).siteUrl || null;
+                        session.user.image = dbUser.image || null;
+                        session.user.name = dbUser.name || null;
+                    }
+                } catch (e) {
+                    console.error("Session sync error:", e);
+                }
             }
             return session;
         },
@@ -71,22 +85,8 @@ export default {
             if (user) {
                 token.sub = user.id;
             }
-
-            // Sempre buscamos do banco para garantir dados frescos (image, name, etc)
-            if (token?.sub) {
-                try {
-                    const dbUser = await prisma.user.findUnique({ where: { id: token.sub } });
-                    if (dbUser) {
-                        token.name = dbUser.name;
-                        token.email = dbUser.email;
-                        token.picture = dbUser.image;
-                        token.plan = (dbUser as any)?.plan || "FREE";
-                        token.siteUrl = (dbUser as any)?.siteUrl || null;
-                    }
-                } catch (e) {
-                    console.error("Error refreshing token from DB:", e);
-                }
-            }
+            // O JWT agora contém apenas o ID (sub). 
+            // Isso mantém o Cookie minúsculo e evita o Erro 431.
             return token;
         },
         signIn: async ({ user, account, profile }: any) => {
