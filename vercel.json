@@ -1,0 +1,3 @@
+{
+    "buildCommand": "npm cache clean --force && prisma generate && astro build"
+}
