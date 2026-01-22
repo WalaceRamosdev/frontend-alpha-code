@@ -1057,18 +1057,22 @@ export const prerender = false;
             border: 1px solid var(--glass-border);
             border-radius: 12px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
 
         .benefit-item.locked {
             opacity: 0.5;
             filter: grayscale(1);
             border-style: dashed;
+            cursor: not-allowed;
         }
 
-        .benefit-item.active:hover {
+        .benefit-item.active:hover,
+        .benefit-item.vip-highlight:hover {
             background: rgba(255, 255, 255, 0.05);
             transform: translateY(-3px);
             border-color: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
         }
 
         .benefit-item.vip-highlight {
