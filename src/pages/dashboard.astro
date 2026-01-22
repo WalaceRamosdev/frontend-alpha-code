@@ -551,9 +551,13 @@ export const prerender = false;
                     });
 
                     if (response.ok) {
-                        window.location.reload();
+                        (window as any).showToast("Link salvo com sucesso!");
+                        setTimeout(() => window.location.reload(), 1500);
                     } else {
-                        alert("Erro ao salvar link. Tente novamente.");
+                        (window as any).showToast(
+                            "Erro ao salvar link.",
+                            "error",
+                        );
                     }
                 } catch (error) {
                     console.error("Site URL update error:", error);

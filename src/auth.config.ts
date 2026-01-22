@@ -62,16 +62,30 @@ export default {
                 session.user.id = token.sub;
                 session.user.plan = token.plan || "FREE";
                 session.user.siteUrl = token.siteUrl || null;
+                session.user.image = token.picture || null;
+                session.user.name = token.name || null;
             }
             return session;
         },
         jwt: async ({ token, user }: any) => {
             if (user) {
                 token.sub = user.id;
-                // Ao logar pela primeira vez (user existe), pegamos o plano
-                const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
-                token.plan = (dbUser as any)?.plan || "FREE";
-                token.siteUrl = (dbUser as any)?.siteUrl || null;
+            }
+
+            // Sempre buscamos do banco para garantir dados frescos (image, name, etc)
+            if (token?.sub) {
+                try {
+                    const dbUser = await prisma.user.findUnique({ where: { id: token.sub } });
+                    if (dbUser) {
+                        token.name = dbUser.name;
+                        token.email = dbUser.email;
+                        token.picture = dbUser.image;
+                        token.plan = (dbUser as any)?.plan || "FREE";
+                        token.siteUrl = (dbUser as any)?.siteUrl || null;
+                    }
+                } catch (e) {
+                    console.error("Error refreshing token from DB:", e);
+                }
             }
             return token;
         },

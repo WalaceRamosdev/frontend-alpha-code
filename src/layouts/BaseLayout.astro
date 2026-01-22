@@ -112,13 +112,40 @@ const seo = createSEOMeta({
             )
         }
 
+        <!-- Toast Notification Container -->
+        <div id="toast-container" class="toast-container"></div>
+
         <slot name="scripts" />
         <script>
             import { ScrollTrigger } from "gsap/ScrollTrigger";
             // Globally disable markers just in case
             ScrollTrigger.config({ limitCallbacks: true });
-            // Direct force disable if needed (though config is better)
-            // ScrollTrigger.defaults({ markers: false });
+
+            // Global ShowToast function
+            (window as any).showToast = function (
+                message: string,
+                type: "success" | "error" = "success",
+            ) {
+                const container = document.getElementById("toast-container");
+                if (!container) return;
+
+                const toast = document.createElement("div");
+                toast.className = `toast-item ${type}`;
+                toast.innerHTML = `
+                    <div class="toast-content">
+                        ${type === "success" ? "✅" : "❌"}
+                        <span>${message}</span>
+                    </div>
+                `;
+
+                container.appendChild(toast);
+
+                // Auto remove
+                setTimeout(() => {
+                    toast.classList.add("fade-out");
+                    setTimeout(() => toast.remove(), 500);
+                }, 3000);
+            };
         </script>
     </body>
 </html>
@@ -153,5 +180,65 @@ const seo = createSEOMeta({
     .whatsapp-float:hover {
         transform: scale(1.1);
         box-shadow: 2px 2px 10px #666;
+    }
+
+    /* Toast Styles */
+    .toast-container {
+        position: fixed;
+        top: 24px;
+        right: 24px;
+        z-index: 10000;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        pointer-events: none;
+    }
+
+    .toast-item {
+        background: rgba(15, 15, 15, 0.9);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        animation: slideIn 0.3s ease-out forwards;
+        pointer-events: auto;
+    }
+
+    .toast-item.success {
+        border-left: 4px solid #34d399;
+    }
+
+    .toast-item.error {
+        border-left: 4px solid #f87171;
+    }
+
+    .toast-content {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.95rem;
+        font-weight: 500;
+    }
+
+    @keyframes slideIn {
+        from {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+        to {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    .toast-item.fade-out {
+        opacity: 0;
+        transform: translateX(100%);
+        transition: 0.5s;
     }
 </style>
