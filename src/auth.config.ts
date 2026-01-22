@@ -70,8 +70,8 @@ export default {
                 token.sub = user.id;
                 // Ao logar pela primeira vez (user existe), pegamos o plano
                 const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
-                token.plan = dbUser?.plan || "FREE";
-                token.siteUrl = dbUser?.siteUrl || null;
+                token.plan = (dbUser as any)?.plan || "FREE";
+                token.siteUrl = (dbUser as any)?.siteUrl || null;
             }
             return token;
         },
