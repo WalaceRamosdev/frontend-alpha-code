@@ -147,7 +147,9 @@ export const prerender = false;
                         <span class="stat-value"
                             >{session.user?.plan || "FREE"}</span
                         >
-                        <span class="stat-label">Plano Atual</span>
+                        <a href="/upgrade" class="upgrade-link"
+                            >Gerenciar Plano</a
+                        >
                     </div>
                 </div>
             </div>
@@ -249,11 +251,12 @@ export const prerender = false;
                 <section class="main-card benefits-section">
                     <div class="card-header">
                         <h2>Benefícios da sua Conta</h2>
-                        <span
+                        <a
+                            href="/upgrade"
                             class={`plan-badge ${session.user?.plan?.toLowerCase() || "free"}`}
                         >
                             Plano {session.user?.plan || "FREE"}
-                        </span>
+                        </a>
                     </div>
 
                     <div class="benefits-grid">
@@ -1001,6 +1004,17 @@ export const prerender = false;
         .benefits-section {
             grid-column: 1 / -1;
             margin-top: -1rem;
+        }
+
+        .upgrade-link {
+            font-size: 0.75rem;
+            color: var(--color-primary);
+            text-decoration: none;
+            font-weight: 700;
+            margin-top: 4px;
+        }
+        .upgrade-link:hover {
+            text-decoration: underline;
         }
 
         .plan-badge {
