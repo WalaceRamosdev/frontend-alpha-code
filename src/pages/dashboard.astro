@@ -683,26 +683,6 @@ export const prerender = false;
             box-shadow: 0 8px 20px rgba(138, 28, 38, 0.2);
         }
 
-        @media (max-width: 768px) {
-            .footer-content {
-                gap: 40px;
-                text-align: center;
-            }
-
-            .footer-social {
-                justify-content: center;
-                gap: 30px; /* Aumentado para melhor toque no mobile */
-            }
-
-            .footer-col ul li a:hover {
-                padding-left: 0; /* Disable padding shift on mobile to keep alignment */
-            }
-
-            .stat-card {
-                justify-content: center; /* Centraliza o conteúdo do stat-card no mobile */
-            }
-        }
-
         .header-avatar img {
             width: 100%;
             height: 100%;
@@ -831,6 +811,9 @@ export const prerender = false;
         @media (max-width: 900px) {
             .content-grid {
                 grid-template-columns: 1fr;
+            }
+            .site-url-section {
+                order: -1;
             }
         }
 
@@ -1132,14 +1115,20 @@ export const prerender = false;
             gap: 2rem;
         }
 
+        .quick-links {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem; /* Distância entre os itens */
+        }
+
         .quick-link {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            padding: 1rem;
-            border-radius: 10px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid transparent;
+            gap: 1.5rem;
+            padding: 1.5rem; /* Largura/Tamanho maior */
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--glass-border);
             text-decoration: none;
             color: var(--color-text-muted);
             transition: all 0.3s ease;
@@ -1371,111 +1360,33 @@ export const prerender = false;
 
             .dashboard-wrapper {
                 padding-top: 100px; /* Reduzir um pouco no mobile */
-                padding-left: 0;
-                padding-right: 0;
-            }
-
-            .dashboard-container {
-                width: 100% !important;
-                padding-left: 1.5% !important;
-                padding-right: 1.5% !important;
-                max-width: 100% !important;
             }
 
             .stats-grid {
                 grid-template-columns: 1fr;
-                gap: 6rem;
-                width: 100%;
+                gap: 1.5rem;
             }
 
             .stat-card {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                padding: 3rem 2rem;
-                width: 100%;
                 justify-content: center;
             }
 
-            .stat-icon {
-                margin: 0 auto;
-            }
-
-            .benefits-grid {
-                grid-template-columns: 1fr;
-                gap: 6rem;
-                width: 100%;
-            }
-
-            .card-header {
-                flex-direction: column;
-                gap: 2rem;
-                text-align: center;
-                align-items: center;
-                width: 100%;
-                margin-bottom: 4rem;
-            }
-
-            .add-site-trigger {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                align-items: center;
-                width: 100%;
-            }
-
-            .benefit-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 2rem;
-                padding: 4rem 2rem;
-                align-items: center;
-                width: 100%;
-            }
-
-            .benefit-icon {
-                margin: 0 auto;
-                flex-shrink: 0;
-            }
-
-            .benefit-info {
-                display: flex;
-                flex-direction: column;
-                gap: 1.2rem;
-                width: 100%;
-            }
-
-            .sidebar-actions {
-                gap: 6rem;
-                width: 100%;
-                display: flex;
-                flex-direction: column;
-                align-items: center;
+            .quick-links {
+                gap: 2rem; /* Distância maior entre os itens no mobile */
             }
 
             .quick-link {
-                align-items: center;
-                text-align: center;
+                padding: 2.5rem 1.5rem; /* Itens mais largos/robustos */
                 flex-direction: column;
-                justify-content: center;
-                width: 100%;
-                gap: 2rem;
-                padding: 4rem 2rem;
+                text-align: center;
+                gap: 1.2rem;
             }
 
             .quick-link .icon {
                 margin: 0 auto;
-            }
-
-            .projects-section .card-header {
-                align-items: center;
-                justify-content: center;
-            }
-
-            .main-card {
-                padding: 1rem;
-                width: 100%;
-                align-items: center;
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
             }
         }
     </style>
