@@ -1,9 +1,17 @@
 import Credentials from "@auth/core/providers/credentials";
+import Google from "@auth/core/providers/google";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "./lib/prisma";
 import bcrypt from "bcryptjs";
 
 export default {
+    adapter: PrismaAdapter(prisma),
     providers: [
+        Google({
+            clientId: process.env.GOOGLE_CLIENT_ID,
+            clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+            allowDangerousEmailAccountLinking: true,
+        }),
         Credentials({
             credentials: {
                 email: { label: "Email", type: "email" },
