@@ -128,56 +128,154 @@ export const prerender = false;
             </div>
 
             <section class="faq-minimal">
+                <div class="discount-notice">
+                    <span class="icon">🎁</span>
+                    <p>
+                        Upgrade Exclusivo: Pague apenas a diferença entre os
+                        planos com <strong>10% de desconto extra</strong> na taxa
+                        de transição.
+                    </p>
+                </div>
                 <p>
                     Precisa de um plano personalizado? <a
                         href="https://wa.me/5521999064502"
-                        >Fale com um consultor</a>
+                        >Fale com um consultor</a
+                    >
                 </p>
             </section>
         </div>
     </div>
 
+    <!-- Payment Confirmation Modal -->
+    <div id="payment-modal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmar Upgrade <span id="modal-plan-name"></span></h2>
+                <button class="close-modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="price-breakdown">
+                    <div class="breakdown-item">
+                        <span>Novo Plano</span>
+                        <span id="modal-full-price"></span>
+                    </div>
+                    <div class="breakdown-item">
+                        <span>Crédito Plano Atual</span>
+                        <span id="modal-credit-price"></span>
+                    </div>
+                    <div class="breakdown-item discount">
+                        <span>Desconto Alpha (10%)</span>
+                        <span id="modal-discount"></span>
+                    </div>
+                    <div class="breakdown-total">
+                        <span>Total a Pagar Hoje</span>
+                        <span id="modal-total"></span>
+                    </div>
+                </div>
+                <p class="modal-note">
+                    Ao confirmar, o valor será processado no seu método de
+                    pagamento padrão.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirm-payment-btn" class="btn-confirm"
+                    >Confirmar e Pagar</button
+                >
+            </div>
+        </div>
+    </div>
+
     <script>
         const upgradeBtns = document.querySelectorAll(".btn-upgrade");
+        const modal = document.getElementById("payment-modal");
+        const closeModal = document.querySelector(".close-modal");
+        const confirmBtn = document.getElementById(
+            "confirm-payment-btn",
+        ) as HTMLButtonElement;
+
+        let selectedPlan = "";
+        const PLAN_PRICES: any = {
+            FREE: 0,
+            PRO: 297,
+            VIP: 597,
+        };
+
+        const currentPlan = (
+            document.querySelector(".pricing-card.current .plan-name")
+                ?.innerHTML || "FREE"
+        ).trim();
 
         upgradeBtns.forEach((btn) => {
-            btn.addEventListener("click", async () => {
-                const plan = btn.getAttribute("data-plan");
-                const originalText = (btn as HTMLElement).innerText;
+            btn.addEventListener("click", () => {
+                selectedPlan = btn.getAttribute("data-plan") || "";
+                if (!selectedPlan) return;
 
-                (btn as HTMLButtonElement).disabled = true;
-                (btn as HTMLElement).innerText = "Processando...";
+                const newPrice = PLAN_PRICES[selectedPlan];
+                const oldPrice = PLAN_PRICES[currentPlan] || 0;
+                const difference = newPrice - oldPrice;
+                const discount = difference * 0.1;
+                const total = difference - discount;
 
-                try {
-                    const response = await fetch("/api/user/update", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ plan }),
-                    });
+                // Update Modal Content
+                const modalPlanName =
+                    document.getElementById("modal-plan-name");
+                const modalFullPrice =
+                    document.getElementById("modal-full-price");
+                const modalCreditPrice =
+                    document.getElementById("modal-credit-price");
+                const modalDiscount = document.getElementById("modal-discount");
+                const modalTotal = document.getElementById("modal-total");
 
-                    if (response.ok) {
-                        (window as any).showToast(
-                            `Upgrade para ${plan} realizado com sucesso! ✨`,
-                        );
-                        setTimeout(
-                            () => (window.location.href = "/dashboard"),
-                            1500,
-                        );
-                    } else {
-                        const data = await response.json();
-                        (window as any).showToast(
-                            data.message || "Erro no upgrade",
-                            "error",
-                        );
-                        (btn as HTMLButtonElement).disabled = false;
-                        (btn as HTMLElement).innerText = originalText;
-                    }
-                } catch (error) {
-                    (window as any).showToast("Erro de conexão", "error");
-                    (btn as HTMLButtonElement).disabled = false;
-                    (btn as HTMLElement).innerText = originalText;
-                }
+                if (modalPlanName) modalPlanName.innerText = selectedPlan;
+                if (modalFullPrice)
+                    modalFullPrice.innerText = `R$ ${newPrice},00`;
+                if (modalCreditPrice)
+                    modalCreditPrice.innerText = `- R$ ${oldPrice},00`;
+                if (modalDiscount)
+                    modalDiscount.innerText = `- R$ ${discount.toFixed(2)}`;
+                if (modalTotal) modalTotal.innerText = `R$ ${total.toFixed(2)}`;
+
+                modal?.classList.add("active");
             });
+        });
+
+        closeModal?.addEventListener("click", () =>
+            modal?.classList.remove("active"),
+        );
+
+        confirmBtn?.addEventListener("click", async () => {
+            confirmBtn.disabled = true;
+            confirmBtn.innerText = "Processando Pagamento...";
+
+            try {
+                const response = await fetch("/api/user/update", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ plan: selectedPlan }),
+                });
+
+                if (response.ok) {
+                    (window as any).showToast(
+                        `Pagamento aprovado! Você agora é ${selectedPlan} 🚀`,
+                    );
+                    setTimeout(
+                        () => (window.location.href = "/dashboard"),
+                        2000,
+                    );
+                } else {
+                    const data = await response.json();
+                    (window as any).showToast(
+                        data.message || "Erro no processamento",
+                        "error",
+                    );
+                    confirmBtn.disabled = false;
+                    confirmBtn.innerText = "Confirmar e Pagar";
+                }
+            } catch (error) {
+                (window as any).showToast("Erro de conexão", "error");
+                confirmBtn.disabled = false;
+                confirmBtn.innerText = "Confirmar e Pagar";
+            }
         });
     </script>
 </Layout>
@@ -425,5 +523,128 @@ export const prerender = false;
         .pricing-card {
             padding: 2rem;
         }
+    }
+
+    /* Discount & Modal Styles */
+    .discount-notice {
+        background: rgba(52, 211, 153, 0.1);
+        border: 1px solid rgba(52, 211, 153, 0.2);
+        padding: 1rem 2rem;
+        border-radius: 50px;
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 2rem;
+    }
+    .discount-notice p {
+        color: #34d399;
+        margin: 0;
+        font-size: 0.9rem;
+    }
+    .discount-notice strong {
+        color: white;
+    }
+
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(8px);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+        opacity: 0;
+        pointer-events: none;
+        transition: 0.3s;
+    }
+    .modal-overlay.active {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    .modal-content {
+        background: #111;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        width: 100%;
+        max-width: 450px;
+        border-radius: 24px;
+        padding: 2rem;
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+    }
+    .modal-header h2 {
+        font-size: 1.5rem;
+        color: white;
+        margin: 0;
+    }
+    .close-modal {
+        background: none;
+        border: none;
+        color: #555;
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .price-breakdown {
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 16px;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .breakdown-item {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 0.8rem;
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+    }
+
+    .breakdown-item.discount {
+        color: #34d399;
+        margin-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        padding-top: 0.8rem;
+    }
+
+    .breakdown-total {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px dotted rgba(255, 255, 255, 0.2);
+        color: white;
+        font-weight: 800;
+        font-size: 1.2rem;
+    }
+
+    .modal-note {
+        font-size: 0.8rem;
+        color: #555;
+        text-align: center;
+    }
+
+    .btn-confirm {
+        width: 100%;
+        background: var(--color-primary);
+        color: white;
+        border: none;
+        padding: 1.2rem;
+        border-radius: 12px;
+        font-weight: 800;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+    .btn-confirm:hover {
+        transform: scale(1.02);
     }
 </style>
