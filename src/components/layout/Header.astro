@@ -414,7 +414,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
             {
                 session && (
                     <div class="menu-footer">
-                        <div class="user-profile-bar">
+                        <a href="/dashboard" class="user-profile-bar">
                             <div class="user-avatar">
                                 {session.user?.image ? (
                                     <img
@@ -446,10 +446,10 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                                     stroke-linecap="round"
                                     stroke-linejoin="round"
                                 >
-                                    <polyline points="18 15 12 9 6 15" />
+                                    <polyline points="9 18 15 12 9 6" />
                                 </svg>
                             </div>
-                        </div>
+                        </a>
                     </div>
                 )
             }
@@ -925,9 +925,17 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         display: flex;
         align-items: center;
         gap: 12px;
-        padding: 8px;
+        padding: 10px;
         border-radius: 12px;
         background: rgba(255, 255, 255, 0.02);
+        text-decoration: none;
+        transition: all 0.2s;
+    }
+    .user-profile-bar:hover {
+        background: rgba(255, 255, 255, 0.05);
+    }
+    .user-profile-bar:active {
+        transform: scale(0.98);
     }
     .user-avatar {
         width: 40px;
