@@ -384,12 +384,36 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                         </div>
                     )
                 }
+
+                {
+                    !session && (
+                        <a href="/login" class="login-mid-btn">
+                            <svg
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <>
+                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
+                                    <polyline points="10 17 15 12 10 7" />
+                                    <line x1="15" y1="12" x2="3" y2="12" />
+                                </>
+                            </svg>
+                            Acessar Conta
+                        </a>
+                    )
+                }
             </div>
 
-            <!-- Footer Profile -->
-            <div class="menu-footer">
-                {
-                    session ? (
+            <!-- Footer Profile (Only when logged in) -->
+            {
+                session && (
+                    <div class="menu-footer">
                         <div class="user-profile-bar">
                             <div class="user-avatar">
                                 {session.user?.image ? (
@@ -426,29 +450,9 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                                 </svg>
                             </div>
                         </div>
-                    ) : (
-                        <a href="/login" class="login-footer-btn">
-                            <svg
-                                width="18"
-                                height="18"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                            >
-                                <>
-                                    <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />
-                                    <polyline points="10 17 15 12 10 7" />
-                                    <line x1="15" y1="12" x2="3" y2="12" />
-                                </>
-                            </svg>
-                            Acessar Conta
-                        </a>
-                    )
-                }
-            </div>
+                    </div>
+                )
+            }
         </div>
     </div>
 </header>
@@ -968,19 +972,25 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         color: #444;
     }
 
-    .login-footer-btn {
+    .login-mid-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 10px;
         background: rgba(255, 255, 255, 0.05);
         color: white;
-        padding: 12px;
+        padding: 14px;
         border-radius: 12px;
         font-size: 0.9rem;
         font-weight: 600;
         text-decoration: none;
         border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-top: 12px;
+        transition: all 0.2s;
+    }
+    .login-mid-btn:active {
+        background: rgba(255, 255, 255, 0.1);
+        transform: scale(0.98);
     }
 
     /* Responsive */
