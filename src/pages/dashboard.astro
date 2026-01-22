@@ -1362,101 +1362,123 @@ export const prerender = false;
                 padding-top: 100px; /* Reduzir um pouco no mobile */
             }
 
+            .dashboard-container {
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 1rem !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+            }
+
+            .content-grid {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 3rem;
+            }
+
+            section.main-card,
+            aside.sidebar-actions,
+            .action-card {
+                width: 100% !important;
+                max-width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+            }
+
             .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 2rem;
             }
 
             .stat-card {
-                flex-direction: column;
-                text-align: center;
-                align-items: center; /* Força alinhamento central do ícone e info */
-                gap: 1rem;
-            }
-
-            .stat-info {
-                align-items: center; /* Centraliza estatísticas internamente */
-                text-align: center;
-            }
-
-            .stat-icon {
-                margin: 0 auto;
-            }
-
-            /* Centralização de todos os cabeçalhos de card */
-            .card-header {
-                flex-direction: column;
-                text-align: center;
-                align-items: center;
-                justify-content: center;
-                gap: 1rem;
-                width: 100%;
-            }
-
-            /* Centralização do conteúdo de Meu Projeto Alpha */
-            .add-site-trigger {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.5rem;
-                align-items: center;
-                width: 100%;
-            }
-
-            .plus-icon {
-                margin: 0 auto;
-            }
-
-            /* Centralização dos itens de benefício */
-            .benefit-item {
-                flex-direction: column;
-                text-align: center;
-                gap: 1.2rem;
-                align-items: center;
-                width: 100%;
-            }
-
-            .benefit-info {
-                align-items: center;
-                text-align: center;
-            }
-
-            .benefit-icon {
-                margin: 0 auto;
-            }
-
-            /* Centralização da seção de projetos vazia */
-            .empty-state {
+                width: 100% !important;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 text-align: center;
+                padding: 2rem;
+            }
+
+            .stat-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .card-header {
                 width: 100%;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                gap: 1rem;
+                margin-bottom: 2rem;
+            }
+
+            .benefits-grid {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 2rem;
+            }
+
+            .benefit-item {
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 2.5rem 1.5rem;
+            }
+
+            .benefit-info {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
 
             .quick-links {
-                gap: 2.5rem;
-                width: 100%;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                gap: 2rem;
             }
 
             .quick-link {
-                padding: 3rem 1.5rem;
-                flex-direction: column;
-                text-align: center;
-                align-items: center; /* Força centralização */
-                gap: 1.5rem;
-                width: 100%;
+                width: 100% !important;
+                display: flex !important;
+                flex-direction: column !important;
+                align-items: center !important;
+                text-align: center !important;
+                padding: 3.5rem 2rem;
+                justify-content: center;
             }
 
             .quick-link div {
-                align-items: center; /* Centraliza textos internos */
+                display: flex;
+                flex-direction: column;
+                align-items: center;
                 text-align: center;
             }
 
-            .quick-link .icon {
-                margin: 0 auto;
-                width: 50px;
-                height: 50px;
-                font-size: 1.5rem;
+            .empty-state {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
             }
         }
     </style>

@@ -141,24 +141,39 @@ const currentYear = new Date().getFullYear();
 
     @media (max-width: 768px) {
         .footer-content {
-            gap: 40px;
-            text-align: center;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+            gap: 40px !important;
         }
 
         .footer-col {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            text-align: center !important;
+        }
+
+        .footer-col ul {
+            width: 100% !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            padding: 0 !important;
+            margin: 0 !important;
         }
 
         .footer-social {
-            justify-content: center;
-            gap: 25px; /* Ajustado para espaçamento simétrico */
+            width: 100% !important;
+            display: flex !important;
+            justify-content: center !important;
+            gap: 30px !important;
         }
 
         .footer-col ul li a:hover {
-            padding-left: 0; /* Disable padding shift on mobile to keep alignment */
+            padding-left: 0 !important;
         }
     }
 
