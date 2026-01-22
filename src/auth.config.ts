@@ -58,29 +58,21 @@ export default {
     },
     callbacks: {
         session: async ({ session, token }: any) => {
-            if (token?.email) {
-                const dbUser = (await prisma.user.findUnique({
-                    where: { email: token.email as string },
-                })) as any;
-                if (dbUser) {
-                    session.user = {
-                        ...session.user,
-                        id: dbUser.id,
-                        name: dbUser.name,
-                        image: dbUser.image,
-                        phone: dbUser.phone,
-                        company: dbUser.company,
-                    };
-                }
+            console.log("🎟️ Session Callback - Token:", token?.email);
+            if (token?.sub && session.user) {
+                session.user.id = token.sub;
             }
             return session;
         },
         jwt: async ({ token, user }: any) => {
             if (user) {
                 token.sub = user.id;
-                token.email = user.email;
             }
             return token;
+        },
+        signIn: async ({ user, account, profile }: any) => {
+            console.log("👋 SignIn Attempt:", user?.email, "Provider:", account?.provider);
+            return true;
         }
     },
     secret: process.env.AUTH_SECRET,
