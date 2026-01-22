@@ -14,11 +14,12 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         const body = await request.json();
-        const { name, phone, company, image, siteUrl } = body;
+        const { name, phone, company, image, siteUrl, plan } = body;
 
-        if (!name) {
+        // Validamos apenas se o corpo estiver vazio ou se o nome foi enviado explicitamente vazio
+        if (Object.keys(body).length === 0) {
             return new Response(
-                JSON.stringify({ message: "O nome é obrigatório" }),
+                JSON.stringify({ message: "Nenhum dado fornecido para atualização" }),
                 { status: 400, headers: { "Content-Type": "application/json" } }
             );
         }
@@ -26,11 +27,12 @@ export const POST: APIRoute = async ({ request }) => {
         const updatedUser = await prisma.user.update({
             where: { email: session.user.email },
             data: {
-                name,
-                phone,
-                company,
-                image,
-                siteUrl,
+                ...(name && { name }),
+                ...(phone !== undefined && { phone }),
+                ...(company !== undefined && { company }),
+                ...(image !== undefined && { image }),
+                ...(siteUrl !== undefined && { siteUrl }),
+                ...(plan !== undefined && { plan }),
             } as any,
         });
 
