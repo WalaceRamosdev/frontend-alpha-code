@@ -58,15 +58,18 @@ export default {
     },
     callbacks: {
         session: async ({ session, token }: any) => {
-            console.log("🎟️ Session Callback - Token:", token?.email);
             if (token?.sub && session.user) {
                 session.user.id = token.sub;
+                session.user.plan = token.plan || "FREE";
             }
             return session;
         },
         jwt: async ({ token, user }: any) => {
             if (user) {
                 token.sub = user.id;
+                // Ao logar pela primeira vez (user existe), pegamos o plano
+                const dbUser = await prisma.user.findUnique({ where: { id: user.id } });
+                token.plan = dbUser?.plan || "FREE";
             }
             return token;
         },

@@ -337,6 +337,71 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                         </li>
                     </ul>
                 </nav>
+                <!-- Dynamic Upgrade Card -->
+                {
+                    (!session || session.user?.plan === "FREE") && (
+                        <div class="promo-card">
+                            <div class="promo-icon">
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+                                </svg>
+                            </div>
+                            <div class="promo-text">
+                                <h4>Alpha Pro</h4>
+                                <p>
+                                    Domine o mercado com um site de alto
+                                    impacto.
+                                </p>
+                            </div>
+                            <a href="/planos" class="promo-btn">
+                                Fazer Upgrade
+                            </a>
+                        </div>
+                    )
+                }
+
+                {
+                    session?.user?.plan === "PRO" && (
+                        <div class="promo-card vip-gradient">
+                            <div class="promo-icon">
+                                <svg
+                                    width="24"
+                                    height="24"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="2"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                >
+                                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                                </svg>
+                            </div>
+                            <div class="promo-text">
+                                <h4>Alpha VIP</h4>
+                                <p>
+                                    O nível máximo de tecnologia para seu
+                                    negócio.
+                                </p>
+                            </div>
+                            <a
+                                href="https://wa.me/5521999064502"
+                                class="promo-btn"
+                            >
+                                Falar com Consultor
+                            </a>
+                        </div>
+                    )
+                }
             </div>
 
             <!-- Footer Profile -->
@@ -791,6 +856,72 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         color: #444;
         letter-spacing: 1px;
         margin: 0 0 12px 12px;
+    }
+
+    /* Upgrade Card Styling */
+    .promo-card {
+        background: linear-gradient(135deg, #161616 0%, #0a0a0a 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 20px;
+        margin-top: 24px;
+        position: relative;
+        overflow: hidden;
+    }
+    .promo-card::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+            circle at top right,
+            rgba(138, 28, 38, 0.1),
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+    .vip-gradient {
+        border-color: rgba(212, 175, 55, 0.2);
+    }
+    .vip-gradient .promo-icon {
+        color: #d4af37 !important;
+    }
+    .promo-icon {
+        color: var(--color-primary);
+        margin-bottom: 12px;
+    }
+    .promo-text h4 {
+        margin: 0 0 4px;
+        font-size: 1rem;
+        color: white;
+    }
+    .promo-text p {
+        margin: 0 0 16px;
+        font-size: 0.8rem;
+        color: #777;
+        line-height: 1.4;
+    }
+    .promo-btn {
+        display: block;
+        background: var(--gradient-primary);
+        color: white;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 4px 12px rgba(138, 28, 38, 0.3);
+        transition: transform 0.2s;
+    }
+    .promo-btn:active {
+        transform: scale(0.98);
+    }
+    .vip-gradient .promo-btn {
+        background: linear-gradient(135deg, #bf953f, #b38728);
+        box-shadow: 0 4px 12px rgba(191, 149, 63, 0.2);
     }
 
     /* Profile Footer */
