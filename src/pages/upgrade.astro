@@ -63,102 +63,100 @@ export const prerender = false;
             </header>
 
             <div class="pricing-grid">
-                <!-- PRO PLAN -->
+                <!-- PLANO PRATA -->
                 <div
-                    class={`pricing-card pro ${currentPlan === "PRO" ? "current" : ""}`}
+                    class={`pricing-card prata ${currentPlan === "PRATA" ? "current" : ""}`}
                 >
                     {
-                        currentPlan === "PRO" && (
+                        currentPlan === "PRATA" && (
                             <div class="current-label">Plano Atual</div>
                         )
                     }
                     <div class="card-header">
-                        <span class="plan-name">PRO</span>
+                        <span class="plan-name">PRATA</span>
                         <div class="price">
                             <span class="currency">R$</span>
                             <span class="amount">599</span>
-                            <span class="period">/mês</span>
                         </div>
                     </div>
                     <ul class="features-list">
                         <li>
-                            <span class="check">✓</span> Suporte Ouro (12h úteis)
+                            <span class="check">✓</span> Layout Profissional
                         </li>
                         <li>
-                            <span class="check">✓</span> 20% OFF em Novos Projetos
+                            <span class="check">✓</span> SEO Básico
                         </li>
                         <li>
-                            <span class="check">✓</span> Certificado SSL Premium
+                            <span class="check">✓</span> Seções de Conversão
                         </li>
                         <li>
-                            <span class="check">✓</span> Painel de Métricas Avançado
+                            <span class="check">✓</span> CTA Posicionado
                         </li>
                     </ul>
                     <button
-                        class="btn-upgrade pro-btn"
-                        data-plan="PRO"
+                        class="btn-upgrade prata-btn"
+                        data-plan="PRATA"
                         disabled={isFreePlan ||
-                            currentPlan === "PRO" ||
-                            currentPlan === "VIP"}
+                            currentPlan === "PRATA" ||
+                            currentPlan === "OURO"}
                     >
                         {
                             isFreePlan
                                 ? "Adquira um Plano"
-                                : currentPlan === "PRO"
+                                : currentPlan === "PRATA"
                                   ? "Já Ativo"
-                                  : currentPlan === "VIP"
-                                    ? "Incluído no VIP"
-                                    : "Fazer Upgrade PRO"
+                                  : currentPlan === "OURO"
+                                    ? "Incluído no OURO"
+                                    : "Fazer Upgrade PRATA"
                         }
                     </button>
                 </div>
 
-                <!-- VIP PLAN -->
+                <!-- PLANO OURO -->
                 <div
-                    class={`pricing-card vip ${currentPlan === "VIP" ? "current" : ""}`}
+                    class={`pricing-card ouro ${currentPlan === "OURO" ? "current" : ""}`}
                 >
                     <div class="popular-tag">RECOMENDADO</div>
                     {
-                        currentPlan === "VIP" && (
+                        currentPlan === "OURO" && (
                             <div class="current-label">Plano Atual</div>
                         )
                     }
                     <div class="card-header">
-                        <span class="plan-name">VIP</span>
+                        <span class="plan-name">OURO</span>
                         <div class="price">
                             <span class="currency">R$</span>
                             <span class="amount">947</span>
-                            <span class="period">/mês</span>
                         </div>
                     </div>
                     <ul class="features-list">
                         <li>
-                            <span class="check">✓</span> Consultoria VIP Direta
+                            <span class="check">✓</span> Design Exclusivo
                         </li>
                         <li>
-                            <span class="check">✓</span> 1 Manutenção Mensal Grátis
+                            <span class="check">✓</span> SEO Avançado
                         </li>
                         <li>
-                            <span class="check">✓</span> Prioridade Máxima de Build
+                            <span class="check">✓</span> Foco em Vendas
                         </li>
                         <li>
-                            <span class="check">✓</span> Consultoria de SEO Inclusa
+                            <span class="check">✓</span> Integração Completa
                         </li>
                         <li>
-                            <span class="check">✓</span> Todos os Benefícios do PRO
+                            <span class="check">✓</span> Todos os Benefícios do Prata
                         </li>
                     </ul>
                     <button
-                        class="btn-upgrade vip-btn"
-                        data-plan="VIP"
-                        disabled={isFreePlan || currentPlan === "VIP"}
+                        class="btn-upgrade ouro-btn"
+                        data-plan="OURO"
+                        disabled={isFreePlan || currentPlan === "OURO"}
                     >
                         {
                             isFreePlan
                                 ? "Adquira um Plano"
-                                : currentPlan === "VIP"
+                                : currentPlan === "OURO"
                                   ? "Já Ativo"
-                                  : "Tornar-se VIP AGORA!"
+                                  : "Tornar-se OURO AGORA!"
                         }
                     </button>
                 </div>
@@ -235,6 +233,10 @@ export const prerender = false;
         </div>
     </div>
 
+    <!-- Elemento oculto com o plano atual do usuário -->
+    <div id="user-current-plan" data-plan={currentPlan} style="display: none;">
+    </div>
+
     <script>
         import { gsap } from "gsap";
 
@@ -249,26 +251,24 @@ export const prerender = false;
         ) as HTMLButtonElement;
 
         let selectedPlan = "";
-        // Preços dos planos de upgrade (mensais)
+        // Preços dos planos de upgrade (destino do upgrade)
         const UPGRADE_PLAN_PRICES: any = {
-            PRO: 599,
-            VIP: 947,
+            PRATA: 599,
+            OURO: 947,
         };
 
-        // Preços dos planos de criação de sites (valor pago pelo cliente)
-        // Inclui também PRO para quem já é PRO e quer fazer upgrade para VIP
+        // Preços dos planos já adquiridos (crédito do usuário)
+        // BRONZE = plano inicial, PRATA e OURO = upgrades
         const SITE_PLAN_PRICES: any = {
             FREE: 0,
-            SIMPLES: 347,
-            COMPLETA: 599,
-            PREMIUM: 947,
-            PRO: 599, // Crédito para quem já é PRO fazer upgrade para VIP
+            BRONZE: 347,
+            PRATA: 599, // Crédito para quem já é PRATA fazer upgrade para OURO
         };
 
-        const currentPlan = (
-            document.querySelector(".pricing-card.current .plan-name")
-                ?.innerHTML || "FREE"
-        ).trim();
+        // Obtém o plano atual do elemento oculto (passado do servidor)
+        const currentPlanElement = document.getElementById("user-current-plan");
+        const currentPlan =
+            currentPlanElement?.getAttribute("data-plan") || "FREE";
 
         upgradeBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -565,24 +565,25 @@ export const prerender = false;
         transition: 0.3s;
     }
 
-    .pro-btn {
+    .prata-btn {
         background: rgba(255, 255, 255, 0.05);
         color: white;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(192, 192, 192, 0.3);
     }
-    .pro-btn:not(:disabled):hover {
-        background: white;
+    .prata-btn:not(:disabled):hover {
+        background: linear-gradient(135deg, #c0c0c0 0%, #e8e8e8 100%);
         color: black;
     }
 
-    .vip-btn {
-        background: var(--color-primary);
-        color: white;
-        box-shadow: 0 10px 20px rgba(138, 28, 38, 0.3);
+    .ouro-btn {
+        background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+        color: #000;
+        box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        font-weight: 800;
     }
-    .vip-btn:not(:disabled):hover {
+    .ouro-btn:not(:disabled):hover {
         transform: scale(1.02);
-        box-shadow: 0 15px 30px rgba(138, 28, 38, 0.5);
+        box-shadow: 0 15px 30px rgba(212, 175, 55, 0.5);
     }
 
     .btn-upgrade:disabled {
@@ -602,8 +603,19 @@ export const prerender = false;
         font-weight: 600;
     }
 
-    /* VIP Special Style */
-    .pricing-card.vip {
+    /* PRATA Special Style */
+    .pricing-card.prata {
+        border-color: rgba(192, 192, 192, 0.3);
+    }
+    .pricing-card.prata .plan-name {
+        color: #c0c0c0;
+    }
+    .pricing-card.prata:hover {
+        border-color: rgba(192, 192, 192, 0.6);
+    }
+
+    /* OURO Special Style */
+    .pricing-card.ouro {
         border-color: rgba(212, 175, 55, 0.3);
         background: linear-gradient(
             135deg,
@@ -611,22 +623,33 @@ export const prerender = false;
             rgba(255, 255, 255, 0.02) 100%
         );
     }
-    .pricing-card.vip .plan-name {
+    .pricing-card.ouro .plan-name {
         color: #d4af37;
     }
-    .pricing-card.vip:hover {
+    .pricing-card.ouro:hover {
         border-color: rgba(212, 175, 55, 0.6);
     }
 
     @media (max-width: 768px) {
+        .upgrade-wrapper {
+            padding: 100px 1% 40px;
+        }
+        .upgrade-container {
+            width: 98%;
+        }
         .pricing-grid {
             grid-template-columns: 1fr;
+            gap: 1rem;
         }
         .glow-text {
-            font-size: 2rem;
+            font-size: 1.8rem;
         }
         .pricing-card {
-            padding: 2rem;
+            padding: 1.5rem;
+            border-radius: 20px;
+        }
+        .upgrade-header {
+            margin-bottom: 2rem;
         }
     }
 

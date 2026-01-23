@@ -56,60 +56,62 @@ import Button from "../ui/Button.astro";
         </div>
 
         <div class="hero-visual fade-in">
-            <div class="comparison-container">
-                <!-- BEFORE CARD (Background/Dimmed) -->
-                <div class="card-before">
-                    <div class="status-badge offline">OFFLINE</div>
-                    <div class="card-content">
-                        <span class="icon">🚫</span>
-                        <h4>Sem Site Profissional</h4>
-                        <div class="mini-stat">
-                            <span class="label">Visibilidade</span>
-                            <span class="value">0%</span>
+            <div class="projects-carousel">
+                <div class="carousel-track">
+                    <!-- Slide 1: Psicóloga -->
+                    <div class="carousel-slide active">
+                        <div class="mockup-compo">
+                            <div class="desktop-frame">
+                                <img
+                                    src="/assets/projects/psicologa-desktop.png"
+                                    alt="Site Psicóloga Desktop"
+                                />
+                            </div>
+                            <div class="mobile-frame">
+                                <img
+                                    src="/assets/projects/psicologa-mobile.png"
+                                    alt="Site Psicóloga Mobile"
+                                />
+                            </div>
                         </div>
-                        <div class="mini-stat">
-                            <span class="label">Clientes</span>
-                            <span class="value">Limitados</span>
+                    </div>
+                    <!-- Slide 2: Advocacia -->
+                    <div class="carousel-slide">
+                        <div class="mockup-compo">
+                            <div class="desktop-frame">
+                                <img
+                                    src="/assets/projects/advocacia-desktop.png"
+                                    alt="Site Advocacia Desktop"
+                                />
+                            </div>
+                            <div class="mobile-frame">
+                                <img
+                                    src="/assets/projects/advocacia-mobile.png"
+                                    alt="Site Advocacia Mobile"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slide 3: Professor -->
+                    <div class="carousel-slide">
+                        <div class="mockup-compo">
+                            <div class="desktop-frame">
+                                <img
+                                    src="/assets/projects/professor-desktop.png"
+                                    alt="Site Professor Desktop"
+                                />
+                            </div>
+                            <div class="mobile-frame">
+                                <img
+                                    src="/assets/projects/professor-mobile.png"
+                                    alt="Site Professor Mobile"
+                                />
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- AFTER CARD (Foreground/Glowing) -->
-                <div class="card-after">
-                    <div class="status-badge online">ONLINE 24H</div>
-                    <div class="glow-effect"></div>
-                    <div class="card-content">
-                        <span class="icon">🚀</span>
-                        <h4>Máquina de Vendas</h4>
-                        <div class="graph-visual">
-                            <svg
-                                viewBox="-5 -5 110 40"
-                                class="mini-graph"
-                                preserveAspectRatio="none"
-                            >
-                                <path
-                                    d="M0,30 Q30,28 50,15 T100,0"
-                                    fill="none"
-                                    class="path-line"></path>
-                                <circle cx="100" cy="0" r="3" class="path-dot"
-                                ></circle>
-                            </svg>
-                        </div>
-                        <div class="stats-grid">
-                            <div class="stat-box">
-                                <span class="value">+300%</span>
-                                <span class="label">Alcance</span>
-                            </div>
-                            <div class="stat-box">
-                                <span class="value">Aut.</span>
-                                <span class="label">Vendas</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Connection/Transformation Element -->
-                <div class="transform-arrow">➔</div>
+                <div class="carousel-glow"></div>
             </div>
         </div>
     </div>
@@ -154,33 +156,58 @@ import Button from "../ui/Button.astro";
                 "-=0.8",
             );
 
-        // Comparison Animation
-        const visualTl = gsap.timeline({ delay: 0.5 });
+        // Carousel Animation
+        const slides = document.querySelectorAll(".carousel-slide");
+        let currentSlide = 0;
+        const totalSlides = slides.length;
+        const autoplayInterval = 2500; // Troca rápida a cada 2.5s conforme pedido
 
-        visualTl
-            .fromTo(
-                ".card-before",
-                { x: 50, opacity: 0, scale: 0.9 },
-                { x: 0, opacity: 1, scale: 1, duration: 1, ease: "power2.out" },
-            )
-            .fromTo(
-                ".transform-arrow",
-                { opacity: 0, scale: 0 },
-                { opacity: 1, scale: 1, duration: 0.5 },
-                "-=0.5",
-            )
-            .fromTo(
-                ".card-after",
-                { x: -50, opacity: 0, scale: 1.1 },
-                {
-                    x: 0,
-                    opacity: 1,
-                    scale: 1,
-                    duration: 1.2,
-                    ease: "back.out(1.7)",
-                },
-                "-=0.3",
+        function goToSlide(index: number) {
+            if (slides.length === 0) return;
+
+            // Remove active from current
+            slides[currentSlide].classList.remove("active");
+
+            // Update current slide
+            currentSlide = index;
+
+            // Add active to new slide
+            slides[currentSlide].classList.add("active");
+
+            // Animate with GSAP
+            gsap.fromTo(
+                slides[currentSlide],
+                { opacity: 0, scale: 0.95 },
+                { opacity: 1, scale: 1, duration: 0.8, ease: "power2.out" },
             );
+        }
+
+        function nextSlide() {
+            const next = (currentSlide + 1) % totalSlides;
+            goToSlide(next);
+        }
+
+        // Auto-advance slides
+        let autoplayTimer = setInterval(nextSlide, autoplayInterval);
+
+        // Pause on hover
+        const carousel = document.querySelector(".projects-carousel");
+        if (carousel) {
+            carousel.addEventListener("mouseenter", () => {
+                clearInterval(autoplayTimer);
+            });
+            carousel.addEventListener("mouseleave", () => {
+                autoplayTimer = setInterval(nextSlide, autoplayInterval);
+            });
+        }
+
+        // Initial carousel animation
+        const carouselTl = gsap.timeline({ delay: 0.5 });
+        carouselTl.fromTo(
+            ".projects-carousel",
+            { opacity: 0, y: 30, scale: 0.95 },
+            { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out" },
+        );
 
         // Mouse Parallax for Orbs
         const orbs = document.querySelectorAll(".orb");
@@ -478,229 +505,162 @@ import Button from "../ui/Button.astro";
         }
     }
 
-    /* Comparison Container */
-    .comparison-container {
+    /* Projects Carousel */
+    .projects-carousel {
         position: relative;
         width: 100%;
-        max-width: 500px;
-        height: 400px;
+        max-width: 1000px; /* Aumentado de 800px para 1000px */
         margin: 0 auto;
+        perspective: 1200px;
+    }
+
+    .carousel-track {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 16 / 10; /* Ajustado para visualização mais horizontal e larga */
+        background: transparent;
+        border-radius: 32px;
+        overflow: visible; /* Deixar as imagens flutuarem melhor */
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
+    /* Reflection Effect refined */
+    .projects-carousel::after {
+        content: "";
+        position: absolute;
+        top: 104%;
+        left: 5%;
+        width: 90%;
+        height: 20%;
+        background: linear-gradient(
+            to bottom,
+            rgba(255, 255, 255, 0.05),
+            transparent
+        );
+        transform: scaleY(-1);
+        mask-image: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.2));
+        -webkit-mask-image: linear-gradient(
+            to top,
+            transparent 0%,
+            rgba(0, 0, 0, 0.2)
+        );
+        pointer-events: none;
+        z-index: -1;
+        opacity: 0.2;
+    }
+
+    .carousel-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        visibility: hidden;
+        transition:
+            opacity 0.8s cubic-bezier(0.4, 0, 0.2, 1),
+            visibility 0.8s;
         display: flex;
         align-items: center;
         justify-content: center;
     }
 
-    .card-before,
-    .card-after {
-        position: absolute;
-        width: 280px;
-        border-radius: 20px;
-        padding: 25px;
+    .carousel-slide.active {
+        opacity: 1;
+        visibility: visible;
+        z-index: 2;
+    }
+
+    /* Mockup Composition */
+    .mockup-compo {
+        position: relative;
+        width: 100%;
+        height: 100%;
         display: flex;
-        flex-direction: column;
-        backdrop-filter: blur(10px);
-        transition: transform 0.4s ease;
+        align-items: center;
+        justify-content: center;
+        padding: 0; /* Removido padding para ganhar espaço */
     }
 
-    /* Before Card - The "Bad" state */
-    .card-before {
-        background: rgba(30, 30, 30, 0.8);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        left: 0;
-        top: 20%;
-        z-index: 1;
-        transform: rotate(-5deg) scale(0.95);
-        filter: grayscale(100%) opacity(0.7);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    .desktop-frame {
+        width: 95%; /* Aumentado de 85% */
+        height: auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
+        transform: perspective(1000px) rotateY(-5deg);
+        transition: transform 0.8s ease;
     }
 
-    .card-before .status-badge {
-        background: rgba(255, 255, 255, 0.1);
-        color: #aaa;
-    }
-
-    .card-before h4 {
-        color: #888;
-        font-size: 1.1rem;
-        margin: 15px 0;
-    }
-    /* After Card - The "Good" state */
-    .card-after {
-        background: rgba(20, 0, 0, 0.9); /* Dark Red tint */
-        border: 1px solid rgba(138, 28, 38, 0.3);
-        right: 0;
-        bottom: 15%;
-        z-index: 3;
-        transform: rotate(3deg) scale(1.05);
-        box-shadow: 0 20px 50px rgba(138, 28, 38, 0.3);
-    }
-
-    .card-after .glow-effect {
+    .mobile-frame {
         position: absolute;
-        inset: 0;
+        width: 28%; /* Aumentado de 22% */
+        right: -2%;
+        bottom: 5%;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
+        border: 4px solid #1a1a1a;
+        transform: perspective(1000px) rotateY(10deg) translateZ(50px);
+        transition: transform 0.8s ease;
+    }
+
+    .carousel-slide.active .desktop-frame {
+        transform: perspective(1000px) rotateY(0deg);
+    }
+
+    .carousel-slide.active .mobile-frame {
+        transform: perspective(1000px) rotateY(0deg) translateZ(60px);
+    }
+
+    .mockup-compo img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .carousel-indicators {
+        display: none;
+    }
+
+    .carousel-glow {
+        position: absolute;
+        inset: -20%;
         background: radial-gradient(
-            circle at top right,
-            rgba(214, 40, 57, 0.2),
+            circle at center,
+            rgba(138, 28, 38, 0.1) 0%,
             transparent 70%
         );
         pointer-events: none;
+        z-index: -1;
     }
 
-    .card-after .status-badge {
-        background: var(--color-primary);
-        color: white;
-        box-shadow: 0 0 15px rgba(214, 40, 57, 0.6);
-    }
-
-    .card-after h4 {
-        color: white;
-        font-size: 1.3rem;
-        margin: 15px 0;
-        font-weight: 700;
-    }
-
-    .status-badge {
-        align-self: flex-start;
-        padding: 4px 12px;
-        border-radius: 20px;
-        font-size: 0.7rem;
-        font-weight: bold;
-        letter-spacing: 1px;
-    }
-
-    .icon {
-        font-size: 2rem;
-    }
-
-    /* Stats Styling */
-    .mini-stat {
-        display: flex;
-        justify-content: space-between;
-        padding: 8px 0;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        color: #666;
-        font-size: 0.9rem;
-    }
-
-    .stats-grid {
-        display: flex;
-        gap: 15px;
-        margin-top: 15px;
-    }
-
-    .stat-box {
-        background: rgba(255, 255, 255, 0.05);
-        padding: 10px;
-        border-radius: 10px;
-        flex: 1;
-        text-align: center;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .stat-box .value {
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: var(--color-primary);
-    }
-
-    .stat-box .label {
-        font-size: 0.75rem;
-        color: #ccc;
-        text-transform: uppercase;
-    }
-
-    /* Decoration */
-    .transform-arrow {
-        position: absolute;
-        background: white;
-        color: black;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        z-index: 2;
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-        font-size: 1.5rem;
-    }
-
-    .graph-visual {
-        margin-top: 15px;
-        height: 60px;
-        width: 100%;
-        overflow: visible;
-    }
-
-    .mini-graph {
-        width: 100%;
-        height: 100%;
-        overflow: visible !important;
-    }
-
-    .path-line {
-        stroke: var(--color-primary);
-        stroke-width: 3;
-        stroke-linecap: round;
-        filter: drop-shadow(0 0 5px var(--color-primary));
-    }
-
-    .path-dot {
-        fill: white;
-        filter: drop-shadow(0 0 8px white);
-        animation: pulsePoint 1.5s infinite ease-in-out;
-        transform-box: fill-box;
-        transform-origin: center;
-    }
-
-    @keyframes pulsePoint {
-        0% {
-            transform: scale(1);
-            opacity: 1;
-            filter: drop-shadow(0 0 5px white);
-        }
-        50% {
-            transform: scale(1.8);
-            opacity: 0.8;
-            filter: drop-shadow(0 0 15px white);
-        }
-        100% {
-            transform: scale(1);
-            opacity: 1;
-            filter: drop-shadow(0 0 5px white);
-        }
-    }
-
-    /* Hover Effects */
-    .comparison-container:hover .card-before {
-        transform: rotate(-10deg) scale(0.9) translateX(-20px);
-        filter: grayscale(100%) opacity(0.5) blur(2px);
-    }
-
-    .comparison-container:hover .card-after {
-        transform: rotate(0deg) scale(1.1) translateX(-10px);
-        z-index: 10;
+    /* Hover effect */
+    .projects-carousel:hover .desktop-frame {
+        transform: scale(1.02);
     }
 
     @media (max-width: 968px) {
-        .hero-container-grid {
-            grid-template-columns: 1fr;
-            text-align: center;
-            gap: 3rem;
+        .projects-carousel {
+            max-width: 100%;
         }
-        .hero-text h1 {
-            font-size: 3rem;
+        .carousel-track {
+            aspect-ratio: 1 / 1.2;
         }
-        .hero-text p {
-            margin: 0 auto 2rem;
+        .desktop-frame {
+            width: 95%;
         }
-        .hero-cta {
-            justify-content: center;
+        .mobile-frame {
+            width: 30%;
+            right: 0;
+            bottom: 5%;
         }
-        .comparison-container {
-            height: 350px;
+    }
+
+    @media (max-width: 480px) {
+        .carousel-track {
+            aspect-ratio: 1 / 1.4;
+        }
+        .mobile-frame {
+            width: 45%;
+            bottom: 2%;
         }
     }
 </style>
