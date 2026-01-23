@@ -7,11 +7,11 @@ export const projectsData = [
         link: 'https://alessandro-silva-psi.vercel.app/'
     },
     {
-        name: 'Ana Ribeiro',
-        type: 'Nutricionista',
+        name: 'Alzimara Nunes',
+        type: 'Psicóloga',
         category: 'saude',
-        image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
-        link: 'https://nutricao-pied.vercel.app/'
+        image: '/assets/imagens-de-paginas/alzimara.svg',
+        link: 'https://www.alzimaranunes.com.br'
     },
     {
         name: 'Camila Ferraz Personal',
@@ -96,6 +96,13 @@ export const projectsData = [
         category: 'saude',
         image: '/assets/imagens-de-paginas/silviaOrlandi.svg',
         link: 'https://silvia-terapeuta.vercel.app/'
+    },
+    {
+        name: 'Ana Ribeiro',
+        type: 'Nutricionista',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
+        link: 'https://nutricao-pied.vercel.app/'
     },
     
 ];

@@ -24,6 +24,25 @@ export const POST: APIRoute = async ({ request }) => {
             );
         }
 
+        // Validação de upgrade: usuários FREE não podem fazer upgrade direto para PRO/VIP
+        if (plan && (plan === "PRO" || plan === "VIP")) {
+            const currentUser = await prisma.user.findUnique({
+                where: { id: session.user.id },
+                select: { plan: true }
+            });
+
+            const currentPlan = currentUser?.plan || "FREE";
+            
+            if (currentPlan === "FREE") {
+                return new Response(
+                    JSON.stringify({ 
+                        message: "Para fazer upgrade para PRO ou VIP, é necessário primeiro adquirir um plano de criação de site." 
+                    }),
+                    { status: 403, headers: { "Content-Type": "application/json" } }
+                );
+            }
+        }
+
         const updatedUser = await prisma.user.update({
             where: { id: session.user.id },
             data: {

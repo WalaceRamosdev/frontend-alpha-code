@@ -14,6 +14,8 @@ if (!session) {
 }
 
 const currentPlan = session.user?.plan || "FREE";
+const isFreePlan = currentPlan === "FREE";
+const canUpgrade = !isFreePlan; // Só pode fazer upgrade se já tiver um plano pago
 export const prerender = false;
 ---
 
@@ -28,14 +30,36 @@ export const prerender = false;
                 <p class="subtitle">
                     Escolha o plano ideal para a escala do seu negócio digital.
                 </p>
-                <div class="discount-notice">
-                    <span class="icon">🎁</span>
-                    <p>
-                        Upgrade Exclusivo: Pague apenas a diferença entre os
-                        planos com <strong>10% de desconto extra</strong> na taxa
-                        de transição.
-                    </p>
-                </div>
+                {
+                    isFreePlan ? (
+                        <div class="free-plan-notice">
+                            <span class="icon">⚠️</span>
+                            <div class="notice-content">
+                                <strong>
+                                    Você ainda não possui um plano ativo
+                                </strong>
+                                <p>
+                                    Para fazer upgrade para PRO ou VIP, é
+                                    necessário primeiro adquirir um dos nossos
+                                    planos de criação de site.
+                                </p>
+                                <a href="/planos" class="btn-acquire">
+                                    Ver Planos Disponíveis →
+                                </a>
+                            </div>
+                        </div>
+                    ) : (
+                        <div class="discount-notice">
+                            <span class="icon">🎁</span>
+                            <p>
+                                Upgrade Exclusivo: Pague apenas a diferença
+                                entre os planos com{" "}
+                                <strong>15% de desconto extra</strong> na taxa
+                                de transição.
+                            </p>
+                        </div>
+                    )
+                }
             </header>
 
             <div class="pricing-grid">
@@ -52,7 +76,7 @@ export const prerender = false;
                         <span class="plan-name">PRO</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">297</span>
+                            <span class="amount">599</span>
                             <span class="period">/mês</span>
                         </div>
                     </div>
@@ -73,15 +97,18 @@ export const prerender = false;
                     <button
                         class="btn-upgrade pro-btn"
                         data-plan="PRO"
-                        disabled={currentPlan === "PRO" ||
+                        disabled={isFreePlan ||
+                            currentPlan === "PRO" ||
                             currentPlan === "VIP"}
                     >
                         {
-                            currentPlan === "PRO"
-                                ? "Já Ativo"
-                                : currentPlan === "VIP"
-                                  ? "Incluído no VIP"
-                                  : "Fazer Upgrade PRO"
+                            isFreePlan
+                                ? "Adquira um Plano"
+                                : currentPlan === "PRO"
+                                  ? "Já Ativo"
+                                  : currentPlan === "VIP"
+                                    ? "Incluído no VIP"
+                                    : "Fazer Upgrade PRO"
                         }
                     </button>
                 </div>
@@ -100,7 +127,7 @@ export const prerender = false;
                         <span class="plan-name">VIP</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">597</span>
+                            <span class="amount">947</span>
                             <span class="period">/mês</span>
                         </div>
                     </div>
@@ -124,12 +151,14 @@ export const prerender = false;
                     <button
                         class="btn-upgrade vip-btn"
                         data-plan="VIP"
-                        disabled={currentPlan === "VIP"}
+                        disabled={isFreePlan || currentPlan === "VIP"}
                     >
                         {
-                            currentPlan === "VIP"
-                                ? "Já Ativo"
-                                : "Tornar-se VIP AGORA!"
+                            isFreePlan
+                                ? "Adquira um Plano"
+                                : currentPlan === "VIP"
+                                  ? "Já Ativo"
+                                  : "Tornar-se VIP AGORA!"
                         }
                     </button>
                 </div>
@@ -164,7 +193,7 @@ export const prerender = false;
                         <span id="modal-credit-price"></span>
                     </div>
                     <div class="breakdown-item discount">
-                        <span>Desconto Alpha (10%)</span>
+                        <span>Desconto Alpha (15%)</span>
                         <span id="modal-discount"></span>
                     </div>
                     <div class="breakdown-total">
@@ -220,10 +249,20 @@ export const prerender = false;
         ) as HTMLButtonElement;
 
         let selectedPlan = "";
-        const PLAN_PRICES: any = {
+        // Preços dos planos de upgrade (mensais)
+        const UPGRADE_PLAN_PRICES: any = {
+            PRO: 599,
+            VIP: 947,
+        };
+
+        // Preços dos planos de criação de sites (valor pago pelo cliente)
+        // Inclui também PRO para quem já é PRO e quer fazer upgrade para VIP
+        const SITE_PLAN_PRICES: any = {
             FREE: 0,
-            PRO: 297,
-            VIP: 597,
+            SIMPLES: 347,
+            COMPLETA: 599,
+            PREMIUM: 947,
+            PRO: 599, // Crédito para quem já é PRO fazer upgrade para VIP
         };
 
         const currentPlan = (
@@ -236,10 +275,15 @@ export const prerender = false;
                 selectedPlan = btn.getAttribute("data-plan") || "";
                 if (!selectedPlan) return;
 
-                const newPrice = PLAN_PRICES[selectedPlan];
-                const oldPrice = PLAN_PRICES[currentPlan] || 0;
+                // Novo plano de upgrade (mensal)
+                const newPrice = UPGRADE_PLAN_PRICES[selectedPlan];
+                // Crédito do plano de site que o usuário já pagou
+                const oldPrice = SITE_PLAN_PRICES[currentPlan] || 0;
+                // Diferença a pagar
                 const difference = newPrice - oldPrice;
-                const discount = difference * 0.1;
+                // Desconto de 15% na diferença
+                const discount = difference * 0.15;
+                // Total final com desconto
                 const total = difference - discount;
 
                 // Update Modal Content
@@ -605,6 +649,66 @@ export const prerender = false;
     }
     .discount-notice strong {
         color: white;
+    }
+
+    /* Free Plan Notice Styles */
+    .free-plan-notice {
+        background: rgba(251, 191, 36, 0.1);
+        border: 1px solid rgba(251, 191, 36, 0.3);
+        padding: 1.5rem 2rem;
+        border-radius: 16px;
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    .free-plan-notice .icon {
+        font-size: 1.8rem;
+        line-height: 1;
+    }
+
+    .free-plan-notice .notice-content {
+        flex: 1;
+    }
+
+    .free-plan-notice strong {
+        color: #fbbf24;
+        font-size: 1.1rem;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .free-plan-notice p {
+        color: rgba(255, 255, 255, 0.7);
+        margin: 0 0 1rem;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+
+    .btn-acquire {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+        color: #000;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(251, 191, 36, 0.3);
+    }
+
+    .btn-acquire:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(251, 191, 36, 0.4);
     }
 
     .modal-overlay {
