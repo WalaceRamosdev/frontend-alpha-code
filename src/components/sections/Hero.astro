@@ -308,9 +308,13 @@ import Button from "../ui/Button.astro";
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 2rem;
-        align-items: center;
+        align-items: flex-start; /* Alinhado ao topo */
         position: relative;
         z-index: 10;
+    }
+
+    .hero-visual {
+        margin-top: 5rem; /* Ajustado para alinhar com o h1 (ignorando o badge) */
     }
 
     .hero-text .badge {
@@ -638,29 +642,79 @@ import Button from "../ui/Button.astro";
     }
 
     @media (max-width: 968px) {
+        .hero-container-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 1.5rem; /* Reduzido de 2.5rem */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-text {
+            display: contents;
+        }
+
+        .hero-text .badge {
+            order: 1;
+            margin-bottom: 0.5rem;
+        }
+        .hero-text h1 {
+            order: 2;
+            margin-bottom: 1rem;
+        }
+        .hero-text p {
+            order: 3;
+            margin-bottom: 1.5rem;
+        }
+        .hero-cta {
+            order: 4;
+            margin-bottom: 0.5rem;
+        } /* Muito mais perto dos slides */
+
+        .hero-visual {
+            order: 5;
+            margin-top: 0;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+
+        .trust-indicator {
+            order: 6;
+            align-items: center;
+            width: 100%;
+            margin-top: 1rem;
+        }
+
         .projects-carousel {
             max-width: 100%;
         }
+
         .carousel-track {
-            aspect-ratio: 1 / 1.2;
+            aspect-ratio: 16 / 13; /* Mais horizontal para dar espaço ao notebook */
         }
+
         .desktop-frame {
-            width: 95%;
+            width: 100%; /* Notebook protagonista */
+            transform: perspective(1000px) rotateX(1deg);
         }
+
         .mobile-frame {
-            width: 30%;
-            right: 0;
+            width: 25%; /* Celular bem menor e complementar */
+            right: 2%;
             bottom: 5%;
+            border-width: 3px;
+            transform: perspective(1000px) rotateY(0deg) translateZ(40px);
         }
     }
 
     @media (max-width: 480px) {
         .carousel-track {
-            aspect-ratio: 1 / 1.4;
+            aspect-ratio: 16 / 14;
         }
         .mobile-frame {
-            width: 45%;
-            bottom: 2%;
+            width: 30%; /* Mantendo escala equilibrada em telas pequenas */
+            bottom: 0;
         }
     }
 </style>
