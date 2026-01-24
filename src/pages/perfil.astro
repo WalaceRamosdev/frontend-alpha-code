@@ -341,7 +341,11 @@ export const prerender = false;
     .avatar-large img {
         width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain; /* Melhor para logos transparentes */
+    }
+    .avatar-large:has(img) {
+        background: transparent;
+        box-shadow: none;
     }
     .edit-avatar-btn {
         position: absolute;

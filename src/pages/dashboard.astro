@@ -548,7 +548,6 @@ export const prerender = false;
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
-                            name: "Cliente Alpha", // Fallback ou carregar do session se necessário
                             siteUrl: urlInput.value,
                         }),
                     });
@@ -619,6 +618,14 @@ export const prerender = false;
     </script>
 
     <style>
+        .header-avatar:has(img) {
+            background: transparent !important;
+            box-shadow: none !important;
+        }
+        .header-avatar img {
+            object-fit: contain !important;
+        }
+
         :root {
             --glass-bg: rgba(255, 255, 255, 0.03);
             --glass-border: rgba(255, 255, 255, 0.05);
