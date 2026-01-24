@@ -34,16 +34,15 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         <nav class="desktop-nav">
             <ul>
                 <li><a href="/#services">Serviços</a></li>
+                <li><a href="/solucoes/advogados">Soluções</a></li>
                 <li><a href="/#projects">Projetos</a></li>
-                <li><a href="/#testimonials">Depoimentos</a></li>
                 <li><a href="/planos">Planos</a></li>
-
                 <li><a href="/about">Sobre</a></li>
                 {
                     session?.user?.role === "ADMIN" && (
                         <li>
                             <a href="/admin" class="admin-link">
-                               Admin <span class="admin-dot" />
+                                Admin <span class="admin-dot" />
                             </a>
                         </li>
                     )

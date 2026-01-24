@@ -1,0 +1,86 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import TrustBar from "../../components/sections/TrustBar.astro";
+import Features from "../../components/sections/Features.astro";
+import Audience from "../../components/sections/Audience.astro";
+import Projects from "../../components/sections/Projects.astro";
+import Testimonials from "../../components/sections/Testimonials.astro";
+import Services from "../../components/sections/Services.astro";
+import Plans from "../../components/sections/Plans.astro";
+import About from "../../components/sections/About.astro";
+import FAQ from "../../components/sections/FAQ.astro";
+import Contact from "../../components/sections/Contact.astro";
+import { niches } from "../../data/niches";
+
+export function getStaticPaths() {
+    return niches.map((niche) => ({
+        params: { slug: niche.slug },
+        props: { niche },
+    }));
+}
+
+const { niche } = Astro.props;
+
+// Sobrescrever metadados
+const title = `${niche.title} | Alpha Code`;
+const description = niche.heroDesc;
+
+export const prerender = true;
+---
+
+<BaseLayout title={title} description={description} noIndex={false}>
+    {
+        /* Customizamos o Hero via Props no futuro se necessário, 
+      por enquanto o Hero pode ser adaptado para ler da URL ou apenas manter o padrão
+      já que o HERO do projeto já é muito bom. 
+      Mas para SEO, vamos injetar os textos do nicho. */
+    }
+
+    <div class="niche-context" data-niche={JSON.stringify(niche)}>
+        <Hero />
+    </div>
+
+    <TrustBar />
+    <Features />
+    <Audience />
+    <Projects />
+    <Testimonials />
+    <Services />
+    <Plans />
+    <About />
+    <FAQ niche={niche} />
+    <Contact />
+</BaseLayout>
+
+<script>
+    // Script para injetar os textos do nicho no Hero de forma dinâmica para não precisar alterar o componente Hero original por enquanto
+    const context = document.querySelector(".niche-context");
+    if (context) {
+        const niche = JSON.parse(context.getAttribute("data-niche") || "{}");
+
+        const heroBadge = document.querySelector("#hero .badge");
+        const heroTitle = document.querySelector("#hero h1");
+        const heroDesc = document.querySelector("#hero p");
+
+        if (heroBadge)
+            heroBadge.innerHTML = `<span class="badge-dot"></span> ${niche.badge}`;
+        if (heroTitle) heroTitle.innerHTML = niche.heroTitle;
+        if (heroDesc) heroDesc.innerHTML = niche.heroDesc;
+    }
+</script>
+
+<style is:global>
+    /* Pequeno ajuste para garantir que a transição seja suave */
+    .niche-context #hero {
+        animation: fadeIn 0.8s ease-out;
+    }
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+</style>

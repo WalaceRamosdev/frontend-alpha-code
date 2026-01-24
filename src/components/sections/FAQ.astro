@@ -1,0 +1,175 @@
+---
+const { niche } = Astro.props;
+
+// FAQ baseado no nicho ou geral
+const generalFaq = [
+    {
+        q: "Quanto tempo leva para o site ficar pronto?",
+        a: "Nossos projetos de Landing Pages geralmente levam de 7 úteis. Projetos mais complexos como E-commerces variam entre 15 a 20 dias.",
+    },
+    {
+        q: "O site já vem otimizado para celulares?",
+        a: "Sim! Todos os nossos sites são 'Mobile-First', garantindo uma experiência perfeita em smartphones, tablets e computadores.",
+    },
+    {
+        q: "Vocês cuidam da hospedagem e domínio?",
+        a: "Sim, oferecemos o ecossistema completo. Cuidamos de toda a configuração técnica para que você não precise se preocupar com nada.",
+    },
+];
+
+const nicheFaq = niche
+    ? [
+          {
+              q: `O site para ${niche.name} segue as normas de ética?`,
+              a:
+                  niche.slug === "advogados"
+                      ? "Sim, todos os sites jurídicos são criados respeitando rigorosamente o código de ética da OAB, focando em marketing informativo."
+                      : niche.slug === "psicologos"
+                        ? "Com certeza. Os sites para psicólogos são desenvolvidos seguindo as resoluções do CFP, garantindo uma postura ética, humanizada e profissional."
+                        : `Sim, projetamos sites para ${niche.name} respeitando todas as orientações profissionais e focando na autoridade do especialista.`,
+          },
+      ]
+    : [];
+
+const faqs = [...nicheFaq, ...generalFaq];
+
+// JSON-LD para SEO (Schema.org)
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqs.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+            "@type": "Answer",
+            text: item.a,
+        },
+    })),
+};
+---
+
+<section id="faq" class="faq-section">
+    <div class="container">
+        <div class="section-header">
+            <span class="badge">Dúvidas</span>
+            <h2>Perguntas Frequentes</h2>
+        </div>
+
+        <div class="faq-grid">
+            {
+                faqs.map((item, index) => (
+                    <div
+                        class="faq-item fade-up"
+                        style={`animation-delay: ${index * 0.1}s`}
+                    >
+                        <div class="faq-trigger">
+                            <h3>{item.q}</h3>
+                            <span class="faq-plus">+</span>
+                        </div>
+                        <div class="faq-content">
+                            <p>{item.a}</p>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+
+    {/* Injetar metadados SEO */}
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+</section>
+
+<style>
+    .faq-section {
+        padding: 100px 0;
+        background: #050505;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .faq-grid {
+        max-width: 800px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .faq-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        overflow: hidden;
+        transition: 0.3s;
+    }
+
+    .faq-item:hover {
+        border-color: rgba(138, 28, 38, 0.3);
+        background: rgba(255, 255, 255, 0.04);
+    }
+
+    .faq-trigger {
+        padding: 24px 30px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+    }
+
+    .faq-trigger h3 {
+        font-size: 1.1rem;
+        color: white;
+        margin: 0;
+        font-weight: 600;
+    }
+
+    .faq-plus {
+        color: var(--color-primary, #8a1c26);
+        font-size: 1.5rem;
+        font-weight: 300;
+        transition: 0.3s;
+    }
+
+    .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0, 1, 0, 1);
+        padding: 0 30px;
+    }
+
+    .faq-item.active .faq-content {
+        max-height: 200px;
+        padding-bottom: 30px;
+        transition: all 0.5s cubic-bezier(1, 0, 1, 0);
+    }
+
+    .faq-item.active .faq-plus {
+        transform: rotate(45deg);
+    }
+
+    .faq-content p {
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+</style>
+
+<script>
+    const faqItems = document.querySelectorAll(".faq-item");
+    faqItems.forEach((item) => {
+        const trigger = item.querySelector(".faq-trigger");
+        trigger?.addEventListener("click", () => {
+            const isActive = item.classList.contains("active");
+
+            // Fechar outros
+            faqItems.forEach((other) => other.classList.remove("active"));
+
+            if (!isActive) {
+                item.classList.add("active");
+            }
+        });
+    });
+</script>

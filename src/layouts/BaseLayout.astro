@@ -3,6 +3,7 @@ import Footer from "../components/layout/Footer.astro";
 import Header from "../components/layout/Header.astro";
 import { createSEOMeta } from "../utils/seo";
 import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
+import SocialProof from "../components/ui/SocialProof.astro";
 import "../styles/global.css";
 
 interface Props {
@@ -111,6 +112,9 @@ const seo = createSEOMeta({
                 </a>
             )
         }
+
+        <!-- Social Proof Popup -->
+        <SocialProof />
 
         <!-- Toast Notification Container -->
         <div id="toast-container" class="toast-container"></div>
