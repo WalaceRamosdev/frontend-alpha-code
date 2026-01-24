@@ -213,7 +213,13 @@ import Button from "../ui/Button.astro";
             gsap.set(nextDesktop, { y: 40, opacity: 0, filter: "blur(10px)" });
 
             const nextInfo = nextSlide.querySelector(".slide-info");
-            gsap.set(nextInfo, { y: -30, opacity: 0, filter: "blur(10px)" });
+            const isMobile = window.innerWidth <= 968;
+            gsap.set(nextInfo, {
+                y: -30,
+                xPercent: isMobile ? -50 : 0,
+                opacity: 0,
+                filter: "blur(10px)",
+            });
 
             // Animação Impactante para o Celular: Entrada com Rotação 3D Distorcida
             const isLeft = nextMobile?.classList.contains("mobile-left");
@@ -293,6 +299,7 @@ import Button from "../ui/Button.astro";
                     nextInfo,
                     {
                         y: 0,
+                        xPercent: isMobile ? -50 : 0,
                         opacity: 1,
                         filter: "blur(0px)",
                         duration: 0.8,
@@ -858,9 +865,42 @@ import Button from "../ui/Button.astro";
 
         .hero-visual {
             order: 5;
-            margin-top: 0;
+            margin-top: 5rem; /* Espaço generoso para o título não sobrepor os botões */
             width: 100%;
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .slide-info,
+        .slide-info.info-right {
+            top: -55px; /* Subi um pouco mais para dar respiro */
+            left: 50%;
+            right: auto;
+            transform: translateX(-50%);
+            width: auto;
+            display: flex;
+            justify-content: center;
+            white-space: nowrap;
+        }
+
+        .slide-category {
+            font-size: 0.85rem;
+            padding: 10px 24px;
+            letter-spacing: 2px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid var(--color-primary);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            background: linear-gradient(
+                135deg,
+                rgba(138, 28, 38, 0.95),
+                rgba(0, 0, 0, 0.9)
+            );
+        }
+
+        .slide-info.info-right .slide-category {
+            border-left: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 3px solid var(--color-primary);
         }
 
         .trust-indicator {

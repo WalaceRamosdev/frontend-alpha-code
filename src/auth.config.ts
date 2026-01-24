@@ -65,12 +65,13 @@ export default {
                 try {
                     const dbUser = await prisma.user.findUnique({
                         where: { id: token.sub },
-                        select: { plan: true, siteUrl: true, image: true, name: true, email: true }
+                        select: { plan: true, siteUrl: true, image: true, name: true, email: true, role: true }
                     } as any);
 
                     if (dbUser) {
                         session.user.plan = (dbUser as any).plan || "FREE";
                         session.user.siteUrl = (dbUser as any).siteUrl || null;
+                        session.user.role = (dbUser as any).role || "USER";
                         session.user.image = dbUser.image || null;
                         session.user.name = dbUser.name || null;
                         session.user.email = dbUser.email || null;

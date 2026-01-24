@@ -39,6 +39,15 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 <li><a href="/planos">Planos</a></li>
 
                 <li><a href="/about">Sobre</a></li>
+                {
+                    session?.user?.role === "ADMIN" && (
+                        <li>
+                            <a href="/admin" class="admin-link">
+                                Admin <span class="admin-dot" />
+                            </a>
+                        </li>
+                    )
+                }
             </ul>
         </nav>
 
@@ -180,6 +189,28 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                                 Início
                             </a>
                         </li>
+                        {
+                            session?.user?.role === "ADMIN" && (
+                                <li class="admin-mobile-item">
+                                    <a href="/admin">
+                                        <svg
+                                            width="18"
+                                            height="18"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                        >
+                                            <>
+                                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                                                <path d="m9 12 2 2 4-4" />
+                                            </>
+                                        </svg>
+                                        Admin Panel
+                                    </a>
+                                </li>
+                            )
+                        }
                         <li>
                             <a href="/#services">
                                 <svg
@@ -561,6 +592,26 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
     }
     .desktop-nav a:hover {
         color: white;
+    }
+
+    .admin-link {
+        color: var(--color-primary) !important;
+        position: relative;
+    }
+
+    .admin-dot {
+        position: absolute;
+        top: -2px;
+        right: -8px;
+        width: 6px;
+        height: 6px;
+        background: var(--color-primary);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--color-primary);
+    }
+
+    .admin-mobile-item a {
+        color: var(--color-primary) !important;
     }
 
     /* RIGHT: Actions */

@@ -1,0 +1,476 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import { getSession } from "../../lib/auth";
+import { prisma } from "../../lib/prisma";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Admin Auth Error:", e);
+}
+
+// Proteção de Rota
+if (!session || session.user?.role !== "ADMIN") {
+    return Astro.redirect("/login");
+}
+
+// Buscar estatísticas simples
+const totalUsers = await prisma.user.count();
+const recentUsers = await prisma.user.findMany({
+    take: 5,
+    orderBy: { createdAt: "desc" },
+    where: { role: "USER" },
+});
+
+export const prerender = false;
+---
+
+<Layout title="Admin Panel | Alpha Code" showWhatsApp={false}>
+    <div class="admin-wrapper">
+        <div class="ambient-glow"></div>
+
+        <div class="container admin-container">
+            <header class="admin-header">
+                <div class="header-left">
+                    <span class="badge">Painel de Controle</span>
+                    <h1>Gestão de Clientes Alpha</h1>
+                </div>
+                <div class="header-right">
+                    <a href="/dashboard" class="back-link"
+                        >Voltar ao Dashboard</a
+                    >
+                </div>
+            </header>
+
+            <div class="admin-grid">
+                <!-- Form Area -->
+                <section class="admin-card create-user-card">
+                    <div class="card-header">
+                        <h2>Adicionar Novo Cliente</h2>
+                        <p>
+                            Cadastre clientes que já adquiriram sites
+                            anteriormente.
+                        </p>
+                    </div>
+
+                    <form id="create-user-form" class="admin-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="name">Nome Completo</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    placeholder="Ex: João Silva"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="email">E-mail de Acesso</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    placeholder="cliente@email.com"
+                                    required
+                                />
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="password">Senha Inicial</label>
+                                <input
+                                    type="text"
+                                    id="password"
+                                    name="password"
+                                    value="alpha123"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label for="plan">Plano Adquirido</label>
+                                <select id="plan" name="plan">
+                                    <option value="FREE">FREE</option>
+                                    <option value="PRO">PRO</option>
+                                    <option value="VIP">VIP</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="siteUrl">URL do Site (opcional)</label>
+                            <input
+                                type="url"
+                                id="siteUrl"
+                                name="siteUrl"
+                                placeholder="https://nome-do-cliente.vercel.app"
+                            />
+                        </div>
+
+                        <button
+                            type="submit"
+                            class="btn-submit"
+                            id="submit-btn"
+                        >
+                            <span>Cadastrar Cliente</span>
+                            <div class="btn-loader hidden"></div>
+                        </button>
+                    </form>
+                </section>
+
+                <!-- Stats/List Area -->
+                <aside class="admin-sidebar">
+                    <div class="admin-card stats-summary">
+                        <h3>Resumo da Plataforma</h3>
+                        <div class="stat-item">
+                            <span class="label">Total de Usuários</span>
+                            <span class="value">{totalUsers}</span>
+                        </div>
+                    </div>
+
+                    <div class="admin-card recent-users">
+                        <h3>Últimos Cadastros</h3>
+                        <div class="users-list">
+                            {
+                                recentUsers.length === 0 ? (
+                                    <p class="empty-msg">
+                                        Nenhum cliente cadastrado.
+                                    </p>
+                                ) : (
+                                    recentUsers.map((u) => (
+                                        <div class="user-item">
+                                            <div class="user-initials">
+                                                {u.name?.charAt(0)}
+                                            </div>
+                                            <div class="user-meta">
+                                                <strong>{u.name}</strong>
+                                                <span>{u.email}</span>
+                                                <span
+                                                    class={`plan-tag ${u.plan.toLowerCase()}`}
+                                                >
+                                                    {u.plan}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    ))
+                                )
+                            }
+                        </div>
+                    </div>
+                </aside>
+            </div>
+        </div>
+    </div>
+</Layout>
+
+<script>
+    const form = document.getElementById("create-user-form") as HTMLFormElement;
+    const btn = document.getElementById("submit-btn");
+    const loader = btn?.querySelector(".btn-loader");
+
+    if (form) {
+        form.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            if (!btn || !loader) return;
+
+            btn.classList.add("loading");
+            loader.classList.remove("hidden");
+
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData.entries());
+
+            try {
+                const res = await fetch("/api/admin/create-user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(data),
+                });
+
+                const result = await res.json();
+
+                if (res.ok) {
+                    (window as any).showToast(
+                        "Cliente cadastrado com sucesso!",
+                        "success",
+                    );
+                    form.reset();
+                    // Optional: reload after a delay to show in list
+                    setTimeout(() => window.location.reload(), 1500);
+                } else {
+                    (window as any).showToast(
+                        result.message || "Erro ao cadastrar",
+                        "error",
+                    );
+                }
+            } catch (err) {
+                console.error(err);
+                (window as any).showToast("Erro de conexão.", "error");
+            } finally {
+                btn.classList.remove("loading");
+                loader.classList.add("hidden");
+            }
+        });
+    }
+</script>
+
+<style>
+    .admin-wrapper {
+        min-height: 100vh;
+        background-color: var(--color-bg-body);
+        padding-top: 140px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .ambient-glow {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 500px;
+        background: radial-gradient(
+            circle at top,
+            rgba(138, 28, 38, 0.1),
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+
+    .admin-container {
+        position: relative;
+        z-index: 10;
+        max-width: 1100px;
+        margin: 0 auto;
+    }
+
+    .admin-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        margin-bottom: 3rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1.5rem;
+    }
+
+    .admin-header h1 {
+        font-size: 2.2rem;
+        color: #fff;
+        margin-top: 0.5rem;
+    }
+
+    .badge {
+        background: rgba(138, 28, 38, 0.1);
+        color: var(--color-primary);
+        padding: 4px 12px;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        border: 1px solid rgba(138, 28, 38, 0.2);
+    }
+
+    .back-link {
+        color: var(--color-text-secondary);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.3s;
+    }
+
+    .back-link:hover {
+        color: #fff;
+    }
+
+    .admin-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 2rem;
+    }
+
+    .admin-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+    }
+
+    .card-header h2 {
+        font-size: 1.4rem;
+        color: #fff;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-header p {
+        color: var(--color-text-secondary);
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+    }
+
+    .admin-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+
+    .form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form-group label {
+        font-size: 0.85rem;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+    }
+
+    .form-group input,
+    .form-group select {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 0.95rem;
+        outline: none;
+        transition: border-color 0.3s;
+    }
+
+    .form-group input:focus {
+        border-color: var(--color-primary);
+    }
+
+    .btn-submit {
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        padding: 1rem;
+        border-radius: 8px;
+        font-weight: 700;
+        cursor: pointer;
+        transition:
+            transform 0.2s,
+            background 0.3s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin-top: 1rem;
+    }
+
+    .btn-submit:hover {
+        background: #b91c1c;
+        transform: translateY(-2px);
+    }
+
+    .btn-loader {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    /* Sidebar */
+    .admin-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .stat-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 1rem;
+    }
+
+    .stat-item .value {
+        font-size: 2rem;
+        font-weight: 800;
+        color: var(--color-primary);
+    }
+
+    .users-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+
+    .user-item {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 10px;
+    }
+
+    .user-initials {
+        width: 36px;
+        height: 36px;
+        background: var(--color-primary);
+        color: #fff;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+    }
+
+    .user-meta {
+        display: flex;
+        flex-direction: column;
+        font-size: 0.8rem;
+    }
+
+    .user-meta strong {
+        color: #fff;
+        font-size: 0.9rem;
+    }
+
+    .plan-tag {
+        font-size: 0.65rem;
+        font-weight: 800;
+        padding: 2px 6px;
+        border-radius: 4px;
+        width: fit-content;
+        margin-top: 4px;
+    }
+
+    .plan-tag.free {
+        background: #4b5563;
+        color: #fff;
+    }
+    .plan-tag.pro {
+        background: #2563eb;
+        color: #fff;
+    }
+    .plan-tag.vip {
+        background: #7c3aed;
+        color: #fff;
+    }
+
+    @media (max-width: 850px) {
+        .admin-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
