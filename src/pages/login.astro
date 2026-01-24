@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { getSession } from "../lib/auth";
+import StatusModal from "../components/ui/StatusModal.astro";
 import "../styles/auth.css";
 
 let session = null;
@@ -91,7 +92,11 @@ export const prerender = false;
                 <span>Ou continue com email</span>
             </div>
 
-            <form action="/api/auth/callback/credentials" method="POST">
+            <form
+                action="/api/auth/callback/credentials"
+                method="POST"
+                id="credentials-form"
+            >
                 <input type="hidden" name="callbackUrl" value="/dashboard" />
 
                 <div class="form-group">
@@ -107,7 +112,19 @@ export const prerender = false;
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Senha</label>
+                    <div
+                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;"
+                    >
+                        <label class="form-label" style="margin-bottom: 0;"
+                            >Senha</label
+                        >
+                        <a
+                            href="#"
+                            id="forgot-password"
+                            class="auth-link"
+                            style="font-size: 0.8rem;">Esqueceu a senha?</a
+                        >
+                    </div>
                     <input
                         name="password"
                         type="password"
@@ -117,7 +134,11 @@ export const prerender = false;
                     />
                 </div>
 
-                <button type="submit" class="submit-btn" style="color: white;">
+                <button
+                    type="submit"
+                    class="submit-btn"
+                    style="color: white; margin-top: 1rem;"
+                >
                     Entrar
                 </button>
             </form>
@@ -129,6 +150,14 @@ export const prerender = false;
             </p>
         </div>
     </div>
+
+    <StatusModal
+        id="login-status-modal"
+        title="Aguarde..."
+        message="Processando seu acesso"
+        type="loading"
+    />
+
     <script>
         // Google Login
         const googleBtn = document.getElementById(
@@ -173,8 +202,8 @@ export const prerender = false;
         }
 
         // Credentials Login
-        const form = document.querySelector(
-            'form[action$="credentials"]',
+        const form = document.getElementById(
+            "credentials-form",
         ) as HTMLFormElement | null;
         if (form) {
             form.addEventListener("submit", async (e) => {
@@ -185,7 +214,13 @@ export const prerender = false;
                 if (!submitBtn) return;
 
                 const originalText = submitBtn.textContent || "";
-                submitBtn.textContent = "Entrando...";
+
+                // Show Loading Modal
+                (window as any).showModal(
+                    "Acessando...",
+                    "Verificando suas credenciais",
+                    "loading",
+                );
 
                 try {
                     const formData = new FormData(form);
@@ -196,13 +231,13 @@ export const prerender = false;
                     const csrfRes = await fetch("/api/auth/csrf");
                     const { csrfToken } = await csrfRes.json();
 
-                    // Sign In - sending as form-urlencoded is more reliable for Credentials provider
+                    // Sign In
                     const params = new URLSearchParams();
                     params.append("email", email as string);
                     params.append("password", password as string);
                     params.append("csrfToken", csrfToken);
                     params.append("callbackUrl", "/dashboard");
-                    params.append("json", "true"); // Request JSON response
+                    params.append("json", "true");
 
                     const res = await fetch("/api/auth/callback/credentials", {
                         method: "POST",
@@ -213,42 +248,66 @@ export const prerender = false;
                     });
 
                     if (res.ok) {
-                        // Se o fetch seguiu o redirect automaticamente e parou no dashboard
-                        if (res.url && res.url.includes("/dashboard")) {
-                            window.location.href = "/dashboard";
-                            return;
-                        }
+                        (window as any).showModal(
+                            "Sucesso!",
+                            "Seja bem vindo novamente",
+                            "success",
+                        );
 
-                        // Verifica se a resposta é JSON antes de tentar parsear
-                        const contentType = res.headers.get("content-type");
-                        if (
-                            contentType &&
-                            contentType.includes("application/json")
-                        ) {
-                            const data = await res.json();
-                            if (data.url) {
-                                window.location.href = data.url;
-                            } else {
-                                window.location.href = "/dashboard";
-                            }
-                        } else {
-                            // Se deu OK mas não é JSON, provavelmente é sucesso (redirect manual ou HTML)
+                        setTimeout(() => {
                             window.location.href = "/dashboard";
-                        }
+                        }, 1200);
                     } else {
-                        // Se não deu OK (401, 500, etc)
                         const text = await res.text();
                         console.error("Login falhou:", text);
-                        alert("Falha no login. Verifique suas credenciais.");
+
+                        (window as any).showModal(
+                            "Falha no Acesso",
+                            "Email ou senha incorretos. Por favor, tente novamente.",
+                            "error",
+                        );
+
+                        setTimeout(() => {
+                            (window as any).hideModal();
+                        }, 3000);
+
                         submitBtn.textContent = originalText;
                     }
                 } catch (err) {
                     console.error(err);
-                    // Se o erro for de JSON parse no "res.json()", pode cair aqui
-                    // Mas a lógica acima previne. Se cair aqui é erro de rede mesmo.
-                    alert("Erro ao conectar ao servidor.");
+                    (window as any).showModal(
+                        "Erro de Conexão",
+                        "Não foi possível conectar ao servidor. Verifique sua internet.",
+                        "error",
+                    );
+
+                    setTimeout(() => {
+                        (window as any).hideModal();
+                    }, 3000);
+
                     submitBtn.textContent = originalText;
                 }
+            });
+        }
+
+        // Forgot Password Action
+        const forgotBtn = document.getElementById("forgot-password");
+        if (forgotBtn) {
+            forgotBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+                (window as any).showModal(
+                    "Recuperação de Senha",
+                    "Por favor, entre em contato com o suporte através do WhatsApp para resetar sua senha.",
+                    "success",
+                );
+
+                setTimeout(() => {
+                    (window as any).hideModal();
+                    window.open(
+                        "https://wa.me/5521999064502?text=Olá, preciso resetar minha senha no Alpha Code.",
+                        "_blank",
+                    );
+                }, 3000);
             });
         }
     </script>

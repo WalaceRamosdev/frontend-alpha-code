@@ -43,7 +43,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                     session?.user?.role === "ADMIN" && (
                         <li>
                             <a href="/admin" class="admin-link">
-                                Admin <span class="admin-dot" />
+                               Admin <span class="admin-dot" />
                             </a>
                         </li>
                     )
@@ -53,30 +53,32 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
 
         <!-- RIGHT: Actions (Login/Profile + Contact) -->
         <div class="header-actions">
+            <!-- Profile Button (Visible on all devices when logged in) -->
+            {
+                session && (
+                    <a
+                        href="/dashboard"
+                        class={`profile-nav-btn ${isDashboard ? "active-dash active" : ""}`}
+                        id="mobile-profile-trigger"
+                    >
+                        <span class="profile-text-node">Perfil</span>
+                        <div class="profile-avatar-node">
+                            {session.user?.image ? (
+                                <img src={session.user.image} alt="Avatar" />
+                            ) : (
+                                <div class="avatar-letter">
+                                    {session.user?.name?.charAt(0) || "U"}
+                                </div>
+                            )}
+                        </div>
+                    </a>
+                )
+            }
+
             <!-- Desktop Action Group -->
             <div class="action-group desktop-only">
                 {
-                    session ? (
-                        <a
-                            href="/dashboard"
-                            class={`profile-nav-btn ${isDashboard ? "active-dash active" : ""}`}
-                            id="desktop-profile-trigger"
-                        >
-                            <span class="profile-text-node">Perfil</span>
-                            <div class="profile-avatar-node">
-                                {session.user?.image ? (
-                                    <img
-                                        src={session.user.image}
-                                        alt="Avatar"
-                                    />
-                                ) : (
-                                    <div class="avatar-letter">
-                                        {session.user?.name?.charAt(0) || "U"}
-                                    </div>
-                                )}
-                            </div>
-                        </a>
-                    ) : (
+                    !session && (
                         <a href="/login" class="btn-login-nav">
                             Login
                         </a>
@@ -521,19 +523,21 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
     }
 
     // Profile Expansion Logic
-    const profileBtn = document.getElementById("desktop-profile-trigger");
-    if (profileBtn) {
-        profileBtn.addEventListener("click", (e) => {
-            const link = profileBtn.getAttribute("href");
-            if (link && !profileBtn.classList.contains("active-dash")) {
+    const profileBtn = document.querySelectorAll(
+        "#desktop-profile-trigger, #mobile-profile-trigger",
+    );
+    profileBtn.forEach((btn) => {
+        btn.addEventListener("click", (e) => {
+            const link = btn.getAttribute("href");
+            if (link && !btn.classList.contains("active-dash")) {
                 e.preventDefault();
-                profileBtn.classList.add("expanded");
+                btn.classList.add("expanded");
                 setTimeout(() => {
                     window.location.href = link;
                 }, 400);
             }
         });
-    }
+    });
 </script>
 
 <style>
@@ -679,9 +683,21 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         justify-content: space-between;
         border-color: var(--color-primary);
     }
-    .profile-nav-btn:has(img) {
-        background: transparent;
-        border-color: rgba(255, 255, 255, 0.1);
+    /* Transparent background for profile with custom logo */
+    .profile-nav-btn.active-dash:has(img),
+    .profile-nav-btn.expanded:has(img),
+    .profile-nav-btn:has(img),
+    .user-profile-bar:has(img) {
+        background: rgba(255, 255, 255, 0.03) !important;
+        backdrop-filter: blur(10px);
+        border-color: rgba(255, 255, 255, 0.08);
+    }
+
+    .profile-nav-btn:has(img):hover,
+    .user-profile-bar:has(img):hover {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.15);
+        transform: translateY(-1px);
     }
     .profile-avatar-node {
         width: 36px;
@@ -1108,6 +1124,19 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         }
         .mobile-only {
             display: flex;
+        }
+
+        /* Hide profile text on very small screens to fit next to hamburger */
+        @media (max-width: 480px) {
+            .profile-nav-btn.active-dash,
+            .profile-nav-btn.expanded {
+                width: 44px;
+                padding: 0;
+                justify-content: center;
+            }
+            .profile-text-node {
+                display: none;
+            }
         }
     }
 </style>

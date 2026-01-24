@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { getSession } from "../lib/auth";
+import StatusModal from "../components/ui/StatusModal.astro";
 
 let session = null;
 try {
@@ -151,6 +152,13 @@ export const prerender = false;
         </div>
     </div>
 
+    <StatusModal
+        id="profile-status-modal"
+        title="Salvando..."
+        message="Suas alterações estão sendo registradas"
+        type="loading"
+    />
+
     <script>
         // Use type assertions and null checks to satisfy TypeScript
         const form = document.getElementById(
@@ -178,11 +186,12 @@ export const prerender = false;
                 const file = target.files ? target.files[0] : null;
                 if (file) {
                     if (file.size > 2 * 1024 * 1024) {
-                        // 2MB limit
-                        (window as any).showToast(
+                        (window as any).showModal(
+                            "Imagem muito grande",
                             "A imagem deve ter no máximo 2MB.",
                             "error",
                         );
+                        setTimeout(() => (window as any).hideModal(), 3000);
                         return;
                     }
                     const reader = new FileReader();
@@ -223,6 +232,13 @@ export const prerender = false;
                 const company = companyInput ? companyInput.value : "";
 
                 try {
+                    // Show Loading
+                    (window as any).showModal(
+                        "Salvando...",
+                        "Sincronizando seus dados",
+                        "loading",
+                    );
+
                     const res = await fetch("/api/user/update", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
@@ -236,25 +252,41 @@ export const prerender = false;
 
                     if (res.ok) {
                         if (nameDisplay) nameDisplay.innerText = name;
-                        (window as any).showToast(
-                            "Perfil atualizado com sucesso!",
+
+                        (window as any).showModal(
+                            "Perfil Atualizado!",
+                            "Seus dados foram salvos com sucesso. Retornando ao dashboard...",
+                            "success",
                         );
 
-                        // Recarregar para atualizar o Header (server-side)
-                        setTimeout(() => window.location.reload(), 1500);
+                        // Redirecionar para o dashboard após sucesso
+                        setTimeout(() => {
+                            window.location.href = "/dashboard";
+                        }, 2000);
                     } else {
                         const data = await res.json();
-                        (window as any).showToast(
-                            data.message || "Erro ao atualizar perfil.",
+                        (window as any).showModal(
+                            "Erro ao Salvar",
+                            data.message ||
+                                "Não foi possível atualizar seu perfil.",
                             "error",
                         );
+
+                        setTimeout(() => {
+                            (window as any).hideModal();
+                        }, 3000);
                     }
                 } catch (err) {
                     console.error(err);
-                    (window as any).showToast(
-                        "Erro ao conectar com o servidor.",
+                    (window as any).showModal(
+                        "Erro de Conexão",
+                        "Falha ao comunicar com o servidor.",
                         "error",
                     );
+
+                    setTimeout(() => {
+                        (window as any).hideModal();
+                    }, 3000);
                 } finally {
                     if (saveBtn) {
                         saveBtn.innerText = originalText;
