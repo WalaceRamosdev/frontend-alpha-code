@@ -115,6 +115,15 @@ export const prerender = false;
                                     value={session.user?.company || ""}
                                 />
                             </div>
+                            <div class="form-group">
+                                <label>Link do Site</label>
+                                <input
+                                    type="text"
+                                    id="input-site-url"
+                                    placeholder="seu-site.com.br"
+                                    value={session.user?.siteUrl || ""}
+                                />
+                            </div>
                         </div>
 
                         <div class="password-section">
@@ -226,10 +235,14 @@ export const prerender = false;
                 const companyInput = document.getElementById(
                     "input-company",
                 ) as HTMLInputElement | null;
+                const siteUrlInput = document.getElementById(
+                    "input-site-url",
+                ) as HTMLInputElement | null;
 
                 const name = nameInput ? nameInput.value : "";
                 const phone = phoneInput ? phoneInput.value : "";
                 const company = companyInput ? companyInput.value : "";
+                const siteUrl = siteUrlInput ? siteUrlInput.value : "";
 
                 try {
                     // Show Loading
@@ -246,6 +259,7 @@ export const prerender = false;
                             name,
                             phone,
                             company,
+                            siteUrl,
                             image: currentImageBase64 || undefined,
                         }),
                     });

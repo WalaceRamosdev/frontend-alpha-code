@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { getSession } from "../lib/auth";
+import StatusModal from "../components/ui/StatusModal.astro";
 // import authConfig from "../auth.config";
 // import { SignOut } from "auth-astro/components";
 
@@ -467,9 +468,9 @@ export const prerender = false;
                 <div class="form-group">
                     <label>URL do seu site adquirido</label>
                     <input
-                        type="url"
+                        type="text"
                         id="site-url-input"
-                        placeholder="https://seuprojeto.com.br"
+                        placeholder="www.seuprojeto.com.br"
                         required
                         value={session.user?.siteUrl || ""}
                     />
@@ -492,6 +493,13 @@ export const prerender = false;
             </form>
         </div>
     </div>
+
+    <StatusModal
+        id="dashboard-status-modal"
+        title="Salvando..."
+        message="Vinculando seu site ao dashboard"
+        type="loading"
+    />
 
     <script>
         // Modal Logic - New Project
@@ -553,13 +561,21 @@ export const prerender = false;
                     });
 
                     if (response.ok) {
-                        (window as any).showToast("Link salvo com sucesso!");
-                        setTimeout(() => window.location.reload(), 1500);
+                        (window as any).showModal(
+                            "Link Vinculado!",
+                            "Seu site foi vinculado com sucesso ao seu dashboard.",
+                            "success",
+                        );
+                        setTimeout(() => window.location.reload(), 2000);
                     } else {
-                        (window as any).showToast(
-                            "Erro ao salvar link.",
+                        const errorData = await response.json();
+                        (window as any).showModal(
+                            "Erro ao Vincular",
+                            errorData.message +
+                                (errorData.error ? ": " + errorData.error : ""),
                             "error",
                         );
+                        setTimeout(() => (window as any).hideModal(), 5000);
                     }
                 } catch (error) {
                     console.error("Site URL update error:", error);

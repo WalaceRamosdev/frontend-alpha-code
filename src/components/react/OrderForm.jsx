@@ -111,19 +111,41 @@ export default function OrderForm() {
         try {
             const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
             const isPaidTest = formData.nome.toUpperCase().includes('TESTE PAGO') || formData.detalhes.toUpperCase().includes('TESTE PAGO');
+            const payload = {
+                ...formData,
+                // Compatibilidade com backend antigo (Render)
+                servico: formData.objetivo || (isMaintenance ? 'Manutenção' : 'Não informado'),
+                // Hack de Injeção: Ajusta label se for manutenção
+                orcamento: isMaintenance
+                    ? `(Manutenção)</p><p><strong>Link do Site:</strong> ${formData.referencias}`
+                    : `${formData.cores || 'Não informado'}</p><p><strong>Sites de Referência:</strong> ${formData.referencias || 'Nenhum'}`,
+                detalhes: formData.detalhes,
+                isMaintenance,
+                isPaid: isPaidTest,
+                coupon: appliedCoupon?.code,
+                price: finalPrice
+            };
+
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ ...formData, isMaintenance, isPaid: isPaidTest, coupon: appliedCoupon?.code, price: finalPrice })
+                body: JSON.stringify(payload)
             });
 
             if (response.ok) {
+                const linkLabel = isMaintenance ? 'LINK DO SITE' : 'REFERÊNCIAS';
                 let messageBody = `*NOVO PEDIDO - ALPHA CODE* 🚀\n\n` +
                     `*CLIENTE:* ${formData.nome}\n` +
+                    `*WHATSAPP:* ${formData.whatsapp}\n` +
                     `*EMAIL:* ${formData.email}\n` +
+                    `*PROFISSÃO:* ${formData.profissao}\n\n` +
+                    `*DETALHES DO PROJETO*\n` +
                     `*PLANO:* ${formData.plano}\n` +
-                    `*VALOR:* ${currency} ${finalPrice.toFixed(2).replace('.', ',')}\n\n` +
-                    `*DETALHES:* ${formData.detalhes}`;
+                    `*VALOR:* ${currency} ${finalPrice.toFixed(2).replace('.', ',')}\n` +
+                    (isMaintenance ? '' : `*OBJETIVO:* ${formData.objetivo || 'Não informado'}\n`) +
+                    (isMaintenance ? '' : `*CORES:* ${formData.cores || 'Não informado'}\n`) +
+                    `*${linkLabel}:* ${formData.referencias || 'Nenhuma informada'}\n\n` +
+                    `*DESCRIÇÃO:* ${formData.detalhes}`;
                 setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
                 setModalOpen(true);
                 setFormData({ ...formData, nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '' });
@@ -255,10 +277,6 @@ export default function OrderForm() {
                                         <label>Cores de Preferência</label>
                                         <input type="text" name="cores" value={formData.cores} onChange={handleChange} placeholder="Ex: Azul e Branco, Dark Mode..." />
                                     </div>
-                                    <div className="field">
-                                        <label>Link de Referência</label>
-                                        <input type="url" name="referencias" value={formData.referencias} onChange={handleChange} placeholder="https://..." />
-                                    </div>
                                 </div>
                             </section>
                         )}
@@ -267,6 +285,17 @@ export default function OrderForm() {
                             <div className="step-header">
                                 <span className="step-num">{isMaintenance ? '02' : '03'}</span>
                                 <h3>Expectativas</h3>
+                            </div>
+                            <div className="field">
+                                <label>{isMaintenance ? 'Link do Site (Obrigatório)' : 'Link de Referência / Site Atual'}</label>
+                                <input
+                                    type="text"
+                                    name="referencias"
+                                    value={formData.referencias}
+                                    onChange={handleChange}
+                                    required={isMaintenance}
+                                    placeholder={isMaintenance ? "seu-site.com.br" : "https://..."}
+                                />
                             </div>
                             <div className="field">
                                 <label>Conte mais sobre sua ideia</label>

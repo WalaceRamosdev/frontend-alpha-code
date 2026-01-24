@@ -16,8 +16,12 @@ export const POST: APIRoute = async ({ request }) => {
         const body = await request.json();
         const { name, phone, company, image, siteUrl, plan } = body;
 
+        console.log("📝 Update Attempt for:", session.user.email || session.user.name);
+        console.log("📦 Payload:", { siteUrl, name, plan });
+
         // Identificação do usuário preferencialmente por ID, senao por Email
         const userIdentifier = session.user.id ? { id: session.user.id } : { email: session.user.email };
+        console.log("🔍 User Identifier:", userIdentifier);
 
         if (!userIdentifier.id && !userIdentifier.email) {
             return new Response(
@@ -54,6 +58,8 @@ export const POST: APIRoute = async ({ request }) => {
             } as any,
         });
 
+        console.log("✅ Update Success!");
+
         return new Response(
             JSON.stringify({
                 message: "Dados atualizados com sucesso!",
@@ -62,11 +68,11 @@ export const POST: APIRoute = async ({ request }) => {
             { status: 200, headers: { "Content-Type": "application/json" } }
         );
     } catch (error: any) {
-        console.error("Erro ao atualizar usuário:", error);
+        console.error("❌ Erro ao atualizar usuário:", error);
         return new Response(
             JSON.stringify({
                 message: "Erro ao atualizar dados.",
-                details: error.message
+                error: error.message
             }),
             { status: 500, headers: { "Content-Type": "application/json" } }
         );
