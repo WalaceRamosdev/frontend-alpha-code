@@ -29,7 +29,12 @@ const description = niche.heroDesc;
 export const prerender = true;
 ---
 
-<BaseLayout title={title} description={description} noIndex={false}>
+<BaseLayout
+    title={title}
+    description={description}
+    noIndex={false}
+    keywords={niche.keywords}
+>
     {
         /* Customizamos o Hero via Props no futuro se necessário, 
       por enquanto o Hero pode ser adaptado para ler da URL ou apenas manter o padrão
