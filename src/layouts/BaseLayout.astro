@@ -16,6 +16,7 @@ interface Props {
     showWhatsApp?: boolean;
     showHeader?: boolean;
     showFooter?: boolean;
+    showSocialProof?: boolean;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
     showWhatsApp = true,
     showHeader = true,
     showFooter = true,
+    showSocialProof = false,
 } = Astro.props;
 
 const seo = createSEOMeta({
@@ -117,7 +119,7 @@ const seo = createSEOMeta({
         }
 
         <!-- Social Proof Popup -->
-        <SocialProof />
+        {showSocialProof && <SocialProof />}
 
         <!-- Toast Notification Container -->
         <div id="toast-container" class="toast-container"></div>

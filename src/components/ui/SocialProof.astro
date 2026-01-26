@@ -147,17 +147,46 @@
 
 <script>
     const messages = [
-        "Dr. Marcelo de SP acabou de solicitar um orçamento.",
-        "Dra. Juliana do RJ iniciou um projeto VIP.",
-        "Escritório Silva & Associados vinculou um novo site.",
-        "Ricardo M. acaba de contratar o plano PRO.",
-        "Dra. Fernanda de MG solicitou uma melhoria.",
-        "Clínica Sorriso de SC iniciou um novo projeto.",
-        "Advogado Carlos H. de Brasília solicitou orçamento.",
-        "Portal de Arquitetura acabou de assinar o plano VIP.",
-        "Dra. Beatriz do RS vinculou seu site agora.",
-        "Felipe de Curitiba contratou melhoria PRO.",
-        "Escritório Jurídico T. iniciou sua presença digital.",
+        "<strong>Dr. Marcelo S.</strong> de SP acaba de solicitar um orçamento.",
+        "<strong>Dra. Juliana Ferreira</strong> do RJ iniciou um projeto VIP.",
+        "<strong>Escritório Silva & Associados</strong> vinculou um novo site.",
+        "<strong>Ricardo Mendonça</strong> acaba de contratar o plano PRO.",
+        "<strong>Dra. Fernanda Alencar</strong> de MG solicitou uma melhoria.",
+        "<strong>Clínica Sorriso</strong> de SC iniciou um novo projeto.",
+        "<strong>Advogado Carlos Henrique</strong> de Brasília solicitou orçamento.",
+        "<strong>Portal de Arquitetura</strong> acaba de assinar o plano VIP.",
+        "<strong>Dra. Beatriz Santos</strong> do RS vinculou seu site agora.",
+        "<strong>Felipe</strong> de Curitiba contratou melhoria PRO.",
+        "<strong>Escritório Jurídico T.</strong> iniciou sua presença digital.",
+        "<strong>Dra. Camila</strong> de Salvador acaba de adquirir um site para sua clínica.",
+        "<strong>Arquiteta Roberta Paes</strong> de SP solicitou um novo portfólio.",
+        "<strong>Empresa Logística Sul</strong> de PR iniciou consultoria digital.",
+        "<strong>Dr. Gustavo Lima</strong> do CE contratou o plano de autoridade.",
+        "<strong>Consultório Odonto Prime</strong> de GO adquiriu novo site.",
+        "<strong>Engenheiro Rafael</strong> de MT solicitou orçamento para site técnico.",
+        "<strong>Dra. Patrícia</strong> de BH assinou o plano médico premium.",
+        "<strong>Escritório de Contabilidade L.</strong> de RS vinculou site agora.",
+        "<strong>Psicóloga Mariana</strong> de SP iniciou seu projeto de agendamento.",
+        "<strong>Dr. Arthur Novaes</strong> do PE acaba de solicitar orçamento.",
+        "<strong>Dra. Luana</strong> de MS contratou o plano profissional.",
+        "<strong>Imobiliária Santos</strong> de SC iniciou novo portal de vendas.",
+        "<strong>Advogada Clarice</strong> de Curitiba solicitou melhoria no site.",
+        "<strong>Dr. Vinícius</strong> de SP adquiriu o plano de alta conversão.",
+        "<strong>Dra. Helena</strong> de Porto Alegre vinculou site institucional.",
+        "<strong>Clínica Viva Bem</strong> de RJ assinou contrato agora.",
+        "<strong>Construtora Alpha</strong> de MG solicitou projeto personalizado.",
+        "<strong>Dr. Rodrigo Rocha</strong> de Brasília contratou o plano VIP.",
+        "<strong>Dra. Sofia Mendes</strong> de Fortaleza iniciou sua marca digital.",
+        "<strong>Escritório de Design M.</strong> de SP solicitou orçamento.",
+        "<strong>Dra. Aline</strong> de Manaus adquiriu site para consultório.",
+        "<strong>Empresário Bruno</strong> de Vitória contratou solução de vendas.",
+        "<strong>Dra. Isabela</strong> de Natal vinculou seu novo site médico.",
+        "<strong>Laboratório BioCheck</strong> de SP iniciou projeto digital.",
+        "<strong>Dr. Tiago</strong> de Florianópolis solicitou melhoria PRO.",
+        "<strong>Dra. Bianca</strong> de Cuiabá assinou o plano de presença digital.",
+        "<strong>Escritório Nobre</strong> de Salvador vinculou site agora.",
+        "<strong>Dr. André</strong> de Belém iniciou projeto de autoridade.",
+        "<strong>Dra. Elisa</strong> de João Pessoa contratou o plano premium.",
     ];
 
     const popup = document.getElementById("social-proof-popup");
@@ -170,12 +199,13 @@
         const showPopup = () => {
             const randomMsg =
                 messages[Math.floor(Math.random() * messages.length)];
-            messageEl.innerText = randomMsg;
+
+            messageEl.innerHTML = randomMsg;
 
             popup.classList.remove("hidden");
             setTimeout(() => popup.classList.add("active"), 100);
 
-            // Auto hide after 5 seconds
+            // Auto hide after 6 seconds
             timer = setTimeout(hidePopup, 6000);
         };
 
@@ -183,8 +213,8 @@
             popup.classList.remove("active");
             setTimeout(() => popup.classList.add("hidden"), 500);
 
-            // Wait 15-25 seconds before showing again
-            const nextTime = 15000 + Math.random() * 15000;
+            // Wait 8-15 seconds before showing again (more frequent on form page)
+            const nextTime = 8000 + Math.random() * 7000;
             setTimeout(showPopup, nextTime);
         };
 
@@ -193,7 +223,7 @@
             hidePopup();
         });
 
-        // Start the first one after 10 seconds
-        setTimeout(showPopup, 10000);
+        // Start the first one after 4 seconds
+        setTimeout(showPopup, 4000);
     }
 </script>
