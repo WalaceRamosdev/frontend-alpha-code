@@ -90,81 +90,99 @@ export default function RegisterForm() {
     };
 
     return (
-        <div className="auth-container">
-            <div style={{ marginBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                <a href="/" style={{ color: "var(--color-text-muted)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
-                    Voltar ao início
-                </a>
-                <img src="/assets/logo.svg" alt="Alpha Code" width="24" height="24" style={{ opacity: 0.8 }} />
+        <div className="auth-page-wrapper">
+            <div className="auth-left-panel">
+                <div className="brand-logo-text">
+                    <img src="/assets/logo.svg" alt="Alpha Code" width="32" height="32" />
+                    Alpha Code
+                </div>
+
+                <h1 className="login-heading">CADASTRO</h1>
+
+                <p className="welcome-subtext">
+                    Junte-se a nós hoje! <br />
+                    Crie sua conta Alpha e comece sua jornada.
+                </p>
+
+                <div className="signup-hint">
+                    Já tem uma conta? <a href="/login">Entre agora</a>
+                </div>
             </div>
-            <h2 className="auth-title">Criar Conta</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="form-group">
-                    <label className="form-label">Nome</label>
-                    <input
-                        name="name"
-                        type="text"
-                        required
-                        className="form-input"
-                        placeholder="Seu nome completo"
-                    />
-                </div>
-                <div className="form-group">
-                    <label className="form-label">Email</label>
-                    <input
-                        name="email"
-                        type="email"
-                        required
-                        className="form-input"
-                        placeholder="seu@email.com"
-                    />
-                </div>
-                <div className="form-group">
-                    <label className="form-label">Telefone (Celular)</label>
-                    <input
-                        name="phone"
-                        type="tel"
-                        className="form-input"
-                        placeholder="(11) 99999-9999"
-                    />
-                    <small style={{ color: "var(--color-text-muted)", fontSize: "0.75rem", marginTop: "0.25rem", display: "block" }}>
-                        Usado para login e recuperação
-                    </small>
-                </div>
-                <div className="form-group">
-                    <label className="form-label">Senha</label>
-                    <input
-                        name="password"
-                        type="password"
-                        required
-                        className="form-input"
-                        placeholder="Senha forte (Maiúscula, número e símbolo)"
-                    />
-                </div>
-                <div className="form-group">
-                    <label className="form-label">Repetir Senha</label>
-                    <input
-                        name="confirmPassword"
-                        type="password"
-                        required
-                        className="form-input"
-                        placeholder="Confirme sua senha"
-                    />
-                </div>
 
-                {error && <div className="auth-error">{error}</div>}
+            <div className="auth-right-panel">
+                <div className="glass-card">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                            <label className="form-label">Nome Completo</label>
+                            <input
+                                name="name"
+                                type="text"
+                                required
+                                className="form-input"
+                                placeholder="Seu nome completo"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">E-mail</label>
+                            <input
+                                name="email"
+                                type="email"
+                                required
+                                className="form-input"
+                                placeholder="seu@email.com"
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label className="form-label">Telefone (Celular)</label>
+                            <input
+                                name="phone"
+                                type="tel"
+                                className="form-input"
+                                placeholder="(11) 99999-9999"
+                            />
+                        </div>
+                        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
+                            <div className="form-group">
+                                <label className="form-label">Senha</label>
+                                <input
+                                    name="password"
+                                    type="password"
+                                    required
+                                    className="form-input"
+                                    placeholder="Senha"
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label className="form-label">Confirmar</label>
+                                <input
+                                    name="confirmPassword"
+                                    type="password"
+                                    required
+                                    className="form-input"
+                                    placeholder="Repetir"
+                                />
+                            </div>
+                        </div>
 
-                <button
-                    type="submit"
-                    className="submit-btn text-white"
-                >
-                    Cadastrar
-                </button>
-            </form>
-            <p className="auth-footer">
-                Já tem conta? <a href="/login" className="auth-link">Entrar</a>
-            </p>
+                        {error && (
+                            <div style={{ color: '#ef4444', fontSize: '0.85rem', marginBottom: '1rem', textAlign: 'center' }}>
+                                {error}
+                            </div>
+                        )}
+
+                        <button
+                            type="submit"
+                            className="submit-btn"
+                        >
+                            CADASTRAR
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <div className="copyright">
+                © Copyright 2026 Alpha Code
+            </div>
         </div>
     );
 }
