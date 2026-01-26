@@ -46,11 +46,36 @@ import Button from "../ui/Button.astro";
                     <span class="star">★</span>
                     <span class="star">★</span>
                 </div>
+
+                <div class="client-avatars">
+                    <div class="avatar-stack">
+                        <img
+                            src="https://i.pravatar.cc/100?u=1"
+                            alt="Cliente Alpha Code"
+                        />
+                        <img
+                            src="https://i.pravatar.cc/100?u=2"
+                            alt="Cliente Alpha Code"
+                        />
+                        <img
+                            src="https://i.pravatar.cc/100?u=3"
+                            alt="Cliente Alpha Code"
+                        />
+                        <img
+                            src="https://i.pravatar.cc/100?u=4"
+                            alt="Cliente Alpha Code"
+                        />
+                        <img
+                            src="https://i.pravatar.cc/100?u=5"
+                            alt="Cliente Alpha Code"
+                        />
+                    </div>
+                </div>
+
                 <span class="trust-text">
                     Mais de <strong class="text-white">531 profissionais</strong
-                    > posicionados no digital.<br /><strong
-                        >SEJA VOCÊ O PRÓXIMO !</strong
-                    >
+                    > posicionados no digital.<br />
+                    <strong>SEJA VOCÊ O PRÓXIMO !</strong>
                 </span>
             </div>
         </div>
@@ -599,6 +624,41 @@ import Button from "../ui/Button.astro";
     .stars-glimmer {
         display: flex;
         gap: 5px;
+        margin-bottom: 8px;
+    }
+
+    .client-avatars {
+        display: flex;
+        align-items: center;
+        margin-top: -8px; /* Pulled up closer to stars */
+    }
+
+    .avatar-stack {
+        display: flex;
+        align-items: center;
+        padding-left: 0; /* Align perfectly with stars */
+    }
+
+    .avatar-stack img {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        border: 2px solid #0a0a0a;
+        margin-left: -12px;
+        background: #1a1a1a;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .avatar-stack img:first-child {
+        margin-left: 0;
+    }
+
+    .avatar-stack img:hover {
+        transform: translateY(-5px) scale(1.1);
+        z-index: 10;
+        border-color: var(--color-primary);
     }
 
     .star {
@@ -637,6 +697,7 @@ import Button from "../ui/Button.astro";
         font-size: 0.95rem;
         color: rgba(255, 255, 255, 0.6);
         letter-spacing: 0.5px;
+        line-height: 1.4;
     }
 
     .trust-text strong {
@@ -647,6 +708,7 @@ import Button from "../ui/Button.astro";
     @media (max-width: 968px) {
         .trust-indicator {
             align-items: center;
+            text-align: center;
         }
     }
 
