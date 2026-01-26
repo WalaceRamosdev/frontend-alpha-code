@@ -13,14 +13,29 @@ import FAQ from "../components/sections/FAQ.astro";
 import Contact from "../components/sections/Contact.astro";
 import { createSEOMeta } from "../utils/seo";
 
-const title =
-  "Criação de Sites Profissionais: Médicos, Advogados e Empresas | Alpha Code";
+const title = "Criação de Sites Profissionais e Landing Pages | Alpha Code";
 const description =
-  "Transforme sua presença digital com um site profissional de alta conversão. Ideal para médicos, advogados e empresas. Garanta autoridade e conquista mais clientes no Google.";
+  "Especialistas em sites de alta performance para Médicos, Advogados e Empresas. Aumente sua autoridade e vendas com um site rápido, bonito e otimizado para o Google.";
+
+const keywords = [
+  "criação de sites",
+  "sites profissionais",
+  "landing page",
+  "site para médicos",
+  "site para advogados",
+  "desenvolvimento web",
+  "criação de sites rj",
+  "agência de sites",
+  "sites rápidos",
+  "seo para sites",
+  "alpha code",
+  "portfólio online",
+];
+
 export const prerender = false;
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} keywords={keywords}>
   <Hero />
   <TrustBar />
   <Features />
