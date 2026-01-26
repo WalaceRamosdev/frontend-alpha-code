@@ -23,8 +23,15 @@ export const prerender = false;
     showWhatsApp={false}
 >
     <div class="auth-page-wrapper">
+        <!-- Background Animation -->
+        <div class="bg-blobs">
+            <div class="blob blob-1"></div>
+            <div class="blob blob-2"></div>
+            <div class="blob blob-3"></div>
+        </div>
+
         <div class="auth-left-panel">
-            <div class="brand-logo-text">
+            <a href="/" class="brand-logo-text" style="text-decoration: none;">
                 <img
                     src="/assets/logo.svg"
                     alt="Alpha Code"
@@ -32,13 +39,13 @@ export const prerender = false;
                     height="32"
                 />
                 Alpha Code
-            </div>
+            </a>
 
             <h1 class="login-heading">LOGIN</h1>
 
             <p class="welcome-subtext">
-                Olá, bem-vindo de volta! <br />
-                Esperamos que você tenha tido um ótimo dia.
+                Imagine sua visão. <br />
+                Nós codificamos sua autoridade.
             </p>
 
             <div class="google-btn-container">
@@ -69,10 +76,6 @@ export const prerender = false;
                     Entrar com Google
                 </button>
             </div>
-
-            <p class="signup-hint">
-                Ainda não é membro? <a href="/cadastro">Cadastre-se</a>
-            </p>
         </div>
 
         <div class="auth-right-panel">
@@ -112,19 +115,27 @@ export const prerender = false;
 
                     <button type="submit" class="submit-btn"> ENTRAR </button>
 
-                    <div style="margin-top: 1.5rem; text-align: center;">
+                    <div
+                        style="margin-top: 1.5rem; display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem;"
+                    >
                         <a
                             href="#"
                             id="forgot-password"
-                            style="color: #666; font-size: 0.85rem; text-decoration: none;"
+                            style="color: #666; text-decoration: none;"
                             >Esqueceu a senha?</a
+                        >
+                        <span style="color: #444;">|</span>
+                        <a
+                            href="/cadastro"
+                            style="color: #fff; font-weight: 700; text-decoration: none;"
+                            >Cadastre-se</a
                         >
                     </div>
                 </form>
             </div>
         </div>
 
-        <div class="copyright">© Copyright 2026 Alpha Code</div>
+        <div class="copyright">© Copyright 2025 Alpha Code</div>
     </div>
 
     <StatusModal

@@ -91,17 +91,24 @@ export default function RegisterForm() {
 
     return (
         <div className="auth-page-wrapper">
+            {/* Background Animation */}
+            <div className="bg-blobs">
+                <div className="blob blob-1"></div>
+                <div className="blob blob-2"></div>
+                <div className="blob blob-3"></div>
+            </div>
+
             <div className="auth-left-panel">
-                <div className="brand-logo-text">
+                <a href="/" className="brand-logo-text" style={{ textDecoration: 'none' }}>
                     <img src="/assets/logo.svg" alt="Alpha Code" width="32" height="32" />
                     Alpha Code
-                </div>
+                </a>
 
                 <h1 className="login-heading">CADASTRO</h1>
 
                 <p className="welcome-subtext">
-                    Junte-se a nós hoje! <br />
-                    Crie sua conta Alpha e comece sua jornada.
+                    Sua jornada Alpha começa agora. <br />
+                    Onde grandes ideias encontram o código certo.
                 </p>
 
                 <div className="signup-hint">
@@ -181,7 +188,7 @@ export default function RegisterForm() {
             </div>
 
             <div className="copyright">
-                © Copyright 2026 Alpha Code
+                © Copyright 2025 Alpha Code
             </div>
         </div>
     );

@@ -56,4 +56,4 @@ Não tente competir por "Criação de Sites" (muita concorrência). Compita por 
 1 link de um site de medicina vale mais que 100 links de sites de jogos.
 
 ---
-*Sites Alpha Code 24/01/2026*
+*Sites Alpha Code 24/01/2025*

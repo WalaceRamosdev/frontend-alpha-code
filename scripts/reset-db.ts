@@ -15,7 +15,7 @@ async function main() {
 
     // 2. Criar Admin
     const adminEmail = 'alphacodecontato@gmail.com'; // Email padrão sugerido
-    const adminPassword = 'admin_alpha_2026'; // Senha temporária segura
+    const adminPassword = 'admin_alpha_2025'; // Senha temporária segura
     const hashedPassword = await bcrypt.hash(adminPassword, 10);
 
     console.log(`Criando usuário administrador: ${adminEmail}`);
