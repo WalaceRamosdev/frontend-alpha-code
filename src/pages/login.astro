@@ -100,14 +100,13 @@ export const prerender = false;
                 <input type="hidden" name="callbackUrl" value="/dashboard" />
 
                 <div class="form-group">
-                    <label class="form-label">Email</label>
+                    <label class="form-label">Email ou Celular</label>
                     <input
                         name="email"
-                        type="email"
+                        type="text"
                         required
                         class="form-input"
-                        placeholder="seu@email.com"
-                        value="walace@alphacode.com.br"
+                        placeholder="seu@email.com ou (11) 99999-9999"
                     />
                 </div>
 
@@ -247,7 +246,22 @@ export const prerender = false;
                         body: params,
                     });
 
-                    if (res.ok) {
+                    let data: any = null;
+                    try {
+                        data = await res.json();
+                    } catch (e) {
+                        console.warn(
+                            "Response was not JSON, possibly HTML redirect",
+                        );
+                    }
+
+                    // Check if there's an explicit error in the URL (Auth.js style)
+                    // We check both data.url (if JSON) and res.url (if followed redirect)
+                    const hasError =
+                        (data?.url && data.url.includes("error")) ||
+                        res.url.includes("error");
+
+                    if (res.ok && !hasError) {
                         (window as any).showModal(
                             "Sucesso!",
                             "Seja bem vindo novamente",
@@ -255,11 +269,11 @@ export const prerender = false;
                         );
 
                         setTimeout(() => {
-                            window.location.href = "/dashboard";
+                            // If we have a redirect URL, use it, otherwise dashboard
+                            window.location.href = data?.url || "/dashboard";
                         }, 1200);
                     } else {
-                        const text = await res.text();
-                        console.error("Login falhou:", text);
+                        console.error("Login falhou:", data || res.statusText);
 
                         (window as any).showModal(
                             "Falha no Acesso",

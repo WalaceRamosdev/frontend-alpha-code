@@ -25,8 +25,16 @@ export default {
                     return null;
                 }
 
-                const user = await prisma.user.findUnique({
-                    where: { email: credentials.email as string },
+                const identifier = credentials.email as string;
+
+                // Allow login with Email OR Phone
+                const user = await prisma.user.findFirst({
+                    where: {
+                        OR: [
+                            { email: identifier },
+                            { phone: identifier }
+                        ]
+                    }
                 });
 
                 if (!user || !user.password) {

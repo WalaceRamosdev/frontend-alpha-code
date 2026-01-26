@@ -2,6 +2,7 @@
 import Layout from "../../layouts/BaseLayout.astro";
 import { getSession } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
+import StatusModal from "../../components/ui/StatusModal.astro";
 
 let session = null;
 try {
@@ -115,7 +116,11 @@ export const prerender = false;
                             id="submit-btn"
                         >
                             <span>Cadastrar Cliente</span>
-                            <div class="btn-loader hidden"></div>
+                            <img
+                                src="/assets/logo.svg"
+                                alt="Carregando"
+                                class="btn-loader hidden pulsing-logo"
+                            />
                         </button>
                     </form>
                 </section>
@@ -141,17 +146,49 @@ export const prerender = false;
                                 ) : (
                                     recentUsers.map((u) => (
                                         <div class="user-item">
-                                            <div class="user-initials">
-                                                {u.name?.charAt(0)}
+                                            <div class="user-info-group">
+                                                <div class="user-initials">
+                                                    {u.name?.charAt(0)}
+                                                </div>
+                                                <div class="user-meta">
+                                                    <strong>{u.name}</strong>
+                                                    <span>{u.email}</span>
+                                                    <span
+                                                        class={`plan-tag ${u.plan.toLowerCase()}`}
+                                                    >
+                                                        {u.plan}
+                                                    </span>
+                                                </div>
                                             </div>
-                                            <div class="user-meta">
-                                                <strong>{u.name}</strong>
-                                                <span>{u.email}</span>
-                                                <span
-                                                    class={`plan-tag ${u.plan.toLowerCase()}`}
+                                            <div class="user-actions">
+                                                <button
+                                                    class="action-btn edit-btn"
+                                                    title="Editar"
+                                                    data-user={JSON.stringify(
+                                                        u,
+                                                    )}
+                                                    onclick="openEditModal(this)"
                                                 >
-                                                    {u.plan}
-                                                </span>
+                                                    ✎
+                                                </button>
+                                                <button
+                                                    class="action-btn reset-btn"
+                                                    title="Resetar Senha"
+                                                    data-id={u.id}
+                                                    data-name={u.name}
+                                                    onclick="openResetModal(this)"
+                                                >
+                                                    🔑
+                                                </button>
+                                                <button
+                                                    class="action-btn delete-btn"
+                                                    title="Excluir"
+                                                    data-id={u.id}
+                                                    data-name={u.name}
+                                                    onclick="openDeleteModal(this)"
+                                                >
+                                                    🗑️
+                                                </button>
                                             </div>
                                         </div>
                                     ))
@@ -163,55 +200,276 @@ export const prerender = false;
             </div>
         </div>
     </div>
+
+    <!-- Modals -->
+    <div id="edit-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Editar Cliente</h2>
+                <button class="close-modal" onclick="closeModal('edit-modal')"
+                    >&times;</button
+                >
+            </div>
+            <form id="edit-user-form">
+                <input type="hidden" id="edit-id" name="id" />
+                <div class="form-group">
+                    <label>Nome</label>
+                    <input type="text" id="edit-name" name="name" required />
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" id="edit-email" name="email" required />
+                </div>
+                <div class="form-group">
+                    <label>Plano</label>
+                    <select id="edit-plan" name="plan">
+                        <option value="FREE">FREE</option>
+                        <option value="PRO">PRO</option>
+                        <option value="VIP">VIP</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Site URL</label>
+                    <input type="text" id="edit-siteUrl" name="siteUrl" />
+                </div>
+                <button type="submit" class="btn-submit"
+                    >Salvar Alterações</button
+                >
+            </form>
+        </div>
+    </div>
+
+    <div id="reset-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Resetar Senha</h2>
+                <button class="close-modal" onclick="closeModal('reset-modal')"
+                    >&times;</button
+                >
+            </div>
+            <p>
+                Defina uma nova senha para <strong id="reset-user-name"
+                    >Usuário</strong
+                >
+            </p>
+            <form id="reset-password-form">
+                <input type="hidden" id="reset-id" name="userId" />
+                <div class="form-group">
+                    <label>Nova Senha</label>
+                    <input
+                        type="text"
+                        name="newPassword"
+                        placeholder="Mínimo 6 caracteres"
+                        required
+                    />
+                </div>
+                <button type="submit" class="btn-submit">Alterar Senha</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="delete-modal" class="modal-backdrop hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Excluir Cliente</h2>
+                <button class="close-modal" onclick="closeModal('delete-modal')"
+                    >&times;</button
+                >
+            </div>
+            <p>
+                Tem certeza que deseja excluir <strong id="delete-user-name"
+                    >Usuário</strong
+                >?
+            </p>
+            <p class="warning-text">Esta ação não pode ser desfeita.</p>
+
+            <div class="modal-actions">
+                <button class="btn-cancel" onclick="closeModal('delete-modal')"
+                    >Cancelar</button
+                >
+                <button id="confirm-delete-btn" class="btn-delete"
+                    >Confirmar Exclusão</button
+                >
+            </div>
+        </div>
+    </div>
+
+    <StatusModal
+        id="admin-status-modal"
+        title="Processando..."
+        message="Aguarde um momento"
+        type="loading"
+    />
 </Layout>
 
-<script>
-    const form = document.getElementById("create-user-form") as HTMLFormElement;
-    const btn = document.getElementById("submit-btn");
-    const loader = btn?.querySelector(".btn-loader");
+<script is:inline>
+    // Global Modal Functions
+    window.openEditModal = (btn) => {
+        const user = JSON.parse(btn.getAttribute("data-user"));
+        document.getElementById("edit-id").value = user.id;
+        document.getElementById("edit-name").value = user.name;
+        document.getElementById("edit-email").value = user.email;
+        document.getElementById("edit-plan").value = user.plan;
+        document.getElementById("edit-siteUrl").value = user.siteUrl || "";
 
-    if (form) {
-        form.addEventListener("submit", async (e) => {
+        document.getElementById("edit-modal").classList.remove("hidden");
+    };
+
+    window.openResetModal = (btn) => {
+        const id = btn.getAttribute("data-id");
+        const name = btn.getAttribute("data-name");
+        document.getElementById("reset-id").value = id;
+        document.getElementById("reset-user-name").innerText = name;
+        document.getElementById("reset-modal").classList.remove("hidden");
+    };
+
+    let deleteUserId = null;
+    window.openDeleteModal = (btn) => {
+        deleteUserId = btn.getAttribute("data-id");
+        const name = btn.getAttribute("data-name");
+        document.getElementById("delete-user-name").innerText = name;
+        document.getElementById("delete-modal").classList.remove("hidden");
+    };
+
+    window.closeModal = (id) => {
+        document.getElementById(id).classList.add("hidden");
+    };
+
+    // Close on backdrop click
+    window.onclick = (e) => {
+        if (e.target.classList.contains("modal-backdrop")) {
+            e.target.classList.add("hidden");
+        }
+    };
+
+    // --- Forms Handlers ---
+
+    // 1. Create User
+    const createForm = document.getElementById("create-user-form");
+    if (createForm) {
+        createForm.addEventListener("submit", async (e) => {
             e.preventDefault();
-            if (!btn || !loader) return;
+            const btn = document.getElementById("submit-btn");
+            if (btn) btn.innerText = "Cadastrando...";
 
-            btn.classList.add("loading");
-            loader.classList.remove("hidden");
+            await handleAdminAction(
+                "/api/admin/create-user",
+                createForm,
+                () => {
+                    window.location.reload();
+                },
+            );
 
-            const formData = new FormData(form);
-            const data = Object.fromEntries(formData.entries());
+            if (btn) btn.innerText = "Cadastrar Cliente";
+        });
+    }
+
+    // 2. Edit User
+    const editForm = document.getElementById("edit-user-form");
+    if (editForm) {
+        editForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            window.closeModal("edit-modal");
+            await handleAdminAction("/api/admin/update-user", editForm, () => {
+                window.location.reload();
+            });
+        });
+    }
+
+    // 3. Reset Password
+    const resetForm = document.getElementById("reset-password-form");
+    if (resetForm) {
+        resetForm.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            window.closeModal("reset-modal");
+            await handleAdminAction("/api/admin/reset-password", resetForm);
+        });
+    }
+
+    // 4. Delete User
+    const deleteBtn = document.getElementById("confirm-delete-btn");
+    if (deleteBtn) {
+        deleteBtn.addEventListener("click", async () => {
+            window.closeModal("delete-modal");
+
+            if (window.showModal)
+                window.showModal(
+                    "Excluindo...",
+                    "Removendo usuário do sistema",
+                    "loading",
+                );
 
             try {
-                const res = await fetch("/api/admin/create-user", {
+                const res = await fetch("/api/admin/delete-user", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(data),
+                    body: JSON.stringify({ userId: deleteUserId }),
                 });
 
-                const result = await res.json();
-
                 if (res.ok) {
-                    (window as any).showToast(
-                        "Cliente cadastrado com sucesso!",
-                        "success",
-                    );
-                    form.reset();
-                    // Optional: reload after a delay to show in list
+                    if (window.showModal)
+                        window.showModal(
+                            "Sucesso",
+                            "Usuário excluído.",
+                            "success",
+                        );
                     setTimeout(() => window.location.reload(), 1500);
                 } else {
-                    (window as any).showToast(
-                        result.message || "Erro ao cadastrar",
-                        "error",
-                    );
+                    const data = await res.json();
+                    if (window.showModal)
+                        window.showModal(
+                            "Erro",
+                            data.message || "Falha ao excluir",
+                            "error",
+                        );
+                    setTimeout(() => window.hideModal(), 3000);
                 }
             } catch (err) {
-                console.error(err);
-                (window as any).showToast("Erro de conexão.", "error");
-            } finally {
-                btn.classList.remove("loading");
-                loader.classList.add("hidden");
+                if (window.showModal)
+                    window.showModal("Erro", "Erro de conexão", "error");
+                setTimeout(() => window.hideModal(), 3000);
             }
         });
+    }
+
+    // Helper
+    async function handleAdminAction(url, formElement, onSuccess) {
+        const formData = new FormData(formElement);
+        const data = Object.fromEntries(formData);
+
+        if (window.showModal)
+            window.showModal("Processando...", "Aguarde", "loading");
+
+        try {
+            const res = await fetch(url, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data),
+            });
+
+            const result = await res.json();
+
+            if (res.ok) {
+                if (window.showModal)
+                    window.showModal("Sucesso!", result.message, "success");
+                if (formElement) formElement.reset();
+                if (onSuccess) setTimeout(onSuccess, 1500);
+                else setTimeout(() => window.hideModal(), 2000);
+            } else {
+                if (window.showModal)
+                    window.showModal(
+                        "Erro",
+                        result.message || "Algo deu errado",
+                        "error",
+                    );
+                setTimeout(() => window.hideModal(), 3000);
+            }
+        } catch (err) {
+            console.error(err);
+            if (window.showModal)
+                window.showModal("Erro", "Falha de conexão", "error");
+            setTimeout(() => window.hideModal(), 3000);
+        }
     }
 </script>
 
@@ -350,8 +608,8 @@ export const prerender = false;
     }
 
     .btn-submit {
-        background: var(--color-primary);
-        color: #fff;
+        background: #ffffff;
+        color: var(--color-primary);
         border: none;
         padding: 1rem;
         border-radius: 8px;
@@ -359,31 +617,44 @@ export const prerender = false;
         cursor: pointer;
         transition:
             transform 0.2s,
-            background 0.3s;
+            box-shadow 0.3s;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: 0.8rem;
         margin-top: 1rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
 
     .btn-submit:hover {
-        background: #b91c1c;
+        background: #f8fafc;
         transform: translateY(-2px);
+        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
     }
 
     .btn-loader {
-        width: 18px;
-        height: 18px;
-        border: 2px solid rgba(255, 255, 255, 0.3);
-        border-top-color: #fff;
-        border-radius: 50%;
-        animation: spin 0.8s linear infinite;
+        width: 24px;
+        height: 24px;
+        object-fit: contain;
     }
 
-    @keyframes spin {
-        to {
-            transform: rotate(360deg);
+    .pulsing-logo {
+        animation: pulseLogo 1.5s infinite ease-in-out;
+    }
+
+    @keyframes pulseLogo {
+        0% {
+            transform: scale(0.85);
+            opacity: 0.8;
+        }
+        50% {
+            transform: scale(1.15);
+            opacity: 1;
+            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
+        }
+        100% {
+            transform: scale(0.85);
+            opacity: 0.8;
         }
     }
 
@@ -485,6 +756,140 @@ export const prerender = false;
         }
     }
 
+    /* User Actions */
+    .user-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-left: auto;
+    }
+
+    .action-btn {
+        width: 32px;
+        height: 32px;
+        border-radius: 6px;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 1rem;
+        transition:
+            transform 0.2s,
+            background 0.3s;
+        color: #fff;
+    }
+
+    .edit-btn {
+        background: rgba(59, 130, 246, 0.2);
+        color: #60a5fa;
+        border: 1px solid rgba(59, 130, 246, 0.3);
+    }
+    .edit-btn:hover {
+        background: rgba(59, 130, 246, 0.4);
+    }
+
+    .reset-btn {
+        background: rgba(245, 158, 11, 0.2);
+        color: #fbbf24;
+        border: 1px solid rgba(245, 158, 11, 0.3);
+    }
+    .reset-btn:hover {
+        background: rgba(245, 158, 11, 0.4);
+    }
+
+    .delete-btn {
+        background: rgba(239, 68, 68, 0.2);
+        color: #f87171;
+        border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+    .delete-btn:hover {
+        background: rgba(239, 68, 68, 0.4);
+    }
+
+    /* Modals */
+    .modal-backdrop {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+    }
+
+    .modal-backdrop.hidden {
+        display: none;
+    }
+
+    .modal-content {
+        background: #0f0f0f;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 16px;
+        width: 100%;
+        max-width: 500px;
+        position: relative;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 1rem;
+    }
+
+    .modal-header h2 {
+        color: #fff;
+        margin: 0;
+        font-size: 1.5rem;
+    }
+
+    .close-modal {
+        background: transparent;
+        border: none;
+        color: #fff;
+        font-size: 2rem;
+        cursor: pointer;
+        line-height: 1;
+    }
+
+    .modal-actions {
+        display: flex;
+        justify-content: flex-end;
+        gap: 1rem;
+        margin-top: 2rem;
+    }
+
+    .btn-cancel {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+    }
+
+    .btn-delete {
+        background: #ef4444;
+        border: none;
+        color: #fff;
+        padding: 0.8rem 1.5rem;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 700;
+    }
+
+    .warning-text {
+        color: #ef4444;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+    }
+
     @media (max-width: 580px) {
         .admin-wrapper {
             padding-top: 100px;
@@ -500,6 +905,17 @@ export const prerender = false;
 
         .card-header h2 {
             font-size: 1.25rem;
+        }
+
+        .user-item {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .user-actions {
+            width: 100%;
+            justify-content: flex-end;
         }
     }
 </style>

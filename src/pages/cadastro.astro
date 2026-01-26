@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import RegisterForm from "../components/auth/RegisterForm";
+import StatusModal from "../components/ui/StatusModal.astro";
 import { getSession } from "../lib/auth";
 import "../styles/auth.css";
 
@@ -35,4 +36,11 @@ export const prerender = false;
 
         <RegisterForm client:load />
     </div>
+
+    <StatusModal
+        id="register-status-modal"
+        title="Validando..."
+        message="Criando sua conta Alpha"
+        type="loading"
+    />
 </Layout>
