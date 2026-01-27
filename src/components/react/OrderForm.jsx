@@ -53,6 +53,10 @@ export default function OrderForm() {
     const [finalPrice, setFinalPrice] = useState(0);
     const [errorMessage, setErrorMessage] = useState('');
     const [isRedirecting, setIsRedirecting] = useState(false);
+    const [showUpsell, setShowUpsell] = useState(false);
+    const [upsellAnswered, setUpsellAnswered] = useState(false);
+    const [hasSEO, setHasSEO] = useState(false);
+    const [seoPrice] = useState(150);
 
     const isPortugal = typeof navigator !== 'undefined' && (
         navigator.language === 'pt-PT' ||
@@ -86,9 +90,12 @@ export default function OrderForm() {
                     ? price * (1 - appliedCoupon.value / 100)
                     : Math.max(0, price - appliedCoupon.value);
             }
+            if (hasSEO) {
+                price += isPortugal ? 25 : seoPrice; // Placeholder for EUR SEO
+            }
             setFinalPrice(price);
         }
-    }, [selectedPlan, appliedCoupon, isPortugal]);
+    }, [selectedPlan, appliedCoupon, isPortugal, hasSEO]);
 
     const handleApplyCoupon = () => {
         setCouponError('');
@@ -105,7 +112,15 @@ export default function OrderForm() {
     const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const handleSubmit = async (e) => {
-        e.preventDefault();
+        if (e) e.preventDefault();
+
+        // SEO Upsell check for Bronze (simples) and Silver (completa)
+        const currentPlanKey = Object.keys(plans).find(k => plans[k].name === formData.plano);
+        if ((currentPlanKey === 'simples' || currentPlanKey === 'completa') && !upsellAnswered) {
+            setShowUpsell(true);
+            return;
+        }
+
         setLoading(true);
         setErrorMessage('');
         try {
@@ -113,6 +128,7 @@ export default function OrderForm() {
             const isPaidTest = formData.nome.toUpperCase().includes('TESTE PAGO') || formData.detalhes.toUpperCase().includes('TESTE PAGO');
             const payload = {
                 ...formData,
+                plano: hasSEO ? `${formData.plano} + SEO Turbinado` : formData.plano,
                 // Compatibilidade com backend antigo (Render)
                 servico: formData.objetivo || (isMaintenance ? 'Manutenção' : 'Não informado'),
                 // Hack de Injeção: Ajusta label se for manutenção
@@ -140,7 +156,7 @@ export default function OrderForm() {
                     `*EMAIL:* ${formData.email}\n` +
                     `*PROFISSÃO:* ${formData.profissao}\n\n` +
                     `*DETALHES DO PROJETO*\n` +
-                    `*PLANO:* ${formData.plano}\n` +
+                    `*PLANO:* ${hasSEO ? `${formData.plano} + SEO Turbinado` : formData.plano}\n` +
                     `*VALOR:* ${currency} ${finalPrice.toFixed(2).replace('.', ',')}\n` +
                     (isMaintenance ? '' : `*OBJETIVO:* ${formData.objetivo || 'Não informado'}\n`) +
                     (isMaintenance ? '' : `*CORES:* ${formData.cores || 'Não informado'}\n`) +
@@ -148,7 +164,6 @@ export default function OrderForm() {
                     `*DESCRIÇÃO:* ${formData.detalhes}`;
                 setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
                 setModalOpen(true);
-                setFormData({ ...formData, nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '' });
             } else throw new Error('Erro servidor');
         } catch (error) {
             setErrorMessage('Erro ao enviar. Tente o WhatsApp.');
@@ -175,7 +190,10 @@ export default function OrderForm() {
             const res = await fetch('https://backend-rp7j.onrender.com/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ planName: selectedPlan?.id + (appliedCoupon ? ` (${appliedCoupon.code})` : ''), price: finalPrice.toFixed(2) })
+                body: JSON.stringify({
+                    planName: selectedPlan?.id + (hasSEO ? ' + SEO' : '') + (appliedCoupon ? ` (${appliedCoupon.code})` : ''),
+                    price: finalPrice.toFixed(2)
+                })
             });
             const data = await res.json();
             if (data.url) {
@@ -203,6 +221,7 @@ export default function OrderForm() {
 
                             <div className="price-stack">
                                 {appliedCoupon && <span className="old-price">{selectedPlan?.price.replace('R$', currency)}</span>}
+                                {hasSEO && <div className="sidebar-item-row"><span>+ Plano SEO (3 meses)</span><span>{currency} {isPortugal ? '25,00' : '150,00'}</span></div>}
                                 <span className="final-price">{currency} {finalPrice.toFixed(2).replace('.', ',')}</span>
                             </div>
 
@@ -338,16 +357,84 @@ export default function OrderForm() {
                 </div>
             )}
 
+            {showUpsell && (
+                <div className="fixed-overlay upsell-overlay">
+                    <div className="modal-box upsell-box">
+                        <div className="upsell-badge">OFERTA DE LANÇAMENTO</div>
+                        <h2>Site pronto não é site visto! 🔍</h2>
+                        <p>
+                            Por apenas <strong>R$ 150,00</strong>, ative nosso <strong>Plano de SEO Otimizado</strong> por 3 meses.
+                            <br /><br />
+                            Seu site configurado para aparecer no Google, atraindo clientes qualificados de forma orgânica.
+                            Após os 3 meses, você decide se quer renovar.
+                        </p>
+                        <div className="modal-actions">
+                            <button
+                                onClick={() => {
+                                    setHasSEO(true);
+                                    setUpsellAnswered(true);
+                                    setShowUpsell(false);
+                                    setTimeout(() => handleSubmit(), 100);
+                                }}
+                                className="upsell-confirm-btn"
+                            >
+                                SIM, ADICIONAR SEO AO MEU SITE! 🚀
+                            </button>
+                            <button
+                                onClick={() => {
+                                    setHasSEO(false);
+                                    setUpsellAnswered(true);
+                                    setShowUpsell(false);
+                                    setTimeout(() => handleSubmit(), 100);
+                                }}
+                                className="upsell-decline-btn"
+                            >
+                                Não, obrigado. Quero apenas o site por enquanto.
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             {modalOpen && !loading && !isRedirecting && (
                 <div className="fixed-overlay">
-                    <div className="modal-box">
+                    <div className="modal-box checkout-summary-box">
                         <button onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
                         <img src="/assets/logo.svg" className="modal-logo" />
-                        <h2>Sucesso!</h2>
-                        <p>Recebemos seus dados. Vamos finalizar?</p>
+                        <h2>Confirmação do Pedido</h2>
+                        <p className="summary-intro">Veja o que estamos preparando para você:</p>
+
+                        <div className="checkout-items-list">
+                            <div className="checkout-item">
+                                <span className="item-name">📦 {selectedPlan?.name}</span>
+                                <span className="item-price">{currency} {isPortugal ? selectedPlan.numericPriceEUR : selectedPlan.numericPrice}</span>
+                            </div>
+
+                            {hasSEO && (
+                                <div className="checkout-item highlight-item">
+                                    <span className="item-name">🔍 Plano SEO (3 Meses)</span>
+                                    <span className="item-price">{currency} {isPortugal ? '25,00' : '150,00'}</span>
+                                </div>
+                            )}
+
+                            {appliedCoupon && (
+                                <div className="checkout-item coupon-item">
+                                    <span className="item-name">🎫 Cupom: {appliedCoupon.code}</span>
+                                    <span className="item-price">-{appliedCoupon.type === 'percent' ? `${appliedCoupon.value}%` : `${currency} ${appliedCoupon.value}`}</span>
+                                </div>
+                            )}
+
+                            <div className="checkout-total">
+                                <span>TOTAL A PAGAR</span>
+                                <span>{currency} {finalPrice.toFixed(2).replace('.', ',')}</span>
+                            </div>
+                        </div>
+
+                        <p className="summary-footer">Tudo certo? Clique abaixo para pagar e iniciar seu projeto.</p>
+
                         <div className="modal-actions">
                             <button onClick={handlePayment} className="pay-btn">{payBtnText}</button>
-                            <a href={whatsappUrl} target="_blank" className="wa-btn">WhatsApp</a>
+                            <a href={whatsappUrl} target="_blank" className="wa-btn">Confirmar via WhatsApp</a>
                         </div>
                     </div>
                 </div>
@@ -383,6 +470,15 @@ export default function OrderForm() {
                 .price-stack { margin: 20px 0; display: flex; flex-direction: column; }
                 .old-price { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; }
                 .final-price { font-size: 2.5rem; font-weight: 900; color: #d62839; text-shadow: 0 0 20px rgba(214, 40, 57, 0.2); }
+                .sidebar-item-row {
+                    display: flex;
+                    justify-content: space-between;
+                    font-size: 0.85rem;
+                    color: rgba(255,255,255,0.6);
+                    margin-bottom: 5px;
+                    padding: 5px 0;
+                    border-bottom: 1px solid rgba(255,255,255,0.05);
+                }
 
                 /* Form Styles */
                 .form-inner { padding: 40px; }
@@ -481,6 +577,118 @@ export default function OrderForm() {
                 .close-modal-btn:hover {
                     background: rgba(255, 255, 255, 0.1);
                     color: #fff;
+                }
+
+                .upsell-overlay {
+                    z-index: 1001;
+                }
+                .upsell-box {
+                    border: 2px solid #d62839;
+                    box-shadow: 0 0 40px rgba(214, 40, 57, 0.3);
+                }
+                .upsell-badge {
+                    background: #d62839;
+                    color: #fff;
+                    display: inline-block;
+                    padding: 5px 15px;
+                    border-radius: 50px;
+                    font-size: 0.7rem;
+                    font-weight: 900;
+                    margin-bottom: 20px;
+                }
+
+                .upsell-confirm-btn {
+                    background: linear-gradient(135deg, #d62839 0%, #ff4d5a 100%);
+                    color: #fff;
+                    padding: 20px;
+                    border-radius: 15px;
+                    border: none;
+                    font-weight: 900;
+                    font-size: 1.1rem;
+                    cursor: pointer;
+                    box-shadow: 0 10px 25px rgba(214, 40, 57, 0.4);
+                    transition: all 0.3s ease;
+                    animation: button-pulse 2s infinite;
+                }
+
+                .upsell-confirm-btn:hover {
+                    transform: scale(1.03);
+                    box-shadow: 0 15px 35px rgba(214, 40, 57, 0.6);
+                }
+
+                .upsell-decline-btn {
+                    background: transparent;
+                    color: rgba(255, 255, 255, 0.3);
+                    padding: 10px;
+                    border: none;
+                    font-size: 0.85rem;
+                    cursor: pointer;
+                    text-decoration: underline;
+                    transition: all 0.2s ease;
+                }
+
+                .upsell-decline-btn:hover {
+                    color: rgba(255, 255, 255, 0.6);
+                }
+
+                @keyframes button-pulse {
+                    0% { box-shadow: 0 0 0 0 rgba(214, 40, 57, 0.7); }
+                    70% { box-shadow: 0 0 0 15px rgba(214, 40, 57, 0); }
+                    100% { box-shadow: 0 0 0 0 rgba(214, 40, 57, 0); }
+                }
+
+                .checkout-summary-box {
+                    max-width: 500px !important;
+                    text-align: left !important;
+                }
+                .summary-intro {
+                    color: rgba(255,255,255,0.6);
+                    margin-bottom: 25px;
+                    text-align: center;
+                }
+                .checkout-items-list {
+                    background: rgba(255,255,255,0.03);
+                    border-radius: 15px;
+                    padding: 20px;
+                    margin-bottom: 25px;
+                }
+                .checkout-item {
+                    display: flex;
+                    justify-content: space-between;
+                    padding: 12px 0;
+                    border-bottom: 1px solid rgba(255,255,255,0.05);
+                }
+                .checkout-item:last-child {
+                    border-bottom: none;
+                }
+                .item-name {
+                    color: rgba(255,255,255,0.8);
+                }
+                .item-price {
+                    font-weight: 700;
+                }
+                .highlight-item {
+                    color: #d62839;
+                }
+                .highlight-item .item-name { color: #d62839; font-weight: 700; }
+                .coupon-item .item-name { color: #25D366; }
+                .coupon-item .item-price { color: #25D366; }
+                
+                .checkout-total {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 20px;
+                    padding-top: 20px;
+                    border-top: 2px solid rgba(255,255,255,0.1);
+                    font-size: 1.2rem;
+                    font-weight: 900;
+                    color: #fff;
+                }
+                .summary-footer {
+                    font-size: 0.85rem;
+                    color: rgba(255,255,255,0.4);
+                    text-align: center;
+                    margin-bottom: 20px;
                 }
             `}</style>
         </div>
