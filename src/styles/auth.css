@@ -1,6 +1,9 @@
 /* Global Layout Reset for Auth Pages */
 .auth-page-wrapper {
     display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
     width: 100vw;
     height: 100vh;
     background-color: #010101;
@@ -8,6 +11,8 @@
     overflow: hidden;
     position: relative;
     font-family: 'Outfit', sans-serif;
+    gap: 40px;
+    /* Gap between panels on desktop */
 }
 
 /* Moving Background Blobs (High Performance) */
@@ -74,20 +79,19 @@
     }
 }
 
-/* Left Panel - Text & Google Button */
+/* Sidebar / Left Panel */
 .auth-left-panel {
-    flex: 1;
+    flex: 0 1 auto;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 4rem 6rem;
     z-index: 10;
+    max-width: 450px;
 }
 
 .brand-logo-text {
     font-size: 1.2rem;
     font-weight: 700;
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
     color: #fff;
     display: flex;
     align-items: center;
@@ -98,33 +102,33 @@
     font-size: 4rem;
     font-weight: 800;
     text-transform: uppercase;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.5rem;
     background: linear-gradient(to right, #fff, #ccc);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: -2px;
+    line-height: 1;
 }
 
 .welcome-subtext {
     color: #888;
     font-size: 1.1rem;
-    margin-bottom: 3rem;
-    max-width: 400px;
-    line-height: 1.6;
+    margin-bottom: 2rem;
+    line-height: 1.4;
 }
 
-/* Google Button - Styled like reference (Red/Dark) */
+/* Google Button */
 .google-btn-container {
-    margin-bottom: 3rem;
+    margin-bottom: 0;
 }
 
 .google-btn {
     display: flex;
     align-items: center;
     gap: 1rem;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
     color: #fff;
     padding: 0.8rem 2rem;
     border-radius: 50px;
@@ -136,51 +140,32 @@
 
 .google-btn:hover {
     background: rgba(255, 255, 255, 0.05);
-    border-color: #fff;
-}
-
-.signup-hint {
-    color: #666;
-    font-size: 0.95rem;
-}
-
-.signup-hint a {
-    color: #fff;
-    font-weight: 700;
-    text-decoration: none;
-    margin-left: 5px;
-    font-size: 1.1rem;
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Right Panel - Glass Form */
 .auth-right-panel {
-    flex: 1;
+    flex: 0 1 auto;
     display: flex;
-    align-items: center;
     justify-content: center;
-    position: relative;
     z-index: 10;
 }
 
 .glass-card {
     width: 400px;
-    /* Reduced from 450px */
     padding: 2.2rem;
-    /* Reduced from 3rem */
     background: rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 24px;
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    /* Gradient border effect */
     position: relative;
 }
 
 /* Form Styles */
 .form-group {
     margin-bottom: 1.2rem;
-    /* Tighter spacing */
 }
 
 .form-label {
@@ -193,11 +178,9 @@
 .form-input {
     width: 100%;
     padding: 0.8rem 1.2rem;
-    /* Slightly smaller padding */
     background: rgba(255, 255, 255, 0.07);
     border: none;
     border-radius: 50px;
-    /* Fully rounded inputs */
     color: #fff;
     font-size: 0.95rem;
     outline: none;
@@ -215,11 +198,9 @@
 .submit-btn {
     width: 100%;
     padding: 0.85rem;
-    /* Slimmer button */
     border-radius: 50px;
     border: none;
     background: #8a1c26;
-    /* Alpha Red */
     color: white;
     font-weight: 700;
     font-size: 1rem;
@@ -244,32 +225,39 @@
 }
 
 /* Responsiveness */
-@media (max-width: 900px) {
+@media (max-width: 991px) {
     .auth-page-wrapper {
         flex-direction: column;
+        padding: 4rem 2rem;
         height: auto;
         min-height: 100vh;
         overflow-y: auto;
+        gap: 3rem;
     }
 
     .auth-left-panel {
-        padding: 3rem 2rem;
         align-items: center;
         text-align: center;
+        max-width: 100%;
     }
 
-    .auth-right-panel {
-        padding: 2rem;
+    .login-heading {
+        font-size: 3rem;
     }
 
     .glass-card {
+        padding: 1.5rem;
         width: 100%;
         max-width: 400px;
+    }
+}
+
+@media (max-height: 700px) and (min-width: 992px) {
+    .auth-page-wrapper {
         padding: 2rem;
     }
 
-    .welcome-subtext {
-        margin-left: auto;
-        margin-right: auto;
+    .login-heading {
+        font-size: 3rem;
     }
 }

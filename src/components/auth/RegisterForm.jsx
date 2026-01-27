@@ -104,7 +104,7 @@ export default function RegisterForm() {
                     Alpha Code
                 </a>
 
-                <h1 className="login-heading">CADASTRO</h1>
+                <h1 className="login-heading">CADASTRE-SE</h1>
 
                 <p className="welcome-subtext">
                     Sua jornada Alpha começa agora. <br />
@@ -181,7 +181,7 @@ export default function RegisterForm() {
                             type="submit"
                             className="submit-btn"
                         >
-                            CADASTRAR
+                            CRIAR MINHA CONTA
                         </button>
                     </form>
                 </div>
