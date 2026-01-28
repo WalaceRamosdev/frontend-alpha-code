@@ -1,0 +1,226 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/ui/Button.astro";
+---
+
+<Layout
+    title="Sistema de Pedidos para Lanchonetes | Alpha Code"
+    description="Cardápio digital inteligente para sua lanchonete ou hamburgueria. Economize com taxas e venda mais."
+>
+    <div class="solution-page">
+        <div class="ambient-glow"></div>
+
+        <section class="hero-section container">
+            <div class="hero-content">
+                <span class="badge fade-up">0% TAXAS - 100% SEU</span>
+                <h1 class="fade-up delay-1">
+                    Lanchonete em <br /><span class="text-gradient"
+                        >Piloto Automático</span>
+                </h1>
+                <p class="hero-desc fade-up delay-2">
+                    Receba pedidos organizados direto no seu WhatsApp. Elimine
+                    os erros de anotação e as taxas abusivas dos aplicativos de
+                    entrega.
+                </p>
+                <div class="cta-group fade-up delay-3">
+                    <Button
+                        href="https://wa.me/5521999064502?text=Olá! Quero ver a demonstração do sistema para lanchonetes."
+                        target="_blank"
+                        variant="primary"
+                        size="lg"
+                    >
+                        SOLICITAR DEMO
+                    </Button>
+                    <span class="price-tag"
+                        >Investimento único: <strong>R$ 1.099</strong></span
+                    >
+                </div>
+            </div>
+            <div class="hero-image fade-in">
+                <img
+                    src="/assets/lanchonete_system_mockup.png"
+                    alt="Mockup do Sistema Lanchonete"
+                    class="main-mockup"
+                />
+            </div>
+        </section>
+
+        <section class="pain-section bg-darker">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>
+                        Mais que um Cardápio, <span class="text-primary"
+                            >Uma Máquina</span>
+                    </h2>
+                    <p>
+                        Otimizado para mobile para que seu cliente peça em menos
+                        de 1 minuto.
+                    </p>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">🍔</div>
+                        <h3>Upsell Integrado</h3>
+                        <p>
+                            Aumente seu faturamento sugerindo automaticamente
+                            adicionais e combos no fechamento.
+                        </p>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">🛵</div>
+                        <h3>Logística Ágil</h3>
+                        <p>
+                            Pedido chega formatado com todos os dados de
+                            entrega, facilitando a vida do seu motoboy.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta container text-center">
+            <div class="cta-box">
+                <h2>
+                    Recupere sua <span class="text-primary"
+                        >Margem de Lucro</span>
+                </h2>
+                <p>
+                    Nesta semana: Suporte gratuito na configuração do seu
+                    primeiro cardápio digital.
+                </p>
+                <Button
+                    href="https://wa.me/5521999064502?text=Olá! Tenho interesse no sistema de R$ 1.099 para minha lanchonete."
+                    target="_blank"
+                    variant="primary"
+                    size="lg"
+                >
+                    GARANTIR MEU SISTEMA
+                </Button>
+            </div>
+        </section>
+    </div>
+</Layout>
+
+<style>
+    .solution-page {
+        padding-top: 100px;
+        background: #050505;
+        color: #fff;
+        overflow-x: hidden;
+    }
+    .ambient-glow {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100vw;
+        height: 100vh;
+        background: radial-gradient(
+            circle at 20% 30%,
+            rgba(214, 40, 57, 0.08),
+            transparent 50%
+        );
+        pointer-events: none;
+        z-index: 0;
+    }
+    .hero-section {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 60px;
+        align-items: center;
+        padding-bottom: 100px;
+        position: relative;
+        z-index: 1;
+    }
+    .badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(214, 40, 57, 0.1);
+        border: 1px solid rgba(214, 40, 57, 0.3);
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        color: #ef4444;
+        margin-bottom: 2rem;
+    }
+    h1 {
+        font-size: 4rem;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+    }
+    .hero-desc {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 600px;
+        margin-bottom: 3rem;
+        line-height: 1.6;
+    }
+    .cta-group {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+    .price-tag {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.4);
+    }
+    .price-tag strong {
+        color: #fff;
+        font-size: 1.1rem;
+    }
+    .main-mockup {
+        width: 140%;
+        height: auto;
+        filter: drop-shadow(0 30px 60px rgba(0, 0, 0, 0.8));
+    }
+    .pain-section {
+        padding: 100px 0;
+        background: rgba(255, 255, 255, 0.02);
+    }
+    .stats-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        margin-top: 60px;
+    }
+    .stat-card {
+        padding: 40px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        text-align: center;
+    }
+    .stat-icon {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+    }
+    .cta-box {
+        border: 1px solid rgba(214, 40, 57, 0.3);
+        padding: 80px 40px;
+        border-radius: 40px;
+        backdrop-filter: blur(10px);
+    }
+    @media (max-width: 992px) {
+        .hero-section {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+        .hero-desc {
+            margin: 0 auto 3rem;
+        }
+        .hero-image {
+            order: -1;
+            margin-bottom: 40px;
+        }
+        .main-mockup {
+            width: 100%;
+        }
+        h1 {
+            font-size: 3rem;
+        }
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
