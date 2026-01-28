@@ -1,0 +1,416 @@
+---
+// PromoModal.astro
+---
+
+<div id="promo-modal" class="promo-modal-overlay" style="display: none;">
+    <div class="promo-modal-content">
+        <button
+            id="close-promo"
+            class="close-button"
+            aria-label="Fechar promoção"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><line x1="18" y1="6" x2="6" y2="18"></line><line
+                    x1="6"
+                    y1="6"
+                    x2="18"
+                    y2="18"></line></svg
+            >
+        </button>
+
+        <div class="promo-badge">OFERTA LIMITADA</div>
+
+        <h2 class="promo-title">25% OFF</h2>
+        <p class="promo-subtitle">EM QUALQUER PLANO</p>
+
+        <div class="promo-message">
+            Garanta seu site profissional com a melhor tecnologia do mercado por
+            um preço exclusivo.
+        </div>
+
+        <div class="countdown-container">
+            <div class="countdown-item">
+                <span id="days" class="countdown-value">00</span>
+                <span class="countdown-label">Dias</span>
+            </div>
+            <div class="countdown-item">
+                <span id="hours" class="countdown-value">00</span>
+                <span class="countdown-label">Horas</span>
+            </div>
+            <div class="countdown-item">
+                <span id="minutes" class="countdown-value">00</span>
+                <span class="countdown-label">Min</span>
+            </div>
+            <div class="countdown-item">
+                <span id="seconds" class="countdown-value">00</span>
+                <span class="countdown-label">Seg</span>
+            </div>
+        </div>
+
+        <a href="/planos" class="promo-cta">
+            APROVEITAR AGORA
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><line x1="5" y1="12" x2="19" y2="12"></line><polyline
+                    points="12 5 19 12 12 19"></polyline></svg
+            >
+        </a>
+
+        <p class="promo-footer">Válido somente até 14/02/2026 às 17:00H</p>
+    </div>
+</div>
+
+<style>
+    .promo-modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        opacity: 0;
+    }
+
+    .promo-modal-content {
+        background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+        border: 2px solid rgba(138, 28, 38, 0.4);
+        border-radius: 28px;
+        width: 100%;
+        max-width: 550px;
+        padding: 50px 40px;
+        position: relative;
+        text-align: center;
+        box-shadow:
+            0 25px 50px -12px rgba(138, 28, 38, 0.5),
+            0 0 40px rgba(138, 28, 38, 0.2);
+        overflow: hidden;
+    }
+
+    .promo-modal-content::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent
+        );
+        animation: shine 3s infinite;
+    }
+
+    @keyframes shine {
+        to {
+            left: 100%;
+        }
+    }
+
+    .promo-modal-content::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(138, 28, 38, 0.15) 0%,
+            transparent 70%
+        );
+        animation: rotateBg 15s linear infinite;
+        z-index: 0;
+    }
+
+    @keyframes rotateBg {
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
+    }
+
+    .promo-modal-content > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .close-button {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: white;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 10;
+    }
+
+    .close-button:hover {
+        background: rgba(138, 28, 38, 0.3);
+        transform: rotate(90deg) scale(1.1);
+        border-color: rgba(138, 28, 38, 0.5);
+    }
+
+    .promo-badge {
+        background: linear-gradient(90deg, #8a1c26, #3b0a0f);
+        color: white;
+        display: inline-block;
+        padding: 8px 24px;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 25px;
+        animation: pulse 2s infinite;
+        box-shadow: 0 5px 15px rgba(138, 28, 38, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(138, 28, 38, 0.7);
+        }
+        70% {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 15px rgba(138, 28, 38, 0);
+        }
+        100% {
+            transform: scale(1);
+            box-shadow: 0 0 0 0 rgba(138, 28, 38, 0);
+        }
+    }
+
+    .promo-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 5rem;
+        font-weight: 900;
+        background: linear-gradient(to bottom, #ffffff 30%, #8a1c26);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin: 0;
+        line-height: 0.9;
+        letter-spacing: -2px;
+        filter: drop-shadow(0 10px 10px rgba(0, 0, 0, 0.5));
+    }
+
+    .promo-subtitle {
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .promo-message {
+        color: rgba(255, 255, 255, 0.7);
+        font-size: 1rem;
+        line-height: 1.5;
+        margin-bottom: 30px;
+    }
+
+    .countdown-container {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-bottom: 35px;
+    }
+
+    .countdown-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 15px 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .countdown-value {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #8a1c26;
+    }
+
+    .countdown-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.4);
+        letter-spacing: 0.5px;
+    }
+
+    .promo-cta {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        background: #8a1c26;
+        color: white;
+        text-decoration: none;
+        padding: 18px 30px;
+        border-radius: 16px;
+        font-weight: 700;
+        font-size: 1.1rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 20px rgba(138, 28, 38, 0.3);
+    }
+
+    .promo-cta:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 15px 30px rgba(138, 28, 38, 0.4);
+        background: #a1212d;
+    }
+
+    .promo-footer {
+        margin-top: 25px;
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.3);
+    }
+
+    @media (max-width: 480px) {
+        .promo-modal-content {
+            padding: 30px 20px;
+        }
+        .promo-title {
+            font-size: 3rem;
+        }
+        .promo-subtitle {
+            font-size: 1.2rem;
+        }
+        .countdown-value {
+            font-size: 1.4rem;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+
+    function initPromoModal() {
+        const modal = document.getElementById("promo-modal");
+        const closeBtn = document.getElementById("close-promo");
+        const targetDate = new Date("2026-02-14T17:00:00").getTime();
+
+        // Formataçao brasileira de tempo se necessário, mas aqui usaremos calculo simples
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            if (distance < 0) {
+                if (modal) modal.style.display = "none";
+                return false;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor(
+                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
+            );
+            const minutes = Math.floor(
+                (distance % (1000 * 60 * 60)) / (1000 * 60),
+            );
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            const daysEl = document.getElementById("days");
+            const hoursEl = document.getElementById("hours");
+            const minsEl = document.getElementById("minutes");
+            const secsEl = document.getElementById("seconds");
+
+            if (daysEl) daysEl.innerText = days.toString().padStart(2, "0");
+            if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, "0");
+            if (minsEl) minsEl.innerText = minutes.toString().padStart(2, "0");
+            if (secsEl) secsEl.innerText = seconds.toString().padStart(2, "0");
+
+            return true;
+        }
+
+        function showModal() {
+            if (!modal) return;
+
+            // Verifica se a promoção ainda é válida
+            const isValid = updateCountdown();
+            if (!isValid) return;
+
+            // Verifica se o usuário já fechou o modal nesta sessão (opcional, mas bom UX)
+            // if (sessionStorage.getItem('promo_closed')) return;
+
+            modal.style.display = "flex";
+
+            gsap.to(modal, {
+                opacity: 1,
+                duration: 0.5,
+                ease: "power2.out",
+            });
+
+            gsap.from(".promo-modal-content", {
+                scale: 0.8,
+                y: 50,
+                opacity: 0,
+                duration: 0.8,
+                ease: "back.out(1.7)",
+                delay: 0.2,
+            });
+
+            setInterval(updateCountdown, 1000);
+        }
+
+        if (closeBtn && modal) {
+            closeBtn.addEventListener("click", () => {
+                gsap.to(modal, {
+                    opacity: 0,
+                    duration: 0.3,
+                    onComplete: () => {
+                        modal.style.display = "none";
+                        // sessionStorage.setItem('promo_closed', 'true');
+                    },
+                });
+            });
+        }
+
+        // Mostrar após 3 segundos
+        setTimeout(showModal, 3000);
+    }
+
+    // Executar tanto no load quanto em navegações do Astro
+    document.addEventListener("astro:page-load", initPromoModal);
+
+    // Fallback se necessário
+    if (document.readyState === "complete") {
+        initPromoModal();
+    } else {
+        window.addEventListener("load", initPromoModal);
+    }
+</script>
