@@ -32,6 +32,7 @@ const plans = {
 };
 
 const COUPONS = {
+    'ALPHA25': { type: 'percent', value: 25 }, // Promoção Válida até 14/02/2026
     'ALPHAFIRST': { type: 'percent', value: 10 },
     'QUERO50': { type: 'fixed', value: 50 },
     'PARCEIRO15': { type: 'percent', value: 15 }
