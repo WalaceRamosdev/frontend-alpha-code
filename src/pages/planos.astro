@@ -490,6 +490,32 @@ const description =
             </Card>
         </div>
 
+        <!-- SPECIALIZED NICHES NOTE -->
+        <div class="niches-special-note fade-up">
+            <div class="note-card">
+                <div class="note-icon">🚀</div>
+                <div class="note-content">
+                    <h3>Sistemas para Restaurantes, Lanchonetes e Clínicas</h3>
+                    <p>
+                        Projetos que exigem cardápios digitais, sistemas de
+                        pedidos ou agendamentos complexos possuem estrutura
+                        diferenciada.
+                    </p>
+                    <div class="note-price">
+                        A partir de <strong>R$ 1.099</strong>
+                    </div>
+                </div>
+                <Button
+                    href="https://wa.me/5521999064502?text=Olá! Gostaria de fazer uma consulta sobre um projeto de sistema (Restaurante/Clínica) a partir de R$ 1.099."
+                    variant="primary"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    CONSULTAR PROJETO
+                </Button>
+            </div>
+        </div>
+
         <!-- GOOGLE PROOF SECTION -->
         <div class="google-proof fade-up">
             <div class="text-center">
@@ -1167,12 +1193,74 @@ const description =
     }
 
     /* Responsive Padding for Mobile */
+    /* NICHE NOTE STYLES */
+    .niches-special-note {
+        margin-top: 60px;
+        margin-bottom: 80px;
+    }
+
+    .note-card {
+        background: linear-gradient(
+            135deg,
+            rgba(20, 20, 20, 0.8) 0%,
+            rgba(10, 10, 10, 0.9) 100%
+        );
+        border: 1px solid rgba(138, 28, 38, 0.3);
+        border-radius: 24px;
+        padding: 40px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        backdrop-filter: blur(10px);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .note-icon {
+        font-size: 3rem;
+        background: rgba(138, 28, 38, 0.1);
+        width: 80px;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 20px;
+    }
+
+    .note-content {
+        flex-grow: 1;
+    }
+
+    .note-content h3 {
+        font-size: 1.5rem;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .note-content p {
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 15px;
+        max-width: 500px;
+    }
+
+    .note-price {
+        font-size: 1.2rem;
+        color: #fff;
+    }
+
+    .note-price strong {
+        color: var(--color-primary);
+        font-size: 1.5rem;
+        margin-left: 5px;
+    }
+
     @media (max-width: 768px) {
-        .plans-page-container .price-card {
-            padding: 2rem 1.5rem 3rem 1.5rem !important; /* Added bottom padding */
+        .note-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 30px;
         }
-        .plans-page-container .price {
-            font-size: 3rem;
+        .note-content p {
+            margin: 0 auto 20px;
         }
     }
 
