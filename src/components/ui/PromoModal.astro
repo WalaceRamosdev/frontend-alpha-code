@@ -386,7 +386,19 @@
         const closeBtn = document.getElementById("close-promo");
         const targetDate = new Date("2026-02-14T17:00:00").getTime();
 
-        // Formataçao brasileira de tempo se necessário, mas aqui usaremos calculo simples
+        // Verificar se é a página inicial e se já foi mostrado nesta sessão
+        const isHomePage =
+            window.location.pathname === "/" ||
+            window.location.pathname === "/index.html";
+        const hasBeenShown = sessionStorage.getItem("alpha_promo_shown");
+
+        // Detectar se a página foi atualizada (Refresh/F5)
+        const entries = performance.getEntriesByType("navigation");
+        const isReload =
+            entries.length > 0 && (entries[0] as any).type === "reload";
+
+        // Só aparece na Home. Se já foi visto, só reaparece se for um Refresh (F5).
+        if (!isHomePage || (hasBeenShown && !isReload)) return;
 
         function updateCountdown() {
             const now = new Date().getTime();
@@ -426,8 +438,8 @@
             const isValid = updateCountdown();
             if (!isValid) return;
 
-            // Verifica se o usuário já fechou o modal nesta sessão (opcional, mas bom UX)
-            // if (sessionStorage.getItem('promo_closed')) return;
+            // Marcar como mostrado para não exibir novamente nesta sessão
+            sessionStorage.setItem("alpha_promo_shown", "true");
 
             modal.style.display = "flex";
 
@@ -456,13 +468,12 @@
                     duration: 0.3,
                     onComplete: () => {
                         modal.style.display = "none";
-                        // sessionStorage.setItem('promo_closed', 'true');
                     },
                 });
             });
         }
 
-        // Mostrar após 3 segundos
+        // Mostrar após 3 segundos apenas se as condições forem atendidas
         setTimeout(showModal, 3000);
     }
 
