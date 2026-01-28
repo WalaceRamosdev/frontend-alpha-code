@@ -1,10 +1,11 @@
 export const projectsData = [
     {
-        name: 'Alessandro Silva',
-        type: 'Psicologia',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
-        link: 'https://alessandro-silva-psi.vercel.app/'
+        name: 'Pizzaria Gourmet',
+        type: 'Pizzaria',
+        category: 'gastronomia',
+        image: '/assets/imagens-de-paginas/pizzaria.svg',
+        imageMobile: '/assets/imagens-de-paginas/pizzaria-mobile.svg',
+        link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {
         name: 'Alzimara Nunes',
@@ -34,6 +35,13 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/arquiteto.svg',
         link: 'https://projeto-arquiteto.vercel.app/'
     },
+    /*{
+        name: 'Alessandro Silva',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
+        link: 'https://alessandro-silva-psi.vercel.app/'
+    },*/
     {
         name: 'João Silva',
         type: 'Professores Particular',
@@ -104,5 +112,5 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
         link: 'https://nutricao-pied.vercel.app/'
     },
-    
+
 ];

@@ -106,10 +106,13 @@ export default function ProjectsGrid() {
                     }}>
                         <a href={project.link} target="_blank" rel="noopener noreferrer" style={{ display: 'block', textDecoration: 'none', color: 'inherit' }}>
                             <div className="project-image" style={{ height: '200px', backgroundColor: '#ddd', display: 'flex', justifyContent: 'center', alignItems: 'center', overflow: 'hidden' }}>
-                                <img src={project.image} alt={project.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
-                                    onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
-                                    onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
-                                />
+                                <picture style={{ width: '100%', height: '100%' }}>
+                                    {project.imageMobile && <source srcSet={project.imageMobile} media="(max-width: 768px)" />}
+                                    <img src={project.image} alt={project.name} style={{ width: '100%', height: '100%', objectFit: 'cover', transition: 'transform 0.5s ease' }}
+                                        onMouseOver={e => e.currentTarget.style.transform = 'scale(1.05)'}
+                                        onMouseOut={e => e.currentTarget.style.transform = 'scale(1)'}
+                                    />
+                                </picture>
                             </div>
                             <div className="project-info" style={{ padding: '24px' }}>
                                 <span className="project-type" style={{ display: 'block', marginBottom: '8px', fontSize: '0.85em', textTransform: 'uppercase', color: 'var(--color-primary)', fontWeight: 'bold' }}>

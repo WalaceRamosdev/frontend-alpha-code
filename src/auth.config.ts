@@ -79,7 +79,7 @@ export default {
                     } as any);
 
                     if (dbUser) {
-                        session.user.plan = (dbUser as any).plan || "FREE";
+                        session.user.plan = (dbUser as any).plan || "BRONZE";
                         session.user.siteUrl = (dbUser as any).siteUrl || null;
                         session.user.role = (dbUser as any).role || "USER";
                         session.user.image = dbUser.image || null;

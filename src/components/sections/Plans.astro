@@ -18,7 +18,8 @@ import Card from "../ui/Card.astro";
             <!-- Plan 1 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Simples</h3>
+                    <h3>Plano Bronze</h3>
+                    <span class="plan-subtitle">Página Simples</span>
                     <div class="price price-highlight">
                         <small class="currency">R$</small> 347
                     </div>
@@ -41,7 +42,8 @@ import Card from "../ui/Card.astro";
             <Card variant="price" class="featured plan-card-anim">
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
-                    <h3>Página Completa</h3>
+                    <h3>Plano Prata</h3>
+                    <span class="plan-subtitle">Página Completa</span>
                     <div class="price text-primary price-highlight">
                         <small class="currency">R$</small> 599
                     </div>
@@ -66,7 +68,8 @@ import Card from "../ui/Card.astro";
             <!-- Plan 3 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Premium</h3>
+                    <h3>Plano Ouro</h3>
+                    <span class="plan-subtitle">Página Premium</span>
                     <div class="price price-highlight">
                         <small class="currency">R$</small> 947
                     </div>
@@ -233,11 +236,18 @@ import Card from "../ui/Card.astro";
     }
 
     .price-header h3 {
-        font-size: 1.1rem;
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+
+    .plan-subtitle {
+        display: block;
+        font-size: 0.8rem;
         text-transform: uppercase;
-        letter-spacing: 2px; /* Premium letter spacing */
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 20px;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1.5rem;
         font-weight: 600;
     }
 

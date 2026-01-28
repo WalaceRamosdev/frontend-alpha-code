@@ -13,9 +13,12 @@ if (!session) {
     return Astro.redirect("/login");
 }
 
-const currentPlan = session.user?.plan || "FREE";
-const isFreePlan = currentPlan === "FREE";
-const canUpgrade = !isFreePlan; // Só pode fazer upgrade se já tiver um plano pago
+const currentPlan = session.user?.plan || "BRONZE";
+const isFreePlan = currentPlan === "BRONZE";
+const canUpgrade = isFreePlan; // Only allow upgrade if in Bronze (assuming higher plans are end-goals or handled differently)
+// Actually, Prata can upgrade to Ouro.
+// Let's refine the logic.
+const canAlwaysUpgrade = currentPlan !== "OURO";
 export const prerender = false;
 ---
 
@@ -39,7 +42,7 @@ export const prerender = false;
                                     Você ainda não possui um plano ativo
                                 </strong>
                                 <p>
-                                    Para fazer upgrade para PRO ou VIP, é
+                                    Para fazer upgrade para Prata ou Ouro, é
                                     necessário primeiro adquirir um dos nossos
                                     planos de criação de site.
                                 </p>
@@ -74,9 +77,11 @@ export const prerender = false;
                     }
                     <div class="card-header">
                         <span class="plan-name">PRATA</span>
+                        <span class="plan-subtitle">Página Completa</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">599</span>
+                            <span class="amount">197</span>
+                            <span class="period">/mês</span>
                         </div>
                     </div>
                     <ul class="features-list">
@@ -124,9 +129,11 @@ export const prerender = false;
                     }
                     <div class="card-header">
                         <span class="plan-name">OURO</span>
+                        <span class="plan-subtitle">Página Premium</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">947</span>
+                            <span class="amount">497</span>
+                            <span class="period">/mês</span>
                         </div>
                     </div>
                     <ul class="features-list">
@@ -260,15 +267,14 @@ export const prerender = false;
         // Preços dos planos já adquiridos (crédito do usuário)
         // BRONZE = plano inicial, PRATA e OURO = upgrades
         const SITE_PLAN_PRICES: any = {
-            FREE: 0,
-            BRONZE: 347,
-            PRATA: 599, // Crédito para quem já é PRATA fazer upgrade para OURO
+            BRONZE: 0,
+            PRATA: 197, // Crédito para quem já é PRATA fazer upgrade para OURO
         };
 
         // Obtém o plano atual do elemento oculto (passado do servidor)
         const currentPlanElement = document.getElementById("user-current-plan");
         const currentPlan =
-            currentPlanElement?.getAttribute("data-plan") || "FREE";
+            currentPlanElement?.getAttribute("data-plan") || "BRONZE";
 
         upgradeBtns.forEach((btn) => {
             btn.addEventListener("click", () => {
@@ -505,12 +511,22 @@ export const prerender = false;
     }
 
     .plan-name {
-        font-size: 1.2rem;
-        font-weight: 800;
-        color: var(--color-text-muted);
         display: block;
-        margin-bottom: 0.5rem;
+        font-size: 1.8rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 0.2rem;
+        letter-spacing: 1px;
+    }
+
+    .plan-subtitle {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
         letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1rem;
+        font-weight: 600;
     }
 
     .price {
@@ -871,6 +887,23 @@ export const prerender = false;
         filter: drop-shadow(0 0 30px rgba(138, 28, 38, 0.5));
     }
 
+    .pricing-card .plan-name {
+        display: block;
+        font-size: 1.8rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+        margin-bottom: 0.2rem;
+    }
+
+    .plan-subtitle {
+        display: block;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 1rem;
+        font-weight: 600;
+    }
     .celebration-title {
         font-size: 3.5rem;
         font-weight: 900;

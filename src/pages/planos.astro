@@ -56,7 +56,8 @@ const description =
             <!-- PLAN 1: Página Simples -->
             <Card variant="price" class="plan-regular fade-up">
                 <div class="price-header">
-                    <h3>Página Simples</h3>
+                    <h3>Plano Bronze</h3>
+                    <span class="plan-subtitle">Página Simples</span>
                     <div class="price price-highlight">
                         <small class="currency">R$</small> 347
                     </div>
@@ -193,7 +194,8 @@ const description =
             <Card variant="price" class="featured fade-up delay-1">
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
-                    <h3>Página Completa</h3>
+                    <h3>Plano Prata</h3>
+                    <span class="plan-subtitle">Página Completa</span>
                     <div class="price text-primary price-highlight">
                         <small class="currency">R$</small> 599
                     </div>
@@ -353,7 +355,8 @@ const description =
             <!-- PLAN 3: Página Premium -->
             <Card variant="price" class="plan-regular fade-up delay-2">
                 <div class="price-header">
-                    <h3>Página Premium</h3>
+                    <h3>Plano Ouro</h3>
+                    <span class="plan-subtitle">Página Premium</span>
                     <div class="price price-highlight">
                         <small class="currency">R$</small> 947
                     </div>
@@ -791,11 +794,21 @@ const description =
         border: 1px solid rgba(255, 255, 255, 0.07) !important;
     }
 
-    .plans-page-container .plan-regular:hover {
-        transform: translateY(-10px);
-        background: rgba(15, 15, 15, 0.8) !important;
-        border-color: rgba(255, 255, 255, 0.15) !important;
-        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    .plans-page-container .price-header h3 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+
+    .plan-subtitle {
+        display: block;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-text-secondary);
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        opacity: 0.8;
     }
 
     /* Price Highlight */

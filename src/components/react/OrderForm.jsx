@@ -2,29 +2,32 @@ import React, { useState, useEffect } from 'react';
 
 const plans = {
     'simples': {
-        name: 'Página Simples',
+        name: 'Plano Bronze',
+        subtitle: 'Página Simples',
         price: 'R$ 347',
         numericPrice: 347,
         numericPriceEUR: 249,
-        id: 'Página Simples',
+        id: 'Plano Bronze',
         stripeLink: 'https://buy.stripe.com/aFacN7aky67s3jg8Eg93y01',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_simples'
     },
     'completa': {
-        name: 'Página Completa',
+        name: 'Plano Prata',
+        subtitle: 'Página Completa',
         price: 'R$ 599',
         numericPrice: 599,
         numericPriceEUR: 499,
-        id: 'Página Completa',
+        id: 'Plano Prata',
         stripeLink: 'https://buy.stripe.com/7sYbJ32S62Vg2fc7Ac93y02',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_completa'
     },
     'premium': {
-        name: 'Página Premium',
+        name: 'Plano Ouro',
+        subtitle: 'Página Premium',
         price: 'R$ 947',
         numericPrice: 947,
         numericPriceEUR: 949,
-        id: 'Página Premium',
+        id: 'Plano Ouro',
         stripeLink: 'https://buy.stripe.com/4gMcN72S6cvQ9HE9Ik93y03',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_premium'
     },
@@ -219,6 +222,7 @@ export default function OrderForm() {
                         <div className="summary-section">
                             <span className="label">Resumo do Pedido</span>
                             <h2 className="plan-name">{selectedPlan ? selectedPlan.name : 'Carregando...'}</h2>
+                            <span className="plan-subtitle-form">{selectedPlan ? selectedPlan.subtitle : ''}</span>
 
                             <div className="price-stack">
                                 {appliedCoupon && <span className="old-price">{selectedPlan?.price.replace('R$', currency)}</span>}
@@ -467,8 +471,9 @@ export default function OrderForm() {
                 /* Sidebar Styles */
                 .sticky-card { padding: 30px; position: sticky; top: 100px; border-color: rgba(138, 28, 38, 0.3); }
                 .label { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
-                .plan-name { font-size: 1.8rem; margin: 10px 0; font-weight: 800; }
-                .price-stack { margin: 20px 0; display: flex; flex-direction: column; }
+                .plan-name { font-size: 1.8rem; margin: 10px 0 5px 0; font-weight: 800; line-height: 1; }
+                .plan-subtitle-form { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 20px; font-weight: 600; }
+                .price-stack { margin: 10px 0 20px 0; display: flex; flex-direction: column; }
                 .old-price { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; }
                 .final-price { font-size: 2.5rem; font-weight: 900; color: #d62839; text-shadow: 0 0 20px rgba(214, 40, 57, 0.2); }
                 .sidebar-item-row {

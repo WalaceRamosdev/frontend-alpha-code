@@ -373,7 +373,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 </nav>
                 <!-- Dynamic Upgrade Card -->
                 {
-                    (!session || session.user?.plan === "FREE") && (
+                    (!session || session.user?.plan === "BRONZE") && (
                         <div class="promo-card">
                             <div class="promo-icon">
                                 <svg
@@ -390,7 +390,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                                 </svg>
                             </div>
                             <div class="promo-text">
-                                <h4>Alpha Pro</h4>
+                                <h4>Alpha Prata</h4>
                                 <p>
                                     Domine o mercado com um site de alto
                                     impacto.
@@ -404,7 +404,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                 }
 
                 {
-                    session?.user?.plan === "PRO" && (
+                    session?.user?.plan === "PRATA" && (
                         <div class="promo-card vip-gradient">
                             <div class="promo-icon">
                                 <svg
@@ -421,7 +421,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
                                 </svg>
                             </div>
                             <div class="promo-text">
-                                <h4>Alpha VIP</h4>
+                                <h4>Alpha Ouro</h4>
                                 <p>
                                     O nível máximo de tecnologia para seu
                                     negócio.

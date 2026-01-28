@@ -146,7 +146,7 @@ export const prerender = false;
                     </div>
                     <div class="stat-info">
                         <span class="stat-value"
-                            >{session.user?.plan || "FREE"}</span
+                            >{session.user?.plan || "BRONZE"}</span
                         >
                         <a href="/upgrade" class="upgrade-link"
                             >Gerenciar Plano</a
@@ -254,22 +254,29 @@ export const prerender = false;
                         <h2>Benefícios da sua Conta</h2>
                         <a
                             href="/upgrade"
-                            class={`plan-badge ${session.user?.plan?.toLowerCase() || "free"}`}
+                            class={`plan-badge ${session.user?.plan?.toLowerCase() || "bronze"}`}
                         >
-                            Plano {session.user?.plan || "FREE"}
+                            Plano {
+                                session.user?.plan === "BRONZE" ||
+                                !session.user?.plan
+                                    ? "Bronze"
+                                    : session.user?.plan === "PRATA"
+                                      ? "Prata"
+                                      : "Ouro"
+                            }
                         </a>
                     </div>
 
                     <div class="benefits-grid">
                         {
                             (!session.user?.plan ||
-                                session.user?.plan === "FREE") && (
+                                session.user?.plan === "BRONZE") && (
                                 <div class="benefit-item locked">
                                     <div class="benefit-icon">🔒</div>
                                     <div class="benefit-info">
                                         <strong>Suporte Prioritário</strong>
                                         <span>
-                                            Exclusivo para planos PRO e VIP
+                                            Exclusivo para planos Prata e Ouro
                                         </span>
                                     </div>
                                 </div>
@@ -277,7 +284,7 @@ export const prerender = false;
                         }
 
                         {
-                            session.user?.plan === "PRO" && (
+                            session.user?.plan === "PRATA" && (
                                 <>
                                     <div class="benefit-item active">
                                         <div class="benefit-icon">🛡️</div>
@@ -303,7 +310,7 @@ export const prerender = false;
                         }
 
                         {
-                            session.user?.plan === "VIP" && (
+                            session.user?.plan === "OURO" && (
                                 <>
                                     <div class="benefit-item active vip-highlight">
                                         <div class="benefit-icon">👑</div>
@@ -429,12 +436,29 @@ export const prerender = false;
                 </div>
                 <div class="form-group">
                     <label>Tipo de Serviço</label>
-                    <select>
-                        <option>Web Site Institucional</option>
-                        <option>E-commerce / Loja Virtual</option>
-                        <option>Sistema Web Personalizado</option>
-                        <option>Landing Page</option>
-                    </select>
+                    <div class="custom-select">
+                        <select>
+                            <option>Web Site Institucional</option>
+                            <option>E-commerce / Loja Virtual</option>
+                            <option>Sistema Web Personalizado</option>
+                            <option>Landing Page</option>
+                        </select>
+                        <div class="select-arrow">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><polyline points="6 9 12 15 18 9"
+                                ></polyline></svg
+                            >
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Descrição Breve</label>
@@ -1051,17 +1075,17 @@ export const prerender = false;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
-        .plan-badge.free {
-            background: rgba(155, 155, 155, 0.1);
-            color: #999;
-            border: 1px solid rgba(155, 155, 155, 0.2);
+        .plan-badge.bronze {
+            background: rgba(205, 127, 50, 0.1);
+            color: #cd7f32;
+            border: 1px solid rgba(205, 127, 50, 0.2);
         }
-        .plan-badge.pro {
-            background: rgba(138, 28, 38, 0.1);
-            color: var(--color-primary);
-            border: 1px solid rgba(138, 28, 38, 0.2);
+        .plan-badge.prata {
+            background: rgba(192, 192, 192, 0.1);
+            color: #c0c0c0;
+            border: 1px solid rgba(192, 192, 192, 0.2);
         }
-        .plan-badge.vip {
+        .plan-badge.ouro {
             background: rgba(212, 175, 55, 0.1);
             color: #d4af37;
             border: 1px solid rgba(212, 175, 55, 0.3);
@@ -1272,7 +1296,7 @@ export const prerender = false;
         }
 
         .form-group input,
-        .form-group select,
+        .custom-select select,
         .form-group textarea {
             width: 100%;
             padding: 1rem;
@@ -1281,6 +1305,26 @@ export const prerender = false;
             border-radius: 8px;
             color: #fff;
             font-family: inherit;
+            appearance: none;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .custom-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-arrow {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: none;
+            color: var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .form-group select option {
@@ -1289,11 +1333,11 @@ export const prerender = false;
         }
 
         .form-group input:focus,
-        .form-group select:focus,
+        .custom-select select:focus,
         .form-group textarea:focus {
-            outline: none;
             border-color: var(--color-primary);
             background: rgba(255, 255, 255, 0.08);
+            box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
         }
 
         .modal-actions {

@@ -17,7 +17,7 @@ model User {
   phone         String?   @unique
   company       String?
   password      String?
-  plan          String    @default("FREE")
+  plan          String    @default("BRONZE")
   siteUrl       String?
   role          String    @default("USER")
   createdAt     DateTime  @default(now())

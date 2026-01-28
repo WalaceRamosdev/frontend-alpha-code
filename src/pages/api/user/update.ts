@@ -38,7 +38,7 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // Validação básica de planos permitidos no sistema Alpha
-        const validPlans = ["FREE", "PRO", "VIP"];
+        const validPlans = ["BRONZE", "PRATA", "OURO"];
         if (plan && !validPlans.includes(plan.toUpperCase())) {
             return new Response(
                 JSON.stringify({ message: "Plano inválido." }),

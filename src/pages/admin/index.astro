@@ -92,11 +92,28 @@ export const prerender = false;
                             </div>
                             <div class="form-group">
                                 <label for="plan">Plano Adquirido</label>
-                                <select id="plan" name="plan">
-                                    <option value="FREE">FREE</option>
-                                    <option value="PRO">PRO</option>
-                                    <option value="VIP">VIP</option>
-                                </select>
+                                <div class="custom-select">
+                                    <select id="plan" name="plan">
+                                        <option value="BRONZE">Bronze</option>
+                                        <option value="PRATA">Prata</option>
+                                        <option value="OURO">Ouro</option>
+                                    </select>
+                                    <div class="select-arrow">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            stroke="currentColor"
+                                            stroke-width="2"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            ><polyline points="6 9 12 15 18 9"
+                                            ></polyline></svg
+                                        >
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -222,11 +239,28 @@ export const prerender = false;
                 </div>
                 <div class="form-group">
                     <label>Plano</label>
-                    <select id="edit-plan" name="plan">
-                        <option value="FREE">FREE</option>
-                        <option value="PRO">PRO</option>
-                        <option value="VIP">VIP</option>
-                    </select>
+                    <div class="custom-select">
+                        <select id="edit-plan" name="plan">
+                            <option value="BRONZE">Bronze</option>
+                            <option value="PRATA">Prata</option>
+                            <option value="OURO">Ouro</option>
+                        </select>
+                        <div class="select-arrow">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><polyline points="6 9 12 15 18 9"
+                                ></polyline></svg
+                            >
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label>Site URL</label>
@@ -592,19 +626,47 @@ export const prerender = false;
     }
 
     .form-group input,
-    .form-group select {
-        background: rgba(0, 0, 0, 0.3);
+    .custom-select select {
+        background: rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.1);
         padding: 0.8rem 1rem;
         border-radius: 8px;
         color: #fff;
         font-size: 0.95rem;
         outline: none;
-        transition: border-color 0.3s;
+        transition: all 0.3s;
+        width: 100%;
+        appearance: none;
     }
 
-    .form-group input:focus {
+    .custom-select {
+        position: relative;
+        width: 100%;
+    }
+
+    .select-arrow {
+        position: absolute;
+        right: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        pointer-events: none;
+        color: var(--color-text-secondary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .form-group input:focus,
+    .custom-select select:focus {
         border-color: var(--color-primary);
+        background: rgba(0, 0, 0, 0.5);
+        box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
+    }
+
+    .custom-select select option {
+        background: #1a1a1a;
+        color: #fff;
+        padding: 10px;
     }
 
     .btn-submit {
