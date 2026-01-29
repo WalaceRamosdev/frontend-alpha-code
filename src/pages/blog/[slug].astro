@@ -28,6 +28,7 @@ const { Content } = await post.render();
     author={post.data.author}
     content={post.body}
     slug={post.slug}
+    ctaType={post.data.ctaType}
 >
     <Content />
 </BlogLayout>

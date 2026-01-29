@@ -100,10 +100,14 @@ const currentYear = 2025;
     </div>
     <div class="footer-bottom">
         <p>&copy; {currentYear} Alpha Code. Todos os direitos reservados.</p>
-        <div class="developed-by">
-            <span>Desenvolvido por Alpha Code</span>
-            <img src="/assets/logoText.svg" alt="Alpha Code" width="100" />
-        </div>
+        <a href="/" class="developed-by">
+            <span>Desenvolvido por nós</span>
+            <img
+                src="/assets/logo.svg"
+                alt="Alpha Code"
+                class="footer-logo-icon"
+            />
+        </a>
     </div>
 </footer>
 
@@ -233,14 +237,28 @@ const currentYear = 2025;
     .developed-by {
         display: flex;
         align-items: center;
-        gap: 12px;
-        font-size: 0.85rem;
-        opacity: 0.8;
+        gap: 10px;
+        text-decoration: none;
+        color: var(--color-text-muted);
+        font-size: 0.9rem;
+        transition: all 0.3s ease;
+        opacity: 0.7;
     }
 
-    .developed-by img {
-        height: 25px;
+    .developed-by:hover {
+        opacity: 1;
+        color: #d62839; /* Cor primária do site */
+    }
+
+    .footer-logo-icon {
+        height: 22px;
         width: auto;
-        opacity: 0.9;
+        filter: grayscale(1) brightness(0.8);
+        transition: all 0.3s ease;
+    }
+
+    .developed-by:hover .footer-logo-icon {
+        filter: none;
+        transform: scale(1.1);
     }
 </style>

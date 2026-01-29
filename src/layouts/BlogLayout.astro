@@ -15,10 +15,19 @@ interface Props {
     author: string;
     content: string;
     slug: string;
+    ctaType?: "topo" | "meio" | "fundo";
 }
 
-const { title, description, pubDate, heroImage, author, content, slug } =
-    Astro.props;
+const {
+    title,
+    description,
+    pubDate,
+    heroImage,
+    author,
+    content,
+    slug,
+    ctaType = "fundo",
+} = Astro.props;
 
 const formattedDate = pubDate.toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -28,10 +37,10 @@ const formattedDate = pubDate.toLocaleDateString("pt-BR", {
 
 const readingTime = getReadingTime(content);
 
-// Fetch other posts for internal linking
+const now = new Date();
 const allPosts = await getCollection(
     "blog",
-    ({ data }: CollectionEntry<"blog">) => !data.draft,
+    ({ data }: CollectionEntry<"blog">) => !data.draft && data.pubDate <= now,
 );
 const relatedPosts = allPosts
     .filter((p: CollectionEntry<"blog">) => p.slug !== slug)
@@ -142,7 +151,7 @@ const articleSchema = {
                             </p>
                         </div>
 
-                        <BlogCTA />
+                        <BlogCTA type={ctaType} />
                     </footer>
                 </div>
             </div>

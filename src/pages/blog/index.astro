@@ -6,10 +6,11 @@ import BlogHeader from "../../components/blog/BlogHeader.astro";
 
 export const prerender = true;
 
+const now = new Date();
 const posts = await getCollection(
     "blog",
     ({ data }: CollectionEntry<"blog">) => {
-        return data.draft !== true;
+        return data.draft !== true && data.pubDate <= now;
     },
 );
 
@@ -34,7 +35,8 @@ const sortedPosts: CollectionEntry<"blog">[] = posts.sort(
                 <span class="hero-label">Alpha Insights</span>
                 <h1 class="hero-title">
                     Acelerando sua <br /><span class="text-highlight"
-                        >Autoridade Digital</span>
+                        >Autoridade Digital</span
+                    >
                 </h1>
                 <p class="hero-subtitle">
                     Conteúdo técnico e estratégico para transformar cliques em

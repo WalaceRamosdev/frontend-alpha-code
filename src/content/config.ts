@@ -12,6 +12,7 @@ const blog = defineCollection({
         categories: z.array(z.string()).default(['Desenvolvimento Web']),
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
+        ctaType: z.enum(['topo', 'meio', 'fundo']).default('fundo'),
     }),
 });
 
