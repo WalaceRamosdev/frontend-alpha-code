@@ -39,5 +39,13 @@ Este documento detalha as estratégias técnicas e práticas para fazer o Google
 *   **Próximo Passo:** Use esses links comercialmente. Quando falar com um cliente potencial, envie o link do post correspondente.
 *   **Vantagem SEO:** O tráfego direto de usuários que permanecem na página para ler o conteúdo (Dwell Time) é um dos maiores sinais de ranking que existem atualmente.
 
+## 📅 5. Estratégia de Frequência (Consistência > Quantidade)
+**O Conceito:** O Google recompensa sites que mantêm um **ritmo constante**. Publicar 10 artigos em um dia e sumir por um mês é menos eficiente do que postar 1 por semana.
+
+**A Recomendação Alpha:**
+*   **Fase de Tração (Agora):** Idealmente **2 artigos por semana**. Isso sinaliza ao Google que seu site está "vivo" e em rápida expansão de autoridade.
+*   **Fase de Manutenção:** No mínimo **1 artigo a cada 15 dias**. Menos que isso, e seu domínio começa a perder o sinal de "Freshness" (Novidade).
+*   **A Regra de Ouro:** É melhor 1 post excelente de 1.000 palavras com prints e exemplos do que 5 posts curtos e genéricos. O Google prioriza a **profundidade técnica**.
+
 ---
 *Criado pela inteligência Alpha Code para dominar os resultados de busca.*
