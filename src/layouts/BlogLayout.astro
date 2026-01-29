@@ -1,0 +1,417 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import { getReadingTime } from "../utils/readingTime";
+import Breadcrumbs from "../components/blog/Breadcrumbs.astro";
+import BlogCTA from "../components/blog/BlogCTA.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
+import PostCard from "../components/PostCard.astro";
+import BlogHeader from "../components/blog/BlogHeader.astro";
+
+interface Props {
+    title: string;
+    description: string;
+    pubDate: Date;
+    heroImage?: string;
+    author: string;
+    content: string;
+    slug: string;
+}
+
+const { title, description, pubDate, heroImage, author, content, slug } =
+    Astro.props;
+
+const formattedDate = pubDate.toLocaleDateString("pt-BR", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric",
+});
+
+const readingTime = getReadingTime(content);
+
+// Fetch other posts for internal linking
+const allPosts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => !data.draft,
+);
+const relatedPosts = allPosts
+    .filter((p: CollectionEntry<"blog">) => p.slug !== slug)
+    .sort(() => Math.random() - 0.5)
+    .slice(0, 2);
+
+const url = `${Astro.site}blog/${slug}`;
+
+// JSON-LD Schema for Article
+const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: title,
+    description: description,
+    image: [heroImage],
+    datePublished: pubDate.toISOString(),
+    dateModified: pubDate.toISOString(), // Can be updated to use updatedDate if added to frontmatter
+    author: {
+        "@type": "Organization",
+        name: "Alpha Code",
+    },
+    publisher: {
+        "@type": "Organization",
+        name: "Alpha Code",
+        logo: {
+            "@type": "ImageObject",
+            url: `${Astro.site}assets/logo.svg`,
+        },
+    },
+    mainEntityOfPage: {
+        "@type": "WebPage",
+        "@id": url,
+    },
+};
+---
+
+<BaseLayout
+    title={`${title} | Alpha Insights`}
+    description={description}
+    ogImage={heroImage}
+    showHeader={false}
+>
+    <!-- Schema Markup -->
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(articleSchema)}
+        slot="scripts"
+    />
+
+    <!-- Reading Progress Bar -->
+    <div class="progress-container">
+        <div class="progress-bar" id="reading-progress"></div>
+    </div>
+
+    <!-- Simplified Header -->
+    <BlogHeader />
+
+    <article class="blog-post-page">
+        <header class="post-header">
+            <div class="container container-narrow">
+                <div class="post-meta-top">
+                    <span class="category-tag">Artigo Técnico</span>
+                    <span class="dot"></span>
+                    <time datetime={pubDate.toISOString()}>{formattedDate}</time
+                    >
+                </div>
+
+                <h1 class="post-title">{title}</h1>
+
+                <div class="post-author-row">
+                    <div class="author-info">
+                        <span class="author-name"
+                            >Por <strong>{author}</strong></span
+                        >
+                        <span class="reading-estimate"
+                            >{readingTime} de leitura</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        {
+            heroImage && (
+                <div class="post-hero">
+                    <div class="container">
+                        <img src={heroImage} alt={title} class="hero-image" />
+                    </div>
+                </div>
+            )
+        }
+
+        <div class="post-content-section">
+            <div class="container container-narrow">
+                <div class="prose-layout">
+                    <!-- Article Content -->
+                    <div class="prose">
+                        <slot />
+                    </div>
+
+                    <!-- Article Footer -->
+                    <footer class="post-footer">
+                        <div class="share-box">
+                            <span>Gostou deste insight?</span>
+                            <p>
+                                Compartilhe este conhecimento com outros
+                                profissionais.
+                            </p>
+                        </div>
+
+                        <BlogCTA />
+                    </footer>
+                </div>
+            </div>
+        </div>
+
+        <!-- Related Section -->
+        {
+            relatedPosts.length > 0 && (
+                <section class="more-insights">
+                    <div class="container">
+                        <h2 class="section-title">Continue sua leitura</h2>
+                        <div class="related-grid">
+                            {relatedPosts.map(
+                                (post: CollectionEntry<"blog">) => (
+                                    <PostCard
+                                        title={post.data.title}
+                                        description={post.data.description}
+                                        pubDate={post.data.pubDate}
+                                        heroImage={post.data.heroImage}
+                                        slug={post.slug}
+                                        author={post.data.author}
+                                    />
+                                ),
+                            )}
+                        </div>
+                    </div>
+                </section>
+            )
+        }
+    </article>
+</BaseLayout>
+
+<script>
+    // Reading progress logic
+    window.addEventListener("scroll", () => {
+        const winScroll =
+            document.body.scrollTop || document.documentElement.scrollTop;
+        const height =
+            document.documentElement.scrollHeight -
+            document.documentElement.clientHeight;
+        const scrolled = (winScroll / height) * 100;
+        const progressBar = document.getElementById("reading-progress");
+        if (progressBar) progressBar.style.width = scrolled + "%";
+    });
+</script>
+
+<style>
+    .progress-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 3px;
+        z-index: 1100;
+        background: transparent;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background: #fff;
+        width: 0%;
+        transition: width 0.1s;
+    }
+
+    .blog-post-page {
+        padding-top: 100px;
+        background: #050505;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    .container-narrow {
+        max-width: 800px;
+    }
+
+    .post-header {
+        padding: 80px 0 40px;
+        text-align: center;
+    }
+
+    .post-meta-top {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 24px;
+        color: #666;
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .dot {
+        width: 4px;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 50%;
+    }
+
+    .post-title {
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        font-weight: 800;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 40px;
+    }
+
+    .post-author-row {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .author-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+
+    .author-name {
+        font-size: 1rem;
+        color: #888;
+    }
+
+    .author-name strong {
+        color: #fff;
+    }
+
+    .reading-estimate {
+        font-size: 0.85rem;
+        color: #555;
+    }
+
+    .post-hero {
+        margin-bottom: 60px;
+    }
+
+    .hero-image {
+        width: 100%;
+        max-height: 600px;
+        object-fit: cover;
+        border-radius: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .post-content-section {
+        padding-bottom: 100px;
+    }
+
+    /* PROSE */
+    .prose {
+        font-family: "Inter", sans-serif;
+        font-size: 1.25rem;
+        line-height: 1.8;
+        color: #bbb;
+    }
+
+    .prose :global(h2) {
+        font-size: 2.25rem;
+        font-weight: 800;
+        color: #fff;
+        margin: 2.5em 0 0.8em;
+        line-height: 1.2;
+    }
+
+    .prose :global(h3) {
+        font-size: 1.75rem;
+        font-weight: 700;
+        color: #fff;
+        margin: 2em 0 0.6em;
+    }
+
+    .prose :global(p) {
+        margin-bottom: 1.5em;
+    }
+
+    .prose :global(ul),
+    .prose :global(ol) {
+        margin-bottom: 2em;
+        padding-left: 1.5em;
+    }
+
+    .prose :global(li) {
+        margin-bottom: 0.8em;
+    }
+
+    .prose :global(strong) {
+        color: #fff;
+        font-weight: 700;
+    }
+
+    .prose :global(blockquote) {
+        border-left: 2px solid #fff;
+        padding: 1em 2em;
+        margin: 3em 0;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 0 16px 16px 0;
+        font-style: italic;
+        color: #fff;
+    }
+
+    .prose :global(hr) {
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+        margin: 4em 0;
+    }
+
+    .post-footer {
+        margin-top: 80px;
+    }
+
+    .share-box {
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .share-box span {
+        display: block;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 8px;
+    }
+
+    .share-box p {
+        color: #666;
+        font-size: 1rem;
+    }
+
+    .more-insights {
+        padding: 100px 0 140px;
+        background: #000;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 50px;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    @media (max-width: 768px) {
+        .post-header {
+            padding: 40px 0 20px;
+        }
+        .post-title {
+            font-size: 2.5rem;
+        }
+        .related-grid {
+            grid-template-columns: 1fr;
+        }
+        .prose {
+            font-size: 1.15rem;
+        }
+    }
+</style>

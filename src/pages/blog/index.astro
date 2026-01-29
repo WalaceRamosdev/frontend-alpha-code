@@ -1,0 +1,252 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import BlogHeader from "../../components/blog/BlogHeader.astro";
+
+export const prerender = true;
+
+const posts = await getCollection(
+    "blog",
+    ({ data }: CollectionEntry<"blog">) => {
+        return data.draft !== true;
+    },
+);
+
+// Sort posts by date descending
+const sortedPosts: CollectionEntry<"blog">[] = posts.sort(
+    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
+        b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+
+<BaseLayout
+    title="Alpha Insights | O Blog da Alpha Code"
+    description="Estratégias de presença digital, SEO local e conversão para profissionais e empresas que buscam o topo do Google."
+    showHeader={false}
+>
+    <!-- Simple Blog Header -->
+    <BlogHeader />
+
+    <section class="blog-hero">
+        <div class="container hero-inner">
+            <div class="hero-content">
+                <span class="hero-label">Alpha Insights</span>
+                <h1 class="hero-title">
+                    Acelerando sua <br /><span class="text-highlight"
+                        >Autoridade Digital</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Conteúdo técnico e estratégico para transformar cliques em
+                    clientes fiéis. Da psicologia à advocacia, nós mostramos o
+                    caminho.
+                </p>
+            </div>
+
+            <!-- Featured Post Highlight (If any) -->
+            {
+                sortedPosts.length > 0 && (
+                    <div class="featured-indicator">
+                        <span class="pulse" />
+                        Novos artigos disponíveis abaixo
+                    </div>
+                )
+            }
+        </div>
+    </section>
+
+    <div class="blog-main-content">
+        <div class="container">
+            <div class="blog-grid">
+                {
+                    sortedPosts.map((post) => (
+                        <PostCard
+                            title={post.data.title}
+                            description={post.data.description}
+                            pubDate={post.data.pubDate}
+                            heroImage={post.data.heroImage}
+                            slug={post.slug}
+                            author={post.data.author}
+                        />
+                    ))
+                }
+            </div>
+
+            {
+                sortedPosts.length === 0 && (
+                    <div class="no-posts-container">
+                        <div class="no-posts-card">
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="48"
+                                height="48"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <>
+                                    <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                                    <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" />
+                                </>
+                            </svg>
+                            <p>
+                                Nossa equipe está preparando novos insights
+                                poderosos para você. Volte em breve!
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
+        </div>
+    </div>
+</BaseLayout>
+
+<style>
+    .blog-hero {
+        padding: 180px 0 100px;
+        background: radial-gradient(
+            circle at 70% 30%,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 60%
+        );
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .hero-inner {
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-label {
+        display: inline-block;
+        padding: 6px 14px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #fff;
+        margin-bottom: 24px;
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .hero-title {
+        font-size: clamp(3rem, 8vw, 5.5rem);
+        font-weight: 800;
+        line-height: 1;
+        margin-bottom: 32px;
+        color: #fff;
+        max-width: 900px;
+    }
+
+    .text-highlight {
+        color: #fff;
+        position: relative;
+    }
+
+    .text-highlight::after {
+        content: "";
+        position: absolute;
+        bottom: 10px;
+        left: 0;
+        width: 100%;
+        height: 12px;
+        background: rgba(255, 255, 255, 0.05);
+        z-index: -1;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #888;
+        max-width: 600px;
+        line-height: 1.6;
+    }
+
+    .featured-indicator {
+        margin-top: 60px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 0.9rem;
+        color: #666;
+    }
+
+    .pulse {
+        width: 8px;
+        height: 8px;
+        background: #fff;
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7);
+        }
+        70% {
+            transform: scale(1);
+            box-shadow: 0 0 0 10px rgba(255, 255, 255, 0);
+        }
+        100% {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+        }
+    }
+
+    .blog-main-content {
+        padding: 80px 0 140px;
+        background: #050505;
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+        gap: 40px;
+    }
+
+    .no-posts-container {
+        padding: 100px 0;
+        display: flex;
+        justify-content: center;
+    }
+
+    .no-posts-card {
+        padding: 60px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        border-radius: 32px;
+        text-align: center;
+        max-width: 500px;
+    }
+
+    .no-posts-card svg {
+        margin-bottom: 24px;
+        opacity: 0.3;
+    }
+
+    .no-posts-card p {
+        color: #666;
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+        .blog-hero {
+            padding: 140px 0 60px;
+        }
+        .hero-title {
+            font-size: 3.5rem;
+        }
+        .blog-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

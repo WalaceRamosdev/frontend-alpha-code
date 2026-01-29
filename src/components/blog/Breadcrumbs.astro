@@ -1,0 +1,104 @@
+---
+interface Props {
+    items: {
+        label: string;
+        href: string;
+        active?: boolean;
+    }[];
+}
+
+const { items } = Astro.props;
+---
+
+<nav aria-label="Breadcrumb" class="breadcrumbs">
+    <ol>
+        <li>
+            <a href="/">Home</a>
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><polyline points="9 18 15 12 9 6"></polyline></svg
+            >
+        </li>
+        {
+            items.map((item, index) => (
+                <li>
+                    <a
+                        href={item.href}
+                        class={item.active ? "active" : ""}
+                        aria-current={item.active ? "page" : undefined}
+                    >
+                        {item.label}
+                    </a>
+                    {index < items.length - 1 && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <polyline points="9 18 15 12 9 6" />
+                        </svg>
+                    )}
+                </li>
+            ))
+        }
+    </ol>
+</nav>
+
+<style>
+    .breadcrumbs {
+        margin-bottom: 20px;
+    }
+
+    .breadcrumbs ol {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .breadcrumbs li {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        color: #666;
+        font-size: 0.9rem;
+    }
+
+    .breadcrumbs a {
+        color: #888;
+        text-decoration: none;
+        transition: color 0.2s;
+    }
+
+    .breadcrumbs a:hover {
+        color: #fff;
+    }
+
+    .breadcrumbs a.active {
+        color: #fff;
+        font-weight: 500;
+        pointer-events: none;
+    }
+
+    .breadcrumbs svg {
+        color: #444;
+    }
+</style>

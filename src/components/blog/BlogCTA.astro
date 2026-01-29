@@ -1,0 +1,81 @@
+---
+
+---
+
+<section class="blog-cta">
+    <div class="cta-content">
+        <h2>Pronto para transformar sua presença digital?</h2>
+        <p>
+            Não deixe seu negócio ser apenas mais um. Crie uma autoridade real
+            com um site de alta performance desenvolvido pela Alpha Code.
+        </p>
+        <div class="cta-actions">
+            <a
+                href="https://wa.me/5521999064502"
+                target="_blank"
+                class="btn-primary"
+            >
+                Falar com consultor agora
+            </a>
+            <a href="/planos" class="btn-secondary"> Ver nossos planos </a>
+        </div>
+    </div>
+</section>
+
+<style>
+    .blog-article .blog-cta {
+        margin-top: 80px;
+        padding: 60px 40px;
+        background: linear-gradient(135deg, #111, #000);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 32px;
+        text-align: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .blog-cta::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 70%
+        );
+        pointer-events: none;
+    }
+
+    .blog-cta h2 {
+        font-size: 2.25rem;
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.2;
+    }
+
+    .blog-cta p {
+        font-size: 1.1rem;
+        color: #aaa;
+        max-width: 600px;
+        margin: 0 auto 32px;
+    }
+
+    .cta-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) {
+        .blog-cta {
+            padding: 40px 20px;
+        }
+        .cta-actions a {
+            width: 100%;
+        }
+    }
+</style>
