@@ -8,6 +8,7 @@ export interface SEOProps {
     publishedTime?: string;
     modifiedTime?: string;
     type?: string;
+    noIndex?: boolean;
 }
 
 export const createSEOMeta = ({
@@ -19,7 +20,8 @@ export const createSEOMeta = ({
     author = 'Alpha Code',
     publishedTime,
     modifiedTime,
-    type = 'website'
+    type = 'website',
+    noIndex = false
 }: SEOProps) => ({
     // Meta básicos
     title: `${title} | Alpha Code`,
@@ -47,5 +49,5 @@ export const createSEOMeta = ({
     keywords: keywords.join(', '),
 
     // Robots
-    robots: 'index, follow, max-image-preview:large'
+    robots: noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'
 });

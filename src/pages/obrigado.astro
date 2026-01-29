@@ -1,0 +1,360 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { createSEOMeta } from "../utils/seo";
+
+const title = "Obrigado pela sua Compra! | Alpha Code";
+const description =
+    "Sua compra foi concluída com sucesso. Em breve você receberá um e-mail com todos os detalhes do seu pedido.";
+
+// SEO meta data
+const seo = createSEOMeta({
+    title,
+    description,
+    noIndex: true, // Don't index the thank you page in search results
+});
+---
+
+<BaseLayout title={title} description={description} noIndex={true}>
+    <section class="thank-you-section">
+        <div class="glow-bg"></div>
+        <div class="container">
+            <div class="content-wrapper fade-up">
+                <div class="success-icon-container">
+                    <div class="icon-glow"></div>
+                    <svg
+                        class="success-icon"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                    >
+                        <path
+                            d="M20 6L9 17L4 12"
+                            stroke="currentColor"
+                            stroke-width="3"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"></path>
+                    </svg>
+                </div>
+
+                <h1 class="text-gradient">Obrigado pela sua Compra!</h1>
+                <p class="subtitle">
+                    Seu pedido foi processado com sucesso e agora você faz parte
+                    do time Alpha Code.
+                </p>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><path
+                                    d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                                ></path><polyline points="22,6 12,13 2,6"
+                                ></polyline></svg
+                            >
+                        </div>
+                        <h3>E-mail de Confirmação</h3>
+                        <p>
+                            Enviamos um e-mail com todos os detalhes do seu
+                            pedido e acesso aos seus produtos.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><path
+                                    d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"
+                                ></path></svg
+                            >
+                        </div>
+                        <h3>Acesso Seguro</h3>
+                        <p>
+                            Sua transação foi realizada de forma 100% segura e
+                            seus dados estão protegidos.
+                        </p>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-icon">
+                            <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="2"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                ><circle cx="12" cy="12" r="10"
+                                ></circle><polyline points="12 6 12 12 16 14"
+                                ></polyline></svg
+                            >
+                        </div>
+                        <h3>Suporte 24/7</h3>
+                        <p>
+                            Dúvidas? Nossa equipe está pronta para te ajudar a
+                            qualquer momento através do dashboard.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <a href="/dashboard" class="btn-primary"
+                        >Acessar meu Dashboard</a
+                    >
+                    <a href="/" class="btn-secondary">Voltar para Home</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <slot name="scripts">
+        <script is:inline>
+            // Evento de Conversão Google Ads (Opcional)
+            // Descomente e substitua pelo seu ID de conversão se necessário
+            /*
+            gtag('event', 'conversion', {
+                'send_to': 'AW-XXXXXXXXXXX/YYYYYYYYYYYYYYYYYY',
+                'value': 1.0,
+                'currency': 'BRL',
+                'transaction_id': ''
+            });
+            */
+        </script>
+    </slot>
+</BaseLayout>
+
+<style>
+    .thank-you-section {
+        position: relative;
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8rem 0;
+        overflow: hidden;
+        background:
+            radial-gradient(
+                circle at top right,
+                rgba(138, 28, 38, 0.1),
+                transparent 40%
+            ),
+            radial-gradient(
+                circle at bottom left,
+                rgba(138, 28, 38, 0.05),
+                transparent 40%
+            );
+    }
+
+    .glow-bg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 600px;
+        height: 600px;
+        background: var(--color-primary);
+        filter: blur(150px);
+        opacity: 0.1;
+        border-radius: 50%;
+        z-index: -1;
+    }
+
+    .content-wrapper {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .success-icon-container {
+        position: relative;
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 2.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: var(--gradient-primary);
+        border-radius: 50%;
+        color: white;
+        box-shadow: 0 0 40px var(--color-primary-glow);
+    }
+
+    .icon-glow {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        right: -10px;
+        bottom: -10px;
+        border: 2px solid var(--color-primary);
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: pulse 2s infinite;
+    }
+
+    .success-icon {
+        width: 50px;
+        height: 50px;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+        50% {
+            transform: scale(1.1);
+            opacity: 0.1;
+        }
+        100% {
+            transform: scale(1);
+            opacity: 0.3;
+        }
+    }
+
+    h1 {
+        font-size: 3.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .subtitle {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 4rem;
+    }
+
+    .info-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+        margin-bottom: 4rem;
+    }
+
+    .info-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 2.5rem 2rem;
+        border-radius: var(--radius-md);
+        transition: all 0.3s ease;
+        text-align: left;
+        backdrop-filter: blur(10px);
+    }
+
+    .info-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: var(--color-primary);
+        transform: translateY(-5px);
+    }
+
+    .card-icon {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 1.5rem;
+        color: var(--color-primary);
+        background: rgba(138, 28, 38, 0.1);
+        padding: 10px;
+        border-radius: 12px;
+    }
+
+    .info-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.75rem;
+        color: white;
+    }
+
+    .info-card p {
+        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+        margin-bottom: 0;
+    }
+
+    .actions {
+        display: flex;
+        gap: 1.5rem;
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+        h1 {
+            font-size: 2.5rem;
+        }
+        .info-grid {
+            grid-template-columns: 1fr;
+        }
+        .actions {
+            flex-direction: column;
+        }
+        .btn-primary,
+        .btn-secondary {
+            width: 100%;
+        }
+        .thank-you-section {
+            padding: 6rem 0;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+
+    // Premium entrance animation
+    window.addEventListener("load", () => {
+        const tl = gsap.timeline();
+
+        tl.from(".success-icon-container", {
+            scale: 0,
+            opacity: 0,
+            duration: 0.8,
+            ease: "back.out(1.7)",
+        })
+            .from(
+                "h1",
+                {
+                    y: 30,
+                    opacity: 0,
+                    duration: 0.6,
+                },
+                "-=0.4",
+            )
+            .from(
+                ".subtitle",
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.6,
+                },
+                "-=0.4",
+            )
+            .from(
+                ".info-card",
+                {
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                },
+                "-=0.4",
+            )
+            .from(
+                ".actions",
+                {
+                    y: 20,
+                    opacity: 0,
+                    duration: 0.6,
+                },
+                "-=0.4",
+            );
+    });
+</script>
