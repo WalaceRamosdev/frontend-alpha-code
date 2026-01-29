@@ -4,7 +4,6 @@ export const projectsData = [
         type: 'Pizzaria',
         category: 'gastronomia',
         image: '/assets/imagens-de-paginas/pizzaria.svg',
-        imageMobile: '/assets/imagens-de-paginas/pizzaria-mobile.svg',
         link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {

@@ -11,8 +11,8 @@ import Card from "../ui/Card.astro";
                 > no Google.
             </h2>
             <p class="fade-up-title delay-1">
-                O Instagram é alugado.<br>Seu site é sua casa própria digital.<br>É lá
-                que você converte curiosos em clientes pagantes.
+                O Instagram é alugado.<br />Seu site é sua casa própria digital.<br
+                />É lá que você converte curiosos em clientes pagantes.
             </p>
         </div>
         <div class="grid-3 features-grid">
@@ -130,45 +130,55 @@ import Card from "../ui/Card.astro";
         #why {
             padding: 60px 0;
         }
+    }
+
     .section-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
         text-align: center;
         margin-bottom: 4rem;
+        width: 100%;
     }
 
     .section-header h2 {
         font-size: 2.5rem;
         margin-bottom: 1rem;
+        width: 100%;
     }
 
     .section-header p {
-        max-width: 600px;
+        max-width: 650px;
         margin: 0 auto;
         color: var(--color-text-secondary);
         font-size: 1.1rem;
+        text-align: center;
+        width: 100%;
     }
 
     .icon-box {
         margin-bottom: 25px;
-        height: 80px; /* Increased height */
+        height: 80px;
         display: flex;
         align-items: center;
         justify-content: center;
-        /* White subtle glow behind the icon container */
-        filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+        position: relative;
     }
 
     .icon-box img {
-        /* Force white icon: Brightness 0 makes it black, Invert 1 makes it white */
-        filter: brightness(0) invert(1) !important;
+        /* Brilho branco intenso: filter serve para transformar qualquer cor em branco puro */
+        filter: brightness(0) invert(1)
+            drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) !important;
         max-height: 100%;
+        width: auto;
         opacity: 1 !important;
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
     }
 
     .feature-card:hover .icon-box img {
         transform: scale(1.1);
         filter: brightness(0) invert(1)
-            drop-shadow(0 0 8px rgba(255, 255, 255, 0.8)) !important;
+            drop-shadow(0 0 20px rgba(255, 255, 255, 1)) !important;
     }
 
     .img-fluid {

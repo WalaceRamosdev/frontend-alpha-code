@@ -18,9 +18,19 @@ Este documento detalha as estratégias técnicas e práticas para fazer o Google
 *   **Resultado:** O tempo para aparecer no Google cai de dias para apenas algumas horas.
 
 ## 🔗 3. Distribuição em "Canais Amigos"
-**O Conceito:** O Google valoriza o tráfego que vem de fontes confiáveis (referrals).
+**O Conceito:** O Google valoriza o tráfego que vem de fontes confiáveis (referrals) e sinais de autoridade social.
+
 **A Ação:**
-*   **LinkedIn:** O LinkedIn tem uma das maiores autoridades de domínio do mundo. Postar o link lá avisa ao Google que seu conteúdo está sendo compartilhado em um ambiente profissional.
+*   **LinkedIn (A Tática do Primeiro Comentário):**
+    *   Não apenas cole o link. Escreva um post autoral resumindo os 3 principais aprendizados do artigo.
+    *   **Hack de Alcance:** Poste o texto sem o link primeiro. Após publicar, coloque o link do artigo no **primeiro comentário**. Isso evita que o algoritmo do LinkedIn "puna" seu post por tirar o usuário da plataforma.
+    *   Marque parceiros ou clientes citados para gerar conversas reais.
+
+*   **Reddit (A Tática do Especialista):**
+    *   O Reddit odeia spam, mas ama conteúdo útil. Encontre subreddits relevantes (ex: `r/empreendedorismo`, `r/marketing`, `r/psicologia`).
+    *   **Como postar:** Em vez de "leia aqui", faça um post do tipo "Como resolvi X problema usando Y". Desenvolva o raciocínio no Reddit e, ao final, diga: "Escrevi um guia mais detalhado sobre isso com prints e exemplos, caso alguém queira se aprofundar" e coloque o link.
+    *   O tráfego vindo do Reddit é visto pelo Google como tráfego de "alta intenção".
+
 *   **Google Business Profile (Antigo Meu Negócio):** Publique o artigo como uma "Novidade" na ficha da sua agência no Maps. Isso cria um sinal geolocalizado poderoso para o Google.
 
 ## 🎯 4. Técnica de Conteúdo "Silo"
