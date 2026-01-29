@@ -2,10 +2,17 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import Card from "../components/ui/Card.astro";
+import { getSession } from "../lib/auth";
+
+const session = await getSession(Astro.request);
+if (!session) {
+    return Astro.redirect("/login?callbackUrl=/planos");
+}
 
 const title = "Planos e Preços | Alpha Code";
 const description =
     "Confira os detalhes completos dos nossos planos de criação de sites.";
+export const prerender = false;
 ---
 
 <BaseLayout

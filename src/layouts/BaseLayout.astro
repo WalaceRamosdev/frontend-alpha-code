@@ -33,12 +33,33 @@ const {
     showSocialProof = false,
 } = Astro.props;
 
+const serveLocations = [
+    "Brasília - DF",
+    "Rio de Janeiro - RJ",
+    "Moema - SP",
+    "Jardins - SP",
+    "Brooklin - SP",
+    "Bela Vista - SP",
+    "Centro - RJ",
+    "Itaim Bibi - SP",
+    "Leblon - RJ",
+    "Tijuca - RJ",
+    "Ipanema - RJ",
+    "Santo Amaro - SP",
+    "Botafogo - RJ",
+    "Vila Mariana - SP",
+    "Vila Olímpia - SP",
+    "Cerqueira César - SP",
+    "Copacabana - RJ",
+    "Zona Sul de São Paulo",
+];
+
 const seo = createSEOMeta({
     title,
     description,
     canonicalUrl,
     ogImage,
-    keywords,
+    keywords: [...keywords, ...serveLocations],
 });
 ---
 
@@ -98,6 +119,12 @@ const seo = createSEOMeta({
 
         <meta name="geo.region" content="BR" />
         <meta name="geo.placename" content="Brasil" />
+        <meta name="geo.position" content="-23.55052;-46.633309" />
+        <meta name="ICBM" content="-23.55052, -46.633309" />
+        <meta
+            name="DC.coverage"
+            content="Brasília, Rio de Janeiro, São Paulo, Brasil"
+        />
 
         <SchemaMarkup />
 

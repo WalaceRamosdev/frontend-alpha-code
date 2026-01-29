@@ -1,6 +1,10 @@
 ---
 import Button from "../ui/Button.astro";
 import Card from "../ui/Card.astro";
+import { getSession } from "../../lib/auth";
+
+const session = await getSession(Astro.request);
+const isLoggedIn = !!session;
 ---
 
 <section id="plans" class="bg-alt">
@@ -18,22 +22,38 @@ import Card from "../ui/Card.astro";
             <!-- Plan 1 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Plano Bronze</h3>
-                    <span class="plan-subtitle">Página Simples</span>
-                    <div class="price price-highlight">
-                        <small class="currency">R$</small> 347
-                    </div>
-                    <p class="plan-desc">
-                        Estrutura essencial e veloz. Ideal para validar sua
-                        presença online sem complicação.
-                    </p>
+                    <h3>Página Simples</h3>
+                    <span class="plan-subtitle-tag">Essencial</span>
+                    {
+                        isLoggedIn && (
+                            <div class="price price-highlight">
+                                <small class="currency">R$</small> 347
+                            </div>
+                        )
+                    }
                 </div>
-                <!-- Features removed for homepage as requested -->
+
+                <div class="plan-benefits">
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="check">✓</span> Página única profissional
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Botão WhatsApp flutuante
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Site ultra rápido (SEO)
+                        </li>
+                        <li><span class="check">✓</span> Design responsivo</li>
+                    </ul>
+                </div>
+
                 <div class="action-btn">
                     <Button
-                        href="/pedido?plan=simples"
+                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Bronze (Página Simples)."
                         variant="outline"
-                        class="w-full">COMEÇAR AGORA</Button
+                        target="_blank"
+                        class="w-full">SOLICITAR ORÇAMENTO</Button
                     >
                 </div>
             </Card>
@@ -42,25 +62,40 @@ import Card from "../ui/Card.astro";
             <Card variant="price" class="featured plan-card-anim">
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
-                    <h3>Plano Prata</h3>
-                    <span class="plan-subtitle">Página Completa</span>
-                    <div class="price text-primary price-highlight">
-                        <small class="currency">R$</small> 599
-                    </div>
-                    <p class="plan-desc">
-                        Layout profissional e estratégico. Atraia e converta
-                        clientes para seu negócio 24h por dia.
-                        <br /><strong style="color: #fff;"
-                            >+ Linktree Personalizado de Brinde</strong
-                        >
-                    </p>
+                    <h3>Página Completa</h3>
+                    <span class="plan-subtitle-tag">Estratégica</span>
+                    {
+                        isLoggedIn && (
+                            <div class="price text-primary price-highlight">
+                                <small class="currency">R$</small> 599
+                            </div>
+                        )
+                    }
                 </div>
-                <!-- Features removed for homepage as requested -->
+
+                <div class="plan-benefits">
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="check">✓</span> Site completo (multi-seções)
+                        </li>
+                        <li>
+                            <span class="check">✓</span> SEO Otimizado para o Google
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Copys focadas em conversão
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Brinde: Linktree Alpha
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="action-btn">
                     <Button
-                        href="/pedido?plan=completa"
+                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Prata (Página Completa)."
                         variant="primary"
-                        class="w-full btn-glow">QUERO ESTE PLANO</Button
+                        target="_blank"
+                        class="w-full btn-glow">SOLICITAR ORÇAMENTO</Button
                     >
                 </div>
             </Card>
@@ -68,40 +103,73 @@ import Card from "../ui/Card.astro";
             <!-- Plan 3 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Plano Ouro</h3>
-                    <span class="plan-subtitle">Página Premium</span>
-                    <div class="price price-highlight">
-                        <small class="currency">R$</small> 947
-                    </div>
-                    <p class="plan-desc">
-                        Autoridade máxima e performance. Design exclusivo e
-                        otimização total: sua máquina de vendas.
-                    </p>
+                    <h3>Página Premium</h3>
+                    <span class="plan-subtitle-tag">Exclusiva</span>
+                    {
+                        isLoggedIn && (
+                            <div class="price price-highlight">
+                                <small class="currency">R$</small> 947
+                            </div>
+                        )
+                    }
                 </div>
-                <!-- Features removed for homepage as requested -->
+
+                <div class="plan-benefits">
+                    <ul class="benefits-list">
+                        <li>
+                            <span class="check">✓</span> Design ultra exclusivo de
+                            elite
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Consultoria VIP de negócios
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Funil de vendas integrado
+                        </li>
+                        <li>
+                            <span class="check">✓</span> Suporte Alpha prioritário
+                        </li>
+                    </ul>
+                </div>
+
                 <div class="action-btn">
                     <Button
-                        href="/pedido?plan=premium"
+                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Ouro (Página Premium)."
                         variant="outline"
-                        class="w-full">COMEÇAR AGORA</Button
+                        target="_blank"
+                        class="w-full">SOLICITAR ORÇAMENTO</Button
                     >
                 </div>
             </Card>
         </div>
         <div class="pricing-footer fade-up-plans delay-2">
-            <p>* Pagamento único. Sem mensalidades surpresa.</p>
-            <p class="maintenance-note">
-                Manutenção opcional disponível por R$ 100/mês.
-            </p>
-            <p class="niche-note">
-                📍 Restaurantes, Clínicas e Lanchonetes: <strong
-                    >A partir de R$ 1.099</strong
-                > (Sistemas sob consulta).
-            </p>
+            <p>* Projetos personalizados. Fale com um consultor.</p>
+            {
+                isLoggedIn && (
+                    <>
+                        <p class="maintenance-note">
+                            Manutenção opcional disponível por R$ 100/mês.
+                        </p>
+                        <p class="niche-note">
+                            📍 Restaurantes, Clínicas e Lanchonetes:{" "}
+                            <strong>A partir de R$ 1.099</strong> (Sistemas sob
+                            consulta).
+                        </p>
+                    </>
+                )
+            }
         </div>
         <div class="compare-cta fade-up-plans delay-3">
-            <Button href="/planos" variant="outline" class="btn-large"
-                >Ver Comparativo Detalhado <span class="arrow">→</span></Button
+            <Button
+                href={isLoggedIn ? "/planos" : "/login"}
+                variant="outline"
+                class="btn-large"
+                >{
+                    isLoggedIn
+                        ? "Ver Comparativo Detalhado"
+                        : "Faça Login para ver Preços"
+                }
+                <span class="arrow">→</span></Button
             >
         </div>
     </div>
@@ -233,6 +301,37 @@ import Card from "../ui/Card.astro";
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6);
     }
 
+    .plan-benefits {
+        margin: 20px 0;
+        flex-grow: 1;
+    }
+
+    .benefits-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+    }
+
+    .benefits-list li {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 0.9rem;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .benefits-list .check {
+        color: var(--color-primary);
+        font-weight: 900;
+        font-size: 1.1rem;
+    }
+
+    .featured .benefits-list .check {
+        color: #fff !important;
+    }
+
     .price-header {
         margin-bottom: 30px;
         text-align: center;
@@ -246,14 +345,24 @@ import Card from "../ui/Card.astro";
         color: #fff;
     }
 
-    .plan-subtitle {
-        display: block;
-        font-size: 0.8rem;
+    .plan-subtitle-tag {
+        display: inline-block;
+        font-size: 0.75rem;
         text-transform: uppercase;
         letter-spacing: 2px;
-        color: rgba(255, 255, 255, 0.5);
-        margin-bottom: 1.5rem;
-        font-weight: 600;
+        color: var(--color-primary);
+        background: rgba(138, 28, 38, 0.1);
+        padding: 4px 12px;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+        font-weight: 700;
+        border: 1px solid rgba(138, 28, 38, 0.2);
+    }
+
+    .featured .plan-subtitle-tag {
+        background: rgba(255, 255, 255, 0.15);
+        color: #fff;
+        border-color: rgba(255, 255, 255, 0.3);
     }
 
     .price {

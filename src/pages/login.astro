@@ -10,8 +10,11 @@ try {
 } catch (e) {
     console.error("Login Page Auth Error:", e);
 }
+const url = new URL(Astro.request.url);
+const callbackUrl = url.searchParams.get("callbackUrl") || "/dashboard";
+
 if (session) {
-    return Astro.redirect("/dashboard");
+    return Astro.redirect(callbackUrl);
 }
 export const prerender = false;
 ---
@@ -88,7 +91,7 @@ export const prerender = false;
                     <input
                         type="hidden"
                         name="callbackUrl"
-                        value="/dashboard"
+                        value={callbackUrl}
                     />
 
                     <div class="form-group">
@@ -171,7 +174,10 @@ export const prerender = false;
                     const callbackInput = document.createElement("input");
                     callbackInput.type = "hidden";
                     callbackInput.name = "callbackUrl";
-                    callbackInput.value = "/dashboard";
+                    callbackInput.value =
+                        new URLSearchParams(window.location.search).get(
+                            "callbackUrl",
+                        ) || "/dashboard";
                     form.appendChild(callbackInput);
 
                     document.body.appendChild(form);
@@ -215,7 +221,12 @@ export const prerender = false;
                     params.append("email", email);
                     params.append("password", password);
                     params.append("csrfToken", csrfToken);
-                    params.append("callbackUrl", "/dashboard");
+                    params.append(
+                        "callbackUrl",
+                        new URLSearchParams(window.location.search).get(
+                            "callbackUrl",
+                        ) || "/dashboard",
+                    );
                     params.append("json", "true");
 
                     const res = await fetch("/api/auth/callback/credentials", {
@@ -248,7 +259,12 @@ export const prerender = false;
                             );
 
                         setTimeout(() => {
-                            window.location.href = data?.url || "/dashboard";
+                            window.location.href =
+                                data?.url ||
+                                new URLSearchParams(window.location.search).get(
+                                    "callbackUrl",
+                                ) ||
+                                "/dashboard";
                         }, 1200);
                     } else {
                         if (window.showModal)

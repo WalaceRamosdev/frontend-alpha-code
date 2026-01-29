@@ -1,8 +1,16 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import OrderForm from "../components/react/OrderForm.jsx";
+import { getSession } from "../lib/auth";
+
+const session = await getSession(Astro.request);
+
+if (!session) {
+    return Astro.redirect("/login?callbackUrl=/pedido");
+}
 
 const title = "Finalizar Pedido | Alpha Code";
+export const prerender = false;
 ---
 
 <BaseLayout
