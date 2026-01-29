@@ -16,14 +16,14 @@ import Button from "../ui/Button.astro";
                 Especialistas em Autoridade Digital
             </div>
             <h1 class="fade-up">
-                Seu Negócio Precisa de um <br />
-                <span class="text-gradient">Site que Vende.</span>
+                Você Está Deixando <br />
+                <span class="text-gradient">Dinheiro na Mesa.</span>
             </h1>
             <p class="fade-up">
-                Médicos, advogados e empresas perdem clientes todos os dias por
-                não terem um site profissional. Transformamos sua presença
-                online em uma máquina de vendas confiável e de alto padrão.
-                <strong>Não seja invisível no Google.</strong>
+                Empresas sem um site profissional perdem até <strong
+                    >70% de potenciais clientes</strong
+                >. Não seja invisível para quem busca sua solução. Transformamos
+                sua visão em uma máquina de vendas de alto padrão.
             </p>
             <div class="hero-cta fade-up">
                 <Button
@@ -440,6 +440,13 @@ import Button from "../ui/Button.astro";
         display: flex;
         align-items: center;
         overflow: hidden;
+    }
+
+    @media (max-width: 968px) {
+        #hero {
+            padding: 100px 0 60px;
+            min-height: auto;
+        }
     }
 
     .hero-background {
@@ -975,7 +982,7 @@ import Button from "../ui/Button.astro";
 
         .hero-visual {
             order: 5;
-            margin-top: 5rem; /* Espaço generoso para o título não sobrepor os botões */
+            margin-top: 4rem; /* Aumentado para dar espaço às etiquetas */
             width: 100%;
             margin-bottom: 2rem;
             position: relative;
@@ -983,7 +990,7 @@ import Button from "../ui/Button.astro";
 
         .slide-info,
         .slide-info.info-right {
-            top: -55px; /* Subi um pouco mais para dar respiro */
+            top: -35px; /* Menos agressivo para não bater nos botões */
             left: 50%;
             right: auto;
             transform: translateX(-50%);

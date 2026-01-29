@@ -6,12 +6,13 @@ import Card from "../ui/Card.astro";
     <div class="container">
         <div class="section-header">
             <h2 class="fade-up-audience">
-                Para quem é a <br /><span class="text-primary">Alpha Code</span
-                >?
+                Feito Para Quem Busca <br /><span class="text-primary"
+                    >Domínio de Mercado</span
+                >
             </h2>
             <p class="fade-up-audience delay-1 section-desc">
-                Especialistas em posicionamento digital para quem vende
-                conhecimento, imagem ou serviço premium.
+                Não fazemos apenas sites. Construímos ativos digitais para quem
+                não aceita ser apenas "mais um" no Google.
             </p>
         </div>
         <div class="audience-grid">
@@ -129,6 +130,12 @@ import Card from "../ui/Card.astro";
 <style>
     #audience {
         padding: 80px 0;
+    }
+
+    @media (max-width: 768px) {
+        #audience {
+            padding: 60px 0;
+        }
     }
     .section-desc {
         max-width: 600px;

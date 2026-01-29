@@ -1,0 +1,333 @@
+---
+import Button from "../ui/Button.astro";
+---
+
+<section id="investment">
+    <div class="container investment-container">
+        <div class="investment-content fade-up-inv">
+            <div class="text-side">
+                <span class="badge-inv">Custo ou Investimento?</span>
+                <h2>
+                    Sua Presença Digital é um <span class="text-gradient"
+                        >Ativo de Alto Valor.</span
+                    >
+                </h2>
+                <p class="main-text">
+                    Quanto vale a experiência exclusiva que seus clientes buscam
+                    e você ainda não entrega? Deixar de ter um site profissional
+                    é o <strong>custo fixo mais caro</strong> que sua empresa paga
+                    hoje.
+                </p>
+                <div class="inv-points">
+                    <div class="inv-point">
+                        <div class="point-icon">⚡</div>
+                        <div class="point-text">
+                            <h4>Imagine o Retorno</h4>
+                            <p>
+                                Um site Alpha não é apenas beleza; é uma máquina
+                                de vendas funcionando 24h por dia para você.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="inv-point">
+                        <div class="point-icon">📈</div>
+                        <div class="point-text">
+                            <h4>O Custo da Inação</h4>
+                            <p>
+                                Cada dia sem posicionamento de elite é um
+                                convite para seus concorrentes dominarem o seu
+                                mercado.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-side">
+                <div class="glass-inv-card">
+                    <div class="card-label">RESULTADOS ESPERADOS</div>
+                    <ul class="inv-stats">
+                        <li>
+                            <span class="stat-number">3.5x</span>
+                            <span class="stat-desc"
+                                >Mais Autoridade Percebida</span
+                            >
+                        </li>
+                        <li>
+                            <span class="stat-number">24/7</span>
+                            <span class="stat-desc"
+                                >Vendedor Ativo Sem Pausas</span
+                            >
+                        </li>
+                        <li>
+                            <span class="stat-number">100%</span>
+                            <span class="stat-desc"
+                                >Propriedade dos Seus Dados</span
+                            >
+                        </li>
+                    </ul>
+                    <Button
+                        href="https://wa.me/5521999064502?text=Olá! Quero transformar meu site em um investimento de alto retorno."
+                        target="_blank"
+                        variant="primary"
+                        size="lg"
+                        class="w-full glow-effect"
+                        >QUERO AUMENTAR MEU FATURAMENTO</Button
+                    >
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    #investment {
+        padding: 120px 0;
+        position: relative;
+        background: radial-gradient(
+            circle at 10% 20%,
+            rgba(138, 28, 38, 0.05) 0%,
+            transparent 50%
+        );
+    }
+
+    .investment-container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .investment-content {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 60px;
+        align-items: center;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 5rem;
+        border-radius: 40px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+    }
+
+    .badge-inv {
+        display: inline-block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-primary);
+        background: rgba(138, 28, 38, 0.1);
+        padding: 6px 16px;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        border: 1px solid rgba(138, 28, 38, 0.2);
+    }
+
+    .text-side h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+
+    .main-text {
+        font-size: 1.15rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 3rem;
+        line-height: 1.6;
+    }
+
+    .inv-points {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .inv-point {
+        display: flex;
+        gap: 20px;
+    }
+
+    .point-icon {
+        font-size: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        width: 60px;
+        height: 60px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 16px;
+        flex-shrink: 0;
+    }
+
+    .point-text h4 {
+        font-size: 1.2rem;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+
+    .point-text p {
+        color: var(--color-text-muted);
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+
+    .glass-inv-card {
+        background: linear-gradient(
+            135deg,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(255, 255, 255, 0.03) 100%
+        );
+        padding: 3rem;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+        backdrop-filter: blur(12px);
+    }
+
+    .card-label {
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--color-primary);
+        margin-bottom: 2.5rem;
+        text-align: center;
+        text-transform: uppercase;
+        opacity: 0.9;
+    }
+
+    .inv-stats {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 3.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 35px;
+    }
+
+    .inv-stats li {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .stat-number {
+        font-size: 2.8rem;
+        font-weight: 800;
+        color: white;
+        line-height: 1;
+        text-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+
+    .stat-desc {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.7); /* Lighter for better contrast */
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        font-weight: 600;
+    }
+
+    @media (max-width: 1024px) {
+        .investment-content {
+            display: flex;
+            flex-direction: column;
+            padding: 4rem 2rem;
+            gap: 40px;
+            width: 100%;
+            margin: 0;
+        }
+
+        .text-side {
+            text-align: center;
+        }
+
+        .inv-point {
+            text-align: left;
+            gap: 15px;
+        }
+
+        .point-icon {
+            width: 50px;
+            height: 50px;
+            font-size: 1.5rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        #investment {
+            padding: 60px 0;
+        }
+
+        .investment-content {
+            padding: 2.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .glass-inv-card {
+            padding: 2rem 1.2rem;
+            width: 100%;
+        }
+
+        .text-side h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .main-text {
+            font-size: 0.95rem;
+            margin-bottom: 2rem;
+            padding: 0 5px;
+        }
+
+        .point-text h4 {
+            font-size: 1.05rem;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+        }
+
+        .stat-desc {
+            font-size: 0.7rem;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        gsap.fromTo(
+            ".fade-up-inv",
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#investment",
+                    start: "top 80%",
+                },
+            },
+        );
+
+        // Stats counter animation (simple version)
+        const stats = document.querySelectorAll(".stat-number");
+        stats.forEach((stat) => {
+            gsap.from(stat, {
+                opacity: 0,
+                scale: 0.5,
+                duration: 1,
+                delay: 0.5,
+                ease: "back.out(1.7)",
+                scrollTrigger: {
+                    trigger: stat,
+                    start: "top 90%",
+                },
+            });
+        });
+    });
+</script>

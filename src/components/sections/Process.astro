@@ -1,0 +1,280 @@
+---
+import Card from "../ui/Card.astro";
+
+const steps = [
+    {
+        number: "01",
+        title: "Briefing e Estratégia",
+        desc: "Mergulhamos no seu negócio para entender seus objetivos, público-alvo e definir a arquitetura de conversão ideal.",
+        icon: "🎯",
+    },
+    {
+        number: "02",
+        title: "Design de Elite",
+        desc: "Criamos um layout exclusivo focado na identidade da sua marca e na melhor experiência para o usuário final.",
+        icon: "🎨",
+    },
+    {
+        number: "03",
+        title: "Desenvolvimento Alpha",
+        desc: "Transformamos o design em um site real, com código ultra-rápido, otimizado para SEO e totalmente responsivo.",
+        icon: "💻",
+    },
+    {
+        number: "04",
+        title: "Testes e Performance",
+        desc: "Validamos cada detalhe em múltiplos dispositivos para garantir que seu site seja uma máquina impecável de vendas.",
+        icon: "🚀",
+    },
+    {
+        number: "05",
+        title: "Lançamento e Suporte",
+        desc: "Entregamos seu projeto pronto para o mundo, com suporte dedicado para que você foque apenas em atender seus novos clientes.",
+        icon: "🛡️",
+    },
+];
+---
+
+<section id="process">
+    <div class="container overflow-hidden">
+        <div class="section-header fade-up-process">
+            <span class="badge-process">Como Trabalhamos</span>
+            <h2>
+                Sua Jornada até o <span class="text-gradient"
+                    >Próximo Nível</span
+                >
+            </h2>
+            <p class="section-desc">
+                Um processo detalhista e transparente, pensado para que você
+                participe de cada etapa sem se preocupar com a complexidade
+                técnica.
+            </p>
+        </div>
+
+        <div class="process-grid">
+            {
+                steps.map((step, index) => (
+                    <div
+                        class={`process-step fade-up-process delay-${index + 1}`}
+                    >
+                        <div class="step-connector" />
+                        <div class="step-number-pill">{step.number}</div>
+                        <Card variant="default" class="step-card">
+                            <div class="step-icon">{step.icon}</div>
+                            <h3>{step.title}</h3>
+                            <p>{step.desc}</p>
+                        </Card>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const processItems = document.querySelectorAll(".fade-up-process");
+
+        processItems.forEach((item) => {
+            gsap.fromTo(
+                item,
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: item,
+                        start: "top 85%",
+                    },
+                },
+            );
+        });
+
+        // Animation for the connector lines
+        gsap.fromTo(
+            ".step-connector",
+            { scaleX: 0, opacity: 0 },
+            {
+                scaleX: 1,
+                opacity: 1,
+                duration: 1.5,
+                stagger: 0.2,
+                ease: "power3.inOut",
+                scrollTrigger: {
+                    trigger: ".process-grid",
+                    start: "top 70%",
+                },
+            },
+        );
+    });
+</script>
+
+<style>
+    #process {
+        padding: 120px 0;
+        position: relative;
+        background-color: var(--color-bg-body);
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 5rem;
+    }
+
+    .badge-process {
+        display: inline-block;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-primary);
+        background: rgba(138, 28, 38, 0.1);
+        padding: 6px 16px;
+        border-radius: 50px;
+        margin-bottom: 2rem;
+        font-weight: 800;
+        border: 1px solid rgba(138, 28, 38, 0.2);
+    }
+
+    .section-header h2 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        margin-bottom: 1.5rem;
+        font-weight: 800;
+    }
+
+    .section-desc {
+        max-width: 700px;
+        margin: 0 auto;
+        color: var(--color-text-secondary);
+        font-size: 1.1rem;
+        line-height: 1.6;
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 30px;
+        position: relative;
+    }
+
+    .process-step {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        z-index: 2;
+    }
+
+    .step-card {
+        padding: 2.5rem 1.5rem !important;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease !important;
+    }
+
+    .step-card:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-primary) !important;
+    }
+
+    .step-number-pill {
+        width: 40px;
+        height: 40px;
+        background: var(--color-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 900;
+        font-size: 0.9rem;
+        margin-bottom: -20px;
+        position: relative;
+        z-index: 10;
+        box-shadow: 0 5px 15px rgba(138, 28, 38, 0.4);
+    }
+
+    .step-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: white;
+    }
+
+    .step-card p {
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+        line-height: 1.5;
+    }
+
+    .step-connector {
+        position: absolute;
+        top: 20px;
+        left: 50%;
+        width: 100%;
+        height: 1px;
+        background: linear-gradient(90deg, var(--color-primary), transparent);
+        z-index: 1;
+        transform-origin: left center;
+        opacity: 0.3;
+    }
+
+    .process-step:last-child .step-connector {
+        display: none;
+    }
+
+    @media (max-width: 1024px) {
+        #process {
+            padding: 80px 0;
+        }
+
+        .process-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+            padding: 0 10px;
+        }
+
+        .step-connector {
+            display: none;
+        }
+
+        .process-grid::after {
+            display: none;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .section-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .step-card {
+            padding: 1.5rem 1rem !important;
+        }
+
+        .step-card h3 {
+            font-size: 1.15rem;
+        }
+
+        .step-card p {
+            font-size: 0.85rem;
+        }
+    }
+</style>
