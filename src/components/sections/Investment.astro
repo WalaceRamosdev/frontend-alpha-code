@@ -71,7 +71,7 @@ import Button from "../ui/Button.astro";
                         variant="primary"
                         size="lg"
                         class="w-full glow-effect"
-                        >QUERO AUMENTAR MEU FATURAMENTO</Button
+                        >AUMENTAR FATURAMENTO</Button
                     >
                 </div>
             </div>
@@ -233,11 +233,24 @@ import Button from "../ui/Button.astro";
             padding: 4rem 2rem;
             gap: 40px;
             width: 100%;
-            margin: 0;
+            margin: 0 auto;
+            box-sizing: border-box;
         }
 
         .text-side {
             text-align: center;
+            width: 100%;
+        }
+
+        .card-side {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .glass-inv-card {
+            width: 100%;
+            max-width: 100%;
         }
 
         .inv-point {
@@ -258,36 +271,30 @@ import Button from "../ui/Button.astro";
         }
 
         .investment-content {
-            padding: 2.5rem 1rem;
-            border-radius: 20px;
+            padding: 2rem 1rem; /* Padding reduzido para aumentar espaço interno */
+            border-radius: 24px;
         }
 
         .glass-inv-card {
-            padding: 2rem 1.2rem;
-            width: 100%;
+            padding: 2rem 1rem;
+            border-radius: 20px;
         }
 
         .text-side h2 {
             font-size: 1.6rem;
-            margin-bottom: 1rem;
         }
 
         .main-text {
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-            padding: 0 5px;
-        }
-
-        .point-text h4 {
-            font-size: 1.05rem;
+            font-size: 1rem;
+            padding: 0;
         }
 
         .stat-number {
-            font-size: 1.8rem;
+            font-size: 2.2rem;
         }
 
         .stat-desc {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
         }
     }
 </style>
