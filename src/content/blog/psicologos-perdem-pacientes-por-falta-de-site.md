@@ -2,7 +2,7 @@
 title: "Guia completo: site profissional para psicólogos (do zero ao avançado)"
 description: "Aprenda como criar um site profissional para psicólogos, seguindo normas do CFP, com SEO, estrutura ideal e foco em captação ética de pacientes."
 pubDate: 2026-01-29
-heroImage: "https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&q=80&w=2000"
+heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000"
 author: "Equipe Alpha Code"
 categories: ["Nichos Estratégicos", "Conversão"]
 tags: ["Psicologia", "Site Profissional", "Autoridade Digital", "Marketing Ético"]

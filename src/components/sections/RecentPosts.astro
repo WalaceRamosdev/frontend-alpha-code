@@ -1,0 +1,157 @@
+---
+import { getCollection, type CollectionEntry } from "astro:content";
+import PostCard from "../PostCard.astro";
+
+const now = new Date();
+const posts = await getCollection("blog", ({ data }) => {
+    return data.draft !== true && data.pubDate <= now;
+});
+
+const latestPosts = posts
+    .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+    .slice(0, 3);
+---
+
+{
+    latestPosts.length > 0 && (
+        <section class="recent-posts-section" id="blog-preview">
+            <div class="container">
+                <div class="section-header fade-up">
+                    <div class="header-badge">Alpha Insights</div>
+                    <h2 class="section-title">
+                        Últimos <span class="text-gradient">Insights</span> do
+                        Blog
+                    </h2>
+                    <p class="section-subtitle">
+                        Estratégias de presença digital e autoridade técnica
+                        para quem busca o topo do Google.
+                    </p>
+                </div>
+
+                <div class="posts-preview-grid">
+                    {latestPosts.map((post) => (
+                        <PostCard
+                            title={post.data.title}
+                            description={post.data.description}
+                            pubDate={post.data.pubDate}
+                            heroImage={post.data.heroImage}
+                            slug={post.slug}
+                            author={post.data.author}
+                        />
+                    ))}
+                </div>
+
+                <div class="view-all-container fade-up">
+                    <a href="/blog" class="view-all-link">
+                        Explorar Blog Completo
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <>
+                                <line x1="7" y1="17" x2="17" y2="7" />
+                                <polyline points="7 7 17 7 17 17" />
+                            </>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </section>
+    )
+}
+
+<style>
+    .recent-posts-section {
+        padding: 100px 0;
+        background: #020202;
+        position: relative;
+    }
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .header-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #888;
+        margin-bottom: 20px;
+    }
+
+    .section-title {
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        font-weight: 800;
+        margin-bottom: 20px;
+        line-height: 1.1;
+    }
+
+    .section-subtitle {
+        color: #888;
+        font-size: 1.1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    .posts-preview-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 32px;
+        margin-bottom: 60px;
+    }
+
+    .view-all-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    .view-all-link {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #fff;
+        text-decoration: none;
+        padding: 16px 32px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        transition: all 0.3s ease;
+    }
+
+    .view-all-link:hover {
+        background: #fff;
+        color: #000;
+        transform: translateY(-4px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    }
+
+    .view-all-link svg {
+        transition: transform 0.3s ease;
+    }
+
+    .view-all-link:hover svg {
+        transform: rotate(45deg);
+    }
+
+    @media (max-width: 768px) {
+        .posts-preview-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
