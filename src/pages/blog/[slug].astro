@@ -2,6 +2,8 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
+export const prerender = false;
+
 const { slug } = Astro.params;
 const posts = await getCollection("blog");
 const post = posts.find((p) => p.slug === slug);
