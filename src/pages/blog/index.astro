@@ -4,8 +4,6 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
 
-export const prerender = true;
-
 const now = new Date();
 const posts = await getCollection(
     "blog",
