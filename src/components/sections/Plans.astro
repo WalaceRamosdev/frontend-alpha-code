@@ -49,12 +49,26 @@ const isLoggedIn = !!session;
                 </div>
 
                 <div class="action-btn">
-                    <Button
-                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Bronze (Página Simples)."
-                        variant="outline"
-                        target="_blank"
-                        class="w-full">SOLICITAR ORÇAMENTO</Button
-                    >
+                    {
+                        isLoggedIn ? (
+                            <Button
+                                href="/pedido?plan=simples"
+                                variant="outline"
+                                class="w-full"
+                            >
+                                GARANTIR MINHA VAGA
+                            </Button>
+                        ) : (
+                            <Button
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Bronze (Página Simples)."
+                                variant="outline"
+                                target="_blank"
+                                class="w-full"
+                            >
+                                SOLICITAR ORÇAMENTO
+                            </Button>
+                        )
+                    }
                 </div>
             </Card>
 
@@ -91,12 +105,26 @@ const isLoggedIn = !!session;
                 </div>
 
                 <div class="action-btn">
-                    <Button
-                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Prata (Página Completa)."
-                        variant="primary"
-                        target="_blank"
-                        class="w-full btn-glow">SOLICITAR ORÇAMENTO</Button
-                    >
+                    {
+                        isLoggedIn ? (
+                            <Button
+                                href="/pedido?plan=completa"
+                                variant="primary"
+                                class="w-full btn-glow"
+                            >
+                                QUERO VENDER MAIS
+                            </Button>
+                        ) : (
+                            <Button
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Prata (Página Completa)."
+                                variant="primary"
+                                target="_blank"
+                                class="w-full btn-glow"
+                            >
+                                SOLICITAR ORÇAMENTO
+                            </Button>
+                        )
+                    }
                 </div>
             </Card>
 
@@ -133,12 +161,26 @@ const isLoggedIn = !!session;
                 </div>
 
                 <div class="action-btn">
-                    <Button
-                        href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Ouro (Página Premium)."
-                        variant="outline"
-                        target="_blank"
-                        class="w-full">SOLICITAR ORÇAMENTO</Button
-                    >
+                    {
+                        isLoggedIn ? (
+                            <Button
+                                href="/pedido?plan=premium"
+                                variant="outline"
+                                class="w-full"
+                            >
+                                DOMINAR MEU NICHO
+                            </Button>
+                        ) : (
+                            <Button
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Ouro (Página Premium)."
+                                variant="outline"
+                                target="_blank"
+                                class="w-full"
+                            >
+                                SOLICITAR ORÇAMENTO
+                            </Button>
+                        )
+                    }
                 </div>
             </Card>
         </div>
