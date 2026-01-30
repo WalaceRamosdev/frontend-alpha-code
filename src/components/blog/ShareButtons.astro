@@ -1,0 +1,297 @@
+---
+interface Props {
+    title: string;
+    url: string;
+}
+
+const { title, url } = Astro.props;
+
+// Encoded values for share links
+const encodedTitle = encodeURIComponent(title);
+const encodedUrl = encodeURIComponent(url);
+
+const shareLinks = [
+    {
+        name: "WhatsApp",
+        icon: "whatsapp",
+        url: `https://api.whatsapp.com/send?text=${encodedTitle}%20${encodedUrl}`,
+        color: "#25D366",
+    },
+    {
+        name: "LinkedIn",
+        icon: "linkedin",
+        url: `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`,
+        color: "#0077b5",
+    },
+    {
+        name: "Twitter",
+        icon: "x",
+        url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
+        color: "#000000",
+    },
+    {
+        name: "Instagram",
+        icon: "instagram",
+        url: `https://www.instagram.com/alphacodesites/`, // Direciona para o perfil para interação
+        color: "#E1306C",
+    },
+];
+---
+
+<div class="share-buttons">
+    {
+        shareLinks.map((link) => (
+            <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                class="share-btn"
+                title={`Compartilhar no ${link.name}`}
+                aria-label={`Compartilhar no ${link.name}`}
+            >
+                <div class="icon-wrapper">
+                    {link.icon === "whatsapp" && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 1 1-7.6-10.6 8.38 8.38 0 0 1 3.8.9L21 3z" />
+                        </svg>
+                    )}
+                    {link.icon === "linkedin" && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                            <rect x="2" y="9" width="4" height="12" />
+                            <circle cx="4" cy="4" r="2" />
+                        </svg>
+                    )}
+                    {link.icon === "x" && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
+                            <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
+                        </svg>
+                    )}
+                    {link.icon === "instagram" && (
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect
+                                x="2"
+                                y="2"
+                                width="20"
+                                height="20"
+                                rx="5"
+                                ry="5"
+                            />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
+                    )}
+                </div>
+                <span>{link.name}</span>
+            </a>
+        ))
+    }
+
+    <button class="share-btn copy-link" id="copyLinkBtn" data-url={url}>
+        <div class="icon-wrapper">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                ><path
+                    d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"
+                ></path><path
+                    d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"
+                ></path></svg
+            >
+        </div>
+        <span id="copyText">Copiar Link</span>
+    </button>
+</div>
+
+<script>
+    const copyBtn = document.getElementById("copyLinkBtn");
+    const copyText = document.getElementById("copyText");
+
+    if (copyBtn && copyText) {
+        copyBtn.addEventListener("click", async () => {
+            const url = copyBtn.getAttribute("data-url");
+            if (url) {
+                try {
+                    await navigator.clipboard.writeText(url);
+                    const originalText = copyText.innerText;
+                    copyText.innerText = "Copiado!";
+                    copyBtn.classList.add("success");
+
+                    setTimeout(() => {
+                        copyText.innerText = originalText;
+                        copyBtn.classList.remove("success");
+                    }, 2000);
+                } catch (err) {
+                    console.error("Erro ao copiar link:", err);
+                }
+            }
+        });
+    }
+</script>
+
+<style>
+    .share-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 32px;
+        perspective: 1000px;
+    }
+
+    .share-btn {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 14px 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 100px;
+        color: rgba(255, 255, 255, 0.8);
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+        backdrop-filter: blur(8px);
+    }
+
+    /* Premium Hover Effects */
+    .share-btn::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            120deg,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        transform: translateX(-100%);
+        transition: 0.6s;
+    }
+
+    .share-btn:hover::before {
+        transform: translateX(100%);
+    }
+
+    .share-btn:hover {
+        color: #fff;
+        transform: translateY(-5px) scale(1.02);
+        border-color: rgba(255, 255, 255, 0.3);
+        box-shadow:
+            0 10px 30px rgba(0, 0, 0, 0.5),
+            0 0 15px rgba(255, 255, 255, 0.05);
+    }
+
+    /* Individual Brand Focus and Glowing Efx */
+    .share-btn:hover .icon-wrapper {
+        transform: scale(1.1);
+        filter: drop-shadow(0 0 8px currentColor);
+    }
+
+    .share-btn[aria-label*="WhatsApp"]:hover {
+        background: rgba(37, 211, 102, 0.1);
+        border-color: rgba(37, 211, 102, 0.4);
+        color: #25d366;
+    }
+
+    .share-btn[aria-label*="LinkedIn"]:hover {
+        background: rgba(0, 119, 181, 0.1);
+        border-color: rgba(0, 119, 181, 0.4);
+        color: #0077b5;
+    }
+
+    .share-btn[aria-label*="Instagram"]:hover {
+        background: rgba(225, 48, 108, 0.1);
+        border-color: rgba(225, 48, 108, 0.4);
+        color: #e1306c;
+    }
+
+    .share-btn.copy-link:hover {
+        background: rgba(255, 255, 255, 0.08);
+        border-color: rgba(255, 255, 255, 0.5);
+    }
+
+    .share-btn.success {
+        background: #25d366 !important;
+        color: #000 !important;
+        border-color: #25d366 !important;
+    }
+
+    .icon-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.3s ease;
+    }
+
+    @media (max-width: 640px) {
+        .share-buttons {
+            gap: 10px;
+        }
+        .share-btn {
+            padding: 12px 18px;
+            font-size: 0.85rem;
+        }
+        .share-btn span {
+            display: none;
+        }
+        .share-btn {
+            padding: 14px;
+        }
+    }
+</style>

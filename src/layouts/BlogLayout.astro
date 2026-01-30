@@ -6,6 +6,7 @@ import BlogCTA from "../components/blog/BlogCTA.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import PostCard from "../components/PostCard.astro";
 import BlogHeader from "../components/blog/BlogHeader.astro";
+import ShareButtons from "../components/blog/ShareButtons.astro";
 
 interface Props {
     title: string;
@@ -149,6 +150,7 @@ const articleSchema = {
                                 Compartilhe este conhecimento com outros
                                 profissionais.
                             </p>
+                            <ShareButtons title={title} url={url} />
                         </div>
 
                         <BlogCTA type={ctaType} />
