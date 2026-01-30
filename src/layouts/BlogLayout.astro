@@ -83,6 +83,7 @@ const articleSchema = {
     description={description}
     ogImage={heroImage}
     showHeader={false}
+    showWhatsApp={false}
 >
     <!-- Schema Markup -->
     <script
@@ -96,28 +97,41 @@ const articleSchema = {
         <div class="progress-bar" id="reading-progress"></div>
     </div>
 
-    <!-- Simplified Header -->
-    <BlogHeader />
+    <!-- Background Decorations -->
+    <div class="blog-bg-decorations">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
 
     <article class="blog-post-page">
         <header class="post-header">
             <div class="container container-narrow">
+                <Breadcrumbs
+                    items={[
+                        { label: "Blog", href: "/blog" },
+                        { label: title, href: "#", active: true },
+                    ]}
+                />
                 <div class="post-meta-top">
-                    <span class="category-tag">Artigo Técnico</span>
+                    <span class="category-badge">Alpha Insights</span>
                     <span class="dot"></span>
                     <time datetime={pubDate.toISOString()}>{formattedDate}</time
                     >
                 </div>
 
-                <h1 class="post-title">{title}</h1>
+                <h1 class="post-title text-gradient">{title}</h1>
 
                 <div class="post-author-row">
+                    <div class="author-avatar">
+                        <div class="avatar-placeholder">AC</div>
+                    </div>
                     <div class="author-info">
                         <span class="author-name"
                             >Por <strong>{author}</strong></span
                         >
                         <span class="reading-estimate"
-                            >{readingTime} de leitura</span
+                            >{readingTime} de leitura técnica</span
                         >
                     </div>
                 </div>
@@ -127,8 +141,15 @@ const articleSchema = {
         {
             heroImage && (
                 <div class="post-hero">
-                    <div class="container">
-                        <img src={heroImage} alt={title} class="hero-image" />
+                    <div class="container container-medium">
+                        <div class="hero-image-wrapper">
+                            <img
+                                src={heroImage}
+                                alt={title}
+                                class="hero-image"
+                            />
+                            <div class="hero-overlay" />
+                        </div>
                     </div>
                 </div>
             )
@@ -136,24 +157,24 @@ const articleSchema = {
 
         <div class="post-content-section">
             <div class="container container-narrow">
-                <div class="prose-layout">
-                    <!-- Article Content -->
+                <div class="content-glass-card">
                     <div class="prose">
                         <slot />
                     </div>
 
-                    <!-- Article Footer -->
                     <footer class="post-footer">
                         <div class="share-box">
-                            <span>Gostou deste insight?</span>
-                            <p>
-                                Compartilhe este conhecimento com outros
-                                profissionais.
+                            <h3 class="share-title">Gostou deste insight?</h3>
+                            <p class="share-text">
+                                Compartilhe este conhecimento com sua rede e
+                                ajude a elevar o padrão digital.
                             </p>
                             <ShareButtons title={title} url={url} />
                         </div>
 
-                        <BlogCTA type={ctaType} />
+                        <div class="blog-cta-wrapper">
+                            <BlogCTA type={ctaType} />
+                        </div>
                     </footer>
                 </div>
             </div>
@@ -201,26 +222,113 @@ const articleSchema = {
 </script>
 
 <style>
+    :global(body) {
+        background-color: #050505 !important;
+        margin: 0;
+        padding: 0;
+    }
+
+    .blog-bg-decorations {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0; /* Fica acima do body mas abaixo do conteúdo */
+        pointer-events: none;
+        overflow: hidden;
+    }
+
+    .blob {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.12) 0%,
+            transparent 70%
+        );
+        border-radius: 50%;
+        filter: blur(120px);
+        animation: float 25s infinite alternate ease-in-out;
+        opacity: 0.8;
+    }
+
+    .blob-1 {
+        top: -200px;
+        left: -200px;
+        background: radial-gradient(
+            circle,
+            rgba(214, 40, 57, 0.15) 0%,
+            transparent 70%
+        );
+    }
+    .blob-2 {
+        bottom: -300px;
+        right: -100px;
+        background: radial-gradient(
+            circle,
+            rgba(255, 255, 255, 0.08) 0%,
+            transparent 70%
+        );
+        animation-delay: -7s;
+    }
+    .blob-3 {
+        top: 20%;
+        left: 10%;
+        width: 500px;
+        height: 500px;
+        background: radial-gradient(
+            circle,
+            rgba(214, 40, 57, 0.08) 0%,
+            transparent 70%
+        );
+        animation-duration: 35s;
+    }
+
+    @keyframes float {
+        0% {
+            transform: translate(0, 0) scale(1) rotate(0deg);
+        }
+        33% {
+            transform: translate(5%, 10%) scale(1.1) rotate(5deg);
+        }
+        66% {
+            transform: translate(-5%, 5%) scale(0.9) rotate(-5deg);
+        }
+        100% {
+            transform: translate(0, 0) scale(1) rotate(0deg);
+        }
+    }
+
     .progress-container {
         position: fixed;
         top: 0;
         left: 0;
         width: 100%;
-        height: 3px;
-        z-index: 1100;
-        background: transparent;
+        height: 4px;
+        z-index: 2000;
+        background: rgba(255, 255, 255, 0.05);
     }
 
     .progress-bar {
         height: 100%;
-        background: #fff;
+        background: linear-gradient(90deg, #333, #fff, #333);
+        background-size: 200% auto;
         width: 0%;
-        transition: width 0.1s;
+        animation: shine-bar 2s linear infinite;
+    }
+
+    @keyframes shine-bar {
+        to {
+            background-position: 200% center;
+        }
     }
 
     .blog-post-page {
-        padding-top: 100px;
-        background: #050505;
+        position: relative;
+        z-index: 10;
+        padding-top: 60px;
     }
 
     .container {
@@ -230,12 +338,30 @@ const articleSchema = {
     }
 
     .container-narrow {
-        max-width: 800px;
+        max-width: 850px;
+    }
+    .container-medium {
+        max-width: 1000px;
     }
 
+    /* Header Section */
     .post-header {
-        padding: 80px 0 40px;
+        padding: 100px 0 60px;
         text-align: center;
+    }
+
+    .category-badge {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #fff;
+        margin-bottom: 20px;
     }
 
     .post-meta-top {
@@ -246,183 +372,232 @@ const articleSchema = {
         margin-bottom: 24px;
         color: #666;
         font-size: 0.9rem;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 1px;
     }
 
     .dot {
         width: 4px;
         height: 4px;
-        background: rgba(255, 255, 255, 0.2);
+        background: #333;
         border-radius: 50%;
     }
 
     .post-title {
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        font-weight: 800;
-        line-height: 1.1;
-        color: #fff;
+        font-size: clamp(2.5rem, 7vw, 5rem);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -0.04em;
         margin-bottom: 40px;
+        color: #fff;
+    }
+
+    .text-gradient {
+        background: linear-gradient(
+            180deg,
+            #fff 0%,
+            rgba(255, 255, 255, 0.5) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .post-author-row {
         display: flex;
         justify-content: center;
         align-items: center;
+        gap: 16px;
     }
 
-    .author-info {
+    .avatar-placeholder {
+        width: 48px;
+        height: 48px;
+        background: #111;
+        border: 1px solid #222;
+        border-radius: 50%;
         display: flex;
-        flex-direction: column;
-        gap: 4px;
-    }
-
-    .author-name {
-        font-size: 1rem;
+        align-items: center;
+        justify-content: center;
+        font-weight: 700;
+        font-size: 0.8rem;
         color: #888;
     }
 
+    .author-info {
+        text-align: left;
+    }
+    .author-name {
+        display: block;
+        font-size: 1rem;
+        color: #888;
+    }
     .author-name strong {
         color: #fff;
     }
-
     .reading-estimate {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
         color: #555;
     }
 
+    /* Hero Image */
     .post-hero {
-        margin-bottom: 60px;
+        margin-bottom: 80px;
     }
-
+    .hero-image-wrapper {
+        position: relative;
+        border-radius: 40px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+    }
     .hero-image {
         width: 100%;
-        max-height: 600px;
+        max-height: 650px;
         object-fit: cover;
-        border-radius: 32px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
+        transform: scale(1.01);
+    }
+    .hero-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 40%;
+        background: linear-gradient(to top, #050505, transparent);
     }
 
-    .post-content-section {
-        padding-bottom: 100px;
+    /* Content Card */
+    .content-glass-card {
+        background: rgba(255, 255, 255, 0.01);
+        backdrop-filter: blur(20px);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 40px;
+        padding: 80px;
+        margin-bottom: 100px;
     }
 
-    /* PROSE */
     .prose {
-        font-family: "Inter", sans-serif;
-        font-size: 1.25rem;
+        font-family: "Outfit", sans-serif;
+        font-size: 1.35rem;
         line-height: 1.8;
-        color: #bbb;
+        color: #acacac;
     }
 
     .prose :global(h2) {
-        font-size: 2.25rem;
+        font-size: 2.5rem;
         font-weight: 800;
         color: #fff;
-        margin: 2.5em 0 0.8em;
-        line-height: 1.2;
+        margin: 2.5em 0 1em;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
     }
 
     .prose :global(h3) {
-        font-size: 1.75rem;
+        font-size: 1.8rem;
         font-weight: 700;
         color: #fff;
-        margin: 2em 0 0.6em;
+        margin: 2em 0 0.8em;
     }
 
     .prose :global(p) {
-        margin-bottom: 1.5em;
+        margin-bottom: 1.8em;
+    }
+    .prose :global(strong) {
+        color: #fff;
+        font-weight: 600;
     }
 
     .prose :global(ul),
     .prose :global(ol) {
-        margin-bottom: 2em;
+        margin: 2.5em 0;
         padding-left: 1.5em;
     }
 
     .prose :global(li) {
-        margin-bottom: 0.8em;
-    }
-
-    .prose :global(strong) {
-        color: #fff;
-        font-weight: 700;
+        margin-bottom: 1rem;
+        padding-left: 0.5rem;
     }
 
     .prose :global(blockquote) {
-        border-left: 2px solid #fff;
-        padding: 1em 2em;
-        margin: 3em 0;
+        margin: 4em 0;
+        padding: 30px 40px;
         background: rgba(255, 255, 255, 0.02);
-        border-radius: 0 16px 16px 0;
+        border-left: 3px solid #fff;
+        border-radius: 0 24px 24px 0;
         font-style: italic;
         color: #fff;
+        font-size: 1.5rem;
     }
 
-    .prose :global(hr) {
-        border: 0;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-        margin: 4em 0;
-    }
-
+    /* Footer & Sharing */
     .post-footer {
-        margin-top: 80px;
+        margin-top: 100px;
+        padding-top: 60px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
     .share-box {
-        padding: 40px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 24px;
         text-align: center;
-        margin-bottom: 60px;
+        background: rgba(255, 255, 255, 0.02);
+        padding: 60px;
+        border-radius: 32px;
+        margin-bottom: 80px;
+        border: 1px solid rgba(255, 255, 255, 0.03);
     }
 
-    .share-box span {
-        display: block;
-        font-size: 1.2rem;
-        font-weight: 700;
-        color: #fff;
-        margin-bottom: 8px;
-    }
-
-    .share-box p {
-        color: #666;
-        font-size: 1rem;
-    }
-
-    .more-insights {
-        padding: 100px 0 140px;
-        background: #000;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .section-title {
-        font-size: 2.5rem;
+    .share-title {
+        font-size: 1.8rem;
         font-weight: 800;
         color: #fff;
-        margin-bottom: 50px;
+        margin-bottom: 12px;
+    }
+    .share-text {
+        color: #666;
+        font-size: 1.1rem;
+        margin-bottom: 30px;
+    }
+
+    .blog-cta-wrapper {
+        transform: scale(1.02);
+    }
+
+    /* Related Section */
+    .more-insights {
+        padding: 120px 0;
+        background: #030303;
+        position: relative;
     }
 
     .related-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 32px;
+        gap: 40px;
+    }
+
+    @media (max-width: 1024px) {
+        .content-glass-card {
+            padding: 60px 40px;
+        }
     }
 
     @media (max-width: 768px) {
         .post-header {
-            padding: 40px 0 20px;
+            padding: 80px 0 40px;
         }
         .post-title {
-            font-size: 2.5rem;
+            font-size: 3rem;
+        }
+        .content-glass-card {
+            padding: 40px 24px;
+            border-radius: 0;
+            border-left: 0;
+            border-right: 0;
+        }
+        .prose {
+            font-size: 1.15rem;
         }
         .related-grid {
             grid-template-columns: 1fr;
         }
-        .prose {
-            font-size: 1.15rem;
+        .share-box {
+            padding: 40px 20px;
         }
     }
 </style>

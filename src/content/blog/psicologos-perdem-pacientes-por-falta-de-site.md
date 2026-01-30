@@ -1,109 +1,46 @@
 ---
 title: "Guia completo: site profissional para psicólogos (do zero ao avançado)"
-description: "Aprenda como criar um site profissional para psicólogos, seguindo normas do CFP, com SEO, estrutura ideal e foco em captação ética de pacientes."
+description: "Aprenda como criar um site profissional para psicólogos, seguindo as normas éticas do CFP e técnicas de SEO para captar pacientes de forma constante."
 pubDate: 2026-01-29
 heroImage: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&q=80&w=2000"
 author: "Equipe Alpha Code"
 categories: ["Nichos Estratégicos", "Conversão"]
 tags: ["Psicologia", "Site Profissional", "Autoridade Digital", "Marketing Ético"]
 ctaType: fundo
+draft: false
 ---
 
-A maioria dos psicólogos não tem problema de competência.
-Tem problema de visibilidade.
+A maioria dos psicólogos não tem problema de competência. Tem problema de visibilidade. Hoje, quando alguém decide procurar ajuda psicológica, o primeiro passo quase nunca é uma indicação direta. É uma pesquisa no Google por um **site profissional para psicólogos**.
 
-Hoje, quando alguém decide procurar ajuda psicológica, o primeiro passo quase nunca é uma indicação direta. É uma pesquisa no Google.
+E se você não tem um site claro, profissional e confiável, simplesmente não entra na lista de escolhas. Este guia existe para resolver essa lacuna e posicionar sua clínica com excelência.
 
-E se o profissional não tem um site claro, profissional e confiável, ele simplesmente não entra na lista de escolhas.
+## Por que um site profissional é essencial para psicólogos e terapeutas
 
-Este guia existe para resolver isso.
+Um site não é marketing agressivo. É estrutura básica de presença profissional. Ele serve para apresentar quem você é de forma ética, conforme regulamentado pelo [Conselho Federal de Psicologia (CFP)](https://site.cfp.org.br/), explicando sua abordagem e gerando a segurança que o paciente precisa para o primeiro contato.
 
-## Por que um site profissional é essencial para psicólogos
+Diferente de uma landing page focada em vendas diretas, o site do psicólogo precisa de conteúdo denso e acolhedor. Para entender melhor a diferença técnica, leia [Landing Page vs Site Institucional](/blog/landing-page-vs-site-institucional-qual-o-melhor-para-converter-leads).
 
-Um site não é marketing agressivo.
-É estrutura básica de presença profissional.
+## Como pacientes escolhem um psicólogo na internet em 2026
 
-Ele serve para:
-- Apresentar quem você é
-- Explicar sua abordagem
-- Gerar segurança
-- Facilitar o primeiro contato
+O processo de escolha emocional passa por quatro filtros obrigatórios no site:
 
-Sem site, o paciente depende de informações soltas, incompletas ou desatualizadas.
+1.  **Acolhimento Digital:** Linguagem que ressoa com a dor do paciente.
+2.  **Transparência Técnica:** Clareza sobre a abordagem (TCC, Psicanálise, etc).
+3.  **Profissionalismo Estrutural:** Um site rápido e bem organizado (Mobile-first).
+4.  **Facilidade de Contato:** Botão direto para WhatsApp e informações de localização.
 
-## Como pacientes escolhem um psicólogo na internet
+## Ética e CFP: o que é permitido no seu site profissional
 
-O paciente:
-1. Pesquisa sintomas ou necessidades
-2. Analisa linguagem e postura
-3. Observa clareza e acolhimento
-4. Verifica profissionalismo
+Um site ético para psicólogos deve ser informativo e educativo. Nunca prometa cura ou utilize depoimentos sensacionalistas. A autoridade deve ser construída através de conteúdo de valor e seriedade.
 
-Ele não busca promessas. **Busca segurança emocional.** O site é o primeiro filtro.
+### SEO para psicólogos: aparecendo para quem precisa de ajuda
+O SEO não é truque, é estrutura. Utilizar palavras-chave como "Psicólogo online" ou "Terapia para ansiedade em [sua cidade]" ajuda o Google a te conectar com Leads qualificados. Isso faz parte da estratégia de [SEO Local que explicamos neste post](/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia).
 
-## O que não pode faltar em um site para psicólogos
+## Conclusão: Deixe de ser invisível para seus pacientes
 
-### 1. Página inicial clara
-Nada de frases vagas. A home precisa responder em segundos: quem você atende, como você trabalha e como entrar em contato.
-
-### 2. Página “Sobre”
-Aqui se constrói confiança. Inclua formação, abordagem, experiência e, acima de tudo, uma linguagem humana. Sem currículo inflado, sem ego.
-
-### 3. Serviços bem explicados
-Explique os tipos de atendimento, formato das sessões, público atendido e a modalidade (online ou presencial). A clareza reduz a ansiedade do paciente antes mesmo do primeiro contato.
-
-### 4. Contato simples
-Contato difícil afasta paciente. O ideal é ter um botão direto para WhatsApp, formulário simples e localização (se houver atendimento presencial).
-
-## Ética e CFP: o que é permitido no site
-
-Um site profissional para psicólogos:
-- Não promete cura
-- Não expõe pacientes
-- Não usa depoimentos sensacionalistas
-- Não faz comparações
-
-A comunicação deve ser informativa, educativa e ética. Isso não reduz a conversão; pelo contrário, **aumenta a confiança.**
+Psicólogos não precisam "vender" mais. Precisam ser encontrados com clareza e ética. Um site profissional personalizado é a diferença entre “estar online” e ser realmente escolhido pelo paciente no momento em que ele mais precisa de ajuda.
 
 ---
-
-## SEO para psicólogos: como ser encontrado no Google
-
-SEO não é truque. É estrutura. O SEO básico que funciona inclui:
-- Palavras-chave locais (ex: "Psicólogo online em [sua cidade]")
-- Páginas bem organizadas
-- Conteúdo educativo constante
-- Site rápido e otimizado para celulares (mobile-first)
-
-Sem um site otimizado, você simplesmente não aparece para quem mais precisa.
-
-## Site pronto vs Site profissional personalizado
-
-**Site pronto:**
-- Genérico
-- Difícil de ranquear
-- Pouca conversão
-
-**Site profissional personalizado:**
-- Pensado estrategicamente para seu público
-- Estruturado para SEO de alta performance
-- Focado em gerar confiança imediata
-- Escalável e seguro
-
-Aqui está a diferença entre “estar online” e ser realmente escolhido pelo paciente.
-
-## Quanto custa um site profissional para psicólogos?
-
-Custo não é preço. **É retorno.** Um site bem feito trabalha 24h por dia, atrai os pacientes certos e reduz sua dependência total das redes sociais. Em poucos meses, o investimento se paga pela autoridade e pacientes captados.
-
-## Conclusão
-
-Psicólogos não precisam "vender" mais. Precisam ser encontrados com clareza e ética. Um site profissional não é luxo; é parte fundamental da prática moderna da psicologia.
-
----
-
 ### Quer um site profissional, ético e pensado para psicólogos?
-
 A **Alpha Code** cria sites rápidos, claros e rigorosamente alinhados às normas do CFP.
-
 **[Solicite uma análise gratuita do seu projeto e fale com um especialista.](https://wa.me/5521999064502)**
