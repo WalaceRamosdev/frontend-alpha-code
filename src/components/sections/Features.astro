@@ -72,68 +72,51 @@ import Card from "../ui/Card.astro";
 </section>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        let mm = gsap.matchMedia();
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-        const section = document.getElementById("why");
-        if (!section) return;
+    gsap.registerPlugin(ScrollTrigger);
 
+    const section = document.getElementById("why");
+
+    if (section) {
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".features-grid");
 
-        mm.add("(min-width: 769px)", () => {
-            // Desktop Animations
-            gsap.fromTo(
-                section.querySelectorAll(".fade-up-title"),
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    stagger: 0.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: header,
-                        start: "top 90%",
-                    },
+        // Animate Title
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-title"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 90%", // Trigger earlier
                 },
-            );
+            },
+        );
 
-            gsap.fromTo(
-                section.querySelectorAll(".feature-card"),
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    stagger: 0.2,
-                    ease: "power3.out",
-                    scrollTrigger: {
-                        trigger: grid,
-                        start: "top 85%",
-                    },
+        // Animate Cards
+        gsap.fromTo(
+            section.querySelectorAll(".feature-card"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                stagger: 0.2,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%", // Trigger earlier
                 },
-            );
-        });
-
-        mm.add("(max-width: 768px)", () => {
-            // Simple reveal for mobile (less CPU intensive)
-            gsap.fromTo(
-                section.querySelectorAll(".fade-up-title, .feature-card"),
-                { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 95%",
-                    },
-                },
-            );
-        });
-    });
+            },
+        );
+    }
 </script>
 
 <style>
@@ -183,26 +166,19 @@ import Card from "../ui/Card.astro";
     }
 
     .icon-box img {
-        filter: brightness(0) invert(1);
+        /* Brilho branco intenso: filter serve para transformar qualquer cor em branco puro */
+        filter: brightness(0) invert(1)
+            drop-shadow(0 0 12px rgba(255, 255, 255, 0.8)) !important;
         max-height: 100%;
         width: auto;
-        opacity: 0.9;
+        opacity: 1 !important;
         transition: all 0.3s ease;
     }
 
-    /* Drop shadow only on desktop to save mobile performance */
-    @media (min-width: 769px) {
-        .icon-box img {
-            filter: brightness(0) invert(1)
-                drop-shadow(0 0 12px rgba(255, 255, 255, 0.4));
-        }
-
-        .feature-card:hover .icon-box img {
-            transform: scale(1.1);
-            filter: brightness(0) invert(1)
-                drop-shadow(0 0 20px rgba(255, 255, 255, 0.8));
-            opacity: 1;
-        }
+    .feature-card:hover .icon-box img {
+        transform: scale(1.1);
+        filter: brightness(0) invert(1)
+            drop-shadow(0 0 20px rgba(255, 255, 255, 1)) !important;
     }
 
     .img-fluid {

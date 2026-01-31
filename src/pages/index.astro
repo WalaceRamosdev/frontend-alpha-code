@@ -41,19 +41,19 @@ const keywords = [
 ];
 
 export const prerender = false;
-
-// Device detection for DOM optimization
-const userAgent = Astro.request.headers.get("user-agent") || "";
-const isMobile = /mobile/i.test(userAgent);
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
   <Hero />
-  {!isMobile && <TrustBar />}
+  <div class="desktop-only">
+    <TrustBar />
+  </div>
   <Features />
   <!-- Why Section -->
   <Audience />
-  {!isMobile && <ServiceSegments />}
+  <div class="desktop-only">
+    <ServiceSegments />
+  </div>
   <Projects />
   <Process />
   <Testimonials />

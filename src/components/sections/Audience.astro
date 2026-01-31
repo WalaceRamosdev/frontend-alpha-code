@@ -82,67 +82,51 @@ import Card from "../ui/Card.astro";
 </section>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
-        let mm = gsap.matchMedia();
-        const section = document.getElementById("audience");
-        if (!section) return;
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
 
+    gsap.registerPlugin(ScrollTrigger);
+
+    const section = document.getElementById("audience");
+
+    if (section) {
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".audience-grid");
 
-        mm.add("(min-width: 769px)", () => {
-            // Desktop: Full GSAP
-            gsap.fromTo(
-                section.querySelectorAll(".fade-up-audience"),
-                { opacity: 0, y: 30 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.1,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: header,
-                        start: "top 95%",
-                    },
+        // Animate Title
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-audience"),
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: header,
+                    start: "top 95%", // Trigger almost immediately when in view
                 },
-            );
+            },
+        );
 
-            gsap.fromTo(
-                section.querySelectorAll(".audience-card"),
-                { opacity: 0, y: 50 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.8,
-                    stagger: 0.15,
-                    ease: "power2.out",
-                    scrollTrigger: {
-                        trigger: grid,
-                        start: "top 85%",
-                    },
+        // Animate Cards
+        gsap.fromTo(
+            section.querySelectorAll(".audience-card"),
+            { opacity: 0, y: 50 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.15,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: grid,
+                    start: "top 85%", // Safe trigger
                 },
-            );
-        });
-
-        mm.add("(max-width: 768px)", () => {
-            // Mobile: Very lightweight reveal
-            gsap.fromTo(
-                section.querySelectorAll(".fade-up-audience, .audience-card"),
-                { opacity: 0, y: 20 },
-                {
-                    opacity: 1,
-                    y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
-                    scrollTrigger: {
-                        trigger: section,
-                        start: "top 95%",
-                    },
-                },
-            );
-        });
-    });
+            },
+        );
+    }
 </script>
 
 <style>
