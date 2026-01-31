@@ -60,7 +60,12 @@ const finalLabel = customLabel || active.label;
         <h2 class="cta-title">{finalTitle}</h2>
         <p class="cta-text">{finalText}</p>
         <div class="cta-action-wrapper">
-            <a href={finalLink} class="cta-button">
+            <a
+                href={finalLink}
+                class="cta-button"
+                target={finalLink.startsWith("http") ? "_blank" : "_self"}
+                rel={finalLink.startsWith("http") ? "noopener noreferrer" : ""}
+            >
                 {finalLabel}
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
