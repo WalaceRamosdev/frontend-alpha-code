@@ -14,11 +14,12 @@ import About from "../components/sections/About.astro";
 import FAQ from "../components/sections/FAQ.astro";
 import RecentPosts from "../components/sections/RecentPosts.astro";
 import Contact from "../components/sections/Contact.astro";
+import ServiceSegments from "../components/sections/ServiceSegments.astro";
 import { createSEOMeta } from "../utils/seo";
 
 const title = "Criação de Sites Profissionais e Landing Pages | Alpha Code";
 const description =
-  "Especialistas em sites de alta performance para Médicos, Advogados e Empresas. Aumente sua autoridade e vendas com um site rápido, bonito e otimizado para o Google.";
+  "Especialistas em sites de alta performance para profissionais da saúde e negócios que precisam de presença digital profissional. Aumente sua autoridade e vendas com um site rápido, bonito e otimizado para o Google.";
 
 const keywords = [
   "criação de sites",
@@ -26,6 +27,10 @@ const keywords = [
   "landing page",
   "site para médicos",
   "site para advogados",
+  "site institucional empresas",
+  "site profissional clínicas",
+  "site para escola particular",
+  "site para escritório advocacia",
   "desenvolvimento web",
   "criação de sites rj",
   "agência de sites",
@@ -44,6 +49,7 @@ export const prerender = false;
   <Features />
   <!-- Why Section -->
   <Audience />
+  <ServiceSegments />
   <Projects />
   <Process />
   <Testimonials />

@@ -27,7 +27,13 @@ const isLoggedIn = !!session;
                     {
                         isLoggedIn && (
                             <div class="price price-highlight">
-                                <small class="currency">R$</small> 347
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 347</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 260
+                                </div>
                             </div>
                         )
                     }
@@ -81,7 +87,13 @@ const isLoggedIn = !!session;
                     {
                         isLoggedIn && (
                             <div class="price text-primary price-highlight">
-                                <small class="currency">R$</small> 599
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 599</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 449
+                                </div>
                             </div>
                         )
                     }
@@ -136,7 +148,13 @@ const isLoggedIn = !!session;
                     {
                         isLoggedIn && (
                             <div class="price price-highlight">
-                                <small class="currency">R$</small> 947
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 947</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 710
+                                </div>
                             </div>
                         )
                     }
@@ -408,16 +426,47 @@ const isLoggedIn = !!session;
     }
 
     .price {
-        font-size: 4rem; /* Massive, confident price */
+        font-size: 3.5rem; /* Massive, confident price */
         font-weight: 800;
         color: #fff;
         line-height: 1;
         margin-bottom: 15px;
         display: flex;
-        align-items: flex-start;
+        flex-direction: column;
+        align-items: center;
         justify-content: center;
-        gap: 8px;
+        gap: 5px;
         letter-spacing: -1px;
+    }
+
+    .price-promo-info {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 5px;
+    }
+
+    .old-price {
+        font-size: 1.2rem;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: line-through;
+        font-weight: 500;
+    }
+
+    .discount-pill {
+        background: #25d366;
+        color: #fff;
+        font-size: 0.7rem;
+        font-weight: 900;
+        padding: 2px 10px;
+        border-radius: 50px;
+        letter-spacing: 0;
+    }
+
+    .final-price-wrapper {
+        display: flex;
+        align-items: flex-start;
+        gap: 5px;
     }
 
     .price small {

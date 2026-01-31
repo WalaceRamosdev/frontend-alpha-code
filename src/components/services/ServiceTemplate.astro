@@ -1,6 +1,7 @@
 ---
 import ServiceLayout from "../../layouts/ServiceLayout.astro";
 import SchemaMarkup from "../seo/SchemaMarkup.astro";
+import ServiceSegments from "../sections/ServiceSegments.astro";
 import { type ServiceContent, getRelatedServices } from "../../data/services";
 
 interface Props {
@@ -46,11 +47,29 @@ const relatedServices = getRelatedServices(service.slug);
         <div class="container">
             <div class="details-grid">
                 <div class="details-main fade-up-service">
-                    <h2 class="text-primary">O que é este serviço?</h2>
-                    <p>{service.whatIsIt}</p>
+                    {
+                        service.whatIsIt && (
+                            <>
+                                <h2 class="text-primary">
+                                    {service.whatIsItTitle ||
+                                        "O que é este serviço?"}
+                                </h2>
+                                <p>{service.whatIsIt}</p>
+                            </>
+                        )
+                    }
 
-                    <h2 class="text-primary mt-4">Para quem é ideal?</h2>
-                    <p>{service.whoIsItFor}</p>
+                    {
+                        service.whoIsItFor && (
+                            <>
+                                <h2 class="text-primary mt-4">
+                                    {service.whoIsItForTitle ||
+                                        "Para quem é ideal?"}
+                                </h2>
+                                <p>{service.whoIsItFor}</p>
+                            </>
+                        )
+                    }
 
                     <div class="internal-link mt-4">
                         <p>
@@ -65,7 +84,9 @@ const relatedServices = getRelatedServices(service.slug);
 
                 <div class="details-sidebar fade-up-service">
                     <div class="benefits-card glass-panel">
-                        <h3 class="text-gold">Benefícios Práticos</h3>
+                        <h3 class="text-gold">
+                            {service.benefitsTitle || "Benefícios Práticos"}
+                        </h3>
                         <ul>
                             {
                                 service.benefits.map((benefit) => (
@@ -85,17 +106,33 @@ const relatedServices = getRelatedServices(service.slug);
     <section class="service-process bg-dark">
         <div class="container">
             <div class="process-grid">
-                <div class="process-item fade-up-service">
-                    <h2 class="text-primary">Como funciona na prática?</h2>
-                    <p>{service.howItWorks}</p>
-                </div>
-                <div class="process-item fade-up-service">
-                    <h2 class="text-primary">Resultados esperados</h2>
-                    <p>{service.expectedResults}</p>
-                </div>
+                {
+                    service.howItWorks && (
+                        <div class="process-item fade-up-service">
+                            <h2 class="text-primary">
+                                {service.howItWorksTitle ||
+                                    "Como funciona na prática?"}
+                            </h2>
+                            <p>{service.howItWorks}</p>
+                        </div>
+                    )
+                }
+                {
+                    service.expectedResults && (
+                        <div class="process-item fade-up-service">
+                            <h2 class="text-primary">
+                                {service.expectedResultsTitle ||
+                                    "Resultados esperados"}
+                            </h2>
+                            <p>{service.expectedResults}</p>
+                        </div>
+                    )
+                }
             </div>
         </div>
     </section>
+
+    <ServiceSegments />
 
     <section class="related-services bg-alt">
         <div class="container">

@@ -81,8 +81,19 @@ export default function OrderForm() {
             const plan = plans[planKey];
             setSelectedPlan(plan);
             setFormData(prev => ({ ...prev, plano: plan.name }));
-            setFinalPrice(isPortugal ? plan.numericPriceEUR : plan.numericPrice);
-            if (planKey === 'manutencao') setIsMaintenance(true);
+
+            // Auto-apply ALPHA25 PROMO
+            if (planKey !== 'manutencao') {
+                const promoCoupon = COUPONS['ALPHA25'];
+                setAppliedCoupon({ ...promoCoupon, code: 'ALPHA25' });
+
+                const basePrice = isPortugal ? plan.numericPriceEUR : plan.numericPrice;
+                const discountedPrice = basePrice * (1 - promoCoupon.value / 100);
+                setFinalPrice(discountedPrice);
+            } else {
+                setFinalPrice(isPortugal ? plan.numericPriceEUR : plan.numericPrice);
+                setIsMaintenance(true);
+            }
         }
     }, [isPortugal]);
 
@@ -225,6 +236,9 @@ export default function OrderForm() {
                             <span className="plan-subtitle-form">{selectedPlan ? selectedPlan.subtitle : ''}</span>
 
                             <div className="price-stack">
+                                {appliedCoupon && (
+                                    <div className="discount-badge-mini">25% OFF APLICADO</div>
+                                )}
                                 {appliedCoupon && <span className="old-price">{selectedPlan?.price.replace('R$', currency)}</span>}
                                 {hasSEO && <div className="sidebar-item-row"><span>+ Plano SEO (3 meses)</span><span>{currency} {isPortugal ? '25,00' : '150,00'}</span></div>}
                                 <span className="final-price">{currency} {finalPrice.toFixed(2).replace('.', ',')}</span>
@@ -473,7 +487,17 @@ export default function OrderForm() {
                 .label { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
                 .plan-name { font-size: 1.8rem; margin: 10px 0 5px 0; font-weight: 800; line-height: 1; }
                 .plan-subtitle-form { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 20px; font-weight: 600; }
-                .price-stack { margin: 10px 0 20px 0; display: flex; flex-direction: column; }
+                .price-stack { margin: 10px 0 20px 0; display: flex; flex-direction: column; position: relative; }
+                .discount-badge-mini {
+                    background: #25D366;
+                    color: #fff;
+                    font-size: 0.6rem;
+                    font-weight: 900;
+                    padding: 2px 8px;
+                    border-radius: 4px;
+                    width: fit-content;
+                    margin-bottom: 5px;
+                }
                 .old-price { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; }
                 .final-price { font-size: 2.5rem; font-weight: 900; color: #d62839; text-shadow: 0 0 20px rgba(214, 40, 57, 0.2); }
                 .sidebar-item-row {

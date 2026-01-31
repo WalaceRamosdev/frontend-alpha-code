@@ -1,0 +1,212 @@
+---
+// ServiceSegments.astro
+const segments = [
+    {
+        icon: "🩺",
+        title: "Clínicas e Consultórios",
+        desc: "Mais autoridade e agendamento facilitado para profissionais de saúde.",
+        keyword: "site profissional para clínicas",
+    },
+    {
+        icon: "⚖️",
+        title: "Escritórios de Advocacia",
+        desc: "Credibilidade, seriedade e clareza de atuação em diversas áreas do Direito.",
+        keyword: "site profissional para escritórios de advocacia",
+    },
+    {
+        icon: "🏫",
+        title: "Escolas e Instituições",
+        desc: "Apresentação institucional impecável para captação estratégica de alunos.",
+        keyword: "site para escola particular",
+    },
+    {
+        icon: "✨",
+        title: "Estética e Beleza",
+        desc: "Valorização visual da marca e conversão local para serviços de estética.",
+        keyword: "site para clínica estética",
+    },
+    {
+        icon: "🍽️",
+        title: "Restaurantes e Negócios Locais",
+        desc: "Cardápio digital, localização estratégica e contato rápido via WhatsApp.",
+        keyword: "site para restaurante",
+    },
+    {
+        icon: "🏢",
+        title: "Empresas e Indústria",
+        desc: "Sites institucionais robustos para empresas que precisam de presença global.",
+        keyword: "site institucional para empresas",
+    },
+    {
+        icon: "🛒",
+        title: "E-commerces",
+        desc: "Estrutura rápida, clara e totalmente focada em vendas de produtos online.",
+        keyword: "site de vendas sob medida",
+    },
+    {
+        icon: "👤",
+        title: "Profissionais Liberais",
+        desc: "Autoridade para autônomos que desejam se destacar em seus mercados.",
+        keyword: "criação de site profissional",
+    },
+];
+---
+
+<section id="service-segments" class="bg-alt">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2 class="fade-up-segments">
+                Sites profissionais para <span class="text-primary"
+                    >diferentes tipos de negócios</span>
+            </h2>
+            <p class="fade-up-segments delay-1 max-w-600 mx-auto">
+                Criamos sites profissionais sob medida para negócios que
+                precisam transmitir confiança, autoridade e facilitar o contato
+                com clientes. Nossa metodologia se adapta à realidade de cada
+                segmento, mantendo foco em conversão, performance e SEO.
+            </p>
+        </div>
+
+        <div class="segments-grid">
+            {
+                segments.map((segment, index) => (
+                    <div
+                        class="segment-card glass-panel fade-up-segments"
+                        style={`transition-delay: ${index * 0.1}s`}
+                    >
+                        <div class="segment-icon">{segment.icon}</div>
+                        <div class="segment-info">
+                            <h3>{segment.title}</h3>
+                            <p>{segment.desc}</p>
+                            <span class="segment-seo-tag">
+                                {segment.keyword}
+                            </span>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+
+        <div class="segment-footer mt-5 text-center fade-up-segments">
+            <p>
+                Desenvolvemos soluções de <strong
+                    >desenvolvimento de site sob medida</strong
+                > para qualquer segmento que busque excelência digital.
+            </p>
+        </div>
+    </div>
+</section>
+
+<style>
+    #service-segments {
+        padding: 100px 0;
+    }
+
+    .max-w-600 {
+        max-width: 600px;
+    }
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    .mb-5 {
+        margin-bottom: 3rem;
+    }
+    .mt-5 {
+        margin-top: 3rem;
+    }
+
+    .segments-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 25px;
+    }
+
+    .segment-card {
+        padding: 2rem;
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+        border-radius: 20px;
+        transition:
+            transform 0.3s ease,
+            border-color 0.3s ease;
+    }
+
+    .segment-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-primary);
+    }
+
+    .segment-icon {
+        font-size: 2rem;
+        background: rgba(255, 255, 255, 0.05);
+        width: 50px;
+        height: 50px;
+        display: grid;
+        place-items: center;
+        border-radius: 12px;
+        flex-shrink: 0;
+    }
+
+    .segment-info h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        color: white;
+    }
+
+    .segment-info p {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.5;
+        margin-bottom: 0.75rem;
+    }
+
+    .segment-seo-tag {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-primary);
+        font-weight: 700;
+        opacity: 0.6;
+    }
+
+    .segment-footer {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        #service-segments {
+            padding: 60px 0;
+        }
+        .segment-card {
+            padding: 1.5rem;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("astro:page-load", () => {
+        gsap.fromTo(
+            ".fade-up-segments",
+            { opacity: 0, y: 30 },
+            {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: "#service-segments",
+                    start: "top 80%",
+                },
+            },
+        );
+    });
+</script>
