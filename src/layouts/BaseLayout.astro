@@ -69,20 +69,39 @@ const seo = createSEOMeta({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <!-- Google tag (gtag.js) -->
-        <script
-            async
-            src="https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P"
-        ></script>
+        <!-- Google tag (gtag.js) - Optimized Loading -->
         <script is:inline>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
+            // Optimize GTM loading
+            function loadGTM() {
+                if (window.gtmLoaded) return;
+                window.gtmLoaded = true;
+
+                const script = document.createElement("script");
+                script.async = true;
+                script.src =
+                    "https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P";
+                document.head.appendChild(script);
+
+                window.dataLayer = window.dataLayer || [];
+                function gtag() {
+                    dataLayer.push(arguments);
+                }
+                gtag("js", new Date());
+                gtag("config", "G-Z1TRD8DK7P", {
+                    page_path: window.location.pathname,
+                });
             }
-            gtag("js", new Date());
-            gtag("config", "G-Z1TRD8DK7P", {
-                page_path: window.location.pathname,
-            });
+
+            // Load GTM after 3.5s or on user interaction
+            const gtmTimer = setTimeout(loadGTM, 3500);
+            ["touchstart", "mousemove", "scroll", "keydown"].forEach(
+                (event) => {
+                    window.addEventListener(event, loadGTM, {
+                        once: true,
+                        passive: true,
+                    });
+                },
+            );
         </script>
 
         <meta charset="UTF-8" />
@@ -153,6 +172,7 @@ const seo = createSEOMeta({
                 <a
                     href="https://wa.me/5521999064502"
                     target="_blank"
+                    rel="noopener noreferrer"
                     class="whatsapp-float"
                     aria-label="Fale conosco"
                 >

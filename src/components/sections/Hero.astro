@@ -1,5 +1,16 @@
 ---
 import Button from "../ui/Button.astro";
+import { Image } from "astro:assets";
+
+// Import images for optimization
+import psicologaDesktop from "../../assets/projects/psicologa-desktop.png";
+import psicologaMobile from "../../assets/projects/psicologa-mobile.png";
+import advocaciaDesktop from "../../assets/projects/advocacia-desktop.png";
+import advocaciaMobile from "../../assets/projects/advocacia-mobile.png";
+import professorDesktop from "../../assets/projects/professor-desktop.png";
+import professorMobile from "../../assets/projects/professor-mobile.png";
+import nexusDesktop from "../../assets/projects/nexus-desktop.png";
+import nexusMobile from "../../assets/projects/nexus-mobile.png";
 ---
 
 <section id="hero">
@@ -136,21 +147,21 @@ import Button from "../ui/Button.astro";
                         </div>
                         <div class="mockup-compo">
                             <div class="desktop-frame">
-                                <img
-                                    src="/assets/projects/psicologa-desktop.png"
+                                <Image
+                                    src={psicologaDesktop}
                                     alt="Site Psicóloga Desktop"
-                                    width="800"
-                                    height="500"
+                                    width={800}
+                                    height={500}
                                     loading="eager"
                                     fetchpriority="high"
                                 />
                             </div>
                             <div class="mobile-frame mobile-left">
-                                <img
-                                    src="/assets/projects/psicologa-mobile.png"
+                                <Image
+                                    src={psicologaMobile}
                                     alt="Site Psicóloga Mobile"
-                                    width="200"
-                                    height="400"
+                                    width={200}
+                                    height={400}
                                     loading="eager"
                                     fetchpriority="high"
                                 />
@@ -164,20 +175,20 @@ import Button from "../ui/Button.astro";
                         </div>
                         <div class="mockup-compo">
                             <div class="desktop-frame">
-                                <img
-                                    src="/assets/projects/advocacia-desktop.png"
+                                <Image
+                                    src={advocaciaDesktop}
                                     alt="Site Advocacia Desktop"
-                                    width="800"
-                                    height="500"
+                                    width={800}
+                                    height={500}
                                     loading="lazy"
                                 />
                             </div>
                             <div class="mobile-frame">
-                                <img
-                                    src="/assets/projects/advocacia-mobile.png"
+                                <Image
+                                    src={advocaciaMobile}
                                     alt="Site Advocacia Mobile"
-                                    width="200"
-                                    height="400"
+                                    width={200}
+                                    height={400}
                                     loading="lazy"
                                 />
                             </div>
@@ -190,20 +201,20 @@ import Button from "../ui/Button.astro";
                         </div>
                         <div class="mockup-compo">
                             <div class="desktop-frame">
-                                <img
-                                    src="/assets/projects/professor-desktop.png"
+                                <Image
+                                    src={professorDesktop}
                                     alt="Site Professor Desktop"
-                                    width="800"
-                                    height="500"
+                                    width={800}
+                                    height={500}
                                     loading="lazy"
                                 />
                             </div>
                             <div class="mobile-frame mobile-left">
-                                <img
-                                    src="/assets/projects/professor-mobile.png"
+                                <Image
+                                    src={professorMobile}
                                     alt="Site Professor Mobile"
-                                    width="200"
-                                    height="400"
+                                    width={200}
+                                    height={400}
                                     loading="lazy"
                                 />
                             </div>
@@ -216,20 +227,20 @@ import Button from "../ui/Button.astro";
                         </div>
                         <div class="mockup-compo">
                             <div class="desktop-frame">
-                                <img
-                                    src="/assets/projects/nexus-desktop.png"
+                                <Image
+                                    src={nexusDesktop}
                                     alt="Site Nexus Contabilidade Desktop"
-                                    width="800"
-                                    height="500"
+                                    width={800}
+                                    height={500}
                                     loading="lazy"
                                 />
                             </div>
                             <div class="mobile-frame">
-                                <img
-                                    src="/assets/projects/nexus-mobile.png"
+                                <Image
+                                    src={nexusMobile}
                                     alt="Site Nexus Contabilidade Mobile"
-                                    width="200"
-                                    height="400"
+                                    width={200}
+                                    height={400}
                                     loading="lazy"
                                 />
                             </div>

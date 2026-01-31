@@ -45,11 +45,15 @@ export const prerender = false;
 
 <BaseLayout title={title} description={description} keywords={keywords}>
   <Hero />
-  <TrustBar />
+  <div class="desktop-only">
+    <TrustBar />
+  </div>
   <Features />
   <!-- Why Section -->
   <Audience />
-  <ServiceSegments />
+  <div class="desktop-only">
+    <ServiceSegments />
+  </div>
   <Projects />
   <Process />
   <Testimonials />
