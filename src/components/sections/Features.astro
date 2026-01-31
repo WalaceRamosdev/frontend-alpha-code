@@ -77,46 +77,67 @@ import Card from "../ui/Card.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const section = document.getElementById("why");
+    document.addEventListener("DOMContentLoaded", () => {
+        let mm = gsap.matchMedia();
+        const section = document.getElementById("why");
+        if (!section) return;
 
-    if (section) {
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".features-grid");
 
-        // Animate Title
-        gsap.fromTo(
-            section.querySelectorAll(".fade-up-title"),
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: header,
-                    start: "top 90%", // Trigger earlier
+        mm.add("(min-width: 769px)", () => {
+            // Desktop: Full animations
+            gsap.fromTo(
+                section.querySelectorAll(".fade-up-title"),
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: header,
+                        start: "top 90%",
+                    },
                 },
-            },
-        );
+            );
 
-        // Animate Cards
-        gsap.fromTo(
-            section.querySelectorAll(".feature-card"),
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                stagger: 0.2,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: grid,
-                    start: "top 85%", // Trigger earlier
+            gsap.fromTo(
+                section.querySelectorAll(".feature-card"),
+                { opacity: 0, y: 50 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    stagger: 0.2,
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: grid,
+                        start: "top 85%",
+                    },
                 },
-            },
-        );
-    }
+            );
+        });
+
+        mm.add("(max-width: 768px)", () => {
+            // Mobile: Simplified animations
+            gsap.fromTo(
+                section.querySelectorAll(".fade-up-title, .feature-card"),
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 95%",
+                    },
+                },
+            );
+        });
+    });
 </script>
 
 <style>
