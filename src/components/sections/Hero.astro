@@ -26,7 +26,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 <span class="badge-dot"></span>
                 Especialistas em Autoridade Digital
             </div>
-            <h1 class="fade-up">
+            <h1 class="hero-title-lcp">
                 Você Está Deixando <br />
                 <span class="text-gradient">Dinheiro na Mesa.</span>
             </h1>
@@ -264,28 +264,30 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
             defaults: { ease: "power3.out", duration: 1 },
         });
 
-        // Hero Text Animations (Universal)
+        // Universal Elements (Subtle on mobile)
+        const isMobile = window.innerWidth <= 968;
+
         tl.fromTo(
             ".hero-text .badge",
             { y: 20, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.8 },
         )
             .fromTo(
-                ".hero-text h1",
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1 },
+                ".hero-title-lcp",
+                { y: isMobile ? 5 : 30, opacity: isMobile ? 0.9 : 0 },
+                { y: 0, opacity: 1, duration: isMobile ? 0.4 : 1 },
                 "-=0.6",
             )
             .fromTo(
                 ".hero-text p",
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1 },
+                { y: isMobile ? 10 : 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: isMobile ? 0.5 : 1 },
                 "-=0.8",
             )
             .fromTo(
                 ".hero-cta",
-                { y: 30, opacity: 0 },
-                { y: 0, opacity: 1 },
+                { y: isMobile ? 10 : 30, opacity: 0 },
+                { y: 0, opacity: 1, duration: isMobile ? 0.5 : 1 },
                 "-=0.8",
             )
             .fromTo(
@@ -297,7 +299,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
 
         // Desktop Only Features
         mm.add("(min-width: 969px)", () => {
-            // Floating animation for mobile frames (only on desktop sliders)
+            // Floating 3D
             gsap.to(".mobile-frame", {
                 y: "-=20",
                 duration: 3,
@@ -307,7 +309,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 stagger: { each: 0.4, repeat: -1, yoyo: true },
             });
 
-            // Parallax Orbs
+            // Parallax
             const orbs = document.querySelectorAll(".orb");
             const heroSection = document.getElementById("hero");
             if (heroSection) {
@@ -326,7 +328,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
             }
         });
 
-        // Carousel Logic (Maintained but simplified)
+        // Minimalist Carousel Logic
         const slides = document.querySelectorAll(".carousel-slide");
         let currentSlide = 0;
         const totalSlides = slides.length;
@@ -346,7 +348,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 clipPath: isMobile ? "none" : "circle(0% at 50% 50%)",
             });
 
-            const tl = gsap.timeline({
+            const tlScroll = gsap.timeline({
                 onComplete: () => {
                     prevSlide.classList.remove("active");
                     nextSlide.classList.add("active");
@@ -355,16 +357,21 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 },
             });
 
-            tl.to(prevSlide, { opacity: 0, duration: 0.5, ease: "power2.in" });
-            tl.to(
+            tlScroll.to(prevSlide, {
+                opacity: 0,
+                duration: isMobile ? 0.3 : 0.5,
+                ease: "power1.inOut",
+            });
+
+            tlScroll.to(
                 nextSlide,
                 {
                     clipPath: isMobile ? "none" : "circle(150% at 50% 50%)",
                     opacity: 1,
-                    duration: 0.8,
-                    ease: "expo.inOut",
+                    duration: isMobile ? 0.4 : 0.8,
+                    ease: isMobile ? "power2.out" : "expo.inOut",
                 },
-                "-=0.3",
+                "-=0.2",
             );
         }
 
@@ -374,17 +381,21 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
 
         let autoplayTimer = setInterval(nextSlide, autoplayInterval);
 
-        // Initial carousel reveal
+        // Initial carousel reveal (Only if near top)
         gsap.fromTo(
             ".projects-carousel",
-            { opacity: 0, y: 30, scale: 0.95 },
+            {
+                opacity: 0,
+                y: isMobile ? 15 : 30,
+                scale: isMobile ? 0.98 : 0.95,
+            },
             {
                 opacity: 1,
                 y: 0,
                 scale: 1,
-                duration: 1.2,
+                duration: isMobile ? 0.6 : 1.2,
                 ease: "power3.out",
-                delay: 0.5,
+                delay: 0.4,
             },
         );
     });
@@ -404,7 +415,7 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
     @media (max-width: 968px) {
         #hero {
             padding: 100px 0 60px;
-            min-height: auto;
+            min-height: 85vh; /* Reserve space for LCP/CLS */
         }
     }
 

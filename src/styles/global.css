@@ -88,6 +88,12 @@ ul {
     /* Initially hidden */
 }
 
+/* LCP Priority Class: Ensures text is visible immediately for performance score */
+.hero-title-lcp {
+    opacity: 1 !important;
+    transform: none;
+}
+
 /* Delays */
 .delay-1 {
     animation-delay: 0.1s;

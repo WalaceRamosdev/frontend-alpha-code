@@ -121,18 +121,18 @@ import Card from "../ui/Card.astro";
         });
 
         mm.add("(max-width: 768px)", () => {
-            // Mobile: Simplified animations
+            // Mobile: Minimalist (Low CPU usage)
             gsap.fromTo(
                 section.querySelectorAll(".fade-up-title, .feature-card"),
-                { opacity: 0, y: 20 },
+                { opacity: 0.2, y: 10 },
                 {
                     opacity: 1,
                     y: 0,
-                    duration: 0.6,
-                    stagger: 0.1,
+                    duration: 0.4,
+                    stagger: 0.05,
                     scrollTrigger: {
                         trigger: section,
-                        start: "top 95%",
+                        start: "top 98%",
                     },
                 },
             );
