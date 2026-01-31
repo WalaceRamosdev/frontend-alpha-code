@@ -32,12 +32,6 @@ const displayedProjects = projectsData.slice(0, 3);
                         >
                             <div class="project-image">
                                 <picture>
-                                    {project.imageMobile && (
-                                        <source
-                                            srcset={project.imageMobile}
-                                            media="(max-width: 768px)"
-                                        />
-                                    )}
                                     <img
                                         src={project.image}
                                         alt={`Site ${project.type} - ${project.name}`}
@@ -108,49 +102,69 @@ const displayedProjects = projectsData.slice(0, 3);
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    document.addEventListener("DOMContentLoaded", () => {
+        let mm = gsap.matchMedia();
+        const section = document.getElementById("projects");
+        if (!section) return;
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    const section = document.getElementById("projects");
-
-    if (section) {
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".projects-grid");
 
-        gsap.fromTo(
-            section.querySelectorAll(".fade-up-projects"),
-            { opacity: 0, y: 40 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: header,
-                    start: "top 90%",
+        mm.add("(min-width: 1025px)", () => {
+            // Desktop GSAP
+            gsap.fromTo(
+                section.querySelectorAll(".fade-up-projects"),
+                { opacity: 0, y: 40 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: header,
+                        start: "top 90%",
+                    },
                 },
-            },
-        );
+            );
 
-        gsap.fromTo(
-            section.querySelectorAll(".project-card-anim"),
-            { opacity: 0, y: 60 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: grid,
-                    start: "top 85%",
+            gsap.fromTo(
+                section.querySelectorAll(".project-card-anim"),
+                { opacity: 0, y: 60 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    stagger: 0.2,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: grid,
+                        start: "top 85%",
+                    },
                 },
-            },
-        );
-    }
+            );
+        });
+
+        mm.add("(max-width: 1024px)", () => {
+            // Mobile: Quick reveal
+            gsap.fromTo(
+                section.querySelectorAll(
+                    ".fade-up-projects, .project-card-anim",
+                ),
+                { opacity: 0, y: 20 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.6,
+                    stagger: 0.1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: "top 95%",
+                    },
+                },
+            );
+        });
+    });
 </script>
 
 <style>

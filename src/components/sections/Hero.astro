@@ -258,11 +258,13 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
     import { gsap } from "gsap";
 
     document.addEventListener("DOMContentLoaded", () => {
+        let mm = gsap.matchMedia();
+
+        // High priority timeline
         const tl = gsap.timeline({
             defaults: { ease: "power3.out", duration: 1 },
         });
 
-        // Hero Text Animations
         tl.fromTo(
             ".hero-text .badge",
             { y: 20, opacity: 0 },
@@ -293,12 +295,45 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 "-=0.8",
             );
 
-        // Carousel Animation
+        // Responsive Animations
+        mm.add("(min-width: 969px)", () => {
+            // Desktop only: Floating Phones
+            gsap.to(".mobile-frame", {
+                y: "-=20",
+                duration: 3,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                stagger: 0.4,
+            });
+
+            // Desktop only: Parallax
+            const orbs = document.querySelectorAll(".orb");
+            const heroSection = document.getElementById("hero");
+            if (heroSection) {
+                const moveOrbs = (e: MouseEvent) => {
+                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+                    orbs.forEach((orb, index) => {
+                        gsap.to(orb, {
+                            x: x * (index + 1) * 2,
+                            y: y * (index + 1) * 2,
+                            duration: 1,
+                            ease: "power2.out",
+                        });
+                    });
+                };
+                window.addEventListener("mousemove", moveOrbs);
+                return () => window.removeEventListener("mousemove", moveOrbs);
+            }
+        });
+
+        // Carousel Logic (Maintained but optimized)
         const slides = document.querySelectorAll(".carousel-slide");
         let currentSlide = 0;
         const totalSlides = slides.length;
-        const autoplayInterval = 3000; // Cada imagem fica 3s no total (descontando a animação, sobra >2s de exibição)
-        const animDuration = 0.5; // Transição snappier e premium
+        const autoplayInterval = 4000;
+        const animDuration = 0.5;
 
         function goToSlide(index: number) {
             if (slides.length === 0 || index === currentSlide) return;
@@ -307,177 +342,59 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
             const nextSlide = slides[index];
             const nextDesktop = nextSlide.querySelector(".desktop-frame");
             const nextMobile = nextSlide.querySelector(".mobile-frame");
+            const isMobile = window.innerWidth <= 968;
 
-            // Efeito Inédito: Revelação por Expansão Circular (Iris) + Profundidade
+            // Simplified setup for mobile (no heavy filters)
             gsap.set(nextSlide, {
                 opacity: 1,
                 visibility: "visible",
                 zIndex: 5,
-                clipPath: "circle(0% at 50% 50%)",
-                scale: 1.1,
-                filter: "brightness(1.5) blur(10px)",
-            });
-
-            gsap.set(nextDesktop, { y: 40, opacity: 0, filter: "blur(10px)" });
-
-            const nextInfo = nextSlide.querySelector(".slide-info");
-            const isMobile = window.innerWidth <= 968;
-            gsap.set(nextInfo, {
-                y: -30,
-                xPercent: isMobile ? -50 : 0,
-                opacity: 0,
-                filter: "blur(10px)",
-            });
-
-            // Animação Impactante para o Celular: Entrada com Rotação 3D Distorcida
-            const isLeft = nextMobile?.classList.contains("mobile-left");
-            gsap.set(nextMobile, {
-                y: 100,
-                x: isLeft ? -100 : 100,
-                rotationZ: isLeft ? -15 : 15,
-                rotationY: isLeft ? -45 : 45,
-                opacity: 0,
-                scale: 0.5,
-                filter: "blur(10px)",
+                clipPath: isMobile ? "none" : "circle(0% at 50% 50%)",
+                scale: isMobile ? 1 : 1.1,
+                filter: isMobile ? "none" : "brightness(1.5) blur(10px)",
             });
 
             const tl = gsap.timeline({
                 onComplete: () => {
                     prevSlide.classList.remove("active");
                     nextSlide.classList.add("active");
-                    gsap.set(prevSlide, {
-                        opacity: 0,
-                        visibility: "hidden",
-                        zIndex: 1,
-                        scale: 1,
-                        filter: "none",
-                    });
+                    gsap.set(prevSlide, { opacity: 0, visibility: "hidden" });
                     currentSlide = index;
                 },
             });
 
-            // Saída com efeito de "zoom out" e desfoque
+            // Transition
             tl.to(prevSlide, {
                 opacity: 0,
-                scale: 0.9,
-                filter: "blur(20px)",
                 duration: animDuration,
                 ease: "power2.in",
             });
 
-            // Entrada triunfal com expansão circular e correção de brilho
             tl.to(
                 nextSlide,
                 {
-                    clipPath: "circle(150% at 50% 50%)",
+                    clipPath: isMobile ? "none" : "circle(150% at 50% 50%)",
                     scale: 1,
-                    filter: "brightness(1) blur(0px)",
-                    duration: animDuration + 0.4,
+                    filter: "none",
+                    duration: isMobile ? 0.4 : animDuration + 0.4,
                     ease: "expo.inOut",
                 },
-                "-=0.3",
-            )
-                .to(
-                    nextDesktop,
-                    {
-                        y: 0,
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        duration: 0.8,
-                        ease: "back.out(1.2)",
-                    },
-                    "-=0.6",
-                )
-                .to(
-                    nextMobile,
-                    {
-                        y: 0,
-                        x: 0,
-                        rotationZ: 0,
-                        rotationY: 0,
-                        opacity: 1,
-                        scale: 1,
-                        filter: "blur(0px)",
-                        duration: 1.2,
-                        ease: "elastic.out(1, 0.75)", // Efeito de mola/impacto
-                    },
-                    "-=0.9",
-                )
-                .to(
-                    nextInfo,
-                    {
-                        y: 0,
-                        xPercent: isMobile ? -50 : 0,
-                        opacity: 1,
-                        filter: "blur(0px)",
-                        duration: 0.8,
-                        ease: "power3.out",
-                    },
-                    "-=1.0",
-                );
+                "-=0.2",
+            );
         }
-
-        // Animação Contínua: Celulares Flutuando (Subutil da sensação de vida)
-        gsap.to(".mobile-frame", {
-            y: "-=20",
-            duration: 3,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-            stagger: {
-                each: 0.4,
-                repeat: -1,
-                yoyo: true,
-            },
-        });
 
         function nextSlide() {
-            const next = (currentSlide + 1) % totalSlides;
-            goToSlide(next);
+            goToSlide((currentSlide + 1) % totalSlides);
         }
 
-        // Auto-advance slides
         let autoplayTimer = setInterval(nextSlide, autoplayInterval);
 
-        // Pause on hover
-        const carousel = document.querySelector(".projects-carousel");
-        if (carousel) {
-            carousel.addEventListener("mouseenter", () => {
-                clearInterval(autoplayTimer);
-            });
-            carousel.addEventListener("mouseleave", () => {
-                autoplayTimer = setInterval(nextSlide, autoplayInterval);
-            });
-        }
-
-        // Initial carousel animation
-        const carouselTl = gsap.timeline({ delay: 0.5 });
-        carouselTl.fromTo(
+        // Initial carousel reveal
+        gsap.fromTo(
             ".projects-carousel",
-            { opacity: 0, y: 30, scale: 0.95 },
-            { opacity: 1, y: 0, scale: 1, duration: 1.2, ease: "power3.out" },
+            { opacity: 0, y: 30 },
+            { opacity: 1, y: 0, duration: 1.2, ease: "power3.out", delay: 0.5 },
         );
-
-        // Mouse Parallax for Orbs
-        const orbs = document.querySelectorAll(".orb");
-        const heroSection = document.getElementById("hero");
-
-        if (heroSection) {
-            heroSection.addEventListener("mousemove", (e) => {
-                const x = (e.clientX / window.innerWidth - 0.5) * 20;
-                const y = (e.clientY / window.innerHeight - 0.5) * 20;
-
-                orbs.forEach((orb, index) => {
-                    const factor = (index + 1) * 2;
-                    gsap.to(orb, {
-                        x: x * factor,
-                        y: y * factor,
-                        duration: 1,
-                        ease: "power2.out",
-                    });
-                });
-            });
-        }
     });
 </script>
 
