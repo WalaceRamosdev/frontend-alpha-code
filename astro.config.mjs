@@ -8,7 +8,7 @@ import auth from 'auth-astro';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://sitesalphacode.vercel.app',
+  site: 'https://www.sitesalphacode.com.br',
   output: 'server',
   adapter: vercel(),
   integrations: [react(), sitemap(), auth()]
