@@ -125,16 +125,24 @@
 /* Mobile Adjustments for Buttons */
 @media (max-width: 768px) {
     .btn {
-        padding: 10px 20px;
+        padding: 12px 24px;
         font-size: 0.9rem;
-        /* Prevent buttons from being forced to full width if not desired */
         width: auto;
         max-width: 100%;
+        white-space: normal;
+        /* Allow wrapping for long CTAs */
+        text-align: center;
+        line-height: 1.4;
+        border-radius: 16px;
+        /* Switch from pill to rounded for multi-line */
+        background-size: cover;
+        /* Prevent tiling */
+        background-repeat: no-repeat;
     }
 
     .btn.lg {
-        padding: 12px 28px;
-        font-size: 0.95rem;
+        padding: 16px 32px;
+        font-size: 1rem;
     }
 }
 

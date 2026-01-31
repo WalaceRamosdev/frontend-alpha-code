@@ -1,0 +1,388 @@
+---
+import ServiceLayout from "../../layouts/ServiceLayout.astro";
+import SchemaMarkup from "../seo/SchemaMarkup.astro";
+import { type ServiceContent, getRelatedServices } from "../../data/services";
+
+interface Props {
+    service: ServiceContent;
+}
+
+const { service } = Astro.props;
+const relatedServices = getRelatedServices(service.slug);
+---
+
+<ServiceLayout
+    title={service.metaTitle}
+    description={service.metaDescription}
+    keywords={service.keywords}
+>
+    <SchemaMarkup
+        type="Service"
+        name={service.title}
+        description={service.metaDescription}
+    />
+
+    <section class="service-hero bg-dark">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="fade-up-service text-gradient">{service.h1}</h1>
+                <p class="fade-up-service delay-1 intro-text">
+                    {service.intro}
+                </p>
+                <div class="fade-up-service delay-2 btn-container">
+                    <a
+                        href="https://wa.me/5521999064502"
+                        target="_blank"
+                        class="btn btn-primary lg"
+                    >
+                        {service.ctaText}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-details bg-alt">
+        <div class="container">
+            <div class="details-grid">
+                <div class="details-main fade-up-service">
+                    <h2 class="text-primary">O que é este serviço?</h2>
+                    <p>{service.whatIsIt}</p>
+
+                    <h2 class="text-primary mt-4">Para quem é ideal?</h2>
+                    <p>{service.whoIsItFor}</p>
+
+                    <div class="internal-link mt-4">
+                        <p>
+                            Conheça também nossa <a
+                                href="/"
+                                class="text-primary underline"
+                                >página principal de soluções</a
+                            >.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="details-sidebar fade-up-service">
+                    <div class="benefits-card glass-panel">
+                        <h3 class="text-gold">Benefícios Práticos</h3>
+                        <ul>
+                            {
+                                service.benefits.map((benefit) => (
+                                    <li>
+                                        <span class="check-icon">✓</span>
+                                        {benefit}
+                                    </li>
+                                ))
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="service-process bg-dark">
+        <div class="container">
+            <div class="process-grid">
+                <div class="process-item fade-up-service">
+                    <h2 class="text-primary">Como funciona na prática?</h2>
+                    <p>{service.howItWorks}</p>
+                </div>
+                <div class="process-item fade-up-service">
+                    <h2 class="text-primary">Resultados esperados</h2>
+                    <p>{service.expectedResults}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="related-services bg-alt">
+        <div class="container">
+            <div class="section-header text-center mb-5">
+                <h2 class="text-primary">Serviços Relacionados</h2>
+                <p>
+                    Potencialize seus resultados com estas soluções
+                    complementares
+                </p>
+            </div>
+            <div class="related-grid">
+                {
+                    relatedServices.map((s) => (
+                        <a
+                            href={`/servicos/${s.slug}`}
+                            class="related-card glass-panel fade-up-service"
+                        >
+                            <h3>{s.title}</h3>
+                            <p>{s.metaDescription.substring(0, 100)}...</p>
+                            <span class="text-primary font-bold mt-2 inline-block">
+                                Ver detalhes →
+                            </span>
+                        </a>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <section class="service-cta bg-primary-dark">
+        <div class="container">
+            <div class="cta-box glass-panel fade-up-service text-center">
+                <h2 class="text-white">
+                    Pronto para elevar sua autoridade digital?
+                </h2>
+                <p class="text-white opacity-80">
+                    Não deixe seu consultório ser invisível no Google. Comece
+                    hoje mesmo.
+                </p>
+                <div class="btn-container mt-4">
+                    <a
+                        href="https://wa.me/5521999064502"
+                        target="_blank"
+                        class="btn btn-primary lg"
+                    >
+                        Falar com um Especialista no WhatsApp
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+</ServiceLayout>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // IntersectionObserver for GSAP triggers as requested
+    const animateOnScroll = () => {
+        const fadeElements = document.querySelectorAll(".fade-up-service");
+
+        fadeElements.forEach((el) => {
+            gsap.fromTo(
+                el,
+                { opacity: 0, y: 30 },
+                {
+                    opacity: 1,
+                    y: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none none",
+                    },
+                },
+            );
+        });
+    };
+
+    // Run on load
+    window.addEventListener("load", animateOnScroll);
+</script>
+
+<style>
+    .service-hero {
+        padding: 120px 0 80px;
+        text-align: center;
+        background: radial-gradient(
+            circle at center,
+            rgba(214, 40, 57, 0.05) 0%,
+            transparent 70%
+        );
+    }
+
+    .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    h1 {
+        font-size: clamp(2.2rem, 6vw, 4rem);
+        line-height: 1.1;
+        margin-bottom: 2rem;
+    }
+
+    .intro-text {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 2.5rem;
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .service-details {
+        padding: 80px 0;
+    }
+
+    .details-grid {
+        display: grid;
+        grid-template-columns: 1fr 380px;
+        gap: 60px;
+        align-items: start;
+    }
+
+    .details-main h2 {
+        font-size: 2rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .details-main p {
+        font-size: 1.1rem;
+        color: var(--color-text-secondary);
+        margin-bottom: 2rem;
+        line-height: 1.8;
+    }
+
+    .benefits-card {
+        padding: 2.5rem;
+        border-radius: 24px;
+        background: rgba(20, 20, 20, 0.4);
+    }
+
+    .benefits-card h3 {
+        margin-bottom: 1.5rem;
+    }
+
+    .benefits-card ul {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .benefits-card li {
+        display: flex;
+        gap: 12px;
+        color: var(--color-text-secondary);
+        font-size: 1rem;
+        line-height: 1.5;
+    }
+
+    .check-icon {
+        color: var(--color-primary);
+        font-weight: bold;
+        flex-shrink: 0;
+    }
+
+    .service-process {
+        padding: 80px 0;
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+
+    .process-item {
+        padding: 3rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 20px;
+    }
+
+    .service-cta {
+        padding: 100px 0;
+    }
+
+    .related-services {
+        padding: 80px 0;
+    }
+
+    .related-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 40px;
+    }
+
+    .related-card {
+        padding: 2rem;
+        border-radius: 20px;
+        display: block;
+        transition: transform 0.3s ease;
+    }
+
+    .related-card:hover {
+        transform: translateY(-5px);
+        border-color: var(--color-primary);
+    }
+
+    .related-card h3 {
+        font-size: 1.25rem;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    .related-card p {
+        font-size: 0.95rem;
+        color: var(--color-text-secondary);
+        margin: 0;
+    }
+
+    .cta-box {
+        padding: 4rem;
+        border-radius: 32px;
+        background: linear-gradient(
+            135deg,
+            rgba(214, 40, 57, 0.2) 0%,
+            rgba(10, 10, 10, 0.4) 100%
+        );
+    }
+
+    .cta-box h2 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .text-center {
+        text-align: center;
+    }
+    .mt-4 {
+        margin-top: 2rem;
+    }
+    .opacity-80 {
+        opacity: 0.8;
+    }
+
+    @media (max-width: 992px) {
+        .details-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+        }
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .service-hero {
+            padding: 100px 0 60px;
+        }
+
+        .cta-box {
+            padding: 2.5rem;
+        }
+
+        .cta-box h2 {
+            font-size: 1.6rem;
+        }
+
+        .details-main h2 {
+            font-size: 1.6rem;
+        }
+
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn {
+            width: 100%; /* Better for mobile tappability in CTA areas */
+        }
+    }
+</style>

@@ -1,31 +1,74 @@
 ---
 interface Props {
-    type?: "Organization" | "WebSite" | "ProfessionalService" | "Article";
+    type?:
+        | "Organization"
+        | "WebSite"
+        | "ProfessionalService"
+        | "Article"
+        | "Service";
     name?: string;
     description?: string;
     url?: string;
     image?: string;
     sameAs?: string[];
+    priceRange?: string;
+    providerName?: string;
 }
 
 const {
     type = "ProfessionalService",
     name = "Alpha Code",
     description = "Criação de sites profissionais para psicólogos, terapeutas, advogados e saúde. Aumente sua autoridade e converta mais pacientes.",
-    url = "https://sitesalphacode.vercel.app",
-    image = "https://sitesalphacode.vercel.app/assets/logo.svg",
+    url = "https://www.sitesalphacode.com.br",
+    image = "https://www.sitesalphacode.com.br/assets/logo.svg",
     sameAs = [
-        "https://www.instagram.com/alphacodesites/", // Exemplo, deve ser atualizado pelo usuário se tiver
-        "https://www.linkedin.com/company/alphacode", // Exemplo
+        "https://www.instagram.com/alphacodesites/",
+        "https://www.linkedin.com/company/alphacode",
     ],
+    priceRange = "$$",
+    providerName = "Alpha Code",
 } = Astro.props;
 
 let schema = {};
 
-if (type === "ProfessionalService" || type === "Organization") {
+if (type === "Service") {
     schema = {
         "@context": "https://schema.org",
-        "@type": "ProfessionalService",
+        "@type": "Service",
+        serviceType: name,
+        provider: {
+            "@type": "LocalBusiness",
+            name: providerName,
+            image: image,
+            url: url,
+            address: {
+                "@type": "PostalAddress",
+                addressLocality: "Rio de Janeiro",
+                addressRegion: "RJ",
+                addressCountry: "BR",
+            },
+        },
+        description: description,
+        areaServed: "BR",
+        hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "Serviços Digitais",
+            itemListElement: [
+                {
+                    "@type": "Offer",
+                    itemOffered: {
+                        "@type": "Service",
+                        name: name,
+                    },
+                },
+            ],
+        },
+    };
+} else if (type === "ProfessionalService" || type === "Organization") {
+    schema = {
+        "@context": "https://schema.org",
+        "@type":
+            type === "Organization" ? "Organization" : "ProfessionalService",
         name: name,
         url: url,
         logo: image,
@@ -38,27 +81,13 @@ if (type === "ProfessionalService" || type === "Organization") {
             addressCountry: "BR",
         },
         areaServed: [
-            "Brasília - DF, Brasil",
-            "Rio de Janeiro, RJ, Brasil",
-            "Moema, São Paulo - SP, Brasil",
-            "Jardins, São Paulo - SP, Brasil",
-            "Brooklin, São Paulo - SP, Brasil",
-            "Bela Vista, São Paulo - SP, Brasil",
-            "Centro, Rio de Janeiro - RJ, Brasil",
-            "Itaim Bibi, São Paulo - SP, Brasil",
-            "Leblon, Rio de Janeiro - RJ, Brasil",
-            "Tijuca, Rio de Janeiro - RJ, Brasil",
-            "Ipanema, Rio de Janeiro - RJ, Brasil",
-            "Santo Amaro, São Paulo - SP, Brasil",
-            "Botafogo, Rio de Janeiro - RJ, Brasil",
-            "Vila Mariana, São Paulo - SP, Brasil",
-            "Vila Olímpia, São Paulo - SP, Brasil",
-            "Cerqueira César, SP, 18760-000, Brasil",
-            "Copacabana, Rio de Janeiro - RJ, Brasil",
-            "Zona Sul de São Paulo - Vila Santa Catarina, São Paulo - SP, 04379-020, Brasil",
+            "Brasília - DF",
+            "Rio de Janeiro - RJ",
+            "São Paulo - SP",
+            "Brasil",
         ],
-        // "telephone": "+5521999064502", // Adicionar se confirmado
-        priceRange: "$$",
+        telephone: "+5521999064502",
+        priceRange: priceRange,
         openingHoursSpecification: [
             {
                 "@type": "OpeningHoursSpecification",

@@ -108,6 +108,33 @@ const seo = createSEOMeta({
                     </div>
                 </div>
 
+                <!-- Upsell Section -->
+                <div class="upsell-section fade-up">
+                    <div class="upsell-card glass-panel">
+                        <div class="upsell-badge">OFERTA EXCLUSIVA</div>
+                        <h2 class="text-white">
+                            Potencialize sua Presença no Instagram
+                        </h2>
+                        <p>
+                            Adicione o <strong
+                                >Link Profissional Alpha Code</strong
+                            > hoje e centralize todos os seus contatos com design
+                            premium.
+                        </p>
+                        <div class="upsell-price">
+                            <span class="old-price">R$ 197</span>
+                            <span class="new-price">R$ 97</span>
+                        </div>
+                        <a
+                            href="https://wa.me/5521999064502?text=Quero+adicionar+o+Link+Profissional+ao+meu+pedido+pela+oferta+especial"
+                            target="_blank"
+                            class="btn-primary"
+                        >
+                            Adicionar ao Meu Pedido
+                        </a>
+                    </div>
+                </div>
+
                 <div class="actions">
                     <a href="/dashboard" class="btn-primary"
                         >Acessar meu Dashboard</a
@@ -279,6 +306,56 @@ const seo = createSEOMeta({
         margin-bottom: 0;
     }
 
+    .upsell-section {
+        margin-bottom: 4rem;
+    }
+
+    .upsell-card {
+        padding: 3rem;
+        border: 2px solid var(--color-primary);
+        background: linear-gradient(
+            135deg,
+            rgba(214, 40, 57, 0.1) 0%,
+            rgba(0, 0, 0, 0.4) 100%
+        );
+        border-radius: 32px;
+        position: relative;
+    }
+
+    .upsell-badge {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-primary);
+        color: white;
+        padding: 6px 20px;
+        border-radius: 100px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .upsell-price {
+        margin: 1.5rem 0 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+    }
+
+    .old-price {
+        text-decoration: line-through;
+        color: #666;
+        font-size: 1.25rem;
+    }
+
+    .new-price {
+        color: white;
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
     .actions {
         display: flex;
         gap: 1.5rem;
@@ -344,6 +421,16 @@ const seo = createSEOMeta({
                     duration: 0.8,
                     stagger: 0.2,
                     ease: "power3.out",
+                },
+                "-=0.4",
+            )
+            .from(
+                ".upsell-section",
+                {
+                    scale: 0.9,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out",
                 },
                 "-=0.4",
             )

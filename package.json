@@ -30,6 +30,7 @@
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
-    "prisma": "^5.16.0"
+    "prisma": "^5.16.0",
+    "tailwindcss": "^4.1.18"
   }
 }
