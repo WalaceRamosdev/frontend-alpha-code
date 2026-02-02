@@ -499,20 +499,7 @@ const isLoggedIn = !!session;
     }
 
     /* Badge Animation Keyframes */
-    @keyframes pulse-gold {
-        0% {
-            transform: translateX(-50%) scale(1);
-            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0.7);
-        }
-        70% {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 0 0 10px rgba(255, 215, 0, 0);
-        }
-        100% {
-            transform: translateX(-50%) scale(1);
-            box-shadow: 0 0 0 0 rgba(255, 215, 0, 0);
-        }
-    }
+    /* Badge Animation Keyframes removed for performance */
 
     .badge-gold {
         position: absolute;
@@ -538,7 +525,6 @@ const isLoggedIn = !!session;
             inset 0 0 0 1px rgba(255, 255, 255, 0.4);
         z-index: 100; /* Ensure it is firmly in front */
         white-space: nowrap;
-        animation: pulse-gold 3s infinite ease-in-out;
         border: 1px solid #fff;
     }
 

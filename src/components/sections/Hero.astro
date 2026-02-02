@@ -297,42 +297,17 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 "-=0.8",
             );
 
-        // Desktop Only Features
+        // Desktop Only Features - Performance Optimized
         mm.add("(min-width: 969px)", () => {
-            // Floating 3D
-            gsap.to(".mobile-frame", {
-                y: "-=20",
-                duration: 3,
-                repeat: -1,
-                yoyo: true,
-                ease: "sine.inOut",
-                stagger: { each: 0.4, repeat: -1, yoyo: true },
-            });
-
-            // Parallax
-            const orbs = document.querySelectorAll(".orb");
-            const heroSection = document.getElementById("hero");
-            if (heroSection) {
-                heroSection.addEventListener("mousemove", (e) => {
-                    const x = (e.clientX / window.innerWidth - 0.5) * 20;
-                    const y = (e.clientY / window.innerHeight - 0.5) * 20;
-                    orbs.forEach((orb, index) => {
-                        gsap.to(orb, {
-                            x: x * (index + 1) * 2,
-                            y: y * (index + 1) * 2,
-                            duration: 1,
-                            ease: "power2.out",
-                        });
-                    });
-                });
-            }
+            // Floating 3D removed for performance
+            // Parallax orbs removed for performance - significantly improves FPS
         });
 
-        // Minimalist Carousel Logic
+        // Optimized Carousel Logic
         const slides = document.querySelectorAll(".carousel-slide");
         let currentSlide = 0;
         const totalSlides = slides.length;
-        const autoplayInterval = 4000;
+        const autoplayInterval = 5000; // Increased interval slightly
 
         function goToSlide(index: number) {
             if (slides.length === 0 || index === currentSlide) return;
@@ -342,10 +317,10 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
             const isMobile = window.innerWidth <= 968;
 
             gsap.set(nextSlide, {
-                opacity: 1,
+                opacity: 0,
                 visibility: "visible",
                 zIndex: 5,
-                clipPath: isMobile ? "none" : "circle(0% at 50% 50%)",
+                scale: isMobile ? 1 : 1.05,
             });
 
             const tlScroll = gsap.timeline({
@@ -357,19 +332,20 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
                 },
             });
 
+            // Fast, performance-friendly transition
             tlScroll.to(prevSlide, {
                 opacity: 0,
-                duration: isMobile ? 0.3 : 0.5,
+                duration: 0.4,
                 ease: "power1.inOut",
             });
 
             tlScroll.to(
                 nextSlide,
                 {
-                    clipPath: isMobile ? "none" : "circle(150% at 50% 50%)",
                     opacity: 1,
-                    duration: isMobile ? 0.4 : 0.8,
-                    ease: isMobile ? "power2.out" : "expo.inOut",
+                    scale: 1,
+                    duration: 0.6,
+                    ease: "power2.out",
                 },
                 "-=0.2",
             );
@@ -386,15 +362,13 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
             ".projects-carousel",
             {
                 opacity: 0,
-                y: isMobile ? 15 : 30,
-                scale: isMobile ? 0.98 : 0.95,
+                y: isMobile ? 10 : 20,
             },
             {
                 opacity: 1,
                 y: 0,
-                scale: 1,
-                duration: isMobile ? 0.6 : 1.2,
-                ease: "power3.out",
+                duration: 0.8,
+                ease: "power2.out",
                 delay: 0.4,
             },
         );
@@ -444,7 +418,6 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         );
         top: -20%;
         right: -10%;
-        animation: pulseSlow 8s ease-in-out infinite alternate;
     }
 
     .orb-2 {
@@ -457,7 +430,6 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         );
         bottom: -10%;
         left: -10%;
-        animation: pulseSlow 12s ease-in-out infinite alternate-reverse;
     }
 
     .grid-overlay {
@@ -509,7 +481,6 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         margin-bottom: 0; /* Margin controlada pelo container */
         box-shadow: 0 0 30px rgba(138, 28, 38, 0.2);
         backdrop-filter: blur(10px);
-        animation: badgePulse 4s infinite ease-in-out;
     }
 
     .badge-dot {
@@ -527,7 +498,6 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         inset: -4px;
         border-radius: 50%;
         border: 1px solid var(--color-primary);
-        animation: dotRipple 2s infinite;
     }
 
     @keyframes dotRipple {
@@ -641,7 +611,6 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         color: #fff;
         font-size: 1.4rem;
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.4));
-        animation: starTwinkle 3s infinite ease-in-out;
     }
 
     .star:nth-child(2) {

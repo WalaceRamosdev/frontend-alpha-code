@@ -291,19 +291,10 @@ const displayedProjects = projectsData.slice(0, 3);
         font-size: 0.85rem;
         color: var(--color-text-light);
         opacity: 0.8;
-        animation: bounceRight 2s infinite ease-in-out;
         margin-bottom: 10px;
     }
 
-    @keyframes bounceRight {
-        0%,
-        100% {
-            transform: translateX(0);
-        }
-        50% {
-            transform: translateX(6px);
-        }
-    }
+    /* Bouncing animation removed for performance */
 
     /* TABLET AND MOBILE: CAROUSEL MODE */
     @media (max-width: 1024px) {
