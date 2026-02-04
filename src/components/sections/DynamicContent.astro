@@ -1,0 +1,199 @@
+---
+interface Props {
+    title: string;
+    content: string;
+    benefits?: string[];
+    faq?: { question: string; answer: string }[];
+}
+
+const { title, content, benefits = [], faq = [] } = Astro.props;
+---
+
+<section class="dynamic-content-section section-padding">
+    <div class="container content-grid">
+        <div class="main-text-area">
+            <h2 class="section-title h2-seo">
+                {title}
+            </h2>
+            <div class="rich-text-seo" set:html={content} />
+
+            {
+                benefits.length > 0 && (
+                    <div class="benefits-cluster">
+                        <h3 class="h3-seo">
+                            Por que a Alpha Code é a escolha certa?
+                        </h3>
+                        <ul class="benefits-list-seo">
+                            {benefits.map((benefit) => (
+                                <li>
+                                    <span class="check-icon">✓</span>
+                                    <strong>{benefit.split(":")[0]}:</strong>
+                                    {benefit.split(":")[1]}
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                )
+            }
+        </div>
+
+        {
+            faq.length > 0 && (
+                <aside class="faq-sidebar-seo">
+                    <div class="faq-card-seo">
+                        <h3 class="h3-seo">Perguntas Frequentes</h3>
+                        <div class="faq-list-seo">
+                            {faq.map((item) => (
+                                <details class="faq-item-seo">
+                                    <summary>
+                                        <strong>{item.question}</strong>
+                                    </summary>
+                                    <p>{item.answer}</p>
+                                </details>
+                            ))}
+                        </div>
+                    </div>
+                </aside>
+            )
+        }
+    </div>
+</section>
+
+<style>
+    .dynamic-content-section {
+        background: var(--color-bg);
+        color: var(--color-text);
+        padding: 120px 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1.5fr 1fr;
+        gap: 60px;
+        align-items: start;
+    }
+
+    @media (max-width: 1024px) {
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
+    .h2-seo {
+        font-size: 2.5rem;
+        margin-bottom: 2rem;
+        background: linear-gradient(135deg, #fff 0%, #aaa 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 1.2;
+    }
+
+    .rich-text-seo {
+        font-size: 1.15rem;
+        line-height: 1.8;
+        color: rgba(255, 255, 255, 0.7);
+    }
+
+    .rich-text-seo :global(p) {
+        margin-bottom: 1.5rem;
+    }
+
+    .rich-text-seo :global(strong) {
+        color: #fff;
+    }
+
+    .h3-seo {
+        font-size: 2rem;
+        margin: 4rem 0 2rem;
+        color: #fff;
+        line-height: 1.2;
+    }
+
+    .benefits-list-seo {
+        list-style: none;
+        padding: 0;
+    }
+
+    .benefits-list-seo li {
+        margin-bottom: 1.5rem;
+        display: flex;
+        gap: 15px;
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.5;
+    }
+
+    .check-icon {
+        color: var(--color-primary);
+        font-weight: bold;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    @media (max-width: 768px) {
+        .dynamic-content-section {
+            padding: 60px 0;
+        }
+
+        .h2-seo {
+            font-size: 1.8rem;
+        }
+
+        .h3-seo {
+            font-size: 1.5rem;
+            margin: 3rem 0 1.5rem;
+        }
+
+        .benefits-list-seo li {
+            flex-direction: column;
+            gap: 8px;
+            font-size: 1rem;
+        }
+
+        .check-icon {
+            margin-top: 0;
+        }
+
+        .rich-text-seo {
+            font-size: 1.05rem;
+        }
+    }
+
+    .faq-sidebar-seo {
+        position: sticky;
+        top: 100px;
+    }
+
+    .faq-card-seo {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 30px;
+        border-radius: 20px;
+        backdrop-filter: blur(10px);
+    }
+
+    .faq-item-seo {
+        margin-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        padding-bottom: 15px;
+    }
+
+    .faq-item-seo summary {
+        cursor: pointer;
+        padding: 10px 0;
+        font-size: 1.05rem;
+        color: #fff;
+        list-style: none;
+    }
+
+    .faq-item-seo summary::-webkit-details-marker {
+        display: none;
+    }
+
+    .faq-item-seo p {
+        padding-top: 10px;
+        color: rgba(255, 255, 255, 0.6);
+        line-height: 1.6;
+    }
+</style>

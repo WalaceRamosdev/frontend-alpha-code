@@ -35,6 +35,42 @@ import Button from "../ui/Button.astro";
                 no que faz de melhor: atender seus clientes e pacientes.
             </p>
 
+            <div class="experience-pillars fade-up-about delay-3">
+                <div class="pillar">
+                    <span class="pillar-num">01.</span>
+                    <div class="pillar-info">
+                        <strong>SEO Pragmático</strong>
+                        <p>
+                            Não apenas "tags". Estruturamos todo o código para
+                            que o Google entenda sua relevância geográfica e
+                            técnica.
+                        </p>
+                    </div>
+                </div>
+                <div class="pillar">
+                    <span class="pillar-num">02.</span>
+                    <div class="pillar-info">
+                        <strong>Arquitetura Premium</strong>
+                        <p>
+                            O visual deve corresponder ao valor do seu serviço.
+                            Sites que transmitem luxo, seriedade e confiança
+                            imediata.
+                        </p>
+                    </div>
+                </div>
+                <div class="pillar">
+                    <span class="pillar-num">03.</span>
+                    <div class="pillar-info">
+                        <strong>Foco em LTV</strong>
+                        <p>
+                            Criamos ativos digitais que se valorizam com o
+                            tempo, garantindo um fluxo constante de clientes
+                            qualificados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
             <div class="fade-up-about delay-3" style="margin-top: 2rem;">
                 <Button
                     href="https://wa.me/5521999064502"
@@ -196,6 +232,49 @@ import Button from "../ui/Button.astro";
         font-size: 2.8rem;
         margin-bottom: 2rem;
         line-height: 1.1;
+    }
+
+    .experience-pillars {
+        margin-top: 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        text-align: left;
+    }
+
+    .pillar {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        padding-bottom: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .pillar:last-child {
+        border-bottom: none;
+    }
+
+    .pillar-num {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        color: var(--color-primary);
+        font-size: 1.1rem;
+        opacity: 0.8;
+    }
+
+    .pillar-info strong {
+        display: block;
+        color: #fff;
+        margin-bottom: 5px;
+        font-size: 1.1rem;
+    }
+
+    .pillar-info p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        color: var(--color-text-secondary) !important;
+        margin-bottom: 0 !important;
+        text-align: left !important;
     }
 
     .text-content p {
@@ -390,6 +469,13 @@ import Button from "../ui/Button.astro";
             align-items: center !important;
             width: 100% !important;
             margin: 1.5rem auto 0 auto !important;
+        }
+
+        .experience-pillars {
+            text-align: left;
+            margin-bottom: 2rem;
+            width: 100%;
+            max-width: 400px;
         }
 
         .image-content {

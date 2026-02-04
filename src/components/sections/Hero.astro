@@ -11,6 +11,17 @@ import professorDesktop from "../../assets/projects/professor-desktop.png";
 import professorMobile from "../../assets/projects/professor-mobile.png";
 import nexusDesktop from "../../assets/projects/nexus-desktop.png";
 import nexusMobile from "../../assets/projects/nexus-mobile.png";
+interface Props {
+    title?: string;
+    description?: string;
+    badge?: string;
+}
+
+const {
+    title = 'Criação de Sites Profissionais: <br /> <span class="text-gradient">Pare de Perder Dinheiro.</span>',
+    description = "Criamos sites profissionais para <strong>profissionais da saúde e negócios</strong> que precisam de presença digital profissional. Não seja invisível para quem busca sua solução. Transformamos sua visão em uma máquina de vendas de alto padrão.",
+    badge = "Especialistas em Autoridade Digital",
+} = Astro.props;
 ---
 
 <section id="hero">
@@ -24,18 +35,13 @@ import nexusMobile from "../../assets/projects/nexus-mobile.png";
         <div class="hero-text">
             <div class="badge fade-up">
                 <span class="badge-dot"></span>
-                Especialistas em Autoridade Digital
+                <Fragment set:html={badge} />
             </div>
             <h1 class="hero-title-lcp">
-                Você Está Deixando <br />
-                <span class="text-gradient">Dinheiro na Mesa.</span>
+                <Fragment set:html={title} />
             </h1>
             <p class="fade-up">
-                Criamos sites profissionais para <strong
-                    >profissionais da saúde e negócios</strong
-                > que precisam de presença digital profissional. Não seja invisível
-                para quem busca sua solução. Transformamos sua visão em uma máquina
-                de vendas de alto padrão.
+                <Fragment set:html={description} />
             </p>
             <div class="hero-cta fade-up">
                 <Button

@@ -1,38 +1,284 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import AboutSection from "../components/sections/About.astro";
+import Process from "../components/sections/Process.astro";
+import FAQ from "../components/sections/FAQ.astro";
 
-const title = "Sobre Nós | Alpha Code";
+const title = "Sobre a Alpha Code | Especialistas em Autoridade Digital";
 const description =
-    "Conheça a Alpha Code, especialistas em criação de sites de alta conversão.";
+    "Conheça a Alpha Code, a agência líder em criação de sites de alta performance para profissionais liberais e empresas. Nossa missão é transformar sua presença digital em uma máquina de vendas.";
+
+const keywords = [
+    "sobre alpha code",
+    "agência de criação de sites",
+    "especialistas em seo",
+    "autoridade digital",
+    "desenvolvimento web premium",
+    "estratégia digital",
+];
 ---
 
-<BaseLayout title={title} description={description}>
-    <main style="padding-top: 80px;">
+<BaseLayout title={title} description={description} keywords={keywords}>
+    <main class="about-page">
+        <!-- Hero Section for About -->
+        <header class="about-hero">
+            <div class="container">
+                <span class="badge fade-up">Nossa História</span>
+                <h1 class="fade-up">
+                    Construindo a <span class="text-gradient">Autoridade</span> de
+                    quem move o mercado.
+                </h1>
+                <p class="lead fade-up delay-1">
+                    Na Alpha Code, não entregamos apenas código e design.
+                    Entregamos o posicionamento que seu negócio merece para
+                    dominar a primeira página do Google.
+                </p>
+            </div>
+        </header>
+
         <AboutSection />
 
-        <section class="container text-center mission-section">
-            <h3 class="mb-4">Nossa Missão</h3>
-            <p>
-                Fundada com o objetivo de democratizar o acesso a sites de
-                qualidade premium.
-            </p>
+        <section class="container mission-vision">
+            <div class="grid-2">
+                <div class="card mission-card fade-up">
+                    <div class="card-icon">🎯</div>
+                    <h2>Nossa Missão</h2>
+                    <p>
+                        Democratizar o acesso a sites de padrão internacional
+                        para profissionais que buscam excelência. Criamos pontes
+                        entre o seu conhecimento técnico e o seu cliente ideal
+                        através de uma estrutura digital impecável.
+                    </p>
+                </div>
+                <div class="card vision-card fade-up delay-1">
+                    <div class="card-icon">🚀</div>
+                    <h2>Nossa Visão</h2>
+                    <p>
+                        Ser a maior referência em autoridade digital para o
+                        setor de serviços no Brasil, reconhecida pela união
+                        inseparável entre design premium e resultados
+                        matemáticos de SEO.
+                    </p>
+                </div>
+            </div>
         </section>
+
+        <Process />
+
+        <section class="container authority-section fade-up">
+            <div class="authority-content">
+                <h2>Por que confiar na Alpha Code?</h2>
+                <div class="grid-3 authority-grid">
+                    <div class="auth-item">
+                        <span class="auth-number">+530</span>
+                        <span class="auth-label">Projetos Ativos</span>
+                    </div>
+                    <div class="auth-item">
+                        <span class="auth-number">98%</span>
+                        <span class="auth-label">Taxa de Retenção</span>
+                    </div>
+                    <div class="auth-item">
+                        <span class="auth-number">24/7</span>
+                        <span class="auth-label">Suporte Dedicado</span>
+                    </div>
+                </div>
+                <div class="deep-text">
+                    <p>
+                        Nossa equipe é formada por especialistas em cada pilar
+                        do sucesso digital: designers focados em experiência do
+                        usuário (UX), desenvolvedores especialistas em
+                        performance (Web Vitals) e redatores de SEO que entendem
+                        a psicologia de vendas do seu nicho.
+                    </p>
+                    <p>
+                        Diferente de agências genéricas, nós mergulhamos no seu
+                        mercado para entender as dores do seu cliente e
+                        transformá-las em soluções dentro do seu site.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section class="container author-bio fade-up">
+            <div class="glass-panel bio-card p-5 grid-2 align-center">
+                <div class="author-image-container">
+                    <img
+                        src="https://github.com/WalaceRamosdev.png"
+                        alt="Walace Ramos - Fundador Alpha Code"
+                        class="founder-img"
+                    />
+                </div>
+                <div class="author-info">
+                    <span class="text-primary font-bold"
+                        >Fundador & Estrategista</span
+                    >
+                    <h2 class="mt-2">Walace Ramos</h2>
+                    <p class="mt-4">
+                        Com mais de 10 anos de experiência no mercado de
+                        tecnologia, Walace fundou a Alpha Code com um propósito
+                        claro: elevar o padrão digital de profissionais que são
+                        referência offline, mas ainda invisíveis no Google.
+                    </p>
+                    <p>
+                        "SEO não é sobre enganar robôs, é sobre ser a melhor
+                        resposta para o seu cliente."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <FAQ />
     </main>
 </BaseLayout>
 
 <style>
-    .mission-section {
-        padding: 50px 0 100px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    .about-page {
+        padding-top: 80px;
+    }
+
+    .about-hero {
+        padding: 100px 0 60px;
+        text-align: center;
+        background: radial-gradient(
+            circle at center,
+            rgba(138, 28, 38, 0.05) 0%,
+            transparent 70%
+        );
+    }
+
+    .about-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin: 1.5rem 0;
+        line-height: 1.1;
+    }
+
+    .about-hero .lead {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .mission-vision {
+        padding: 80px 0;
+    }
+
+    .mission-vision h2 {
+        margin: 1rem 0;
+        font-size: 1.8rem;
+    }
+
+    .card {
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        height: 100%;
+    }
+
+    .card-icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+
+    .authority-section {
+        padding: 100px 0;
         text-align: center;
     }
-    .mission-section p {
+
+    .authority-content h2 {
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+    }
+
+    .authority-grid {
+        margin-bottom: 4rem;
+    }
+
+    .auth-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .auth-number {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: var(--color-primary);
+        line-height: 1;
+    }
+
+    .auth-label {
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 2px;
+    }
+
+    .deep-text {
+        max-width: 900px;
+        margin: 0 auto;
+        text-align: left;
+        columns: 2;
+        column-gap: 40px;
+        color: var(--color-text-secondary);
+        line-height: 1.8;
+    }
+
+    @media (max-width: 768px) {
+        .deep-text {
+            columns: 1;
+            text-align: center;
+        }
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(138, 28, 38, 0.1);
+        color: var(--color-primary);
+        border-radius: 100px;
+        font-weight: 700;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .text-gradient {
+        background: linear-gradient(135deg, #fff 0%, #d62839 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .author-bio {
+        padding: 100px 0;
+    }
+
+    .bio-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 32px;
+        overflow: hidden;
+    }
+
+    .founder-img {
         width: 100%;
-        max-width: 500px;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        max-width: 300px;
+        border-radius: 20px;
+        filter: grayscale(0.2) contrast(1.1);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .author-image-container {
+        display: flex;
+        justify-content: center;
+    }
+
+    @media (max-width: 768px) {
+        .bio-card.grid-2 {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 40px;
+        }
     }
 </style>

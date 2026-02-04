@@ -12,12 +12,13 @@ import Process from "../components/sections/Process.astro";
 import Investment from "../components/sections/Investment.astro";
 import About from "../components/sections/About.astro";
 import FAQ from "../components/sections/FAQ.astro";
+import SEOContent from "../components/sections/SEOContent.astro";
 import RecentPosts from "../components/sections/RecentPosts.astro";
 import Contact from "../components/sections/Contact.astro";
 import ServiceSegments from "../components/sections/ServiceSegments.astro";
 import { createSEOMeta } from "../utils/seo";
 
-const title = "Criação de Sites Profissionais e Landing Pages | Alpha Code";
+const title = "Criação de Sites Profissionais e Landing Pages";
 const description =
   "Especialistas em sites de alta performance para profissionais da saúde e negócios que precisam de presença digital profissional. Aumente sua autoridade e vendas com um site rápido, bonito e otimizado para o Google.";
 
@@ -61,6 +62,7 @@ export const prerender = false;
   <Plans />
   <Investment />
   <About />
+  <SEOContent />
   <RecentPosts />
   <FAQ />
   <Contact />

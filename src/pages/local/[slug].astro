@@ -1,0 +1,52 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import Features from "../../components/sections/Features.astro";
+import Services from "../../components/sections/Services.astro";
+import Plans from "../../components/sections/Plans.astro";
+import FAQ from "../../components/sections/FAQ.astro";
+import Contact from "../../components/sections/Contact.astro";
+import DynamicContent from "../../components/sections/DynamicContent.astro";
+import { locations } from "../../data/locations";
+
+export function getStaticPaths() {
+    return locations.map((loc) => ({
+        params: { slug: loc.slug },
+        props: { loc },
+    }));
+}
+
+const { loc } = Astro.props;
+
+export const prerender = true;
+---
+
+<BaseLayout
+    title={loc.title}
+    description={loc.description}
+    keywords={[
+        `sites ${loc.neighborhood}`,
+        `criação de sites ${loc.city}`,
+        `landing page ${loc.neighborhood}`,
+    ]}
+>
+    <Hero
+        title={`Criação de Sites Profissionais em <br/><span class="text-gradient">${loc.neighborhood} – ${loc.state}</span>`}
+        description={`Precisa de um <strong>webdesigner</strong> ou uma <strong>empresa de software</strong> em <strong>${loc.neighborhood}</strong>? Desenvolvemos sites de alto padrão focados em SEO local para transformar sua presença no Google.`}
+        badge={`Estratégia Local: ${loc.neighborhood} - ${loc.state}`}
+    />
+
+    <Features />
+    <Services />
+
+    <DynamicContent
+        title={loc.title.split("|")[0].trim()}
+        content={loc.content}
+        benefits={loc.benefits}
+        faq={loc.faq}
+    />
+
+    <Plans />
+    <FAQ />
+    <Contact />
+</BaseLayout>

@@ -1,0 +1,144 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Contact from "../components/sections/Contact.astro";
+import Projects from "../components/sections/Projects.astro";
+import FAQ from "../components/sections/FAQ.astro";
+
+const title = "Criação de Sites em São Paulo (SP) | Alpha Code";
+const description =
+    "Desenvolvimento de sites profissionais em São Paulo. Alta performance, SEO e design premium para empresas e profissionais liberais na capital paulista.";
+const keywords = [
+    "criação de sites sp",
+    "desenvolvimento web são paulo",
+    "agência de sites sp",
+    "seo local são paulo",
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+    <section class="local-hero bg-dark">
+        <div class="container text-center">
+            <span class="badge">Atendimento Local: São Paulo</span>
+            <h1 class="text-gradient">
+                Criação de Sites de Alta Performance <br /> em São Paulo
+            </h1>
+            <p class="lead">
+                Destaque seu negócio no mercado mais competitivo do Brasil.
+                Criamos sites ultrarrápidos, otimizados para o Google e focados
+                na conversão de leads qualificados em SP.
+            </p>
+            <div class="mt-4">
+                <a href="#contact" class="btn btn-primary lg"
+                    >Solicitar Orçamento em SP</a
+                >
+            </div>
+        </div>
+    </section>
+
+    <section class="local-content bg-alt">
+        <div class="container grid-2">
+            <div class="text-block">
+                <h2>O Poder do SEO Local em São Paulo</h2>
+                <p>
+                    Em São Paulo, a disputa pela primeira página do Google é
+                    intensa. Ter um site institucional estático não é mais
+                    suficiente. Nossa estratégia foca em <strong
+                        >SEO Local avançado</strong
+                    > para bairros como Itaim Bibi, Pinheiros, Moema, Jardins e Vila
+                    Olímpia.
+                </p>
+                <p>
+                    Garantimos que quando seu cliente pesquisar por sua solução,
+                    sua empresa esteja lá, transmitindo autoridade e
+                    profissionalismo imediatos.
+                </p>
+            </div>
+            <div class="text-block">
+                <h3>Por que escolher a Alpha Code em SP?</h3>
+                <ul class="local-list">
+                    <li>✓ Performance extrema (Core Web Vitals)</li>
+                    <li>✓ Foco total em conversão de leads</li>
+                    <li>✓ Estrutura pronta para anúncios (Google Ads)</li>
+                    <li>✓ Suporte técnico especializado</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <Projects />
+
+    <section class="local-faq bg-dark">
+        <div class="container">
+            <h2 class="text-center mb-5">
+                Dúvidas sobre Criação de Sites em SP
+            </h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Como o site ajuda no ranqueamento em SP?</h3>
+                    <p>
+                        Utilizamos tags semânticas e conteúdo geolocalizado, o
+                        que indica ao Google que sua empresa é a melhor opção
+                        para usuários na capital e grande SP.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>O site é integrado com sistemas de agendamento?</h3>
+                    <p>
+                        Sim, podemos integrar seu site com qualquer ferramenta
+                        de agendamento ou CRM utilizado pela sua empresa.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <FAQ />
+    <Contact />
+</BaseLayout>
+
+<style>
+    .local-hero {
+        padding: 120px 0 80px;
+    }
+    .local-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin: 2rem 0;
+    }
+    .local-hero .lead {
+        font-size: 1.2rem;
+        color: var(--color-text-secondary);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .local-content {
+        padding: 80px 0;
+    }
+    .local-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+    }
+    .local-list li {
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+        font-weight: 700;
+    }
+    .local-faq {
+        padding: 80px 0;
+    }
+    .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .faq-item h3 {
+        color: var(--color-gold);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+        .faq-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

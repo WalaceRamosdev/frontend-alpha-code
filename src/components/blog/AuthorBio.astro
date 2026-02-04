@@ -1,0 +1,119 @@
+---
+interface Props {
+    name?: string;
+    role?: string;
+    bio?: string;
+    avatar?: string;
+}
+
+const {
+    name = "Walace Ramos",
+    role = "Founder & Lead Developer",
+    bio = "Especialista em desenvolvimento de alta performance e SEO estratégico com mais de 8 anos de experiência ajudando empresas a dominarem o mercado digital.",
+    avatar = "/assets/team/walace.jpg",
+} = Astro.props;
+---
+
+<div class="author-bio-card">
+    <div class="author-avatar-wrapper">
+        <div class="avatar-glow"></div>
+        {
+            avatar ? (
+                <img src={avatar} alt={name} class="author-img" />
+            ) : (
+                <div class="avatar-placeholder">{name.charAt(0)}</div>
+            )
+        }
+    </div>
+    <div class="author-info-text">
+        <span class="author-label">Sobre o Autor</span>
+        <h4 class="author-name-h4">{name}</h4>
+        <span class="author-role">{role}</span>
+        <p class="author-bio-p">{bio}</p>
+        <div class="author-socials-mini">
+            <!-- Add social icons if needed -->
+        </div>
+    </div>
+</div>
+
+<style>
+    .author-bio-card {
+        display: flex;
+        gap: 30px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 40px;
+        border-radius: 30px;
+        margin-top: 60px;
+        align-items: center;
+    }
+
+    @media (max-width: 768px) {
+        .author-bio-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 30px 20px;
+        }
+    }
+
+    .author-avatar-wrapper {
+        position: relative;
+        flex-shrink: 0;
+    }
+
+    .author-img {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2px solid var(--color-primary);
+        position: relative;
+        z-index: 2;
+    }
+
+    .avatar-glow {
+        position: absolute;
+        inset: -10px;
+        background: radial-gradient(
+            circle,
+            var(--color-primary) 0%,
+            transparent 70%
+        );
+        opacity: 0.3;
+        filter: blur(10px);
+        z-index: 1;
+    }
+
+    .author-info-text {
+        flex-grow: 1;
+    }
+
+    .author-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: var(--color-primary);
+        font-weight: 800;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+    .author-name-h4 {
+        font-size: 1.5rem;
+        color: #fff;
+        margin-bottom: 4px;
+    }
+
+    .author-role {
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.5);
+        display: block;
+        margin-bottom: 15px;
+    }
+
+    .author-bio-p {
+        font-size: 1rem;
+        line-height: 1.6;
+        color: rgba(255, 255, 255, 0.7);
+    }
+</style>

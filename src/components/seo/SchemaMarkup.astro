@@ -13,6 +13,7 @@ interface Props {
     sameAs?: string[];
     priceRange?: string;
     providerName?: string;
+    faqItems?: { question: string; answer: string }[];
 }
 
 const {
@@ -27,6 +28,7 @@ const {
     ],
     priceRange = "$$",
     providerName = "Alpha Code",
+    faqItems = [],
 } = Astro.props;
 
 let schema = {};
@@ -104,9 +106,41 @@ if (type === "Service") {
         ],
         sameAs: sameAs,
     };
+} else if (type === "Article") {
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: name,
+        description: description,
+        image: image,
+        author: {
+            "@type": "Person",
+            name: "Walace Ramos",
+        },
+        publisher: {
+            "@type": "Organization",
+            name: "Alpha Code",
+            logo: {
+                "@type": "ImageObject",
+                url: "https://www.sitesalphacode.com.br/assets/logo.svg",
+            },
+        },
+        datePublished: new Date().toISOString(),
+    };
+} else if (faqItems && faqItems.length > 0) {
+    schema = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqItems.map((item) => ({
+            "@type": "Question",
+            name: item.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: item.answer,
+            },
+        })),
+    };
 }
-
-// Adicionar mais tipos conforme necessário
 ---
 
 <script type="application/ld+json" set:html={JSON.stringify(schema)} />

@@ -1,0 +1,97 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Hero from "../../components/sections/Hero.astro";
+import About from "../../components/sections/About.astro";
+import FAQ from "../../components/sections/FAQ.astro";
+
+const city = "Rio de Janeiro";
+const title = `Criação de Sites Profissionais no ${city} | Alpha Code`;
+const description = `Especialistas em criação de sites de alta performance no ${city}. Aumente a visibilidade da sua empresa ou consultório no Google com SEO Local estratégico.`;
+
+const keywords = [
+    `criação de sites ${city}`,
+    `desenvolvimento web ${city}`,
+    `agência de sites ${city}`,
+    `seo local ${city}`,
+    `site para médicos ${city}`,
+    `site para advogados ${city}`,
+];
+
+const heroTitle = `Dominando o Google no <br /><span class="text-gradient">${city}</span>`;
+const heroBadge = `Atendimento Especializado no ${city}`;
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+    <Hero title={heroTitle} badge={heroBadge} />
+
+    <section class="local-content bg-alt">
+        <div class="container">
+            <div class="glass-panel p-5">
+                <h2 class="text-gradient mb-4">
+                    Sua Empresa no Topo das Buscas no {city}
+                </h2>
+                <div class="grid-2">
+                    <div class="text-column">
+                        <p>
+                            Se você tem um consultório, escritório ou empresa no <strong
+                                >{city}</strong
+                            >, sabe que a concorrência por novos clientes é
+                            feroz. Não basta apenas "estar na internet"; você
+                            precisa ser encontrado por quem está por perto.
+                        </p>
+                        <p>
+                            Nossa estratégia de <strong
+                                >SEO Local para o {city}</strong
+                            > foca em colocar sua marca no "Local Pack" do Google
+                            Maps. Quando alguém pesquisa por serviços no Rio, sua
+                            empresa aparece com destaque, gerando mais ligações e
+                            agendamentos.
+                        </p>
+                    </div>
+                    <div class="text-column">
+                        <p>
+                            Combinamos design de alto padrão com otimização
+                            técnica específica para a região. Entendemos o
+                            comportamento do consumidor carioca e adaptamos sua
+                            comunicação para converter mais.
+                        </p>
+                        <ul class="check-list">
+                            <li>Otimização Google Meu Negócio.</li>
+                            <li>Palavras-chave regionais estratégicas.</li>
+                            <li>Velocidade máxima para acessos via 4G/5G.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <About />
+    <FAQ />
+</BaseLayout>
+
+<style>
+    .local-content {
+        padding: 80px 0;
+    }
+    .text-column p {
+        font-size: 1.1rem;
+        color: rgba(255, 255, 255, 0.7);
+        line-height: 1.8;
+        margin-bottom: 1.5rem;
+    }
+    .check-list {
+        list-style: none;
+        padding-top: 1rem;
+    }
+    .check-list li {
+        margin-bottom: 10px;
+        display: flex;
+        gap: 10px;
+    }
+    .check-list li::before {
+        content: "✓";
+        color: var(--color-primary);
+        font-weight: bold;
+    }
+</style>

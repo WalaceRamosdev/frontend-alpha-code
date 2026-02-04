@@ -55,7 +55,7 @@ const serveLocations = [
 ];
 
 const seo = createSEOMeta({
-    title,
+    title, // Removing the pipe here since utility already adds it
     description,
     canonicalUrl,
     ogImage,
@@ -210,8 +210,9 @@ const seo = createSEOMeta({
         <slot name="scripts" />
         <script>
             import { ScrollTrigger } from "gsap/ScrollTrigger";
-            // Globally disable markers just in case
+            // Globally disable markers
             ScrollTrigger.config({ limitCallbacks: true });
+            ScrollTrigger.defaults({ markers: false });
 
             // Global ShowToast function
             (window as any).showToast = function (

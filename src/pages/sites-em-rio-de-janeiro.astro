@@ -1,0 +1,145 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Contact from "../components/sections/Contact.astro";
+import Projects from "../components/sections/Projects.astro";
+import FAQ from "../components/sections/FAQ.astro";
+
+const title = "Criação de Sites no Rio de Janeiro (RJ) | Alpha Code";
+const description =
+    "Especialistas em criação de sites profissionais no Rio de Janeiro. Sites de alta performance para profissionais da saúde, advogados e empresas cariocas.";
+const keywords = [
+    "criação de sites rj",
+    "desenvolvimento web rio de janeiro",
+    "agência de sites rj",
+    "seo local rj",
+];
+---
+
+<BaseLayout title={title} description={description} keywords={keywords}>
+    <section class="local-hero bg-dark">
+        <div class="container text-center">
+            <span class="badge">Atendimento Local: Rio de Janeiro</span>
+            <h1 class="text-gradient">
+                Criação de Sites Profissionais <br /> no Rio de Janeiro
+            </h1>
+            <p class="lead">
+                Sua empresa no topo do Google em toda a Região Metropolitana do
+                RJ. Sites rápidos, seguros e focados em trazer clientes cariocas
+                para o seu negócio.
+            </p>
+            <div class="mt-4">
+                <a href="#contact" class="btn btn-primary lg"
+                    >Solicitar Orçamento no RJ</a
+                >
+            </div>
+        </div>
+    </section>
+
+    <section class="local-content bg-alt">
+        <div class="container grid-2">
+            <div class="text-block">
+                <h2>Por que ter um site otimizado para o RJ?</h2>
+                <p>
+                    O mercado do Rio de Janeiro é extremamente competitivo. Para
+                    se destacar, não basta apenas um site bonito; você precisa
+                    de <strong>SEO Local</strong>. Nós otimizamos seu site para
+                    que ele apareça quando clientes buscarem por seus serviços
+                    na Tijuca, Barra da Tijuca, Centro, Niterói e demais
+                    regiões.
+                </p>
+                <p>
+                    Nossos sites são desenvolvidos com tecnologia de ponta,
+                    garantindo que mesmo em conexões móveis instáveis, seu
+                    cliente consiga acessar suas informações rapidamente.
+                </p>
+            </div>
+            <div class="text-block">
+                <h3>Vantagens para Negócios Cariocas:</h3>
+                <ul class="local-list">
+                    <li>✓ Visibilidade no Google Maps (SEO Local)</li>
+                    <li>✓ Velocidade máxima de carregamento</li>
+                    <li>✓ Design responsivo para todos os celulares</li>
+                    <li>✓ Integração direta com WhatsApp</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <Projects />
+
+    <section class="local-faq bg-dark">
+        <div class="container">
+            <h2 class="text-center mb-5">
+                Dúvidas sobre Criação de Sites no RJ
+            </h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h3>Vocês atendem presencialmente no Rio?</h3>
+                    <p>
+                        Sim, nossa base de operação principal é no Rio de
+                        Janeiro, o que facilita reuniões estratégicas para
+                        projetos de grande porte.
+                    </p>
+                </div>
+                <div class="faq-item">
+                    <h3>Quanto custa um site para uma empresa no Rio?</h3>
+                    <p>
+                        Os valores variam conforme a complexidade, mas nossos
+                        planos começam com investimentos extremamente acessíveis
+                        para profissionais liberais.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <FAQ />
+    <Contact />
+</BaseLayout>
+
+<style>
+    .local-hero {
+        padding: 120px 0 80px;
+    }
+    .local-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        margin: 2rem 0;
+    }
+    .local-hero .lead {
+        font-size: 1.2rem;
+        color: var(--color-text-secondary);
+        max-width: 800px;
+        margin: 0 auto;
+    }
+    .local-content {
+        padding: 80px 0;
+    }
+    .local-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 1.5rem;
+    }
+    .local-list li {
+        margin-bottom: 1rem;
+        color: var(--color-primary);
+        font-weight: 700;
+    }
+    .local-faq {
+        padding: 80px 0;
+    }
+    .faq-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+    }
+    .faq-item h3 {
+        color: var(--color-gold);
+        font-size: 1.2rem;
+        margin-bottom: 1rem;
+    }
+    @media (max-width: 768px) {
+        .faq-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

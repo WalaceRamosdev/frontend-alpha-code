@@ -7,6 +7,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import PostCard from "../components/PostCard.astro";
 import BlogHeader from "../components/blog/BlogHeader.astro";
 import ShareButtons from "../components/blog/ShareButtons.astro";
+import AuthorBio from "../components/blog/AuthorBio.astro";
 
 interface Props {
     title: string;
@@ -171,6 +172,8 @@ const articleSchema = {
                         <slot />
                     </div>
 
+                    <AuthorBio />
+
                     <footer class="post-footer">
                         <div class="share-box">
                             <h3 class="share-title">Gostou deste insight?</h3>
@@ -180,6 +183,8 @@ const articleSchema = {
                             </p>
                             <ShareButtons title={title} url={url} />
                         </div>
+
+                        <AuthorBio name={author} />
 
                         <div class="blog-cta-wrapper">
                             <BlogCTA type={ctaType} />
@@ -539,6 +544,46 @@ const articleSchema = {
         font-style: italic;
         color: #fff;
         font-size: 1.5rem;
+    }
+
+    /* Author Bio */
+    .author-bio-card {
+        display: flex;
+        gap: 30px;
+        padding: 40px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        align-items: center;
+        margin-top: 4rem;
+    }
+
+    .bio-avatar .avatar-placeholder {
+        width: 80px;
+        height: 80px;
+        font-size: 1.5rem;
+    }
+
+    .bio-text h4 {
+        color: #fff;
+        font-size: 1.25rem;
+        margin-bottom: 10px;
+        font-weight: 700;
+    }
+
+    .bio-text p {
+        color: #888;
+        font-size: 1rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    @media (max-width: 600px) {
+        .author-bio-card {
+            flex-direction: column;
+            text-align: center;
+            padding: 30px 20px;
+        }
     }
 
     /* Footer & Sharing */

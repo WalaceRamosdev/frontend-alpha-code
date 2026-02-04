@@ -611,8 +611,14 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
         align-items: center;
         width: 100% !important;
         max-width: 100% !important;
-        padding: 0 40px; /* Fixed symmetrical padding */
+        padding: 0 40px;
         height: 60px;
+    }
+
+    @media (max-width: 768px) {
+        .header-container {
+            padding: 0 1.25rem !important;
+        }
     }
 
     /* LEFT: Logo */
@@ -1161,7 +1167,7 @@ const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
 
     @media (max-width: 968px) {
         .header-container {
-            padding: 0 20px !important;
+            padding: 0 1.25rem !important;
         }
         .logo-link img {
             width: 130px;

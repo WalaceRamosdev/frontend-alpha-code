@@ -21,6 +21,7 @@ const relatedServices = getRelatedServices(service.slug);
         type="Service"
         name={service.title}
         description={service.metaDescription}
+        faqItems={service.faq}
     />
 
     <section class="service-hero bg-dark">
@@ -129,8 +130,67 @@ const relatedServices = getRelatedServices(service.slug);
                     )
                 }
             </div>
+
+            {
+                service.fullText && (
+                    <div class="full-content-text mt-5 fade-up-service">
+                        <div class="glass-panel p-5">
+                            <h2 class="text-gradient mb-4">
+                                Aprofundando no Serviço
+                            </h2>
+                            <div class="text-content">
+                                <p class="lead">{service.fullText}</p>
+                            </div>
+                        </div>
+                    </div>
+                )
+            }
         </div>
     </section>
+
+    {
+        service.socialProof && (
+            <section class="text-testimonials bg-alt">
+                <div class="container">
+                    <h2 class="text-center text-primary mb-5">
+                        O que dizem nossos clientes
+                    </h2>
+                    <div class="testimonials-text-grid">
+                        {service.socialProof.map((quote) => (
+                            <div class="testimonial-text-item fade-up-service">
+                                <p class="quote">"{quote}"</p>
+                                <div class="stars text-gold">★★★★★</div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        )
+    }
+
+    {
+        service.faq && (
+            <section class="service-faq bg-dark">
+                <div class="container max-w-3xl">
+                    <h2 class="text-primary text-center mb-5">
+                        Perguntas Frequentes
+                    </h2>
+                    <div class="faq-list">
+                        {service.faq.map((item) => (
+                            <div class="faq-item fade-up-service mb-4">
+                                <h3 class="faq-question text-gold mb-2">
+                                    {item.question}
+                                </h3>
+                                <p class="faq-answer text-secondary">
+                                    {item.answer}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+        )
+    }
 
     <ServiceSegments />
 
@@ -382,6 +442,51 @@ const relatedServices = getRelatedServices(service.slug);
     }
     .opacity-80 {
         opacity: 0.8;
+    }
+
+    .full-content-text .lead {
+        font-size: 1.2rem;
+        line-height: 1.8;
+        color: var(--color-text-secondary);
+    }
+
+    .testimonials-text-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+
+    .testimonial-text-item {
+        padding: 2rem;
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 16px;
+        border-left: 4px solid var(--color-primary);
+    }
+
+    .testimonial-text-item .quote {
+        font-style: italic;
+        margin-bottom: 1rem;
+        color: var(--color-text-secondary);
+    }
+
+    .service-faq {
+        padding: 80px 0;
+    }
+
+    .faq-item {
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .faq-question {
+        font-size: 1.2rem;
+        font-weight: 700;
+    }
+
+    .max-w-3xl {
+        max-width: 800px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     @media (max-width: 992px) {
