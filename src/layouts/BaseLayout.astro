@@ -108,6 +108,7 @@ const seo = createSEOMeta({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
         <meta name="generator" content={Astro.generator} />
+        {noIndex && <meta name="robots" content="noindex, nofollow" />}
 
         <!-- SEO -->
         <title>{seo.title}</title>
@@ -208,6 +209,35 @@ const seo = createSEOMeta({
         <div id="toast-container" class="toast-container"></div>
 
         <slot name="scripts" />
+        <script is:inline>
+            // GA4 Conversion Tracking
+            document.addEventListener("click", function (e) {
+                // WhatsApp Tracking
+                const waLink = e.target.closest('a[href*="wa.me"]');
+                if (waLink && window.gtag) {
+                    gtag("event", "conversion", {
+                        send_to: "G-Z1TRD8DK7P",
+                        event_category: "Engagement",
+                        event_label: "WhatsApp Click",
+                        value: 1,
+                    });
+                    console.log("WA Click Tracked");
+                }
+            });
+
+            // Form Submit Tracking
+            document.addEventListener("submit", function (e) {
+                if (window.gtag) {
+                    gtag("event", "conversion", {
+                        send_to: "G-Z1TRD8DK7P",
+                        event_category: "Lead",
+                        event_label: "Form Submission",
+                        value: 1,
+                    });
+                    console.log("Form Submit Tracked");
+                }
+            });
+        </script>
         <script>
             import { ScrollTrigger } from "gsap/ScrollTrigger";
             // Globally disable markers

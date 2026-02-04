@@ -15,13 +15,19 @@ const keywords = [
 ];
 ---
 
-<BaseLayout title={title} description={description} keywords={keywords}>
+<BaseLayout
+    title={title}
+    description={description}
+    keywords={keywords}
+    noIndex={true}
+    canonicalUrl="/"
+>
     <section class="local-hero bg-dark">
         <div class="container text-center">
             <span class="badge">Atendimento Local: Rio de Janeiro</span>
-            <h1 class="text-gradient">
-                Criação de Sites Profissionais <br /> no Rio de Janeiro
-            </h1>
+            <p class="text-gradient h1-style">
+                Desenvolvimento Web <br /> no Rio de Janeiro
+            </p>
             <p class="lead">
                 Sua empresa no topo do Google em toda a Região Metropolitana do
                 RJ. Sites rápidos, seguros e focados em trazer clientes cariocas
@@ -38,14 +44,14 @@ const keywords = [
     <section class="local-content bg-alt">
         <div class="container grid-2">
             <div class="text-block">
-                <h2>Por que ter um site otimizado para o RJ?</h2>
+                <p class="h2-style">O valor de um site otimizado para o RJ</p>
                 <p>
                     O mercado do Rio de Janeiro é extremamente competitivo. Para
                     se destacar, não basta apenas um site bonito; você precisa
-                    de <strong>SEO Local</strong>. Nós otimizamos seu site para
-                    que ele apareça quando clientes buscarem por seus serviços
-                    na Tijuca, Barra da Tijuca, Centro, Niterói e demais
-                    regiões.
+                    <a href="/">criação de sites profissionais</a>. Nós
+                    otimizamos seu site para que ele apareça quando clientes
+                    buscarem por seus serviços na Tijuca, Barra da Tijuca,
+                    Centro, Niterói e demais regiões.
                 </p>
                 <p>
                     Nossos sites são desenvolvidos com tecnologia de ponta,
@@ -101,9 +107,18 @@ const keywords = [
     .local-hero {
         padding: 120px 0 80px;
     }
-    .local-hero h1 {
+    .local-hero h1,
+    .local-hero .h1-style {
         font-size: clamp(2.5rem, 5vw, 4rem);
         margin: 2rem 0;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+    .h2-style {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: white;
     }
     .local-hero .lead {
         font-size: 1.2rem;

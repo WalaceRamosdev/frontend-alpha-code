@@ -15,13 +15,19 @@ const keywords = [
 ];
 ---
 
-<BaseLayout title={title} description={description} keywords={keywords}>
+<BaseLayout
+    title={title}
+    description={description}
+    keywords={keywords}
+    noIndex={true}
+    canonicalUrl="/"
+>
     <section class="local-hero bg-dark">
         <div class="container text-center">
             <span class="badge">Atendimento Local: São Paulo</span>
-            <h1 class="text-gradient">
-                Criação de Sites de Alta Performance <br /> em São Paulo
-            </h1>
+            <p class="text-gradient h1-style">
+                Desenvolvimento de Sites <br /> em São Paulo
+            </p>
             <p class="lead">
                 Destaque seu negócio no mercado mais competitivo do Brasil.
                 Criamos sites ultrarrápidos, otimizados para o Google e focados
@@ -38,12 +44,12 @@ const keywords = [
     <section class="local-content bg-alt">
         <div class="container grid-2">
             <div class="text-block">
-                <h2>O Poder do SEO Local em São Paulo</h2>
+                <p class="h2-style">O impacto do SEO Local em São Paulo</p>
                 <p>
                     Em São Paulo, a disputa pela primeira página do Google é
                     intensa. Ter um site institucional estático não é mais
                     suficiente. Nossa estratégia foca em <strong
-                        >SEO Local avançado</strong
+                        ><a href="/">criação de sites para empresas</a></strong
                     > para bairros como Itaim Bibi, Pinheiros, Moema, Jardins e Vila
                     Olímpia.
                 </p>
@@ -100,9 +106,18 @@ const keywords = [
     .local-hero {
         padding: 120px 0 80px;
     }
-    .local-hero h1 {
+    .local-hero h1,
+    .local-hero .h1-style {
         font-size: clamp(2.5rem, 5vw, 4rem);
         margin: 2rem 0;
+        font-weight: 800;
+        line-height: 1.2;
+    }
+    .h2-style {
+        font-size: 2rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        color: white;
     }
     .local-hero .lead {
         font-size: 1.2rem;
