@@ -112,23 +112,25 @@ export const niches: NicheContent[] = [
         slug: "psicologos",
         name: "Psicólogos",
         title: "Criação de Sites para Psicólogos e Clínicas de Psicologia",
-        heroTitle: "Acolhimento e Autoridade para sua Atuação Clínica.",
-        heroDesc: "Sua presença digital deve transmitir a mesma segurança e acolhimento que o seu consultório. Desenvolvemos sites para psicólogos que unem ética, design humanizado e clareza para converter visitantes em pacientes fidelizados.",
-        badge: "Especialistas em Marketing para Psicólogos",
-        keywords: ["site para psicólogo", "marketing para psicólogos", "site clínica psicologia", "presença digital psicólogo"],
+        heroTitle: "O Paciente Pesquisa Seu Nome Antes de Agendar. O Que Ele Encontra?",
+        heroDesc: "A indicação traz o paciente até o Google. Seu site define se ele entra no consultório. Desenvolvemos sites para psicólogos que transmitem segurança imediata, acolhimento e autoridade ética.",
+        badge: "Posicionamento Digital para Psicólogos",
+        keywords: ["site para psicólogo", "marketing para psicólogos", "site clínica psicologia", "presença digital psicólogo", "branding psicologia"],
         detailedContent: `
-            <p>O primeiro passo para alguém buscar terapia é sentir-se <strong>seguro</strong> com o profissional. Um site para psicólogo deve ser o porto seguro digital desse paciente em potencial.</p>
-            <p>Nossos projetos focam na <strong>Psicologia do Design</strong>: cores, tipografia e espaçamentos que reduzem a ansiedade e convidam à leitura. Destacamos sua abordagem clínica, áreas de atuação e o botão de contato facilitado, sempre respeitando o sigilo e a ética profissional.</p>
+            <p>O cenário mudou. Antigamente, o boca a boca bastava. Hoje, mesmo com indicação, o paciente vai ao Google validar quem você é. Se ele encontra um site amador, lento ou inexistente, <strong>a dúvida se instala</strong>.</p>
+            <p>Seu site é o seu consultório digital. Ele precisa ser tão seguro e acolhedor quanto o seu espaço físico. Nossa metodologia de <strong>Design de Acolhimento</strong> utiliza psicologia das cores e UX (Experiência do Usuário) para reduzir a ansiedade do visitante e guiá-lo naturalmente para o agendamento.</p>
+            <p>Não vendemos apenas 'sites'. Vendemos a ferramenta que transforma a curiosidade das redes sociais em <strong>pacientes na agenda</strong> ativamente, tudo dentro das normas do CFP.</p>
         `,
         benefits: [
-            "Abordagem Clara: Explique sua linha de atuação (TCC, Psicanálise, etc) de forma simples.",
-            "Foco em Conversão Ética: Call-to-actions suaves que não pressionam o paciente.",
-            "Conteúdo Educativo: Blog focado em saúde mental para atrair quem busca ajuda.",
-            "Agilidade Mobile: Perfeito para quem busca ajuda em momentos de urgência pelo celular."
+            "Autoridade Imediata: Quem acessa entende, em segundos, sua abordagem e seriedade.",
+            "Filtro de Curiosos: Informações claras que trazem pacientes alinhados com seu valor.",
+            "Ética e Segurança: Estrutura 100% adequada às normas de publicidade do Conselho.",
+            "Agendamento Automático: Integre com Doctoralia, Google Agenda ou WhatsApp sem esforço."
         ],
         faq: [
-            { question: "O site pode ter agendamento?", answer: "Sim, integramos com as principais plataformas de agenda do mercado." },
-            { question: "É fácil de mexer?", answer: "Extremamente. Focamos em deixar o site funcional para o paciente e simples para o psicólogo gerir." }
+            { question: "O site ajuda a captar pacientes particulares?", answer: "Sim. Um site profissional é a base para justificar valor e sair da guerra de preços de convênios." },
+            { question: "Vocês cuidam da identidade visual?", answer: "Adaptamos o site perfeitamente à sua paleta de cores e logo, mantendo a consistência da sua marca pessoal." },
+            { question: "É difícil atualizar textos ou fotos?", answer: "Zero. Entregamos um painel simples onde você mesmo pode alterar conteúdos se desejar, sem depender de técnicos." }
         ]
     }
 ];
