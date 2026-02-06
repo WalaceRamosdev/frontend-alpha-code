@@ -92,11 +92,48 @@ const seo = createSEOMeta({
                 });
             }
 
-            // Load GTM after 3.5s or on user interaction
-            const gtmTimer = setTimeout(loadGTM, 3500);
+            // Meta Pixel Loading
+            function loadMetaPixel() {
+                if (window.fbLoaded) return;
+                window.fbLoaded = true;
+
+                !(function (f, b, e, v, n, t, s) {
+                    if (f.fbq) return;
+                    n = f.fbq = function () {
+                        n.callMethod
+                            ? n.callMethod.apply(n, arguments)
+                            : n.queue.push(arguments);
+                    };
+                    if (!f._fbq) f._fbq = n;
+                    n.push = n;
+                    n.loaded = !0;
+                    n.version = "2.0";
+                    n.queue = [];
+                    t = b.createElement(e);
+                    t.async = !0;
+                    t.src = v;
+                    s = b.getElementsByTagName(e)[0];
+                    s.parentNode.insertBefore(t, s);
+                })(
+                    window,
+                    document,
+                    "script",
+                    "https://connect.facebook.net/en_US/fbevents.js",
+                );
+                fbq("init", "4112004805778911");
+                fbq("track", "PageView");
+            }
+
+            // Load trackers after 3.5s or on user interaction
+            const loadTrackers = () => {
+                loadGTM();
+                loadMetaPixel();
+            };
+
+            const trackerTimer = setTimeout(loadTrackers, 3500);
             ["touchstart", "mousemove", "scroll", "keydown"].forEach(
                 (event) => {
-                    window.addEventListener(event, loadGTM, {
+                    window.addEventListener(event, loadTrackers, {
                         once: true,
                         passive: true,
                     });
@@ -165,6 +202,14 @@ const seo = createSEOMeta({
         {!noIndex && <meta name="robots" content={seo.robots} />}
     </head>
     <body>
+        <noscript>
+            <img
+                height="1"
+                width="1"
+                style="display:none"
+                src="https://www.facebook.com/tr?id=4112004805778911&ev=PageView&noscript=1"
+            />
+        </noscript>
         <a href="#main-content" class="skip-link sr-only focus:not-sr-only">
             Pular para conteúdo principal
         </a>
