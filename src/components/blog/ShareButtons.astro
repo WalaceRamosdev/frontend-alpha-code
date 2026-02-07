@@ -29,12 +29,6 @@ const shareLinks = [
         url: `https://twitter.com/intent/tweet?text=${encodedTitle}&url=${encodedUrl}`,
         color: "#000000",
     },
-    {
-        name: "Instagram",
-        icon: "instagram",
-        url: `https://www.instagram.com/alphacodesites/`, // Direciona para o perfil para interação
-        color: "#E1306C",
-    },
 ];
 ---
 
@@ -96,30 +90,6 @@ const shareLinks = [
                         >
                             <path d="M4 4l11.733 16h4.267l-11.733 -16z" />
                             <path d="M4 20l6.768 -6.768m2.46 -2.46l6.772 -6.772" />
-                        </svg>
-                    )}
-                    {link.icon === "instagram" && (
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                        >
-                            <rect
-                                x="2"
-                                y="2"
-                                width="20"
-                                height="20"
-                                rx="5"
-                                ry="5"
-                            />
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
                         </svg>
                     )}
                 </div>
@@ -253,12 +223,6 @@ const shareLinks = [
         background: rgba(0, 119, 181, 0.1);
         border-color: rgba(0, 119, 181, 0.4);
         color: #0077b5;
-    }
-
-    .share-btn[aria-label*="Instagram"]:hover {
-        background: rgba(225, 48, 108, 0.1);
-        border-color: rgba(225, 48, 108, 0.4);
-        color: #e1306c;
     }
 
     .share-btn.copy-link:hover {
