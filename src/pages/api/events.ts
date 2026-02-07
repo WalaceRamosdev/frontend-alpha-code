@@ -1,11 +1,12 @@
 import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
-    const PIXEL_ID = import.meta.env.META_PIXEL_ID;
-    const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN;
+    // Sanitize inputs: Remove quotes and whitespace that might have come from .env
+    const PIXEL_ID = import.meta.env.META_PIXEL_ID?.replace(/["']/g, "").trim();
+    const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN?.replace(/["']/g, "").trim();
 
     if (!PIXEL_ID || !ACCESS_TOKEN) {
-        console.error("Meta Pixel ID or Access Token missing");
+        console.error("Meta Pixel ID or Access Token missing in .env");
         return new Response(JSON.stringify({ message: "Configuration Error" }), { status: 500 });
     }
 
@@ -28,12 +29,12 @@ export const POST: APIRoute = async ({ request }) => {
                     custom_data,
                 },
             ],
+            // test_event_code: "TEST52260", // Uncomment and add your code from Events Manager > Test Events to debug
         };
 
-        console.log(`Sending CAPI event: ${event_name}`);
+        console.log(`Sending CAPI event: ${event_name} to Pixel ID: ${PIXEL_ID}`);
 
-        // Non-blocking fetch (we don't await the result strictly for the user response, but for logging)
-        // Using v21.0 as v18.0 might be deprecated in 2026
+        // Using v21.0 standard endpoint
         const fbResponse = await fetch(
             `https://graph.facebook.com/v21.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
             {
@@ -44,9 +45,13 @@ export const POST: APIRoute = async ({ request }) => {
         );
 
         if (!fbResponse.ok) {
-            const errorText = await fbResponse.text();
-            console.error(`FB CAPI Error: ${errorText}`);
-            // return success to frontend to avoid breaking UX
+            const errorData = await fbResponse.json();
+            console.error(`FB CAPI Fail:`, JSON.stringify(errorData, null, 2));
+
+            // Check for specific permission error
+            if (errorData.error?.code === 100 && errorData.error?.target === PIXEL_ID) {
+                console.error("CRITICAL: The System User (Token Owner) likely does not have permission for this Pixel ID.");
+            }
         } else {
             console.log("FB CAPI Success");
         }
@@ -54,8 +59,7 @@ export const POST: APIRoute = async ({ request }) => {
         return new Response(JSON.stringify({ success: true }), { status: 200 });
 
     } catch (error) {
-        console.error("CAPI Handler Error:", error);
-        // Silent fail for the user
+        console.error("CAPI System Error:", error);
         return new Response(JSON.stringify({ success: true, warning: "Handled Error" }), { status: 200 });
     }
 };

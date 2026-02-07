@@ -33,6 +33,11 @@ const {
     showSocialProof = false,
 } = Astro.props;
 
+// Get Pixel ID safely from env or fallback
+const PIXEL_ID =
+    import.meta.env.META_PIXEL_ID?.replace(/["']/g, "").trim() ||
+    "4112004805778911";
+
 const serveLocations = [
     "Brasília - DF",
     "Rio de Janeiro - RJ",
@@ -70,7 +75,7 @@ const seo = createSEOMeta({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
         <!-- Google tag (gtag.js) - Optimized Loading -->
-        <script is:inline>
+        <script is:inline define:vars={{ PIXEL_ID }}>
             // Optimize GTM loading
             function loadGTM() {
                 if (window.gtmLoaded) return;
@@ -121,7 +126,7 @@ const seo = createSEOMeta({
                     "https://connect.facebook.net/en_US/fbevents.js",
                 );
 
-                fbq("init", "4112004805778911");
+                fbq("init", PIXEL_ID);
                 fbq("track", "PageView");
             }
 
@@ -235,7 +240,7 @@ const seo = createSEOMeta({
                 height="1"
                 width="1"
                 style="display:none"
-                src="https://www.facebook.com/tr?id=4112004805778911&ev=PageView&noscript=1"
+                src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
             />
         </noscript>
         <a href="#main-content" class="skip-link sr-only focus:not-sr-only">
