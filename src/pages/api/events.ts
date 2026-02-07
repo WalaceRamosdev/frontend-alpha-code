@@ -33,8 +33,9 @@ export const POST: APIRoute = async ({ request }) => {
         console.log(`Sending CAPI event: ${event_name}`);
 
         // Non-blocking fetch (we don't await the result strictly for the user response, but for logging)
+        // Using v21.0 as v18.0 might be deprecated in 2026
         const fbResponse = await fetch(
-            `https://graph.facebook.com/v18.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
+            `https://graph.facebook.com/v21.0/${PIXEL_ID}/events?access_token=${ACCESS_TOKEN}`,
             {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
