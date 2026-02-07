@@ -9,6 +9,7 @@ export interface NicheContent {
     detailedContent: string;
     benefits: string[];
     faq: { question: string; answer: string }[];
+    ctaText?: string;
 }
 
 export const niches: NicheContent[] = [
@@ -35,7 +36,8 @@ export const niches: NicheContent[] = [
             { question: "O site segue as normas da OAB?", answer: "Sim, todos os nossos projetos para o setor jurídico são desenvolvidos seguindo estritamente as resoluções sobre publicidade informativa." },
             { question: "Quanto tempo leva para ficar pronto?", answer: "O prazo médio para um site institucional jurídico de alto padrão é de 15 a 25 dias úteis." },
             { question: "O site aparece no Google?", answer: "Sim, implementamos o SEO técnico básico em todas as páginas, e oferecemos estratégias avançadas para ranqueamento local." }
-        ]
+        ],
+        ctaText: "Quero Mais Clientes na Advocacia"
     },
     {
         slug: "medicos",
@@ -60,7 +62,8 @@ export const niches: NicheContent[] = [
             { question: "Posso integrar com meu sistema de prontuário?", answer: "Sim, podemos integrar links de agendamento de plataformas como Doctoralia, iClinic, entre outros." },
             { question: "O site é seguro (LGPD)?", answer: "Sim, implementamos certificados SSL e seguimos boas práticas de proteção de dados e privacidade." },
             { question: "Funciona bem no celular?", answer: "Totalmente. Mais de 80% das buscas por saúde são mobile, por isso focamos prioritariamente nisso." }
-        ]
+        ],
+        ctaText: "Quero Mais Pacientes Particulares"
     },
     {
         slug: "contadores",
@@ -83,7 +86,8 @@ export const niches: NicheContent[] = [
         faq: [
             { question: "Vocês escrevem os textos dos serviços?", answer: "Sim, temos especialistas em copy que criam os textos base focados no público de contabilidade." },
             { question: "O site ajuda a vender consultoria?", answer: "Com certeza. Estruturamos o site para que a consultoria apareça como um serviço premium e diferenciado." }
-        ]
+        ],
+        ctaText: "Quero Atrair Grandes Empresas"
     },
     {
         slug: "arquitetos",
@@ -106,7 +110,8 @@ export const niches: NicheContent[] = [
         faq: [
             { question: "As fotos pesadas não deixam o site lento?", answer: "Não, usamos as tecnologias mais modernas de compressão (WebP/AVIF) e carregamento sob demanda." },
             { question: "Consigo atualizar o portfólio sozinho?", answer: "Sim, entregamos com um painel administrativo intuitivo para você subir novos projetos sempre que desejar." }
-        ]
+        ],
+        ctaText: "Quero um Portfólio de Luxo"
     },
     {
         slug: "psicologos",
@@ -131,6 +136,7 @@ export const niches: NicheContent[] = [
             { question: "O site ajuda a captar pacientes particulares?", answer: "Sim. Um site profissional é a base para justificar valor e sair da guerra de preços de convênios." },
             { question: "Vocês cuidam da identidade visual?", answer: "Adaptamos o site perfeitamente à sua paleta de cores e logo, mantendo a consistência da sua marca pessoal." },
             { question: "É difícil atualizar textos ou fotos?", answer: "Zero. Entregamos um painel simples onde você mesmo pode alterar conteúdos se desejar, sem depender de técnicos." }
-        ]
+        ],
+        ctaText: "Quero Lotar Minha Agenda"
     }
 ];

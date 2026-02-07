@@ -136,7 +136,7 @@
 </style>
 
 <script>
-    const messages = [
+    const allMessages = [
         "<strong>Dr. Marcelo S.</strong> de SP acaba de solicitar um orçamento.",
         "<strong>Dra. Juliana Ferreira</strong> do RJ iniciou um projeto VIP.",
         "<strong>Escritório Silva & Associados</strong> vinculou um novo site.",
@@ -272,6 +272,40 @@
         "<strong>Engenheiro Tiago</strong> de GO iniciou consultoria.",
     ];
 
+    // Filter messages based on the current page to increase relevancy
+    const currentPath = window.location.pathname;
+    let messages = allMessages;
+
+    // If on Psychologist/Medical page, show only relevant proofs
+    if (currentPath.includes("psicologos") || currentPath.includes("medicos")) {
+        const healthKeywords = [
+            "Dr.",
+            "Dra.",
+            "Clínica",
+            "Psicólog",
+            "Médic",
+            "Nutri",
+            "Fisio",
+            "Consultório",
+            "Odonto",
+            "Laboratório",
+            "Saúde",
+        ];
+        messages = allMessages.filter((msg) =>
+            healthKeywords.some((keyword) => msg.includes(keyword)),
+        );
+
+        // Add specific psychology proofs if list is too short or just to boost
+        if (currentPath.includes("psicologos")) {
+            messages.push(
+                "<strong>Psicóloga Ana</strong> de SP lotou sua agenda online.",
+                "<strong>Dr. Roberto</strong> (Psiquiatra) iniciou projeto de telemedicina.",
+                "<strong>Clínica Mente Sã</strong> contratou o plano de autoridade.",
+                "<strong>Psicóloga Júlia</strong> do RJ lançou seu novo site profissional.",
+            );
+        }
+    }
+
     const popup = document.getElementById("social-proof-popup");
     const messageEl = document.getElementById("sp-message");
     const closeBtn = document.getElementById("sp-close");
@@ -282,9 +316,12 @@
 
         const showPopup = () => {
             let randomIndex;
+            // Ensure we have messages
+            if (messages.length === 0) messages = allMessages;
+
             do {
                 randomIndex = Math.floor(Math.random() * messages.length);
-            } while (randomIndex === lastIndex);
+            } while (randomIndex === lastIndex && messages.length > 1);
 
             lastIndex = randomIndex;
             const randomMsg = messages[randomIndex];
@@ -302,8 +339,8 @@
             popup.classList.remove("active");
             setTimeout(() => popup.classList.add("hidden"), 500);
 
-            // Wait 8-15 seconds before showing again (more frequent on form page)
-            const nextTime = 8000 + Math.random() * 7000;
+            // Wait 6-12 seconds before showing again (more frequent for higher urgency)
+            const nextTime = 6000 + Math.random() * 6000;
             setTimeout(showPopup, nextTime);
         };
 

@@ -305,6 +305,33 @@ const seo = createSEOMeta({
                 }
             };
 
+            // Dynamic WhatsApp Message
+            const waFloat = document.querySelector(".whatsapp-float");
+            if (waFloat) {
+                const path = window.location.pathname;
+                let msg = "Olá, gostaria de um orçamento para um site.";
+
+                if (path.includes("psicologos"))
+                    msg =
+                        "Olá, sou psicólogo e quero lotar minha agenda com um site novo.";
+                else if (path.includes("medicos"))
+                    msg =
+                        "Olá, sou médico e quero mais pacientes particulares.";
+                else if (path.includes("advogados"))
+                    msg =
+                        "Olá, sou advogado e quero modernizar meu escritório.";
+                else if (path.includes("arquitetos"))
+                    msg = "Olá, sou arquiteto e quero um portfólio premium.";
+                else if (path.includes("contadores"))
+                    msg =
+                        "Olá, sou contador e quero um site para minha empresa.";
+
+                waFloat.setAttribute(
+                    "href",
+                    `https://wa.me/5521999064502?text=${encodeURIComponent(msg)}`,
+                );
+            }
+
             // GA4 + Meta Pixel + CAPI Conversion Tracking
             document.addEventListener("click", function (e) {
                 // WhatsApp Tracking
