@@ -339,8 +339,8 @@
             popup.classList.remove("active");
             setTimeout(() => popup.classList.add("hidden"), 500);
 
-            // Wait 6-12 seconds before showing again (more frequent for higher urgency)
-            const nextTime = 6000 + Math.random() * 6000;
+            // Wait 3-7 seconds before showing again (more frequent for campaign urgency)
+            const nextTime = 3000 + Math.random() * 4000;
             setTimeout(showPopup, nextTime);
         };
 
