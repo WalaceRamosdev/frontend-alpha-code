@@ -283,23 +283,56 @@ const seo = createSEOMeta({
 
         <slot name="scripts" />
         <script is:inline>
-            // GA4 Conversion Tracking
+            // Expose sendCAPI to window for inline usage if needed, or define locally if scoping allows.
+            // Since sendCAPI is defined in the previous module script which might be scoped,
+            // we'll redefine a robust sender here that uses the same endpoint.
+            const triggerCAPI = async (eventName) => {
+                try {
+                    await fetch("/api/events", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            event_name: eventName,
+                            event_source_url: window.location.href,
+                            user_data: {
+                                client_user_agent: navigator.userAgent,
+                            },
+                        }),
+                    });
+                    console.log(`CAPI ${eventName} sent`);
+                } catch (e) {
+                    console.warn("CAPI fail", e);
+                }
+            };
+
+            // GA4 + Meta Pixel + CAPI Conversion Tracking
             document.addEventListener("click", function (e) {
                 // WhatsApp Tracking
                 const waLink = e.target.closest('a[href*="wa.me"]');
-                if (waLink && window.gtag) {
-                    gtag("event", "conversion", {
-                        send_to: "G-Z1TRD8DK7P",
-                        event_category: "Engagement",
-                        event_label: "WhatsApp Click",
-                        value: 1,
-                    });
-                    console.log("WA Click Tracked");
+                if (waLink) {
+                    // 1. Google Analytics
+                    if (window.gtag) {
+                        gtag("event", "conversion", {
+                            send_to: "G-Z1TRD8DK7P",
+                            event_category: "Engagement",
+                            event_label: "WhatsApp Click",
+                            value: 1,
+                        });
+                    }
+                    // 2. Meta Pixel (Browser)
+                    if (window.fbq) {
+                        fbq("track", "Contact"); // Using 'Contact' for WhatsApp
+                    }
+                    // 3. Meta CAPI (Server)
+                    triggerCAPI("Contact");
+
+                    console.log("WA Click Tracked (GA4 + Pixel + CAPI)");
                 }
             });
 
             // Form Submit Tracking
             document.addEventListener("submit", function (e) {
+                // 1. Google Analytics
                 if (window.gtag) {
                     gtag("event", "conversion", {
                         send_to: "G-Z1TRD8DK7P",
@@ -307,8 +340,15 @@ const seo = createSEOMeta({
                         event_label: "Form Submission",
                         value: 1,
                     });
-                    console.log("Form Submit Tracked");
                 }
+                // 2. Meta Pixel (Browser)
+                if (window.fbq) {
+                    fbq("track", "Lead"); // Using 'Lead' for Forms
+                }
+                // 3. Meta CAPI (Server)
+                triggerCAPI("Lead");
+
+                console.log("Form Submit Tracked (GA4 + Pixel + CAPI)");
             });
         </script>
         <script>
