@@ -125,10 +125,37 @@ const seo = createSEOMeta({
                 fbq("track", "PageView");
             }
 
+            // Safe CAPI Call (Non-blocking)
+            const sendCAPI = async (
+                eventName = "PageView",
+                customData = {},
+            ) => {
+                try {
+                    await fetch("/api/events", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            event_name: eventName,
+                            event_source_url: window.location.href,
+                            user_data: {
+                                client_user_agent: navigator.userAgent,
+                            },
+                            custom_data: customData,
+                        }),
+                    });
+                } catch (e) {
+                    console.warn("CAPI silent fail:", e);
+                }
+            };
+
             // Load trackers after 3.5s or on user interaction
             const loadTrackers = () => {
+                if (window.trackersLoaded) return;
+                window.trackersLoaded = true;
+
                 loadGTM();
                 loadMetaPixel();
+                sendCAPI("PageView"); // Send server-side event
             };
 
             const trackerTimer = setTimeout(loadTrackers, 3500);
