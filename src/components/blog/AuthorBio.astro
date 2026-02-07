@@ -10,8 +10,26 @@ const {
     name = "Walace Ramos",
     role = "Founder & Lead Developer",
     bio = "Especialista em desenvolvimento de alta performance e SEO estratégico com mais de 8 anos de experiência ajudando empresas a dominarem o mercado digital.",
-    avatar = "/assets/team/walace.jpg",
+    avatar: initialAvatar = "/assets/team/walace.jpg",
 } = Astro.props;
+
+import fs from "node:fs";
+import path from "node:path";
+
+let avatar: string | undefined = initialAvatar;
+
+// Check if avatar exists in public folder to prevent broken image
+if (avatar && avatar.startsWith("/")) {
+    try {
+        const publicPath = path.join(process.cwd(), "public", avatar.slice(1));
+        if (!fs.existsSync(publicPath)) {
+            // console.warn(`Author avatar not found: ${publicPath}`);
+            avatar = undefined;
+        }
+    } catch (e) {
+        console.error("Error checking avatar path:", e);
+    }
+}
 ---
 
 <div class="author-bio-card">
