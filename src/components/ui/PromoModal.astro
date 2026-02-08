@@ -459,6 +459,31 @@
                 delay: 0.2,
             });
 
+            // Monitorar cliques no botão da oferta (Pixel + GA4)
+            const promoBtn = document.querySelector(".promo-cta");
+            if (promoBtn) {
+                promoBtn.addEventListener("click", () => {
+                    // Meta Pixel - InitiateCheckout (Intenção de compra)
+                    if ((window as any).fbq) {
+                        (window as any).fbq("track", "InitiateCheckout", {
+                            content_name: "Oferta 25% OFF - Modal",
+                            currency: "BRL",
+                            value: 0, // Valor indefinido neste passo
+                        });
+                    }
+
+                    // Google Analytics 4 - Select Promotion
+                    if ((window as any).gtag) {
+                        (window as any).gtag("event", "select_promotion", {
+                            promotion_id: "ALPHA25",
+                            promotion_name: "Desconto 25% OFF",
+                            creative_name: "modal_popup",
+                            creative_slot: "overlay",
+                        });
+                    }
+                });
+            }
+
             setInterval(updateCountdown, 1000);
         }
 

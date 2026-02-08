@@ -38,7 +38,8 @@ const painPoints = [
                     <h1>
                         Atraia mais pacientes com uma presença online <span
                             class="highlight"
-                            >profissional, ética e feita para converter.</span>
+                            >profissional, ética e feita para converter.</span
+                        >
                     </h1>
                     <p class="subheadline">
                         Você não precisa fazer "dancinha" no Instagram, se expor
@@ -167,7 +168,108 @@ const painPoints = [
             </div>
         </section>
 
-        <!-- Final CTA Area -->
+        <!-- Pricing Section -->
+        <section class="pricing-section">
+            <div class="container">
+                <div class="pricing-header">
+                    <h2>Investimento Transparente</h2>
+                    <p>
+                        Qualidade de agência grande, com preço justo e sem
+                        "mensalidades eternas".
+                    </p>
+                </div>
+
+                <div class="pricing-grid">
+                    <!-- Card 1 -->
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h3>Essencial</h3>
+                            <p class="card-desc">
+                                Para quem quer começar com o pé direito.
+                            </p>
+                        </div>
+                        <div class="price-box">
+                            <span class="currency">R$</span>
+                            <span class="amount">260</span>
+                            <span class="payment-term">À vista (25% OFF)</span>
+                            <span
+                                class="original-price"
+                                style="text-decoration: line-through; color: #666; font-size: 0.9rem;"
+                                >De R$ 347</span
+                            >
+                        </div>
+                        <ul class="features-list">
+                            <li>
+                                ✅ <strong>Site One-Page</strong> (Tudo em uma página)
+                            </li>
+                            <li>✅ Design Premium & Exclusivo</li>
+                            <li>✅ Otimização Básica para Google (SEO)</li>
+                            <li>✅ Botão WhatsApp Flutuante</li>
+                            <li>✅ Hospedagem de Alta Performance</li>
+                            <li class="disabled">🚫 Sistema de Blog</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button
+                                href="https://wa.me/5521999064502?text=Quero%20o%20plano%20Essencial%20(Bronze)"
+                                target="_blank"
+                                variant="outline"
+                                class="w-full"
+                            >
+                                Escolher Essencial
+                            </Button>
+                        </div>
+                    </div>
+
+                    <!-- Card 2 (Featured) -->
+                    <div class="pricing-card featured">
+                        <div class="badge-popular">MAIS ESCOLHIDO</div>
+                        <div class="card-header">
+                            <h3>Autoridade</h3>
+                            <p class="card-desc">
+                                Para quem quer dominar a sua região.
+                            </p>
+                        </div>
+                        <div class="price-box">
+                            <span class="currency">R$</span>
+                            <span class="amount">449</span>
+                            <span class="payment-term">À vista (25% OFF)</span>
+                            <span
+                                class="original-price"
+                                style="text-decoration: line-through; color: #888; font-size: 0.9rem;"
+                                >De R$ 599</span
+                            >
+                        </div>
+                        <ul class="features-list">
+                            <li>
+                                ✅ <strong>Site Multi-Páginas</strong> (Completo)
+                            </li>
+                            <li>
+                                ✅ <strong>Blog de Artigos</strong> (Foco em SEO)
+                            </li>
+                            <li>✅ Design Premium & Exclusivo</li>
+                            <li>✅ Otimização Avançada para Google</li>
+                            <li>✅ Integração com Instagram</li>
+                            <li>✅ Treinamento de Uso</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button
+                                href="https://wa.me/5521999064502?text=Quero%20dominar%20minha%20regi%C3%A3o%20com%20o%20plano%20Autoridade%20(Prata)"
+                                target="_blank"
+                                variant="primary"
+                                class="w-full glow-effect"
+                            >
+                                Quero ser Autoridade
+                            </Button>
+                        </div>
+                    </div>
+                </div>
+
+                <p class="guarantee-text">
+                    🔒 Pagamento seguro via Link ou Cartão. Sem letras miúdas.
+                </p>
+            </div>
+        </section>
+
         <section id="contato" class="final-cta-section">
             <div class="container">
                 <div class="final-cta-content">
@@ -444,6 +546,146 @@ const painPoints = [
         font-size: 0.9rem !important;
         color: #555 !important;
         margin-top: 20px;
+    }
+
+    /* Pricing */
+    .pricing-section {
+        padding: 100px 0;
+        background: #0d0d0d;
+    }
+
+    .pricing-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+
+    .pricing-header h2 {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+    }
+
+    .pricing-header p {
+        color: #ccc;
+        font-size: 1.2rem;
+    }
+
+    .pricing-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 40px;
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .pricing-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 24px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+        transition: transform 0.3s ease;
+    }
+
+    .pricing-card:hover {
+        transform: translateY(-10px);
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .pricing-card.featured {
+        border: 2px solid var(--color-primary);
+        background: rgba(138, 28, 38, 0.05);
+        box-shadow: 0 0 30px rgba(138, 28, 38, 0.2);
+    }
+
+    .badge-popular {
+        position: absolute;
+        top: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: var(--color-primary);
+        color: white;
+        padding: 8px 16px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 1px;
+    }
+
+    .card-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .card-header h3 {
+        font-size: 2rem;
+        margin-bottom: 10px;
+    }
+
+    .card-desc {
+        color: #888;
+        font-size: 0.95rem;
+    }
+
+    .price-box {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 30px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .currency {
+        font-size: 1.5rem;
+        vertical-align: top;
+        color: #ccc;
+    }
+
+    .amount {
+        font-size: 3.5rem;
+        font-weight: 800;
+        color: white;
+    }
+
+    .payment-term {
+        display: block;
+        color: var(--color-primary);
+        font-weight: 700;
+        margin-top: 5px;
+    }
+
+    .features-list {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 40px;
+        flex-grow: 1;
+    }
+
+    .features-list li {
+        margin-bottom: 15px;
+        color: #ddd;
+        font-size: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .features-list li.disabled {
+        color: #555;
+        text-decoration: line-through;
+    }
+
+    .w-full {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .guarantee-text {
+        text-align: center;
+        margin-top: 40px;
+        color: #666;
+        font-size: 0.9rem;
     }
 
     @media (max-width: 768px) {
