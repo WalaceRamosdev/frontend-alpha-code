@@ -100,28 +100,27 @@
         const waLogo = widget.querySelector(".wa-logo");
         const textContainer = widget.querySelector(".text-container");
 
+        // Animations (Hover Glow only)
         // Hover (Desktop Only)
         if (typeof gsap !== "undefined") {
             const hoverTL = gsap.timeline({ paused: true });
 
-            hoverTL;
-            hoverTL;
             hoverTL
                 .set([textContainer, arrowContainer], { display: "flex" })
                 .to(widget, {
                     width: "auto",
                     duration: 0.4,
                     ease: "power2.out",
-                    backgroundColor: "#050505", // Solid black on hover
-                    borderColor: "rgba(37, 211, 102, 0.4)", // Green border on hover
+                    backgroundColor: "#050505",
+                    borderColor: "transparent",
                     paddingRight: "24px",
                     paddingLeft: "8px",
                     gap: "12px",
-                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)", // Green glow
+                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
                     borderRadius: "50px",
                 })
-                .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
-                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0) // Ensure Green
+                .to(pulseRing, { opacity: 0, duration: 0.1 }, 0)
+                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
                 .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
                 .fromTo(
                     actionText,
@@ -159,7 +158,7 @@
         background: rgba(10, 10, 10, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
+        border: none; /* Removed border */
         border-radius: 50px;
 
         height: 56px;
@@ -223,7 +222,7 @@
     .wa-logo {
         width: 28px;
         height: 28px;
-        color: #25d366; /* Green Icon */
+        color: #ffffff; /* Restore White Icon */
         transition: color 0.3s;
         display: block;
     }
@@ -254,9 +253,10 @@
     .text-container {
         position: relative;
         height: 20px;
-        width: 155px; /* Increased from 130px to fit text */
+        width: 155px;
         overflow: hidden;
         align-items: center;
+        display: none; /* Initially hidden, handled by GSAP */
     }
 
     .status-text,

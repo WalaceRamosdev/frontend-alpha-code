@@ -216,19 +216,19 @@
     }
 
     .promo-badge {
-        background: linear-gradient(90deg, #ef4444, #b91c1c); /* Brighter Red */
+        background: #3a080d; /* Dark Red background */
         color: #ffffff;
         display: inline-block;
-        padding: 8px 22px;
+        padding: 10px 24px;
         border-radius: 100px;
-        font-size: 0.9rem; /* Larger text */
-        font-weight: 800;
-        letter-spacing: 1px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
         margin-bottom: 20px;
-        animation: pulse 2s infinite;
-        box-shadow: 0 5px 15px rgba(220, 38, 38, 0.4);
-        border: 1px solid rgba(255, 255, 255, 0.3);
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.4); /* Better contrast */
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+        border: 1px solid #6b141e; /* Subtle bright border */
+        text-transform: uppercase;
+        text-shadow: none;
     }
 
     @keyframes pulse {
@@ -248,19 +248,15 @@
 
     .promo-title {
         font-family: "Outfit", sans-serif;
-        font-size: 4rem;
+        font-size: 4.5rem; /* Large and bold */
         font-weight: 900;
-        background: linear-gradient(
-            to bottom,
-            #ffffff 50%,
-            #ff9999
-        ); /* Lighter gradient */
+        background: linear-gradient(to bottom, #ffffff 30%, #ff9999 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         margin: 0;
         line-height: 0.9;
         letter-spacing: -2px;
-        filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.5));
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.6));
     }
 
     .promo-subtitle {
@@ -274,14 +270,17 @@
     }
 
     .promo-message {
-        color: #f0f0f0; /* Much lighter for readability */
-        font-size: 1rem; /* Larger */
+        color: #cccccc; /* Greyish white */
+        font-size: 0.95rem;
         line-height: 1.5;
-        margin-bottom: 25px;
-        max-width: 320px;
+        margin-bottom: 30px;
+        max-width: 300px; /* Compact */
         margin-left: auto;
         margin-right: auto;
-        font-weight: 500;
+        font-weight: 400;
+        background: none;
+        padding: 0;
+        border: none;
     }
 
     .countdown-container {
