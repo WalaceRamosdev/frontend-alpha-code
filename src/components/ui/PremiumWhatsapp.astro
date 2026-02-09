@@ -1,0 +1,318 @@
+---
+
+---
+
+<div
+    id="premium-wa-widget"
+    class="wa-widget"
+    role="button"
+    aria-label="Falar no WhatsApp"
+>
+    <!-- Link overlay for full clickability -->
+    <a
+        id="wa-widget-link"
+        href="https://wa.me/5521999064502"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="widget-link-overlay"
+        aria-label="Iniciar conversa no WhatsApp"
+    >
+    </a>
+
+    <div class="widget-internal">
+        <!-- Icon Wrapper (Always Visible) -->
+        <div class="icon-wrapper">
+            <div class="pulse-ring"></div>
+            <!-- Minimalist WhatsApp Icon -->
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="wa-logo"
+            >
+                <path
+                    d="M12.04 2c-5.46 0-9.91 4.45-9.91 9.91 0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38c1.45.79 3.13 1.2 4.74 1.2 5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01C17.18 3.03 14.69 2 12.04 2zM12.05 20.21c-1.5 0-2.97-.39-4.27-1.17l-.3-.18-3.15.83.84-3.07-.19-.31c-.82-1.33-1.26-2.88-1.26-4.43a8.12 8.12 0 0 1 13.85-5.74c1.53 1.53 2.37 3.55 2.37 5.71a8.12 8.12 0 0 1-8.12 8.11zm4.45-6.08c-.24-.12-1.44-0.71-1.66-0.79-.22-.08-.38-.12-.54.12-.17.24-.65.8-0.8.96-.14.16-.29.17-.54.06-.24-.12-1.03-.38-1.95-1.21-.73-.65-1.22-1.45-1.36-1.7-.15-.24-.02-.37.1-.49.1-.1.24-.24.36-.37.11-.12.15-.2.23-.33.08-.13.04-.25-.02-.35-.06-.11-0.54-1.3-0.74-1.79-.2-.48-.41-.42-.54-.42l-.47-.01c-.16 0-.42.06-.64.3-.22.24-0.85.83-0.85 2.02s0.87 2.34 0.99 2.51c.11.16 1.7 2.61 4.14 3.65.57.25 1.02.4 1.37.51.58.19 1.11.16 1.52.1.47-.07 1.44-.59 1.64-1.16.2-.57.2-1.06.14-1.16-.06-.1-.22-.17-.47-.29z"
+                ></path>
+            </svg>
+        </div>
+
+        <!-- Text Container (Desktop Only, initially hidden) -->
+        <div class="text-container" style="display: none;">
+            <span class="status-text">Falar com Consultor</span>
+            <span class="action-text">Iniciar Planejamento</span>
+        </div>
+
+        <!-- Arrow (Desktop Only, initially hidden) -->
+        <div class="arrow-container" style="display: none;">
+            <svg
+                viewBox="0 0 24 24"
+                width="20"
+                height="20"
+                stroke="currentColor"
+                stroke-width="2"
+                fill="none"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+        </div>
+    </div>
+</div>
+
+<script
+    is:inline
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+></script>
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Dynamic Message Logic
+        const widgetLink = document.getElementById("wa-widget-link");
+        if (widgetLink) {
+            const path = window.location.pathname;
+            let msg = "Olá, gostaria de um orçamento para um site.";
+
+            if (path.includes("psicologos")) {
+                msg =
+                    "Olá, sou psicólogo e quero lotar minha agenda com um site novo.";
+            } else if (path.includes("medicos")) {
+                msg = "Olá, sou médico e quero mais pacientes particulares.";
+            } else if (path.includes("advogados")) {
+                msg = "Olá, sou advogado e quero modernizar meu escritório.";
+            } else if (path.includes("arquitetos")) {
+                msg = "Olá, sou arquiteto e quero um portfólio premium.";
+            } else if (path.includes("contadores")) {
+                msg = "Olá, sou contador e quero um site para minha empresa.";
+            }
+
+            const finalUrl = `https://wa.me/5521999064502?text=${encodeURIComponent(msg)}`;
+            widgetLink.setAttribute("href", finalUrl);
+        }
+
+        // 2. Animations
+        const widget = document.getElementById("premium-wa-widget");
+        const statusText = widget.querySelector(".status-text");
+        const actionText = widget.querySelector(".action-text");
+        const arrowContainer = widget.querySelector(".arrow-container");
+        const pulseRing = widget.querySelector(".pulse-ring");
+        const waLogo = widget.querySelector(".wa-logo");
+        const textContainer = widget.querySelector(".text-container");
+
+        // Intro
+        gsap.set(widget, { y: 100, opacity: 0 });
+        gsap.to(widget, {
+            y: 0,
+            opacity: 1,
+            duration: 1,
+            ease: "power4.out",
+            delay: 0.5,
+        });
+
+        // Pulse
+        gsap.to(pulseRing, {
+            scale: 2.5,
+            opacity: 0,
+            duration: 2,
+            repeat: -1,
+            ease: "power1.out",
+        });
+
+        // Hover (Desktop Only)
+        const hoverTL = gsap.timeline({ paused: true });
+
+        hoverTL
+            .set([textContainer, arrowContainer], { display: "flex" })
+            .to(widget, {
+                width: "auto",
+                duration: 0.4,
+                ease: "power2.out",
+                backgroundColor: "#050505", // Solid black
+                borderColor: "rgba(37, 211, 102, 0.4)",
+                paddingRight: "24px" /* Increased padding right */,
+                paddingLeft: "8px",
+                gap: "12px",
+                boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
+                borderRadius: "50px",
+            })
+            .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
+            .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
+            .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
+            .fromTo(
+                actionText,
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.2 },
+                0.1,
+            )
+            .fromTo(
+                arrowContainer,
+                { x: -10, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.3 },
+                0.1,
+            );
+
+        widget.addEventListener("mouseenter", () => {
+            if (window.innerWidth > 768) hoverTL.play();
+        });
+
+        widget.addEventListener("mouseleave", () => {
+            if (window.innerWidth > 768) {
+                hoverTL.reverse().then(() => {
+                    // Optional cleanup
+                });
+            }
+        });
+    });
+</script>
+
+<style>
+    /* Base Desktop Styling */
+    .wa-widget {
+        position: fixed;
+        bottom: 25px;
+        right: 25px;
+        z-index: 9999;
+        background: rgba(10, 10, 10, 0.6);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 50px;
+
+        height: 56px;
+        width: 56px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        gap: 0;
+
+        box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.5);
+        cursor: pointer;
+        overflow: hidden;
+        transition: transform 0.2s ease;
+    }
+
+    .wa-widget:active {
+        transform: scale(0.96);
+    }
+
+    .widget-link-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+    }
+
+    .widget-internal {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        height: 100%;
+        pointer-events: none;
+        justify-content: center;
+    }
+
+    /* Icon Area */
+    .icon-wrapper {
+        position: relative;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        z-index: 2;
+    }
+
+    .wa-logo {
+        width: 28px;
+        height: 28px;
+        color: #fff;
+        transition: color 0.3s;
+        display: block;
+    }
+
+    .pulse-ring {
+        position: absolute;
+        width: 140%;
+        height: 140%;
+        background-color: rgba(255, 255, 255, 0.1);
+        border-radius: 50%;
+        z-index: 1;
+        pointer-events: none;
+    }
+
+    /* Text & Arrow Area */
+    .text-container {
+        position: relative;
+        height: 20px;
+        width: 155px; /* Increased from 130px to fit text */
+        overflow: hidden;
+        align-items: center;
+    }
+
+    .status-text,
+    .action-text {
+        position: absolute;
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        white-space: nowrap;
+        left: 0;
+    }
+
+    .status-text {
+        font-weight: 500;
+        color: rgba(255, 255, 255, 0.95);
+    }
+
+    .action-text {
+        font-weight: 600;
+        color: #25d366;
+        opacity: 0;
+    }
+
+    .arrow-container {
+        opacity: 0;
+        color: #fff;
+        transform: translateX(-5px);
+        align-items: center;
+        flex-shrink: 0;
+        margin-left: 4px; /* Space between text and arrow */
+    }
+
+    /* -------------------
+     MOBILE OPTIMIZATION 
+     ------------------- */
+    @media (max-width: 768px) {
+        .wa-widget {
+            bottom: 25px;
+            right: 25px;
+            height: 56px;
+            width: 56px !important;
+            max-width: 56px !important;
+            justify-content: center !important;
+            padding: 0 !important;
+            background: #0a0a0a !important; /* Solid background prevents weird overlaps */
+            border: 1px solid rgba(255, 255, 255, 0.15) !important;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6) !important;
+        }
+
+        .text-container,
+        .arrow-container {
+            display: none !important;
+        }
+
+        .widget-internal {
+            justify-content: center;
+            width: 100%;
+            gap: 0 !important;
+        }
+
+        .wa-logo {
+            width: 28px !important;
+            height: 28px !important;
+            color: #25d366 !important;
+        }
+    }
+</style>

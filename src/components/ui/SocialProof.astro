@@ -2,354 +2,300 @@
 
 ---
 
-<div id="social-proof-popup" class="social-proof-container hidden">
-    <div class="sp-card">
-        <div class="sp-icon">
-            <span class="pulse-icon"></span>
-            🚀
+<div id="social-proof-popup" class="proof-wrapper" aria-live="polite">
+    <div class="proof-card">
+        <div class="proof-icon-area">
+            <div class="activity-dot"></div>
         </div>
-        <div class="sp-content">
-            <p class="sp-text" id="sp-message"></p>
-            <span class="sp-time">há poucos segundos</span>
+        <div class="proof-content">
+            <span class="proof-action" id="sp-action"></span>
+            <span class="proof-detail" id="sp-detail"></span>
         </div>
-        <button class="sp-close" id="sp-close">&times;</button>
     </div>
 </div>
 
+<script
+    is:inline
+    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
+></script>
+
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        // 1. Data Source (Mock)
+        const activities = [
+            {
+                action: "Novo projeto iniciado",
+                detail: "Clínica Médica • SP",
+                type: "project",
+            },
+            {
+                action: "Solicitação de proposta",
+                detail: "Jurídico • DF",
+                type: "lead",
+            },
+            {
+                action: "Briefing recebido",
+                detail: "Odonto • RJ",
+                type: "briefing",
+            },
+            {
+                action: "Análise SEO concluída",
+                detail: "E-commerce • MG",
+                type: "tech",
+            },
+            {
+                action: "Consultoria agendada",
+                detail: "Arquitetura • SC",
+                type: "meeting",
+            },
+            {
+                action: "Plano Autoridade",
+                detail: "Psicólogo • PR",
+                type: "sale",
+            },
+            {
+                action: "Site publicado",
+                detail: "Advocacia • SP",
+                type: "deploy",
+            },
+            {
+                action: "Diagnóstico inicial",
+                detail: "Seguros • BA",
+                type: "lead",
+            },
+            {
+                action: "Upgrade de plano",
+                detail: "Estética • SC",
+                type: "sale",
+            },
+            {
+                action: "Integração WhatsApp",
+                detail: "Móveis • CE",
+                type: "tech",
+            },
+        ];
+
+        let pool = [...activities];
+        const path = window.location.pathname;
+
+        if (path.includes("psicologos")) {
+            pool = pool.filter(
+                (a) =>
+                    a.detail.includes("Psicó") ||
+                    a.detail.includes("Clínica") ||
+                    a.type === "lead",
+            );
+            pool.push(
+                {
+                    action: "Novo projeto iniciado",
+                    detail: "Psio • SP",
+                    type: "project",
+                },
+                {
+                    action: "Agenda consultada",
+                    detail: "Terapia • RJ",
+                    type: "lead",
+                },
+            );
+        }
+
+        // 2. Logic & Config
+        const wrapper = document.getElementById("social-proof-popup");
+        const card = wrapper.querySelector(".proof-card");
+        const actionEl = document.getElementById("sp-action");
+        const detailEl = document.getElementById("sp-detail");
+        const dot = wrapper.querySelector(".activity-dot");
+
+        const config = {
+            initialDelay: 5000,
+            minInterval: 15000,
+            maxInterval: 30000,
+            displayDuration: 5000,
+        };
+        let isVisible = false;
+
+        // 3. Animation Engine
+        const showEvent = () => {
+            if (isVisible) return;
+            const item = pool[Math.floor(Math.random() * pool.length)];
+            actionEl.textContent = item.action;
+            detailEl.textContent = item.detail;
+
+            let dotColor = "rgba(255, 255, 255, 0.6)";
+            if (item.type === "sale") dotColor = "#00ff88";
+            if (item.type === "lead") dotColor = "#3b82f6";
+            if (item.type === "project") dotColor = "#a855f7";
+
+            dot.style.backgroundColor = dotColor;
+            dot.style.boxShadow = `0 0 10px ${dotColor}`;
+
+            isVisible = true;
+
+            // Slightly different animation for top position?
+            gsap.set(card, {
+                y: -20,
+                opacity: 0,
+                scale: 0.98,
+                filter: "blur(4px)",
+            });
+
+            const tl = gsap.timeline();
+            tl.to(card, {
+                y: 0,
+                opacity: 1,
+                scale: 1,
+                filter: "blur(0px)",
+                duration: 0.8,
+                ease: "power3.out",
+            });
+
+            setTimeout(() => hideEvent(), config.displayDuration);
+        };
+
+        const hideEvent = () => {
+            const tl = gsap.timeline({
+                onComplete: () => {
+                    isVisible = false;
+                    scheduleNext();
+                },
+            });
+            tl.to(card, {
+                y: -10,
+                opacity: 0,
+                filter: "blur(4px)",
+                duration: 0.6,
+                ease: "power2.in",
+            });
+        };
+
+        const scheduleNext = () => {
+            const interval = Math.floor(
+                Math.random() * (config.maxInterval - config.minInterval) +
+                    config.minInterval,
+            );
+            setTimeout(showEvent, interval);
+        };
+
+        setTimeout(showEvent, config.initialDelay);
+    });
+</script>
+
 <style>
-    .social-proof-container {
+    .proof-wrapper {
         position: fixed;
         bottom: 30px;
         left: 30px;
-        z-index: 999;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        z-index: 900;
         pointer-events: none;
-        opacity: 0;
-        transform: translateY(20px) scale(0.9);
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
     }
 
-    .social-proof-container.active {
-        opacity: 1;
-        transform: translateY(0) scale(1);
+    .proof-card {
+        background: rgba(10, 10, 10, 0.75);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        opacity: 0;
+        box-shadow:
+            0 4px 6px -1px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(255, 255, 255, 0.03);
+        max-width: 300px;
+        width: max-content;
         pointer-events: auto;
     }
 
-    .social-proof-container.hidden {
-        display: none;
-    }
-
-    .sp-card {
-        background: rgba(10, 10, 10, 0.9);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(15px);
-        padding: 12px 20px;
-        border-radius: 16px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-        min-width: 250px;
-        max-width: 320px;
-        position: relative;
-    }
-
-    .sp-icon {
-        width: 40px;
-        height: 40px;
-        background: rgba(138, 28, 38, 0.15);
-        border-radius: 12px;
+    .proof-icon-area {
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.2rem;
-        position: relative;
+        padding-right: 4px;
     }
 
-    .pulse-icon {
-        position: absolute;
-        top: -2px;
-        right: -2px;
-        width: 8px;
-        height: 8px;
-        background: #22c55e;
+    .activity-dot {
+        width: 6px;
+        height: 6px;
         border-radius: 50%;
-        box-shadow: 0 0 8px #22c55e;
+        background-color: rgba(255, 255, 255, 0.5);
+        transition: background-color 0.3s ease;
     }
 
-    .pulse-icon::after {
-        content: "";
-        position: absolute;
-        inset: -4px;
-        border-radius: 50%;
-        border: 1px solid #22c55e;
-    }
-
-    /* Pulse animation removed for performance */
-
-    .sp-content {
+    .proof-content {
         display: flex;
         flex-direction: column;
         gap: 2px;
     }
 
-    .sp-text {
-        color: white;
-        font-size: 0.9rem;
+    .proof-action {
+        color: #e5e5e5;
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
+        font-size: 0.85rem;
         font-weight: 500;
-        margin: 0;
         line-height: 1.2;
     }
 
-    .sp-time {
-        color: rgba(255, 255, 255, 0.4);
+    .proof-detail {
+        color: rgba(255, 255, 255, 0.5);
+        font-family: -apple-system, BlinkMacSystemFont, "Inter", sans-serif;
         font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.2;
     }
 
-    .sp-close {
-        position: absolute;
-        top: 5px;
-        right: 8px;
-        background: none;
-        border: none;
-        color: rgba(255, 255, 255, 0.3);
-        cursor: pointer;
-        font-size: 1.2rem;
-        line-height: 1;
-        padding: 0;
-    }
-
-    .sp-close:hover {
-        color: white;
-    }
-
-    @media (max-width: 600px) {
-        .social-proof-container {
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-        }
-        .sp-card {
-            max-width: none;
+    /* Mobile Optimization */
+    @media (max-width: 768px) {
+        .proof-wrapper {
+            bottom: auto;
+            /* Very high position (System Notification style) */
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            right: auto;
+            align-items: center;
             width: 100%;
+            z-index: 9999; /* High z-index to overlay header if needed */
+            pointer-events: none; /* Let clicks pass through the huge wrapper area to header behind */
+        }
+
+        .proof-card {
+            padding: 6px 12px;
+            background: rgba(8, 8, 8, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            flex-direction: row;
+            border-radius: 50px; /* Full pill */
+
+            /* Compact */
+            max-width: 85%;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            pointer-events: auto; /* Re-enable clicks on the card itself */
+        }
+
+        .proof-content {
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .proof-icon-area {
+            padding-right: 0;
+            padding-left: 2px;
+        }
+
+        .proof-action {
+            font-size: 0.75rem;
+        }
+
+        .proof-detail {
+            font-size: 0.65rem;
+            white-space: nowrap;
         }
     }
 </style>
-
-<script>
-    const allMessages = [
-        "<strong>Dr. Marcelo S.</strong> de SP acaba de solicitar um orçamento.",
-        "<strong>Dra. Juliana Ferreira</strong> do RJ iniciou um projeto VIP.",
-        "<strong>Escritório Silva & Associados</strong> vinculou um novo site.",
-        "<strong>Ricardo Mendonça</strong> acaba de contratar o Plano Prata.",
-        "<strong>Dra. Fernanda Alencar</strong> de MG solicitou uma melhoria.",
-        "<strong>Clínica Sorriso</strong> de SC iniciou um novo projeto.",
-        "<strong>Advogado Carlos Henrique</strong> de Brasília solicitou orçamento.",
-        "<strong>Portal de Arquitetura</strong> acaba de assinar o Plano Ouro.",
-        "<strong>Dra. Beatriz Santos</strong> do RS vinculou seu site agora.",
-        "<strong>Felipe</strong> de Curitiba contratou Plano Prata.",
-        "<strong>Escritório Jurídico T.</strong> iniciou sua presença digital.",
-        "<strong>Dra. Camila</strong> de Salvador acaba de adquirir um site para sua clínica.",
-        "<strong>Arquiteta Roberta Paes</strong> de SP solicitou um novo portfólio.",
-        "<strong>Empresa Logística Sul</strong> de PR iniciou consultoria digital.",
-        "<strong>Dr. Gustavo Lima</strong> do CE contratou o plano de autoridade.",
-        "<strong>Consultório Odonto Prime</strong> de GO adquiriu novo site.",
-        "<strong>Engenheiro Rafael</strong> de MT solicitou orçamento para site técnico.",
-        "<strong>Dra. Patrícia</strong> de BH assinou o plano médico premium.",
-        "<strong>Escritório de Contabilidade L.</strong> de RS vinculou site agora.",
-        "<strong>Psicóloga Mariana</strong> de SP iniciou seu projeto de agendamento.",
-        "<strong>Dr. Arthur Novaes</strong> do PE acaba de solicitar orçamento.",
-        "<strong>Dra. Luana</strong> de MS contratou o plano profissional.",
-        "<strong>Imobiliária Santos</strong> de SC iniciou novo portal de vendas.",
-        "<strong>Advogada Clarice</strong> de Curitiba solicitou melhoria no site.",
-        "<strong>Dr. Vinícius</strong> de SP adquiriu o plano de alta conversão.",
-        "<strong>Dra. Helena</strong> de Porto Alegre vinculou site institucional.",
-        "<strong>Clínica Viva Bem</strong> de RJ assinou contrato agora.",
-        "<strong>Construtora Alpha</strong> de MG solicitou projeto personalizado.",
-        "<strong>Dr. Rodrigo Rocha</strong> de Brasília contratou o Plano Ouro.",
-        "<strong>Dra. Sofia Mendes</strong> de Fortaleza iniciou sua marca digital.",
-        "<strong>Escritório de Design M.</strong> de SP solicitou orçamento.",
-        "<strong>Dra. Aline</strong> de Manaus adquiriu site para consultório.",
-        "<strong>Empresário Bruno</strong> de Vitória contratou solução de vendas.",
-        "<strong>Dra. Isabela</strong> de Natal vinculou seu novo site médico.",
-        "<strong>Laboratório BioCheck</strong> de SP iniciou projeto digital.",
-        "<strong>Dr. Tiago</strong> de Florianópolis solicitou Plano Prata.",
-        "<strong>Dra. Bianca</strong> de Cuiabá assinou o plano de presença digital.",
-        "<strong>Escritório Nobre</strong> de Salvador vinculou site agora.",
-        "<strong>Dr. André</strong> de Belém iniciou projeto de autoridade.",
-        "<strong>Dra. Elisa</strong> de João Pessoa contratou o plano premium.",
-        "<strong>Nutricionista Carla</strong> de SP solicitou um novo site.",
-        "<strong>Fisioterapeuta Marcos</strong> do RJ iniciou projeto VIP.",
-        "<strong>Veterinária PetLife</strong> de MG vinculou um novo site.",
-        "<strong>Personal Trainer Leo</strong> de SC acaba de contratar o Plano Prata.",
-        "<strong>Dra. Renata Lima</strong> de DF solicitou orçamento para clínica.",
-        "<strong>Escritório de Advocacia RR</strong> de RS vinculou site agora.",
-        "<strong>Dr. Paulo M.</strong> de PR iniciou sua marca digital.",
-        "<strong>Dra. Amanda</strong> de BA acaba de adquirir site médico.",
-        "<strong>Clínica Harmony</strong> de SP solicitou projeto de alta performance.",
-        "<strong>Engenheiro Bruno</strong> de GO iniciou consultoria digital.",
-        "<strong>Dra. Letícia</strong> de PE contratou o plano profissional.",
-        "<strong>Imobiliária Nova Era</strong> de CE vinculou seu novo portal.",
-        "<strong>Dr. Gabriel</strong> de MT acaba de solicitar um orçamento.",
-        "<strong>Dra. Vanessa</strong> de MS solicitou melhoria no site.",
-        "<strong>Arquiteto Fábio</strong> de SP adquiriu o Plano Ouro.",
-        "<strong>Dra. Cláudia</strong> de Porto Alegre vinculou site agora.",
-        "<strong>Consultório Sorria</strong> de RJ assinou contrato hoje.",
-        "<strong>Dr. Eduardo</strong> de MG solicitou orçamento para landing page.",
-        "<strong>Dra. Thais</strong> de Brasília iniciou projeto de autoridade.",
-        "<strong>Escritório Real</strong> de Salvador vinculou site institucional.",
-        "<strong>Dra. Monica</strong> de Manaus contratou Plano Prata.",
-        "<strong>Empresário Thiago</strong> de Vitória adquiriu solução de vendas.",
-        "<strong>Dra. Sara</strong> de Natal vinculou seu novo site médico.",
-        "<strong>Laboratório Exame</strong> de SP iniciou projeto digital.",
-        "<strong>Dr. Hugo</strong> de Florianópolis solicitou Plano Prata.",
-        "<strong>Dra. Patrícia M.</strong> de Cuiabá assinou o plano premium.",
-        "<strong>Escritório Silva</strong> de Belém vinculou site agora.",
-        "<strong>Dr. Leonardo</strong> de João Pessoa iniciou projeto de autoridade.",
-        "<strong>Dra. Bruna</strong> de São Luís contratou o plano premium.",
-        "<strong>Psicólogo Roberto</strong> de Campinas solicitou orçamento.",
-        "<strong>Dra. Daniela</strong> de Santos iniciou projeto exclusivo.",
-        "<strong>Clínica Derma</strong> de Ribeirão Preto vinculou novo site.",
-        "<strong>Advogado Luiz</strong> de Sorocaba acaba de contratar o Plano Prata.",
-        "<strong>Dra. Fabiana</strong> de Niterói solicitou melhoria no site.",
-        "<strong>Escritório Contábil</strong> de Búzios iniciou sua presença digital.",
-        "<strong>Dr. Maurício</strong> de Uberlândia solicitou orçamento.",
-        "<strong>Dra. Priscila</strong> de Juiz de Fora assinou o Plano Ouro.",
-        "<strong>Portal Imóveis</strong> de Gramado vinculou site agora.",
-        "<strong>Dra. Sandra</strong> de Caxias do Sul contratou Plano Prata.",
-        "<strong>Felipe M.</strong> de Joinville iniciou sua marca online.",
-        "<strong>Escritório T.</strong> de Itajaí vinculou seu site agora.",
-        "<strong>Dra. Cristina</strong> de Balneário Camboriú adquiriu site médico.",
-        "<strong>Empresa Log</strong> de Londrina iniciou consultoria digital.",
-        "<strong>Dr. Ricardo H.</strong> de SP acaba de solicitar um orçamento.",
-        "<strong>Dra. Mirella</strong> do RJ iniciou um projeto VIP.",
-        "<strong>Escritório Santos</strong> de MG vinculou um novo site.",
-        "<strong>Gabriel N.</strong> acaba de contratar o Plano Prata.",
-        "<strong>Dra. Cecília</strong> de DF solicitou uma melhoria.",
-        "<strong>Clínica Prime</strong> de SC iniciou um novo projeto.",
-        "<strong>Advogada Márcia</strong> de Brasília solicitou orçamento.",
-        "<strong>Site de Engenharia</strong> acaba de assinar o Plano Ouro.",
-        "<strong>Dra. Vera</strong> do RS vinculou seu site agora.",
-        "<strong>Lucas</strong> de Curitiba contratou Plano Prata.",
-        "<strong>Escritório J.</strong> de BA iniciou sua presença digital.",
-        "<strong>Dra. Gabi</strong> de Salvador acaba de adquirir um site.",
-        "<strong>Arquiteta Ana</strong> de SP solicitou um novo portfólio.",
-        "<strong>Empresa Tech</strong> de PR iniciou projeto digital.",
-        "<strong>Dr. Samuel</strong> do CE contratou o plano de autoridade.",
-        "<strong>Odonto Mix</strong> de GO adquiriu novo site.",
-        "<strong>Engenheiro Alex</strong> de MT solicitou orçamento.",
-        "<strong>Dra. Simone</strong> de BH assinou o plano premium.",
-        "<strong>Contabilidade L.</strong> de RS vinculou site agora.",
-        "<strong>Psicóloga Fernanda</strong> de SP iniciou agendamento online.",
-        "<strong>Dr. Igor</strong> do PE acaba de solicitar orçamento.",
-        "<strong>Dra. Estela</strong> de MS contratou o plano profissional.",
-        "<strong>Imobiliária Blue</strong> de SC iniciou novo portal.",
-        "<strong>Advogada Clara</strong> de Curitiba solicitou melhoria.",
-        "<strong>Dr. Otávio</strong> de SP adquiriu alta conversão.",
-        "<strong>Dra. Julia</strong> de Porto Alegre vinculou site institucional.",
-        "<strong>Clínica Vida</strong> de RJ assinou contrato agora.",
-        "<strong>Construtora Top</strong> de MG solicitou projeto.",
-        "<strong>Dr. Caio</strong> de Brasília contratou o Plano Ouro.",
-        "<strong>Dra. Lorena</strong> de Fortaleza iniciou marca digital.",
-        "<strong>Escritório Design</strong> de SP solicitou orçamento.",
-        "<strong>Dra. Paola</strong> de Manaus adquiriu site médico.",
-        "<strong>Empresário Caio</strong> de Vitória contratou vendas online.",
-        "<strong>Dra. Regina</strong> de Natal vinculou seu novo site.",
-        "<strong>Laboratório Lab</strong> de SP iniciou projeto digital.",
-        "<strong>Dr. Walter</strong> de Florianópolis solicitou Plano Prata.",
-        "<strong>Dra. Tati</strong> de Cuiabá assinou o plano premium.",
-        "<strong>Escritório Nobre</strong> de Belém vinculou site agora.",
-        "<strong>Dr. Jorge</strong> de João Pessoa iniciou autoridade.",
-        "<strong>Dra. Mari</strong> de Maceió contratou o plano premium.",
-        "<strong>Nutri Fit</strong> de Aracaju solicitou um novo site.",
-        "<strong>Fisioclin</strong> de SP iniciou projeto VIP.",
-        "<strong>Pet Shop Amigo</strong> de MG vinculou site médico.",
-        "<strong>Personal Power</strong> de SC acaba de contratar PRO.",
-        "<strong>Dra. Débora</strong> de DF solicitou orçamento.",
-        "<strong>Escritório R.</strong> de RS vinculou site agora.",
-        "<strong>Dr. Sergio</strong> de PR iniciou sua marca.",
-        "<strong>Dra. Carol</strong> de BA acaba de adquirir site.",
-        "<strong>Clínica Estética</strong> de SP solicitou projeto.",
-        "<strong>Engenheiro Tiago</strong> de GO iniciou consultoria.",
-    ];
-
-    // Filter messages based on the current page to increase relevancy
-    const currentPath = window.location.pathname;
-    let messages = allMessages;
-
-    // If on Psychologist/Medical page, show only relevant proofs
-    if (currentPath.includes("psicologos") || currentPath.includes("medicos")) {
-        const healthKeywords = [
-            "Dr.",
-            "Dra.",
-            "Clínica",
-            "Psicólog",
-            "Médic",
-            "Nutri",
-            "Fisio",
-            "Consultório",
-            "Odonto",
-            "Laboratório",
-            "Saúde",
-        ];
-        messages = allMessages.filter((msg) =>
-            healthKeywords.some((keyword) => msg.includes(keyword)),
-        );
-
-        // Add specific psychology proofs if list is too short or just to boost
-        if (currentPath.includes("psicologos")) {
-            messages.push(
-                "<strong>Psicóloga Ana</strong> de SP lotou sua agenda online.",
-                "<strong>Dr. Roberto</strong> (Psiquiatra) iniciou projeto de telemedicina.",
-                "<strong>Clínica Mente Sã</strong> contratou o plano de autoridade.",
-                "<strong>Psicóloga Júlia</strong> do RJ lançou seu novo site profissional.",
-            );
-        }
-    }
-
-    const popup = document.getElementById("social-proof-popup");
-    const messageEl = document.getElementById("sp-message");
-    const closeBtn = document.getElementById("sp-close");
-
-    if (popup && messageEl && closeBtn) {
-        let timer: any;
-        let lastIndex = -1;
-
-        const showPopup = () => {
-            let randomIndex;
-            // Ensure we have messages
-            if (messages.length === 0) messages = allMessages;
-
-            do {
-                randomIndex = Math.floor(Math.random() * messages.length);
-            } while (randomIndex === lastIndex && messages.length > 1);
-
-            lastIndex = randomIndex;
-            const randomMsg = messages[randomIndex];
-
-            messageEl.innerHTML = randomMsg;
-
-            popup.classList.remove("hidden");
-            setTimeout(() => popup.classList.add("active"), 100);
-
-            // Auto hide after 6 seconds
-            timer = setTimeout(hidePopup, 6000);
-        };
-
-        const hidePopup = () => {
-            popup.classList.remove("active");
-            setTimeout(() => popup.classList.add("hidden"), 500);
-
-            // Wait 3-7 seconds before showing again (more frequent for campaign urgency)
-            const nextTime = 3000 + Math.random() * 4000;
-            setTimeout(showPopup, nextTime);
-        };
-
-        closeBtn.addEventListener("click", () => {
-            clearTimeout(timer);
-            hidePopup();
-        });
-
-        // Start the first one after 4 seconds
-        setTimeout(showPopup, 4000);
-    }
-</script>
+```
