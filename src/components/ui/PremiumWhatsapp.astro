@@ -104,22 +104,23 @@
         if (typeof gsap !== "undefined") {
             const hoverTL = gsap.timeline({ paused: true });
 
+            hoverTL;
             hoverTL
                 .set([textContainer, arrowContainer], { display: "flex" })
                 .to(widget, {
                     width: "auto",
                     duration: 0.4,
                     ease: "power2.out",
-                    backgroundColor: "#050505", // Solid black
-                    borderColor: "rgba(37, 211, 102, 0.4)",
-                    paddingRight: "24px" /* Increased padding right */,
-                    paddingLeft: "8px",
+                    backgroundColor: "#075e54", // WhatsApp Dark Teal for hover
+                    borderColor: "rgba(255, 255, 255, 0.3)",
+                    paddingRight: "24px",
+                    paddingLeft: "12px",
                     gap: "12px",
-                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
+                    boxShadow: "0 10px 40px -10px rgba(255, 255, 255, 0.1)",
                     borderRadius: "50px",
                 })
                 .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
-                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
+                .to(waLogo, { color: "#ffffff", duration: 0.3 }, 0)
                 .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
                 .fromTo(
                     actionText,
@@ -154,10 +155,10 @@
         bottom: 25px;
         right: 25px;
         z-index: 100000; /* Max z-index */
-        background: rgba(10, 10, 10, 0.6);
+        background: #25d366;
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.2);
         border-radius: 50px;
 
         height: 56px;
@@ -169,7 +170,7 @@
         padding: 0;
         gap: 0;
 
-        box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.5);
+        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.6);
         cursor: pointer;
         overflow: hidden;
         transition: transform 0.2s ease;
@@ -273,7 +274,7 @@
 
     .action-text {
         font-weight: 600;
-        color: #25d366;
+        color: #ffffff;
         opacity: 0;
     }
 
