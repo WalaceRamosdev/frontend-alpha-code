@@ -105,22 +105,23 @@
             const hoverTL = gsap.timeline({ paused: true });
 
             hoverTL;
+            hoverTL;
             hoverTL
                 .set([textContainer, arrowContainer], { display: "flex" })
                 .to(widget, {
                     width: "auto",
                     duration: 0.4,
                     ease: "power2.out",
-                    backgroundColor: "#075e54", // WhatsApp Dark Teal for hover
-                    borderColor: "rgba(255, 255, 255, 0.3)",
+                    backgroundColor: "#050505", // Solid black on hover
+                    borderColor: "rgba(37, 211, 102, 0.4)", // Green border on hover
                     paddingRight: "24px",
-                    paddingLeft: "12px",
+                    paddingLeft: "8px",
                     gap: "12px",
-                    boxShadow: "0 10px 40px -10px rgba(255, 255, 255, 0.1)",
+                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)", // Green glow
                     borderRadius: "50px",
                 })
                 .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
-                .to(waLogo, { color: "#ffffff", duration: 0.3 }, 0)
+                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0) // Ensure Green
                 .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
                 .fromTo(
                     actionText,
@@ -155,10 +156,10 @@
         bottom: 25px;
         right: 25px;
         z-index: 100000; /* Max z-index */
-        background: #25d366;
+        background: rgba(10, 10, 10, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         border-radius: 50px;
 
         height: 56px;
@@ -170,7 +171,7 @@
         padding: 0;
         gap: 0;
 
-        box-shadow: 0 4px 12px rgba(37, 211, 102, 0.6);
+        box-shadow: 0 5px 25px -5px rgba(0, 0, 0, 0.5);
         cursor: pointer;
         overflow: hidden;
         transition: transform 0.2s ease;
@@ -222,7 +223,7 @@
     .wa-logo {
         width: 28px;
         height: 28px;
-        color: #fff;
+        color: #25d366; /* Green Icon */
         transition: color 0.3s;
         display: block;
     }
@@ -274,7 +275,7 @@
 
     .action-text {
         font-weight: 600;
-        color: #ffffff;
+        color: #25d366;
         opacity: 0;
     }
 
