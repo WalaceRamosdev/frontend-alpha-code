@@ -24,28 +24,28 @@ Todo site, independente do tamanho, possui custos fixos anuais que você deve co
 
 ## Faixas de Investimento por Tipo de Projeto
 
-### 1. Landing Pages (R$ 1.500 a R$ 3.500)
-Ideais para campanhas de anúncios (Google Ads / Meta Ads) de um único serviço. É uma página focada 100% em conversão. Profissionais como psicólogos e advogados autônomos costumam começar por aqui.
+### 1. Landing Pages (A partir de R$ 260,00)
+Ideais para campanhas de anúncios (Google Ads / Meta Ads) de um único serviço. É uma página focada 100% em conversão. Na Alpha Code, oferecemos tecnologia de ponta com um custo extremamente acessível para quem está começando.
 
-### 2. Sites Institucionais Premium (R$ 4.000 a R$ 10.000)
-Um site completo com várias páginas (Home, Sobre, Serviços, Blog, Contato). É o modelo ideal para empresas que buscam autoridade e querem ranquear organicamente no Google através de conteúdo. É o "padrão ouro" da Alpha Code.
+### 2. Sites Institucionais Premium (A partir de R$ 449,00)
+Um site completo com várias páginas (Home, Sobre, Serviços, Blog, Contato). É o modelo ideal para empresas que buscam autoridade e querem ranquear organicamente no Google. Na Alpha Code, entregamos o "padrão ouro" do mercado por uma fração do preço de agências tradicionais.
 
-### 3. E-commerce e Sistemas Customizados (Acima de R$ 10.000)
-Lojas virtuais com integração de pagamento, cálculo de frete e gestão de estoque. O valor escala conforme a quantidade de produtos e complexidade das integrações.
+### 3. E-commerce e Sistemas Customizados (A partir de R$ 1.099,00)
+Lojas virtuais e sistemas para clínicas ou restaurantes com funcionalidades avançadas. O valor escala conforme a complexidade, mas mantemos política de preços justos para viabilizar seu negócio.
 
 ## Por que sites "baratos" saem caro?
 
-Você certamente já viu anúncios prometendo "sites por R$ 300,00". O problema desses projetos é o que você não vê:
+Você certamente já viu anúncios prometendo "sites gratuitos" ou feitos de qualquer jeito. O problema desses projetos é o que você não vê:
 - **Código sujo:** Carregamento lento que afasta clientes.
 - **Zero SEO:** Você terá um site que ninguém encontra no Google.
 - **Insegurança:** Facilidade para ataques e perda de dados.
 - **Design genérico:** Sua marca parecerá idêntica a centenas de outras.
 
-Investir menos de R$ 1.000,00 em um site profissional é, muitas vezes, jogar dinheiro fora, pois a ferramenta não cumprirá seu papel de gerar novos negócios.
+Investir em soluções amadoras ou "faça você mesmo" sem conhecimento técnico é, muitas vezes, jogar dinheiro fora, pois a ferramenta não cumprirá seu papel de gerar novos negócios. Na Alpha Code, quebramos esse paradigma oferecendo qualidade profissional com investimento inteligente.
 
 ## O ROI do Site Profissional
 
-Pense no site como um investimento em um ativo. Se um site de R$ 5.000,00 te traz apenas 2 novos clientes de alto valor por mês, ele se paga em menos de 90 dias. A partir daí, é lucro puro e autoridade crescente.
+Pense no site como um investimento em um ativo. Com os valores acessíveis da Alpha Code, se o seu site trouxer apenas 1 novo cliente, ele já se paga absurdamente rápido. O retorno sobre o investimento (ROI) é praticamente imediato.
 
 Na **Alpha Code**, focamos em projetos que se pagam. Unimos o melhor custo-benefício do mercado com a tecnologia que os grandes players usam.
 
