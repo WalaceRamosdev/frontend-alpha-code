@@ -11,5 +11,5 @@ export default defineConfig({
   site: 'https://www.sitesalphacode.com.br',
   output: 'server',
   adapter: vercel(),
-  integrations: [react(), sitemap(), auth()]
+  integrations: [react(), sitemap(), auth()] // Trigger deploy
 });
