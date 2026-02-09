@@ -2,23 +2,55 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 
-const checklistItems = [
-    "Estrutura alinhada ao código de ética",
-    "Linguagem humanizada e profissional",
-    "Design limpo que transmite confiança",
-    "Otimização para anúncios no Google e Meta",
-    "CTA estratégico sem pressão comercial",
-    "Carregamento rápido e responsivo",
-    "Foco em conversão, não em vaidade",
-    "Presença online sem exposição pessoal",
+const painPoints = [
+    {
+        icon: "📉",
+        title: "Dependência de Indicações",
+        desc: "Seu faturamento oscila porque você espera os pacientes chegarem até você.",
+    },
+    {
+        icon: "📱",
+        title: "Instagram não é Consultório",
+        desc: "Você posta todo dia, ganha likes, mas sua agenda continua com horários vagos.",
+    },
+    {
+        icon: "😶",
+        title: "Invisibilidade Digital",
+        desc: "Pacientes qualificados procuram no Google e encontram seu concorrente, não você.",
+    },
 ];
 
-const painPoints = [
-    "Agenda vazia ou instável",
-    "Dependência de indicações",
-    "Medo de parecer antiético",
-    "Insegurança com marketing digital",
-    "Sensação de estar invisível online",
+const benefits = [
+    {
+        icon: "⚡",
+        title: "Segurança em 5 Segundos",
+        desc: "Um site que transmite autoridade imediata. O paciente entra e sente: 'é aqui que eu vou ser ajudado'.",
+    },
+    {
+        icon: "🎯",
+        title: "Filtro de Curiosos",
+        desc: "Estrutura desenhada para afastar quem quer 'precinho' e atrair quem valoriza sua hora.",
+    },
+    {
+        icon: "💎",
+        title: "Valorização da Sessão",
+        desc: "Quando você se posiciona como autoridade, o preço da sua sessão deixa de ser um problema.",
+    },
+];
+
+const testimonials = [
+    {
+        name: "Dra. Juliana Mendes",
+        role: "Psicóloga Clínica (TCC)",
+        result: "De 3 para 15 particulares/mês",
+        quote: "Eu achava que precisava fazer vídeos engraçados no TikTok. Com o site certo, lotei minha agenda em 45 dias sem me expor.",
+    },
+    {
+        name: "Dr. Roberto Campos",
+        role: "Psicanalista",
+        result: "ROI de 500% em 2 meses",
+        quote: "O retorno percebido pelos pacientes mudou. Hoje eles chegam já sabendo que o valor da minha consulta é diferenciado.",
+    },
 ];
 ---
 
@@ -29,105 +61,263 @@ const painPoints = [
     showFooter={true}
     showSocialProof={true}
 >
+    <!-- GSAP Scripts -->
+    <script>
+        import { gsap } from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            // Hero Animation
+            const tl = gsap.timeline();
+
+            tl.from(".hero-badge", {
+                y: -20,
+                opacity: 0,
+                duration: 0.8,
+                ease: "power3.out",
+            })
+                .from(
+                    ".hero-title",
+                    {
+                        y: 30,
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power3.out",
+                    },
+                    "-=0.4",
+                )
+                .from(
+                    ".hero-sub",
+                    {
+                        y: 20,
+                        opacity: 0,
+                        duration: 0.8,
+                        ease: "power3.out",
+                    },
+                    "-=0.4",
+                )
+                .from(
+                    ".hero-cta",
+                    {
+                        scale: 0.9,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: "back.out(1.7)",
+                    },
+                    "-=0.2",
+                );
+
+            // Scroll Animations for Sections
+            gsap.utils.toArray(".anim-fade-up").forEach((elem: any) => {
+                gsap.from(elem, {
+                    scrollTrigger: {
+                        trigger: elem,
+                        start: "top 85%",
+                        toggleActions: "play none none reverse",
+                    },
+                    y: 40,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power3.out",
+                });
+            });
+
+            // Stagger for cards
+            gsap.utils
+                .toArray(".stagger-container")
+                .forEach((container: any) => {
+                    const cards = container.querySelectorAll(".stagger-item");
+                    gsap.from(cards, {
+                        scrollTrigger: {
+                            trigger: container,
+                            start: "top 80%",
+                        },
+                        y: 50,
+                        opacity: 0,
+                        duration: 0.6,
+                        stagger: 0.2,
+                        ease: "power2.out",
+                    });
+                });
+
+            // Animation removed to prevent conflicts with component internal logic
+        });
+    </script>
+
     <main class="landing-page-psych">
         <!-- Hero Section -->
         <section class="hero-lp">
             <div class="container">
                 <div class="hero-content">
-                    <span class="badge">Marketing Ético e Silencioso</span>
-                    <h1>
-                        Atraia mais pacientes com uma presença online <span
-                            class="highlight"
-                            >profissional, ética e feita para converter.</span
+                    <span class="hero-badge badge"
+                        >Marketing Ético e De Alta Performance</span
+                    >
+                    <h1 class="hero-title">
+                        Psicólogos competentes perdem pacientes todos os dias
+                        por não terem <span class="highlight"
+                            >autoridade online.</span
                         >
                     </h1>
-                    <p class="subheadline">
-                        Você não precisa fazer "dancinha" no Instagram, se expor
-                        ou ferir sua ética profissional para ter pacientes.
-                        <br />
-                        <strong
-                            >Discrição, segurança e respeito ao código de ética.</strong
-                        >
+                    <p class="hero-sub subheadline">
+                        Sua agenda vazia não é culpa do mercado. É falta de
+                        posicionamento.
+                        <br class="hidden-mobile" />
+                        Pare de depender de indicações e tenha um consultório digital
+                        que atrai pacientes dispostos a pagar o valor da sua sessão.
                     </p>
-                    <div class="cta-wrapper">
+                    <div class="hero-cta cta-wrapper">
                         <Button
-                            href="https://wa.me/5521999064502?text=Ol%C3%A1%21+Quero+atrair+mais+pacientes+de+forma+%C3%A9tica"
+                            href="https://wa.me/5521999064502?text=Ol%C3%A1!+Quero+atrair+mais+pacientes+de+forma+%C3%A9tica"
                             target="_blank"
                             variant="primary"
                             size="lg"
-                            class="pulse-anim"
+                            class="pulse-anim main-cta-btn"
                         >
-                            Quero atrair mais pacientes
+                            QUERO ATRAIR PACIENTES TODOS OS DIAS
                         </Button>
-                        <span class="secure-text"
-                            >🔒 Processo 100% sigiloso e ético</span
-                        >
+                        <span class="secure-text">
+                            🔒 Estratégia validada para psicólogos e clínicas
+                        </span>
                     </div>
                 </div>
             </div>
             <div class="hero-bg-glow"></div>
         </section>
 
-        <!-- Pain Points (Dores) -->
-        <section class="pain-section">
+        <!-- Social Proof (Resultados) -->
+        <section class="social-proof-section anim-fade-up">
             <div class="container">
-                <div class="pain-grid">
-                    <div class="pain-text">
-                        <h2>O desafio de crescer na psicologia hoje</h2>
-                        <p>
-                            Sabemos que você preza pela sua autoridade técnica.
-                            Mas o mercado mudou, e apenas ser excelente não
-                            garante agenda cheia.
-                        </p>
-                    </div>
-                    <ul class="pain-list">
-                        {
-                            painPoints.map((point) => (
-                                <li>
-                                    <span class="icon-pain">⚠</span>
-                                    {point}
-                                </li>
-                            ))
-                        }
-                    </ul>
+                <div class="proof-header">
+                    <h2>Resultados Reais de Quem Decidiu Se Posicionar</h2>
+                </div>
+                <div class="testimonials-grid">
+                    {
+                        testimonials.map((t) => (
+                            <div class="testimonial-card">
+                                <div class="testimonial-header">
+                                    <div class="avatar-placeholder">
+                                        {t.name.charAt(0)}
+                                    </div>
+                                    <div>
+                                        <h4>{t.name}</h4>
+                                        <span class="role">{t.role}</span>
+                                    </div>
+                                </div>
+                                <div class="result-badge">🚀 {t.result}</div>
+                                <p class="quote">"{t.quote}"</p>
+                            </div>
+                        ))
+                    }
                 </div>
             </div>
         </section>
 
-        <!-- Solution (Posicionamento) -->
-        <section class="solution-section">
+        <!-- Pain Points: Why they don't convert -->
+        <section class="problem-section">
             <div class="container">
-                <div class="solution-content">
-                    <h2>A solução não é "postar todo dia"</h2>
+                <div class="section-header anim-fade-up">
+                    <span class="section-tag">O ERRO COMUM</span>
+                    <h2>Por que a maioria dos psicólogos falha no digital?</h2>
                     <p>
-                        A solução é ter uma <strong
-                            >Página Profissional de Alta Conversão</strong
-                        >. Uma estrutura digital que trabalha para você 24 horas
-                        por dia, gerando confiança instantânea em quem visita.
-                        Não é sobre "ser famoso", é sobre <strong
-                            >ser encontrado por quem precisa de ajuda</strong
-                        >.
+                        O problema não é sua competência técnica. É como você é
+                        percebido.
                     </p>
-                    <p>
-                        Nossas páginas são otimizadas para anúncios. O paciente
-                        pesquisa, encontra você, sente segurança e agenda.
-                        Simples.
-                    </p>
-                    <Button href="#contato" variant="outline" size="lg">
-                        Ver se essa solução funciona para mim
+                </div>
+
+                <div class="problems-grid">
+                    {
+                        painPoints.map((pain) => (
+                            <div class="problem-card">
+                                <div class="icon-box">{pain.icon}</div>
+                                <h3>{pain.title}</h3>
+                                <p>{pain.desc}</p>
+                            </div>
+                        ))
+                    }
+                </div>
+
+                <div class="mid-cta anim-fade-up" style="margin-top: 40px;">
+                    <Button
+                        href="https://wa.me/5521999064502?text=Ol%C3%A1!+Quero+atrair+mais+pacientes+de+forma+%C3%A9tica"
+                        target="_blank"
+                        variant="outline"
+                        class="w-full-mobile"
+                    >
+                        Quero parar de cometer esses erros
                     </Button>
                 </div>
             </div>
         </section>
 
-        <!-- Pricing Section -->
-        <section class="pricing-section">
+        <!-- Solution / Benefits -->
+        <section class="solution-section">
             <div class="container">
-                <div class="pricing-header">
-                    <h2>Investimento Transparente</h2>
+                <div class="solution-wrapper">
+                    <div class="solution-text anim-fade-up">
+                        <h2>O que você recebe com a Alpha Code</h2>
+                        <p class="lead">
+                            Não entregamos apenas um site bonito. Entregamos uma
+                            ferramenta de vendas éticas.
+                        </p>
+
+                        <div class="benefits-list">
+                            {
+                                benefits.map((benefit) => (
+                                    <div class="benefit-item">
+                                        <div class="benefit-icon">
+                                            {benefit.icon}
+                                        </div>
+                                        <div class="benefit-content">
+                                            <h4>{benefit.title}</h4>
+                                            <p>{benefit.desc}</p>
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Scarcity / Urgency -->
+        <section class="scarcity-section anim-fade-up">
+            <div class="container">
+                <div class="scarcity-box">
+                    <div class="scarcity-icon">⚠️</div>
+                    <div class="scarcity-content">
+                        <h3>
+                            Para entregar o melhor para cada, trabalhamos em
+                            poucos projetos por mês, e restam POUCAS VAGAS !
+                        </h3>
+                        <p>
+                            Para garantir a qualidade premium e a atenção que
+                            seu projeto merece, limitamos nossa agenda. <strong
+                                >Não somos uma fábrica de sites massificados.</strong
+                            ><br />
+                            Somos uma agência que tem orgulho de entregar resultados.
+                        </p>
+                    </div>
+                    <div class="scarcity-status">
+                        <span class="status-dot"></span>
+                        <span class="status-text"
+                            >Vagas para este mês quase esgotadas</span
+                        >
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Pricing Section -->
+        <section class="pricing-section" id="investimento">
+            <div class="container">
+                <div class="pricing-header anim-fade-up">
+                    <h2>Quanto custa ter essa estrutura?</h2>
                     <p>
-                        Qualidade de agência grande, com preço justo e sem
-                        "mensalidades eternas".
+                        Muito menos do que você perde todos os meses com
+                        horários vagos.
                     </p>
                 </div>
 
@@ -137,32 +327,25 @@ const painPoints = [
                         <div class="card-header">
                             <h3>Essencial</h3>
                             <p class="card-desc">
-                                Para quem quer começar com o pé direito.
+                                Para quem quer começar AGORA a captar pacientes.
                             </p>
                         </div>
                         <div class="price-box">
                             <span class="currency">R$</span>
                             <span class="amount">260</span>
                             <span class="payment-term">À vista (25% OFF)</span>
-                            <span
-                                class="original-price"
-                                style="text-decoration: line-through; color: #666; font-size: 0.9rem;"
-                                >De R$ 347</span
-                            >
+                            <span class="original-price">De R$ 347</span>
                         </div>
                         <ul class="features-list">
-                            <li>
-                                ✅ <strong>Site One-Page</strong> (Tudo em uma página)
-                            </li>
-                            <li>✅ Design Premium & Exclusivo</li>
-                            <li>✅ Otimização Básica para Google (SEO)</li>
-                            <li>✅ Botão WhatsApp Flutuante</li>
-                            <li>✅ Hospedagem de Alta Performance</li>
-                            <li class="disabled">🚫 Sistema de Blog</li>
+                            <li>✅ <strong>Site One-Page</strong> Otimizado</li>
+                            <li>✅ Design que passa Segurança</li>
+                            <li>✅ Botão WhatsApp Estratégico</li>
+                            <li>✅ Otimização Básica SEO</li>
+                            <li>✅ Hospedagem Inclusa</li>
                         </ul>
                         <div class="card-footer">
                             <Button
-                                href="https://wa.me/5521999064502?text=Quero%20o%20plano%20Essencial%20(Bronze)"
+                                href="https://wa.me/5521999064502?text=Ol%C3%A1!+Tenho+interesse+no+Plano+Essencial+para+Psic%C3%B3logos."
                                 target="_blank"
                                 variant="outline"
                                 class="w-full"
@@ -174,115 +357,65 @@ const painPoints = [
 
                     <!-- Card 2 (Featured) -->
                     <div class="pricing-card featured">
-                        <div class="badge-popular">MAIS ESCOLHIDO</div>
+                        <div class="badge-popular">RECOMENDADO</div>
                         <div class="card-header">
                             <h3>Autoridade</h3>
-                            <p class="card-desc">
-                                Para quem quer dominar a sua região.
+                            <p class="card-desc" style="margin-bottom: 24px;">
+                                A estrutura completa para quem quer ser
+                                referência.
                             </p>
                         </div>
                         <div class="price-box">
                             <span class="currency">R$</span>
                             <span class="amount">449</span>
                             <span class="payment-term">À vista (25% OFF)</span>
-                            <span
-                                class="original-price"
-                                style="text-decoration: line-through; color: #888; font-size: 0.9rem;"
-                                >De R$ 599</span
-                            >
+                            <span class="original-price">De R$ 599</span>
                         </div>
                         <ul class="features-list">
                             <li>
-                                ✅ <strong>Site Multi-Páginas</strong> (Completo)
+                                ✅ <strong>Site Multi-Páginas</strong> (Site Completo)
                             </li>
                             <li>
-                                ✅ <strong>Blog de Artigos</strong> (Foco em SEO)
+                                ✅ <strong>Blog Profissional</strong> (Atraia pelo
+                                Google)
                             </li>
-                            <li>✅ Design Premium & Exclusivo</li>
-                            <li>✅ Otimização Avançada para Google</li>
-                            <li>✅ Integração com Instagram</li>
-                            <li>✅ Treinamento de Uso</li>
+                            <li>✅ Design Premium Exclusivo</li>
+                            <li>✅ SEO Avançado (1ª página)</li>
+                            <li>✅ Integração Instagram/Facebook</li>
+                            <li>✅ Treinamento de Gestão</li>
                         </ul>
                         <div class="card-footer">
                             <Button
-                                href="https://wa.me/5521999064502?text=Quero%20dominar%20minha%20regi%C3%A3o%20com%20o%20plano%20Autoridade%20(Prata)"
+                                href="https://wa.me/5521999064502?text=Ol%C3%A1!+Tenho+interesse+no+Plano+Autoridade+para+Psic%C3%B3logos."
                                 target="_blank"
                                 variant="primary"
                                 class="w-full glow-effect"
                             >
-                                Quero ser Autoridade
+                                QUERO SER AUTORIDADE
                             </Button>
                         </div>
                     </div>
                 </div>
 
-                <p class="guarantee-text">
-                    🔒 Pagamento seguro via Link ou Cartão. Sem letras miúdas.
+                <p class="guarantee-text anim-fade-up">
+                    🔒 Risco Zero: Garantia de satisfação ou ajustamos até ficar
+                    perfeito.
                 </p>
             </div>
         </section>
 
-        <!-- Visual Checklist -->
-        <section class="checklist-section">
-            <div class="container">
-                <div class="checklist-card">
-                    <h3>Checklist da Página Profissional para Psicólogos</h3>
-                    <ul class="checklist-grid">
-                        {
-                            checklistItems.map((item) => (
-                                <li>
-                                    <span class="check-icon">✔</span>
-                                    {item}
-                                </li>
-                            ))
-                        }
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Proof / Methodology -->
-        <section class="proof-section">
-            <div class="container">
-                <h2>Metodologia Alpha Ethics™</h2>
-                <div class="method-grid">
-                    <div class="method-item">
-                        <h3>1. Discrição</h3>
-                        <p>
-                            Seu site foca na sua especialidade e na dor do
-                            paciente, não na sua vida pessoal.
-                        </p>
-                    </div>
-                    <div class="method-item">
-                        <h3>2. Acolhimento</h3>
-                        <p>
-                            Design calmo, cores que passam tranquilidade e
-                            navegação intuitiva para quem está fragilizado.
-                        </p>
-                    </div>
-                    <div class="method-item">
-                        <h3>3. Conversão Ética</h3>
-                        <p>
-                            Textos que convidam ao tratamento sem promessas de
-                            cura milagrosa ou sensacionalismo.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
         <!-- Final CTA Area -->
-        <section id="contato" class="final-cta-section">
+        <section id="contato" class="final-cta-section anim-fade-up">
             <div class="container">
                 <div class="final-cta-content">
                     <h2>
-                        Sua presença online pode ser discreta, profissional e
-                        eficiente.
+                        O custo de não ter esse site é continuar perdendo
+                        pacientes para quem tem.
                     </h2>
                     <p>
-                        Você não precisa se expor para crescer. Deixe que sua
-                        competência fale através de uma estrutura digital de
-                        elite.
+                        Você estudou anos para ser uma excelente profissional. <br
+                        />
+                        Agora, deixe o mundo saber disso.
                     </p>
 
                     <div class="actions">
@@ -291,14 +424,13 @@ const painPoints = [
                             variant="primary"
                             target="_blank"
                             size="lg"
-                            class="glow-effect"
+                            class="glow-effect pulse-anim"
                         >
-                            Agendar avaliação gratuita
+                            FALAR COM UM ESPECIALISTA AGORA
                         </Button>
                     </div>
                     <p class="small-print">
-                        Sem compromisso.<br />Apenas uma conversa sobre sua
-                        carreira.
+                        Análise de perfil gratuita incluída na conversa.
                     </p>
                 </div>
             </div>
@@ -307,408 +439,594 @@ const painPoints = [
 </BaseLayout>
 
 <style>
-    /* Landing Page Styles */
+    /* Landing Page Styles Typography & Commons */
     .landing-page-psych {
-        color: #fff;
+        color: #e0e0e0;
         font-family: "Plus Jakarta Sans", sans-serif;
+        background-color: #050505;
+        overflow-x: hidden;
     }
 
     .container {
-        max-width: 1000px;
+        max-width: 1100px;
         margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* Hero */
-    .hero-lp {
-        padding: 120px 0 80px;
-        text-align: center;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-content {
-        position: relative;
-        z-index: 2;
-    }
-
-    h1 {
-        font-size: 3.5rem;
-        line-height: 1.1;
-        font-weight: 800;
-        margin: 20px 0 30px;
-        letter-spacing: -0.02em;
+        padding: 0 24px;
     }
 
     .highlight {
         color: var(--color-primary);
-        display: block;
+        font-weight: 800;
+        text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4);
     }
 
-    .subheadline {
-        font-size: 1.25rem;
-        color: #ccc;
-        max-width: 700px;
-        margin: 0 auto 40px;
-        line-height: 1.6;
+    section {
+        position: relative;
     }
 
-    .subheadline strong {
-        color: #fff;
-        font-weight: 600;
-    }
-
-    .badge {
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--color-primary);
-        padding: 8px 16px;
-        border-radius: 50px;
-        font-size: 0.9rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        border: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .secure-text {
-        display: block;
-        margin-top: 15px;
-        font-size: 0.9rem;
-        color: #888;
-        opacity: 0.8;
-    }
-
-    /* Pain Section */
-    .pain-section {
-        padding: 80px 0;
-        background: #0f0f0f;
-    }
-
-    .pain-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-    }
-
-    .pain-text h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .pain-text p {
-        color: #aaa;
-        font-size: 1.1rem;
-        line-height: 1.6;
-    }
-
-    .pain-list {
-        list-style: none;
-        padding: 0;
-    }
-
-    .pain-list li {
-        background: rgba(255, 50, 50, 0.05);
-        border-left: 3px solid #ff4444;
-        padding: 15px 20px;
-        margin-bottom: 15px;
-        border-radius: 0 8px 8px 0;
-        font-weight: 500;
-    }
-
-    .icon-pain {
-        margin-right: 10px;
-    }
-
-    /* Solution */
-    .solution-section {
-        padding: 100px 0;
-        text-align: center;
-        background: linear-gradient(to bottom, #0a0a0a, #141414);
-    }
-
-    .solution-content {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    .solution-content h2 {
-        font-size: 2.5rem;
-        margin-bottom: 30px;
-    }
-
-    .solution-content p {
-        font-size: 1.2rem;
-        color: #ccc;
-        margin-bottom: 30px;
-        line-height: 1.7;
-    }
-
-    /* Checklist */
-    .checklist-section {
-        padding: 80px 0;
-    }
-
-    .checklist-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 20px;
-        padding: 50px;
-    }
-
-    .checklist-card h3 {
-        text-align: center;
-        font-size: 2rem;
-        margin-bottom: 40px;
-    }
-
-    .checklist-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        list-style: none;
-        padding: 0;
-    }
-
-    .checklist-grid li {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        font-size: 1.1rem;
-        padding: 10px;
-        background: rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
-    }
-
-    .check-icon {
-        color: var(--color-primary);
-        font-weight: bold;
-        font-size: 1.2rem;
-    }
-
-    /* Proof */
-    .proof-section {
-        padding: 100px 0;
-        text-align: center;
-    }
-
-    .proof-section h2 {
-        font-size: 2.5rem;
-        margin-bottom: 60px;
-    }
-
-    .method-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
-    }
-
-    .method-item {
-        background: #111;
-        padding: 30px;
-        border-radius: 16px;
-        border: 1px solid #222;
-    }
-
-    .method-item h3 {
-        font-size: 1.3rem;
-        margin-bottom: 15px;
-        color: #fff;
-    }
-
-    .method-item p {
-        color: #888;
-        font-size: 0.95rem;
-        line-height: 1.6;
-    }
-
-    /* Final CTA */
-    .final-cta-section {
-        padding: 120px 0;
+    /* Hero Section */
+    .hero-lp {
+        padding: 140px 0 100px;
         text-align: center;
         background: radial-gradient(
-            circle at center,
-            rgba(138, 28, 38, 0.1) 0%,
-            transparent 70%
+            circle at center top,
+            #1a0505 0%,
+            #000000 60%
         );
     }
 
-    .final-cta-content h2 {
-        font-size: 3rem;
-        max-width: 800px;
-        margin: 0 auto 20px;
-        line-height: 1.2;
+    .hero-content {
+        max-width: 900px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 
-    .final-cta-content p {
-        font-size: 1.4rem;
-        color: #ccc;
-        margin-bottom: 40px;
+    .badge {
+        background: rgba(255, 255, 255, 0.08);
+        color: var(--color-primary);
+        padding: 8px 18px;
+        border-radius: 100px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(5px);
     }
 
-    .small-print {
-        font-size: 0.9rem !important;
-        color: #555 !important;
-        margin-top: 20px;
+    .hero-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 3.8rem;
+        line-height: 1.1;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 24px;
+        letter-spacing: -0.03em;
     }
 
-    /* Pricing */
-    .pricing-section {
+    .hero-sub {
+        font-size: 1.35rem;
+        color: #a0a0a0;
+        max-width: 780px;
+        margin-bottom: 48px;
+        line-height: 1.6;
+    }
+
+    .main-cta-btn {
+        box-shadow: 0 10px 40px rgba(var(--color-primary-rgb), 0.3);
+        font-weight: 800 !important;
+        letter-spacing: 0.5px;
+    }
+
+    .secure-text {
+        font-size: 0.9rem;
+        color: #666;
+        margin-top: 16px;
+        display: block;
+        font-weight: 500;
+    }
+
+    /* Social Proof */
+    .social-proof-section {
+        padding: 80px 0;
+        background: #0a0a0a;
+        border-top: 1px solid #222;
+        border-bottom: 1px solid #222;
+    }
+
+    .proof-header h2 {
+        text-align: center;
+        font-size: 2.2rem;
+        margin-bottom: 50px;
+        color: white;
+    }
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 32px;
+    }
+
+    .testimonial-card {
+        background: #141414; /* Lighter background for better visibility */
+        padding: 32px;
+        border-radius: 20px;
+        border: 1px solid #333; /* Stronger border */
+        position: relative;
+    }
+
+    .testimonial-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 20px;
+    }
+
+    .avatar-placeholder {
+        width: 50px;
+        height: 50px;
+        background: var(--color-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.2rem;
+    }
+
+    .testimonial-header h4 {
+        margin: 0;
+        color: white;
+        font-size: 1.15rem;
+        font-weight: 700;
+    }
+
+    .role {
+        font-size: 0.95rem;
+        color: #999;
+    }
+
+    .result-badge {
+        display: inline-block;
+        background: rgba(16, 185, 129, 0.15);
+        color: #34d399;
+        padding: 6px 12px;
+        border-radius: 8px;
+        font-size: 0.9rem;
+        font-weight: 700;
+        margin-bottom: 16px;
+        border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .quote {
+        color: #ddd; /* Ligther text */
+        font-style: italic;
+        line-height: 1.6;
+        font-size: 1.05rem;
+    }
+
+    /* Problem Section */
+    .problem-section {
         padding: 100px 0;
-        background: #0d0d0d;
+        background: #050505;
+        text-align: center;
+    }
+
+    .section-header {
+        margin-bottom: 60px;
+    }
+
+    .section-tag {
+        color: #ff4444;
+        font-weight: 800;
+        font-size: 0.9rem;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-bottom: 12px;
+        display: block;
+    }
+
+    .section-header h2 {
+        font-size: 2.8rem;
+        color: white;
+        margin-bottom: 16px;
+        font-weight: 700;
+    }
+
+    .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+        margin-bottom: 50px;
+        align-items: stretch; /* Ensure cards stretch to same height */
+    }
+
+    .problem-card {
+        background: #111;
+        padding: 40px 24px;
+        border-radius: 16px;
+        border: 1px solid #222;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        height: 100%; /* Fill the grid cell */
+        justify-content: space-between; /* Push content apart */
+    }
+
+    .problem-card:hover {
+        transform: translateY(-5px);
+        border-color: #444;
+        background: #161616;
+    }
+
+    .icon-box {
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        display: inline-block;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 50%;
+    }
+
+    .problem-card h3 {
+        color: white;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        flex-grow: 0;
+    }
+
+    .problem-card p {
+        color: #ccc;
+        font-size: 1rem;
+        line-height: 1.6;
+        flex-grow: 1; /* Pushes content to fill space */
+    }
+
+    /* Solution Section */
+    .solution-section {
+        padding: 100px 0;
+        background: linear-gradient(to right, #0d0d0d, #121212);
+        position: relative;
+    }
+
+    .solution-text h2 {
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 20px;
+    }
+
+    .solution-text .lead {
+        font-size: 1.3rem;
+        color: #bbb;
+        max-width: 600px;
+        margin-bottom: 60px;
+    }
+
+    .benefits-list {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .benefit-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 24px;
+        background: #141414; /* Higher visibility */
+        padding: 30px;
+        border-radius: 16px;
+        border-left: 3px solid var(--color-primary);
+        border: 1px solid #222; /* Add definition */
+    }
+
+    .benefit-icon {
+        font-size: 2rem;
+    }
+
+    .benefit-content h4 {
+        color: white;
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+    }
+
+    .benefit-content p {
+        color: #ccc;
+        line-height: 1.6;
+    }
+
+    /* Scarcity */
+    .scarcity-section {
+        padding: 40px 0;
+    }
+
+    .scarcity-box {
+        background: rgba(255, 215, 0, 0.05);
+        border: 1px solid rgba(255, 215, 0, 0.2);
+        border-radius: 16px;
+        padding: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+    }
+
+    .scarcity-icon {
+        font-size: 2.5rem;
+    }
+
+    .scarcity-content h3 {
+        color: #ffd700;
+        font-size: 1.3rem;
+        margin-bottom: 6px;
+    }
+
+    .scarcity-content p {
+        color: #ddd;
+        font-size: 0.95rem;
+    }
+
+    .scarcity-status {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        background: rgba(0, 0, 0, 0.3);
+        padding: 10px 20px;
+        border-radius: 50px;
+    }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        background: #ef4444;
+        border-radius: 50%;
+        box-shadow: 0 0 10px #ef4444;
+        animation: pulse 1.5s infinite;
+    }
+
+    .status-text {
+        color: #ef4444;
+        font-weight: 700;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+    }
+
+    /* Pricing Section (Darker theme) */
+    .pricing-section {
+        padding: 120px 0;
+        background: #080808;
     }
 
     .pricing-header {
         text-align: center;
-        margin-bottom: 60px;
+        margin-bottom: 70px;
     }
 
     .pricing-header h2 {
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-    }
-
-    .pricing-header p {
-        color: #ccc;
-        font-size: 1.2rem;
+        font-size: 3rem;
+        color: white;
+        margin-bottom: 16px;
     }
 
     .pricing-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
         gap: 40px;
-        max-width: 900px;
+        max-width: 960px;
         margin: 0 auto;
     }
 
     .pricing-card {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: #181818; /* Lighter background */
+        border: 1px solid #444; /* Visible border */
         border-radius: 24px;
         padding: 40px;
         display: flex;
         flex-direction: column;
-        position: relative;
-        transition: transform 0.3s ease;
+        align-items: center; /* Center alignment */
+        text-align: center; /* Text center */
+        transition: 0.3s;
+        z-index: 10;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        height: 100%; /* Uniform height */
+        justify-content: space-between; /* Align content */
     }
 
     .pricing-card:hover {
-        transform: translateY(-10px);
-        background: rgba(255, 255, 255, 0.05);
+        border-color: #555;
+        background: #1a1a1a;
+        transform: translateY(-8px);
     }
 
     .pricing-card.featured {
-        border: 2px solid var(--color-primary);
-        background: rgba(138, 28, 38, 0.05);
-        box-shadow: 0 0 30px rgba(138, 28, 38, 0.2);
+        background: #2a0a0a; /* Solid Dark Red - Guarantee Visibility */
+        border: 2px solid #ef4444; /* Bright Red Border */
+        position: relative;
+        box-shadow: 0 20px 50px rgba(220, 20, 60, 0.15); /* Red Glow */
+    }
+
+    /* Force white text in featured card - explicit selector chain */
+    .pricing-card.featured h3,
+    .pricing-card.featured .amount,
+    .pricing-card.featured .currency,
+    .pricing-card.featured .original-price,
+    .pricing-card.featured .card-desc,
+    .pricing-card.featured .features-list li,
+    .pricing-card.featured .card-header,
+    .pricing-card.featured .price-box {
+        color: #ffffff !important;
+        text-shadow: none;
+    }
+
+    .pricing-card.featured .payment-term {
+        color: #4ade80 !important; /* Keep green but ensure visibility */
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
     }
 
     .badge-popular {
         position: absolute;
-        top: -15px;
+        top: -14px;
         left: 50%;
         transform: translateX(-50%);
         background: var(--color-primary);
         color: white;
-        padding: 8px 16px;
+        padding: 6px 16px;
         border-radius: 50px;
         font-size: 0.8rem;
         font-weight: 800;
         letter-spacing: 1px;
     }
 
-    .card-header {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-
     .card-header h3 {
-        font-size: 2rem;
-        margin-bottom: 10px;
+        font-size: 1.8rem;
+        color: white;
+        margin-bottom: 8px;
     }
 
-    .card-desc {
-        color: #888;
-        font-size: 0.95rem;
-    }
-
-    .price-box {
-        text-align: center;
-        margin-bottom: 30px;
-        padding-bottom: 30px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    .amount {
+        font-size: 4rem;
+        font-weight: 800;
+        color: white;
+        letter-spacing: -2px;
     }
 
     .currency {
         font-size: 1.5rem;
         vertical-align: top;
-        color: #ccc;
+        color: #999;
+        margin-right: 4px;
     }
 
-    .amount {
-        font-size: 3.5rem;
-        font-weight: 800;
-        color: white;
+    .original-price {
+        display: block;
+        text-decoration: line-through;
+        color: #777;
+        font-size: 1.1rem;
+        margin-top: 5px;
     }
 
     .payment-term {
         display: block;
-        color: var(--color-primary);
+        color: #4ade80; /* Green for discount */
         font-weight: 700;
-        margin-top: 5px;
+        margin-top: 8px;
+        font-size: 0.95rem;
     }
 
     .features-list {
         list-style: none;
         padding: 0;
-        margin-bottom: 40px;
+        margin: 40px auto; /* Centered margin */
+        width: 100%;
+        max-width: 300px; /* Constrain width for alignment */
         flex-grow: 1;
+        text-align: left; /* Keep list left aligned */
     }
 
     .features-list li {
-        margin-bottom: 15px;
-        color: #ddd;
-        font-size: 1rem;
+        margin-bottom: 16px;
+        color: #e0e0e0; /* High contrast text */
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        font-size: 1.05rem;
     }
 
-    .features-list li.disabled {
-        color: #555;
-        text-decoration: line-through;
+    /* Final CTA */
+    .final-cta-section {
+        padding: 140px 0;
+        text-align: center;
+        background: linear-gradient(to bottom, #050505, #111);
     }
 
-    .w-full {
-        width: 100%;
-        display: flex;
-        justify-content: center;
+    .final-cta-content h2 {
+        font-size: 3.5rem;
+        line-height: 1.1;
+        max-width: 900px;
+        margin: 0 auto 30px;
+        color: white;
+    }
+
+    .final-cta-content p {
+        font-size: 1.5rem;
+        color: #ccc;
+        margin-bottom: 50px;
     }
 
     .guarantee-text {
         text-align: center;
         margin-top: 40px;
-        color: #666;
-        font-size: 0.9rem;
+        color: #888;
+        font-size: 0.95rem;
     }
 
+    /* Animations */
+    @keyframes pulse {
+        0% {
+            opacity: 1;
+            transform: scale(1);
+        }
+        50% {
+            opacity: 0.5;
+            transform: scale(0.95);
+        }
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    /* Mobile Responsive */
     @media (max-width: 768px) {
-        h1 {
-            font-size: 2.2rem;
+        .hero-title {
+            font-size: 2.2rem; /* Adjusted for mobile readability */
         }
-        .pain-grid {
-            grid-template-columns: 1fr;
-        }
-        .checklist-grid {
-            grid-template-columns: 1fr;
-        }
-        .method-grid {
-            grid-template-columns: 1fr;
-        }
+
         .hero-lp {
-            padding-top: 80px;
+            padding: 100px 0 60px;
         }
+
+        .testimonials-grid,
+        .problems-grid,
+        .pricing-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .scarcity-box {
+            flex-direction: column;
+            text-align: center;
+            padding: 24px;
+        }
+
+        .scarcity-status {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .solution-text h2,
         .final-cta-content h2 {
+            font-size: 2rem;
+        }
+
+        .final-cta-content p {
+            font-size: 1.1rem;
+        }
+
+        .hidden-mobile {
+            display: none;
+        }
+
+        .w-full-mobile {
+            width: 100% !important;
+            display: flex;
+            justify-content: center;
+        }
+
+        .section-header h2 {
             font-size: 2rem;
         }
     }

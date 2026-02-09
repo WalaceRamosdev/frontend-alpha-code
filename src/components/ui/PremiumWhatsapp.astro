@@ -91,7 +91,7 @@
             widgetLink.setAttribute("href", finalUrl);
         }
 
-        // 2. Animations
+        // 2. Animations (Hover only, entrance is CSS)
         const widget = document.getElementById("premium-wa-widget");
         const statusText = widget.querySelector(".status-text");
         const actionText = widget.querySelector(".action-text");
@@ -100,69 +100,50 @@
         const waLogo = widget.querySelector(".wa-logo");
         const textContainer = widget.querySelector(".text-container");
 
-        // Intro
-        gsap.set(widget, { y: 100, opacity: 0 });
-        gsap.to(widget, {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: "power4.out",
-            delay: 0.5,
-        });
-
-        // Pulse
-        gsap.to(pulseRing, {
-            scale: 2.5,
-            opacity: 0,
-            duration: 2,
-            repeat: -1,
-            ease: "power1.out",
-        });
-
         // Hover (Desktop Only)
-        const hoverTL = gsap.timeline({ paused: true });
+        if (typeof gsap !== "undefined") {
+            const hoverTL = gsap.timeline({ paused: true });
 
-        hoverTL
-            .set([textContainer, arrowContainer], { display: "flex" })
-            .to(widget, {
-                width: "auto",
-                duration: 0.4,
-                ease: "power2.out",
-                backgroundColor: "#050505", // Solid black
-                borderColor: "rgba(37, 211, 102, 0.4)",
-                paddingRight: "24px" /* Increased padding right */,
-                paddingLeft: "8px",
-                gap: "12px",
-                boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
-                borderRadius: "50px",
-            })
-            .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
-            .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
-            .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
-            .fromTo(
-                actionText,
-                { y: 20, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.2 },
-                0.1,
-            )
-            .fromTo(
-                arrowContainer,
-                { x: -10, opacity: 0 },
-                { x: 0, opacity: 1, duration: 0.3 },
-                0.1,
-            );
+            hoverTL
+                .set([textContainer, arrowContainer], { display: "flex" })
+                .to(widget, {
+                    width: "auto",
+                    duration: 0.4,
+                    ease: "power2.out",
+                    backgroundColor: "#050505", // Solid black
+                    borderColor: "rgba(37, 211, 102, 0.4)",
+                    paddingRight: "24px" /* Increased padding right */,
+                    paddingLeft: "8px",
+                    gap: "12px",
+                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
+                    borderRadius: "50px",
+                })
+                .to(pulseRing, { opacity: 0, duration: 0.1 }, 0) // Hide pulse immediately
+                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
+                .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
+                .fromTo(
+                    actionText,
+                    { y: 20, opacity: 0 },
+                    { y: 0, opacity: 1, duration: 0.2 },
+                    0.1,
+                )
+                .fromTo(
+                    arrowContainer,
+                    { x: -10, opacity: 0 },
+                    { x: 0, opacity: 1, duration: 0.3 },
+                    0.1,
+                );
 
-        widget.addEventListener("mouseenter", () => {
-            if (window.innerWidth > 768) hoverTL.play();
-        });
+            widget.addEventListener("mouseenter", () => {
+                if (window.innerWidth > 768) hoverTL.play();
+            });
 
-        widget.addEventListener("mouseleave", () => {
-            if (window.innerWidth > 768) {
-                hoverTL.reverse().then(() => {
-                    // Optional cleanup
-                });
-            }
-        });
+            widget.addEventListener("mouseleave", () => {
+                if (window.innerWidth > 768) {
+                    hoverTL.reverse();
+                }
+            });
+        }
     });
 </script>
 
@@ -172,7 +153,7 @@
         position: fixed;
         bottom: 25px;
         right: 25px;
-        z-index: 9999;
+        z-index: 100000; /* Max z-index */
         background: rgba(10, 10, 10, 0.6);
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
@@ -192,6 +173,18 @@
         cursor: pointer;
         overflow: hidden;
         transition: transform 0.2s ease;
+
+        /* CSS Entrance Animation */
+        animation: slideInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        opacity: 0; /* Start hidden */
+        transform: translateY(100px);
+    }
+
+    @keyframes slideInUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 
     .wa-widget:active {
@@ -241,6 +234,18 @@
         border-radius: 50%;
         z-index: 1;
         pointer-events: none;
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 0.5;
+        }
+        100% {
+            transform: scale(2.5);
+            opacity: 0;
+        }
     }
 
     /* Text & Arrow Area */
