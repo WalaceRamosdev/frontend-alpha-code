@@ -35,9 +35,9 @@ const {
 } = Astro.props;
 
 // Get Pixel ID safely from env or fallback
-const PIXEL_ID =
-    import.meta.env.META_PIXEL_ID?.replace(/["']/g, "").trim() ||
-    "4112004805778911";
+const PIXEL_ID = (import.meta.env.META_PIXEL_ID ?? "4112004805778911")
+    .replace(/["']/g, "")
+    .trim();
 
 const serveLocations = [
     "Brasília - DF",

@@ -73,9 +73,9 @@ const testimonials = [
             const tl = gsap.timeline();
 
             tl.from(".hero-badge", {
-                y: -20,
+                y: -10,
                 opacity: 0,
-                duration: 0.8,
+                duration: 1,
                 ease: "power3.out",
             })
                 .from(
@@ -83,10 +83,10 @@ const testimonials = [
                     {
                         y: 30,
                         opacity: 0,
-                        duration: 0.8,
+                        duration: 1,
                         ease: "power3.out",
                     },
-                    "-=0.4",
+                    "-=0.6",
                 )
                 .from(
                     ".hero-sub",
@@ -101,12 +101,13 @@ const testimonials = [
                 .from(
                     ".hero-cta",
                     {
-                        scale: 0.9,
+                        scale: 0.95,
                         opacity: 0,
-                        duration: 0.5,
+                        duration: 0.6,
                         ease: "back.out(1.7)",
+                        delay: 0.2, // Small delay to force reading
                     },
-                    "-=0.2",
+                    "-=0.1",
                 );
 
             // Scroll Animations for Sections
@@ -152,24 +153,21 @@ const testimonials = [
             <div class="container">
                 <div class="hero-content">
                     <span class="hero-badge badge"
-                        >Marketing Ético e De Alta Performance</span
+                        >Estratégia Digital para Psicólogos</span
                     >
                     <h1 class="hero-title">
-                        Psicólogos competentes perdem pacientes todos os dias
-                        por não terem <span class="highlight"
-                            >autoridade online.</span
+                        Psicólogos que querem viver da clínica não podem <span
+                            class="highlight">depender de sorte.</span
                         >
                     </h1>
                     <p class="hero-sub subheadline">
-                        Sua agenda vazia não é culpa do mercado. É falta de
-                        posicionamento.
-                        <br class="hidden-mobile" />
-                        Pare de depender de indicações e tenha um consultório digital
-                        que atrai pacientes dispostos a pagar o valor da sua sessão.
+                        Você estudou muito para ficar refém de indicações. Tenha
+                        uma presença digital que transmite autoridade e lota sua
+                        agenda com pacientes particulares.
                     </p>
                     <div class="hero-cta cta-wrapper">
                         <Button
-                            href="https://wa.me/5521999064502?text=Ol%C3%A1!+Quero+atrair+mais+pacientes+de+forma+%C3%A9tica"
+                            href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                             target="_blank"
                             variant="primary"
                             size="lg"
@@ -178,7 +176,7 @@ const testimonials = [
                             QUERO ATRAIR PACIENTES TODOS OS DIAS
                         </Button>
                         <span class="secure-text">
-                            🔒 Estratégia validada para psicólogos e clínicas
+                            Atendemos apenas alguns projetos por mês
                         </span>
                     </div>
                 </div>
@@ -240,12 +238,12 @@ const testimonials = [
 
                 <div class="mid-cta anim-fade-up" style="margin-top: 40px;">
                     <Button
-                        href="https://wa.me/5521999064502?text=Ol%C3%A1!+Quero+atrair+mais+pacientes+de+forma+%C3%A9tica"
+                        href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                         target="_blank"
                         variant="outline"
                         class="w-full-mobile"
                     >
-                        Quero parar de cometer esses erros
+                        Quero corrigir isso agora
                     </Button>
                 </div>
             </div>
@@ -345,12 +343,12 @@ const testimonials = [
                         </ul>
                         <div class="card-footer">
                             <Button
-                                href="https://wa.me/5521999064502?text=Ol%C3%A1!+Tenho+interesse+no+Plano+Essencial+para+Psic%C3%B3logos."
+                                href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                                 target="_blank"
                                 variant="outline"
                                 class="w-full"
                             >
-                                Escolher Essencial
+                                Verificar disponibilidade
                             </Button>
                         </div>
                     </div>
@@ -386,7 +384,7 @@ const testimonials = [
                         </ul>
                         <div class="card-footer">
                             <Button
-                                href="https://wa.me/5521999064502?text=Ol%C3%A1!+Tenho+interesse+no+Plano+Autoridade+para+Psic%C3%B3logos."
+                                href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                                 target="_blank"
                                 variant="primary"
                                 class="w-full glow-effect"
@@ -420,7 +418,7 @@ const testimonials = [
 
                     <div class="actions">
                         <Button
-                            href="https://wa.me/5521999064502?text=Ol%C3%A1%2C%20sou%20psic%C3%B3logo%20e%20quero%20conhecer%20a%20estrat%C3%A9gia%20%C3%A9tica."
+                            href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                             variant="primary"
                             target="_blank"
                             size="lg"
@@ -429,9 +427,7 @@ const testimonials = [
                             FALAR COM UM ESPECIALISTA AGORA
                         </Button>
                     </div>
-                    <p class="small-print">
-                        Análise de perfil gratuita incluída na conversa.
-                    </p>
+                    <p class="small-print">Resposta rápida via WhatsApp.</p>
                 </div>
             </div>
         </section>

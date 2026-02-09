@@ -2,8 +2,8 @@ import type { APIRoute } from "astro";
 
 export const POST: APIRoute = async ({ request }) => {
     // Sanitize inputs: Remove quotes and whitespace that might have come from .env
-    const PIXEL_ID = import.meta.env.META_PIXEL_ID?.replace(/["']/g, "").trim();
-    const ACCESS_TOKEN = import.meta.env.META_ACCESS_TOKEN?.replace(/["']/g, "").trim();
+    const PIXEL_ID = (import.meta.env.META_PIXEL_ID ?? "").replace(/["']/g, "").trim();
+    const ACCESS_TOKEN = (import.meta.env.META_ACCESS_TOKEN ?? "").replace(/["']/g, "").trim();
 
     if (!PIXEL_ID || !ACCESS_TOKEN) {
         console.error("Meta Pixel ID or Access Token missing in .env");
