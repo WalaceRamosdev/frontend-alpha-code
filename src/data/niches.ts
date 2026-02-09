@@ -113,30 +113,5 @@ export const niches: NicheContent[] = [
         ],
         ctaText: "Quero um Portfólio de Luxo"
     },
-    {
-        slug: "psicologos",
-        name: "Psicólogos",
-        title: "Criação de Sites para Psicólogos e Clínicas de Psicologia",
-        heroTitle: "O Paciente Pesquisa Seu Nome Antes de Agendar. O Que Ele Encontra?",
-        heroDesc: "A indicação traz o paciente até o Google. Seu site define se ele entra no consultório. Desenvolvemos sites para psicólogos que transmitem segurança imediata, acolhimento e autoridade ética.",
-        badge: "Posicionamento Digital para Psicólogos",
-        keywords: ["site para psicólogo", "marketing para psicólogos", "site clínica psicologia", "presença digital psicólogo", "branding psicologia"],
-        detailedContent: `
-            <p>O cenário mudou. Antigamente, o boca a boca bastava. Hoje, mesmo com indicação, o paciente vai ao Google validar quem você é. Se ele encontra um site amador, lento ou inexistente, <strong>a dúvida se instala</strong>.</p>
-            <p>Seu site é o seu consultório digital. Ele precisa ser tão seguro e acolhedor quanto o seu espaço físico. Nossa metodologia de <strong>Design de Acolhimento</strong> utiliza psicologia das cores e UX (Experiência do Usuário) para reduzir a ansiedade do visitante e guiá-lo naturalmente para o agendamento.</p>
-            <p>Não vendemos apenas 'sites'. Vendemos a ferramenta que transforma a curiosidade das redes sociais em <strong>pacientes na agenda</strong> ativamente, tudo dentro das normas do CFP.</p>
-        `,
-        benefits: [
-            "Autoridade Imediata: Quem acessa entende, em segundos, sua abordagem e seriedade.",
-            "Filtro de Curiosos: Informações claras que trazem pacientes alinhados com seu valor.",
-            "Ética e Segurança: Estrutura 100% adequada às normas de publicidade do Conselho.",
-            "Agendamento Automático: Integre com Doctoralia, Google Agenda ou WhatsApp sem esforço."
-        ],
-        faq: [
-            { question: "O site ajuda a captar pacientes particulares?", answer: "Sim. Um site profissional é a base para justificar valor e sair da guerra de preços de convênios." },
-            { question: "Vocês cuidam da identidade visual?", answer: "Adaptamos o site perfeitamente à sua paleta de cores e logo, mantendo a consistência da sua marca pessoal." },
-            { question: "É difícil atualizar textos ou fotos?", answer: "Zero. Entregamos um painel simples onde você mesmo pode alterar conteúdos se desejar, sem depender de técnicos." }
-        ],
-        ctaText: "Quero Lotar Minha Agenda"
-    }
+
 ];

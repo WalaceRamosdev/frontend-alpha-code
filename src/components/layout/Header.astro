@@ -58,15 +58,17 @@ import { niches } from "../../data/niches";
                     </button>
                     <div class="desktop-dropdown-menu">
                         <ul>
-                            {
-                                niches.map((niche) => (
-                                    <li>
-                                        <a href={`/solucoes/${niche.slug}`}>
-                                            {niche.name}
-                                        </a>
-                                    </li>
-                                ))
-                            }
+                            <li>
+                                <a href="/solucoes/psicologos">Psicólogos</a>
+                            </li>
+                            <li><a href="/solucoes/medicos">Médicos</a></li>
+                            <li><a href="/solucoes/advogados">Advogados</a></li>
+                            <li>
+                                <a href="/solucoes/arquitetos">Arquitetos</a>
+                            </li>
+                            <li>
+                                <a href="/solucoes/contadores">Contadores</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
@@ -325,16 +327,36 @@ import { niches } from "../../data/niches";
                                 </svg>
                             </button>
                             <ul class="mobile-dropdown-menu">
-                                {
-                                    niches.map((niche) => (
-                                        <li>
-                                            <a href={`/solucoes/${niche.slug}`}>
-                                                <span class="bullet" />
-                                                {niche.name}
-                                            </a>
-                                        </li>
-                                    ))
-                                }
+                                <li>
+                                    <a href="/solucoes/psicologos">
+                                        <span class="bullet"></span>
+                                        Psicólogos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/solucoes/medicos">
+                                        <span class="bullet"></span>
+                                        Médicos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/solucoes/advogados">
+                                        <span class="bullet"></span>
+                                        Advogados
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/solucoes/arquitetos">
+                                        <span class="bullet"></span>
+                                        Arquitetos
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/solucoes/contadores">
+                                        <span class="bullet"></span>
+                                        Contadores
+                                    </a>
+                                </li>
                             </ul>
                         </li>
                         <li>
