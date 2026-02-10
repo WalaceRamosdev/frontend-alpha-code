@@ -270,26 +270,44 @@ const seo = createSEOMeta({
 
         <slot name="scripts" />
         <script is:inline>
+            // Utility to get cookies
+            function getCookie(name) {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(";").shift();
+            }
+
             // Expose sendCAPI to window for inline usage if needed, or define locally if scoping allows.
             // Since sendCAPI is defined in the previous module script which might be scoped,
             // we'll redefine a robust sender here that uses the same endpoint.
-            const triggerCAPI = async (eventName) => {
+            const triggerCAPI = async (eventName, eventId) => {
                 try {
+                    const fbc = getCookie("_fbc");
+                    const fbp = getCookie("_fbp");
+
                     await fetch("/api/events", {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({
                             event_name: eventName,
+                            event_id: eventId,
                             event_source_url: window.location.href,
                             user_data: {
                                 client_user_agent: navigator.userAgent,
+                                fbc: fbc,
+                                fbp: fbp,
                             },
                         }),
                     });
-                    console.log(`CAPI ${eventName} sent`);
+                    console.log(`CAPI ${eventName} sent (ID: ${eventId})`);
                 } catch (e) {
                     console.warn("CAPI fail", e);
                 }
+            };
+
+            // Generate unique event ID
+            const generateEventId = () => {
+                return `evt_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
             };
 
             // GA4 + Meta Pixel + CAPI Conversion Tracking
@@ -297,6 +315,8 @@ const seo = createSEOMeta({
                 // WhatsApp Tracking
                 const waLink = e.target.closest('a[href*="wa.me"]');
                 if (waLink) {
+                    const eventID = generateEventId();
+
                     // 1. Google Analytics
                     if (window.gtag) {
                         gtag("event", "conversion", {
@@ -304,21 +324,27 @@ const seo = createSEOMeta({
                             event_category: "Engagement",
                             event_label: "WhatsApp Click",
                             value: 1,
+                            transaction_id: eventID, // Syncing ID if possible
                         });
                     }
                     // 2. Meta Pixel (Browser)
                     if (window.fbq) {
-                        fbq("track", "Contact"); // Using 'Contact' for WhatsApp
+                        fbq("track", "Contact", {}, { eventID: eventID }); // Using 'Contact' for WhatsApp with ID
                     }
                     // 3. Meta CAPI (Server)
-                    triggerCAPI("Contact");
+                    triggerCAPI("Contact", eventID);
 
-                    console.log("WA Click Tracked (GA4 + Pixel + CAPI)");
+                    console.log(
+                        "WA Click Tracked (GA4 + Pixel + CAPI) - ID: " +
+                            eventID,
+                    );
                 }
             });
 
             // Form Submit Tracking
             document.addEventListener("submit", function (e) {
+                const eventID = generateEventId();
+
                 // 1. Google Analytics
                 if (window.gtag) {
                     gtag("event", "conversion", {
@@ -326,16 +352,19 @@ const seo = createSEOMeta({
                         event_category: "Lead",
                         event_label: "Form Submission",
                         value: 1,
+                        transaction_id: eventID,
                     });
                 }
                 // 2. Meta Pixel (Browser)
                 if (window.fbq) {
-                    fbq("track", "Lead"); // Using 'Lead' for Forms
+                    fbq("track", "Lead", {}, { eventID: eventID }); // Using 'Lead' for Forms with ID
                 }
                 // 3. Meta CAPI (Server)
-                triggerCAPI("Lead");
+                triggerCAPI("Lead", eventID);
 
-                console.log("Form Submit Tracked (GA4 + Pixel + CAPI)");
+                console.log(
+                    "Form Submit Tracked (GA4 + Pixel + CAPI) - ID: " + eventID,
+                );
             });
         </script>
         <script>
