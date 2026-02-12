@@ -164,7 +164,7 @@ const seo = createSEOMeta({
                 sendCAPI("PageView"); // Send server-side event
             };
 
-            const trackerTimer = setTimeout(loadTrackers, 3500);
+            const trackerTimer = setTimeout(loadTrackers, 5000);
             ["touchstart", "mousemove", "scroll", "keydown"].forEach(
                 (event) => {
                     window.addEventListener(event, loadTrackers, {
