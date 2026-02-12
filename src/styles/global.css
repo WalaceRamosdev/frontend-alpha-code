@@ -1,5 +1,5 @@
-@import './variables.css';
-@import './utilities.css';
+/* @import './variables.css'; moved to BaseLayout */
+/* @import './utilities.css'; moved to BaseLayout */
 
 html {
     scroll-behavior: smooth;
