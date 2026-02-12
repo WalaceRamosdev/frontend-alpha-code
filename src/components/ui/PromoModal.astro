@@ -397,7 +397,7 @@
             window.location.pathname === "/index.html";
         const hasBeenShown = sessionStorage.getItem("alpha_promo_shown");
 
-        // Detectar se a página foi atualizada (Refresh/F5)
+        // Detectar se a página foi atualizada ou não (Refresh/F5)
         const entries = performance.getEntriesByType("navigation");
         const isReload =
             entries.length > 0 && (entries[0] as any).type === "reload";
