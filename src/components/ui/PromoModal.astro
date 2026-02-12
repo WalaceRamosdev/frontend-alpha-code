@@ -98,8 +98,8 @@
         border: 2px solid #8a1c26;
         border-radius: 20px;
         width: 100%;
-        max-width: 400px;
-        padding: 45px 25px 30px;
+        max-width: 360px;
+        padding: 30px 20px 20px;
         position: relative;
         text-align: center;
         box-shadow:
@@ -183,17 +183,15 @@
 
     .close-button {
         position: absolute;
-        top: -20px;
-        right: 0;
-        transform: translate(
-            -50%,
-            -50%
-        ); /* Centralização matemática perfeita na quina */
+        top: -25px;
+        left: -15px;
+        right: auto;
+        transform: none;
         background: #8a1c26;
         border: 2px solid white;
         color: white;
-        width: 36px;
-        height: 36px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -211,7 +209,7 @@
 
     .close-button:hover {
         background: #a1212d;
-        transform: translate(-50%, -50%) rotate(180deg) scale(1.1);
+        transform: rotate(90deg) scale(1.1);
         border-color: white;
     }
 
@@ -219,12 +217,11 @@
         background: #3a080d; /* Dark Red background */
         color: #ffffff;
         display: inline-block;
-        padding: 10px 24px;
-        border-radius: 100px;
-        font-size: 0.8rem;
+        padding: 4px 12px;
+        font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 1.5px;
-        margin-bottom: 20px;
+        margin-bottom: 12px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
         border: 1px solid #6b141e; /* Subtle bright border */
         text-transform: uppercase;
@@ -248,7 +245,7 @@
 
     .promo-title {
         font-family: "Outfit", sans-serif;
-        font-size: 4.5rem; /* Large and bold */
+        font-size: 2.8rem; /* Drastically reduced */
         font-weight: 900;
         background: linear-gradient(to bottom, #ffffff 30%, #ff9999 100%);
         -webkit-background-clip: text;
@@ -260,10 +257,9 @@
     }
 
     .promo-subtitle {
-        font-size: 1.3rem;
-        font-weight: 800;
+        font-size: 0.95rem; /* Reduced */
         color: #fff;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
         text-transform: uppercase;
         letter-spacing: 0.5px;
         opacity: 0.9;
@@ -271,10 +267,10 @@
 
     .promo-message {
         color: #cccccc; /* Greyish white */
-        font-size: 0.95rem;
-        line-height: 1.5;
-        margin-bottom: 30px;
-        max-width: 300px; /* Compact */
+        font-size: 0.85rem;
+        line-height: 1.4;
+        margin-bottom: 15px;
+        max-width: 280px;
         margin-left: auto;
         margin-right: auto;
         font-weight: 400;
@@ -286,15 +282,18 @@
     .countdown-container {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 8px;
-        margin-bottom: 30px;
+        gap: 6px;
+        margin-bottom: 15px;
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
     }
 
     .countdown-item {
         background: rgba(255, 255, 255, 0.04);
         border: 1px solid rgba(255, 255, 255, 0.1);
         border-radius: 12px;
-        padding: 12px 4px;
+        padding: 8px 2px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -302,7 +301,7 @@
 
     .countdown-value {
         font-family: "Outfit", sans-serif;
-        font-size: 1.5rem; /* Reduzi de 1.8rem */
+        font-size: 1.1rem;
         font-weight: 800;
         color: #8a1c26;
         line-height: 1;
@@ -324,7 +323,7 @@
         background: linear-gradient(135deg, #8a1c26 0%, #a1212d 100%);
         color: white;
         text-decoration: none;
-        padding: 16px 24px;
+        padding: 12px 20px;
         border-radius: 14px;
         font-weight: 800;
         font-size: 1rem;
@@ -340,8 +339,8 @@
     }
 
     .promo-footer {
-        margin-top: 20px;
-        font-size: 0.75rem;
+        margin-top: 15px;
+        font-size: 0.65rem;
         color: rgba(255, 255, 255, 0.3);
     }
 
@@ -351,29 +350,29 @@
             align-items: center; /* Volta ao centro no mobile */
         }
         .promo-modal-content {
-            padding: 40px 20px 25px;
+            padding: 30px 20px 20px;
             max-width: 88vw;
             border-radius: 20px;
         }
         .promo-title {
-            font-size: 3.2rem;
+            font-size: 2.2rem;
         }
         .promo-subtitle {
-            font-size: 1.1rem;
+            font-size: 0.9rem;
             margin-bottom: 10px;
         }
         .promo-message {
             font-size: 0.8rem;
-            margin-bottom: 15px;
-            max-width: 220px;
+            margin-bottom: 12px;
+            max-width: 100%;
         }
         .countdown-value {
             font-size: 1.25rem;
         }
         .close-button {
-            top: -12px;
-            right: -5px;
-            transform: translate(-50%, -50%);
+            top: -25px;
+            right: 10px;
+            transform: none;
             width: 32px;
             height: 32px;
         }
