@@ -1,5 +1,4 @@
-@import './variables.css';
-@import './utilities.css';
+/* @imports moved to BaseLayout.astro for performance */
 
 html {
     scroll-behavior: smooth;
