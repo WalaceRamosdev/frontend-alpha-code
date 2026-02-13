@@ -21,7 +21,13 @@ const formattedDate = pubDate.toLocaleDateString("pt-BR", {
     <div class="card-image">
         {
             heroImage ? (
-                <img src={heroImage} alt={title} loading="lazy" />
+                <img
+                    src={heroImage}
+                    alt={title}
+                    loading="lazy"
+                    width="400"
+                    height="250"
+                />
             ) : (
                 <div class="placeholder-image" />
             )

@@ -14,7 +14,12 @@ const { id, title, message, type = "success" } = Astro.props;
         <div class="modal-glow"></div>
         <div class="modal-inner">
             <div class="modal-logo">
-                <img src="/assets/logo.svg" alt="Alpha Code" />
+                <img
+                    src="/assets/logo.svg"
+                    alt="Alpha Code"
+                    width="50"
+                    height="50"
+                />
             </div>
 
             <div class={`status-icon-wrapper ${type}`}>

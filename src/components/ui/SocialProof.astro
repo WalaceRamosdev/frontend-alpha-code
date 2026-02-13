@@ -14,170 +14,187 @@
     </div>
 </div>
 
-<script
-    is:inline
-    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-></script>
-
 <script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
-        // 1. Data Source (Mock)
-        const activities = [
-            {
-                action: "Novo projeto iniciado",
-                detail: "Clínica Médica • SP",
-                type: "project",
-            },
-            {
-                action: "Solicitação de proposta",
-                detail: "Jurídico • DF",
-                type: "lead",
-            },
-            {
-                action: "Briefing recebido",
-                detail: "Odonto • RJ",
-                type: "briefing",
-            },
-            {
-                action: "Análise SEO concluída",
-                detail: "E-commerce • MG",
-                type: "tech",
-            },
-            {
-                action: "Consultoria agendada",
-                detail: "Arquitetura • SC",
-                type: "meeting",
-            },
-            {
-                action: "Plano Autoridade",
-                detail: "Psicólogo • PR",
-                type: "sale",
-            },
-            {
-                action: "Site publicado",
-                detail: "Advocacia • SP",
-                type: "deploy",
-            },
-            {
-                action: "Diagnóstico inicial",
-                detail: "Seguros • BA",
-                type: "lead",
-            },
-            {
-                action: "Upgrade de plano",
-                detail: "Estética • SC",
-                type: "sale",
-            },
-            {
-                action: "Integração WhatsApp",
-                detail: "Móveis • CE",
-                type: "tech",
-            },
-        ];
+    const initSocialProof = () => {
+        if (window.spInitialized) return;
+        window.spInitialized = true;
 
-        let pool = [...activities];
-        const path = window.location.pathname;
-
-        if (path.includes("psicologos")) {
-            pool = pool.filter(
-                (a) =>
-                    a.detail.includes("Psicó") ||
-                    a.detail.includes("Clínica") ||
-                    a.type === "lead",
-            );
-            pool.push(
+        const runSocialProof = () => {
+            // 1. Data Source (Mock)
+            const activities = [
                 {
                     action: "Novo projeto iniciado",
-                    detail: "Psio • SP",
+                    detail: "Clínica Médica • SP",
                     type: "project",
                 },
                 {
-                    action: "Agenda consultada",
-                    detail: "Terapia • RJ",
+                    action: "Solicitação de proposta",
+                    detail: "Jurídico • DF",
                     type: "lead",
                 },
-            );
-        }
-
-        // 2. Logic & Config
-        const wrapper = document.getElementById("social-proof-popup");
-        const card = wrapper.querySelector(".proof-card");
-        const actionEl = document.getElementById("sp-action");
-        const detailEl = document.getElementById("sp-detail");
-        const dot = wrapper.querySelector(".activity-dot");
-
-        const config = {
-            initialDelay: 5000,
-            minInterval: 15000,
-            maxInterval: 30000,
-            displayDuration: 5000,
-        };
-        let isVisible = false;
-
-        // 3. Animation Engine
-        const showEvent = () => {
-            if (isVisible) return;
-            const item = pool[Math.floor(Math.random() * pool.length)];
-            actionEl.textContent = item.action;
-            detailEl.textContent = item.detail;
-
-            let dotColor = "rgba(255, 255, 255, 0.6)";
-            if (item.type === "sale") dotColor = "#00ff88";
-            if (item.type === "lead") dotColor = "#3b82f6";
-            if (item.type === "project") dotColor = "#a855f7";
-
-            dot.style.backgroundColor = dotColor;
-            dot.style.boxShadow = `0 0 10px ${dotColor}`;
-
-            isVisible = true;
-
-            // Slightly different animation for top position?
-            gsap.set(card, {
-                y: -20,
-                opacity: 0,
-                scale: 0.98,
-                filter: "blur(4px)",
-            });
-
-            const tl = gsap.timeline();
-            tl.to(card, {
-                y: 0,
-                opacity: 1,
-                scale: 1,
-                filter: "blur(0px)",
-                duration: 0.8,
-                ease: "power3.out",
-            });
-
-            setTimeout(() => hideEvent(), config.displayDuration);
-        };
-
-        const hideEvent = () => {
-            const tl = gsap.timeline({
-                onComplete: () => {
-                    isVisible = false;
-                    scheduleNext();
+                {
+                    action: "Briefing recebido",
+                    detail: "Odonto • RJ",
+                    type: "briefing",
                 },
-            });
-            tl.to(card, {
-                y: -10,
-                opacity: 0,
-                filter: "blur(4px)",
-                duration: 0.6,
-                ease: "power2.in",
-            });
+                {
+                    action: "Análise SEO concluída",
+                    detail: "E-commerce • MG",
+                    type: "tech",
+                },
+                {
+                    action: "Consultoria agendada",
+                    detail: "Arquitetura • SC",
+                    type: "meeting",
+                },
+                {
+                    action: "Plano Autoridade",
+                    detail: "Psicólogo • PR",
+                    type: "sale",
+                },
+                {
+                    action: "Site publicado",
+                    detail: "Advocacia • SP",
+                    type: "deploy",
+                },
+                {
+                    action: "Diagnóstico inicial",
+                    detail: "Seguros • BA",
+                    type: "lead",
+                },
+                {
+                    action: "Upgrade de plano",
+                    detail: "Estética • SC",
+                    type: "sale",
+                },
+                {
+                    action: "Integração WhatsApp",
+                    detail: "Móveis • CE",
+                    type: "tech",
+                },
+            ];
+
+            let pool = [...activities];
+            const path = window.location.pathname;
+
+            if (path.includes("psicologos")) {
+                pool = pool.filter(
+                    (a) =>
+                        a.detail.includes("Psicó") ||
+                        a.detail.includes("Clínica") ||
+                        a.type === "lead",
+                );
+                pool.push(
+                    {
+                        action: "Novo projeto iniciado",
+                        detail: "Psio • SP",
+                        type: "project",
+                    },
+                    {
+                        action: "Agenda consultada",
+                        detail: "Terapia • RJ",
+                        type: "lead",
+                    },
+                );
+            }
+
+            // 2. Logic & Config
+            const wrapper = document.getElementById("social-proof-popup");
+            const card = wrapper.querySelector(".proof-card");
+            const actionEl = document.getElementById("sp-action");
+            const detailEl = document.getElementById("sp-detail");
+            const dot = wrapper.querySelector(".activity-dot");
+
+            const config = {
+                initialDelay: 5000,
+                minInterval: 15000,
+                maxInterval: 30000,
+                displayDuration: 5000,
+            };
+            let isVisible = false;
+
+            // 3. Animation Engine
+            const showEvent = () => {
+                if (isVisible) return;
+                const item = pool[Math.floor(Math.random() * pool.length)];
+                actionEl.textContent = item.action;
+                detailEl.textContent = item.detail;
+
+                let dotColor = "rgba(255, 255, 255, 0.6)";
+                if (item.type === "sale") dotColor = "#00ff88";
+                if (item.type === "lead") dotColor = "#3b82f6";
+                if (item.type === "project") dotColor = "#a855f7";
+
+                dot.style.backgroundColor = dotColor;
+                dot.style.boxShadow = `0 0 10px ${dotColor}`;
+
+                isVisible = true;
+
+                // Slightly different animation for top position?
+                gsap.set(card, {
+                    y: -20,
+                    opacity: 0,
+                    scale: 0.98,
+                    filter: "blur(4px)",
+                });
+
+                const tl = gsap.timeline();
+                tl.to(card, {
+                    y: 0,
+                    opacity: 1,
+                    scale: 1,
+                    filter: "blur(0px)",
+                    duration: 0.8,
+                    ease: "power3.out",
+                });
+
+                setTimeout(() => hideEvent(), config.displayDuration);
+            };
+
+            const hideEvent = () => {
+                const tl = gsap.timeline({
+                    onComplete: () => {
+                        isVisible = false;
+                        scheduleNext();
+                    },
+                });
+                tl.to(card, {
+                    y: -10,
+                    opacity: 0,
+                    filter: "blur(4px)",
+                    duration: 0.6,
+                    ease: "power2.in",
+                });
+            };
+
+            const scheduleNext = () => {
+                const interval = Math.floor(
+                    Math.random() * (config.maxInterval - config.minInterval) +
+                        config.minInterval,
+                );
+                setTimeout(showEvent, interval);
+            };
+
+            setTimeout(showEvent, config.initialDelay);
         };
 
-        const scheduleNext = () => {
-            const interval = Math.floor(
-                Math.random() * (config.maxInterval - config.minInterval) +
-                    config.minInterval,
-            );
-            setTimeout(showEvent, interval);
-        };
+        if (typeof gsap === "undefined") {
+            const script = document.createElement("script");
+            script.src =
+                "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js";
+            script.onload = runSocialProof;
+            document.head.appendChild(script);
+        } else {
+            runSocialProof();
+        }
+    };
 
-        setTimeout(showEvent, config.initialDelay);
-    });
+    // Start initialization on idle to prioritize LCP
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => setTimeout(initSocialProof, 4000));
+    } else {
+        setTimeout(initSocialProof, 6000);
+    }
 </script>
 
 <style>

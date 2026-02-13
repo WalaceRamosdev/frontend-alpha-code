@@ -37,7 +37,13 @@ if (avatar && avatar.startsWith("/")) {
         <div class="avatar-glow"></div>
         {
             avatar ? (
-                <img src={avatar} alt={name} class="author-img" />
+                <img
+                    src={avatar}
+                    alt={name}
+                    class="author-img"
+                    width="120"
+                    height="120"
+                />
             ) : (
                 <div class="avatar-placeholder">{name.charAt(0)}</div>
             )
