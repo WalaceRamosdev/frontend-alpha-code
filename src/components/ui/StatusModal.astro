@@ -401,9 +401,12 @@ const { id, title, message, type = "success" } = Astro.props;
         }
 
         modal.classList.remove("hidden");
-        // Force reflow
-        void modal.offsetWidth;
-        setTimeout(() => modal.classList.add("active"), 10);
+        // Use requestAnimationFrame instead of forced reflow/setTimeout for performance
+        requestAnimationFrame(() => {
+            requestAnimationFrame(() => {
+                modal.classList.add("active");
+            });
+        });
     };
 
     window.hideModal = () => {
