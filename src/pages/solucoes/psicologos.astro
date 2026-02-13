@@ -151,33 +151,54 @@ const testimonials = [
         <!-- Hero Section -->
         <section class="hero-lp">
             <div class="container">
-                <div class="hero-content">
-                    <span class="hero-badge badge"
-                        >Estratégia Digital para Psicólogos</span
-                    >
-                    <h1 class="hero-title">
-                        Psicólogos que querem viver da clínica não podem <span
-                            class="highlight">depender de sorte.</span
+                <div class="hero-grid">
+                    <div class="hero-content">
+                        <span class="hero-badge badge"
+                            >Estratégia Digital para Psicólogos</span
                         >
-                    </h1>
-                    <p class="hero-sub subheadline">
-                        Você estudou muito para ficar refém de indicações. Tenha
-                        uma presença digital que transmite autoridade e lota sua
-                        agenda com pacientes particulares.
-                    </p>
-                    <div class="hero-cta cta-wrapper">
-                        <Button
-                            href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
-                            target="_blank"
-                            variant="primary"
-                            size="lg"
-                            class="pulse-anim main-cta-btn"
-                        >
-                            QUERO ATRAIR PACIENTES TODOS OS DIAS
-                        </Button>
-                        <span class="secure-text">
-                            Atendemos apenas alguns projetos por mês
-                        </span>
+                        <h1 class="hero-title">
+                            Psicólogos que querem viver da clínica não podem <span
+                                class="highlight">depender de sorte.</span
+                            >
+                        </h1>
+                        <p class="hero-sub subheadline">
+                            Você estudou muito para ficar refém de indicações.
+                            Tenha uma presença digital que transmite autoridade
+                            e lota sua agenda com pacientes particulares.
+                        </p>
+                        <div class="hero-cta cta-wrapper">
+                            <Button
+                                href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                variant="primary"
+                                size="lg"
+                                class="pulse-anim main-cta-btn"
+                            >
+                                QUERO ATRAIR PACIENTES TODOS OS DIAS
+                            </Button>
+                            <span class="secure-text">
+                                Atendemos apenas alguns projetos por mês
+                            </span>
+                        </div>
+                    </div>
+                    <div class="hero-visual fade-in">
+                        <picture>
+                            <source
+                                media="(max-width: 767px)"
+                                srcset="/assets/projects/psicologa-mobile.webp"
+                                type="image/webp"
+                            />
+                            <img
+                                src="/assets/projects/psicologa-desktop.webp"
+                                alt="Site para Psicólogas - Alpha Code"
+                                width="1200"
+                                height="675"
+                                loading="eager"
+                                decoding="async"
+                                class="hero-banner-img"
+                            />
+                        </picture>
                     </div>
                 </div>
             </div>
@@ -240,6 +261,7 @@ const testimonials = [
                     <Button
                         href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                         target="_blank"
+                        rel="noopener noreferrer"
                         variant="outline"
                         class="w-full-mobile"
                     >
@@ -345,6 +367,7 @@ const testimonials = [
                             <Button
                                 href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 variant="outline"
                                 class="w-full"
                             >
@@ -386,6 +409,7 @@ const testimonials = [
                             <Button
                                 href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                                 target="_blank"
+                                rel="noopener noreferrer"
                                 variant="primary"
                                 class="w-full glow-effect"
                             >
@@ -421,6 +445,7 @@ const testimonials = [
                             href="https://wa.me/5521999064502?text=Quero%20entender%20como%20um%20site%20pode%20me%20ajudar%20a%20atrair%20mais%20pacientes."
                             variant="primary"
                             target="_blank"
+                            rel="noopener noreferrer"
                             size="lg"
                             class="glow-effect pulse-anim"
                         >
@@ -461,8 +486,7 @@ const testimonials = [
 
     /* Hero Section */
     .hero-lp {
-        padding: 140px 0 100px;
-        text-align: center;
+        padding: 160px 0 100px;
         background: radial-gradient(
             circle at center top,
             #1a0505 0%,
@@ -470,12 +494,33 @@ const testimonials = [
         );
     }
 
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 60px;
+        align-items: center;
+    }
+
     .hero-content {
-        max-width: 900px;
-        margin: 0 auto;
+        text-align: left;
         display: flex;
         flex-direction: column;
-        align-items: center;
+        align-items: flex-start;
+    }
+
+    .hero-visual {
+        position: relative;
+        border-radius: 24px;
+        overflow: hidden;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .hero-banner-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
     }
 
     .badge {
@@ -494,7 +539,7 @@ const testimonials = [
 
     .hero-title {
         font-family: "Outfit", sans-serif;
-        font-size: 3.8rem;
+        font-size: clamp(2rem, 5vw, 3.8rem);
         line-height: 1.1;
         font-weight: 800;
         color: white;
@@ -503,9 +548,8 @@ const testimonials = [
     }
 
     .hero-sub {
-        font-size: 1.35rem;
+        font-size: clamp(1rem, 2vw, 1.35rem);
         color: #a0a0a0;
-        max-width: 780px;
         margin-bottom: 48px;
         line-height: 1.6;
     }
@@ -979,6 +1023,17 @@ const testimonials = [
 
     /* Mobile Responsive */
     @media (max-width: 768px) {
+        .hero-grid {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 40px;
+        }
+
+        .hero-content {
+            align-items: center;
+            text-align: center;
+        }
+
         .hero-title {
             font-size: 2.2rem; /* Adjusted for mobile readability */
         }
