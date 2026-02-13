@@ -2,6 +2,7 @@
 import { projectsData } from "../../data/projects";
 import Card from "../ui/Card.astro";
 import Button from "../ui/Button.astro";
+import { Image } from "astro:assets";
 
 // Limit to 3 for home page
 const displayedProjects = projectsData.slice(0, 3);
@@ -31,13 +32,15 @@ const displayedProjects = projectsData.slice(0, 3);
                             class="project-card-link"
                         >
                             <div class="project-image">
-                                <picture>
-                                    <img
-                                        src={project.image}
-                                        alt={`Site ${project.type} - ${project.name}`}
-                                        loading="lazy"
-                                    />
-                                </picture>
+                                <Image
+                                    src={project.image}
+                                    alt={`Site ${project.type} - ${project.name}`}
+                                    widths={[400, 800]}
+                                    sizes="(max-width: 1024px) 100vw, 400px"
+                                    width={400}
+                                    height={220}
+                                    loading="lazy"
+                                />
                             </div>
                             <div class="project-info">
                                 <span class="project-type">{project.type}</span>
