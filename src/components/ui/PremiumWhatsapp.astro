@@ -61,13 +61,12 @@
     </div>
 </div>
 
-<script
-    is:inline
-    src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"
-></script>
-
 <script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
+    // Delay non-critical WhatsApp logic
+    const initWhatsApp = () => {
+        if (window.waInitialized) return;
+        window.waInitialized = true;
+
         // 1. Dynamic Message Logic
         const widgetLink = document.getElementById("wa-widget-link");
         if (widgetLink) {
@@ -87,65 +86,80 @@
                 msg = "Olá, sou contador e quero um site para minha empresa.";
             }
 
-            const finalUrl = `https://wa.me/5521999064502?text=${encodeURIComponent(msg)}`;
-            widgetLink.setAttribute("href", finalUrl);
+            widgetLink.setAttribute(
+                "href",
+                `https://wa.me/5521999064502?text=${encodeURIComponent(msg)}`,
+            );
         }
 
-        // 2. Animations (Hover only, entrance is CSS)
-        const widget = document.getElementById("premium-wa-widget");
-        const statusText = widget.querySelector(".status-text");
-        const actionText = widget.querySelector(".action-text");
-        const arrowContainer = widget.querySelector(".arrow-container");
-        const pulseRing = widget.querySelector(".pulse-ring");
-        const waLogo = widget.querySelector(".wa-logo");
-        const textContainer = widget.querySelector(".text-container");
+        // 2. Load GSAP conditionally if not present and run animations
+        const runAnimations = () => {
+            const widget = document.getElementById("premium-wa-widget");
+            const statusText = widget.querySelector(".status-text");
+            const actionText = widget.querySelector(".action-text");
+            const arrowContainer = widget.querySelector(".arrow-container");
+            const pulseRing = widget.querySelector(".pulse-ring");
+            const waLogo = widget.querySelector(".wa-logo");
+            const textContainer = widget.querySelector(".text-container");
 
-        // Animations (Hover Glow only)
-        // Hover (Desktop Only)
-        if (typeof gsap !== "undefined") {
-            const hoverTL = gsap.timeline({ paused: true });
+            if (typeof gsap !== "undefined") {
+                const hoverTL = gsap.timeline({ paused: true });
+                hoverTL
+                    .set([textContainer, arrowContainer], { display: "flex" })
+                    .to(widget, {
+                        width: "auto",
+                        duration: 0.4,
+                        ease: "power2.out",
+                        backgroundColor: "#050505",
+                        borderColor: "transparent",
+                        paddingRight: "24px",
+                        paddingLeft: "8px",
+                        gap: "12px",
+                        boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
+                        borderRadius: "50px",
+                    })
+                    .to(pulseRing, { opacity: 0, duration: 0.1 }, 0)
+                    .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
+                    .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
+                    .fromTo(
+                        actionText,
+                        { y: 20, opacity: 0 },
+                        { y: 0, opacity: 1, duration: 0.2 },
+                        0.1,
+                    )
+                    .fromTo(
+                        arrowContainer,
+                        { x: -10, opacity: 0 },
+                        { x: 0, opacity: 1, duration: 0.3 },
+                        0.1,
+                    );
 
-            hoverTL
-                .set([textContainer, arrowContainer], { display: "flex" })
-                .to(widget, {
-                    width: "auto",
-                    duration: 0.4,
-                    ease: "power2.out",
-                    backgroundColor: "#050505",
-                    borderColor: "transparent",
-                    paddingRight: "24px",
-                    paddingLeft: "8px",
-                    gap: "12px",
-                    boxShadow: "0 10px 40px -10px rgba(37, 211, 102, 0.3)",
-                    borderRadius: "50px",
-                })
-                .to(pulseRing, { opacity: 0, duration: 0.1 }, 0)
-                .to(waLogo, { color: "#25d366", duration: 0.3 }, 0)
-                .to(statusText, { y: -20, opacity: 0, duration: 0.2 }, 0)
-                .fromTo(
-                    actionText,
-                    { y: 20, opacity: 0 },
-                    { y: 0, opacity: 1, duration: 0.2 },
-                    0.1,
-                )
-                .fromTo(
-                    arrowContainer,
-                    { x: -10, opacity: 0 },
-                    { x: 0, opacity: 1, duration: 0.3 },
-                    0.1,
-                );
+                widget.addEventListener("mouseenter", () => {
+                    if (window.innerWidth > 768) hoverTL.play();
+                });
+                widget.addEventListener("mouseleave", () => {
+                    if (window.innerWidth > 768) hoverTL.reverse();
+                });
+            }
+        };
 
-            widget.addEventListener("mouseenter", () => {
-                if (window.innerWidth > 768) hoverTL.play();
-            });
-
-            widget.addEventListener("mouseleave", () => {
-                if (window.innerWidth > 768) {
-                    hoverTL.reverse();
-                }
-            });
+        if (typeof gsap === "undefined") {
+            const script = document.createElement("script");
+            script.src =
+                "https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js";
+            script.onload = runAnimations;
+            document.head.appendChild(script);
+        } else {
+            runAnimations();
         }
-    });
+    };
+
+    // Load after brief delay or interaction
+    if ("requestIdleCallback" in window) {
+        requestIdleCallback(() => setTimeout(initWhatsApp, 2000));
+    } else {
+        setTimeout(initWhatsApp, 3000);
+    }
 </script>
 
 <style>
