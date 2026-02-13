@@ -235,24 +235,3 @@ ul {
         display: none !important;
     }
 }
-
-/* 
-   Content Visibility Optimization: 
-   Improves rendering performance for content below the fold.
-*/
-.render-otimizado {
-    content-visibility: auto;
-    contain-intrinsic-size: 1000px;
-}
-
-/* 
-   Countdown Stability Utility:
-   Prevents layout shifts and keeps typography stable.
-*/
-.countdown-wrapper {
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-variant-numeric: tabular-nums;
-}
