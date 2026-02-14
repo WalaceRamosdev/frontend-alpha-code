@@ -1,32 +1,50 @@
 ---
-title: "Sinais de que seu site está espantando clientes"
-description: "Guia completo sobre sinais de que seu site está espantando clientes focado em resultados e SEO para 2026."
+title: "Sinais claros de que seu site está espantando clientes em 2026"
+description: "Invisibilidade, desconfiança e silêncio no WhatsApp: aprenda a identificar os sintomas de um site doente que está prejudicando seu faturamento."
 pubDate: 2026-03-13T19:30:00-03:00
 heroImage: "/assets/blog/sinais-de-que-seu-site-esta-espantando-clientes.webp"
 categories: ["Conversão e Vendas"]
-tags: ["criação de sites", "conversão e vendas", "marketing digital"]
+tags: ["experiência do usuário", "análise de site", "marketing digital"]
 draft: false
 ctaType: "fundo"
 ---
 
-# Sinais de que seu site está espantando clientes
+# Sinais claros de que seu site está espantando clientes em 2026
 
-O sucesso de uma empresa em 2026 depende da sua capacidade de ser encontrada e de converter visitantes em clientes. Este artigo explora em profundidade tudo o que você precisa saber sobre **sinais de que seu site está espantando clientes**.
+Às vezes, o problema do baixo faturamento de uma empresa não está no produto, nem no atendimento, mas sim na primeira impressão digital: o site. Em 2026, seu site precisa agir como um filtro de autoridade. Se ele falhar nisso, ele não está apenas "parado", ele está ativamente trabalhando contra você.
 
-## Por que este tema é crucial agora?
-Com a evolução constante do Google e a mudança no comportamento do consumidor, entender os pilares de sinais de que seu site está espantando clientes é o diferencial entre crescer ou estagnar. 
+Aqui estão os sinais vermelhos de que seu site se tornou uma barreira para novos negócios.
 
-### O que você vai encontrar neste guia:
-1. **Analise de Mercado:** Como o cenário de 2026 impacta este tema.
-2. **Estratégias Práticas:** Passos acionáveis para implementar hoje.
-3. **SEO e Performance:** Como garantir que este conteúdo trabalhe para você.
+## 1. O "Vácuo" no WhatsApp
+Você tem visitas (através de anúncios ou redes sociais), mas ninguém clica no botão de contato. Isso é um sinal claro de que o conteúdo ou o design do site quebrou a confiança que o usuário tinha antes de clicar.
 
-## Caminho para a Autoridade Digital
-A autoridade não nasce do dia para a noite. Ela é construída através de conteúdo estratégico e uma base tecnológica sólida.
+## 2. Taxa de Rejeição (Bounce Rate) Altíssima
+Se as pessoas entram no seu site e saem em menos de 10 segundos, algo está muito errado. Geralmente é a **velocidade** (demora para carregar) ou uma **estética amadora** que assusta o visitante logo de cara.
+
+## 3. O Cliente pergunta coisas que já estão no site
+Se o seu cliente te chama mas parece confuso sobre o que você faz ou quanto custa, seu site não está sendo claro. Um site de elite deve educar o cliente antes mesmo da primeira conversa.
+
+## 4. Você tem vergonha de enviar o link
+Este é um sinal psicológico poderoso. Se quando um parceiro ou cliente pede seu site, você se sente na obrigação de dizer "ignora o site, ele está antigo, vamos falar por aqui", você já sabe que ele não reflete mais a qualidade do seu trabalho.
+
+## 5. Falta de Adaptabilidade em Telas Modernas
+Sites que ficam com "barra de rolagem lateral" no celular ou que têm fontes minúsculas são abandonados instantaneamente. Em 2026, o uso de dispositivos móveis é absoluto.
+
+## 6. O Google parece te ignorar
+Se ao pesquisar pelo nome da sua empresa, ou pelos serviços que você presta, o seu site não aparece sequer na primeira página, ele é tecnicamente obsoleto para os robôs do Google.
+
+## 7. Links "Quebrados" e Erros de Carregamento
+Nada passa mais a imagem de abandono do que clicar em um botão e cair em uma página de erro 404. Transmite a ideia de que a empresa não cuida nem da própria casa digital.
+
+## 8. Conteúdo Datado
+Blog com o último post de 2023, copyright no rodapé com o ano errado, ou fotos de serviços que você nem presta mais. Isso grita "empresa desatualizada".
+
+## Como reverter o jogo?
+O primeiro passo é reconhecer que o site não é um gasto fixo, mas uma **vitrine viva**. Um site que espanta clientes custa muito mais caro do que o investimento para refazê-lo.
+
+Na **Alpha Code**, nós realizamos auditorias profundas para identificar esses sintomas e prescrever a "cura digital": um site de alta performance, com design de luxo e focado 100% em converter o visitante em faturamento real.
 
 ---
 
-### Links Recomendados:
-- Conheça nosso serviço de [Criação de Sites Profissionais](/servicos/criacao-de-sites-profissionais)
-- Veja nossos [Planos e Preços](/planos)
-- Leia mais no nosso [Blog](/blog)
+**Seu site apresenta algum desses sintomas?**
+[Clique aqui e solicite uma auditoria gratuita da nossa equipe técnica.](https://wa.me/5521999064502)

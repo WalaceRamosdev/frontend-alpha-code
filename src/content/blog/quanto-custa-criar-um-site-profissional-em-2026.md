@@ -43,15 +43,15 @@ Agendamentos automáticos, sistemas de CRM, dashboards de métricas e chatbots c
 
 ## Faixas de Preço Médias no Mercado (Estimativas 2026)
 
-Embora cada projeto seja único, o mercado se organiza em três grandes patamares para empresas:
+Embora cada projeto seja único, o mercado se organiza em patamares que refletem a complexidade do projeto:
 
-*   **Pequenos Negócios (Sites de Entrada):** R$ 3.500 a R$ 6.000. Focados em presença básica, geralmente feitos em plataformas prontas e com baixa personalização.
-*   **Empresas em Escala (Alpha Code Standard):** R$ 8.000 a R$ 18.000. São sites de alta performance, com design exclusivo, copy estratégica e SEO técnico avançado. É o "doce ponto" para quem quer dominar o Google e passar autoridade.
-*   **Projetos Enterprise e Corporativos:** R$ 25.000+. Envolvem múltiplas páginas, blogs complexos, áreas de membros, e-commerce e integrações profundas com sistemas internos de grandes empresas.
+*   **Páginas Essenciais (Setup Inicial):** A partir de R$ 350 a R$ 600. Ideal para quem precisa de uma presença profissional rápida, com foco em uma única página de alta performance e conversão via WhatsApp.
+*   **Sites Estratégicos Completos (Alpha Code Standard):** A partir de R$ 600 a R$ 1.200. Envolvem múltiplas seções, blog integrado, otimização de SEO para o Google e design exclusivo focado em escalar faturamento.
+*   **Projetos Premium e Exclusivos:** A partir de R$ 1.500+. Projetos com alto nível de personalização, funis de vendas complexos, consultoria de posicionamento e suporte prioritário.
 
 ## O Verdadeiro ROI (Retorno sobre Investimento)
 
-Imagine que você decida economizar R$ 4.000 escolhendo a "agência mais barata". Mas, por ser lento e amador, esse site faz você perder apenas 2 leads qualificados por mês. Se cada cliente seu vale R$ 5.000, em apenas um mês você já perdeu R$ 10.000. 
+Imagine que você decida economizar R$ 200 escolhendo uma opção amadora. Mas, por ser lento e não passar confiança, esse site faz você perder apenas 1 cliente qualificado por mês. Se cada serviço seu vale R$ 1.000, em apenas um mês o "barato" já gerou um prejuízo enorme.
 
 **O site barato é o mais caro que existe no longo prazo.**
 
