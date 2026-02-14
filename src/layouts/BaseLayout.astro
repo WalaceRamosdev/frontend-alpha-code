@@ -21,6 +21,16 @@ interface Props {
     showHeader?: boolean;
     showFooter?: boolean;
     showSocialProof?: boolean;
+    schemaType?:
+        | "Organization"
+        | "WebSite"
+        | "ProfessionalService"
+        | "Article"
+        | "Service"
+        | "LocalBusiness";
+    schemaName?: string;
+    schemaDescription?: string;
+    faqItems?: { question: string; answer: string }[];
 }
 
 const {
@@ -34,6 +44,10 @@ const {
     showHeader = true,
     showFooter = true,
     showSocialProof = false,
+    schemaType = "ProfessionalService",
+    schemaName,
+    schemaDescription,
+    faqItems = [],
 } = Astro.props;
 
 // Get Pixel ID safely from env or fallback
@@ -245,7 +259,12 @@ const seo = createSEOMeta({
             content="Brasília, Rio de Janeiro, São Paulo, Brasil"
         />
 
-        <SchemaMarkup />
+        <SchemaMarkup
+            type={schemaType as any}
+            name={schemaName || title}
+            description={schemaDescription || description}
+            faqItems={faqItems}
+        />
 
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}

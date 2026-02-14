@@ -66,7 +66,50 @@ Além disso, focamos profundamente na psicologia das cores e tipografia para gar
         ]
     },
     {
+        slug: "criacao-de-sites-profissionais",
+        title: "Criação de Sites Profissionais",
+        metaTitle: "Criação de Sites Profissionais e Desenvolvimento Web | Alpha Code",
+        metaDescription: "Líder em criação de sites profissionais de alta performance. Sites rápidos, otimizados para SEO e focados em gerar leads para sua empresa em 2026.",
+        keywords: ["criação de sites profissionais", "desenvolvimento de sites", "empresa de criação de sites", "sites otimizados google", "webdesign profissional"],
+        h1: "Criação de Sites Profissionais que dominam o Google e vendem por você",
+        intro: "Em 2026, seu site deve ser mais do que um cartão de visitas; ele deve ser o coração da sua estratégia de vendas. Desenvolvemos sites de alto padrão com tecnologia de ponta para empresas que buscam autoridade e resultados reais.",
+        whatIsItTitle: "O que entregamos em nossos projetos",
+        whatIsIt: "Nossa criação de sites une design premium, performance extrema e estratégias de conversão (CRO). Entregamos uma estrutura completa, segura e pronta para escalar seu negócio no digital.",
+        whoIsItForTitle: "Para quem é este serviço",
+        whoIsItFor: "Empresas e profissionais que cansaram de amadorismo e buscam uma presença digital que transmita confiança, modernidade e eficiência tecnológica.",
+        benefitsTitle: "Por que nos escolher?",
+        benefits: [
+            "Design Premium e Exclusivo",
+            "Performance nota 100 no Google PageSpeed",
+            "SEO Local e Nacional integrado",
+            "Foco total em conversão de visitantes"
+        ],
+        howItWorksTitle: "Nosso processo de criação",
+        howItWorks: "Desde o planejamento estratégico e UX design até o desenvolvimento com Astro.js e otimização final para lançamento. Tudo pensado para o seu ROI.",
+        expectedResultsTitle: "O que você ganha",
+        expectedResults: "Um site que não só é bonito, mas que atrai tráfego qualificado, carrega instantaneamente e converte usuários em clientes.",
+        ctaText: "Solicitar Orçamento de Site Profissional",
+        faq: [
+            { question: "Quanto custa criar um site profissional?", answer: "O investimento varia conforme as funcionalidades, mas focamos sempre no melhor custo-benefício para resultados de longo prazo." },
+            { question: "Vocês fazem manutenção?", answer: "Sim, oferecemos suporte contínuo para garantir que seu site esteja sempre seguro e veloz." }
+        ],
+        fullText: `A criação de sites profissionais evoluiu. Hoje, o Google prioriza a experiência do usuário (UX) e a velocidade. Na Alpha Code, utilizamos arquitetura de software moderna para garantir que seu site seja um ativo de valor crescente. Se você busca uma empresa de criação de sites que entenda de negócios e tecnologia, está no lugar certo.
+
+### Explore nossa estratégia de conteúdo (Clusters):
+Para ajudar sua empresa a crescer, organizamos nosso conhecimento em clusters estratégicos:
+
+*   **[Custos e Investimento](/blog):** Quanto custa criar e manter um site em 2026.
+*   **[Processo de Criação](/blog):** Como trabalhamos, prazos e o que esperar do desenvolvimento.
+*   **[Nichos Profissionais](/blog):** Soluções específicas para médicos, advogados e psicólogos.
+*   **[SEO e Tráfego](/blog):** Como garantimos que seu site apareça no topo do Google.
+*   **[Conversão e Vendas](/blog):** Técnicas de CRO para transformar visitantes em dinheiro no bolso.
+*   **[Mercado Local](/blog):** Dominando as buscas geolocalizadas em bairros como Leblon, Ipanema e Barra.
+
+Cada um desses tópicos é abordado em profundidade em nosso blog, garantindo que você tenha toda a informação necessária para tomar a melhor decisão para o seu negócio.`
+    },
+    {
         slug: "link-profissional",
+
         title: "Link Profissional",
         metaTitle: "Link Profissional para Saúde e Negócios | Alpha Code",
         metaDescription: "Centralize WhatsApp, agendamento e localização em um link profissional para redes sociais com domínio próprio e foco em conversão.",

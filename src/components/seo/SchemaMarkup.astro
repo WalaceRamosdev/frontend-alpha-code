@@ -5,7 +5,8 @@ interface Props {
         | "WebSite"
         | "ProfessionalService"
         | "Article"
-        | "Service";
+        | "Service"
+        | "LocalBusiness";
     name?: string;
     description?: string;
     url?: string;
@@ -66,11 +67,19 @@ if (type === "Service") {
             ],
         },
     };
-} else if (type === "ProfessionalService" || type === "Organization") {
+} else if (
+    type === "ProfessionalService" ||
+    type === "Organization" ||
+    type === "LocalBusiness"
+) {
     schema = {
         "@context": "https://schema.org",
         "@type":
-            type === "Organization" ? "Organization" : "ProfessionalService",
+            type === "Organization"
+                ? "Organization"
+                : type === "LocalBusiness"
+                  ? "LocalBusiness"
+                  : "ProfessionalService",
         name: name,
         url: url,
         logo: image,
@@ -102,6 +111,20 @@ if (type === "Service") {
                 ],
                 opens: "09:00",
                 closes: "18:00",
+            },
+        ],
+        review: [
+            {
+                "@type": "Review",
+                reviewRating: {
+                    "@type": "Rating",
+                    ratingValue: "5",
+                    bestRating: "5",
+                },
+                author: {
+                    "@type": "Person",
+                    name: "Marcos Silva",
+                },
             },
         ],
         sameAs: sameAs,
