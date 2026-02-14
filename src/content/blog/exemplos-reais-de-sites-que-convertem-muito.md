@@ -1,11 +1,11 @@
 ---
 title: "Exemplos reais de sites que convertem muito"
 description: "Guia completo sobre exemplos reais de sites que convertem muito focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-30T19:30:00-03:00
 heroImage: "/assets/blog/exemplos-reais-de-sites-que-convertem-muito.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

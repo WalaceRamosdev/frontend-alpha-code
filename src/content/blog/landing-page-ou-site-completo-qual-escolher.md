@@ -1,11 +1,11 @@
 ---
 title: "Landing page ou site completo: qual escolher"
 description: "Guia completo sobre landing page ou site completo: qual escolher focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-02T19:30:00-03:00
 heroImage: "/assets/blog/landing-page-ou-site-completo-qual-escolher.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

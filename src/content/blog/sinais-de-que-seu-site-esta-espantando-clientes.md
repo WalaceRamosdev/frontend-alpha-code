@@ -1,11 +1,11 @@
 ---
 title: "Sinais de que seu site está espantando clientes"
 description: "Guia completo sobre sinais de que seu site está espantando clientes focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-13T19:30:00-03:00
 heroImage: "/assets/blog/sinais-de-que-seu-site-esta-espantando-clientes.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

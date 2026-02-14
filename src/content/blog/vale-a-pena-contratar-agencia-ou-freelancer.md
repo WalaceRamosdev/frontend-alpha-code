@@ -1,11 +1,11 @@
 ---
 title: "Vale a pena contratar agência ou freelancer"
 description: "Guia completo sobre vale a pena contratar agência ou freelancer focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-04T19:30:00-03:00
 heroImage: "/assets/blog/vale-a-pena-contratar-agencia-ou-freelancer.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

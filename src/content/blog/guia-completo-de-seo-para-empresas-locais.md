@@ -1,11 +1,11 @@
 ---
 title: "Guia completo de SEO para empresas locais"
 description: "Guia completo sobre guia completo de seo para empresas locais focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-04-29T19:30:00-03:00
 heroImage: "/assets/blog/guia-completo-de-seo-para-empresas-locais.webp"
 categories: ["SEO e Tráfego"]
 tags: ["criação de sites", "seo e tráfego", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

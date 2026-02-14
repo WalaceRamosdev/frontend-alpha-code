@@ -1,11 +1,11 @@
 ---
 title: "Criação de sites para médicos: guia completo"
 description: "Guia completo sobre criação de sites para médicos: guia completo focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-16T19:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-medicos-guia-completo.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "nichos profissionais", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

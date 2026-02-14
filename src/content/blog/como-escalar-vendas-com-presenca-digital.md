@@ -1,11 +1,11 @@
 ---
 title: "Como escalar vendas com presença digital"
 description: "Guia completo sobre como escalar vendas com presença digital focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-05-06T19:30:00-03:00
 heroImage: "/assets/blog/como-escalar-vendas-com-presenca-digital.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

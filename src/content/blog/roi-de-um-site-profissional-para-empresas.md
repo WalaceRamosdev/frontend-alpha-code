@@ -1,11 +1,11 @@
 ---
 title: "ROI de um site profissional para empresas"
 description: "Guia completo sobre roi de um site profissional para empresas focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-04-24T19:30:00-03:00
 heroImage: "/assets/blog/roi-de-um-site-profissional-para-empresas.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

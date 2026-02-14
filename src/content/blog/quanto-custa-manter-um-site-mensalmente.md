@@ -1,11 +1,11 @@
 ---
 title: "Quanto custa manter um site mensalmente"
 description: "Guia completo sobre quanto custa manter um site mensalmente focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-02-23T19:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-manter-um-site-mensalmente.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

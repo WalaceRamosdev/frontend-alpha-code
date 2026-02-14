@@ -1,11 +1,11 @@
 ---
 title: "10 erros que fazem um site não gerar clientes"
 description: "Guia completo sobre 10 erros que fazem um site não gerar clientes focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-02-27T19:30:00-03:00
 heroImage: "/assets/blog/10-erros-que-fazem-um-site-nao-gerar-clientes.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

@@ -1,11 +1,11 @@
 ---
 title: "Como escolher uma empresa de criação de sites em 2026"
 description: "Não erre na contratação. Saiba o que avaliar ao escolher a agência ou empresa de software para desenvolver o site da sua empresa."
-pubDate: 2026-02-14
+pubDate: 2026-02-18T19:30:00-03:00
 heroImage: "/assets/blog/como-escolher-empresa-sites.webp"
 categories: ["Processo de Criação"]
 tags: ["agência de sites", "contratação", "desenvolvimento web"]
-draft: true
+draft: false
 ctaType: "meio"
 ---
 

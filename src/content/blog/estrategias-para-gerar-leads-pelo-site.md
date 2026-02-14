@@ -1,11 +1,11 @@
 ---
 title: "Estratégias para gerar leads pelo site"
 description: "Guia completo sobre estratégias para gerar leads pelo site focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-05-04T19:30:00-03:00
 heroImage: "/assets/blog/estrategias-para-gerar-leads-pelo-site.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

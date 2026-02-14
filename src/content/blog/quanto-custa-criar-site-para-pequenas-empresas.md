@@ -1,11 +1,11 @@
 ---
 title: "Quanto custa criar site para pequenas empresas"
 description: "Guia completo sobre quanto custa criar site para pequenas empresas focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-04-06T19:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-criar-site-para-pequenas-empresas.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

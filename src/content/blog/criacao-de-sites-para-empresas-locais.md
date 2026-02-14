@@ -1,11 +1,11 @@
 ---
 title: "Criação de sites para empresas locais"
 description: "Guia completo sobre criação de sites para empresas locais focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-25T19:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-empresas-locais.webp"
 categories: ["Mercado Local"]
 tags: ["criação de sites", "mercado local", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

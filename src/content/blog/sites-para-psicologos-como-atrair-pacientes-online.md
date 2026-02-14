@@ -1,11 +1,11 @@
 ---
 title: "Sites para psicólogos: como atrair pacientes online"
 description: "Guia completo sobre sites para psicólogos: como atrair pacientes online focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-20T19:30:00-03:00
 heroImage: "/assets/blog/sites-para-psicologos-como-atrair-pacientes-online.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "nichos profissionais", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

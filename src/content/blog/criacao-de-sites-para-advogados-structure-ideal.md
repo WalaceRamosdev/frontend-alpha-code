@@ -1,11 +1,11 @@
 ---
 title: "Criação de sites para advogados: estrutura ideal"
 description: "Guia completo sobre criação de sites para advogados: estrutura ideal focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-18T19:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-advogados-structure-ideal.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "nichos profissionais", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

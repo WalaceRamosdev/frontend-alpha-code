@@ -1,11 +1,11 @@
 ---
 title: "Quanto custa refazer um site antigo"
 description: "Guia completo sobre quanto custa refazer um site antigo focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-11T19:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-refazer-um-site-antigo.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

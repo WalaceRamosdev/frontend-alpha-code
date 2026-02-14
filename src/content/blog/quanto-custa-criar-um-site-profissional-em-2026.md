@@ -1,11 +1,11 @@
 ---
 title: "Quanto custa criar um site profissional em 2026"
 description: "Guia completo de preços e investimentos para criação de sites profissionais em 2026. Entenda o que compõe o valor de um site de alto padrão."
-pubDate: 2026-02-14
+pubDate: 2026-02-16T19:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-site-2026.webp"
 categories: ["Custos e Investimento"]
 tags: ["preço de site", "criação de sites", "investimento digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

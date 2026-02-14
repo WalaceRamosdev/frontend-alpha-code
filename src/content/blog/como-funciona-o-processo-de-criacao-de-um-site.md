@@ -1,11 +1,11 @@
 ---
 title: "Como funciona o processo de criação de um site"
 description: "Guia completo sobre como funciona o processo de criação de um site focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-03-09T19:30:00-03:00
 heroImage: "/assets/blog/como-funciona-o-processo-de-criacao-de-um-site.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

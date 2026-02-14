@@ -1,11 +1,11 @@
 ---
 title: "Como avaliar orçamento de desenvolvimento web"
 description: "Guia completo sobre como avaliar orçamento de desenvolvimento web focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-04-22T19:30:00-03:00
 heroImage: "/assets/blog/como-avaliar-orcamento-de-desenvolvimento-web.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 

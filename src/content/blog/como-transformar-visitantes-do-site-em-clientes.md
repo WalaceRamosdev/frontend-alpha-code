@@ -1,11 +1,11 @@
 ---
 title: "Como transformar visitantes do site em clientes"
 description: "Guia completo sobre como transformar visitantes do site em clientes focado em resultados e SEO para 2026."
-pubDate: 2026-02-14
+pubDate: 2026-04-10T19:30:00-03:00
 heroImage: "/assets/blog/como-transformar-visitantes-do-site-em-clientes.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
-draft: true
+draft: false
 ctaType: "fundo"
 ---
 
