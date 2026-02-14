@@ -4,8 +4,9 @@ html {
     scroll-behavior: smooth;
     font-size: 16px;
     -webkit-font-smoothing: antialiased;
-    /* Sharper text */
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 /* Global Reset */
@@ -20,11 +21,11 @@ body {
     background-color: var(--color-bg-body);
     color: var(--color-text-main);
     line-height: 1.7;
-    /* Increased line-height for readability */
     transition: background-color var(--transition-speed), color var(--transition-speed);
     margin: 0;
-    overflow-x: hidden;
-    /* Prevent horizontal scroll */
+    overflow: visible;
+    /* Prevent body from creating its own scroll context */
+    width: 100%;
 }
 
 h1,
