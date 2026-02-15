@@ -5,9 +5,7 @@ import Card from "../components/ui/Card.astro";
 import { getSession } from "../lib/auth";
 
 const session = await getSession(Astro.request);
-if (!session) {
-    return Astro.redirect("/login?callbackUrl=/planos");
-}
+const isLoggedIn = !!session;
 
 const title = "Planos e Preços | Alpha Code";
 const description =
@@ -65,15 +63,28 @@ export const prerender = false;
                 <div class="price-header">
                     <h3>Plano Bronze</h3>
                     <span class="plan-subtitle">Página Simples</span>
-                    <div class="price price-highlight">
-                        <div class="price-promo-info">
-                            <span class="old-price">R$ 347</span>
-                            <span class="discount-pill">25% OFF</span>
-                        </div>
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 260
-                        </div>
-                    </div>
+                    {
+                        isLoggedIn ? (
+                            <div class="price price-highlight">
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 347</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 260
+                                </div>
+                            </div>
+                        ) : (
+                            <div class="price">
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 347
+                                </div>
+                                <a href="/login" class="login-discount-hint">
+                                    Faça login para 25% OFF
+                                </a>
+                            </div>
+                        )
+                    }
                     <p class="plan-desc">
                         Ideal para quem precisa estar na internet <strong
                             >sem complicação</strong
@@ -209,15 +220,28 @@ export const prerender = false;
                 <div class="price-header">
                     <h3>Plano Prata</h3>
                     <span class="plan-subtitle">Página Completa</span>
-                    <div class="price text-primary price-highlight">
-                        <div class="price-promo-info">
-                            <span class="old-price">R$ 599</span>
-                            <span class="discount-pill">25% OFF</span>
-                        </div>
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 449
-                        </div>
-                    </div>
+                    {
+                        isLoggedIn ? (
+                            <div class="price text-primary price-highlight">
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 599</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 449
+                                </div>
+                            </div>
+                        ) : (
+                            <div class="price text-primary">
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 599
+                                </div>
+                                <a href="/login" class="login-discount-hint">
+                                    Faça login para 25% OFF
+                                </a>
+                            </div>
+                        )
+                    }
                     <p class="plan-desc">
                         Pensada para quem quer <strong
                             >atrair e converter</strong
@@ -376,15 +400,28 @@ export const prerender = false;
                 <div class="price-header">
                     <h3>Plano Ouro</h3>
                     <span class="plan-subtitle">Página Premium</span>
-                    <div class="price price-highlight">
-                        <div class="price-promo-info">
-                            <span class="old-price">R$ 947</span>
-                            <span class="discount-pill">25% OFF</span>
-                        </div>
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 710
-                        </div>
-                    </div>
+                    {
+                        isLoggedIn ? (
+                            <div class="price price-highlight">
+                                <div class="price-promo-info">
+                                    <span class="old-price">R$ 947</span>
+                                    <span class="discount-pill">25% OFF</span>
+                                </div>
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 710
+                                </div>
+                            </div>
+                        ) : (
+                            <div class="price">
+                                <div class="final-price-wrapper">
+                                    <small class="currency">R$</small> 947
+                                </div>
+                                <a href="/login" class="login-discount-hint">
+                                    Faça login para 25% OFF
+                                </a>
+                            </div>
+                        )
+                    }
                     <p class="plan-desc">
                         Para quem quer <strong
                             >autoridade e vendas de verdade</strong
@@ -1645,6 +1682,22 @@ export const prerender = false;
     }
 
     .text-white {
+        color: #fff;
+    }
+
+    /* Login Hint */
+    .login-discount-hint {
+        font-size: 0.8rem;
+        color: var(--color-primary);
+        text-decoration: underline;
+        opacity: 0.9;
+        font-weight: 600;
+        cursor: pointer;
+        display: block;
+        margin-top: -5px;
+        transition: color 0.3s;
+    }
+    .login-discount-hint:hover {
         color: #fff;
     }
 </style>
