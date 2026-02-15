@@ -22,35 +22,33 @@ const isLoggedIn = !!session;
             <!-- Plan 1 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Simples</h3>
-                    <span class="plan-subtitle-tag">Essencial</span>
-                    {
-                        isLoggedIn && (
-                            <div class="price price-highlight">
-                                <div class="price-promo-info">
-                                    <span class="old-price">R$ 347</span>
-                                    <span class="discount-pill">25% OFF</span>
-                                </div>
-                                <div class="final-price-wrapper">
-                                    <small class="currency">R$</small> 260
-                                </div>
-                            </div>
-                        )
-                    }
+                    <h3>LANDING PAGE</h3>
+                    <span class="plan-subtitle-tag">Foco em Vendas</span>
+                    <div class="price price-highlight">
+                        <div class="price-promo-info">
+                            <span class="old-price">R$ 347</span>
+                            <span class="discount-pill">25% OFF</span>
+                        </div>
+                        <div class="final-price-wrapper">
+                            <small class="currency">R$</small> 260
+                        </div>
+                    </div>
                 </div>
 
                 <div class="plan-benefits">
                     <ul class="benefits-list">
                         <li>
-                            <span class="check">✓</span> Página única profissional
+                            <span class="check">✓</span> Página Única de Alta Conversão
                         </li>
                         <li>
-                            <span class="check">✓</span> Botão WhatsApp flutuante
+                            <span class="check">✓</span> Copywriting Persuasivo
                         </li>
                         <li>
-                            <span class="check">✓</span> Site ultra rápido (SEO)
+                            <span class="check">✓</span> Carregamento Instantâneo
                         </li>
-                        <li><span class="check">✓</span> Design responsivo</li>
+                        <li>
+                            <span class="check">✓</span> Botão WhatsApp Estratégico
+                        </li>
                     </ul>
                 </div>
 
@@ -62,16 +60,16 @@ const isLoggedIn = !!session;
                                 variant="outline"
                                 class="w-full"
                             >
-                                GARANTIR MINHA VAGA
+                                QUERO ESTE →
                             </Button>
                         ) : (
                             <Button
-                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Bronze (Página Simples)."
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Landing Page."
                                 variant="outline"
                                 target="_blank"
                                 class="w-full"
                             >
-                                SOLICITAR ORÇAMENTO
+                                QUERO ESTE →
                             </Button>
                         )
                     }
@@ -82,36 +80,32 @@ const isLoggedIn = !!session;
             <Card variant="price" class="featured plan-card-anim">
                 <div class="badge-gold">MAIS PEDIDO</div>
                 <div class="price-header">
-                    <h3>Página Completa</h3>
-                    <span class="plan-subtitle-tag">Estratégica</span>
-                    {
-                        isLoggedIn && (
-                            <div class="price text-primary price-highlight">
-                                <div class="price-promo-info">
-                                    <span class="old-price">R$ 599</span>
-                                    <span class="discount-pill">25% OFF</span>
-                                </div>
-                                <div class="final-price-wrapper">
-                                    <small class="currency">R$</small> 449
-                                </div>
-                            </div>
-                        )
-                    }
+                    <h3>SITE INSTITUCIONAL</h3>
+                    <span class="plan-subtitle-tag">Autoridade Digital</span>
+                    <div class="price text-primary price-highlight">
+                        <div class="price-promo-info">
+                            <span class="old-price">R$ 599</span>
+                            <span class="discount-pill">25% OFF</span>
+                        </div>
+                        <div class="final-price-wrapper">
+                            <small class="currency">R$</small> 449
+                        </div>
+                    </div>
                 </div>
 
                 <div class="plan-benefits">
                     <ul class="benefits-list">
                         <li>
-                            <span class="check">✓</span> Site completo (multi-seções)
+                            <span class="check">✓</span> Até 5 Páginas Estratégicas
                         </li>
                         <li>
-                            <span class="check">✓</span> SEO Otimizado para o Google
+                            <span class="check">✓</span> SEO Local (Google Maps)
                         </li>
                         <li>
-                            <span class="check">✓</span> Copys focadas em conversão
+                            <span class="check">✓</span> Design Premium Exclusivo
                         </li>
                         <li>
-                            <span class="check">✓</span> Brinde: Linktree Alpha
+                            <span class="check">✓</span> Blog para Marketing de Conteúdo
                         </li>
                     </ul>
                 </div>
@@ -124,16 +118,16 @@ const isLoggedIn = !!session;
                                 variant="primary"
                                 class="w-full btn-glow"
                             >
-                                QUERO VENDER MAIS
+                                QUERO ESTE →
                             </Button>
                         ) : (
                             <Button
-                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Prata (Página Completa)."
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Site Institucional."
                                 variant="primary"
                                 target="_blank"
                                 class="w-full btn-glow"
                             >
-                                SOLICITAR ORÇAMENTO
+                                QUERO ESTE →
                             </Button>
                         )
                     }
@@ -143,37 +137,33 @@ const isLoggedIn = !!session;
             <!-- Plan 3 -->
             <Card variant="price" class="plan-regular plan-card-anim">
                 <div class="price-header">
-                    <h3>Página Premium</h3>
-                    <span class="plan-subtitle-tag">Exclusiva</span>
-                    {
-                        isLoggedIn && (
-                            <div class="price price-highlight">
-                                <div class="price-promo-info">
-                                    <span class="old-price">R$ 947</span>
-                                    <span class="discount-pill">25% OFF</span>
-                                </div>
-                                <div class="final-price-wrapper">
-                                    <small class="currency">R$</small> 710
-                                </div>
-                            </div>
-                        )
-                    }
+                    <h3>SITE PROFISSIONAL +</h3>
+                    <span class="plan-subtitle-tag">Dominância de Mercado</span>
+                    <div class="price price-highlight">
+                        <div class="price-promo-info">
+                            <span class="old-price">R$ 947</span>
+                            <span class="discount-pill">25% OFF</span>
+                        </div>
+                        <div class="final-price-wrapper">
+                            <small class="currency">R$</small> 710
+                        </div>
+                    </div>
                 </div>
 
                 <div class="plan-benefits">
                     <ul class="benefits-list">
                         <li>
-                            <span class="check">✓</span> Design ultra exclusivo de
-                            elite
+                            <span class="check">✓</span> Estrutura Completa de Funil
                         </li>
                         <li>
-                            <span class="check">✓</span> Consultoria VIP de negócios
+                            <span class="check">✓</span> SEO Técnico Avançado
                         </li>
                         <li>
-                            <span class="check">✓</span> Funil de vendas integrado
+                            <span class="check">✓</span> Integração CRM/E-mail Mkt
                         </li>
                         <li>
-                            <span class="check">✓</span> Suporte Alpha prioritário
+                            <span class="check">✓</span> Consultoria de Estratégia
+                            (1h)
                         </li>
                     </ul>
                 </div>
@@ -186,16 +176,16 @@ const isLoggedIn = !!session;
                                 variant="outline"
                                 class="w-full"
                             >
-                                DOMINAR MEU NICHO
+                                QUERO ESTE →
                             </Button>
                         ) : (
                             <Button
-                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Ouro (Página Premium)."
+                                href="https://wa.me/5521999064502?text=Olá! Gostaria de solicitar um orçamento para o Plano Site Profissional Plus."
                                 variant="outline"
                                 target="_blank"
                                 class="w-full"
                             >
-                                SOLICITAR ORÇAMENTO
+                                QUERO ESTE →
                             </Button>
                         )
                     }
@@ -204,33 +194,19 @@ const isLoggedIn = !!session;
         </div>
         <div class="pricing-footer fade-up-plans delay-2">
             <p>* Projetos personalizados. Fale com um consultor.</p>
-            {
-                isLoggedIn && (
-                    <>
-                        <p class="maintenance-note">
-                            Manutenção opcional disponível por R$ 100/mês.
-                        </p>
-                        <p class="niche-note">
-                            📍 Restaurantes, Clínicas e Lanchonetes:{" "}
-                            <strong>A partir de R$ 1.099</strong> (Sistemas sob
-                            consulta).
-                        </p>
-                    </>
-                )
-            }
+            <p class="maintenance-note">
+                Manutenção opcional disponível por R$ 100/mês.
+            </p>
+            <p class="niche-note">
+                📍 Restaurantes, Clínicas e Lanchonetes:{" "}
+                <strong>A partir de R$ 1.099</strong> (Sistemas sob consulta).
+            </p>
         </div>
         <div class="compare-cta fade-up-plans delay-3">
-            <Button
-                href={isLoggedIn ? "/planos" : "/login"}
-                variant="outline"
-                class="btn-large"
-                >{
-                    isLoggedIn
-                        ? "Ver Comparativo Detalhado"
-                        : "Faça Login para ver Preços"
-                }
-                <span class="arrow">→</span></Button
-            >
+            <Button href="/planos" variant="outline" class="btn-large">
+                Ver Comparativo Detalhado
+                <span class="arrow">→</span>
+            </Button>
         </div>
     </div>
 </section>

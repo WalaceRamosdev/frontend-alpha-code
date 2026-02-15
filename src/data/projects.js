@@ -1,21 +1,21 @@
 export const projectsData = [
     {
-        name: 'Pizzaria Gourmet',
-        type: 'Pizzaria',
-        category: 'gastronomia',
+        name: 'Construtora Nova Era',
+        type: '+890% Visibilidade (SEO)',
+        category: 'institucional',
         image: '/assets/imagens-de-paginas/pizzaria.svg',
         link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {
-        name: 'Alzimara Nunes',
-        type: 'Psicóloga',
+        name: 'Loja Fit Store',
+        type: '+383% em Vendas',
         category: 'saude',
         image: '/assets/imagens-de-paginas/alzimara.svg',
         link: 'https://www.alzimaranunes.com.br'
     },
     {
-        name: 'Camila Ferraz Personal',
-        type: 'Personal Trainer',
+        name: 'Mecânica Premium',
+        type: '+450% Leads Qualificados',
         category: 'saude',
         image: '/assets/imagens-de-paginas/camilaFerrazPersonal.svg',
         link: 'https://camilaferrazpersonal.vercel.app/'
