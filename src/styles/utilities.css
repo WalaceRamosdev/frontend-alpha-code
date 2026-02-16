@@ -17,7 +17,9 @@
 
 /* Typography Utilities */
 .text-primary {
-    background-image: var(--gradient-primary);
+    color: var(--color-primary-text);
+    /* Fallback and contrast reference */
+    background-image: var(--gradient-text);
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;
