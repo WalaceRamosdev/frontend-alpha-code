@@ -112,6 +112,20 @@ export default function OrderForm() {
         }
     }, [selectedPlan, appliedCoupon, isPortugal, hasSEO]);
 
+    // WARM-UP BACKEND (Prevent Cold Start Delay)
+    useEffect(() => {
+        const warmUpBackend = async () => {
+            try {
+                // Simple fire-and-forget request to wake up the server
+                fetch('https://backend-rp7j.onrender.com/', { method: 'GET', mode: 'no-cors' });
+                console.log('Backend warming up...');
+            } catch (e) {
+                // Ignore errors, strictly for wake-up
+            }
+        };
+        warmUpBackend();
+    }, []);
+
     const handleApplyCoupon = () => {
         setCouponError('');
         const code = couponCode.trim().toUpperCase();
@@ -341,7 +355,12 @@ export default function OrderForm() {
                             </div>
                         </section>
 
-                        <button type="submit" className="submit-main-btn" disabled={loading}>
+                        <button
+                            type="submit"
+                            className="submit-main-btn"
+                            disabled={loading}
+                            onMouseEnter={() => fetch('https://backend-rp7j.onrender.com/', { method: 'GET', mode: 'no-cors' }).catch(() => { })}
+                        >
                             {loading ? 'Processando...' : 'Finalizar Pedido'}
                         </button>
                     </form>
