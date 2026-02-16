@@ -107,7 +107,7 @@ const isLoggedIn = !!session;
                                 </div>
                             </div>
                         ) : (
-                            <div class="price text-primary">
+                            <div class="price">
                                 <div class="final-price-wrapper">
                                     <small class="currency">R$</small> 599
                                 </div>
@@ -668,35 +668,43 @@ const isLoggedIn = !!session;
         margin-left: 8px;
     }
 
-    /* Login Hint */
+    /* Login Hint Badge Style */
     .login-discount-hint {
+        display: inline-block;
+        margin-top: 10px;
         font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 6px 16px;
+        background: rgba(214, 40, 57, 0.15);
         color: var(--color-primary);
-        text-decoration: underline;
-        opacity: 0.9;
-        font-weight: 600;
-        cursor: pointer;
-        display: block;
-        margin-top: -5px;
-        transition: color 0.3s;
-    }
-    .login-discount-hint:hover {
-        color: #fff;
+        border: 1px solid rgba(214, 40, 57, 0.3);
+        border-radius: 50px;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
     }
 
-    /* Responsive */
-    @media (max-width: 768px) {
-        #plans :global(.price-card) {
-            padding: 2rem 1.5rem 3rem 1.5rem !important;
-        }
-        #plans :global(.featured) {
-            transform: scale(1) !important;
-        }
-        #plans :global(.featured:hover) {
-            transform: scale(1.02) translateY(-5px) !important;
-        }
-        .price {
-            font-size: 3rem;
-        }
+    .login-discount-hint:hover {
+        background: var(--color-primary);
+        color: white;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(214, 40, 57, 0.3);
+    }
+
+    /* Featured Card Specific (Red Background Card) */
+    #plans :global(.featured .login-discount-hint) {
+        background: #000000;
+        color: #ffffff !important; /* Force white text on black pill */
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        opacity: 1 !important;
+        text-decoration: none !important;
+    }
+
+    #plans :global(.featured .login-discount-hint:hover) {
+        background: #ffffff;
+        color: #000000 !important;
+        transform: translateY(-2px);
     }
 </style>
