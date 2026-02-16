@@ -17,21 +17,19 @@ if (session) {
     return Astro.redirect(callbackUrl);
 }
 export const prerender = false;
+import ThreeBackground from "../components/ui/ThreeBackground.jsx";
 ---
 
 <Layout
-    title="Entrar | Alpha Code"
+    title="Login | Alpha Code"
     showHeader={false}
     showFooter={false}
     showWhatsApp={false}
 >
+    <link rel="preload" href="/assets/logo3d.svg" as="image" slot="head" />
     <div class="auth-page-wrapper">
-        <!-- Background Animation -->
-        <div class="bg-blobs">
-            <div class="blob blob-1"></div>
-            <div class="blob blob-2"></div>
-            <div class="blob blob-3"></div>
-        </div>
+        <!-- 3D Interactive Background -->
+        <ThreeBackground client:only="react" />
 
         <div class="auth-left-panel">
             <a href="/" class="brand-logo-text" style="text-decoration: none;">

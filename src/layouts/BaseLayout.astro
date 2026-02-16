@@ -155,6 +155,8 @@ const seo = createSEOMeta({
 
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}
+
+        <slot name="head" />
     </head>
     <body>
         <a href="#main-content" class="skip-link sr-only focus:not-sr-only">

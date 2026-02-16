@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { signIn } from "auth-astro/client";
+import ThreeBackground from "../ui/ThreeBackground";
 
 export default function RegisterForm() {
     const [error, setError] = useState("");
@@ -93,12 +94,7 @@ export default function RegisterForm() {
 
     return (
         <div className="auth-page-wrapper">
-            {/* Background Animation */}
-            <div className="bg-blobs">
-                <div className="blob blob-1"></div>
-                <div className="blob blob-2"></div>
-                <div className="blob blob-3"></div>
-            </div>
+            <ThreeBackground />
 
             <div className="auth-left-panel">
                 <a href="/" className="brand-logo-text" style={{ textDecoration: 'none' }}>
@@ -106,7 +102,7 @@ export default function RegisterForm() {
                     Alpha Code
                 </a>
 
-                <h1 className="login-heading">CADASTRE-SE</h1>
+                <h1 className="login-heading">CADASTRO</h1>
 
                 <p className="welcome-subtext">
                     Sua jornada Alpha começa agora. <br />

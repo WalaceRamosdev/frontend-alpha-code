@@ -19,6 +19,7 @@
     "@prisma/extension-accelerate": "^2.0.2",
     "@types/react": "^19.2.7",
     "@types/react-dom": "^19.2.3",
+    "@types/three": "^0.182.0",
     "astro": "^5.16.11",
     "auth-astro": "^4.2.0",
     "bcryptjs": "^3.0.3",
@@ -26,6 +27,7 @@
     "node-fetch": "^3.3.2",
     "react": "^19.2.3",
     "react-dom": "^19.2.3",
+    "three": "^0.182.0",
     "typescript": "^5.9.3"
   },
   "devDependencies": {
