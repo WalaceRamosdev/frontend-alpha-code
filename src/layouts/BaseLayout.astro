@@ -50,11 +50,6 @@ const {
     faqItems = [],
 } = Astro.props;
 
-// Get Pixel ID safely from env or fallback
-const PIXEL_ID = (import.meta.env.META_PIXEL_ID ?? "4112004805778911")
-    .replace(/["']/g, "")
-    .trim();
-
 const serveLocations = [
     "Brasília - DF",
     "Rio de Janeiro - RJ",
@@ -88,118 +83,10 @@ const seo = createSEOMeta({
 <!doctype html>
 <html lang="pt-BR">
     <head>
+        <meta charset="UTF-8" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-        <!-- Google tag (gtag.js) - Optimized Loading -->
-        <script is:inline define:vars={{ PIXEL_ID }}>
-            // Optimize GTM loading
-            function loadGTM() {
-                if (window.gtmLoaded) return;
-                window.gtmLoaded = true;
-
-                const script = document.createElement("script");
-                script.async = true;
-                script.src =
-                    "https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P";
-                document.head.appendChild(script);
-
-                window.dataLayer = window.dataLayer || [];
-                function gtag() {
-                    dataLayer.push(arguments);
-                }
-                gtag("js", new Date());
-                gtag("config", "G-Z1TRD8DK7P", {
-                    page_path: window.location.pathname,
-                });
-            }
-
-            // Meta Pixel Loading
-            function loadMetaPixel() {
-                if (window.fbLoaded) return;
-                window.fbLoaded = true;
-
-                !(function (f, b, e, v, n, t, s) {
-                    if (f.fbq) return;
-                    n = f.fbq = function () {
-                        n.callMethod
-                            ? n.callMethod.apply(n, arguments)
-                            : n.queue.push(arguments);
-                    };
-                    if (!f._fbq) f._fbq = n;
-                    n.push = n;
-                    n.loaded = !0;
-                    n.version = "2.0";
-                    n.queue = [];
-                    t = b.createElement(e);
-                    t.async = !0;
-                    t.src = v;
-                    s = b.getElementsByTagName(e)[0];
-                    s.parentNode.insertBefore(t, s);
-                })(
-                    window,
-                    document,
-                    "script",
-                    "https://connect.facebook.net/en_US/fbevents.js",
-                );
-
-                fbq("init", PIXEL_ID);
-                fbq("track", "PageView");
-            }
-
-            // Safe CAPI Call (Non-blocking)
-            const sendCAPI = async (
-                eventName = "PageView",
-                customData = {},
-            ) => {
-                try {
-                    await fetch("/api/events", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            event_name: eventName,
-                            event_source_url: window.location.href,
-                            user_data: {
-                                client_user_agent: navigator.userAgent,
-                            },
-                            custom_data: customData,
-                        }),
-                    });
-                } catch (e) {
-                    console.warn("CAPI silent fail:", e);
-                }
-            };
-
-            // Load trackers after 3.5s or on user interaction
-            const loadTrackers = () => {
-                if (window.trackersLoaded) return;
-                window.trackersLoaded = true;
-
-                loadGTM();
-                loadMetaPixel();
-                sendCAPI("PageView"); // Send server-side event
-
-                // Load AdSense
-                const ads = document.createElement("script");
-                ads.async = true;
-                ads.src =
-                    "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3382063594917016";
-                ads.crossOrigin = "anonymous";
-                document.head.appendChild(ads);
-            };
-
-            const trackerTimer = setTimeout(loadTrackers, 5000);
-            ["touchstart", "mousemove", "scroll", "keydown"].forEach(
-                (event) => {
-                    window.addEventListener(event, loadTrackers, {
-                        once: true,
-                        passive: true,
-                    });
-                },
-            );
-        </script>
-
-        <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="icon" type="image/svg+xml" href="/assets/logo.svg" />
         <meta name="generator" content={Astro.generator} />
@@ -215,7 +102,6 @@ const seo = createSEOMeta({
             name="google-site-verification"
             content="google74f5360f54ab2c1a"
         />
-        <meta name="google-adsense-account" content="ca-pub-3382063594917016" />
 
         <!-- Open Graph -->
         <meta property="og:title" content={seo["og:title"]} />
@@ -270,14 +156,6 @@ const seo = createSEOMeta({
         {!noIndex && <meta name="robots" content={seo.robots} />}
     </head>
     <body>
-        <noscript>
-            <img
-                height="1"
-                width="1"
-                style="display:none"
-                src={`https://www.facebook.com/tr?id=${PIXEL_ID}&ev=PageView&noscript=1`}
-            />
-        </noscript>
         <a href="#main-content" class="skip-link sr-only focus:not-sr-only">
             Pular para conteúdo principal
         </a>
@@ -302,104 +180,7 @@ const seo = createSEOMeta({
         <div id="toast-container" class="toast-container"></div>
 
         <slot name="scripts" />
-        <script is:inline>
-            // Utility to get cookies
-            function getCookie(name) {
-                const value = `; ${document.cookie}`;
-                const parts = value.split(`; ${name}=`);
-                if (parts.length === 2) return parts.pop().split(";").shift();
-            }
 
-            // Expose sendCAPI to window for inline usage if needed, or define locally if scoping allows.
-            // Since sendCAPI is defined in the previous module script which might be scoped,
-            // we'll redefine a robust sender here that uses the same endpoint.
-            const triggerCAPI = async (eventName, eventId) => {
-                try {
-                    const fbc = getCookie("_fbc");
-                    const fbp = getCookie("_fbp");
-
-                    await fetch("/api/events", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            event_name: eventName,
-                            event_id: eventId,
-                            event_source_url: window.location.href,
-                            user_data: {
-                                client_user_agent: navigator.userAgent,
-                                fbc: fbc,
-                                fbp: fbp,
-                            },
-                        }),
-                    });
-                    console.log(`CAPI ${eventName} sent (ID: ${eventId})`);
-                } catch (e) {
-                    console.warn("CAPI fail", e);
-                }
-            };
-
-            // Generate unique event ID
-            const generateEventId = () => {
-                return `evt_${Date.now()}_${Math.floor(Math.random() * 1000)}`;
-            };
-
-            // GA4 + Meta Pixel + CAPI Conversion Tracking
-            document.addEventListener("click", function (e) {
-                // WhatsApp Tracking
-                const waLink = e.target.closest('a[href*="wa.me"]');
-                if (waLink) {
-                    const eventID = generateEventId();
-
-                    // 1. Google Analytics
-                    if (window.gtag) {
-                        gtag("event", "conversion", {
-                            send_to: "G-Z1TRD8DK7P",
-                            event_category: "Engagement",
-                            event_label: "WhatsApp Click",
-                            value: 1,
-                            transaction_id: eventID, // Syncing ID if possible
-                        });
-                    }
-                    // 2. Meta Pixel (Browser)
-                    if (window.fbq) {
-                        fbq("track", "Contact", {}, { eventID: eventID }); // Using 'Contact' for WhatsApp with ID
-                    }
-                    // 3. Meta CAPI (Server)
-                    triggerCAPI("Contact", eventID);
-
-                    console.log(
-                        "WA Click Tracked (GA4 + Pixel + CAPI) - ID: " +
-                            eventID,
-                    );
-                }
-            });
-
-            // Form Submit Tracking
-            document.addEventListener("submit", function (e) {
-                const eventID = generateEventId();
-
-                // 1. Google Analytics
-                if (window.gtag) {
-                    gtag("event", "conversion", {
-                        send_to: "G-Z1TRD8DK7P",
-                        event_category: "Lead",
-                        event_label: "Form Submission",
-                        value: 1,
-                        transaction_id: eventID,
-                    });
-                }
-                // 2. Meta Pixel (Browser)
-                if (window.fbq) {
-                    fbq("track", "Lead", {}, { eventID: eventID }); // Using 'Lead' for Forms with ID
-                }
-                // 3. Meta CAPI (Server)
-                triggerCAPI("Lead", eventID);
-
-                console.log(
-                    "Form Submit Tracked (GA4 + Pixel + CAPI) - ID: " + eventID,
-                );
-            });
-        </script>
         <script>
             import { ScrollTrigger } from "gsap/ScrollTrigger";
             // Globally disable markers
