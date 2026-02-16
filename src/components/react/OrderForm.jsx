@@ -247,13 +247,13 @@ export default function OrderForm() {
                             <div className="coupon-box">
                                 {!appliedCoupon ? (
                                     <div className="coupon-input-group">
-                                        <input type="text" placeholder="Cupom" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} />
-                                        <button type="button" onClick={handleApplyCoupon} className="apply-btn">OK</button>
+                                        <input type="text" placeholder="Cupom" aria-label="Código do Cupom" value={couponCode} onChange={(e) => setCouponCode(e.target.value)} />
+                                        <button type="button" onClick={handleApplyCoupon} className="apply-btn" aria-label="Aplicar Cupom">OK</button>
                                     </div>
                                 ) : (
                                     <div className="applied-badge">
                                         <span>{appliedCoupon.code} <small>Ativado</small></span>
-                                        <button type="button" onClick={removeCoupon}>&times;</button>
+                                        <button type="button" onClick={removeCoupon} aria-label="Remover Cupom">&times;</button>
                                     </div>
                                 )}
                                 {couponError && <p className="error">{couponError}</p>}

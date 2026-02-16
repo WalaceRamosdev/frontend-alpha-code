@@ -54,7 +54,7 @@ export default function LoginForm() {
         <div className="auth-container">
             <div style={{ marginBottom: "1.5rem", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                 <a href="/" style={{ color: "var(--color-text-muted)", fontSize: "0.85rem", display: "flex", alignItems: "center", gap: "0.5rem" }}>
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
                     Voltar ao início
                 </a>
                 <img src="/assets/logo.svg" alt="Alpha Code" width="24" height="24" style={{ opacity: 0.8 }} />
@@ -65,7 +65,7 @@ export default function LoginForm() {
                 onClick={() => signIn("google", { callbackUrl: "/dashboard" })}
                 className="google-btn"
             >
-                <svg className="google-icon" viewBox="0 0 24 24">
+                <svg className="google-icon" viewBox="0 0 24 24" aria-hidden="true">
                     <path
                         fill="#4285F4"
                         d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
