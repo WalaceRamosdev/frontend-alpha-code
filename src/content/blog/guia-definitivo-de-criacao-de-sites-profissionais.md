@@ -2,7 +2,7 @@
 title: "Guia definitivo de criação de sites profissionais"
 description: "Guia completo sobre guia definitivo de criação de sites profissionais focado em resultados e SEO para 2026."
 pubDate: 2026-05-08T19:30:00-03:00
-heroImage: "/assets/blog/guia-definitivo-de-criacao-de-sites-profissionais.webp"
+heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=2000"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
 draft: false

@@ -2,7 +2,7 @@
 title: "Velocidade é Dinheiro: Como a Performance do Site Define Quem Vende em 2026"
 description: "Estudos mostram que 1 segundo de atraso pode custar 20% das suas conversões. Entenda a relação direta entre Core Web Vitals, SEO e faturamento."
 pubDate: 2026-02-16T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=2000"
+heroImage: "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d3?auto=format&fit=crop&q=80&w=2000"
 categories: ["Performance", "Tecnologia"]
 tags: ["core web vitals", "velocidade do site", "seo técnico", "conversão"]
 draft: false

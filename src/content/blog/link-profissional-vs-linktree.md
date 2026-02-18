@@ -2,7 +2,7 @@
 title: "Link Profissional vs Linktree: Por que profissionais da saúde precisam de uma Bio Premium"
 description: "Descubra por que usar o Linktree pode estar prejudicando sua conversão no Instagram e por que um Link Profissional personalizado é a melhor escolha para médicos e clínicas."
 pubDate: 2026-01-31
-heroImage: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&q=80&w=2000"
+heroImage: "https://images.unsplash.com/photo-1664575602554-208c7a77ffaa?auto=format&fit=crop&q=80&w=2000"
 author: "Equipe Alpha Code"
 categories: ["Conversão", "Social Media"]
 tags: ["Instagram", "Link na Bio", "Marketing Médico", "UX"]

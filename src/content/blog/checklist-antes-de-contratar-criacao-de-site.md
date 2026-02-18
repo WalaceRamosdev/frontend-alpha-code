@@ -2,7 +2,7 @@
 title: "Checklist antes de contratar criação de site"
 description: "Guia completo sobre checklist antes de contratar criação de site focado em resultados e SEO para 2026."
 pubDate: 2026-04-20T19:30:00-03:00
-heroImage: "/assets/blog/checklist-antes-de-contratar-criacao-de-site.webp"
+heroImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2000"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
 draft: false

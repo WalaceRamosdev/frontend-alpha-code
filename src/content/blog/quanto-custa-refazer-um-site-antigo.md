@@ -2,7 +2,7 @@
 title: "Quanto custa refazer um site antigo em 2026?"
 description: "Seu site está ultrapassado, lento e não gera mais leads? Descubra o investimento necessário para fazer um 'rebranding' digital completo e voltar ao jogo."
 pubDate: 2026-03-11T19:30:00-03:00
-heroImage: "/assets/blog/quanto-custa-refazer-um-site-antigo.webp"
+heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=2000"
 categories: ["Custos e Investimento"]
 tags: ["reformulação de site", "rebranding digital", "criação de sites"]
 draft: false

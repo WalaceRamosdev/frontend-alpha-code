@@ -2,7 +2,7 @@
 title: "Site institucional ou página de vendas"
 description: "Guia completo sobre site institucional ou página de vendas focado em resultados e SEO para 2026."
 pubDate: 2026-04-08T19:30:00-03:00
-heroImage: "/assets/blog/site-institucional-ou-pagina-de-vendas.webp"
+heroImage: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=2000"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
 draft: false

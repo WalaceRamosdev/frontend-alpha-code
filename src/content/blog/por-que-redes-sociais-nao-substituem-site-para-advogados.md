@@ -2,7 +2,7 @@
 title: "Por que redes sociais não substituem um site profissional para Advogados"
 description: "Descubra por que depender apenas do Instagram é um risco para sua advocacia e como um site jurídico constrói autoridade conforme as normas da OAB."
 pubDate: 2026-02-02T18:00:00-03:00
-heroImage: "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?auto=format&fit=crop&q=80&w=2000"
+heroImage: "https://images.unsplash.com/photo-1521587760476-6c12a4b040da?auto=format&fit=crop&q=80&w=2000"
 author: "Equipe Alpha Code"
 categories: ["Jurídico", "Autoridade Digital"]
 tags: ["Advocacia", "Marketing Jurídico", "Site para Advogados", "OAB"]

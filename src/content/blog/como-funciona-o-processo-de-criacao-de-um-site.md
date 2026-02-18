@@ -2,7 +2,7 @@
 title: "Como funciona o processo de criação de um site em 2026?"
 description: "Transparência total: conheça as 5 etapas do método Alpha Code para transformar sua ideia em um site de alta performance e autoridade."
 pubDate: 2026-03-09T19:30:00-03:00
-heroImage: "/assets/blog/como-funciona-o-processo-de-criacao-de-um-site.webp"
+heroImage: "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d3?auto=format&fit=crop&q=80&w=2000"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "metodologia", "desenvolvimento web"]
 draft: false

@@ -20,6 +20,9 @@ interface Props {
     ctaType?: "topo" | "meio" | "fundo";
 }
 
+import fs from "node:fs";
+import path from "node:path";
+
 const {
     title,
     description,
@@ -30,6 +33,21 @@ const {
     slug,
     ctaType = "fundo",
 } = Astro.props;
+
+// Automatic Image Validation - Supports external URLs
+let finalHeroImage = "/assets/blog/default-post.webp";
+
+if (heroImage) {
+    if (heroImage.startsWith("http") || heroImage.startsWith("https")) {
+        finalHeroImage = heroImage;
+    } else {
+        const publicDir = path.join(process.cwd(), "public");
+        const imagePath = path.join(publicDir, heroImage);
+        if (fs.existsSync(imagePath)) {
+            finalHeroImage = heroImage;
+        }
+    }
+}
 
 const formattedDate = pubDate.toLocaleDateString("pt-BR", {
     day: "2-digit",
@@ -57,7 +75,7 @@ const articleSchema = {
     "@type": "Article",
     headline: title,
     description: description,
-    image: [heroImage],
+    image: [finalHeroImage],
     datePublished: pubDate.toISOString(),
     dateModified: pubDate.toISOString(), // Can be updated to use updatedDate if added to frontmatter
     author: {
@@ -82,7 +100,7 @@ const articleSchema = {
 <BaseLayout
     title={`${title} | Alpha Insights`}
     description={description}
-    ogImage={heroImage}
+    ogImage={finalHeroImage}
     showHeader={false}
     showWhatsApp={false}
 >
@@ -149,12 +167,12 @@ const articleSchema = {
         </header>
 
         {
-            heroImage && (
+            finalHeroImage && (
                 <div class="post-hero">
                     <div class="container container-medium">
                         <div class="hero-image-wrapper">
                             <img
-                                src={heroImage}
+                                src={finalHeroImage}
                                 alt={title}
                                 class="hero-image"
                             />

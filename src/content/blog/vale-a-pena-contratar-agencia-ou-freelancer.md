@@ -2,7 +2,7 @@
 title: "Vale a pena contratar agência ou freelancer para criar seu site?"
 description: "O dilema da criação de sites: compare custos, prazos e qualidade entre contratar uma agência estruturada ou um profissional freelancer."
 pubDate: 2026-03-04T19:30:00-03:00
-heroImage: "/assets/blog/vale-a-pena-contratar-agencia-ou-freelancer.webp"
+heroImage: "https://images.unsplash.com/photo-1664575602554-208c7a77ffaa?auto=format&fit=crop&q=80&w=2000"
 categories: ["Processo de Criação"]
 tags: ["agência vs freelancer", "criação de sites", "mercado digital"]
 draft: false

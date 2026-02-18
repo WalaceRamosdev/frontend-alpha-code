@@ -2,7 +2,7 @@
 title: "Wix vale a pena para empresas sérias"
 description: "Guia completo sobre wix vale a pena para empresas sérias focado em resultados e SEO para 2026."
 pubDate: 2026-04-17T19:30:00-03:00
-heroImage: "/assets/blog/wix-vale-a-pena-para-empresas-serias.webp"
+heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000"
 categories: ["Comparações de Plataformas"]
 tags: ["criação de sites", "comparações de plataformas", "marketing digital"]
 draft: false
