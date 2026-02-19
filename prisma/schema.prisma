@@ -60,3 +60,46 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Project {
+  id           String    @id @default(cuid())
+  name         String
+  clientName   String?
+  type         String
+  plan         String?   @default("BRONZE")
+  category     String
+  imageUrl     String
+  projectUrl   String
+  status       String    @default("Em Andamento")
+  startDate    DateTime?
+  deliveryDate DateTime?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model MaintenanceRequest {
+  id            String    @id @default(cuid())
+  clientName    String
+  email         String?
+  phone         String?
+  serviceType   String    // 'MANUTENCAO' or 'SEO_TURBINADO'
+  description   String?
+  amount        Float     @default(0.0)
+  status        String    @default("PENDENTE") // PENDENTE, EM_EXECUCAO, CONCLUIDO
+  paymentStatus String    @default("PENDENTE") // PENDENTE, PAGO
+  startDate     DateTime? 
+  endDate       DateTime?
+  financialId   String?   // Reference to FinancialRecord if paid
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model FinancialRecord {
+  id          String   @id @default(cuid())
+  description String
+  category    String   
+  amount      Float
+  hostingCost Float?   @default(0.0)
+  date        DateTime @default(now())
+  createdAt   DateTime @default(now())
+}

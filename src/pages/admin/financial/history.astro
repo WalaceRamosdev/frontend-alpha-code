@@ -1,0 +1,807 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+import { getSession } from "../../../lib/auth";
+import { prisma } from "../../../lib/prisma";
+import AdminSidebar from "../../../components/admin/AdminSidebar.astro";
+import StatusModal from "../../../components/ui/StatusModal.astro";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Auth Error:", e);
+}
+
+if (!session || session.user?.role !== "ADMIN") {
+    return Astro.redirect("/login");
+}
+
+const financialRecords = await prisma.financialRecord.findMany({
+    orderBy: { date: "desc" },
+});
+
+const totalRevenue = financialRecords.reduce(
+    (acc, record) => acc + record.amount,
+    0,
+);
+const totalExpenses = financialRecords.reduce(
+    (acc, record) => acc + (record.hostingCost || 0),
+    0,
+);
+const netProfit = totalRevenue - totalExpenses;
+
+const formatCurrency = (val: number) =>
+    new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(val);
+---
+
+<Layout
+    title="Histórico Financeiro | Alpha Code"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="admin-container">
+        <AdminSidebar activePage="financial" />
+
+        <div class="dashboard-wrapper">
+            <div class="container dashboard-container">
+                <div class="header-actions mb-4">
+                    <a href="/dashboard" class="back-link">← Voltar ao Painel</a
+                    >
+                </div>
+
+                <div class="financial-header">
+                    <h1>Histórico Financeiro Completo</h1>
+                    <div class="summary-cards">
+                        <div class="card revenue">
+                            <span>Receita Total</span>
+                            <strong>{formatCurrency(totalRevenue)}</strong>
+                        </div>
+                        <div class="card expense">
+                            <span>Despesas (Hospedagem)</span>
+                            <strong>{formatCurrency(totalExpenses)}</strong>
+                        </div>
+                        <div class="card profit">
+                            <span>Lucro Líquido</span>
+                            <strong>{formatCurrency(netProfit)}</strong>
+                        </div>
+                    </div>
+                </div>
+
+                <section class="main-card mt-8">
+                    <div class="financial-table-wrapper">
+                        <table class="financial-table">
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Serviço</th>
+                                    <th>Descrição</th>
+                                    <th class="value-column">Receita</th>
+                                    <th class="value-column">Despesa</th>
+                                    <th class="value-column">Lucro</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    financialRecords.length > 0 ? (
+                                        financialRecords.map((record) => (
+                                            <tr>
+                                                <td>
+                                                    {new Date(
+                                                        record.date,
+                                                    ).toLocaleDateString(
+                                                        "pt-BR",
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <span class="badge-service">
+                                                        {record.category}
+                                                    </span>
+                                                </td>
+                                                <td>{record.description}</td>
+                                                <td class="text-success value-column">
+                                                    {formatCurrency(
+                                                        record.amount,
+                                                    )}
+                                                </td>
+                                                <td class="text-danger value-column">
+                                                    {formatCurrency(
+                                                        record.hostingCost || 0,
+                                                    )}
+                                                </td>
+                                                <td class="text-primary font-bold value-column">
+                                                    {formatCurrency(
+                                                        record.amount -
+                                                            (record.hostingCost ||
+                                                                0),
+                                                    )}
+                                                </td>
+                                                <td>
+                                                    <div class="action-buttons">
+                                                        <button
+                                                            class="btn-icon edit-btn"
+                                                            title="Editar"
+                                                            data-id={record.id}
+                                                            data-date={
+                                                                new Date(
+                                                                    record.date,
+                                                                )
+                                                                    .toISOString()
+                                                                    .split(
+                                                                        "T",
+                                                                    )[0]
+                                                            }
+                                                            data-category={
+                                                                record.category
+                                                            }
+                                                            data-description={
+                                                                record.description
+                                                            }
+                                                            data-amount={
+                                                                record.amount
+                                                            }
+                                                            data-hosting={
+                                                                record.hostingCost ||
+                                                                0
+                                                            }
+                                                        >
+                                                            ✏️
+                                                        </button>
+                                                        <button
+                                                            class="btn-icon delete-btn"
+                                                            title="Excluir"
+                                                            data-id={record.id}
+                                                        >
+                                                            🗑️
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        ))
+                                    ) : (
+                                        <tr>
+                                            <td
+                                                colspan="7"
+                                                class="text-center p-4 text-muted"
+                                            >
+                                                Nenhum lançamento registrado.
+                                            </td>
+                                        </tr>
+                                    )
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Edit Modal -->
+            <div id="edit-modal" class="modal-overlay hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Editar Lançamento</h2>
+                        <button id="close-modal-btn" class="close-btn"
+                            >&times;</button
+                        >
+                    </div>
+                    <form id="edit-form">
+                        <input type="hidden" name="id" id="edit-id" />
+
+                        <div class="form-group">
+                            <label>Data</label>
+                            <input
+                                type="date"
+                                name="date"
+                                id="edit-date"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Serviço / Categoria</label>
+                            <input
+                                type="text"
+                                name="category"
+                                id="edit-category"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-group">
+                            <label>Descrição</label>
+                            <input
+                                type="text"
+                                name="description"
+                                id="edit-description"
+                                required
+                            />
+                        </div>
+
+                        <div class="form-cols">
+                            <div class="form-group">
+                                <label>Receita (R$)</label>
+                                <input
+                                    type="number"
+                                    name="amount"
+                                    id="edit-amount"
+                                    step="0.01"
+                                    required
+                                />
+                            </div>
+                            <div class="form-group">
+                                <label>Despesa Hospedagem (R$)</label>
+                                <input
+                                    type="number"
+                                    name="hostingCost"
+                                    id="edit-hosting"
+                                    step="0.01"
+                                />
+                            </div>
+                        </div>
+
+                        <div class="modal-actions">
+                            <button type="submit" class="btn-save"
+                                >Salvar Alterações</button
+                            >
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="delete-modal" class="modal-overlay hidden">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2>Confirmar Exclusão</h2>
+                        <button id="close-delete-modal-btn" class="close-btn"
+                            >&times;</button
+                        >
+                    </div>
+                    <div class="modal-body">
+                        <p>Tem certeza que deseja excluir este lançamento?</p>
+                        <p class="text-muted text-sm">
+                            Esta ação não pode ser desfeita.
+                        </p>
+                    </div>
+                    <div
+                        class="modal-actions"
+                        style="margin-top: 1.5rem; display: flex; gap: 1rem;"
+                    >
+                        <button id="cancel-delete-btn" class="btn-cancel"
+                            >Cancelar</button
+                        >
+                        <button
+                            id="confirm-delete-btn"
+                            class="btn-delete-confirm">Excluir</button
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status Modal Component -->
+            <StatusModal id="status-modal" title="" message="" />
+        </div>
+
+        <script>
+            const modal = document.getElementById("edit-modal");
+            const deleteModal = document.getElementById("delete-modal");
+
+            const closeBtn = document.getElementById("close-modal-btn");
+            const closeDeleteBtn = document.getElementById(
+                "close-delete-modal-btn",
+            );
+            const cancelDeleteBtn =
+                document.getElementById("cancel-delete-btn");
+            const confirmDeleteBtn =
+                document.getElementById("confirm-delete-btn");
+
+            const editForm = document.getElementById("edit-form");
+            const editBtns = document.querySelectorAll(".edit-btn");
+            const deleteBtns = document.querySelectorAll(".delete-btn");
+
+            let deleteId: string | null = null;
+
+            // Close Modals
+            const closeModals = () => {
+                modal?.classList.add("hidden");
+                deleteModal?.classList.add("hidden");
+            };
+
+            if (closeBtn) closeBtn.addEventListener("click", closeModals);
+            if (closeDeleteBtn)
+                closeDeleteBtn.addEventListener("click", closeModals);
+            if (cancelDeleteBtn)
+                cancelDeleteBtn.addEventListener("click", closeModals);
+
+            window.addEventListener("click", (e) => {
+                if (e.target === modal || e.target === deleteModal)
+                    closeModals();
+            });
+
+            // Open Modal
+            editBtns.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const id = btn.getAttribute("data-id");
+                    const date = btn.getAttribute("data-date");
+                    const category = btn.getAttribute("data-category");
+                    const description = btn.getAttribute("data-description");
+                    const amount = btn.getAttribute("data-amount");
+                    const hosting = btn.getAttribute("data-hosting");
+
+                    (
+                        document.getElementById("edit-id") as HTMLInputElement
+                    ).value = id || "";
+                    (
+                        document.getElementById("edit-date") as HTMLInputElement
+                    ).value = date || "";
+                    (
+                        document.getElementById(
+                            "edit-category",
+                        ) as HTMLInputElement
+                    ).value = category || "";
+                    (
+                        document.getElementById(
+                            "edit-description",
+                        ) as HTMLInputElement
+                    ).value = description || "";
+                    (
+                        document.getElementById(
+                            "edit-amount",
+                        ) as HTMLInputElement
+                    ).value = amount || "";
+                    (
+                        document.getElementById(
+                            "edit-hosting",
+                        ) as HTMLInputElement
+                    ).value = hosting || "";
+
+                    modal?.classList.remove("hidden");
+                });
+            });
+
+            // Open Delete Modal
+            deleteBtns.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    deleteId = btn.getAttribute("data-id");
+                    deleteModal?.classList.remove("hidden");
+                });
+            });
+
+            // Confirm Delete
+            if (confirmDeleteBtn) {
+                confirmDeleteBtn.addEventListener("click", async () => {
+                    if (!deleteId) return;
+
+                    const originalText = confirmDeleteBtn.innerText;
+                    confirmDeleteBtn.innerText = "Excluindo...";
+
+                    try {
+                        const res = await fetch("/api/admin/financial/delete", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({ id: deleteId }),
+                        });
+
+                        closeModals();
+
+                        if (res.ok) {
+                            (window as any).showModal(
+                                "Sucesso",
+                                "Registro excluído com sucesso!",
+                                "success",
+                            );
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        } else {
+                            const err = await res.json();
+                            (window as any).showModal(
+                                "Erro",
+                                "Erro ao excluir: " +
+                                    (err.message || "Desconhecido"),
+                                "error",
+                            );
+                        }
+                    } catch (error) {
+                        closeModals();
+                        (window as any).showModal(
+                            "Erro",
+                            "Falha na conexão.",
+                            "error",
+                        );
+                    } finally {
+                        confirmDeleteBtn.innerText = originalText;
+                    }
+                });
+            }
+
+            // Submit Form
+            if (editForm) {
+                editForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const formData = new FormData(editForm as HTMLFormElement);
+                    const data = Object.fromEntries(formData);
+                    const btn = editForm.querySelector('button[type="submit"]');
+                    if (btn) btn.textContent = "Salvando...";
+
+                    try {
+                        const res = await fetch("/api/admin/financial/update", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify(data),
+                        });
+
+                        if (res.ok) {
+                            closeModals();
+                            (window as any).showModal(
+                                "Sucesso",
+                                "Registro atualizado com sucesso!",
+                                "success",
+                            );
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1500);
+                        } else {
+                            const err = await res.json();
+                            (window as any).showModal(
+                                "Erro",
+                                "Erro ao atualizar: " + err.message,
+                                "error",
+                            );
+                        }
+                    } catch (error) {
+                        console.error(error);
+                        (window as any).showModal(
+                            "Erro",
+                            "Erro de conexão.",
+                            "error",
+                        );
+                    } finally {
+                        if (btn) btn.textContent = "Salvar Alterações";
+                    }
+                });
+            }
+        </script>
+    </div>
+</Layout>
+
+<style>
+    .admin-container {
+        display: flex;
+        min-height: 100vh;
+        background: #0a0a0a;
+        color: white;
+    }
+
+    .dashboard-wrapper {
+        flex: 1;
+        padding-top: 40px;
+        min-height: 100vh;
+        background-color: #0a0a0a;
+        color: #fff;
+        padding-bottom: 4rem;
+    }
+
+    .dashboard-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .back-link {
+        color: var(--color-text-muted);
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: color 0.2s;
+    }
+    .back-link:hover {
+        color: #fff;
+    }
+
+    .financial-header {
+        margin-bottom: 2rem;
+    }
+
+    .summary-cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    .card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        padding: 1.5rem;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .card span {
+        font-size: 0.85rem;
+        color: var(--color-text-muted);
+    }
+
+    .card strong {
+        font-size: 1.5rem;
+    }
+
+    .card.revenue strong {
+        color: #34d399;
+    }
+    .card.expense strong {
+        color: #f87171;
+    }
+    .card.profit strong {
+        color: var(--color-primary);
+    }
+
+    .main-card {
+        background: rgba(20, 20, 20, 0.6);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 2rem;
+        backdrop-filter: blur(10px);
+    }
+
+    /* Table Styles Reuse */
+    .financial-table-wrapper {
+        width: 100%;
+        overflow-x: auto;
+    }
+
+    .financial-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.9rem;
+        min-width: 600px;
+    }
+
+    .financial-table th {
+        text-align: left;
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--color-text-heading);
+    }
+
+    .financial-table td {
+        padding: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .value-column {
+        white-space: nowrap;
+        text-align: right;
+        padding-right: 2rem !important;
+    }
+
+    .financial-table th.value-column {
+        text-align: right;
+    }
+
+    .badge-service {
+        background: rgba(139, 92, 246, 0.15);
+        color: #a78bfa;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-weight: 600;
+    }
+
+    .text-success {
+        color: #34d399;
+    }
+    .text-danger {
+        color: #f87171;
+    }
+    .text-primary {
+        color: var(--color-primary);
+    }
+    .text-muted {
+        color: var(--color-text-muted);
+    }
+    .font-bold {
+        font-weight: 700;
+    }
+    .text-center {
+        text-align: center;
+    }
+    .p-4 {
+        padding: 1rem;
+    }
+    .mb-4 {
+        margin-bottom: 1rem;
+    }
+    .mt-8 {
+        margin-top: 2rem;
+    }
+
+    @media (max-width: 768px) {
+        .admin-container {
+            flex-direction: column;
+        }
+        .dashboard-wrapper {
+            padding-top: 20px;
+            margin-bottom: 80px;
+            max-width: 100%;
+        }
+        .dashboard-container {
+            padding: 0 1rem;
+        }
+        .financial-header h1 {
+            font-size: 1.8rem;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        .summary-cards {
+            grid-template-columns: 1fr;
+            gap: 12px;
+        }
+        .card {
+            padding: 1.2rem;
+            align-items: center;
+            text-align: center;
+        }
+        .main-card {
+            padding: 1.2rem;
+            margin-top: 1.5rem;
+        }
+        .financial-table {
+            min-width: 700px;
+        }
+        .financial-table th,
+        .financial-table td {
+            padding: 10px;
+        }
+        .value-column {
+            padding-right: 10px !important;
+        }
+    }
+    .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+    }
+    .btn-icon {
+        background: none;
+        border: none;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: transform 0.2s;
+        padding: 4px;
+        border-radius: 4px;
+    }
+    .btn-icon:hover {
+        transform: scale(1.2);
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .delete-btn:hover {
+        background: rgba(220, 38, 38, 0.2);
+    }
+
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+        opacity: 1;
+        transition: opacity 0.3s;
+    }
+    .modal-overlay.hidden {
+        opacity: 0;
+        pointer-events: none;
+    }
+    .modal-content {
+        background: #1a1a1a;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 2rem;
+        border-radius: 12px;
+        width: 90%;
+        max-width: 500px;
+        color: #fff;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+    }
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    .close-btn {
+        background: none;
+        border: none;
+        color: #fff;
+        font-size: 1.5rem;
+        cursor: pointer;
+    }
+    .form-group {
+        margin-bottom: 1rem;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        font-size: 0.9rem;
+        color: var(--color-text-muted);
+    }
+    .form-group input,
+    .form-group select {
+        width: 100%;
+        padding: 0.8rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 6px;
+        color: #fff;
+        font-size: 1rem;
+    }
+    .form-cols {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+    }
+    .btn-save {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #ae1d2a 0%, #8a1c26 100%);
+        color: white;
+        border: none;
+        border-radius: 12px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        margin-top: 1rem;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        box-shadow: 0 4px 15px rgba(138, 28, 38, 0.3);
+    }
+    .btn-save:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(138, 28, 38, 0.5);
+    }
+
+    .btn-cancel,
+    .btn-delete-confirm {
+        padding: 12px 24px;
+        border-radius: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.75rem;
+        cursor: pointer;
+        border: none;
+        flex: 1;
+        transition: 0.3s;
+    }
+    .btn-cancel {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--color-text-muted);
+    }
+    .btn-cancel:hover {
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+    .btn-delete-confirm {
+        background: #e74c3c;
+        color: white;
+    }
+    .btn-delete-confirm:hover {
+        background: #c0392b;
+        transform: translateY(-2px);
+    }
+    .text-sm {
+        font-size: 0.85rem;
+    }
+</style>
