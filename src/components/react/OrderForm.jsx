@@ -41,7 +41,7 @@ const COUPONS = {
     'PARCEIRO15': { type: 'percent', value: 15 }
 };
 
-export default function OrderForm() {
+export default function OrderForm({ user }) {
     const [formData, setFormData] = useState({
         nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '', plano: ''
     });
@@ -60,6 +60,8 @@ export default function OrderForm() {
     const [showUpsell, setShowUpsell] = useState(false);
     const [upsellAnswered, setUpsellAnswered] = useState(false);
     const [hasSEO, setHasSEO] = useState(false);
+    const [hasInspiration, setHasInspiration] = useState(null);
+    const [inspirationLinks, setInspirationLinks] = useState(['']);
     const [seoPrice] = useState(150);
 
     const isPortugal = typeof navigator !== 'undefined' && (
@@ -112,6 +114,18 @@ export default function OrderForm() {
         }
     }, [selectedPlan, appliedCoupon, isPortugal, hasSEO]);
 
+    // Pre-fill user data if available
+    useEffect(() => {
+        if (user) {
+            setFormData(prev => ({
+                ...prev,
+                nome: user.name || prev.nome,
+                email: user.email || prev.email,
+                referencias: user.siteUrl || prev.referencias // Auto-fill site URL
+            }));
+        }
+    }, [user]);
+
     // WARM-UP BACKEND (Prevent Cold Start Delay)
     useEffect(() => {
         const warmUpBackend = async () => {
@@ -152,17 +166,32 @@ export default function OrderForm() {
 
         setLoading(true);
         setErrorMessage('');
+
+        // Prepare Payload with Defaults for Maintenance
+        let payloadData = { ...formData };
+        if (isMaintenance) {
+            payloadData.nome = payloadData.nome || user?.name || 'Cliente Logado';
+            payloadData.email = payloadData.email || user?.email || 'email@cliente.com';
+            payloadData.whatsapp = payloadData.whatsapp || 'Não solicitado (Manutenção)';
+            payloadData.profissao = payloadData.profissao || 'Cliente Antigo';
+        }
+
         try {
             const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
-            const isPaidTest = formData.nome.toUpperCase().includes('TESTE PAGO') || formData.detalhes.toUpperCase().includes('TESTE PAGO');
+            const isPaidTest = (payloadData.nome || '').toUpperCase().includes('TESTE PAGO') || (payloadData.detalhes || '').toUpperCase().includes('TESTE PAGO');
+
+            const inspirationText = hasInspiration
+                ? inspirationLinks.filter(l => l.trim()).join(', ')
+                : 'Nenhuma referência visual';
+
             const payload = {
-                ...formData,
+                ...payloadData,
                 plano: hasSEO ? `${formData.plano} + SEO Turbinado` : formData.plano,
                 // Compatibilidade com backend antigo (Render)
                 servico: formData.objetivo || (isMaintenance ? 'Manutenção' : 'Não informado'),
                 // Hack de Injeção: Ajusta label se for manutenção
                 orcamento: isMaintenance
-                    ? `(Manutenção)</p><p><strong>Link do Site:</strong> ${formData.referencias}`
+                    ? `(Manutenção)</p><p><strong>Link do Site:</strong> ${formData.referencias}</p><p><strong>Inspiração:</strong> ${inspirationText}`
                     : `${formData.cores || 'Não informado'}</p><p><strong>Sites de Referência:</strong> ${formData.referencias || 'Nenhum'}`,
                 detalhes: formData.detalhes,
                 isMaintenance,
@@ -191,8 +220,12 @@ export default function OrderForm() {
                     (isMaintenance ? '' : `*CORES:* ${formData.cores || 'Não informado'}\n`) +
                     `*${linkLabel}:* ${formData.referencias || 'Nenhuma informada'}\n\n` +
                     `*DESCRIÇÃO:* ${formData.detalhes}`;
-                setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
-                setModalOpen(true);
+                if (isMaintenance) {
+                    handlePayment();
+                } else {
+                    setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
+                    setModalOpen(true);
+                }
             } else throw new Error('Erro servidor');
         } catch (error) {
             setErrorMessage('Erro ao enviar. Tente o WhatsApp.');
@@ -284,30 +317,32 @@ export default function OrderForm() {
                 {/* FORM */}
                 <main className="order-content">
                     <form onSubmit={handleSubmit} className="premium-card form-inner">
-                        <section className="form-step">
-                            <div className="step-header">
-                                <span className="step-num">01</span>
-                                <h3>Seus Dados</h3>
-                            </div>
-                            <div className="inputs-grid">
-                                <div className="field">
-                                    <label>Nome Completo</label>
-                                    <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
+                        {!isMaintenance && (
+                            <section className="form-step">
+                                <div className="step-header">
+                                    <span className="step-num">01</span>
+                                    <h3>Seus Dados</h3>
                                 </div>
-                                <div className="field">
-                                    <label>WhatsApp</label>
-                                    <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
+                                <div className="inputs-grid">
+                                    <div className="field">
+                                        <label>Nome Completo</label>
+                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required={!isMaintenance} placeholder="Como devemos te chamar?" />
+                                    </div>
+                                    <div className="field">
+                                        <label>WhatsApp</label>
+                                        <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required={!isMaintenance} placeholder="(XX) XXXXX-XXXX" />
+                                    </div>
+                                    <div className="field">
+                                        <label>E-mail</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleChange} required={!isMaintenance} placeholder="seu@email.com" />
+                                    </div>
+                                    <div className="field">
+                                        <label>Sua Profissão / Negócio</label>
+                                        <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required={!isMaintenance} placeholder="Ex: Arquiteto, Psicóloga..." />
+                                    </div>
                                 </div>
-                                <div className="field">
-                                    <label>E-mail</label>
-                                    <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
-                                </div>
-                                <div className="field">
-                                    <label>Sua Profissão / Negócio</label>
-                                    <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required placeholder="Ex: Arquiteto, Psicóloga..." />
-                                </div>
-                            </div>
-                        </section>
+                            </section>
+                        )}
 
                         {!isMaintenance && (
                             <section className="form-step">
@@ -334,24 +369,119 @@ export default function OrderForm() {
                         )}
 
                         <section className="form-step">
+                            {isMaintenance && (
+                                <div style={{ marginBottom: '25px' }}>
+                                    <h3 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
+                                        Olá, <span style={{ color: '#d62839' }}>{user?.name?.split(' ')[0] || 'Cliente'}</span>!
+                                    </h3>
+                                    <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', marginTop: '5px' }}>
+                                        {user?.siteUrl
+                                            ? <span>O que gostaria de mudar em <strong style={{ color: '#fff' }}>{user.siteUrl.replace('https://', '').replace('http://', '')}</strong>?</span>
+                                            : "O que deseja melhorar no seu site hoje?"
+                                        }
+                                    </p>
+                                </div>
+                            )}
+
                             <div className="step-header">
-                                <span className="step-num">{isMaintenance ? '02' : '03'}</span>
-                                <h3>Expectativas</h3>
+                                <span className="step-num">{isMaintenance ? '01' : '03'}</span>
+                                <h3>{isMaintenance ? 'Detalhes da Solicitação' : 'Expectativas'}</h3>
                             </div>
-                            <div className="field">
-                                <label>{isMaintenance ? 'Link do Site (Obrigatório)' : 'Link de Referência / Site Atual'}</label>
-                                <input
-                                    type="text"
-                                    name="referencias"
-                                    value={formData.referencias}
-                                    onChange={handleChange}
-                                    required={isMaintenance}
-                                    placeholder={isMaintenance ? "seu-site.com.br" : "https://..."}
-                                />
-                            </div>
+                            {/* Link do Site - Apenas se não tiver site vinculado */}
+                            {(!isMaintenance || !user?.siteUrl) && (
+                                <div className="field">
+                                    <label>{isMaintenance ? 'Link do Site (Obrigatório)' : 'Link de Referência / Site Atual'}</label>
+                                    <input
+                                        type="text"
+                                        name="referencias"
+                                        value={formData.referencias}
+                                        onChange={handleChange}
+                                        required={isMaintenance}
+                                        placeholder={isMaintenance ? "seu-site.com.br" : "https://..."}
+                                    />
+                                </div>
+                            )}
+                            {/* Hidden input for 'referencias' if siteUrl exists and in maintenance mode */}
+                            {isMaintenance && user?.siteUrl && (
+                                <input type="hidden" name="referencias" value={user.siteUrl} />
+                            )}
+
+                            {/* Campo Extra para Manutenção: Inspiração */}
+                            {isMaintenance && (
+                                <div className="field inspiration-box">
+                                    <label className="inspiration-label">Teve inspiração em algum local da internet?</label>
+
+                                    <div className="inspiration-options">
+                                        <button
+                                            type="button"
+                                            onClick={() => setHasInspiration(true)}
+                                            className={`option-btn ${hasInspiration === true ? 'active' : ''}`}
+                                        >
+                                            <span className="btn-icon">💡</span>
+                                            Sim, vi algo legal
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => { setHasInspiration(false); setInspirationLinks(['']); }}
+                                            className={`option-btn ${hasInspiration === false ? 'active' : ''}`}
+                                        >
+                                            <span className="btn-icon">🧠</span>
+                                            Não, é ideia própria
+                                        </button>
+                                    </div>
+
+                                    {hasInspiration && (
+                                        <div className="inspiration-links-container">
+                                            {inspirationLinks.map((link, index) => (
+                                                <div key={index} className="link-input-row">
+                                                    <input
+                                                        type="text"
+                                                        value={link}
+                                                        onChange={(e) => {
+                                                            const newLinks = [...inspirationLinks];
+                                                            newLinks[index] = e.target.value;
+                                                            setInspirationLinks(newLinks);
+                                                        }}
+                                                        placeholder={`Cole o link ${index + 1} aqui...`}
+                                                        className="glass-input"
+                                                    />
+                                                    {inspirationLinks.length > 1 && (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => {
+                                                                const newLinks = inspirationLinks.filter((_, i) => i !== index);
+                                                                setInspirationLinks(newLinks);
+                                                            }}
+                                                            className="remove-link-btn"
+                                                        >
+                                                            &times;
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            ))}
+                                            <button
+                                                type="button"
+                                                onClick={() => setInspirationLinks([...inspirationLinks, ''])}
+                                                className="add-link-btn"
+                                            >
+                                                + Adicionar outro link
+                                            </button>
+                                        </div>
+                                    )}
+                                </div>
+                            )}
+
                             <div className="field">
                                 <label>Conte mais sobre sua ideia</label>
-                                <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" required placeholder="Fale um pouco sobre o que você espera do seu site..."></textarea>
+                                <textarea
+                                    name="detalhes"
+                                    value={formData.detalhes}
+                                    onChange={handleChange}
+                                    rows="5"
+                                    required
+                                    placeholder="Descreva como imagina essa melhoria..."
+                                    className="glass-input textarea-expanded"
+                                ></textarea>
                             </div>
                         </section>
 
@@ -738,6 +868,125 @@ export default function OrderForm() {
                     color: rgba(255,255,255,0.4);
                     text-align: center;
                     margin-bottom: 20px;
+                }
+
+                /* Inspiration Box */
+                .inspiration-box {
+                    background: rgba(255,255,255,0.02);
+                    padding: 25px;
+                    border-radius: 16px;
+                    border: 1px solid rgba(255,255,255,0.05);
+                    margin-bottom: 25px;
+                }
+                .inspiration-label {
+                    display: block;
+                    margin-bottom: 20px;
+                    font-size: 0.95rem;
+                    color: rgba(255,255,255,0.8);
+                    font-weight: 600;
+                }
+                
+                .inspiration-options {
+                    display: flex;
+                    gap: 15px;
+                    margin-bottom: 20px;
+                }
+                
+                .option-btn {
+                    flex: 1;
+                    padding: 15px;
+                    background: rgba(255,255,255,0.03);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    border-radius: 12px;
+                    color: rgba(255,255,255,0.6);
+                    cursor: pointer;
+                    font-weight: 600;
+                    transition: all 0.3s ease;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    gap: 10px;
+                }
+                
+                .option-btn:hover {
+                    background: rgba(255,255,255,0.08);
+                    color: #fff;
+                    transform: translateY(-2px);
+                }
+                
+                .option-btn.active {
+                    background: linear-gradient(135deg, rgba(214, 40, 57, 0.2) 0%, rgba(214, 40, 57, 0.1) 100%);
+                    border-color: #d62839;
+                    color: #fff;
+                    box-shadow: 0 4px 20px rgba(214, 40, 57, 0.15);
+                }
+                
+                .btn-icon {
+                    font-size: 1.2rem;
+                }
+
+                /* Inputs & Rows */
+                .glass-input {
+                    background: rgba(0,0,0,0.2) !important;
+                    border: 1px solid rgba(255,255,255,0.1) !important;
+                    color: #fff !important;
+                    padding: 12px 15px !important;
+                    border-radius: 10px !important;
+                    width: 100%;
+                    outline: none;
+                    transition: border-color 0.3s;
+                }
+                .glass-input:focus {
+                    border-color: #d62839 !important;
+                    background: rgba(0,0,0,0.4) !important;
+                }
+                
+                .link-input-row {
+                    display: flex;
+                    gap: 10px;
+                    margin-bottom: 10px;
+                }
+                
+                .remove-link-btn {
+                    background: rgba(255,255,255,0.05);
+                    border: 1px solid rgba(255,255,255,0.1);
+                    color: rgba(255,255,255,0.5);
+                    width: 42px;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 1.2rem;
+                    transition: all 0.2s;
+                    display: grid;
+                    place-items: center;
+                }
+                .remove-link-btn:hover {
+                    background: rgba(220, 38, 38, 0.2);
+                    color: #ef4444;
+                    border-color: rgba(220, 38, 38, 0.3);
+                }
+                
+                .add-link-btn {
+                    background: transparent;
+                    border: 1px dashed rgba(255,255,255,0.2);
+                    color: rgba(255,255,255,0.5);
+                    padding: 12px;
+                    width: 100%;
+                    border-radius: 10px;
+                    cursor: pointer;
+                    font-size: 0.9rem;
+                    transition: all 0.3s;
+                    margin-top: 5px;
+                }
+                .add-link-btn:hover {
+                    border-color: #d62839;
+                    color: #d62839;
+                    background: rgba(214, 40, 57, 0.05);
+                }
+
+                .textarea-expanded {
+                    min-height: 120px;
+                    line-height: 1.6;
+                    font-size: 1rem;
                 }
             `}</style>
         </div>

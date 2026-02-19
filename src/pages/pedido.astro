@@ -11,6 +11,14 @@ if (!session) {
 
 const title = "Finalizar Pedido | Alpha Code";
 export const prerender = false;
+const planParam = Astro.url.searchParams.get("plan");
+const isMaintenance = planParam === "manutencao";
+const headline = isMaintenance
+    ? "Solicitação de Melhoria"
+    : "Vamos iniciar seu projeto";
+const subheadline = isMaintenance
+    ? "Descreva sua ideia para evoluirmos seu projeto."
+    : "Preencha os dados abaixo para oficializar seu pedido.";
 ---
 
 <BaseLayout
@@ -21,11 +29,11 @@ export const prerender = false;
 >
     <section class="order-page">
         <div class="order-header container">
-            <h1>Vamos iniciar seu projeto</h1>
-            <p>Preencha os dados abaixo para oficializar seu pedido.</p>
+            <h1>{headline}</h1>
+            <p>{subheadline}</p>
         </div>
 
-        <OrderForm client:load />
+        <OrderForm client:load user={session.user} />
     </section>
 </BaseLayout>
 
