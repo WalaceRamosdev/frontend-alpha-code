@@ -1,7 +1,7 @@
 import type { APIRoute } from 'astro';
 import { prisma } from '../../../../lib/prisma';
 
-export const DELETE: APIRoute = async ({ request }) => {
+export const POST: APIRoute = async ({ request }) => {
     try {
         const { id } = await request.json();
 
@@ -16,6 +16,18 @@ export const DELETE: APIRoute = async ({ request }) => {
 
         if (!existing) {
             return new Response(JSON.stringify({ error: 'Pedido não encontrado' }), { status: 404 });
+        }
+
+        // If it has a financial record, delete it too
+        if (existing.financialId) {
+            try {
+                await (prisma as any).financialRecord.delete({
+                    where: { id: existing.financialId }
+                });
+            } catch (err) {
+                console.error("Failed to delete financial record:", err);
+                // Continue deleting the request even if financial record deletion fails
+            }
         }
 
         await (prisma as any).maintenanceRequest.delete({

@@ -16,7 +16,7 @@ const { activePage } = Astro.props;
             class={`nav-item ${activePage === "dashboard" ? "active" : ""}`}
             title="Dashboard"
         >
-            <span class="nav-icon">📊</span>
+            <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
             <span class="nav-label">Dashboard</span>
         </a>
         <a
@@ -24,12 +24,12 @@ const { activePage } = Astro.props;
             class={`nav-item ${activePage === "financial" ? "active" : ""}`}
             title="Financeiro"
         >
-            <span class="nav-icon">💰</span>
+            <span class="nav-icon"><i class="fas fa-wallet"></i></span>
             <span class="nav-label">Financeiro</span>
         </a>
 
         <a href="/" class="nav-item back-to-site" title="Voltar ao Site">
-            <span class="nav-icon">🏠</span>
+            <span class="nav-icon"><i class="fas fa-house-user"></i></span>
             <span class="nav-label">Voltar ao Site</span>
         </a>
 
@@ -38,7 +38,7 @@ const { activePage } = Astro.props;
             class={`nav-item ${activePage === "projects" ? "active" : ""}`}
             title="Projetos"
         >
-            <span class="nav-icon">📂</span>
+            <span class="nav-icon"><i class="fas fa-folder-open"></i></span>
             <span class="nav-label">Projetos</span>
         </a>
         <a
@@ -46,8 +46,8 @@ const { activePage } = Astro.props;
             class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
             title="Manutenção/SEO"
         >
-            <span class="nav-icon">🔧</span>
-            <span class="nav-label">Manutenção/SEO</span>
+            <span class="nav-icon"><i class="fas fa-tools"></i></span>
+            <span class="nav-label">Manutenção</span>
         </a>
     </nav>
 </aside>

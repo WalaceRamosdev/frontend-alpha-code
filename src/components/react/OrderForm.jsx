@@ -206,6 +206,26 @@ export default function OrderForm({ user }) {
                 body: JSON.stringify(payload)
             });
 
+            // Sync with local database for maintenance dashboard
+            if (isMaintenance && response.ok) {
+                try {
+                    await fetch('/api/maintenance/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            clientName: payload.nome,
+                            email: payload.email,
+                            phone: payload.whatsapp,
+                            serviceType: 'MANUTENCAO',
+                            amount: payload.price,
+                            description: payload.detalhes
+                        })
+                    });
+                } catch (localErr) {
+                    console.error("Local sync failed:", localErr);
+                }
+            }
+
             if (response.ok) {
                 const linkLabel = isMaintenance ? 'LINK DO SITE' : 'REFERÊNCIAS';
                 let messageBody = `*NOVO PEDIDO - ALPHA CODE* 🚀\n\n` +
