@@ -274,7 +274,14 @@ export default function OrderForm({ user }) {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
                     planName: selectedPlan?.id + (hasSEO ? ' + SEO' : '') + (appliedCoupon ? ` (${appliedCoupon.code})` : ''),
-                    price: finalPrice.toFixed(2)
+                    price: finalPrice.toFixed(2),
+                    customerData: {
+                        nome: formData.nome || user?.name || 'Cliente Logado',
+                        email: formData.email || user?.email || 'email@cliente.com',
+                        whatsapp: formData.whatsapp || 'Não solicitado',
+                        detalhes: formData.detalhes,
+                        isMaintenance: isMaintenance
+                    }
                 })
             });
             const data = await res.json();
