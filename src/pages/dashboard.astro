@@ -4,6 +4,7 @@ import { getSession } from "../lib/auth";
 import { prisma } from "../lib/prisma";
 import AdminSidebar from "../components/admin/AdminSidebar.astro";
 import StatusModal from "../components/ui/StatusModal.astro";
+import ChartParticles from "../components/ui/ChartParticles.jsx";
 // import authConfig from "../auth.config";
 // import { SignOut } from "auth-astro/components";
 
@@ -501,6 +502,7 @@ export const prerender = false;
                                     </div>
                                 </div>
                                 <div class="chart-wrapper-inner">
+                                    <ChartParticles client:only="react" />
                                     <canvas
                                         id="financialChart"
                                         data-labels={JSON.stringify(
@@ -2626,6 +2628,8 @@ export const prerender = false;
                     height: 400px;
                     margin-top: 1rem;
                     position: relative; /* Garantir posicionamento para o pseudo-elemento */
+                    overflow: hidden;
+                    border-radius: 12px;
                 }
 
                 /* Logo de fundo com opacidade baixa */
