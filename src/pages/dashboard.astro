@@ -20,7 +20,9 @@ if (!session) {
 const isAdmin = session.user?.role === "ADMIN";
 const projectCount = isAdmin ? await prisma.project.count() : 0;
 const maintenanceCount = isAdmin
-    ? await (prisma as any).maintenanceRequest.count()
+    ? await (prisma as any).maintenanceRequest.count({
+          where: { status: "PENDENTE" },
+      })
     : 0;
 const financialRecords = isAdmin ? await prisma.financialRecord.findMany() : [];
 const totalRevenue = financialRecords.reduce(
@@ -136,6 +138,9 @@ export const prerender = false;
                                 <div class="stat-card">
                                     <div class="stat-icon support">
                                         <i class="fas fa-tools" />
+                                        {maintenanceCount > 0 && (
+                                            <span class="notification-badge-dot" />
+                                        )}
                                     </div>
                                     <div class="stat-info">
                                         <span class="stat-value">
@@ -1543,6 +1548,33 @@ export const prerender = false;
                 .stat-icon.support {
                     background: rgba(249, 115, 22, 0.15);
                     color: #fb923c;
+                    position: relative;
+                }
+
+                .notification-badge-dot {
+                    position: absolute;
+                    top: -2px;
+                    right: -2px;
+                    width: 12px;
+                    height: 12px;
+                    background-color: #ef4444;
+                    border-radius: 50%;
+                    border: 2px solid #1a1a1a;
+                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
+                    animation: pulse-dot-ping 2s cubic-bezier(0, 0, 0.2, 1)
+                        infinite;
+                }
+
+                @keyframes pulse-dot-ping {
+                    0% {
+                        transform: scale(0.8);
+                        opacity: 1;
+                    }
+                    70%,
+                    100% {
+                        transform: scale(1.5);
+                        opacity: 0;
+                    }
                 }
 
                 .stat-info {

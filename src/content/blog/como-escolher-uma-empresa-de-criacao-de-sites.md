@@ -2,7 +2,7 @@
 title: "Como escolher uma empresa de criação de sites"
 description: "Escolher uma empresa de criação de sites é uma decisão estratégica. Saiba como avaliar portfólio, tecnologia e processos antes de contratar."
 pubDate: 2026-02-18T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-escolher-uma-empresa-de-criacao-de-sites-sitesalphacode.webp"
 categories: ["Processo de Criação"]
 tags: ["agência de sites", "contratação", "desenvolvimento web"]
 draft: false

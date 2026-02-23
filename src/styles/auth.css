@@ -251,18 +251,19 @@
     right: 1.2rem;
     background: none;
     border: none;
-    color: rgba(255, 255, 255, 0.4);
+    color: #8a1c26;
     cursor: pointer;
     padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s;
+    transition: color 0.3s, transform 0.2s;
     z-index: 5;
 }
 
 .password-toggle:hover {
-    color: #fff;
+    color: #a0222d;
+    transform: scale(1.1);
 }
 
 .password-toggle svg {

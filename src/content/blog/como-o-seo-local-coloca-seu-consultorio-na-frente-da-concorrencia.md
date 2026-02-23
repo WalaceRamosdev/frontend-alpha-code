@@ -2,7 +2,7 @@
 title: "Como o SEO Local coloca seu consultório na frente da concorrência"
 description: "Descubra como dominar o Google Maps e as buscas locais para atrair pacientes qualificados para seu consultório ou clínica de forma orgânica."
 pubDate: 2026-02-04T16:10:00-03:00
-heroImage: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["SEO Local", "Estratégia"]
 tags: ["Google Maps", "SEO", "Visibilidade", "Marketing Local"]

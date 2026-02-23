@@ -2,7 +2,7 @@
 title: "Como clínicas estéticas perdem clientes todos os dias por não ter um site profissional"
 description: "Entenda por que apenas o Instagram não basta e como um site profissional para clínicas estéticas dobra o agendamento de consultas e procedimentos."
 pubDate: 2026-01-30T18:00:00-03:00
-heroImage: "https://images.unsplash.com/photo-1581056771107-24ca5f033842?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-clinicas-esteticas-perdem-clientes-por-falta-de-site-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["Nichos Estratégicos", "Conversão", "Estética"]
 tags: ["Clínica Estética", "Site Profissional", "Autoridade Digital", "Conversão"]

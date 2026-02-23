@@ -2,7 +2,7 @@
 title: "Site profissional ou rede social para empresas: qual o melhor em 2026?"
 description: "Descubra por que depender apenas de redes sociais é um perigo para o seu negócio e como o site profissional é a base da sua autoridade digital."
 pubDate: 2026-02-20T19:30:00-03:00
-heroImage: "https://unsplash.com/photos/black-and-grey-laptop-computer-u58d5ROYv68"
+heroImage: "/assets/blog/site-profissional-ou-rede-social-para-empresas-sitesalphacode.webp"
 categories: ["Presença Digital"]
 tags: ["instagram para empresas", "site vs instagram", "autoridade digital"]
 draft: false

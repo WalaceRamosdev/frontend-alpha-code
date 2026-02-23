@@ -16,28 +16,8 @@ const formattedDate = pubDate.toLocaleDateString("pt-BR", {
     year: "numeric",
 });
 
-import fs from "node:fs";
-import path from "node:path";
-
-// Automatic Img Validation for Linktree/Home/Blog Lists
-let finalHeroImage = "/assets/blog/default-post.webp";
-
-if (heroImage) {
-    if (heroImage.startsWith("http") || heroImage.startsWith("https")) {
-        finalHeroImage = heroImage;
-    } else {
-        // Local file check
-        try {
-            const publicDir = path.join(process.cwd(), "public");
-            const imagePath = path.join(publicDir, heroImage);
-            if (fs.existsSync(imagePath)) {
-                finalHeroImage = heroImage;
-            }
-        } catch (e) {
-            // If path checking fails, keeps default
-        }
-    }
-}
+// Image selection logic
+const finalHeroImage = heroImage || "/assets/blog/default-post.webp";
 ---
 
 <a href={`/blog/${slug}`} class="post-card">
