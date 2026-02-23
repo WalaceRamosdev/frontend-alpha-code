@@ -13,6 +13,16 @@ try {
 if (!session) {
     return Astro.redirect("/login");
 }
+const formatPhone = (phone: string | null | undefined) => {
+    if (!phone) return "";
+    const cleaned = phone.replace(/\D/g, "");
+    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+        return `${match[1]} ${match[2]}-${match[3]}`;
+    }
+    return phone;
+};
+
 export const prerender = false;
 ---
 
@@ -74,7 +84,16 @@ export const prerender = false;
                             <h2 id="profile-name-display">
                                 {session.user?.name || "Usuário"}
                             </h2>
-                            <span>{session.user?.email}</span>
+                            <span>
+                                <i
+                                    class="fas fa-phone mr-1"
+                                    style="font-size: 0.8rem; opacity: 0.7;"
+                                ></i>
+                                {
+                                    formatPhone(session.user?.phone) ||
+                                        session.user?.email
+                                }
+                            </span>
                         </div>
                     </div>
 
@@ -90,10 +109,11 @@ export const prerender = false;
                                 />
                             </div>
                             <div class="form-group">
-                                <label>Email (Não editável)</label>
+                                <label>E-mail ou WhatsApp (Não editável)</label>
                                 <input
-                                    type="email"
-                                    value={session.user?.email}
+                                    type="text"
+                                    value={formatPhone(session.user?.phone) ||
+                                        session.user?.email}
                                     disabled
                                 />
                             </div>
@@ -511,3 +531,24 @@ export const prerender = false;
         margin: 0 auto;
     }
 </style>
+
+<script>
+    const inputPhone = document.getElementById(
+        "input-phone",
+    ) as HTMLInputElement;
+    if (inputPhone) {
+        inputPhone.addEventListener("input", (e) => {
+            const target = e.target as HTMLInputElement;
+            let value = target.value.replace(/\D/g, "");
+            if (value.length > 11) value = value.slice(0, 11);
+
+            if (value.length > 7) {
+                target.value = `${value.slice(0, 2)} ${value.slice(2, 7)}-${value.slice(7)}`;
+            } else if (value.length > 2) {
+                target.value = `${value.slice(0, 2)} ${value.slice(2)}`;
+            } else {
+                target.value = value;
+            }
+        });
+    }
+</script>

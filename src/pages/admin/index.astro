@@ -24,6 +24,16 @@ const recentUsers = await prisma.user.findMany({
     where: { role: "USER" },
 });
 
+const formatPhone = (phone: string | null | undefined) => {
+    if (!phone) return "";
+    const cleaned = phone.replace(/\D/g, "");
+    const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
+    if (match) {
+        return `${match[1]} ${match[2]}-${match[3]}`;
+    }
+    return phone;
+};
+
 export const prerender = false;
 ---
 
@@ -68,12 +78,12 @@ export const prerender = false;
                                 />
                             </div>
                             <div class="form-group">
-                                <label for="email">E-mail de Acesso</label>
+                                <label for="email">E-mail ou WhatsApp</label>
                                 <input
-                                    type="email"
+                                    type="text"
                                     id="email"
                                     name="email"
-                                    placeholder="cliente@email.com"
+                                    placeholder="Ex: (21) 99999-9999"
                                     required
                                 />
                             </div>
@@ -169,7 +179,14 @@ export const prerender = false;
                                                 </div>
                                                 <div class="user-meta">
                                                     <strong>{u.name}</strong>
-                                                    <span>{u.email}</span>
+                                                    <span class="user-id-text">
+                                                        <i
+                                                            class="fas fa-phone mr-1"
+                                                            style="font-size: 0.8rem; opacity: 0.7;"
+                                                        />
+                                                        {formatPhone(u.phone) ||
+                                                            u.email}
+                                                    </span>
                                                     <span
                                                         class={`plan-tag ${u.plan.toLowerCase()}`}
                                                     >
@@ -234,8 +251,8 @@ export const prerender = false;
                     <input type="text" id="edit-name" name="name" required />
                 </div>
                 <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="edit-email" name="email" required />
+                    <label>E-mail ou WhatsApp</label>
+                    <input type="text" id="edit-email" name="email" required />
                 </div>
                 <div class="form-group">
                     <label>Plano</label>
@@ -981,3 +998,35 @@ export const prerender = false;
         }
     }
 </style>
+
+<script>
+    const maskPhone = (value: string) => {
+        let clean = value.replace(/\D/g, "");
+        if (clean.length > 11) clean = clean.slice(0, 11);
+
+        if (clean.length > 7) {
+            return `${clean.slice(0, 2)} ${clean.slice(2, 7)}-${clean.slice(7)}`;
+        } else if (clean.length > 2) {
+            return `${clean.slice(0, 2)} ${clean.slice(2)}`;
+        }
+        return clean;
+    };
+
+    const setupMask = (id: string) => {
+        const input = document.getElementById(id) as HTMLInputElement;
+        if (input) {
+            input.addEventListener("input", (e) => {
+                const target = e.target as HTMLInputElement;
+                // Only mask if it looks like a phone (starts with digits or has digits)
+                // Actually, let's always try to mask if it's strictly digits, but here we allow email too.
+                // For "E-mail ou WhatsApp", we should probably mask only if they start typing numbers.
+                if (/^\d/.test(target.value)) {
+                    target.value = maskPhone(target.value);
+                }
+            });
+        }
+    };
+
+    setupMask("email"); // Create form
+    setupMask("edit-email"); // Edit modal
+</script>

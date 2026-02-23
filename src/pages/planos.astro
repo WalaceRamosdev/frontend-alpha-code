@@ -10,6 +10,9 @@ const isLoggedIn = !!session;
 const title = "Planos e Preços | Alpha Code";
 const description =
     "Confira os detalhes completos dos nossos planos de criação de sites.";
+const url = new URL(Astro.request.url);
+const isNewSignup = url.searchParams.get("signup") === "true";
+
 export const prerender = false;
 ---
 
@@ -21,6 +24,20 @@ export const prerender = false;
 >
     <section class="plans-hero">
         <div class="container text-center">
+            {
+                isNewSignup && (
+                    <div class="welcome-banner fade-up">
+                        <div class="welcome-icon">✨</div>
+                        <div class="welcome-text">
+                            <h3>Bem-vindo à Alpha Code!</h3>
+                            <p>
+                                Sua conta foi criada. Agora, escolha o plano
+                                ideal para iniciarmos seu projeto.
+                            </p>
+                        </div>
+                    </div>
+                )
+            }
             <h1 class="fade-up">Compare Nossos Planos</h1>
             <p class="hero-impact-text fade-up delay-1">
                 Escolha a estrutura ideal para o seu <span class="text-gradient"
@@ -236,10 +253,7 @@ export const prerender = false;
                                 <div class="final-price-wrapper">
                                     <small class="currency">R$</small> 599
                                 </div>
-                                <a
-                                    href="/login"
-                                    class="login-discount-hint"
-                                >
+                                <a href="/login" class="login-discount-hint">
                                     Faça login para 25% OFF
                                 </a>
                             </div>
@@ -1716,15 +1730,74 @@ export const prerender = false;
     .featured .login-discount-hint {
         background: #000000;
         color: #ffffff !important;
-        border: 1px solid rgba(0,0,0,0.2);
-        box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
-    
+
     .featured .login-discount-hint:hover {
         background: #ffffff;
         color: #000000 !important;
         transform: translateY(-2px);
     }
+
+    /* Welcome Banner for New Signups */
+    .welcome-banner {
+        background: linear-gradient(
+            135deg,
+            rgba(231, 76, 60, 0.15) 0%,
+            rgba(0, 0, 0, 0.4) 100%
+        );
+        border: 1px solid rgba(231, 76, 60, 0.3);
+        border-radius: 20px;
+        padding: 2rem;
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+        text-align: left;
+        backdrop-filter: blur(10px);
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    }
+
+    .welcome-icon {
+        font-size: 2.5rem;
+        filter: drop-shadow(0 0 10px rgba(231, 76, 60, 0.5));
+    }
+
+    .welcome-text h3 {
+        color: white;
+        margin: 0 0 0.2rem 0;
+        font-size: 1.5rem;
+        font-weight: 800;
+    }
+
+    .welcome-text p {
+        color: rgba(255, 255, 255, 0.8);
+        margin: 0;
+        font-size: 1rem;
+    }
+
+    @media (max-width: 768px) {
+        .welcome-banner {
+            flex-direction: column;
+            text-align: center;
+            padding: 1.5rem;
+            gap: 1rem;
+        }
+        .welcome-icon {
+            font-size: 2rem;
+        }
+        .welcome-text h3 {
+            font-size: 1.2rem;
+        }
+        .welcome-text p {
+            font-size: 0.9rem;
+        }
+    }
+</style>
 
 <script>
     // Detecção de moeda para Portugal

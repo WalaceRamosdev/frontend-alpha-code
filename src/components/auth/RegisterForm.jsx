@@ -79,7 +79,7 @@ export default function RegisterForm() {
             await signIn("credentials", {
                 email: data.email,
                 password: data.password,
-                callbackUrl: "/dashboard",
+                callbackUrl: "/planos?signup=true",
             });
 
         } catch (err) {
@@ -143,7 +143,18 @@ export default function RegisterForm() {
                                 name="phone"
                                 type="tel"
                                 className="form-input"
-                                placeholder="(11) 99999-9999"
+                                placeholder="11 99999-9999"
+                                onInput={(e) => {
+                                    let value = e.target.value.replace(/\D/g, "");
+                                    if (value.length > 11) value = value.slice(0, 11);
+                                    if (value.length > 7) {
+                                        e.target.value = `${value.slice(0, 2)} ${value.slice(2, 7)}-${value.slice(7)}`;
+                                    } else if (value.length > 2) {
+                                        e.target.value = `${value.slice(0, 2)} ${value.slice(2)}`;
+                                    } else {
+                                        e.target.value = value;
+                                    }
+                                }}
                             />
                         </div>
                         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '1rem' }}>
