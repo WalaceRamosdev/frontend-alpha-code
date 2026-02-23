@@ -24,15 +24,62 @@ const maintenanceCount = isAdmin
           where: { status: "PENDENTE" },
       })
     : 0;
-const financialRecords = isAdmin ? await prisma.financialRecord.findMany() : [];
+const financialRecords = isAdmin
+    ? await prisma.financialRecord.findMany({
+          orderBy: { date: "asc" },
+      })
+    : [];
+
+// Processar dados para o gráfico de forma estrita mensal (não cumulativa)
+const monthlyData = new Map();
+financialRecords.forEach((record) => {
+    const d = new Date(record.date);
+    // Usar UTC para evitar que o fuso horário mude o mês (ex: 01/02 às 00h virar 31/01 no fuso local)
+    const year = d.getUTCFullYear();
+    const month = d.getUTCMonth(); // 0-indexed
+    const key = `${year}-${String(month + 1).padStart(2, "0")}`;
+
+    // Label formatada para o gráfico
+    const label = new Intl.DateTimeFormat("pt-BR", {
+        month: "short",
+        year: "2-digit",
+        timeZone: "UTC",
+    }).format(d);
+
+    if (!monthlyData.has(key)) {
+        monthlyData.set(key, {
+            label,
+            revenue: 0,
+            expenses: 0,
+            profit: 0,
+        });
+    }
+
+    const stats = monthlyData.get(key);
+    stats.revenue += record.amount;
+    stats.expenses += record.hostingCost || 0;
+    stats.profit += record.amount - (record.hostingCost || 0);
+});
+
+// Ordenar cronologicamente
+const sortedKeys = Array.from(monthlyData.keys()).sort();
+const chartLabels = sortedKeys.map((k) => monthlyData.get(k).label);
+const revenueData = sortedKeys.map((k) => monthlyData.get(k).revenue);
+const expenseData = sortedKeys.map((k) => monthlyData.get(k).expenses);
+const profitData = sortedKeys.map((k) => monthlyData.get(k).profit);
+
 const totalRevenue = financialRecords.reduce(
     (acc, record) => acc + record.amount,
     0,
 );
-const formattedRevenue = new Intl.NumberFormat("pt-BR", {
+const totalProfit = financialRecords.reduce(
+    (acc, record) => acc + (record.amount - (record.hostingCost || 0)),
+    0,
+);
+const formattedProfit = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-}).format(totalRevenue);
+}).format(totalProfit);
 
 export const prerender = false;
 ---
@@ -117,7 +164,10 @@ export const prerender = false;
                                     </div>
                                     <div class="stat-info">
                                         <span class="stat-value">
-                                            {formattedRevenue}
+                                            {formattedProfit}
+                                        </span>
+                                        <span class="stat-label">
+                                            Lucro Líquido Real
                                         </span>
                                     </div>
                                     <div class="financial-actions">
@@ -136,7 +186,9 @@ export const prerender = false;
                                     </div>
                                 </div>
                                 <div class="stat-card">
-                                    <div class="stat-icon support">
+                                    <div
+                                        class={`stat-icon support ${maintenanceCount > 0 ? "has-notification" : ""}`}
+                                    >
                                         <i class="fas fa-tools" />
                                         {maintenanceCount > 0 && (
                                             <span class="notification-badge-dot" />
@@ -438,76 +490,84 @@ export const prerender = false;
                         )
                     }
 
-                    <!-- Projects Section -->
-                    <section
-                        class="main-card projects-section"
-                        id="portfolio-section"
-                    >
-                        <div class="card-header">
-                            <h2>
-                                {
-                                    isAdmin
-                                        ? "Portfólio / Projetos Finalizados"
-                                        : "Meus Projetos"
-                                }
-                            </h2>
-                            {
-                                isAdmin ? (
-                                    <button
-                                        id="add-portfolio-btn"
-                                        class="action-link"
-                                    >
-                                        Adicionar ao Portfólio +
-                                    </button>
-                                ) : (
+                    <!-- Financial Comparison Chart Section - ADMIN ONLY -->
+                    {
+                        isAdmin ? (
+                            <section class="main-card chart-section">
+                                <div class="card-header">
+                                    <h2>Crescimento e Desempenho</h2>
+                                    <div class="chart-period">
+                                        Últimos meses
+                                    </div>
+                                </div>
+                                <div class="chart-wrapper-inner">
+                                    <canvas
+                                        id="financialChart"
+                                        data-labels={JSON.stringify(
+                                            chartLabels,
+                                        )}
+                                        data-revenue={JSON.stringify(
+                                            revenueData,
+                                        )}
+                                        data-expenses={JSON.stringify(
+                                            expenseData,
+                                        )}
+                                        data-profit={JSON.stringify(profitData)}
+                                    />
+                                </div>
+                                <div class="chart-legend">
+                                    <div class="legend-item">
+                                        <span class="legend-dot yellow" />
+                                        <span>Receita Bruta</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot red dashed" />
+                                        <span>Custos Mensais</span>
+                                    </div>
+                                    <div class="legend-item">
+                                        <span class="legend-dot green" />
+                                        <span>Lucro Líquido</span>
+                                    </div>
+                                </div>
+                            </section>
+                        ) : (
+                            /* Projects Section - CLIENT ONLY */
+                            <section
+                                class="main-card projects-section"
+                                id="portfolio-section"
+                            >
+                                <div class="card-header">
+                                    <h2>Meus Projetos</h2>
                                     <button
                                         id="new-project-btn"
                                         class="action-link"
                                     >
                                         Novo Projeto +
                                     </button>
-                                )
-                            }
-                        </div>
-                        <div class="empty-state">
-                            <div class="empty-icon">
-                                <i
-                                    class="fas fa-layer-group"
-                                    style="font-size: 3rem;"></i>
-                            </div>
-                            <h3>
-                                {
-                                    isAdmin
-                                        ? "Gerencie os projetos entregues"
-                                        : "Nenhum projeto em andamento"
-                                }
-                            </h3>
-                            <p>
-                                {
-                                    isAdmin
-                                        ? "Adicione projetos concluídos para exibir no portfólio."
-                                        : "Inicie um novo projeto conosco para transformar suas ideias em realidade digital."
-                                }
-                            </p>
-                            {
-                                isAdmin ? (
-                                    <button
-                                        id="add-portfolio-cta"
-                                        class="btn-primary-small"
-                                    >
-                                        Adicionar Novo
-                                    </button>
-                                ) : (
+                                </div>
+                                <div class="empty-state">
+                                    <div class="empty-icon">
+                                        <i
+                                            class="fas fa-layer-group"
+                                            style="font-size: 3rem;"
+                                        />
+                                    </div>
+                                    <h3>Nenhum projeto em andamento</h3>
+                                    <p>
+                                        Inicie um novo projeto conosco para
+                                        transformar suas ideias em realidade
+                                        digital.
+                                    </p>
                                     <button
                                         id="new-project-cta"
                                         class="btn-primary-small"
                                     >
                                         Solicitar Orçamento
                                     </button>
-                                )
-                            }
-                        </div>
-                    </section>
+                                </div>
+                            </section>
+                        )
+                    }
 
                     <!-- Sidebar / Quick Actions -->
                     <aside class="sidebar-actions">
@@ -1560,9 +1620,40 @@ export const prerender = false;
                     background-color: #ef4444;
                     border-radius: 50%;
                     border: 2px solid #1a1a1a;
-                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.5);
-                    animation: pulse-dot-ping 2s cubic-bezier(0, 0, 0.2, 1)
+                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+                    animation: pulse-dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1)
                         infinite;
+                    z-index: 2;
+                }
+
+                /* Alerta pulsante para o ícone inteiro */
+                .stat-icon.support.has-notification {
+                    animation: icon-alert-pulse 2s infinite;
+                    background: rgba(
+                        249,
+                        115,
+                        22,
+                        0.9
+                    ); /* Fundo muito mais sólido */
+                    color: #fff; /* Ícone branco para máximo contraste */
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+
+                @keyframes icon-alert-pulse {
+                    0% {
+                        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+                        transform: scale(1);
+                    }
+                    50% {
+                        box-shadow: 0 0 25px 8px rgba(249, 115, 22, 0.3);
+                        transform: scale(
+                            1.05
+                        ); /* Leve pulsação no tamanho também */
+                    }
+                    100% {
+                        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+                        transform: scale(1);
+                    }
                 }
 
                 @keyframes pulse-dot-ping {
@@ -1572,7 +1663,7 @@ export const prerender = false;
                     }
                     70%,
                     100% {
-                        transform: scale(1.5);
+                        transform: scale(2.2);
                         opacity: 0;
                     }
                 }
@@ -1972,6 +2063,8 @@ export const prerender = false;
                     display: flex;
                     flex-direction: column;
                     gap: 1.5rem; /* Distância entre os itens */
+                    flex: 1; /* Faz ocupar o espaço restante */
+                    justify-content: center; /* Centraliza verticalmente no espaço estendido */
                 }
 
                 .quick-link {
@@ -2504,8 +2597,311 @@ export const prerender = false;
                         align-items: center;
                         text-align: center;
                     }
+
+                    .chart-section {
+                        min-height: 450px;
+                    }
+                    .chart-wrapper-inner {
+                        width: 100%;
+                        height: 350px;
+                        margin-top: 1.5rem;
+                        position: relative;
+                    }
+                    .chart-period {
+                        font-size: 0.8rem;
+                        color: var(--color-text-muted);
+                        background: rgba(255, 255, 255, 0.05);
+                        padding: 4px 12px;
+                        border-radius: 20px;
+                        border: 1px solid rgba(255, 255, 255, 0.1);
+                    }
+                }
+
+                /* Chart Specific Styles */
+                .chart-section {
+                    overflow: visible;
+                }
+                .chart-wrapper-inner {
+                    width: 100%;
+                    height: 400px;
+                    margin-top: 1rem;
+                    position: relative; /* Garantir posicionamento para o pseudo-elemento */
+                }
+
+                /* Logo de fundo com opacidade baixa */
+                .chart-wrapper-inner::before {
+                    content: "";
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                    width: 550px;
+                    height: 550px;
+                    background-image: url("/assets/logo3d.svg");
+                    background-repeat: no-repeat;
+                    background-position: center;
+                    background-size: contain;
+                    opacity: 0.2; /* Opacidade bem baixa como solicitado */
+                    pointer-events: none;
+                    z-index: 0;
+                }
+
+                canvas#financialChart {
+                    position: relative;
+                    z-index: 1; /* Garantir que o gráfico fique por cima da logo */
+                }
+
+                .chart-period {
+                    font-size: 0.8rem;
+                    color: var(--color-text-muted);
+                    background: rgba(255, 255, 255, 0.05);
+                    padding: 4px 12px;
+                    border-radius: 20px;
+                    border: 1px solid rgba(255, 255, 255, 0.1);
+                }
+
+                /* Legend Styles */
+                .chart-legend {
+                    display: flex;
+                    justify-content: center;
+                    flex-wrap: wrap;
+                    gap: 1.5rem;
+                    margin-top: 1.5rem;
+                    padding-top: 1rem;
+                    border-top: 1px solid rgba(255, 255, 255, 0.05);
+                }
+
+                .legend-item {
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    font-size: 0.85rem;
+                    color: var(--color-text-muted);
+                }
+
+                .legend-dot {
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 50%;
+                }
+
+                .legend-dot.yellow {
+                    background-color: #facc15;
+                }
+                .legend-dot.red {
+                    background-color: #ae1d2a;
+                }
+                .legend-dot.green {
+                    background-color: #34d399;
+                }
+                .legend-dot.dashed {
+                    background-color: transparent;
+                    border: 1.5px dashed #ae1d2a;
+                    border-radius: 2px;
+                    width: 14px;
+                    height: 8px;
+                }
+
+                /* Height Alignment on Desktop */
+                @media (min-width: 901px) {
+                    .chart-section {
+                        height: 100%;
+                    }
+                    .sidebar-actions {
+                        height: 100%;
+                    }
+                    .action-card {
+                        height: 100%;
+                        display: flex;
+                        flex-direction: column;
+                    }
+                    .quick-links {
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: space-evenly;
+                        flex: 1;
+                        gap: 1rem;
+                        padding-bottom: 1rem;
+                    }
+                    .quick-link {
+                        flex: 0 0 auto;
+                        min-height: 100px;
+                        justify-content: center;
+                    }
                 }
             </style>
         </div>
     </div>
+
+    <!-- Chart.js Libraries -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline></script>
+    <script is:inline>
+        document.addEventListener("DOMContentLoaded", () => {
+            const ctx = document.getElementById("financialChart");
+            if (!ctx) return;
+
+            const labels = JSON.parse(ctx.getAttribute("data-labels"));
+            const revenue = JSON.parse(ctx.getAttribute("data-revenue"));
+            const expenses = JSON.parse(ctx.getAttribute("data-expenses"));
+            const profit = JSON.parse(ctx.getAttribute("data-profit"));
+
+            new Chart(ctx, {
+                type: "line",
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: "Receita Bruta (Mês)",
+                            data: revenue,
+                            borderColor: "#facc15",
+                            backgroundColor: (context) => {
+                                const chart = context.chart;
+                                const { ctx, chartArea } = chart;
+                                if (!chartArea) return null;
+                                const gradient = ctx.createLinearGradient(
+                                    0,
+                                    chartArea.bottom,
+                                    0,
+                                    chartArea.top,
+                                );
+                                gradient.addColorStop(
+                                    0,
+                                    "rgba(250, 204, 21, 0)",
+                                );
+                                gradient.addColorStop(
+                                    1,
+                                    "rgba(250, 204, 21, 0.15)",
+                                );
+                                return gradient;
+                            },
+                            borderWidth: 3,
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 4,
+                            pointBackgroundColor: "#facc15",
+                            pointBorderColor: "rgba(250, 204, 21, 0.5)",
+                            pointBorderWidth: 8,
+                            pointHoverRadius: 7,
+                            shadowBlur: 15,
+                            shadowColor: "rgba(250, 204, 21, 0.5)",
+                        },
+                        {
+                            label: "Custos Mensais",
+                            data: expenses,
+                            borderColor: "#ae1d2a",
+                            backgroundColor: "transparent",
+                            borderWidth: 2,
+                            tension: 0.4,
+                            fill: false,
+                            pointRadius: 3,
+                            pointBackgroundColor: "#ae1d2a",
+                            borderDash: [5, 5],
+                        },
+                        {
+                            label: "Lucro Líquido (Mês)",
+                            data: profit,
+                            borderColor: "#34d399",
+                            backgroundColor: (context) => {
+                                const chart = context.chart;
+                                const { ctx, chartArea } = chart;
+                                if (!chartArea) return null;
+                                const gradient = ctx.createLinearGradient(
+                                    0,
+                                    chartArea.bottom,
+                                    0,
+                                    chartArea.top,
+                                );
+                                gradient.addColorStop(
+                                    0,
+                                    "rgba(52, 211, 153, 0)",
+                                );
+                                gradient.addColorStop(
+                                    1,
+                                    "rgba(52, 211, 153, 0.2)",
+                                );
+                                return gradient;
+                            },
+                            borderWidth: 4,
+                            tension: 0.4,
+                            fill: true,
+                            pointRadius: 6,
+                            pointBackgroundColor: "#1a1a1a",
+                            pointBorderColor: "#34d399",
+                            pointBorderWidth: 2,
+                            pointHoverRadius: 8,
+                            pointHoverBackgroundColor: "#34d399",
+                            shadowBlur: 20,
+                            shadowColor: "rgba(52, 211, 153, 0.6)",
+                        },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: {
+                        mode: "index",
+                        intersect: false,
+                    },
+                    plugins: {
+                        legend: {
+                            display: false,
+                        },
+                        tooltip: {
+                            backgroundColor: "rgba(20, 20, 20, 0.95)",
+                            titleColor: "#fff",
+                            bodyColor: "#eee",
+                            borderColor: "rgba(255, 255, 255, 0.1)",
+                            borderWidth: 1,
+                            padding: 12,
+                            boxPadding: 8,
+                            usePointStyle: true,
+                            callbacks: {
+                                label: function (context) {
+                                    let label = context.dataset.label || "";
+                                    if (label) {
+                                        label += ": ";
+                                    }
+                                    if (context.parsed.y !== null) {
+                                        label += new Intl.NumberFormat(
+                                            "pt-BR",
+                                            {
+                                                style: "currency",
+                                                currency: "BRL",
+                                            },
+                                        ).format(context.parsed.y);
+                                    }
+                                    return label;
+                                },
+                            },
+                        },
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: "rgba(255, 255, 255, 0.03)",
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                color: "rgba(255, 255, 255, 0.4)",
+                                font: { size: 11 },
+                                callback: function (value) {
+                                    return "R$ " + value;
+                                },
+                            },
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                            },
+                            ticks: {
+                                color: "rgba(255, 255, 255, 0.4)",
+                                font: { size: 11 },
+                            },
+                        },
+                    },
+                },
+            });
+        });
+    </script>
 </Layout>

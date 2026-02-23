@@ -1,0 +1,4 @@
+--- Raw Records ---
+ID: cmltm4q78000agontk3z4bp6r | Date: 2026-01-14T00:00:00.000Z | Desc: Cliente Alzimara Nunes - valor plano prata antigo | Amt: 399 | Host: 40
+ID: cmlu5xfz30004bs3rnjn3cvox | Date: 2026-02-18T00:00:00.000Z | Desc: Cliente Ana Bottesi | Amt: 709 | Host: 40
+ID: cmlu5vb800003bs3r63layf3g | Date: 2026-02-20T00:38:03.244Z | Desc: Recebimento: MANUTENCAO - Ana Bottesi | Amt: 100 | Host: 0

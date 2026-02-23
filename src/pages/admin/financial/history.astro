@@ -56,17 +56,17 @@ const formatCurrency = (val: number) =>
                 <div class="financial-header">
                     <h1>Histórico Financeiro Completo</h1>
                     <div class="summary-cards">
-                        <div class="card revenue">
-                            <span>Receita Total</span>
-                            <strong>{formatCurrency(totalRevenue)}</strong>
-                        </div>
-                        <div class="card expense">
-                            <span>Despesas (Hospedagem)</span>
-                            <strong>{formatCurrency(totalExpenses)}</strong>
-                        </div>
                         <div class="card profit">
                             <span>Lucro Líquido</span>
                             <strong>{formatCurrency(netProfit)}</strong>
+                        </div>
+                        <div class="card expense">
+                            <span>Serviços</span>
+                            <strong>{formatCurrency(totalExpenses)}</strong>
+                        </div>
+                        <div class="card revenue">
+                            <span>Receita Bruta</span>
+                            <strong>{formatCurrency(totalRevenue)}</strong>
                         </div>
                     </div>
                 </div>
@@ -103,17 +103,17 @@ const formatCurrency = (val: number) =>
                                                     </span>
                                                 </td>
                                                 <td>{record.description}</td>
-                                                <td class="text-success value-column">
+                                                <td class="text-yellow value-column">
                                                     {formatCurrency(
                                                         record.amount,
                                                     )}
                                                 </td>
-                                                <td class="text-danger value-column">
+                                                <td class="text-primary value-column">
                                                     {formatCurrency(
                                                         record.hostingCost || 0,
                                                     )}
                                                 </td>
-                                                <td class="text-primary font-bold value-column">
+                                                <td class="text-success font-bold value-column">
                                                     {formatCurrency(
                                                         record.amount -
                                                             (record.hostingCost ||
@@ -532,13 +532,15 @@ const formatCurrency = (val: number) =>
     }
 
     .card.revenue strong {
-        color: #34d399;
+        color: #facc15; /* Amarelo Vivo */
+        text-shadow: 0 0 10px rgba(250, 204, 21, 0.2);
     }
     .card.expense strong {
-        color: #f87171;
+        color: var(--color-primary); /* Vermelho do Site */
     }
     .card.profit strong {
-        color: var(--color-primary);
+        color: #34d399; /* Verde */
+        text-shadow: 0 0 10px rgba(52, 211, 153, 0.2);
     }
 
     .main-card {
@@ -594,13 +596,16 @@ const formatCurrency = (val: number) =>
     }
 
     .text-success {
-        color: #34d399;
+        color: #34d399; /* Verde */
     }
     .text-danger {
         color: #f87171;
     }
+    .text-yellow {
+        color: #facc15; /* Amarelo Vivo */
+    }
     .text-primary {
-        color: var(--color-primary);
+        color: var(--color-primary); /* Vermelho do Site */
     }
     .text-muted {
         color: var(--color-text-muted);
