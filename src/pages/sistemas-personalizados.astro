@@ -59,7 +59,10 @@ export const prerender = false;
                     </div>
                     <div class="pains-grid">
                         <div class="pain-card">
-                            <span class="pain-icon">💸</span>
+                            <span class="pain-icon"
+                                ><i class="fa-solid fa-hand-holding-dollar"
+                                ></i></span
+                            >
                             <h3>Taxas Abusivas</h3>
                             <p>
                                 Pare de entregar sua margem para plataformas de
@@ -67,7 +70,10 @@ export const prerender = false;
                             </p>
                         </div>
                         <div class="pain-card">
-                            <span class="pain-icon">📉</span>
+                            <span class="pain-icon"
+                                ><i class="fa-solid fa-arrow-trend-down"
+                                ></i></span
+                            >
                             <h3>Perda de Pedidos</h3>
                             <p>
                                 Processos manuais e lentos fazem você perder
@@ -75,7 +81,9 @@ export const prerender = false;
                             </p>
                         </div>
                         <div class="pain-card">
-                            <span class="pain-icon">⚙️</span>
+                            <span class="pain-icon"
+                                ><i class="fa-solid fa-gears"></i></span
+                            >
                             <h3>Processos Manuais</h3>
                             <p>
                                 Dependência de terceiros e tarefas que deveriam
@@ -156,9 +164,27 @@ export const prerender = false;
                                             required
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🍔</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-utensils"
+                                                ></i></span
+                                            >
                                             <span>Restaurante / Lanchonete</span
                                             >
+                                        </div>
+                                    </label>
+                                    <label class="option-card">
+                                        <input
+                                            type="radio"
+                                            name="negocio"
+                                            value="ESCRITORIO"
+                                        />
+                                        <div class="option-content">
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-building-user"
+                                                ></i></span
+                                            >
+                                            <span>Escritório / Serviços</span>
                                         </div>
                                     </label>
                                     <label class="option-card">
@@ -168,7 +194,11 @@ export const prerender = false;
                                             value="CLINICA"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🏥</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-notes-medical"
+                                                ></i></span
+                                            >
                                             <span>Clínica / Saúde</span>
                                         </div>
                                     </label>
@@ -180,7 +210,11 @@ export const prerender = false;
                                             id="radio-outro"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🏢</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-briefcase"
+                                                ></i></span
+                                            >
                                             <span>Outro Negócio</span>
                                         </div>
                                     </label>
@@ -204,7 +238,11 @@ export const prerender = false;
                                             required
                                         />
                                         <div class="option-content">
-                                            <span class="icon">📝</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-pen-to-square"
+                                                ></i></span
+                                            >
                                             <span>Operação Manual</span>
                                         </div>
                                     </label>
@@ -215,7 +253,11 @@ export const prerender = false;
                                             value="PLANILHAS"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">📊</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-chart-line"
+                                                ></i></span
+                                            >
                                             <span>Uso de Planilhas</span>
                                         </div>
                                     </label>
@@ -226,7 +268,10 @@ export const prerender = false;
                                             value="TERCEIRIZADO"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🌐</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-globe"
+                                                ></i></span
+                                            >
                                             <span>Sistema Terceirizado</span>
                                         </div>
                                     </label>
@@ -237,7 +282,10 @@ export const prerender = false;
                                             value="PROPRIO"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🚀</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-rocket"
+                                                ></i></span
+                                            >
                                             <span
                                                 >Já possui sistema próprio</span
                                             >
@@ -258,7 +306,13 @@ export const prerender = false;
                                             data-weight="3"
                                         />
                                         <div class="cb-content">
-                                            Pedidos Online
+                                            <span class="check-label"
+                                                >Pedidos Online</span
+                                            >
+                                            <p class="check-desc">
+                                                Sistema completo para delivery e
+                                                pedidos em mesa.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -269,7 +323,13 @@ export const prerender = false;
                                             data-weight="3"
                                         />
                                         <div class="cb-content">
-                                            Agendamento
+                                            <span class="check-label"
+                                                >Agendamento</span
+                                            >
+                                            <p class="check-desc">
+                                                Gestão inteligente de horários e
+                                                profissionais.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -280,7 +340,13 @@ export const prerender = false;
                                             data-weight="2"
                                         />
                                         <div class="cb-content">
-                                            Múltiplos Usuários
+                                            <span class="check-label"
+                                                >Múltiplos Usuários</span
+                                            >
+                                            <p class="check-desc">
+                                                Controle de permissões para toda
+                                                sua equipe.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -291,7 +357,13 @@ export const prerender = false;
                                             data-weight="3"
                                         />
                                         <div class="cb-content">
-                                            Controle Financeiro
+                                            <span class="check-label"
+                                                >Controle Financeiro</span
+                                            >
+                                            <p class="check-desc">
+                                                Fluxo de caixa, DRE e gestão de
+                                                pagamentos.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -302,7 +374,13 @@ export const prerender = false;
                                             data-weight="3"
                                         />
                                         <div class="cb-content">
-                                            Relatórios Avançados
+                                            <span class="check-label"
+                                                >Relatórios Avançados</span
+                                            >
+                                            <p class="check-desc">
+                                                Dashboards métricos para
+                                                decisões baseadas em dados.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -313,7 +391,13 @@ export const prerender = false;
                                             data-weight="4"
                                         />
                                         <div class="cb-content">
-                                            Integração de Pagamento
+                                            <span class="check-label"
+                                                >Integração de Pagamento</span
+                                            >
+                                            <p class="check-desc">
+                                                Receba via PIX, Cartão e Boleto
+                                                direto no sistema.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -324,7 +408,13 @@ export const prerender = false;
                                             data-weight="3"
                                         />
                                         <div class="cb-content">
-                                            Controle de Estoque
+                                            <span class="check-label"
+                                                >Controle de Estoque</span
+                                            >
+                                            <p class="check-desc">
+                                                Gestão de inventário e alertas
+                                                de reposição.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -335,7 +425,13 @@ export const prerender = false;
                                             data-weight="4"
                                         />
                                         <div class="cb-content">
-                                            Prontuário Digital
+                                            <span class="check-label"
+                                                >Prontuário Digital</span
+                                            >
+                                            <p class="check-desc">
+                                                Histórico completo e seguro de
+                                                pacientes ou clientes.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -346,7 +442,12 @@ export const prerender = false;
                                             data-weight="2"
                                         />
                                         <div class="cb-content">
-                                            Painel Administrativo
+                                            <span class="check-label"
+                                                >Painel Administrativo</span
+                                            >
+                                            <p class="check-desc">
+                                                Visão 360º de toda a operação.
+                                            </p>
                                         </div>
                                     </label>
                                     <label class="checkbox-card">
@@ -356,7 +457,15 @@ export const prerender = false;
                                             value="pwa"
                                             data-weight="4"
                                         />
-                                        <div class="cb-content">App ou PWA</div>
+                                        <div class="cb-content">
+                                            <span class="check-label"
+                                                >App ou PWA</span
+                                            >
+                                            <p class="check-desc">
+                                                Interface instalável para
+                                                dispositivos móveis.
+                                            </p>
+                                        </div>
                                     </label>
                                 </div>
                             </div>
@@ -373,7 +482,11 @@ export const prerender = false;
                                             required
                                         />
                                         <div class="option-content">
-                                            <span class="icon">📍</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-location-dot"
+                                                ></i></span
+                                            >
                                             <span>1 Unidade</span>
                                         </div>
                                     </label>
@@ -384,7 +497,11 @@ export const prerender = false;
                                             value="5"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🌍</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-map-location-dot"
+                                                ></i></span
+                                            >
                                             <span>2 a 5 Unidades</span>
                                         </div>
                                     </label>
@@ -395,8 +512,27 @@ export const prerender = false;
                                             value="10"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">🏢</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-city"
+                                                ></i></span
+                                            >
                                             <span>Multi-filial / Franquia</span>
+                                        </div>
+                                    </label>
+                                    <label class="option-card">
+                                        <input
+                                            type="radio"
+                                            name="escala"
+                                            value="DIGITAL"
+                                        />
+                                        <div class="option-content">
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-globe"
+                                                ></i></span
+                                            >
+                                            <span
+                                                >Digital / Escala Nacional</span
+                                            >
                                         </div>
                                     </label>
                                 </div>
@@ -416,7 +552,11 @@ export const prerender = false;
                                             required
                                         />
                                         <div class="option-content">
-                                            <span class="icon">💳</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-credit-card"
+                                                ></i></span
+                                            >
                                             <span>Até R$ 5.000</span>
                                         </div>
                                     </label>
@@ -427,7 +567,11 @@ export const prerender = false;
                                             value="10k"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">💰</span>
+                                            <span class="icon"
+                                                ><i
+                                                    class="fa-solid fa-money-bill-trend-up"
+                                                ></i></span
+                                            >
                                             <span>R$ 5.000 a R$ 10.000</span>
                                         </div>
                                     </label>
@@ -438,7 +582,10 @@ export const prerender = false;
                                             value="20k"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">💎</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-gem"
+                                                ></i></span
+                                            >
                                             <span>R$ 10.000 a R$ 20.000</span>
                                         </div>
                                     </label>
@@ -449,7 +596,10 @@ export const prerender = false;
                                             value="UP"
                                         />
                                         <div class="option-content">
-                                            <span class="icon">📈</span>
+                                            <span class="icon"
+                                                ><i class="fa-solid fa-crown"
+                                                ></i></span
+                                            >
                                             <span>Acima de R$ 20.000</span>
                                         </div>
                                     </label>
@@ -667,7 +817,9 @@ export const prerender = false;
                 </div>
                 <div class="publico-grid">
                     <div class="publico-card">
-                        <div class="p-icon">🍔</div>
+                        <div class="p-icon">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
                         <h3>Restaurantes e Lanchonetes</h3>
                         <p>
                             Delivery próprio sem taxas de terceiros,
@@ -675,7 +827,9 @@ export const prerender = false;
                         </p>
                     </div>
                     <div class="publico-card">
-                        <div class="p-icon">🏥</div>
+                        <div class="p-icon">
+                            <i class="fa-solid fa-notes-medical"></i>
+                        </div>
                         <h3>Clínicas e Saúde</h3>
                         <p>
                             Agendamentos automatizados, prontuários seguros e
@@ -683,7 +837,9 @@ export const prerender = false;
                         </p>
                     </div>
                     <div class="publico-card">
-                        <div class="p-icon">🏢</div>
+                        <div class="p-icon">
+                            <i class="fa-solid fa-hotel"></i>
+                        </div>
                         <h3>Negócios em Crescimento</h3>
                         <p>
                             Sistemas de ERP sob medida para indústrias e
@@ -741,7 +897,8 @@ export const prerender = false;
                         identificada no diagnóstico estratégico.
                     </p>
                     <div class="exclusive-note">
-                        <span class="icon">💎</span>
+                        <span class="icon"><i class="fa-solid fa-gem"></i></span
+                        >
                         <p>
                             Cada sistema é desenvolvido de forma exclusiva para
                             a necessidade específica do seu negócio.
@@ -1195,7 +1352,7 @@ export const prerender = false;
                             <div class="success-message premium-card-success">
                                 <div class="success-icon-wrap">
                                     <div class="success-icon-circle">
-                                        <span class="check-icon">✓</span>
+                                        <span class="check-icon"><i class="fa-solid fa-check"></i></span>
                                     </div>
                                 </div>
                                 <h4>Diagnóstico Concluído!</h4>
@@ -1226,10 +1383,12 @@ export const prerender = false;
                     } else {
                         throw new Error(result.error || "Erro ao gerar PDF");
                     }
-                } catch (error) {
+                } catch (error: any) {
                     console.error("PDF Error:", error);
                     alert(
-                        "Ocorreu um erro ao processar seu PDF. Mas não se preocupe, seus dados foram recebidos e entraremos em contato via WhatsApp.",
+                        "Erro: " +
+                            (error.message || "Falha técnica inesperada") +
+                            ". Seus dados de contato foram salvos e nossa equipe entrará em contato via WhatsApp para enviar seu diagnóstico manualmente.",
                     );
                     if (btnSubmit) {
                         btnSubmit.disabled = false;
@@ -1376,6 +1535,42 @@ export const prerender = false;
 
     .pain-icon {
         font-size: 1.8rem;
+    }
+
+    .pain-icon i {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .publico-card {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 40px;
+        border-radius: 30px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        text-align: left;
+        transition: 0.3s;
+    }
+
+    .publico-card:hover {
+        transform: translateY(-5px);
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .p-icon {
+        font-size: 2.2rem;
+        margin-bottom: 24px;
+    }
+
+    .p-icon i {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .exclusive-note .icon i {
+        color: var(--color-primary);
     }
     .pain-card h3 {
         font-size: 1.1rem;
@@ -1566,14 +1761,8 @@ export const prerender = false;
 
     .options-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         gap: 20px;
-    }
-
-    @media (max-width: 991px) {
-        .options-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
     }
 
     @media (max-width: 640px) {
@@ -1612,6 +1801,23 @@ export const prerender = false;
 
     .option-content .icon {
         font-size: 2.5rem;
+        margin-bottom: 5px;
+    }
+
+    .option-content .icon i {
+        background: linear-gradient(
+            135deg,
+            #fff 0%,
+            rgba(255, 255, 255, 0.5) 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .option-card input:checked + .option-content .icon i {
+        background: var(--gradient-primary);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
 
     .option-card:hover .option-content {
@@ -1645,20 +1851,56 @@ export const prerender = false;
     }
 
     .cb-content {
-        padding: 15px 20px;
+        padding: 20px;
         background: rgba(255, 255, 255, 0.03);
         border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 12px;
-        font-size: 0.95rem;
-        font-weight: 600;
-        transition: all 0.2s ease;
-        text-align: center;
+        border-radius: 16px;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        text-align: left;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        height: 100%;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .check-label {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #fff;
+        transition: all 0.3s ease;
+    }
+
+    .check-desc {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin: 0 !important;
+        max-height: 0;
+        opacity: 0;
+        overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .checkbox-card:hover .cb-content {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(255, 255, 255, 0.15);
     }
 
     .checkbox-card input:checked + .cb-content {
-        background: var(--color-primary);
+        background: rgba(138, 28, 38, 0.1);
         border-color: var(--color-primary);
-        color: #fff;
+        box-shadow: 0 10px 25px rgba(138, 28, 38, 0.2);
+    }
+
+    .checkbox-card input:checked + .cb-content .check-label {
+        color: var(--color-primary);
+    }
+
+    .checkbox-card input:checked + .cb-content .check-desc {
+        max-height: 60px;
+        opacity: 1;
+        margin-top: 8px !important;
     }
 
     .custom-input-premium {
@@ -1803,127 +2045,164 @@ export const prerender = false;
         transform: none !important;
     }
 
-    /* Success Message Premium Redesign */
-    .success-message.premium-card-success {
-        background: rgba(15, 15, 15, 0.6);
-        backdrop-filter: blur(20px);
-        padding: 50px 40px;
-        border-radius: 32px;
-        border: 1px solid rgba(37, 211, 102, 0.3);
-        margin-top: 30px;
-        text-align: center;
-        animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-        box-shadow:
-            0 20px 50px rgba(0, 0, 0, 0.5),
-            0 0 30px rgba(37, 211, 102, 0.1);
+    /* Success Message Premium Redesign - Using :global for dynamic injection */
+    :global(.success-message.premium-card-success) {
+        background: rgba(20, 20, 22, 0.8) !important;
+        backdrop-filter: blur(25px) !important;
+        padding: 60px 40px !important;
+        border-radius: 40px !important;
+        border: 1px solid rgba(37, 211, 102, 0.3) !important;
+        margin-top: 40px !important;
+        text-align: center !important;
+        animation: scaleIn 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards !important;
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8) !important;
+        max-width: 650px !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        position: relative !important;
+        z-index: 10 !important;
     }
 
     @keyframes scaleIn {
         from {
             opacity: 0;
-            transform: scale(0.9);
+            transform: scale(0.9) translateY(20px);
         }
         to {
             opacity: 1;
-            transform: scale(1);
+            transform: scale(1) translateY(0);
         }
     }
 
-    .success-icon-wrap {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 25px;
+    :global(.success-icon-wrap) {
+        display: flex !important;
+        justify-content: center !important;
+        margin-bottom: 30px !important;
     }
 
-    .success-icon-circle {
-        width: 70px;
-        height: 70px;
-        background: #25d366;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+    :global(.success-icon-circle) {
+        width: 80px !important;
+        height: 80px !important;
+        background: linear-gradient(
+            135deg,
+            #25d366 0%,
+            #128c7e 100%
+        ) !important;
+        border-radius: 50% !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        box-shadow: 0 10px 30px rgba(37, 211, 102, 0.4) !important;
+        border: 4px solid rgba(255, 255, 255, 0.1) !important;
     }
 
-    .check-icon {
-        color: #fff;
-        font-size: 35px;
-        font-weight: bold;
+    :global(.check-icon) {
+        color: #fff !important;
+        font-size: 40px !important;
+        font-weight: bold !important;
     }
 
-    .success-message h4 {
-        color: #fff;
-        font-size: 2rem;
-        margin-bottom: 15px;
-        font-weight: 800;
-        letter-spacing: -1px;
+    :global(.success-message h4) {
+        color: #fff !important;
+        font-size: 2.2rem !important;
+        margin-bottom: 20px !important;
+        font-weight: 950 !important;
+        letter-spacing: -1.5px !important;
+        line-height: 1.1 !important;
     }
 
-    .success-subtitle {
+    :global(.success-subtitle) {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 1.15rem !important;
+        margin-bottom: 45px !important;
+        line-height: 1.5 !important;
+    }
+
+    :global(.next-step-box-premium) {
+        background: rgba(255, 255, 255, 0.05) !important;
+        padding: 45px !important;
+        border-radius: 35px !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        margin-bottom: 35px !important;
+        position: relative !important;
+        overflow: hidden !important;
+        text-align: center !important;
+    }
+
+    :global(.next-step-box-premium::before) {
+        content: "" !important;
+        position: absolute !important;
+        top: 0 !important;
+        left: 0 !important;
+        width: 100% !important;
+        height: 100% !important;
+        background: radial-gradient(
+            circle at top right,
+            rgba(37, 211, 102, 0.15),
+            transparent
+        ) !important;
+        pointer-events: none !important;
+    }
+
+    :global(.next-step-title) {
+        font-size: 0.9rem !important;
+        font-weight: 900 !important;
+        letter-spacing: 4px !important;
+        color: #25d366 !important;
+        margin-bottom: 25px !important;
+        text-transform: uppercase !important;
+    }
+
+    :global(.next-step-box-premium p) {
         color: rgba(255, 255, 255, 0.8) !important;
         font-size: 1.1rem !important;
-        margin-bottom: 40px !important;
+        line-height: 1.6 !important;
+        margin-bottom: 35px !important;
     }
 
-    .next-step-box-premium {
-        background: rgba(255, 255, 255, 0.03);
-        padding: 35px;
-        border-radius: 24px;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        margin-bottom: 25px;
-        position: relative;
+    :global(.btn-whatsapp-premium) {
+        background: #25d366 !important;
+        color: #fff !important;
+        border: none !important;
+        padding: 24px 40px !important;
+        border-radius: 20px !important;
+        font-weight: 900 !important;
+        font-size: 1.1rem !important;
+        cursor: pointer !important;
+        width: 100% !important;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1) !important;
+        text-transform: uppercase !important;
+        letter-spacing: 2px !important;
+        box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4) !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        gap: 15px !important;
     }
 
-    .next-step-title {
-        font-size: 0.8rem;
-        font-weight: 900;
-        letter-spacing: 2px;
-        color: #25d366;
-        margin-bottom: 15px;
+    :global(.btn-whatsapp-premium:hover) {
+        transform: translateY(-5px) scale(1.02) !important;
+        background: #20ba5a !important;
+        box-shadow: 0 20px 45px rgba(37, 211, 102, 0.6) !important;
     }
 
-    .next-step-box-premium p {
-        color: rgba(255, 255, 255, 0.6) !important;
+    :global(.download-fallback) {
         font-size: 0.95rem !important;
-        line-height: 1.6;
-        margin-bottom: 25px !important;
+        color: rgba(255, 255, 255, 0.5) !important;
+        margin-top: 25px !important;
     }
 
-    .btn-whatsapp-premium {
-        background: #25d366;
-        color: #fff;
-        border: none;
-        padding: 20px 30px;
-        border-radius: 14px;
-        font-weight: 800;
-        font-size: 1rem;
-        cursor: pointer;
-        width: 100%;
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
+    :global(.download-fallback a) {
+        color: #25d366 !important;
+        font-weight: 800 !important;
+        text-decoration: none !important;
+        border-bottom: 2px solid rgba(37, 211, 102, 0.3) !important;
+        transition: all 0.3s ease !important;
     }
 
-    .btn-whatsapp-premium:hover {
-        transform: translateY(-3px);
-        background: #20ba5a;
-        box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
-    }
-
-    .download-fallback {
-        font-size: 0.85rem !important;
-        color: rgba(255, 255, 255, 0.4) !important;
-    }
-
-    .download-fallback a {
-        font-weight: 700;
-        text-decoration: underline;
+    :global(.download-fallback a:hover) {
+        border-bottom-color: #25d366 !important;
+        color: #fff !important;
     }
 
     .result-stats {

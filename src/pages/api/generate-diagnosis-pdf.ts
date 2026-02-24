@@ -7,7 +7,13 @@ import path from 'path';
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
+        console.log("PDF Request Body:", JSON.stringify(body, null, 2));
         const { contact, diagnosis, results } = body;
+
+        if (!contact || !diagnosis || !results) {
+            console.error("Missing required data in PDF request");
+            return new Response(JSON.stringify({ success: false, error: "Dados incompletos para geração do PDF." }), { status: 400 });
+        }
 
         // 1. Save Lead to Database
         try {
@@ -62,12 +68,12 @@ export const POST: APIRoute = async ({ request }) => {
         // Sidebar Accent (Strategic Design)
         page1.drawRectangle({ x: 0, y: 0, width: 15, height, color: primaryRed });
 
-        // Logo Placement
+        // Logo Placement (Centered)
         if (logoImage) {
-            const dims = logoImage.scale(0.09);
+            const dims = logoImage.scale(0.05); //Tamanho da logo no documento
             page1.drawImage(logoImage, {
-                x: 60,
-                y: height - 150, // Dropped down to avoid being cut
+                x: (width - dims.width) / 2,
+                y: height - dims.height - 60,
                 width: dims.width,
                 height: dims.height,
             });
@@ -141,6 +147,7 @@ export const POST: APIRoute = async ({ request }) => {
         const segmentMap: any = {
             'RESTAURANTE': 'Restaurante / Lanchonete',
             'CLINICA': 'Clínica / Saúde',
+            'ESCRITORIO': 'Escritório / Serviços',
             'OUTRO': diagnosis.negocio_custom || 'Setor Especializado'
         };
 
@@ -164,10 +171,17 @@ export const POST: APIRoute = async ({ request }) => {
             'pwa': 'App / PWA'
         };
 
+        const scaleMap: any = {
+            '1': '1 Unidade Operacional',
+            '5': '2 a 5 Unidades Operacionais',
+            '10': 'Multi-filial / Franquia',
+            'DIGITAL': 'Operação Digital / Escala Nacional'
+        };
+
         const segment = segmentMap[diagnosis.negocio] || diagnosis.negocio || 'Setor Especializado';
         addRow('SEGMENTO DE ATUAÇÃO:', segment);
         addRow('INFRAESTRUTURA ATUAL:', diagnosis.estrutura || 'Manual/Planilhas');
-        addRow('ESCALA OPERACIONAL:', `${diagnosis.escala || '1'} unidade(s) ativa(s)`);
+        addRow('ESCALA OPERACIONAL:', scaleMap[diagnosis.escala] || `${diagnosis.escala || '1'} unidade(s) ativa(s)`);
         addRow('INVESTIMENTO DISPONÍVEL:', budgetMap[diagnosis.orcamento] || diagnosis.orcamento || 'A detalhar');
 
         yPos -= 30;
@@ -184,7 +198,20 @@ export const POST: APIRoute = async ({ request }) => {
                 color: rgb(0.14, 0.82, 0.4), // Green check
                 opacity: 0.8
             });
-            page2.drawText('✓', { x: 63, y: yPos - 3, size: 10, font: helveticaBold, color: bgColor });
+            // Draw a checkmark using lines (avoiding WinAnsi encoding issues)
+            const checkColor = rgb(1, 1, 1);
+            page2.drawLine({
+                start: { x: 62, y: yPos + 1 },
+                end: { x: 65, y: yPos - 3 },
+                thickness: 1.5,
+                color: checkColor,
+            });
+            page2.drawLine({
+                start: { x: 65, y: yPos - 3 },
+                end: { x: 70, y: yPos + 5 },
+                thickness: 1.5,
+                color: checkColor,
+            });
 
             const readableFunc = funcMap[f] || f;
             page2.drawText(readableFunc, { x: 85, y: yPos - 2, size: 11, font: helvetica, color: textColor });
@@ -234,18 +261,36 @@ export const POST: APIRoute = async ({ request }) => {
         });
 
         yPos = height - 340;
-        page3.drawText('PLANEJAMENTO FINANCEIRO ESTIMADO:', {
-            x: 60, y: yPos, size: 14, font: helveticaBold, color: textColor
+        page3.drawText('PROJEÇÃO DE INVESTIMENTO ESTRATÉGICO:', {
+            x: 60, y: yPos, size: 10, font: helveticaBold, color: subTextColor
         });
-        yPos -= 45;
+        yPos -= 50;
 
-        page3.drawRectangle({ x: 60, y: yPos - 15, width: 380, height: 55, color: primaryRed });
+        // Premium Investment Card
+        page3.drawRectangle({
+            x: 60, y: yPos - 25, width: width - 120, height: 85,
+            color: surfaceColor,
+            borderColor: borderColor,
+            borderWidth: 1
+        });
+
+        // Strategic Accent Line
+        page3.drawRectangle({ x: 60, y: yPos - 25, width: 5, height: 85, color: primaryRed });
+
+        page3.drawText('VALOR TOTAL ESTIMADO DO APORTE:', {
+            x: 85, y: yPos + 40, size: 8, font: helveticaBold, color: primaryRed
+        });
+
         page3.drawText(results.investment, {
-            x: 90, y: yPos, size: 24, font: helveticaBold, color: bgColor
+            x: 85, y: yPos + 2, size: 30, font: helveticaBold, color: textColor
+        });
+
+        page3.drawText('INVISTA EM ATIVOS PROPRIETÁRIOS. TRANSFORME CUSTO OPERACIONAL EM PATRIMÔNIO DIGITAL.', {
+            x: 85, y: yPos - 15, size: 7, font: helveticaBold, color: subTextColor
         });
 
         yPos -= 110;
-        page3.drawText('CRONOGRAMA DE DELIVERY (GO-LIVE):', {
+        page3.drawText('CRONOGRAMA DE ENTREGA (ENTREGA DO PRODUTO):', {
             x: 60, y: yPos, size: 11, font: helveticaBold, color: subTextColor
         });
         yPos -= 35;
@@ -325,10 +370,19 @@ export const POST: APIRoute = async ({ request }) => {
             projectLevel: results.level,
             investmentRange: results.investment,
             timeline: results.timeline
-        }), { status: 200 });
+        }), {
+            status: 200,
+            headers: { "Content-Type": "application/json" }
+        });
 
-    } catch (error) {
-        console.error("PDF Generation Error:", error);
-        return new Response(JSON.stringify({ success: false, error: "Erro ao processar PDF institucional." }), { status: 500 });
+    } catch (error: any) {
+        console.error("CRITICAL PDF ERROR:", error);
+        return new Response(JSON.stringify({
+            success: false,
+            error: "Erro técnico: " + (error.message || "Falha na geração do PDF")
+        }), {
+            status: 500,
+            headers: { "Content-Type": "application/json" }
+        });
     }
 };
