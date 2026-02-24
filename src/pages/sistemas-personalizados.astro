@@ -1767,7 +1767,18 @@ export const prerender = false;
 
     @media (max-width: 640px) {
         .options-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .option-content {
+            padding: 20px 10px;
+            gap: 10px;
+        }
+        .option-content .icon {
+            font-size: 2rem;
+        }
+        .option-content span {
+            font-size: 0.85rem;
         }
     }
 
@@ -2314,10 +2325,54 @@ export const prerender = false;
             grid-template-columns: 1fr;
         }
         .checkbox-grid {
-            grid-template-columns: 1fr;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
         }
         .investimento-card {
             padding: 40px 20px;
+        }
+        .glass-premium {
+            padding: 30px 15px;
+        }
+        .diag-step h3 {
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+        }
+        :global(.success-message.premium-card-success) {
+            padding: 40px 20px !important;
+            border-radius: 25px !important;
+        }
+        :global(.next-step-box-premium) {
+            padding: 25px 20px !important;
+        }
+        :global(.success-message h4) {
+            font-size: 1.7rem !important;
+        }
+        .check-label {
+            font-size: 0.85rem;
+        }
+        .cb-content {
+            padding: 15px 10px;
+        }
+        .diag-nav {
+            flex-direction: row;
+            gap: 10px;
+            margin-top: 30px;
+        }
+        .btn-diag-nav {
+            flex: 1;
+            padding: 12px 10px;
+            font-size: 0.8rem;
+            min-height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-diag-nav:disabled {
+            opacity: 0.5;
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.3);
         }
     }
 </style>
