@@ -177,6 +177,7 @@ export const prerender = false;
                                             type="radio"
                                             name="negocio"
                                             value="OUTRO"
+                                            id="radio-outro"
                                         />
                                         <div class="option-content">
                                             <span class="icon">🏢</span>
@@ -184,6 +185,11 @@ export const prerender = false;
                                         </div>
                                     </label>
                                 </div>
+                                <input
+                                    type="hidden"
+                                    name="negocio_custom"
+                                    id="negocio_custom_hidden"
+                                />
                             </div>
 
                             <!-- STEP 2: Estrutura Atual -->
@@ -561,7 +567,7 @@ export const prerender = false;
                                     <button
                                         type="submit"
                                         class="btn-submit-lead"
-                                        >SOLICITAR ANÁLISE AGORA</button
+                                        >BAIXAR RELATÓRIO PDF DETALHADO</button
                                     >
                                 </form>
                             </div>
@@ -766,6 +772,32 @@ export const prerender = false;
             </div>
         </section>
     </div>
+
+    <!-- MODAL PARA OUTRO NEGÓCIO -->
+    <div id="modal-outro" class="modal-overlay hidden">
+        <div class="modal-content glass-premium">
+            <h3>Qual o ramo do seu negócio?</h3>
+            <p>Especifique para que possamos detalhar no seu PDF.</p>
+            <input
+                type="text"
+                id="modal-negocio-input"
+                placeholder="Ex: Consultoria, Advocacia..."
+                class="custom-input-premium"
+            />
+            <div class="modal-actions">
+                <button
+                    type="button"
+                    id="btn-cancel-modal"
+                    class="btn-modal-secondary">Cancelar</button
+                >
+                <button
+                    type="button"
+                    id="btn-save-modal"
+                    class="btn-modal-primary">Salvar e Continuar</button
+                >
+            </div>
+        </div>
+    </div>
 </BaseLayout>
 
 <script>
@@ -828,7 +860,55 @@ export const prerender = false;
                     finishBtn.classList.add("hidden");
                 }
             }
+
+            checkValidity();
         };
+
+        const checkValidity = () => {
+            const activeStep = document.querySelector(
+                `.diag-step[data-step="${currentStep}"]`,
+            );
+            if (!activeStep) return;
+
+            let isValid = false;
+
+            const radios = activeStep.querySelectorAll(
+                'input[type="radio"]',
+            ) as NodeListOf<HTMLInputElement>;
+            const checkboxes = activeStep.querySelectorAll(
+                'input[type="checkbox"]',
+            ) as NodeListOf<HTMLInputElement>;
+
+            if (radios.length > 0) {
+                const checkedRadio = activeStep.querySelector(
+                    'input[type="radio"]:checked',
+                ) as HTMLInputElement;
+                if (checkedRadio) {
+                    isValid = true;
+                    // Special case for OUTRO
+                    if (checkedRadio.value === "OUTRO") {
+                        const hiddenVal = (
+                            document.getElementById(
+                                "negocio_custom_hidden",
+                            ) as HTMLInputElement
+                        )?.value;
+                        if (!hiddenVal) isValid = false;
+                    }
+                }
+            } else if (checkboxes.length > 0) {
+                const checkedCheckboxes = activeStep.querySelectorAll(
+                    'input[type="checkbox"]:checked',
+                );
+                isValid = checkedCheckboxes.length > 0;
+            }
+
+            if (nextBtn) nextBtn.disabled = !isValid;
+            if (finishBtn) finishBtn.disabled = !isValid;
+        };
+
+        // Listen for changes
+        form.addEventListener("change", checkValidity);
+        form.addEventListener("input", checkValidity);
 
         // Initialize first step
         updateStep();
@@ -856,6 +936,50 @@ export const prerender = false;
                 }
             });
         }
+
+        // Handle Custom Business Logic (Modal)
+        const modalOutro = document.getElementById("modal-outro");
+        const modalInput = document.getElementById(
+            "modal-negocio-input",
+        ) as HTMLInputElement | null;
+        const btnSaveModal = document.getElementById("btn-save-modal");
+        const btnCancelModal = document.getElementById("btn-cancel-modal");
+        const hiddenInput = document.getElementById(
+            "negocio_custom_hidden",
+        ) as HTMLInputElement | null;
+        const radioOutro = document.getElementById(
+            "radio-outro",
+        ) as HTMLInputElement | null;
+
+        const openModal = () => {
+            modalOutro?.classList.remove("hidden");
+            setTimeout(() => modalInput?.focus(), 100);
+        };
+
+        const closeModal = () => modalOutro?.classList.add("hidden");
+
+        radioOutro?.addEventListener("click", (e) => {
+            openModal();
+        });
+
+        btnSaveModal?.addEventListener("click", () => {
+            if (modalInput && hiddenInput) {
+                hiddenInput.value = modalInput.value;
+                if (modalInput.value) {
+                    closeModal();
+                    checkValidity();
+                } else {
+                    alert("Por favor, informe o seu tipo de negócio.");
+                }
+            }
+        });
+
+        btnCancelModal?.addEventListener("click", () => {
+            if (radioOutro) radioOutro.checked = false;
+            if (hiddenInput) hiddenInput.value = "";
+            closeModal();
+            checkValidity();
+        });
 
         if (finishBtn) {
             finishBtn.addEventListener("click", () => {
@@ -1058,23 +1182,47 @@ export const prerender = false;
                     const result = await response.json();
 
                     if (result.success) {
+                        // Automatic Download
+                        const downloadLink = document.createElement("a");
+                        downloadLink.href = result.pdfUrl;
+                        downloadLink.download = "Diagnostico_AlphaCode.pdf";
+                        document.body.appendChild(downloadLink);
+                        downloadLink.click();
+                        document.body.removeChild(downloadLink);
+
                         // Success UI
                         leadForm.innerHTML = `
-                            <div class="success-message" style="background: rgba(37, 211, 102, 0.1); padding: 20px; border-radius: 12px; border: 1px solid #25d366; margin-top: 20px;">
-                                <h4 style="color: #25d366; margin-bottom: 10px;">Diagnóstico Gerado com Sucesso!</h4>
-                                <p style="font-size: 0.9rem; margin-bottom: 20px;">O relatório profissional completo já está disponível para você.</p>
-                                <a href="${result.pdfUrl}" download="Diagnostico_AlphaCode.pdf" class="btn-submit-lead" style="display: block; text-align: center; text-decoration: none;">BAIXAR PDF</a>
-                                <p style="font-size: 0.75rem; color: rgba(255,255,255,0.5); margin-top: 15px;">Um especialista Alpha Code entrará em contato em breve para detalhar os resultados.</p>
+                            <div class="success-message premium-card-success">
+                                <div class="success-icon-wrap">
+                                    <div class="success-icon-circle">
+                                        <span class="check-icon">✓</span>
+                                    </div>
+                                </div>
+                                <h4>Diagnóstico Concluído!</h4>
+                                <p class="success-subtitle">O download do seu relatório PDF detalhado iniciou automaticamente.</p>
+                                
+                                <div class="next-step-box-premium">
+                                    <h5 class="next-step-title">PRÓXIMO PASSO ESTRATÉGICO</h5>
+                                    <p>Relatório em mãos? Agora valide seu diagnóstico e tire dúvidas técnicas com um de nossos especialistas:</p>
+                                    <button id="final-analysis-btn" class="btn-whatsapp-premium">
+                                        SOLICITAR ANÁLISE NO WHATSAPP
+                                    </button>
+                                </div>
+                                <p class="download-fallback">Caso o download não tenha iniciado, <a href="${result.pdfUrl}" download class="text-gradient">clique aqui para baixar</a>.</p>
                             </div>
                         `;
 
-                        // Send to WhatsApp as fallback
-                        const msg = `Olá! Acabei de realizar o Diagnóstico Estratégico no site e gerei meu PDF.\n\n*Resumo:*\nNome: ${name}\nNível: ${nivelRes}\nE-mail: ${email}`;
-                        const encoded = encodeURIComponent(msg);
-                        window.open(
-                            `https://wa.me/5521999064502?text=${encoded}`,
-                            "_blank",
-                        );
+                        const fBtn =
+                            document.getElementById("final-analysis-btn");
+                        if (fBtn) {
+                            fBtn.addEventListener("click", () => {
+                                const msg = `Olá! Acabei de baixar meu Diagnóstico Estratégico (Nível: ${nivelRes}) e gostaria de agendar uma análise técnica gratuita.`;
+                                window.open(
+                                    `https://wa.me/5521999064502?text=${encodeURIComponent(msg)}`,
+                                    "_blank",
+                                );
+                            });
+                        }
                     } else {
                         throw new Error(result.error || "Erro ao gerar PDF");
                     }
@@ -1418,8 +1566,20 @@ export const prerender = false;
 
     .options-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(3, 1fr);
         gap: 20px;
+    }
+
+    @media (max-width: 991px) {
+        .options-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 640px) {
+        .options-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     .option-card {
@@ -1501,6 +1661,29 @@ export const prerender = false;
         color: #fff;
     }
 
+    .custom-input-premium {
+        width: 100%;
+        padding: 15px 20px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: #fff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+    }
+
+    .custom-input-premium:focus {
+        outline: none;
+        border-color: var(--color-primary);
+        background: rgba(255, 255, 255, 0.08);
+        box-shadow: 0 0 15px rgba(138, 28, 38, 0.2);
+    }
+
+    .mt-4 {
+        margin-top: 2rem;
+    }
+
     .diag-nav {
         margin-top: 50px;
         display: flex;
@@ -1544,19 +1727,203 @@ export const prerender = false;
         display: none !important;
     }
 
-    .result-header {
-        margin-bottom: 40px;
+    /* Modal Styles */
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
     }
 
-    .badge-success {
-        display: inline-block;
-        padding: 4px 12px;
+    .modal-content {
+        max-width: 500px;
+        width: 100%;
+        padding: 40px;
+        text-align: center;
+        border: 1px solid rgba(138, 28, 38, 0.3);
+    }
+
+    .modal-content h3 {
+        margin-bottom: 10px;
+        font-size: 1.5rem;
+    }
+
+    .modal-content p {
+        color: rgba(255, 255, 255, 0.6);
+        margin-bottom: 25px;
+        font-size: 0.9rem;
+    }
+
+    .modal-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+    }
+
+    .btn-modal-primary {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .btn-modal-primary:hover {
+        filter: brightness(1.1);
+        transform: translateY(-2px);
+    }
+
+    .btn-modal-secondary {
+        flex: 1;
+        padding: 12px;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: rgba(255, 255, 255, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+    .btn-diag-nav:disabled {
+        opacity: 0.3;
+        cursor: not-allowed;
+        filter: grayscale(1);
+        transform: none !important;
+    }
+
+    /* Success Message Premium Redesign */
+    .success-message.premium-card-success {
+        background: rgba(15, 15, 15, 0.6);
+        backdrop-filter: blur(20px);
+        padding: 50px 40px;
+        border-radius: 32px;
+        border: 1px solid rgba(37, 211, 102, 0.3);
+        margin-top: 30px;
+        text-align: center;
+        animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+        box-shadow:
+            0 20px 50px rgba(0, 0, 0, 0.5),
+            0 0 30px rgba(37, 211, 102, 0.1);
+    }
+
+    @keyframes scaleIn {
+        from {
+            opacity: 0;
+            transform: scale(0.9);
+        }
+        to {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    .success-icon-wrap {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 25px;
+    }
+
+    .success-icon-circle {
+        width: 70px;
+        height: 70px;
+        background: #25d366;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 0 25px rgba(37, 211, 102, 0.5);
+    }
+
+    .check-icon {
+        color: #fff;
+        font-size: 35px;
+        font-weight: bold;
+    }
+
+    .success-message h4 {
+        color: #fff;
+        font-size: 2rem;
+        margin-bottom: 15px;
+        font-weight: 800;
+        letter-spacing: -1px;
+    }
+
+    .success-subtitle {
+        color: rgba(255, 255, 255, 0.8) !important;
+        font-size: 1.1rem !important;
+        margin-bottom: 40px !important;
+    }
+
+    .next-step-box-premium {
+        background: rgba(255, 255, 255, 0.03);
+        padding: 35px;
+        border-radius: 24px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        margin-bottom: 25px;
+        position: relative;
+    }
+
+    .next-step-title {
+        font-size: 0.8rem;
+        font-weight: 900;
+        letter-spacing: 2px;
+        color: #25d366;
+        margin-bottom: 15px;
+    }
+
+    .next-step-box-premium p {
+        color: rgba(255, 255, 255, 0.6) !important;
+        font-size: 0.95rem !important;
+        line-height: 1.6;
+        margin-bottom: 25px !important;
+    }
+
+    .btn-whatsapp-premium {
         background: #25d366;
         color: #fff;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 900;
-        margin-bottom: 15px;
+        border: none;
+        padding: 20px 30px;
+        border-radius: 14px;
+        font-weight: 800;
+        font-size: 1rem;
+        cursor: pointer;
+        width: 100%;
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .btn-whatsapp-premium:hover {
+        transform: translateY(-3px);
+        background: #20ba5a;
+        box-shadow: 0 15px 35px rgba(37, 211, 102, 0.5);
+    }
+
+    .download-fallback {
+        font-size: 0.85rem !important;
+        color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    .download-fallback a {
+        font-weight: 700;
+        text-decoration: underline;
     }
 
     .result-stats {

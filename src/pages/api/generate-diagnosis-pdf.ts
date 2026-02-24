@@ -35,7 +35,7 @@ export const POST: APIRoute = async ({ request }) => {
         // Load 3D Logo
         let logoImage;
         try {
-            const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo3d_extracted.png');
+            const logoPath = path.join(process.cwd(), 'public', 'assets', 'logo-sitesalphacode-3d.png');
             if (fs.existsSync(logoPath)) {
                 const logoBytes = fs.readFileSync(logoPath);
                 logoImage = await pdfDoc.embedPng(logoBytes);
@@ -44,12 +44,14 @@ export const POST: APIRoute = async ({ request }) => {
             console.error("Could not load logo image:", e);
         }
 
-        // Theme Colors
-        const bgColor = rgb(0.07, 0.07, 0.09); // Modern Charcoal
+        // Theme Colors (Light Theme)
+        const bgColor = rgb(1, 1, 1); // White
+        const surfaceColor = rgb(0.97, 0.97, 0.98); // Very Light Grey
         const primaryRed = rgb(0.54, 0.11, 0.15); // Alpha Code Red
-        const textColor = rgb(1, 1, 1);
-        const subTextColor = rgb(0.7, 0.7, 0.7);
+        const textColor = rgb(0.1, 0.1, 0.12); // Deep Charcoal
+        const subTextColor = rgb(0.4, 0.4, 0.45); // Medium Grey
         const accentRed = rgb(0.65, 0.15, 0.2);
+        const borderColor = rgb(0.9, 0.9, 0.92);
 
         // --- PAGE 1: COVER ---
         const page1 = pdfDoc.addPage([595.28, 841.89]);
@@ -57,180 +59,260 @@ export const POST: APIRoute = async ({ request }) => {
 
         page1.drawRectangle({ x: 0, y: 0, width, height, color: bgColor });
 
-        // Decorative Border
-        page1.drawRectangle({
-            x: 20, y: 20, width: width - 40, height: height - 40,
-            borderColor: rgb(0.2, 0.2, 0.25),
-            borderWidth: 1
-        });
-
-        // Top Accent Line
-        page1.drawRectangle({ x: 0, y: height - 10, width, height: 10, color: primaryRed });
+        // Sidebar Accent (Strategic Design)
+        page1.drawRectangle({ x: 0, y: 0, width: 15, height, color: primaryRed });
 
         // Logo Placement
         if (logoImage) {
-            const dims = logoImage.scale(0.15);
+            const dims = logoImage.scale(0.09);
             page1.drawImage(logoImage, {
-                x: width / 2 - dims.width / 2,
-                y: height - 280,
+                x: 60,
+                y: height - 150, // Dropped down to avoid being cut
                 width: dims.width,
                 height: dims.height,
             });
         }
 
         // Title Area
-        page1.drawText('DIAGNÓSTICO ESTRATÉGICO', {
-            x: 50, y: height - 380, size: 32, font: helveticaBold, color: textColor
+        page1.drawText('DIAGNÓSTICO', {
+            x: 60, y: height - 350, size: 40, font: helveticaBold, color: textColor
+        });
+        page1.drawText('ESTRATÉGICO', {
+            x: 60, y: height - 395, size: 40, font: helveticaBold, color: primaryRed
         });
 
-        page1.drawRectangle({ x: 50, y: height - 400, width: 60, height: 4, color: primaryRed });
+        page1.drawRectangle({ x: 60, y: height - 420, width: 80, height: 4, color: primaryRed });
 
-        page1.drawText('SISTEMAS PERSONALIZADOS ALPHA CODE', {
-            x: 50, y: height - 430, size: 14, font: helveticaBold, color: accentRed
+        page1.drawText('ENGENHARIA DE SOFTWARE E ESCALABILIDADE', {
+            x: 60, y: height - 455, size: 12, font: helveticaBold, color: textColor
         });
 
-        page1.drawText('RELATÓRIO TÉCNICO DE VIABILIDADE E ESCALABILIDADE', {
-            x: 50, y: height - 460, size: 10, font: helvetica, color: subTextColor
+        page1.drawText('Este relatório apresenta o mapeamento técnico para a transição do seu negócio', {
+            x: 60, y: height - 510, size: 10, font: helvetica, color: subTextColor
+        });
+        page1.drawText('para uma infraestrutura de software exclusiva e de alto impacto.', {
+            x: 60, y: height - 525, size: 10, font: helvetica, color: subTextColor
         });
 
         // Client info section
         page1.drawRectangle({
-            x: 50, y: 180, width: width - 100, height: 100,
-            color: rgb(0.12, 0.12, 0.15),
-            opacity: 0.5
+            x: 60, y: 180, width: width - 120, height: 120,
+            color: surfaceColor,
+            borderColor: borderColor,
+            borderWidth: 1
         });
 
         page1.drawText('PREPARADO EXCLUSIVAMENTE PARA:', {
-            x: 70, y: 250, size: 8, font: helveticaBold, color: rgb(0.5, 0.5, 0.5)
+            x: 85, y: 265, size: 9, font: helveticaBold, color: subTextColor
         });
         page1.drawText(contact.name.toUpperCase(), {
-            x: 70, y: 220, size: 22, font: helveticaBold, color: textColor
+            x: 85, y: 235, size: 24, font: helveticaBold, color: textColor
         });
 
         const today = new Date().toLocaleDateString('pt-BR');
         page1.drawText(`EMISSÃO: ${today}`, {
-            x: 50, y: 80, size: 9, font: helvetica, color: rgb(0.4, 0.4, 0.4)
+            x: 60, y: 80, size: 9, font: helvetica, color: subTextColor
         });
-        page1.drawText('© 2026 ALPHA CODE | SOLUÇÕES CORPORATIVAS DE ALTO IMPACTO', {
-            x: 50, y: 60, size: 8, font: helveticaBold, color: rgb(0.3, 0.3, 0.3)
+        page1.drawText('ALPHA CODE SOLUTIONS | © 2026 ALPHA CODE CORP', {
+            x: 60, y: 65, size: 8, font: helveticaBold, color: subTextColor
         });
 
         // --- PAGE 2: SCENARIO ---
         const page2 = pdfDoc.addPage([595.28, 841.89]);
         page2.drawRectangle({ x: 0, y: 0, width, height, color: bgColor });
+        page2.drawRectangle({ x: 0, y: 0, width: 15, height: height, color: accentRed });
 
-        // Header
-        page2.drawRectangle({ x: 50, y: height - 60, width: 30, height: 3, color: primaryRed });
         page2.drawText('RESUMO DO CENÁRIO IDENTIFICADO', {
-            x: 50, y: height - 85, size: 20, font: helveticaBold, color: textColor
+            x: 60, y: height - 85, size: 22, font: helveticaBold, color: textColor
         });
 
-        let yPos = height - 150;
+        page2.drawText('Cruzamento de dados entre a infraestrutura atual e necessidades de escala.', {
+            x: 60, y: height - 110, size: 10, font: helvetica, color: subTextColor
+        });
+
+        let yPos = height - 180;
         const addRow = (label: string, value: string) => {
-            page2.drawRectangle({ x: 50, y: yPos - 10, width: width - 100, height: 35, color: rgb(0.1, 0.1, 0.12) });
-            page2.drawText(label, { x: 70, y: yPos, size: 9, font: helveticaBold, color: primaryRed });
-            page2.drawText(value, { x: 220, y: yPos, size: 11, font: helvetica, color: textColor });
-            yPos -= 45;
+            page2.drawRectangle({ x: 60, y: yPos - 15, width: width - 120, height: 45, color: surfaceColor });
+            page2.drawText(label, { x: 80, y: yPos + 5, size: 9, font: helveticaBold, color: primaryRed });
+            page2.drawText(value.toString(), { x: 80, y: yPos - 8, size: 12, font: helvetica, color: textColor });
+            yPos -= 60;
         };
 
-        addRow('Segmento de Atuação:', diagnosis.negocio || 'Industrial/Serviços');
-        addRow('Infraestrutura Atual:', diagnosis.estrutura || 'Manual/Planilhas');
-        addRow('Escala Operacional:', `${diagnosis.escala || '1'} unidade(s)`);
-        addRow('Budget Estimado:', diagnosis.orcamento || 'A analisar');
+        const segmentMap: any = {
+            'RESTAURANTE': 'Restaurante / Lanchonete',
+            'CLINICA': 'Clínica / Saúde',
+            'OUTRO': diagnosis.negocio_custom || 'Setor Especializado'
+        };
+
+        const budgetMap: any = {
+            '5k': 'Até R$ 5.000',
+            '10k': 'R$ 5.000 a R$ 10.000',
+            '20k': 'R$ 10.000 a R$ 20.000',
+            'UP': 'Acima de R$ 20.000'
+        };
+
+        const funcMap: any = {
+            'pedidos': 'Pedidos Online',
+            'agendamento': 'Agendamento Inteligente',
+            'usuarios': 'Múltiplos Usuários',
+            'financeiro': 'Controle Financeiro',
+            'relatorios': 'Relatórios Avançados',
+            'pagamento': 'Gateways de Pagamento',
+            'estoque': 'Controle de Estoque',
+            'prontuario': 'Prontuário Digital',
+            'admin': 'Painel Administrativo',
+            'pwa': 'App / PWA'
+        };
+
+        const segment = segmentMap[diagnosis.negocio] || diagnosis.negocio || 'Setor Especializado';
+        addRow('SEGMENTO DE ATUAÇÃO:', segment);
+        addRow('INFRAESTRUTURA ATUAL:', diagnosis.estrutura || 'Manual/Planilhas');
+        addRow('ESCALA OPERACIONAL:', `${diagnosis.escala || '1'} unidade(s) ativa(s)`);
+        addRow('INVESTIMENTO DISPONÍVEL:', budgetMap[diagnosis.orcamento] || diagnosis.orcamento || 'A detalhar');
 
         yPos -= 30;
-        page2.drawText('REQUISITOS TÉCNICOS MAPEADOS:', {
-            x: 50, y: yPos, size: 12, font: helveticaBold, color: subTextColor
+        page2.drawText('FUNCIONALIDADES ESSENCIAIS:', {
+            x: 60, y: yPos, size: 14, font: helveticaBold, color: textColor
         });
         yPos -= 40;
 
         const funcs = Array.isArray(diagnosis.funcao) ? diagnosis.funcao : [diagnosis.funcao].filter(Boolean);
         funcs.forEach((f: string) => {
-            page2.drawCircle({ x: 60, y: yPos + 4, size: 3, color: primaryRed });
-            page2.drawText(f, { x: 75, y: yPos, size: 11, font: helvetica, color: textColor });
+            // Draw a checkmark box
+            page2.drawRectangle({
+                x: 60, y: yPos - 5, width: 12, height: 12,
+                color: rgb(0.14, 0.82, 0.4), // Green check
+                opacity: 0.8
+            });
+            page2.drawText('✓', { x: 63, y: yPos - 3, size: 10, font: helveticaBold, color: bgColor });
+
+            const readableFunc = funcMap[f] || f;
+            page2.drawText(readableFunc, { x: 85, y: yPos - 2, size: 11, font: helvetica, color: textColor });
             yPos -= 25;
+        });
+
+        yPos -= 40;
+        page2.drawRectangle({ x: 60, y: yPos, width: width - 120, height: 1, color: borderColor });
+        yPos -= 30;
+        page2.drawText('ANÁLISE DE AUTOMAÇÃO:', {
+            x: 60, y: yPos, size: 11, font: helveticaBold, color: primaryRed
+        });
+        yPos -= 20;
+        page2.drawText('A centralização dos fluxos mapeados acima em uma stack proprietária permitirá', {
+            x: 60, y: yPos, size: 10, font: helvetica, color: subTextColor
+        });
+        yPos -= 15;
+        page2.drawText('um ganho de eficiência projetado de 35% na redução de custos operacionais.', {
+            x: 60, y: yPos, size: 10, font: helvetica, color: subTextColor
         });
 
         // --- PAGE 3: RECOMMENDATION ---
         const page3 = pdfDoc.addPage([595.28, 841.89]);
         page3.drawRectangle({ x: 0, y: 0, width, height, color: bgColor });
+        page3.drawRectangle({ x: 0, y: 0, width: 15, height, color: primaryRed });
 
         page3.drawText('DIAGNÓSTICO E RECOMENDAÇÃO', {
-            x: 50, y: height - 85, size: 20, font: helveticaBold, color: textColor
+            x: 60, y: height - 85, size: 22, font: helveticaBold, color: textColor
         });
 
-        // Recommendation Box
+        // Main Recommendation
         page3.drawRectangle({
-            x: 50, y: height - 240, width: width - 100, height: 120,
-            color: rgb(0.1, 0.1, 0.15),
-            borderColor: rgb(0.2, 0.2, 0.3),
-            borderWidth: 1
+            x: 60, y: height - 260, width: width - 120, height: 140,
+            color: surfaceColor,
+            borderColor: primaryRed,
+            borderWidth: 0.5
         });
 
-        page3.drawText('ARQUITETURA RECOMENDADA:', {
-            x: 75, y: height - 160, size: 9, font: helveticaBold, color: subTextColor
+        page3.drawText('MODELO DE ARQUITETURA SUGERIDO:', {
+            x: 90, y: height - 165, size: 9, font: helveticaBold, color: subTextColor
         });
         page3.drawText(results.level.toUpperCase(), {
-            x: 75, y: height - 195, size: 26, font: helveticaBold, color: textColor
+            x: 90, y: height - 205, size: 32, font: helveticaBold, color: primaryRed
         });
-        page3.drawText(`Complexidade Estimada: ${results.complexity}`, {
-            x: 75, y: height - 220, size: 11, font: helvetica, color: primaryRed
+        page3.drawText(`Robustez e Escalabilidade: ${results.complexity}`, {
+            x: 90, y: height - 235, size: 12, font: helvetica, color: textColor
         });
 
-        yPos = height - 320;
-        page3.drawText('PROJEÇÃO DE INVESTIMENTO:', {
-            x: 50, y: yPos, size: 12, font: helveticaBold, color: textColor
+        yPos = height - 340;
+        page3.drawText('PLANEJAMENTO FINANCEIRO ESTIMADO:', {
+            x: 60, y: yPos, size: 14, font: helveticaBold, color: textColor
         });
-        yPos -= 50;
+        yPos -= 45;
 
-        page3.drawRectangle({ x: 50, y: yPos - 15, width: 350, height: 50, color: primaryRed });
+        page3.drawRectangle({ x: 60, y: yPos - 15, width: 380, height: 55, color: primaryRed });
         page3.drawText(results.investment, {
-            x: 75, y: yPos, size: 22, font: helveticaBold, color: textColor
+            x: 90, y: yPos, size: 24, font: helveticaBold, color: bgColor
         });
 
-        yPos -= 100;
-        page3.drawText('CRONOGRAMA DE IMPLANTAÇÃO:', {
-            x: 50, y: yPos, size: 11, font: helveticaBold, color: subTextColor
+        yPos -= 110;
+        page3.drawText('CRONOGRAMA DE DELIVERY (GO-LIVE):', {
+            x: 60, y: yPos, size: 11, font: helveticaBold, color: subTextColor
+        });
+        yPos -= 35;
+        page3.drawText(results.timeline, {
+            x: 60, y: yPos, size: 22, font: helveticaBold, color: textColor
+        });
+
+        yPos -= 70;
+        page3.drawText('FATORES CRÍTICOS DE SUCESSO:', {
+            x: 60, y: yPos, size: 11, font: helveticaBold, color: primaryRed
         });
         yPos -= 30;
-        page3.drawText(results.timeline, {
-            x: 50, y: yPos, size: 18, font: helveticaBold, color: textColor
+        const successFactors = [
+            'Propriedade Intelectual total do cliente',
+            'Soberania de dados e zero dependência de SaaS terceiros',
+            'Infraestrutura em Nuvem (AWS/Azure) de alta disponibilidade',
+            'Integrações via APIs oficiais e seguras'
+        ];
+        successFactors.forEach(f => {
+            page3.drawCircle({ x: 70, y: yPos + 4, size: 2.5, color: primaryRed });
+            page3.drawText(f, { x: 85, y: yPos, size: 10, font: helvetica, color: textColor });
+            yPos -= 22;
         });
 
         // --- PAGE 4: STRATEGIC NEXT ---
         const page4 = pdfDoc.addPage([595.28, 841.89]);
         page4.drawRectangle({ x: 0, y: 0, width, height, color: bgColor });
+        page4.drawRectangle({ x: 0, y: 0, width: 15, height, color: accentRed });
 
-        page4.drawText('PRÓXIMOS PASSOS ESTRATÉGICOS', {
-            x: 50, y: height - 85, size: 20, font: helveticaBold, color: textColor
+        page4.drawText('PLANO DE AÇÃO IMEDIATA', {
+            x: 60, y: height - 85, size: 22, font: helveticaBold, color: textColor
         });
 
-        const steps = [
-            { t: '01. Reunião de Discovery Técnico', d: 'Mapeamento detalhado de integrações (APIs, ERPs, CRMs).' },
-            { t: '02. Definição da Stack Tecnológica', d: 'Escolha de frameworks e banco de dados para suportar a carga projetada.' },
-            { t: '03. Proposta Comercial Detalhada', d: 'Apresentação de escopo, prazos de entrega e modelos de licenciamento.' }
+        const actionSteps = [
+            { t: '01. Discovery Técnico', d: 'Mapeamento detalhado de APIs, ERPs e fluxos críticos.' },
+            { t: '02. Alinhamento de Stack', d: 'Escolha de tecnologias que suportam a visão de futuro do negócio.' },
+            { t: '03. Validação Comercial', d: 'Discussão de prazos, etapas de entrega e condições especiais.' },
+            { t: '04. Ciclo de Desenvolvimento', d: 'Sprint zero e início da construção da solução proprietária.' }
         ];
 
-        yPos = height - 160;
-        steps.forEach(s => {
-            page4.drawText(s.t, { x: 50, y: yPos, size: 14, font: helveticaBold, color: primaryRed });
+        yPos = height - 170;
+        actionSteps.forEach(s => {
+            page4.drawRectangle({ x: 60, y: yPos + 18, width: 200, height: 2, color: primaryRed, opacity: 0.3 });
+            page4.drawText(s.t, { x: 60, y: yPos, size: 15, font: helveticaBold, color: primaryRed });
             yPos -= 25;
-            page4.drawText(s.d, { x: 50, y: yPos, size: 11, font: helvetica, color: textColor });
-            yPos -= 50;
+            page4.drawText(s.d, { x: 60, y: yPos, size: 11, font: helvetica, color: textColor });
+            yPos -= 55;
         });
 
-        // CTA Section
+        // Final CTA Footer
         page4.drawRectangle({
-            x: 50, y: 100, width: width - 100, height: 160,
-            color: rgb(0.12, 0.12, 0.15)
+            x: 60, y: 100, width: width - 120, height: 160,
+            color: surfaceColor,
+            borderColor: borderColor,
+            borderWidth: 1
         });
 
-        page4.drawText('EVOLUA SUA OPERAÇÃO PARA O PRÓXIMO NÍVEL', {
-            x: 75, y: 220, size: 12, font: helveticaBold, color: textColor
+        page4.drawText('ESTE É O MOMENTO DE ESCALAR.', {
+            x: 90, y: 220, size: 14, font: helveticaBold, color: textColor
         });
-        page4.drawText('Fale com um especialista agora e valide este diagnóstico.', {
-            x: 75, y: 195, size: 10, font: helvetica, color: subTextColor
+        page4.drawText('Utilize o botão "Solicitar Análise" para entrar em contato diretamente', {
+            x: 90, y: 195, size: 10, font: helvetica, color: subTextColor
         });
+        page4.drawText('com nossos engenheiros e validar este diagnóstico estratégico.', {
+            x: 90, y: 180, size: 10, font: helvetica, color: subTextColor
+        });
+
 
         // Finalize PDF
         const pdfBytes = await pdfDoc.save();
