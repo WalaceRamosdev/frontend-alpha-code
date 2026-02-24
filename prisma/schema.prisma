@@ -103,3 +103,15 @@ model FinancialRecord {
   date        DateTime @default(now())
   createdAt   DateTime @default(now())
 }
+
+model Lead {
+  id              String   @id @default(cuid())
+  name            String
+  whatsapp        String
+  email           String
+  projectLevel    String?
+  complexity      String?
+  investmentRange String?
+  diagnosisData   Json?
+  createdAt       DateTime @default(now())
+}
