@@ -3,6 +3,7 @@ import Google from "@auth/core/providers/google";
 import { prisma } from "./lib/prisma";
 import { PrismaAdapter } from "@auth/prisma-adapter";
 import bcrypt from "bcryptjs";
+import { logSecurityActivity } from "./lib/security";
 
 export default {
     adapter: PrismaAdapter(prisma),
@@ -17,17 +18,14 @@ export default {
                 email: { label: "Email", type: "email" },
                 password: { label: "Password", type: "password" },
             },
-            authorize: async (credentials) => {
-                console.log("🔐 Authorize called with:", credentials?.email);
+            authorize: async (credentials, request) => {
+                const identifier = credentials?.email as string;
+                console.log("🔐 Authorize called for:", identifier);
 
-                if (!credentials?.email || !credentials?.password) {
-                    console.log("❌ Missing credentials");
+                if (!identifier || !credentials?.password) {
                     return null;
                 }
 
-                const identifier = credentials.email as string;
-
-                // Allow login with Email OR Phone
                 const user = await prisma.user.findFirst({
                     where: {
                         OR: [
@@ -35,11 +33,25 @@ export default {
                             { phone: identifier }
                         ]
                     }
-                });
+                }) as any;
 
                 if (!user || !user.password) {
-                    console.log("❌ User not found or no password");
+                    await logSecurityActivity({
+                        action: "FAILED_LOGIN_UNKNOWN_USER",
+                        details: { identifier }
+                    });
                     return null;
+                }
+
+                // Check if account is locked
+                if (user.lockUntil && user.lockUntil > new Date()) {
+                    const timeLeft = Math.ceil((user.lockUntil.getTime() - Date.now()) / 60000);
+                    await logSecurityActivity({
+                        userId: user.id,
+                        action: "LOGIN_ATTEMPT_LOCKED_ACCOUNT",
+                        details: { identifier }
+                    });
+                    throw new Error(`BLOQUED:${timeLeft}`);
                 }
 
                 const isValid = await bcrypt.compare(
@@ -48,11 +60,44 @@ export default {
                 );
 
                 if (!isValid) {
-                    console.log("❌ Invalid password");
+                    const newAttempts = (user.loginAttempts || 0) + 1;
+                    const maxAttempts = 5;
+
+                    await logSecurityActivity({
+                        userId: user.id,
+                        action: "FAILED_LOGIN_INVALID_PASSWORD",
+                        details: { identifier, attempt: newAttempts }
+                    });
+
+                    if (newAttempts >= maxAttempts) {
+                        const lockUntil = new Date(Date.now() + 15 * 60 * 1000);
+                        await (prisma.user as any).update({
+                            where: { id: user.id },
+                            data: { loginAttempts: newAttempts, lockUntil }
+                        });
+                        throw new Error(`BLOQUED:15`);
+                    } else {
+                        await (prisma.user as any).update({
+                            where: { id: user.id },
+                            data: { loginAttempts: newAttempts }
+                        });
+                    }
                     return null;
                 }
 
-                console.log("✅ Login successful for:", user.email);
+                // Reset attempts on success
+                if (user.loginAttempts > 0 || user.lockUntil) {
+                    await (prisma.user as any).update({
+                        where: { id: user.id },
+                        data: { loginAttempts: 0, lockUntil: null }
+                    });
+                }
+
+                await logSecurityActivity({
+                    userId: user.id,
+                    action: "SUCCESSFUL_LOGIN",
+                    details: { identifier, role: user.role }
+                });
 
                 return {
                     id: user.id,
@@ -104,6 +149,13 @@ export default {
         },
         signIn: async ({ user, account, profile }: any) => {
             console.log("👋 SignIn Attempt:", user?.email, "Provider:", account?.provider);
+            if (account?.provider === "google") {
+                await logSecurityActivity({
+                    userId: user?.id,
+                    action: "GOOGLE_SIGNIN_ATTEMPT",
+                    details: { email: user?.email }
+                });
+            }
             return true;
         }
     },

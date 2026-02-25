@@ -311,21 +311,33 @@ import ThreeBackground from "../components/ui/ThreeBackground.jsx";
                         setTimeout(() => {
                             window.location.href =
                                 data?.url ||
+                                data?.callbackUrl ||
                                 new URLSearchParams(window.location.search).get(
                                     "callbackUrl",
                                 ) ||
                                 "/dashboard";
                         }, 1200);
                     } else {
+                        let errorMessage = "Email ou senha incorretos.";
+                        let errorTitle = "Falha no Acesso";
+
+                        // Handle lockout error
+                        const urlParams = new URLSearchParams(
+                            res.url.split("?")[1],
+                        );
+                        const errorType = urlParams.get("error") || data?.error;
+
+                        if (errorType && errorType.includes("BLOQUED")) {
+                            const minutes = errorType.split(":")[1] || "15";
+                            errorTitle = "Conta Bloqueada";
+                            errorMessage = `Muitas tentativas falhas. Tente novamente em ${minutes} minutos.`;
+                        }
+
                         if (window.showModal)
-                            window.showModal(
-                                "Falha no Acesso",
-                                "Email ou senha incorretos.",
-                                "error",
-                            );
+                            window.showModal(errorTitle, errorMessage, "error");
                         setTimeout(
                             () => window.hideModal && window.hideModal(),
-                            3000,
+                            3500,
                         );
                     }
                 } catch (err) {

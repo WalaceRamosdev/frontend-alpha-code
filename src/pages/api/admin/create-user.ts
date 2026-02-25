@@ -2,18 +2,13 @@ import type { APIRoute } from "astro";
 import { prisma } from "../../../lib/prisma";
 import { getSession } from "../../../lib/auth";
 import bcrypt from "bcryptjs";
+import { ensureAdmin, logSecurityActivity, sanitizeForLog } from "../../../lib/security";
 
 export const POST: APIRoute = async ({ request }) => {
     try {
         const session = await getSession(request);
+        ensureAdmin(session);
 
-        // Proteção: Apenas ADMIN pode criar usuários por esta rota
-        if (!session || session.user?.role !== "ADMIN") {
-            return new Response(
-                JSON.stringify({ message: "Não autorizado" }),
-                { status: 403, headers: { "Content-Type": "application/json" } }
-            );
-        }
 
         const body = await request.json();
         const { name, email, password, plan, siteUrl } = body;
@@ -45,6 +40,15 @@ export const POST: APIRoute = async ({ request }) => {
                 siteUrl: siteUrl || null,
                 role: "USER"
             } as any
+        });
+
+        await logSecurityActivity({
+            userId: session!.user!.id,
+            action: "ADMIN_CREATED_USER",
+            entity: "User",
+            entityId: newUser.id,
+            details: sanitizeForLog(body),
+            request
         });
 
         return new Response(

@@ -17,9 +17,11 @@ model User {
   phone         String?   @unique
   company       String?
   password      String?
-  plan          String    @default("BRONZE")
+  plan          String    @default("FREE")
   siteUrl       String?
   role          String    @default("USER")
+  loginAttempts Int       @default(0)
+  lockUntil     DateTime?
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
@@ -65,6 +67,8 @@ model Project {
   id           String    @id @default(cuid())
   name         String
   clientName   String?
+  clientEmail  String?
+  clientPhone  String?
   type         String
   plan         String?   @default("BRONZE")
   category     String
@@ -114,4 +118,16 @@ model Lead {
   investmentRange String?
   diagnosisData   Json?
   createdAt       DateTime @default(now())
+}
+
+model AuditLog {
+  id          String   @id @default(cuid())
+  userId      String?
+  action      String
+  entity      String?
+  entityId    String?
+  details     Json?
+  ipAddress   String?
+  userAgent   String?
+  createdAt   DateTime @default(now())
 }

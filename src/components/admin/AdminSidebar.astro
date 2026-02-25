@@ -1,9 +1,10 @@
 ---
 interface Props {
     activePage: "dashboard" | "financial" | "projects" | "maintenance";
+    isAdmin?: boolean;
 }
 
-const { activePage } = Astro.props;
+const { activePage, isAdmin = false } = Astro.props;
 ---
 
 <aside class="sidebar">
@@ -19,35 +20,48 @@ const { activePage } = Astro.props;
             <span class="nav-icon"><i class="fas fa-chart-line"></i></span>
             <span class="nav-label">Dashboard</span>
         </a>
-        <a
-            href="/admin/financial/history"
-            class={`nav-item ${activePage === "financial" ? "active" : ""}`}
-            title="Financeiro"
-        >
-            <span class="nav-icon"><i class="fas fa-wallet"></i></span>
-            <span class="nav-label">Financeiro</span>
-        </a>
+
+        {
+            isAdmin && (
+                <>
+                    <a
+                        href="/admin/financial/history"
+                        class={`nav-item ${activePage === "financial" ? "active" : ""}`}
+                        title="Financeiro"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-wallet" />
+                        </span>
+                        <span class="nav-label">Financeiro</span>
+                    </a>
+
+                    <a
+                        href="/admin/projects/history"
+                        class={`nav-item ${activePage === "projects" ? "active" : ""}`}
+                        title="Projetos"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-folder-open" />
+                        </span>
+                        <span class="nav-label">Projetos</span>
+                    </a>
+                    <a
+                        href="/admin/maintenance/requests"
+                        class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
+                        title="Manutenção/SEO"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-tools" />
+                        </span>
+                        <span class="nav-label">Manutenção</span>
+                    </a>
+                </>
+            )
+        }
 
         <a href="/" class="nav-item back-to-site" title="Voltar ao Site">
             <span class="nav-icon"><i class="fas fa-house-user"></i></span>
             <span class="nav-label">Voltar ao Site</span>
-        </a>
-
-        <a
-            href="/admin/projects/history"
-            class={`nav-item ${activePage === "projects" ? "active" : ""}`}
-            title="Projetos"
-        >
-            <span class="nav-icon"><i class="fas fa-folder-open"></i></span>
-            <span class="nav-label">Projetos</span>
-        </a>
-        <a
-            href="/admin/maintenance/requests"
-            class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
-            title="Manutenção/SEO"
-        >
-            <span class="nav-icon"><i class="fas fa-tools"></i></span>
-            <span class="nav-label">Manutenção</span>
         </a>
     </nav>
 </aside>

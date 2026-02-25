@@ -19,12 +19,35 @@ if (!session) {
     return Astro.redirect("/login");
 }
 const isAdmin = session.user?.role === "ADMIN";
-const projectCount = isAdmin ? await prisma.project.count() : 0;
+const userEmail = session.user?.email;
+
+const projectCount = isAdmin
+    ? await prisma.project.count()
+    : await prisma.project.count({ where: { clientEmail: userEmail } });
+
 const maintenanceCount = isAdmin
     ? await (prisma as any).maintenanceRequest.count({
           where: { status: "PENDENTE" },
       })
-    : 0;
+    : await (prisma as any).maintenanceRequest.count({
+          where: { email: userEmail, NOT: { status: "CONCLUIDO" } },
+      });
+
+const userProjects = !isAdmin
+    ? await prisma.project.findMany({
+          where: { clientEmail: userEmail },
+          orderBy: { createdAt: "desc" },
+      })
+    : [];
+
+const userRequests = !isAdmin
+    ? await (prisma as any).maintenanceRequest.findMany({
+          where: { email: userEmail },
+          orderBy: { createdAt: "desc" },
+          take: 5,
+      })
+    : [];
+
 const financialRecords = isAdmin
     ? await prisma.financialRecord.findMany({
           orderBy: { date: "asc" },
@@ -92,7 +115,7 @@ export const prerender = false;
     showFooter={false}
 >
     <div class="admin-container">
-        <AdminSidebar activePage="dashboard" />
+        <AdminSidebar activePage="dashboard" isAdmin={isAdmin} />
 
         <div class="dashboard-wrapper">
             <!-- Background Ambient Glow -->
@@ -219,92 +242,41 @@ export const prerender = false;
                             <>
                                 <div class="stat-card">
                                     <div class="stat-icon project">
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                        >
-                                            <>
-                                                <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z" />
-                                                <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z" />
-                                            </>
-                                        </svg>
+                                        <i class="fas fa-rocket" />
                                     </div>
                                     <div class="stat-info">
-                                        <span class="stat-value">0</span>
+                                        <span class="stat-value">
+                                            {projectCount}
+                                        </span>
                                         <span class="stat-label">
                                             Projetos Ativos
                                         </span>
                                     </div>
                                 </div>
                                 <div class="stat-card">
-                                    <div class="stat-icon invoice">
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                        >
-                                            <>
-                                                <rect
-                                                    x="2"
-                                                    y="5"
-                                                    width="20"
-                                                    height="14"
-                                                    rx="2"
-                                                />
-                                                <line
-                                                    x1="2"
-                                                    y1="10"
-                                                    x2="22"
-                                                    y2="10"
-                                                />
-                                            </>
-                                        </svg>
+                                    <div class="stat-icon support">
+                                        <i class="fas fa-screwdriver-wrench" />
                                     </div>
                                     <div class="stat-info">
-                                        <span class="stat-value">R$ 0,00</span>
+                                        <span class="stat-value">
+                                            {maintenanceCount}
+                                        </span>
                                         <span class="stat-label">
-                                            Faturas em Aberto
+                                            Manutenções Ativas
                                         </span>
                                     </div>
                                 </div>
                                 <div class="stat-card">
-                                    <div class="stat-icon support">
-                                        <svg
-                                            width="24"
-                                            height="24"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                        >
-                                            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-                                        </svg>
-                                    </div>
-                                    <div class="stat-info">
-                                        <span class="stat-value">0</span>
-                                        <span class="stat-label">
-                                            Tickets Abertos
-                                        </span>
-                                    </div>
-                                </div>
-                                <div class="stat-card plan-badge-card">
                                     <div class="stat-icon plan">
                                         <i class="fas fa-award" />
                                     </div>
                                     <div class="stat-info">
                                         <span class="stat-value">
-                                            {session.user?.plan || "BRONZE"}
+                                            {session.user?.plan || "FREE"}
                                         </span>
-                                        <a href="/upgrade" class="upgrade-link">
-                                            Gerenciar Plano
-                                        </a>
+                                        <span class="stat-label">
+                                            Seu Plano Alpha
+                                        </span>
                                     </div>
                                 </div>
                             </>
@@ -319,7 +291,7 @@ export const prerender = false;
                         !isAdmin && (
                             <section class="main-card site-url-section">
                                 <div class="card-header">
-                                    <h2>Meu Projeto Alpha</h2>
+                                    <h2>Link de Acesso Direto</h2>
                                     {session.user?.siteUrl && (
                                         <a
                                             href={session.user.siteUrl}
@@ -376,118 +348,178 @@ export const prerender = false;
                     <!-- Exclusive Benefits Section - CLIENT ONLY -->
                     {
                         !isAdmin && (
-                            <section class="main-card benefits-section">
-                                <div class="card-header">
-                                    <h2>Benefícios da sua Conta</h2>
-                                    <a
-                                        href="/upgrade"
-                                        class={`plan-badge ${session.user?.plan?.toLowerCase() || "bronze"}`}
-                                    >
-                                        Plano{" "}
-                                        {session.user?.plan === "BRONZE" ||
-                                        !session.user?.plan
-                                            ? "Bronze"
-                                            : session.user?.plan === "PRATA"
-                                              ? "Prata"
-                                              : "Ouro"}
-                                    </a>
-                                </div>
+                            <>
+                                {userRequests.length > 0 && (
+                                    <section class="main-card maintenance-section">
+                                        <div class="card-header">
+                                            <h2>Status de Manutenção</h2>
+                                            <span class="badge-count">
+                                                {userRequests.length}{" "}
+                                                solicitações
+                                            </span>
+                                        </div>
+                                        <div class="request-list">
+                                            {userRequests.map((req: any) => (
+                                                <div class="request-item">
+                                                    <div class="req-type">
+                                                        <span
+                                                            class={`type-dot ${req.serviceType}`}
+                                                        />
+                                                        <strong>
+                                                            {req.serviceType ===
+                                                            "SEO_TURBINADO"
+                                                                ? "SEO Turbinado"
+                                                                : "Manutenção"}
+                                                        </strong>
+                                                    </div>
+                                                    <div class="req-status">
+                                                        <span
+                                                            class={`status-pill ${req.status}`}
+                                                        >
+                                                            {req.status ===
+                                                            "PENDENTE"
+                                                                ? "Aguardando"
+                                                                : req.status ===
+                                                                    "EM_EXECUCAO"
+                                                                  ? "Em Andamento"
+                                                                  : "Concluído"}
+                                                        </span>
+                                                    </div>
+                                                    <div class="req-payment">
+                                                        <span
+                                                            class={`payment-pill ${req.paymentStatus}`}
+                                                        >
+                                                            {req.paymentStatus ===
+                                                            "PAGO"
+                                                                ? "Pago"
+                                                                : "Pendente"}
+                                                        </span>
+                                                    </div>
+                                                    <div class="req-date">
+                                                        {new Date(
+                                                            req.createdAt,
+                                                        ).toLocaleDateString(
+                                                            "pt-BR",
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </section>
+                                )}
 
-                                <div class="benefits-grid">
-                                    {(!session.user?.plan ||
-                                        session.user?.plan === "BRONZE") && (
-                                        <div class="benefit-item locked">
-                                            <div class="benefit-icon">🔒</div>
+                                <section class="main-card benefits-section">
+                                    <div class="card-header">
+                                        <h2>Benefícios da sua Conta</h2>
+                                        <div
+                                            class={`plan-badge ${session.user?.plan?.toLowerCase() || "free"}`}
+                                        >
+                                            Plano {session.user?.plan || "FREE"}
+                                        </div>
+                                    </div>
+
+                                    <div class="benefits-grid">
+                                        {(!session.user?.plan ||
+                                            session.user?.plan === "BRONZE" ||
+                                            session.user?.plan === "FREE") && (
+                                            <div class="benefit-item locked">
+                                                <div class="benefit-icon">
+                                                    🔒
+                                                </div>
+                                                <div class="benefit-info">
+                                                    <strong>
+                                                        Suporte Prioritário
+                                                    </strong>
+                                                    <span>
+                                                        Exclusivo para planos
+                                                        Prata e Ouro
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        )}
+
+                                        {session.user?.plan === "PRATA" && (
+                                            <>
+                                                <div class="benefit-item active">
+                                                    <div class="benefit-icon">
+                                                        🛡️
+                                                    </div>
+                                                    <div class="benefit-info">
+                                                        <strong>
+                                                            Suporte Ouro
+                                                        </strong>
+                                                        <span>
+                                                            Atendimento em até
+                                                            12h úteis.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="benefit-item active">
+                                                    <div class="benefit-icon">
+                                                        🏷️
+                                                    </div>
+                                                    <div class="benefit-info">
+                                                        <strong>
+                                                            Desconto Exclusivo
+                                                        </strong>
+                                                        <span>
+                                                            20% OFF em qualquer
+                                                            novo projeto.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        {session.user?.plan === "OURO" && (
+                                            <>
+                                                <div class="benefit-item active vip-highlight">
+                                                    <div class="benefit-icon">
+                                                        👑
+                                                    </div>
+                                                    <div class="benefit-info">
+                                                        <strong>
+                                                            Consultoria VIP
+                                                        </strong>
+                                                        <span>
+                                                            Acesso direto ao
+                                                            arquiteto de
+                                                            software.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="benefit-item active">
+                                                    <div class="benefit-icon">
+                                                        🛠️
+                                                    </div>
+                                                    <div class="benefit-info">
+                                                        <strong>
+                                                            Manutenção Inclusa
+                                                        </strong>
+                                                        <span>
+                                                            1 ajuste técnico
+                                                            mensal gratuito.
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        )}
+
+                                        <div class="benefit-item active">
+                                            <div class="benefit-icon">🚀</div>
                                             <div class="benefit-info">
                                                 <strong>
-                                                    Suporte Prioritário
+                                                    Hospedagem Alpha
                                                 </strong>
                                                 <span>
-                                                    Exclusivo para planos Prata
-                                                    e Ouro
+                                                    Ambiente otimizado para alta
+                                                    performance.
                                                 </span>
                                             </div>
                                         </div>
-                                    )}
-
-                                    {session.user?.plan === "PRATA" && (
-                                        <>
-                                            <div class="benefit-item active">
-                                                <div class="benefit-icon">
-                                                    🛡️
-                                                </div>
-                                                <div class="benefit-info">
-                                                    <strong>
-                                                        Suporte Ouro
-                                                    </strong>
-                                                    <span>
-                                                        Atendimento em até 12h
-                                                        úteis.
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="benefit-item active">
-                                                <div class="benefit-icon">
-                                                    🏷️
-                                                </div>
-                                                <div class="benefit-info">
-                                                    <strong>
-                                                        Desconto Exclusivo
-                                                    </strong>
-                                                    <span>
-                                                        20% OFF em qualquer novo
-                                                        projeto.
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-
-                                    {session.user?.plan === "OURO" && (
-                                        <>
-                                            <div class="benefit-item active vip-highlight">
-                                                <div class="benefit-icon">
-                                                    👑
-                                                </div>
-                                                <div class="benefit-info">
-                                                    <strong>
-                                                        Consultoria VIP
-                                                    </strong>
-                                                    <span>
-                                                        Acesso direto ao
-                                                        arquiteto de software.
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="benefit-item active">
-                                                <div class="benefit-icon">
-                                                    🛠️
-                                                </div>
-                                                <div class="benefit-info">
-                                                    <strong>
-                                                        Manutenção Inclusa
-                                                    </strong>
-                                                    <span>
-                                                        1 ajuste técnico mensal
-                                                        gratuito.
-                                                    </span>
-                                                </div>
-                                            </div>
-                                        </>
-                                    )}
-
-                                    <div class="benefit-item active">
-                                        <div class="benefit-icon">🚀</div>
-                                        <div class="benefit-info">
-                                            <strong>Hospedagem Alpha</strong>
-                                            <span>
-                                                Ambiente otimizado para alta
-                                                performance.
-                                            </span>
-                                        </div>
                                     </div>
-                                </div>
-                            </section>
+                                </section>
+                            </>
                         )
                     }
 
@@ -539,7 +571,7 @@ export const prerender = false;
                                 id="portfolio-section"
                             >
                                 <div class="card-header">
-                                    <h2>Meus Projetos</h2>
+                                    <h2>Meus Projetos Alpha</h2>
                                     <button
                                         id="new-project-btn"
                                         class="action-link"
@@ -547,26 +579,65 @@ export const prerender = false;
                                         Novo Projeto +
                                     </button>
                                 </div>
-                                <div class="empty-state">
-                                    <div class="empty-icon">
-                                        <i
-                                            class="fas fa-layer-group"
-                                            style="font-size: 3rem;"
-                                        />
+
+                                {userProjects.length > 0 ? (
+                                    <div class="projects-list-client">
+                                        {userProjects.map((proj: any) => (
+                                            <div class="project-client-card">
+                                                <div class="proj-img">
+                                                    <i class="fas fa-layer-group" />
+                                                </div>
+                                                <div class="proj-details">
+                                                    <h3>{proj.name}</h3>
+                                                    <div class="proj-meta">
+                                                        <span class="proj-type">
+                                                            {proj.type}
+                                                        </span>
+                                                        <span
+                                                            class={`proj-status-badge ${proj.status.toLowerCase().replace(/\s+/g, "-")}`}
+                                                        >
+                                                            {proj.status}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                <div class="proj-actions">
+                                                    {proj.projectUrl && (
+                                                        <a
+                                                            href={
+                                                                proj.projectUrl
+                                                            }
+                                                            target="_blank"
+                                                            class="visit-link"
+                                                        >
+                                                            <i class="fas fa-external-link-alt" />
+                                                        </a>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        ))}
                                     </div>
-                                    <h3>Nenhum projeto em andamento</h3>
-                                    <p>
-                                        Inicie um novo projeto conosco para
-                                        transformar suas ideias em realidade
-                                        digital.
-                                    </p>
-                                    <button
-                                        id="new-project-cta"
-                                        class="btn-primary-small"
-                                    >
-                                        Solicitar Orçamento
-                                    </button>
-                                </div>
+                                ) : (
+                                    <div class="empty-state">
+                                        <div class="empty-icon">
+                                            <i
+                                                class="fas fa-layer-group"
+                                                style="font-size: 3rem;"
+                                            />
+                                        </div>
+                                        <h3>Nenhum projeto em andamento</h3>
+                                        <p>
+                                            Inicie um novo projeto conosco para
+                                            transformar suas ideias em realidade
+                                            digital.
+                                        </p>
+                                        <button
+                                            id="new-project-cta"
+                                            class="btn-primary-small"
+                                        >
+                                            Solicitar Orçamento
+                                        </button>
+                                    </div>
+                                )}
                             </section>
                         )
                     }
@@ -1032,1629 +1103,1727 @@ export const prerender = false;
                 message="Vinculando seu site ao dashboard"
                 type="loading"
             />
+        </div>
 
-            <script>
-                // Modal Logic - New Project
-                const modal = document.getElementById("project-modal");
-                const openBtns = [
-                    document.getElementById("new-project-btn"),
-                    document.getElementById("new-project-cta"),
-                ];
-                const closeBtn = document.getElementById("close-modal");
-                const cancelBtn = document.getElementById("cancel-modal");
+        <script>
+            // Modal Logic - New Project
+            const modal = document.getElementById("project-modal");
+            const openBtns = [
+                document.getElementById("new-project-btn"),
+                document.getElementById("new-project-cta"),
+            ];
+            const closeBtn = document.getElementById("close-modal");
+            const cancelBtn = document.getElementById("cancel-modal");
 
-                // Modal Logic - Portfolio (Admin)
-                const portfolioModal =
-                    document.getElementById("portfolio-modal");
-                const openPortfolioBtns = [
-                    document.getElementById("add-portfolio-btn"),
-                    document.getElementById("add-portfolio-cta"),
-                ];
-                const closePortfolioBtn = document.getElementById(
-                    "close-portfolio-modal",
-                );
-                const cancelPortfolioBtn = document.getElementById(
-                    "cancel-portfolio-modal",
-                );
+            // Modal Logic - Portfolio (Admin)
+            const portfolioModal = document.getElementById("portfolio-modal");
+            const openPortfolioBtns = [
+                document.getElementById("add-portfolio-btn"),
+                document.getElementById("add-portfolio-cta"),
+            ];
+            const closePortfolioBtn = document.getElementById(
+                "close-portfolio-modal",
+            );
+            const cancelPortfolioBtn = document.getElementById(
+                "cancel-portfolio-modal",
+            );
 
-                // Modal Logic - Link Site
-                const siteModal = document.getElementById("site-modal");
-                const openSiteBtn = document.getElementById("add-site-link");
-                const closeSiteBtn =
-                    document.getElementById("close-site-modal");
-                const cancelSiteBtn =
-                    document.getElementById("cancel-site-modal");
-                const siteForm = document.getElementById("site-url-form");
+            // Modal Logic - Link Site
+            const siteModal = document.getElementById("site-modal");
+            const openSiteBtn = document.getElementById("add-site-link");
+            const closeSiteBtn = document.getElementById("close-site-modal");
+            const cancelSiteBtn = document.getElementById("cancel-site-modal");
+            const siteForm = document.getElementById("site-url-form");
 
-                // Portfolio Save Logic
-                const portfolioForm = document.getElementById("portfolio-form");
-                if (portfolioForm) {
-                    portfolioForm.addEventListener("submit", async (e) => {
-                        e.preventDefault();
-                        const btn = portfolioForm.querySelector(
-                            "button[type='submit']",
-                        ) as HTMLButtonElement | null;
-                        const originalText = btn ? btn.innerText : "Adicionar";
-                        if (btn) btn.innerText = "Adicionando...";
+            // Portfolio Save Logic
+            const portfolioForm = document.getElementById("portfolio-form");
+            if (portfolioForm) {
+                portfolioForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const btn = portfolioForm.querySelector(
+                        "button[type='submit']",
+                    ) as HTMLButtonElement | null;
+                    const originalText = btn ? btn.innerText : "Adicionar";
+                    if (btn) btn.innerText = "Adicionando...";
 
-                        const formData = new FormData(
-                            portfolioForm as HTMLFormElement,
-                        );
-                        const data = Object.fromEntries(formData);
+                    const formData = new FormData(
+                        portfolioForm as HTMLFormElement,
+                    );
+                    const data = Object.fromEntries(formData);
 
-                        try {
-                            const response = await fetch(
-                                "/api/admin/portfolio/add",
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify(data),
+                    try {
+                        const response = await fetch(
+                            "/api/admin/portfolio/add",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
                                 },
-                            );
+                                body: JSON.stringify(data),
+                            },
+                        );
 
-                            if (response.ok) {
-                                (window as any).showModal(
-                                    "Sucesso",
-                                    "Projeto adicionado ao portfólio!",
-                                    "success",
-                                );
-                                setTimeout(
-                                    () => window.location.reload(),
-                                    2000,
-                                );
-                            } else {
-                                const err = await response.json();
-                                (window as any).showModal(
-                                    "Erro",
-                                    err.message || "Falha ao adicionar",
-                                    "error",
-                                );
-                                setTimeout(
-                                    () => (window as any).hideModal(),
-                                    3000,
-                                );
-                            }
-                        } catch (e) {
-                            console.error(e);
+                        if (response.ok) {
+                            (window as any).showModal(
+                                "Sucesso",
+                                "Projeto adicionado ao portfólio!",
+                                "success",
+                            );
+                            setTimeout(() => window.location.reload(), 2000);
+                        } else {
+                            const err = await response.json();
                             (window as any).showModal(
                                 "Erro",
-                                "Falha na conexão",
+                                err.message || "Falha ao adicionar",
                                 "error",
                             );
                             setTimeout(() => (window as any).hideModal(), 3000);
-                        } finally {
-                            if (btn) btn.innerText = originalText;
                         }
-                    });
-                }
-
-                function openModal(m: HTMLElement | null) {
-                    m?.classList.remove("hidden");
-                    document.body.style.overflow = "hidden";
-                }
-
-                function closeModal(m: HTMLElement | null) {
-                    m?.classList.add("hidden");
-                    document.body.style.overflow = "";
-                }
-
-                openBtns.forEach((btn) =>
-                    btn?.addEventListener("click", () => openModal(modal)),
-                );
-                closeBtn?.addEventListener("click", () => closeModal(modal));
-                cancelBtn?.addEventListener("click", () => closeModal(modal));
-
-                openPortfolioBtns.forEach((btn) =>
-                    btn?.addEventListener("click", () =>
-                        openModal(portfolioModal),
-                    ),
-                );
-                closePortfolioBtn?.addEventListener("click", () =>
-                    closeModal(portfolioModal),
-                );
-                cancelPortfolioBtn?.addEventListener("click", () =>
-                    closeModal(portfolioModal),
-                );
-
-                openSiteBtn?.addEventListener("click", () =>
-                    openModal(siteModal),
-                );
-                closeSiteBtn?.addEventListener("click", () =>
-                    closeModal(siteModal),
-                );
-                cancelSiteBtn?.addEventListener("click", () =>
-                    closeModal(siteModal),
-                );
-
-                // Site URL Save Logic
-                if (siteForm) {
-                    siteForm.addEventListener("submit", async (e) => {
-                        e.preventDefault();
-                        const saveBtn = document.getElementById(
-                            "save-site-btn",
-                        ) as HTMLButtonElement;
-                        const urlInput = document.getElementById(
-                            "site-url-input",
-                        ) as HTMLInputElement;
-
-                        if (saveBtn) saveBtn.innerText = "Salvando...";
-
-                        try {
-                            const response = await fetch("/api/user/update", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    siteUrl: urlInput.value,
-                                }),
-                            });
-
-                            if (response.ok) {
-                                (window as any).showModal(
-                                    "Link Vinculado!",
-                                    "Seu site foi vinculado com sucesso ao seu dashboard.",
-                                    "success",
-                                );
-                                setTimeout(
-                                    () => window.location.reload(),
-                                    2000,
-                                );
-                            } else {
-                                const errorData = await response.json();
-                                (window as any).showModal(
-                                    "Erro ao Vincular",
-                                    errorData.message +
-                                        (errorData.error
-                                            ? ": " + errorData.error
-                                            : ""),
-                                    "error",
-                                );
-                                setTimeout(
-                                    () => (window as any).hideModal(),
-                                    5000,
-                                );
-                            }
-                        } catch (error) {
-                            console.error("Site URL update error:", error);
-                        } finally {
-                            if (saveBtn) saveBtn.innerText = "Salvar Link";
-                        }
-                    });
-                }
-
-                // Financial Modal Logic
-                const financialModal =
-                    document.getElementById("financial-modal");
-                const openFinancialBtn = document.getElementById(
-                    "open-financial-modal",
-                );
-                const closeFinancialBtn = document.getElementById(
-                    "close-financial-modal",
-                );
-                const cancelFinancialBtn = document.getElementById(
-                    "cancel-financial-modal",
-                );
-                const financialForm = document.getElementById("financial-form");
-
-                if (openFinancialBtn) {
-                    openFinancialBtn.addEventListener("click", () =>
-                        openModal(financialModal),
-                    );
-                    // Add cursor pointer style dynamically
-                    openFinancialBtn.style.cursor = "pointer";
-                }
-                if (closeFinancialBtn)
-                    closeFinancialBtn.addEventListener("click", () =>
-                        closeModal(financialModal),
-                    );
-                if (cancelFinancialBtn)
-                    cancelFinancialBtn.addEventListener("click", () =>
-                        closeModal(financialModal),
-                    );
-
-                if (financialForm) {
-                    // Auto-calculate logic
-                    const planSelect = document.getElementById(
-                        "financial-plan",
-                    ) as HTMLSelectElement;
-                    const extraServiceSelect = document.getElementById(
-                        "financial-service-extra",
-                    ) as HTMLSelectElement;
-                    const hostingCostInput = document.getElementById(
-                        "financial-hosting-cost",
-                    ) as HTMLInputElement;
-                    const amountInput = financialForm.querySelector(
-                        "input[name='amount']",
-                    ) as HTMLInputElement;
-
-                    const prices: Record<string, number> = {
-                        "Plano Bronze": 295,
-                        "Plano Prata": 449,
-                        "Plano Ouro": 710,
-                        Manutenção: 150,
-                        Consultoria: 500,
-                        "Landing Page Avulsa": 295,
-                        "E-commerce": 2500,
-                        "SEO Turbinado": 300,
-                        Outros: 0,
-                        Nenhum: 0,
-                        "": 0,
-                    };
-
-                    const calculateTotal = () => {
-                        if (!amountInput) return;
-                        const planPrice = prices[planSelect.value] || 0;
-                        const extraPrice =
-                            prices[extraServiceSelect.value] || 0;
-                        const hosting = hostingCostInput.value
-                            ? parseFloat(hostingCostInput.value)
-                            : 0;
-
-                        const total = planPrice + extraPrice - hosting;
-                        amountInput.value = total.toFixed(2);
-                    };
-
-                    if (planSelect && extraServiceSelect && hostingCostInput) {
-                        planSelect.addEventListener("change", calculateTotal);
-                        extraServiceSelect.addEventListener(
-                            "change",
-                            calculateTotal,
+                    } catch (e) {
+                        console.error(e);
+                        (window as any).showModal(
+                            "Erro",
+                            "Falha na conexão",
+                            "error",
                         );
-                        hostingCostInput.addEventListener(
-                            "input",
-                            calculateTotal,
-                        );
-                        // Initial calculation
-                        calculateTotal();
+                        setTimeout(() => (window as any).hideModal(), 3000);
+                    } finally {
+                        if (btn) btn.innerText = originalText;
                     }
+                });
+            }
 
-                    financialForm.addEventListener("submit", async (e) => {
-                        e.preventDefault();
-                        const btn = financialForm.querySelector(
-                            "button[type='submit']",
-                        ) as HTMLButtonElement | null;
-                        const originalText = btn ? btn.innerText : "Registrar";
-                        if (btn) btn.innerText = "Salvando...";
+            function openModal(m: HTMLElement | null) {
+                m?.classList.remove("hidden");
+                document.body.style.overflow = "hidden";
+            }
 
-                        const formData = new FormData(
-                            financialForm as HTMLFormElement,
-                        );
+            function closeModal(m: HTMLElement | null) {
+                m?.classList.add("hidden");
+                document.body.style.overflow = "";
+            }
 
-                        // Combine service names
-                        const plan = formData.get("service") as string;
-                        const extra = formData.get("extraService") as string;
-                        let combinedService = plan;
-                        if (extra) {
-                            combinedService += " + " + extra;
-                        }
+            openBtns.forEach((btn) =>
+                btn?.addEventListener("click", () => openModal(modal)),
+            );
+            closeBtn?.addEventListener("click", () => closeModal(modal));
+            cancelBtn?.addEventListener("click", () => closeModal(modal));
 
-                        const data = {
-                            service: combinedService,
-                            amount: formData.get("amount"),
-                            hostingCost: formData.get("hostingCost"),
-                            description: formData.get("description"),
-                        };
+            openPortfolioBtns.forEach((btn) =>
+                btn?.addEventListener("click", () => openModal(portfolioModal)),
+            );
+            closePortfolioBtn?.addEventListener("click", () =>
+                closeModal(portfolioModal),
+            );
+            cancelPortfolioBtn?.addEventListener("click", () =>
+                closeModal(portfolioModal),
+            );
 
-                        try {
-                            const response = await fetch(
-                                "/api/admin/financial/add",
-                                {
-                                    method: "POST",
-                                    headers: {
-                                        "Content-Type": "application/json",
-                                    },
-                                    body: JSON.stringify(data),
-                                },
-                            );
+            openSiteBtn?.addEventListener("click", () => openModal(siteModal));
+            closeSiteBtn?.addEventListener("click", () =>
+                closeModal(siteModal),
+            );
+            cancelSiteBtn?.addEventListener("click", () =>
+                closeModal(siteModal),
+            );
 
-                            if (response.ok) {
-                                (window as any).showModal(
-                                    "Sucesso",
-                                    "Lançamento registrado!",
-                                    "success",
-                                );
-                                setTimeout(() => {
-                                    window.location.reload();
-                                }, 1000);
-                            } else {
-                                const err = await response.json();
-                                (window as any).showModal(
-                                    "Erro",
-                                    err.message || "Falha ao registrar",
-                                    "error",
-                                );
-                            }
-                        } catch (e) {
+            // Site URL Save Logic
+            if (siteForm) {
+                siteForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const saveBtn = document.getElementById(
+                        "save-site-btn",
+                    ) as HTMLButtonElement;
+                    const urlInput = document.getElementById(
+                        "site-url-input",
+                    ) as HTMLInputElement;
+
+                    if (saveBtn) saveBtn.innerText = "Salvando...";
+
+                    try {
+                        const response = await fetch("/api/user/update", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                siteUrl: urlInput.value,
+                            }),
+                        });
+
+                        if (response.ok) {
                             (window as any).showModal(
-                                "Erro",
-                                "Falha na conexão",
+                                "Link Vinculado!",
+                                "Seu site foi vinculado com sucesso ao seu dashboard.",
+                                "success",
+                            );
+                            setTimeout(() => window.location.reload(), 2000);
+                        } else {
+                            const errorData = await response.json();
+                            (window as any).showModal(
+                                "Erro ao Vincular",
+                                errorData.message +
+                                    (errorData.error
+                                        ? ": " + errorData.error
+                                        : ""),
                                 "error",
                             );
-                        } finally {
-                            if (btn) btn.innerText = originalText;
+                            setTimeout(() => (window as any).hideModal(), 5000);
                         }
-                    });
-                }
-
-                // Copy URL Logic
-                const copyBtns = document.querySelectorAll(".copy-url-btn");
-                copyBtns.forEach((btn) => {
-                    btn.addEventListener("click", () => {
-                        const url = btn.getAttribute("data-url");
-                        if (url) {
-                            navigator.clipboard.writeText(url);
-                            const originalHTML = btn.innerHTML;
-                            btn.innerHTML =
-                                '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
-                            setTimeout(() => {
-                                btn.innerHTML = originalHTML;
-                            }, 2000);
-                        }
-                    });
+                    } catch (error) {
+                        console.error("Site URL update error:", error);
+                    } finally {
+                        if (saveBtn) saveBtn.innerText = "Salvar Link";
+                    }
                 });
+            }
 
-                // Close on click outside
-                window.addEventListener("click", (e) => {
-                    if (e.target === modal) closeModal(modal);
-                    if (e.target === siteModal) closeModal(siteModal);
-                    if (e.target === portfolioModal) closeModal(portfolioModal);
-                });
+            // Financial Modal Logic
+            const financialModal = document.getElementById("financial-modal");
+            const openFinancialBtn = document.getElementById(
+                "open-financial-modal",
+            );
+            const closeFinancialBtn = document.getElementById(
+                "close-financial-modal",
+            );
+            const cancelFinancialBtn = document.getElementById(
+                "cancel-financial-modal",
+            );
+            const financialForm = document.getElementById("financial-form");
 
-                // Logout Logic
-                const logoutBtn = document.getElementById("logout-btn");
-                if (logoutBtn) {
-                    logoutBtn.addEventListener("click", async () => {
-                        const originalText = logoutBtn.innerHTML;
-                        logoutBtn.innerText = "Saindo...";
-                        try {
-                            const csrfRes = await fetch("/api/auth/csrf");
-                            const { csrfToken } = await csrfRes.json();
+            if (openFinancialBtn) {
+                openFinancialBtn.addEventListener("click", () =>
+                    openModal(financialModal),
+                );
+                // Add cursor pointer style dynamically
+                openFinancialBtn.style.cursor = "pointer";
+            }
+            if (closeFinancialBtn)
+                closeFinancialBtn.addEventListener("click", () =>
+                    closeModal(financialModal),
+                );
+            if (cancelFinancialBtn)
+                cancelFinancialBtn.addEventListener("click", () =>
+                    closeModal(financialModal),
+                );
 
-                            await fetch("/api/auth/signout", {
-                                method: "POST",
-                                headers: { "Content-Type": "application/json" },
-                                body: JSON.stringify({
-                                    csrfToken,
-                                    callbackUrl: "/",
-                                }),
-                            });
+            if (financialForm) {
+                // Auto-calculate logic
+                const planSelect = document.getElementById(
+                    "financial-plan",
+                ) as HTMLSelectElement;
+                const extraServiceSelect = document.getElementById(
+                    "financial-service-extra",
+                ) as HTMLSelectElement;
+                const hostingCostInput = document.getElementById(
+                    "financial-hosting-cost",
+                ) as HTMLInputElement;
+                const amountInput = financialForm.querySelector(
+                    "input[name='amount']",
+                ) as HTMLInputElement;
 
-                            window.location.href = "/";
-                        } catch (e) {
-                            console.error("Logout failed", e);
-                            window.location.href = "/";
-                        }
-                    });
-                }
-            </script>
+                const prices: Record<string, number> = {
+                    "Plano Bronze": 295,
+                    "Plano Prata": 449,
+                    "Plano Ouro": 710,
+                    Manutenção: 150,
+                    Consultoria: 500,
+                    "Landing Page Avulsa": 295,
+                    "E-commerce": 2500,
+                    "SEO Turbinado": 300,
+                    Outros: 0,
+                    Nenhum: 0,
+                    "": 0,
+                };
 
-            <style>
-                .header-avatar:has(img) {
-                    background: transparent !important;
-                    box-shadow: none !important;
-                }
-                .header-avatar img {
-                    object-fit: contain !important;
-                }
+                const calculateTotal = () => {
+                    if (!amountInput) return;
+                    const planPrice = prices[planSelect.value] || 0;
+                    const extraPrice = prices[extraServiceSelect.value] || 0;
+                    const hosting = hostingCostInput.value
+                        ? parseFloat(hostingCostInput.value)
+                        : 0;
 
-                :root {
-                    --glass-bg: rgba(255, 255, 255, 0.03);
-                    --glass-border: rgba(255, 255, 255, 0.05);
-                    --neon-accent: var(--color-primary);
-                }
+                    const total = planPrice + extraPrice - hosting;
+                    amountInput.value = total.toFixed(2);
+                };
 
-                .admin-container {
-                    display: flex;
-                    min-height: 100vh;
-                    background: #0a0a0a;
-                    color: white;
-                }
-
-                .dashboard-wrapper {
-                    flex: 1;
-                    background-color: var(--color-bg-body);
-                    padding-top: 40px;
-                    position: relative;
-                    overflow: hidden;
-                }
-
-                .ambient-glow {
-                    position: absolute;
-                    top: 0;
-                    left: 50%;
-                    transform: translateX(-50%);
-                    width: 100%;
-                    height: 500px;
-                    background: radial-gradient(
-                        circle at top,
-                        rgba(138, 28, 38, 0.15),
-                        transparent 70%
+                if (planSelect && extraServiceSelect && hostingCostInput) {
+                    planSelect.addEventListener("change", calculateTotal);
+                    extraServiceSelect.addEventListener(
+                        "change",
+                        calculateTotal,
                     );
-                    pointer-events: none;
-                    z-index: 0;
+                    hostingCostInput.addEventListener("input", calculateTotal);
+                    // Initial calculation
+                    calculateTotal();
                 }
 
-                .dashboard-container {
-                    position: relative;
-                    z-index: 1;
-                    padding-bottom: 4rem;
-                }
+                financialForm.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+                    const btn = financialForm.querySelector(
+                        "button[type='submit']",
+                    ) as HTMLButtonElement | null;
+                    const originalText = btn ? btn.innerText : "Registrar";
+                    if (btn) btn.innerText = "Salvando...";
 
-                /* Header */
+                    const formData = new FormData(
+                        financialForm as HTMLFormElement,
+                    );
+
+                    // Combine service names
+                    const plan = formData.get("service") as string;
+                    const extra = formData.get("extraService") as string;
+                    let combinedService = plan;
+                    if (extra) {
+                        combinedService += " + " + extra;
+                    }
+
+                    const data = {
+                        service: combinedService,
+                        amount: formData.get("amount"),
+                        hostingCost: formData.get("hostingCost"),
+                        description: formData.get("description"),
+                    };
+
+                    try {
+                        const response = await fetch(
+                            "/api/admin/financial/add",
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json",
+                                },
+                                body: JSON.stringify(data),
+                            },
+                        );
+
+                        if (response.ok) {
+                            (window as any).showModal(
+                                "Sucesso",
+                                "Lançamento registrado!",
+                                "success",
+                            );
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        } else {
+                            const err = await response.json();
+                            (window as any).showModal(
+                                "Erro",
+                                err.message || "Falha ao registrar",
+                                "error",
+                            );
+                        }
+                    } catch (e) {
+                        (window as any).showModal(
+                            "Erro",
+                            "Falha na conexão",
+                            "error",
+                        );
+                    } finally {
+                        if (btn) btn.innerText = originalText;
+                    }
+                });
+            }
+
+            // Copy URL Logic
+            const copyBtns = document.querySelectorAll(".copy-url-btn");
+            copyBtns.forEach((btn) => {
+                btn.addEventListener("click", () => {
+                    const url = btn.getAttribute("data-url");
+                    if (url) {
+                        navigator.clipboard.writeText(url);
+                        const originalHTML = btn.innerHTML;
+                        btn.innerHTML =
+                            '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#34d399" stroke-width="2"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+                        setTimeout(() => {
+                            btn.innerHTML = originalHTML;
+                        }, 2000);
+                    }
+                });
+            });
+
+            // Close on click outside
+            window.addEventListener("click", (e) => {
+                if (e.target === modal) closeModal(modal);
+                if (e.target === siteModal) closeModal(siteModal);
+                if (e.target === portfolioModal) closeModal(portfolioModal);
+            });
+
+            // Logout Logic
+            const logoutBtn = document.getElementById("logout-btn");
+            if (logoutBtn) {
+                logoutBtn.addEventListener("click", async () => {
+                    const originalText = logoutBtn.innerHTML;
+                    logoutBtn.innerText = "Saindo...";
+                    try {
+                        const csrfRes = await fetch("/api/auth/csrf");
+                        const { csrfToken } = await csrfRes.json();
+
+                        await fetch("/api/auth/signout", {
+                            method: "POST",
+                            headers: { "Content-Type": "application/json" },
+                            body: JSON.stringify({
+                                csrfToken,
+                                callbackUrl: "/",
+                            }),
+                        });
+
+                        window.location.href = "/";
+                    } catch (e) {
+                        console.error("Logout failed", e);
+                        window.location.href = "/";
+                    }
+                });
+            }
+        </script>
+
+        <style>
+            .header-avatar:has(img) {
+                background: transparent !important;
+                box-shadow: none !important;
+            }
+            .header-avatar img {
+                object-fit: contain !important;
+            }
+
+            :root {
+                --glass-bg: rgba(255, 255, 255, 0.03);
+                --glass-border: rgba(255, 255, 255, 0.05);
+                --neon-accent: var(--color-primary);
+            }
+
+            .admin-container {
+                display: flex;
+                min-height: 100vh;
+                background: #0a0a0a;
+                color: white;
+            }
+
+            .dashboard-wrapper {
+                flex: 1;
+                background-color: var(--color-bg-body);
+                padding-top: 40px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .ambient-glow {
+                position: absolute;
+                top: 0;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 100%;
+                height: 500px;
+                background: radial-gradient(
+                    circle at top,
+                    rgba(138, 28, 38, 0.15),
+                    transparent 70%
+                );
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            .dashboard-container {
+                position: relative;
+                z-index: 1;
+                padding-bottom: 4rem;
+            }
+
+            /* Header */
+            .dashboard-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 3rem;
+                border-bottom: 1px solid var(--glass-border);
+                padding-bottom: 1.5rem;
+            }
+
+            .user-profile-header {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+            }
+
+            .header-avatar {
+                width: 60px;
+                height: 60px;
+                border-radius: 18px;
+                background: var(--color-primary);
+                overflow: hidden;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 8px 20px rgba(138, 28, 38, 0.2);
+            }
+
+            .header-avatar img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+
+            .avatar-letter {
+                font-size: 1.8rem;
+                font-weight: 800;
+                color: white;
+            }
+
+            .greeting {
+                display: block;
+                color: var(--color-text-muted);
+                font-size: 0.9rem;
+                margin-bottom: 0.25rem;
+            }
+
+            .user-name {
+                font-size: 2rem;
+                font-weight: 700;
+                color: var(--color-text-heading);
+                margin: 0;
+                background: linear-gradient(
+                    to right,
+                    #fff,
+                    var(--color-text-muted)
+                );
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+            }
+
+            .logout-btn {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                padding: 0.6rem 1.2rem;
+                border-radius: 8px;
+                color: var(--color-text-muted);
+                font-size: 0.9rem;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .logout-btn:hover {
+                background: rgba(220, 38, 38, 0.1);
+                border-color: rgba(220, 38, 38, 0.3);
+                color: #ef4444;
+            }
+
+            /* Stats Grid */
+            .stats-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 1.5rem;
+                margin-bottom: 3rem;
+            }
+
+            .stat-card {
+                background: var(--glass-bg);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                padding: 1.5rem;
+                display: flex;
+                align-items: center;
+                gap: 1rem;
+                transition: transform 0.3s ease;
+                backdrop-filter: blur(10px);
+            }
+
+            .stat-card:hover {
+                transform: translateY(-2px);
+                border-color: rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.05);
+            }
+
+            .stat-icon {
+                width: 48px;
+                height: 48px;
+                border-radius: 10px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #fff;
+                font-size: 1.25rem;
+            }
+
+            .stat-icon.project {
+                background: rgba(59, 130, 246, 0.15);
+                color: #60a5fa;
+            }
+            .stat-icon.invoice {
+                background: rgba(16, 185, 129, 0.15);
+                color: #34d399;
+            }
+            .stat-icon.support {
+                background: rgba(249, 115, 22, 0.15);
+                color: #fb923c;
+                position: relative;
+            }
+
+            .notification-badge-dot {
+                position: absolute;
+                top: -2px;
+                right: -2px;
+                width: 12px;
+                height: 12px;
+                background-color: #ef4444;
+                border-radius: 50%;
+                border: 2px solid #1a1a1a;
+                box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
+                animation: pulse-dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1)
+                    infinite;
+                z-index: 2;
+            }
+
+            /* Alerta pulsante para o ícone inteiro */
+            .stat-icon.support.has-notification {
+                animation: icon-alert-pulse 2s infinite;
+                background: rgba(
+                    249,
+                    115,
+                    22,
+                    0.9
+                ); /* Fundo muito mais sólido */
+                color: #fff; /* Ícone branco para máximo contraste */
+                border: 1px solid rgba(255, 255, 255, 0.2);
+            }
+
+            @keyframes icon-alert-pulse {
+                0% {
+                    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+                    transform: scale(1);
+                }
+                50% {
+                    box-shadow: 0 0 25px 8px rgba(249, 115, 22, 0.3);
+                    transform: scale(
+                        1.05
+                    ); /* Leve pulsação no tamanho também */
+                }
+                100% {
+                    box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
+                    transform: scale(1);
+                }
+            }
+
+            @keyframes pulse-dot-ping {
+                0% {
+                    transform: scale(0.8);
+                    opacity: 1;
+                }
+                70%,
+                100% {
+                    transform: scale(2.2);
+                    opacity: 0;
+                }
+            }
+
+            .stat-info {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .stat-value {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: var(--color-text-heading);
+            }
+
+            .stat-label {
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+            }
+
+            .financial-actions {
+                margin-left: auto;
+                display: flex;
+                flex-direction: column;
+                align-items: flex-end;
+                gap: 0.5rem;
+            }
+
+            .history-link-card,
+            .launch-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                padding: 8px 16px;
+                border-radius: 10px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                text-decoration: none;
+                white-space: nowrap;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                background: rgba(255, 255, 255, 0.05);
+                color: #fff;
+            }
+
+            .history-link-card:hover {
+                background: rgba(255, 255, 255, 0.12);
+                border-color: rgba(255, 255, 255, 0.2);
+                transform: translateY(-2px);
+                color: #fff;
+            }
+
+            .launch-btn {
+                background: rgba(16, 185, 129, 0.1);
+                border-color: rgba(16, 185, 129, 0.2);
+                color: #10b981;
+            }
+
+            .launch-btn:hover {
+                background: rgba(16, 185, 129, 0.2);
+                border-color: rgba(16, 185, 129, 0.4);
+                transform: translateY(-2px);
+            }
+
+            .history-link-card svg {
+                opacity: 0.7;
+            }
+
+            .history-link-card:hover svg {
+                opacity: 1;
+            }
+
+            /* Content Grid */
+            .content-grid {
+                display: grid;
+                grid-template-columns: 2fr 1fr;
+                gap: 2rem;
+            }
+
+            @media (max-width: 900px) {
+                .content-grid {
+                    grid-template-columns: 1fr;
+                }
+                .site-url-section {
+                    order: -1;
+                }
+            }
+
+            .main-card {
+                background: rgba(20, 20, 20, 0.6);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                padding: 2rem;
+                backdrop-filter: blur(10px);
+                display: flex;
+                flex-direction: column;
+            }
+
+            .site-url-section {
+                grid-column: 1 / -1;
+                margin-bottom: 0rem;
+            }
+
+            .visit-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 0.85rem;
+                color: var(--color-primary);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+            .site-display-box {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                padding: 1.2rem;
+                margin-top: 0.5rem;
+            }
+
+            .url-label {
+                font-size: 0.75rem;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+                display: block;
+                margin-bottom: 0.8rem;
+            }
+
+            .url-capsule {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                background: #000;
+                padding: 0.8rem 1.2rem;
+                border-radius: 8px;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .url-capsule code {
+                color: #fff;
+                font-family: monospace;
+                font-size: 1rem;
+                word-break: break-all;
+            }
+
+            .copy-url-btn {
+                background: none;
+                border: none;
+                color: var(--color-text-muted);
+                cursor: pointer;
+                padding: 4px;
+                transition: 0.2s;
+            }
+            .copy-url-btn:hover {
+                color: white;
+            }
+
+            .site-empty-box {
+                border: 2px dashed var(--glass-border);
+                border-radius: 12px;
+                padding: 1.5rem;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+            .site-empty-box:hover {
+                background: rgba(255, 255, 255, 0.02);
+                border-color: var(--color-primary);
+            }
+
+            .add-site-trigger {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .plus-icon {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: rgba(138, 28, 38, 0.1);
+                color: var(--color-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                font-weight: 300;
+            }
+
+            .add-site-trigger strong {
+                display: block;
+                color: #fff;
+                margin-bottom: 2px;
+            }
+            .add-site-trigger p {
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+                margin: 0;
+            }
+
+            .stat-icon.plan {
+                background: rgba(139, 92, 246, 0.15);
+                color: #a78bfa;
+            }
+
+            .card-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+            }
+
+            .card-header h2 {
+                font-size: 1.25rem;
+                color: var(--color-text-heading);
+                margin: 0;
+                font-weight: 600;
+            }
+
+            .action-card h3 {
+                font-size: 1.25rem;
+                color: var(--color-text-heading);
+                margin: 0 0 1.5rem 0;
+                font-weight: 600;
+            }
+
+            .action-link {
+                color: var(--color-primary);
+                background: none;
+                border: none;
+                cursor: pointer;
+                font-size: 0.9rem;
+                font-weight: 500;
+            }
+
+            .empty-state {
+                text-align: center;
+                padding: 3rem 1rem;
+                border: 2px dashed var(--glass-border);
+                border-radius: 12px;
+            }
+
+            .empty-icon {
+                color: var(--color-text-muted);
+                margin-bottom: 1rem;
+                opacity: 0.5;
+            }
+
+            .empty-state h3 {
+                color: var(--color-text-heading);
+                margin-bottom: 0.5rem;
+            }
+
+            .empty-state p {
+                color: var(--color-text-muted);
+                font-size: 0.9rem;
+                margin-bottom: 1.5rem;
+                max-width: 300px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .btn-primary-small {
+                background: var(--color-primary);
+                color: #fff;
+                border: none;
+                padding: 0.6rem 1.5rem;
+                border-radius: 50px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: 0.3s;
+                font-size: 0.9rem;
+            }
+
+            .btn-primary-small:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
+            }
+
+            /* Maintenance Section */
+            .maintenance-section {
+                margin-bottom: 2rem;
+            }
+
+            .badge-count {
+                font-size: 0.75rem;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 4px 10px;
+                border-radius: 100px;
+                color: var(--color-text-muted);
+            }
+
+            .request-list {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .request-item {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 1rem 1.5rem;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                transition: all 0.3s ease;
+            }
+
+            .request-item:hover {
+                background: rgba(255, 255, 255, 0.04);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .req-type {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+                flex: 1;
+            }
+
+            .type-dot {
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+            }
+
+            .type-dot.MANUTENCAO {
+                background: #3b82f6;
+            }
+            .type-dot.SEO_TURBINADO {
+                background: #a855f7;
+            }
+
+            .status-pill,
+            .payment-pill {
+                font-size: 0.7rem;
+                font-weight: 700;
+                padding: 4px 10px;
+                border-radius: 6px;
+                text-transform: uppercase;
+            }
+
+            .status-pill.PENDENTE {
+                background: rgba(245, 158, 11, 0.1);
+                color: #f59e0b;
+            }
+            .status-pill.EM_EXECUCAO {
+                background: rgba(59, 130, 246, 0.1);
+                color: #3b82f6;
+            }
+            .status-pill.CONCLUIDO {
+                background: rgba(16, 185, 129, 0.1);
+                color: #10b981;
+            }
+
+            .payment-pill.PENDENTE {
+                background: rgba(239, 68, 68, 0.1);
+                color: #ef4444;
+            }
+            .payment-pill.PAGO {
+                background: rgba(16, 185, 129, 0.1);
+                color: #10b981;
+            }
+
+            .req-date {
+                font-size: 0.8rem;
+                color: var(--color-text-muted);
+                min-width: 80px;
+                text-align: right;
+            }
+
+            /* Client Projects List */
+            .projects-list-client {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+                gap: 1.5rem;
+            }
+
+            .project-client-card {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+                padding: 1.2rem;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--glass-border);
+                border-radius: 14px;
+                transition: all 0.3s ease;
+            }
+
+            .project-client-card:hover {
+                transform: translateY(-3px);
+                background: rgba(255, 255, 255, 0.05);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .proj-img {
+                width: 50px;
+                height: 50px;
+                background: rgba(138, 28, 38, 0.1);
+                color: var(--color-primary);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 10px;
+                font-size: 1.2rem;
+            }
+
+            .proj-details {
+                flex: 1;
+            }
+
+            .proj-details h3 {
+                font-size: 1rem;
+                color: #fff;
+                margin: 0 0 4px 0;
+            }
+
+            .proj-meta {
+                display: flex;
+                align-items: center;
+                gap: 0.8rem;
+            }
+
+            .proj-type {
+                font-size: 0.75rem;
+                color: var(--color-text-muted);
+            }
+
+            .proj-status-badge {
+                font-size: 0.65rem;
+                background: rgba(255, 255, 255, 0.05);
+                padding: 2px 8px;
+                border-radius: 4px;
+                color: var(--color-text-muted);
+            }
+
+            .visit-link {
+                color: var(--color-text-muted);
+                transition: 0.2s;
+            }
+
+            .visit-link:hover {
+                color: var(--color-primary);
+            }
+
+            /* Benefits Section */
+            .benefits-section {
+                grid-column: 1 / -1;
+                margin-top: 0rem;
+            }
+
+            .upgrade-link {
+                font-size: 0.75rem;
+                color: var(--color-primary);
+                text-decoration: none;
+                font-weight: 700;
+                margin-top: 4px;
+            }
+            .upgrade-link:hover {
+                text-decoration: underline;
+            }
+
+            .plan-badge {
+                font-size: 0.7rem;
+                font-weight: 800;
+                padding: 4px 12px;
+                border-radius: 50px;
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .plan-badge.bronze {
+                background: rgba(205, 127, 50, 0.1);
+                color: #cd7f32;
+                border: 1px solid rgba(205, 127, 50, 0.2);
+            }
+            .plan-badge.prata {
+                background: rgba(192, 192, 192, 0.1);
+                color: #c0c0c0;
+                border: 1px solid rgba(192, 192, 192, 0.2);
+            }
+            .plan-badge.ouro {
+                background: rgba(212, 175, 55, 0.1);
+                color: #d4af37;
+                border: 1px solid rgba(212, 175, 55, 0.3);
+            }
+
+            .benefits-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .benefit-item {
+                display: flex;
+                align-items: center;
+                gap: 1.2rem;
+                padding: 1.2rem;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+                border-radius: 12px;
+                transition: all 0.3s ease;
+                cursor: pointer;
+            }
+
+            .benefit-item.locked {
+                opacity: 0.5;
+                filter: grayscale(1);
+                border-style: dashed;
+                cursor: not-allowed;
+            }
+
+            .benefit-item.active:hover,
+            .benefit-item.vip-highlight:hover {
+                background: rgba(255, 255, 255, 0.05);
+                transform: translateY(-3px);
+                border-color: rgba(255, 255, 255, 0.1);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            }
+
+            .benefit-item.vip-highlight {
+                border-color: rgba(212, 175, 55, 0.3);
+                background: linear-gradient(
+                    135deg,
+                    rgba(212, 175, 55, 0.05) 0%,
+                    transparent 100%
+                );
+            }
+
+            .benefit-icon {
+                font-size: 1.5rem;
+                width: 48px;
+                height: 48px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.03);
+                border-radius: 10px;
+            }
+
+            .benefit-info strong {
+                display: block;
+                color: #fff;
+                font-size: 0.95rem;
+                margin-bottom: 2px;
+            }
+            .benefit-info span {
+                font-size: 0.8rem;
+                color: var(--color-text-muted);
+            }
+
+            .sidebar-actions {
+                display: flex;
+                flex-direction: column;
+                gap: 2rem;
+            }
+
+            .quick-links {
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem; /* Distância entre os itens */
+                flex: 1; /* Faz ocupar o espaço restante */
+                justify-content: center; /* Centraliza verticalmente no espaço estendido */
+            }
+
+            .quick-link {
+                display: flex;
+                align-items: center;
+                gap: 1.5rem;
+                padding: 1.5rem; /* Largura/Tamanho maior */
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--glass-border);
+                text-decoration: none;
+                color: var(--color-text-muted);
+                transition: all 0.3s ease;
+            }
+
+            .quick-link:hover {
+                background: rgba(255, 255, 255, 0.05);
+                border-color: var(--glass-border);
+                color: var(--color-text-heading);
+                transform: translateX(5px);
+            }
+
+            .quick-link .icon {
+                font-size: 1rem;
+                width: 42px;
+                height: 42px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                flex-shrink: 0;
+            }
+
+            .quick-link .icon.users {
+                background: rgba(168, 85, 247, 0.15);
+                color: #a855f7;
+            }
+            .quick-link .icon.history {
+                background: rgba(245, 158, 11, 0.15);
+                color: #f59e0b;
+            }
+            .quick-link .icon.profile {
+                background: rgba(168, 85, 247, 0.15);
+                color: #a855f7;
+            }
+            .quick-link .icon.maintenance {
+                background: rgba(239, 68, 68, 0.15);
+                color: #ef4444;
+            }
+            .quick-link .icon.invoices {
+                background: rgba(16, 185, 129, 0.15);
+                color: #10b981;
+            }
+
+            .quick-link div {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .quick-link strong {
+                color: var(--color-text-heading);
+                font-size: 0.95rem;
+            }
+
+            .quick-link span {
+                font-size: 0.8rem;
+            }
+
+            /* Modal Styles */
+            .modal-backdrop {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.7);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                opacity: 1;
+                transition: opacity 0.3s ease;
+            }
+
+            .modal-backdrop.hidden {
+                display: none;
+                opacity: 0;
+                pointer-events: none;
+            }
+
+            .modal-content {
+                background: #1a1a1a;
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                width: 90%;
+                max-width: 500px;
+                padding: 2rem;
+                box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+                transform: translateY(0);
+                transition: transform 0.3s ease;
+                max-height: 90vh;
+                overflow-y: auto;
+                overflow-x: hidden; /* Prevent horizontal scroll */
+            }
+
+            /* Custom Scrollbar */
+            .modal-content::-webkit-scrollbar {
+                width: 8px;
+            }
+            .modal-content::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 4px;
+            }
+            .modal-content::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.1);
+                border-radius: 4px;
+            }
+            .modal-content::-webkit-scrollbar-thumb:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
+
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 2rem;
+                border-bottom: 1px solid var(--glass-border);
+                padding-bottom: 1rem;
+            }
+
+            .modal-header h2 {
+                font-size: 1.5rem;
+                color: var(--color-text-heading);
+                margin: 0;
+            }
+
+            .close-btn {
+                background: none;
+                border: none;
+                color: var(--color-text-muted);
+                font-size: 2rem;
+                cursor: pointer;
+                line-height: 1;
+            }
+
+            .close-btn:hover {
+                color: #fff;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+                color: var(--color-text-muted);
+                font-size: 0.9rem;
+            }
+
+            .form-group input,
+            .custom-select select,
+            .form-group textarea {
+                width: 100%;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid var(--glass-border);
+                border-radius: 8px;
+                color: #fff;
+                font-family: inherit;
+                appearance: none;
+                outline: none;
+                transition: all 0.3s ease;
+            }
+
+            .custom-select {
+                position: relative;
+                width: 100%;
+            }
+
+            .select-arrow {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+                pointer-events: none;
+                color: var(--color-text-muted);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .form-group select option {
+                background-color: #1a1a1a;
+                color: #fff;
+            }
+
+            .form-group input:focus,
+            .custom-select select:focus,
+            .form-group textarea:focus {
+                border-color: var(--color-primary);
+                background: rgba(255, 255, 255, 0.08);
+                box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
+            }
+
+            .modal-actions {
+                display: flex;
+                justify-content: flex-end;
+                gap: 1rem;
+                margin-top: 2rem;
+            }
+
+            .btn-secondary {
+                background: transparent;
+                border: 1px solid var(--glass-border);
+                color: var(--color-text-muted);
+                padding: 0.6rem 1.5rem;
+                border-radius: 50px;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+            .btn-secondary:hover {
+                border-color: #fff;
+                color: #fff;
+            }
+
+            .btn-submit {
+                background: var(--color-primary);
+                color: #fff;
+                border: none;
+                padding: 0.6rem 2rem;
+                border-radius: 50px;
+                cursor: pointer;
+                font-weight: 600;
+                transition: 0.3s;
+            }
+
+            .btn-submit:hover {
+                box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
+                transform: translateY(-2px);
+            }
+
+            /* Financial Table Styles */
+            .financial-table-wrapper {
+                width: 100%;
+                overflow-x: auto;
+                border-radius: 12px;
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid var(--glass-border);
+            }
+
+            .financial-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.9rem;
+                color: var(--color-text-body);
+                min-width: 600px;
+            }
+
+            .financial-table thead th {
+                background: rgba(255, 255, 255, 0.05);
+                padding: 1rem;
+                text-align: left;
+                font-weight: 600;
+                color: var(--color-text-heading);
+                border-bottom: 1px solid var(--glass-border);
+            }
+
+            .financial-table tbody td {
+                padding: 1rem;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+                vertical-align: middle;
+            }
+
+            .financial-table tbody tr:last-child td {
+                border-bottom: none;
+            }
+
+            .financial-table tbody tr:hover {
+                background: rgba(255, 255, 255, 0.02);
+            }
+
+            /* Badges and Text Colors */
+            .badge-service {
+                display: inline-block;
+                padding: 4px 10px;
+                border-radius: 4px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                background: rgba(139, 92, 246, 0.15); /* Purple tint */
+                color: #a78bfa;
+                border: 1px solid rgba(139, 92, 246, 0.2);
+            }
+
+            .badge-neutral {
+                font-size: 0.75rem;
+                color: var(--color-text-muted);
+                background: rgba(255, 255, 255, 0.05);
+                padding: 4px 10px;
+                border-radius: 4px;
+            }
+
+            .text-success {
+                color: #34d399; /* Green */
+                font-weight: 500;
+            }
+
+            .text-danger {
+                color: #f87171; /* Red */
+                font-weight: 500;
+            }
+
+            .text-primary {
+                color: var(--color-primary);
+            }
+
+            .font-bold {
+                font-weight: 700;
+            }
+
+            /* Melhorias para Mobile */
+            @media (max-width: 600px) {
                 .dashboard-header {
-                    display: flex;
-                    justify-content: space-between;
+                    flex-direction: column;
                     align-items: center;
-                    margin-bottom: 3rem;
-                    border-bottom: 1px solid var(--glass-border);
-                    padding-bottom: 1.5rem;
+                    text-align: center;
+                    gap: 1.5rem;
+                    padding-bottom: 2rem;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
                 }
 
                 .user-profile-header {
-                    display: flex;
-                    align-items: center;
-                    gap: 1.2rem;
+                    flex-direction: column;
+                    gap: 0.8rem;
                 }
 
                 .header-avatar {
-                    width: 60px;
-                    height: 60px;
-                    border-radius: 18px;
-                    background: var(--color-primary);
-                    overflow: hidden;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    box-shadow: 0 8px 20px rgba(138, 28, 38, 0.2);
-                }
-
-                .header-avatar img {
-                    width: 100%;
-                    height: 100%;
-                    object-fit: cover;
-                }
-
-                .avatar-letter {
-                    font-size: 1.8rem;
-                    font-weight: 800;
-                    color: white;
+                    width: 80px;
+                    height: 80px;
+                    border-radius: 24px;
+                    margin-top: -0.5rem;
                 }
 
                 .greeting {
-                    display: block;
-                    color: var(--color-text-muted);
-                    font-size: 0.9rem;
-                    margin-bottom: 0.25rem;
+                    font-size: 0.8rem;
                 }
 
                 .user-name {
-                    font-size: 2rem;
-                    font-weight: 700;
-                    color: var(--color-text-heading);
-                    margin: 0;
-                    background: linear-gradient(
-                        to right,
-                        #fff,
-                        var(--color-text-muted)
-                    );
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
+                    font-size: 1.6rem;
+                    line-height: 1.2;
+                }
+
+                .header-actions {
+                    width: 100%;
+                    display: flex;
+                    justify-content: center;
                 }
 
                 .logout-btn {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    background: var(--glass-bg);
-                    border: 1px solid var(--glass-border);
-                    padding: 0.6rem 1.2rem;
-                    border-radius: 8px;
-                    color: var(--color-text-muted);
-                    font-size: 0.9rem;
-                    cursor: pointer;
-                    transition: all 0.3s ease;
-                }
-
-                .logout-btn:hover {
-                    background: rgba(220, 38, 38, 0.1);
-                    border-color: rgba(220, 38, 38, 0.3);
+                    width: 100%;
+                    max-width: 200px;
+                    justify-content: center;
+                    background: rgba(220, 38, 38, 0.05);
+                    border-color: rgba(220, 38, 38, 0.1);
                     color: #ef4444;
                 }
 
-                /* Stats Grid */
+                .dashboard-wrapper {
+                    padding-top: 100px; /* Reduzir um pouco no mobile */
+                }
+
+                .dashboard-container {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    padding: 0 1rem !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                }
+
+                .content-grid {
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 3rem;
+                }
+
+                section.main-card,
+                aside.sidebar-actions,
+                .action-card {
+                    width: 100% !important;
+                    max-width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                }
+
                 .stats-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-                    gap: 1.5rem;
-                    margin-bottom: 3rem;
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 2rem;
                 }
 
                 .stat-card {
-                    background: var(--glass-bg);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 12px;
-                    padding: 1.5rem;
+                    width: 100% !important;
                     display: flex;
+                    flex-direction: column;
                     align-items: center;
-                    gap: 1rem;
-                    transition: transform 0.3s ease;
-                    backdrop-filter: blur(10px);
-                }
-
-                .stat-card:hover {
-                    transform: translateY(-2px);
-                    border-color: rgba(255, 255, 255, 0.1);
-                    background: rgba(255, 255, 255, 0.05);
-                }
-
-                .stat-icon {
-                    width: 48px;
-                    height: 48px;
-                    border-radius: 10px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    color: #fff;
-                    font-size: 1.25rem;
-                }
-
-                .stat-icon.project {
-                    background: rgba(59, 130, 246, 0.15);
-                    color: #60a5fa;
-                }
-                .stat-icon.invoice {
-                    background: rgba(16, 185, 129, 0.15);
-                    color: #34d399;
-                }
-                .stat-icon.support {
-                    background: rgba(249, 115, 22, 0.15);
-                    color: #fb923c;
-                    position: relative;
-                }
-
-                .notification-badge-dot {
-                    position: absolute;
-                    top: -2px;
-                    right: -2px;
-                    width: 12px;
-                    height: 12px;
-                    background-color: #ef4444;
-                    border-radius: 50%;
-                    border: 2px solid #1a1a1a;
-                    box-shadow: 0 0 10px rgba(239, 68, 68, 0.8);
-                    animation: pulse-dot-ping 1.5s cubic-bezier(0, 0, 0.2, 1)
-                        infinite;
-                    z-index: 2;
-                }
-
-                /* Alerta pulsante para o ícone inteiro */
-                .stat-icon.support.has-notification {
-                    animation: icon-alert-pulse 2s infinite;
-                    background: rgba(
-                        249,
-                        115,
-                        22,
-                        0.9
-                    ); /* Fundo muito mais sólido */
-                    color: #fff; /* Ícone branco para máximo contraste */
-                    border: 1px solid rgba(255, 255, 255, 0.2);
-                }
-
-                @keyframes icon-alert-pulse {
-                    0% {
-                        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
-                        transform: scale(1);
-                    }
-                    50% {
-                        box-shadow: 0 0 25px 8px rgba(249, 115, 22, 0.3);
-                        transform: scale(
-                            1.05
-                        ); /* Leve pulsação no tamanho também */
-                    }
-                    100% {
-                        box-shadow: 0 0 0 0 rgba(249, 115, 22, 0.6);
-                        transform: scale(1);
-                    }
-                }
-
-                @keyframes pulse-dot-ping {
-                    0% {
-                        transform: scale(0.8);
-                        opacity: 1;
-                    }
-                    70%,
-                    100% {
-                        transform: scale(2.2);
-                        opacity: 0;
-                    }
+                    text-align: center;
+                    padding: 2.5rem 1.5rem;
+                    gap: 1.5rem;
                 }
 
                 .stat-info {
                     display: flex;
                     flex-direction: column;
-                }
-
-                .stat-value {
-                    font-size: 1.5rem;
-                    font-weight: 700;
-                    color: var(--color-text-heading);
-                }
-
-                .stat-label {
-                    font-size: 0.85rem;
-                    color: var(--color-text-muted);
+                    align-items: center;
+                    text-align: center;
+                    gap: 0.5rem;
                 }
 
                 .financial-actions {
-                    margin-left: auto;
+                    margin: 0 !important;
+                    width: 100%;
                     display: flex;
                     flex-direction: column;
-                    align-items: flex-end;
-                    gap: 0.5rem;
+                    align-items: center;
+                    gap: 1rem;
                 }
 
                 .history-link-card,
                 .launch-btn {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 8px 16px;
-                    border-radius: 10px;
-                    font-size: 0.7rem;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.5px;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                    text-decoration: none;
-                    white-space: nowrap;
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    background: rgba(255, 255, 255, 0.05);
-                    color: #fff;
-                }
-
-                .history-link-card:hover {
-                    background: rgba(255, 255, 255, 0.12);
-                    border-color: rgba(255, 255, 255, 0.2);
-                    transform: translateY(-2px);
-                    color: #fff;
-                }
-
-                .launch-btn {
-                    background: rgba(16, 185, 129, 0.1);
-                    border-color: rgba(16, 185, 129, 0.2);
-                    color: #10b981;
-                }
-
-                .launch-btn:hover {
-                    background: rgba(16, 185, 129, 0.2);
-                    border-color: rgba(16, 185, 129, 0.4);
-                    transform: translateY(-2px);
-                }
-
-                .history-link-card svg {
-                    opacity: 0.7;
-                }
-
-                .history-link-card:hover svg {
-                    opacity: 1;
-                }
-
-                /* Content Grid */
-                .content-grid {
-                    display: grid;
-                    grid-template-columns: 2fr 1fr;
-                    gap: 2rem;
-                }
-
-                @media (max-width: 900px) {
-                    .content-grid {
-                        grid-template-columns: 1fr;
-                    }
-                    .site-url-section {
-                        order: -1;
-                    }
-                }
-
-                .main-card {
-                    background: rgba(20, 20, 20, 0.6);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 16px;
-                    padding: 2rem;
-                    backdrop-filter: blur(10px);
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .site-url-section {
-                    grid-column: 1 / -1;
-                    margin-bottom: 0rem;
-                }
-
-                .visit-btn {
-                    display: flex;
-                    align-items: center;
-                    gap: 6px;
-                    font-size: 0.85rem;
-                    color: var(--color-primary);
-                    text-decoration: none;
-                    font-weight: 600;
-                }
-
-                .site-display-box {
-                    background: rgba(255, 255, 255, 0.02);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 12px;
-                    padding: 1.2rem;
-                    margin-top: 0.5rem;
-                }
-
-                .url-label {
-                    font-size: 0.75rem;
-                    color: var(--color-text-muted);
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    display: block;
-                    margin-bottom: 0.8rem;
-                }
-
-                .url-capsule {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    background: #000;
-                    padding: 0.8rem 1.2rem;
-                    border-radius: 8px;
-                    border: 1px solid rgba(255, 255, 255, 0.05);
-                }
-
-                .url-capsule code {
-                    color: #fff;
-                    font-family: monospace;
-                    font-size: 1rem;
-                    word-break: break-all;
-                }
-
-                .copy-url-btn {
-                    background: none;
-                    border: none;
-                    color: var(--color-text-muted);
-                    cursor: pointer;
-                    padding: 4px;
-                    transition: 0.2s;
-                }
-                .copy-url-btn:hover {
-                    color: white;
-                }
-
-                .site-empty-box {
-                    border: 2px dashed var(--glass-border);
-                    border-radius: 12px;
-                    padding: 1.5rem;
-                    cursor: pointer;
-                    transition: 0.3s;
-                }
-                .site-empty-box:hover {
-                    background: rgba(255, 255, 255, 0.02);
-                    border-color: var(--color-primary);
-                }
-
-                .add-site-trigger {
-                    display: flex;
-                    align-items: center;
-                    gap: 1.5rem;
-                }
-
-                .plus-icon {
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    background: rgba(138, 28, 38, 0.1);
-                    color: var(--color-primary);
-                    display: flex;
-                    align-items: center;
+                    width: 100%;
                     justify-content: center;
+                    margin: 0 !important;
+                }
+
+                .stat-value {
+                    font-size: 1.8rem;
+                }
+
+                .stat-label {
+                    font-size: 0.95rem;
+                    letter-spacing: 1px;
+                    text-transform: uppercase;
+                    opacity: 0.8;
+                }
+
+                .stat-icon {
+                    width: 60px;
+                    height: 60px;
                     font-size: 1.5rem;
-                    font-weight: 300;
                 }
 
-                .add-site-trigger strong {
-                    display: block;
-                    color: #fff;
-                    margin-bottom: 2px;
-                }
-                .add-site-trigger p {
-                    font-size: 0.85rem;
-                    color: var(--color-text-muted);
-                    margin: 0;
-                }
-
-                .stat-icon.plan {
-                    background: rgba(139, 92, 246, 0.15);
-                    color: #a78bfa;
+                .stat-icon svg {
+                    width: 32px;
+                    height: 32px;
                 }
 
                 .card-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
+                    width: 100%;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                    gap: 1rem;
                     margin-bottom: 2rem;
                 }
 
-                .card-header h2 {
-                    font-size: 1.25rem;
-                    color: var(--color-text-heading);
-                    margin: 0;
-                    font-weight: 600;
-                }
-
-                .action-card h3 {
-                    font-size: 1.25rem;
-                    color: var(--color-text-heading);
-                    margin: 0 0 1.5rem 0;
-                    font-weight: 600;
-                }
-
-                .action-link {
-                    color: var(--color-primary);
-                    background: none;
-                    border: none;
-                    cursor: pointer;
-                    font-size: 0.9rem;
-                    font-weight: 500;
-                }
-
-                .empty-state {
-                    text-align: center;
-                    padding: 3rem 1rem;
-                    border: 2px dashed var(--glass-border);
-                    border-radius: 12px;
-                }
-
-                .empty-icon {
-                    color: var(--color-text-muted);
-                    margin-bottom: 1rem;
-                    opacity: 0.5;
-                }
-
-                .empty-state h3 {
-                    color: var(--color-text-heading);
-                    margin-bottom: 0.5rem;
-                }
-
-                .empty-state p {
-                    color: var(--color-text-muted);
-                    font-size: 0.9rem;
-                    margin-bottom: 1.5rem;
-                    max-width: 300px;
-                    margin-left: auto;
-                    margin-right: auto;
-                }
-
-                .btn-primary-small {
-                    background: var(--color-primary);
-                    color: #fff;
-                    border: none;
-                    padding: 0.6rem 1.5rem;
-                    border-radius: 50px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: 0.3s;
-                    font-size: 0.9rem;
-                }
-
-                .btn-primary-small:hover {
-                    transform: translateY(-2px);
-                    box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
-                }
-
-                /* Benefits Section */
-                .benefits-section {
-                    grid-column: 1 / -1;
-                    margin-top: -1rem;
-                }
-
-                .upgrade-link {
-                    font-size: 0.75rem;
-                    color: var(--color-primary);
-                    text-decoration: none;
-                    font-weight: 700;
-                    margin-top: 4px;
-                }
-                .upgrade-link:hover {
-                    text-decoration: underline;
-                }
-
-                .plan-badge {
-                    font-size: 0.7rem;
-                    font-weight: 800;
-                    padding: 4px 12px;
-                    border-radius: 50px;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                }
-                .plan-badge.bronze {
-                    background: rgba(205, 127, 50, 0.1);
-                    color: #cd7f32;
-                    border: 1px solid rgba(205, 127, 50, 0.2);
-                }
-                .plan-badge.prata {
-                    background: rgba(192, 192, 192, 0.1);
-                    color: #c0c0c0;
-                    border: 1px solid rgba(192, 192, 192, 0.2);
-                }
-                .plan-badge.ouro {
-                    background: rgba(212, 175, 55, 0.1);
-                    color: #d4af37;
-                    border: 1px solid rgba(212, 175, 55, 0.3);
-                }
-
                 .benefits-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-                    gap: 1.5rem;
-                    margin-top: 1rem;
-                }
-
-                .benefit-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 1.2rem;
-                    padding: 1.2rem;
-                    background: rgba(255, 255, 255, 0.02);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 12px;
-                    transition: all 0.3s ease;
-                    cursor: pointer;
-                }
-
-                .benefit-item.locked {
-                    opacity: 0.5;
-                    filter: grayscale(1);
-                    border-style: dashed;
-                    cursor: not-allowed;
-                }
-
-                .benefit-item.active:hover,
-                .benefit-item.vip-highlight:hover {
-                    background: rgba(255, 255, 255, 0.05);
-                    transform: translateY(-3px);
-                    border-color: rgba(255, 255, 255, 0.1);
-                    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-                }
-
-                .benefit-item.vip-highlight {
-                    border-color: rgba(212, 175, 55, 0.3);
-                    background: linear-gradient(
-                        135deg,
-                        rgba(212, 175, 55, 0.05) 0%,
-                        transparent 100%
-                    );
-                }
-
-                .benefit-icon {
-                    font-size: 1.5rem;
-                    width: 48px;
-                    height: 48px;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    background: rgba(255, 255, 255, 0.03);
-                    border-radius: 10px;
-                }
-
-                .benefit-info strong {
-                    display: block;
-                    color: #fff;
-                    font-size: 0.95rem;
-                    margin-bottom: 2px;
-                }
-                .benefit-info span {
-                    font-size: 0.8rem;
-                    color: var(--color-text-muted);
-                }
-
-                .sidebar-actions {
-                    display: flex;
-                    flex-direction: column;
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
                     gap: 2rem;
                 }
 
-                .quick-links {
+                .benefit-item {
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                    padding: 2.5rem 1.5rem;
+                }
+
+                .benefit-info {
                     display: flex;
                     flex-direction: column;
-                    gap: 1.5rem; /* Distância entre os itens */
-                    flex: 1; /* Faz ocupar o espaço restante */
-                    justify-content: center; /* Centraliza verticalmente no espaço estendido */
+                    align-items: center;
+                    text-align: center;
+                }
+
+                .quick-links {
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    gap: 2rem;
                 }
 
                 .quick-link {
-                    display: flex;
-                    align-items: center;
-                    gap: 1.5rem;
-                    padding: 1.5rem; /* Largura/Tamanho maior */
-                    border-radius: 12px;
-                    background: rgba(255, 255, 255, 0.03);
-                    border: 1px solid var(--glass-border);
-                    text-decoration: none;
-                    color: var(--color-text-muted);
-                    transition: all 0.3s ease;
-                }
-
-                .quick-link:hover {
-                    background: rgba(255, 255, 255, 0.05);
-                    border-color: var(--glass-border);
-                    color: var(--color-text-heading);
-                    transform: translateX(5px);
-                }
-
-                .quick-link .icon {
-                    font-size: 1rem;
-                    width: 42px;
-                    height: 42px;
-                    display: flex;
-                    align-items: center;
+                    width: 100% !important;
+                    display: flex !important;
+                    flex-direction: column !important;
+                    align-items: center !important;
+                    text-align: center !important;
+                    padding: 3.5rem 2rem;
                     justify-content: center;
-                    background: rgba(255, 255, 255, 0.05);
-                    border-radius: 10px;
-                    flex-shrink: 0;
-                }
-
-                .quick-link .icon.users {
-                    background: rgba(168, 85, 247, 0.15);
-                    color: #a855f7;
-                }
-                .quick-link .icon.history {
-                    background: rgba(245, 158, 11, 0.15);
-                    color: #f59e0b;
-                }
-                .quick-link .icon.profile {
-                    background: rgba(168, 85, 247, 0.15);
-                    color: #a855f7;
-                }
-                .quick-link .icon.maintenance {
-                    background: rgba(239, 68, 68, 0.15);
-                    color: #ef4444;
-                }
-                .quick-link .icon.invoices {
-                    background: rgba(16, 185, 129, 0.15);
-                    color: #10b981;
                 }
 
                 .quick-link div {
                     display: flex;
                     flex-direction: column;
-                }
-
-                .quick-link strong {
-                    color: var(--color-text-heading);
-                    font-size: 0.95rem;
-                }
-
-                .quick-link span {
-                    font-size: 0.8rem;
-                }
-
-                /* Modal Styles */
-                .modal-backdrop {
-                    position: fixed;
-                    top: 0;
-                    left: 0;
-                    width: 100%;
-                    height: 100%;
-                    background: rgba(0, 0, 0, 0.7);
-                    backdrop-filter: blur(5px);
-                    z-index: 1000;
-                    display: flex;
                     align-items: center;
-                    justify-content: center;
-                    opacity: 1;
-                    transition: opacity 0.3s ease;
+                    text-align: center;
                 }
 
-                .modal-backdrop.hidden {
-                    display: none;
-                    opacity: 0;
-                    pointer-events: none;
-                }
-
-                .modal-content {
-                    background: #1a1a1a;
-                    border: 1px solid var(--glass-border);
-                    border-radius: 16px;
-                    width: 90%;
-                    max-width: 500px;
-                    padding: 2rem;
-                    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-                    transform: translateY(0);
-                    transition: transform 0.3s ease;
-                    max-height: 90vh;
-                    overflow-y: auto;
-                    overflow-x: hidden; /* Prevent horizontal scroll */
-                }
-
-                /* Custom Scrollbar */
-                .modal-content::-webkit-scrollbar {
-                    width: 8px;
-                }
-                .modal-content::-webkit-scrollbar-track {
-                    background: rgba(255, 255, 255, 0.02);
-                    border-radius: 4px;
-                }
-                .modal-content::-webkit-scrollbar-thumb {
-                    background: rgba(255, 255, 255, 0.1);
-                    border-radius: 4px;
-                }
-                .modal-content::-webkit-scrollbar-thumb:hover {
-                    background: rgba(255, 255, 255, 0.2);
-                }
-
-                .modal-header {
+                .empty-state {
+                    width: 100%;
                     display: flex;
-                    justify-content: space-between;
+                    flex-direction: column;
                     align-items: center;
-                    margin-bottom: 2rem;
-                    border-bottom: 1px solid var(--glass-border);
-                    padding-bottom: 1rem;
+                    text-align: center;
                 }
 
-                .modal-header h2 {
-                    font-size: 1.5rem;
-                    color: var(--color-text-heading);
-                    margin: 0;
-                }
-
-                .close-btn {
-                    background: none;
-                    border: none;
-                    color: var(--color-text-muted);
-                    font-size: 2rem;
-                    cursor: pointer;
-                    line-height: 1;
-                }
-
-                .close-btn:hover {
-                    color: #fff;
-                }
-
-                .form-group {
-                    margin-bottom: 1.5rem;
-                }
-
-                .form-group label {
-                    display: block;
-                    margin-bottom: 0.5rem;
-                    color: var(--color-text-muted);
-                    font-size: 0.9rem;
-                }
-
-                .form-group input,
-                .custom-select select,
-                .form-group textarea {
-                    width: 100%;
-                    padding: 1rem;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 8px;
-                    color: #fff;
-                    font-family: inherit;
-                    appearance: none;
-                    outline: none;
-                    transition: all 0.3s ease;
-                }
-
-                .custom-select {
-                    position: relative;
-                    width: 100%;
-                }
-
-                .select-arrow {
-                    position: absolute;
-                    right: 15px;
-                    top: 50%;
-                    transform: translateY(-50%);
-                    pointer-events: none;
-                    color: var(--color-text-muted);
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                }
-
-                .form-group select option {
-                    background-color: #1a1a1a;
-                    color: #fff;
-                }
-
-                .form-group input:focus,
-                .custom-select select:focus,
-                .form-group textarea:focus {
-                    border-color: var(--color-primary);
-                    background: rgba(255, 255, 255, 0.08);
-                    box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
-                }
-
-                .modal-actions {
-                    display: flex;
-                    justify-content: flex-end;
-                    gap: 1rem;
-                    margin-top: 2rem;
-                }
-
-                .btn-secondary {
-                    background: transparent;
-                    border: 1px solid var(--glass-border);
-                    color: var(--color-text-muted);
-                    padding: 0.6rem 1.5rem;
-                    border-radius: 50px;
-                    cursor: pointer;
-                    transition: 0.3s;
-                }
-
-                .btn-secondary:hover {
-                    border-color: #fff;
-                    color: #fff;
-                }
-
-                .btn-submit {
-                    background: var(--color-primary);
-                    color: #fff;
-                    border: none;
-                    padding: 0.6rem 2rem;
-                    border-radius: 50px;
-                    cursor: pointer;
-                    font-weight: 600;
-                    transition: 0.3s;
-                }
-
-                .btn-submit:hover {
-                    box-shadow: 0 4px 15px rgba(138, 28, 38, 0.4);
-                    transform: translateY(-2px);
-                }
-
-                /* Financial Table Styles */
-                .financial-table-wrapper {
-                    width: 100%;
-                    overflow-x: auto;
-                    border-radius: 12px;
-                    background: rgba(255, 255, 255, 0.02);
-                    border: 1px solid var(--glass-border);
-                }
-
-                .financial-table {
-                    width: 100%;
-                    border-collapse: collapse;
-                    font-size: 0.9rem;
-                    color: var(--color-text-body);
-                    min-width: 600px;
-                }
-
-                .financial-table thead th {
-                    background: rgba(255, 255, 255, 0.05);
-                    padding: 1rem;
-                    text-align: left;
-                    font-weight: 600;
-                    color: var(--color-text-heading);
-                    border-bottom: 1px solid var(--glass-border);
-                }
-
-                .financial-table tbody td {
-                    padding: 1rem;
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.03);
-                    vertical-align: middle;
-                }
-
-                .financial-table tbody tr:last-child td {
-                    border-bottom: none;
-                }
-
-                .financial-table tbody tr:hover {
-                    background: rgba(255, 255, 255, 0.02);
-                }
-
-                /* Badges and Text Colors */
-                .badge-service {
-                    display: inline-block;
-                    padding: 4px 10px;
-                    border-radius: 4px;
-                    font-size: 0.75rem;
-                    font-weight: 600;
-                    background: rgba(139, 92, 246, 0.15); /* Purple tint */
-                    color: #a78bfa;
-                    border: 1px solid rgba(139, 92, 246, 0.2);
-                }
-
-                .badge-neutral {
-                    font-size: 0.75rem;
-                    color: var(--color-text-muted);
-                    background: rgba(255, 255, 255, 0.05);
-                    padding: 4px 10px;
-                    border-radius: 4px;
-                }
-
-                .text-success {
-                    color: #34d399; /* Green */
-                    font-weight: 500;
-                }
-
-                .text-danger {
-                    color: #f87171; /* Red */
-                    font-weight: 500;
-                }
-
-                .text-primary {
-                    color: var(--color-primary);
-                }
-
-                .font-bold {
-                    font-weight: 700;
-                }
-
-                /* Melhorias para Mobile */
-                @media (max-width: 600px) {
-                    .dashboard-header {
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                        gap: 1.5rem;
-                        padding-bottom: 2rem;
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-                    }
-
-                    .user-profile-header {
-                        flex-direction: column;
-                        gap: 0.8rem;
-                    }
-
-                    .header-avatar {
-                        width: 80px;
-                        height: 80px;
-                        border-radius: 24px;
-                        margin-top: -0.5rem;
-                    }
-
-                    .greeting {
-                        font-size: 0.8rem;
-                    }
-
-                    .user-name {
-                        font-size: 1.6rem;
-                        line-height: 1.2;
-                    }
-
-                    .header-actions {
-                        width: 100%;
-                        display: flex;
-                        justify-content: center;
-                    }
-
-                    .logout-btn {
-                        width: 100%;
-                        max-width: 200px;
-                        justify-content: center;
-                        background: rgba(220, 38, 38, 0.05);
-                        border-color: rgba(220, 38, 38, 0.1);
-                        color: #ef4444;
-                    }
-
-                    .dashboard-wrapper {
-                        padding-top: 100px; /* Reduzir um pouco no mobile */
-                    }
-
-                    .dashboard-container {
-                        width: 100% !important;
-                        max-width: 100% !important;
-                        padding: 0 1rem !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                    }
-
-                    .content-grid {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        gap: 3rem;
-                    }
-
-                    section.main-card,
-                    aside.sidebar-actions,
-                    .action-card {
-                        width: 100% !important;
-                        max-width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        text-align: center !important;
-                    }
-
-                    .stats-grid {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        gap: 2rem;
-                    }
-
-                    .stat-card {
-                        width: 100% !important;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                        padding: 2.5rem 1.5rem;
-                        gap: 1.5rem;
-                    }
-
-                    .stat-info {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                        gap: 0.5rem;
-                    }
-
-                    .financial-actions {
-                        margin: 0 !important;
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        gap: 1rem;
-                    }
-
-                    .history-link-card,
-                    .launch-btn {
-                        width: 100%;
-                        justify-content: center;
-                        margin: 0 !important;
-                    }
-
-                    .stat-value {
-                        font-size: 1.8rem;
-                    }
-
-                    .stat-label {
-                        font-size: 0.95rem;
-                        letter-spacing: 1px;
-                        text-transform: uppercase;
-                        opacity: 0.8;
-                    }
-
-                    .stat-icon {
-                        width: 60px;
-                        height: 60px;
-                        font-size: 1.5rem;
-                    }
-
-                    .stat-icon svg {
-                        width: 32px;
-                        height: 32px;
-                    }
-
-                    .card-header {
-                        width: 100%;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        text-align: center !important;
-                        gap: 1rem;
-                        margin-bottom: 2rem;
-                    }
-
-                    .benefits-grid {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        gap: 2rem;
-                    }
-
-                    .benefit-item {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        text-align: center !important;
-                        padding: 2.5rem 1.5rem;
-                    }
-
-                    .benefit-info {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                    }
-
-                    .quick-links {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        gap: 2rem;
-                    }
-
-                    .quick-link {
-                        width: 100% !important;
-                        display: flex !important;
-                        flex-direction: column !important;
-                        align-items: center !important;
-                        text-align: center !important;
-                        padding: 3.5rem 2rem;
-                        justify-content: center;
-                    }
-
-                    .quick-link div {
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                    }
-
-                    .empty-state {
-                        width: 100%;
-                        display: flex;
-                        flex-direction: column;
-                        align-items: center;
-                        text-align: center;
-                    }
-
-                    .chart-section {
-                        min-height: 450px;
-                    }
-                    .chart-wrapper-inner {
-                        width: 100%;
-                        height: 350px;
-                        margin-top: 1.5rem;
-                        position: relative;
-                    }
-                    .chart-period {
-                        font-size: 0.8rem;
-                        color: var(--color-text-muted);
-                        background: rgba(255, 255, 255, 0.05);
-                        padding: 4px 12px;
-                        border-radius: 20px;
-                        border: 1px solid rgba(255, 255, 255, 0.1);
-                    }
-                }
-
-                /* Chart Specific Styles */
                 .chart-section {
-                    overflow: visible;
+                    min-height: 450px;
                 }
                 .chart-wrapper-inner {
                     width: 100%;
-                    height: 400px;
-                    margin-top: 1rem;
-                    position: relative; /* Garantir posicionamento para o pseudo-elemento */
-                    overflow: hidden;
-                    border-radius: 12px;
-                }
-
-                /* Logo de fundo com opacidade baixa */
-                .chart-wrapper-inner::before {
-                    content: "";
-                    position: absolute;
-                    top: 50%;
-                    left: 50%;
-                    transform: translate(-50%, -50%);
-                    width: 550px;
-                    height: 550px;
-                    background-image: url("/assets/logo3d.svg");
-                    background-repeat: no-repeat;
-                    background-position: center;
-                    background-size: contain;
-                    opacity: 0.2; /* Opacidade bem baixa como solicitado */
-                    pointer-events: none;
-                    z-index: 0;
-                }
-
-                canvas#financialChart {
+                    height: 350px;
+                    margin-top: 1.5rem;
                     position: relative;
-                    z-index: 1; /* Garantir que o gráfico fique por cima da logo */
                 }
-
                 .chart-period {
                     font-size: 0.8rem;
                     color: var(--color-text-muted);
@@ -2663,249 +2832,282 @@ export const prerender = false;
                     border-radius: 20px;
                     border: 1px solid rgba(255, 255, 255, 0.1);
                 }
+            }
 
-                /* Legend Styles */
-                .chart-legend {
+            /* Chart Specific Styles */
+            .chart-section {
+                overflow: visible;
+            }
+            .chart-wrapper-inner {
+                width: 100%;
+                height: 400px;
+                margin-top: 1rem;
+                position: relative; /* Garantir posicionamento para o pseudo-elemento */
+                overflow: hidden;
+                border-radius: 12px;
+            }
+
+            /* Logo de fundo com opacidade baixa */
+            .chart-wrapper-inner::before {
+                content: "";
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                width: 550px;
+                height: 550px;
+                background-image: url("/assets/logo3d.svg");
+                background-repeat: no-repeat;
+                background-position: center;
+                background-size: contain;
+                opacity: 0.2; /* Opacidade bem baixa como solicitado */
+                pointer-events: none;
+                z-index: 0;
+            }
+
+            canvas#financialChart {
+                position: relative;
+                z-index: 1; /* Garantir que o gráfico fique por cima da logo */
+            }
+
+            .chart-period {
+                font-size: 0.8rem;
+                color: var(--color-text-muted);
+                background: rgba(255, 255, 255, 0.05);
+                padding: 4px 12px;
+                border-radius: 20px;
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+
+            /* Legend Styles */
+            .chart-legend {
+                display: flex;
+                justify-content: center;
+                flex-wrap: wrap;
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+                padding-top: 1rem;
+                border-top: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .legend-item {
+                display: flex;
+                align-items: center;
+                gap: 0.5rem;
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+            }
+
+            .legend-dot {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+            }
+
+            .legend-dot.yellow {
+                background-color: #facc15;
+            }
+            .legend-dot.red {
+                background-color: #ae1d2a;
+            }
+            .legend-dot.green {
+                background-color: #34d399;
+            }
+            .legend-dot.dashed {
+                background-color: transparent;
+                border: 1.5px dashed #ae1d2a;
+                border-radius: 2px;
+                width: 14px;
+                height: 8px;
+            }
+
+            /* Height Alignment on Desktop */
+            @media (min-width: 901px) {
+                .chart-section {
+                    height: 100%;
+                }
+                .sidebar-actions {
+                    height: 100%;
+                }
+                .action-card {
+                    height: 100%;
                     display: flex;
+                    flex-direction: column;
+                }
+                .quick-links {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-evenly;
+                    flex: 1;
+                    gap: 1rem;
+                    padding-bottom: 1rem;
+                }
+                .quick-link {
+                    flex: 0 0 auto;
+                    min-height: 100px;
                     justify-content: center;
-                    flex-wrap: wrap;
-                    gap: 1.5rem;
-                    margin-top: 1.5rem;
-                    padding-top: 1rem;
-                    border-top: 1px solid rgba(255, 255, 255, 0.05);
                 }
-
-                .legend-item {
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    font-size: 0.85rem;
-                    color: var(--color-text-muted);
-                }
-
-                .legend-dot {
-                    width: 10px;
-                    height: 10px;
-                    border-radius: 50%;
-                }
-
-                .legend-dot.yellow {
-                    background-color: #facc15;
-                }
-                .legend-dot.red {
-                    background-color: #ae1d2a;
-                }
-                .legend-dot.green {
-                    background-color: #34d399;
-                }
-                .legend-dot.dashed {
-                    background-color: transparent;
-                    border: 1.5px dashed #ae1d2a;
-                    border-radius: 2px;
-                    width: 14px;
-                    height: 8px;
-                }
-
-                /* Height Alignment on Desktop */
-                @media (min-width: 901px) {
-                    .chart-section {
-                        height: 100%;
-                    }
-                    .sidebar-actions {
-                        height: 100%;
-                    }
-                    .action-card {
-                        height: 100%;
-                        display: flex;
-                        flex-direction: column;
-                    }
-                    .quick-links {
-                        display: flex;
-                        flex-direction: column;
-                        justify-content: space-evenly;
-                        flex: 1;
-                        gap: 1rem;
-                        padding-bottom: 1rem;
-                    }
-                    .quick-link {
-                        flex: 0 0 auto;
-                        min-height: 100px;
-                        justify-content: center;
-                    }
-                }
-            </style>
-        </div>
+            }
+        </style>
     </div>
+</Layout>
 
-    <!-- Chart.js Libraries -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline></script>
-    <script is:inline>
-        document.addEventListener("DOMContentLoaded", () => {
-            const ctx = document.getElementById("financialChart");
-            if (!ctx) return;
+<!-- Chart.js Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline></script>
+<script is:inline>
+    document.addEventListener("DOMContentLoaded", () => {
+        const ctx = document.getElementById("financialChart");
+        if (!ctx) return;
 
-            const labels = JSON.parse(ctx.getAttribute("data-labels"));
-            const revenue = JSON.parse(ctx.getAttribute("data-revenue"));
-            const expenses = JSON.parse(ctx.getAttribute("data-expenses"));
-            const profit = JSON.parse(ctx.getAttribute("data-profit"));
+        const labels = JSON.parse(ctx.getAttribute("data-labels"));
+        const revenue = JSON.parse(ctx.getAttribute("data-revenue"));
+        const expenses = JSON.parse(ctx.getAttribute("data-expenses"));
+        const profit = JSON.parse(ctx.getAttribute("data-profit"));
 
-            new Chart(ctx, {
-                type: "line",
-                data: {
-                    labels: labels,
-                    datasets: [
-                        {
-                            label: "Receita Bruta (Mês)",
-                            data: revenue,
-                            borderColor: "#facc15",
-                            backgroundColor: (context) => {
-                                const chart = context.chart;
-                                const { ctx, chartArea } = chart;
-                                if (!chartArea) return null;
-                                const gradient = ctx.createLinearGradient(
-                                    0,
-                                    chartArea.bottom,
-                                    0,
-                                    chartArea.top,
-                                );
-                                gradient.addColorStop(
-                                    0,
-                                    "rgba(250, 204, 21, 0)",
-                                );
-                                gradient.addColorStop(
-                                    1,
-                                    "rgba(250, 204, 21, 0.15)",
-                                );
-                                return gradient;
-                            },
-                            borderWidth: 3,
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 4,
-                            pointBackgroundColor: "#facc15",
-                            pointBorderColor: "rgba(250, 204, 21, 0.5)",
-                            pointBorderWidth: 8,
-                            pointHoverRadius: 7,
-                            shadowBlur: 15,
-                            shadowColor: "rgba(250, 204, 21, 0.5)",
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: labels,
+                datasets: [
+                    {
+                        label: "Receita Bruta (Mês)",
+                        data: revenue,
+                        borderColor: "#facc15",
+                        backgroundColor: (context) => {
+                            const chart = context.chart;
+                            const { ctx, chartArea } = chart;
+                            if (!chartArea) return null;
+                            const gradient = ctx.createLinearGradient(
+                                0,
+                                chartArea.bottom,
+                                0,
+                                chartArea.top,
+                            );
+                            gradient.addColorStop(0, "rgba(250, 204, 21, 0)");
+                            gradient.addColorStop(
+                                1,
+                                "rgba(250, 204, 21, 0.15)",
+                            );
+                            return gradient;
                         },
-                        {
-                            label: "Custos Mensais",
-                            data: expenses,
-                            borderColor: "#ae1d2a",
-                            backgroundColor: "transparent",
-                            borderWidth: 2,
-                            tension: 0.4,
-                            fill: false,
-                            pointRadius: 3,
-                            pointBackgroundColor: "#ae1d2a",
-                            borderDash: [5, 5],
-                        },
-                        {
-                            label: "Lucro Líquido (Mês)",
-                            data: profit,
-                            borderColor: "#34d399",
-                            backgroundColor: (context) => {
-                                const chart = context.chart;
-                                const { ctx, chartArea } = chart;
-                                if (!chartArea) return null;
-                                const gradient = ctx.createLinearGradient(
-                                    0,
-                                    chartArea.bottom,
-                                    0,
-                                    chartArea.top,
-                                );
-                                gradient.addColorStop(
-                                    0,
-                                    "rgba(52, 211, 153, 0)",
-                                );
-                                gradient.addColorStop(
-                                    1,
-                                    "rgba(52, 211, 153, 0.2)",
-                                );
-                                return gradient;
-                            },
-                            borderWidth: 4,
-                            tension: 0.4,
-                            fill: true,
-                            pointRadius: 6,
-                            pointBackgroundColor: "#1a1a1a",
-                            pointBorderColor: "#34d399",
-                            pointBorderWidth: 2,
-                            pointHoverRadius: 8,
-                            pointHoverBackgroundColor: "#34d399",
-                            shadowBlur: 20,
-                            shadowColor: "rgba(52, 211, 153, 0.6)",
-                        },
-                    ],
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    interaction: {
-                        mode: "index",
-                        intersect: false,
+                        borderWidth: 3,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 4,
+                        pointBackgroundColor: "#facc15",
+                        pointBorderColor: "rgba(250, 204, 21, 0.5)",
+                        pointBorderWidth: 8,
+                        pointHoverRadius: 7,
+                        shadowBlur: 15,
+                        shadowColor: "rgba(250, 204, 21, 0.5)",
                     },
-                    plugins: {
-                        legend: {
+                    {
+                        label: "Custos Mensais",
+                        data: expenses,
+                        borderColor: "#ae1d2a",
+                        backgroundColor: "transparent",
+                        borderWidth: 2,
+                        tension: 0.4,
+                        fill: false,
+                        pointRadius: 3,
+                        pointBackgroundColor: "#ae1d2a",
+                        borderDash: [5, 5],
+                    },
+                    {
+                        label: "Lucro Líquido (Mês)",
+                        data: profit,
+                        borderColor: "#34d399",
+                        backgroundColor: (context) => {
+                            const chart = context.chart;
+                            const { ctx, chartArea } = chart;
+                            if (!chartArea) return null;
+                            const gradient = ctx.createLinearGradient(
+                                0,
+                                chartArea.bottom,
+                                0,
+                                chartArea.top,
+                            );
+                            gradient.addColorStop(0, "rgba(52, 211, 153, 0)");
+                            gradient.addColorStop(1, "rgba(52, 211, 153, 0.2)");
+                            return gradient;
+                        },
+                        borderWidth: 4,
+                        tension: 0.4,
+                        fill: true,
+                        pointRadius: 6,
+                        pointBackgroundColor: "#1a1a1a",
+                        pointBorderColor: "#34d399",
+                        pointBorderWidth: 2,
+                        pointHoverRadius: 8,
+                        pointHoverBackgroundColor: "#34d399",
+                        shadowBlur: 20,
+                        shadowColor: "rgba(52, 211, 153, 0.6)",
+                    },
+                ],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: "index",
+                    intersect: false,
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    tooltip: {
+                        backgroundColor: "rgba(20, 20, 20, 0.95)",
+                        titleColor: "#fff",
+                        bodyColor: "#eee",
+                        borderColor: "rgba(255, 255, 255, 0.1)",
+                        borderWidth: 1,
+                        padding: 12,
+                        boxPadding: 8,
+                        usePointStyle: true,
+                        callbacks: {
+                            label: function (context) {
+                                let label = context.dataset.label || "";
+                                if (label) {
+                                    label += ": ";
+                                }
+                                if (context.parsed.y !== null) {
+                                    label += new Intl.NumberFormat("pt-BR", {
+                                        style: "currency",
+                                        currency: "BRL",
+                                    }).format(context.parsed.y);
+                                }
+                                return label;
+                            },
+                        },
+                    },
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: "rgba(255, 255, 255, 0.03)",
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: "rgba(255, 255, 255, 0.4)",
+                            font: { size: 11 },
+                            callback: function (value) {
+                                return "R$ " + value;
+                            },
+                        },
+                    },
+                    x: {
+                        grid: {
                             display: false,
                         },
-                        tooltip: {
-                            backgroundColor: "rgba(20, 20, 20, 0.95)",
-                            titleColor: "#fff",
-                            bodyColor: "#eee",
-                            borderColor: "rgba(255, 255, 255, 0.1)",
-                            borderWidth: 1,
-                            padding: 12,
-                            boxPadding: 8,
-                            usePointStyle: true,
-                            callbacks: {
-                                label: function (context) {
-                                    let label = context.dataset.label || "";
-                                    if (label) {
-                                        label += ": ";
-                                    }
-                                    if (context.parsed.y !== null) {
-                                        label += new Intl.NumberFormat(
-                                            "pt-BR",
-                                            {
-                                                style: "currency",
-                                                currency: "BRL",
-                                            },
-                                        ).format(context.parsed.y);
-                                    }
-                                    return label;
-                                },
-                            },
-                        },
-                    },
-                    scales: {
-                        y: {
-                            beginAtZero: true,
-                            grid: {
-                                color: "rgba(255, 255, 255, 0.03)",
-                                drawBorder: false,
-                            },
-                            ticks: {
-                                color: "rgba(255, 255, 255, 0.4)",
-                                font: { size: 11 },
-                                callback: function (value) {
-                                    return "R$ " + value;
-                                },
-                            },
-                        },
-                        x: {
-                            grid: {
-                                display: false,
-                            },
-                            ticks: {
-                                color: "rgba(255, 255, 255, 0.4)",
-                                font: { size: 11 },
-                            },
+                        ticks: {
+                            color: "rgba(255, 255, 255, 0.4)",
+                            font: { size: 11 },
                         },
                     },
                 },
-            });
+            },
         });
-    </script>
-</Layout>
+    });
+</script>

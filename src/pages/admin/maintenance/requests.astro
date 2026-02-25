@@ -2,6 +2,18 @@
 import BaseLayout from "../../../layouts/BaseLayout.astro";
 import { prisma } from "../../../lib/prisma";
 import AdminSidebar from "../../../components/admin/AdminSidebar.astro";
+import { getSession } from "../../../lib/auth";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Auth Error:", e);
+}
+
+if (!session || session.user?.role !== "ADMIN") {
+    return Astro.redirect("/login");
+}
 
 const requests = await (prisma as any).maintenanceRequest.findMany({
     orderBy: { createdAt: "desc" },
@@ -26,7 +38,7 @@ const title = "Pedidos de Manutenção e SEO - Admin";
     showWhatsApp={false}
 >
     <div class="admin-container">
-        <AdminSidebar activePage="maintenance" />
+        <AdminSidebar activePage="maintenance" isAdmin={true} />
 
         <main class="admin-main">
             <header class="admin-header">
