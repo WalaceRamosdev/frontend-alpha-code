@@ -19,11 +19,29 @@ if (!session) {
     return Astro.redirect("/login");
 }
 const isAdmin = session.user?.role === "ADMIN";
+const isPartner =
+    session.user?.userType === "PARTNER" || session.user?.role === "PARTNER";
 const userEmail = session.user?.email;
 
 const totalUsers = isAdmin
     ? await prisma.user.count({ where: { role: "USER" } })
     : 0;
+
+const totalIndications =
+    isPartner && !isAdmin
+        ? await prisma.lead.count({
+              where: { referredBy: session.user.referralCode },
+          })
+        : 0;
+
+const indications =
+    isPartner && !isAdmin
+        ? await prisma.lead.findMany({
+              where: { referredBy: session.user.referralCode },
+              orderBy: { createdAt: "desc" },
+              take: 5,
+          })
+        : [];
 
 const projectCount = isAdmin
     ? await prisma.project.count()
@@ -354,6 +372,21 @@ export const prerender = false;
                                         <i class="fas fa-chevron-right" />
                                     </a>
                                 </div>
+                                {isPartner && (
+                                    <div class="stat-card partner-stats-card">
+                                        <div class="stat-icon partner">
+                                            <i class="fas fa-handshake" />
+                                        </div>
+                                        <div class="stat-info">
+                                            <span class="stat-value">
+                                                {totalIndications}
+                                            </span>
+                                            <span class="stat-label">
+                                                Suas Indicações
+                                            </span>
+                                        </div>
+                                    </div>
+                                )}
                             </>
                         )
                     }
@@ -468,6 +501,88 @@ export const prerender = false;
                                             <i class="fas fa-headset" />
                                         </div>
                                     </div>
+                                </div>
+                            </section>
+                        )
+                    }
+
+                    {
+                        isPartner && (
+                            <section class="main-card partner-portal-section">
+                                <div class="card-header">
+                                    <h2>Portal do Parceiro</h2>
+                                    <span class="badge-partner">
+                                        Status: Ativo
+                                    </span>
+                                </div>
+
+                                <div class="referral-box">
+                                    <div class="referral-info">
+                                        <h3>Seu Link de Indicação</h3>
+                                        <p>
+                                            Compartilhe este link para que
+                                            possamos rastrear suas indicações
+                                            automaticamente.
+                                        </p>
+                                    </div>
+                                    <div class="url-capsule partner-link">
+                                        <code id="partner-referral-url">
+                                            https://www.sitesalphacode.com.br?ref=
+                                            {session.user.referralCode}
+                                        </code>
+                                        <button
+                                            class="copy-url-btn"
+                                            data-url={`https://www.sitesalphacode.com.br?ref=${session.user.referralCode}`}
+                                        >
+                                            <i class="fas fa-copy" />
+                                        </button>
+                                    </div>
+                                    <div class="code-display">
+                                        <span>
+                                            Seu código:{" "}
+                                            <strong>
+                                                {session.user.referralCode}
+                                            </strong>
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div class="indications-list-wrapper">
+                                    <h3>Suas Últimas Indicações</h3>
+                                    {indications.length > 0 ? (
+                                        <div class="indications-table">
+                                            <div class="indications-header">
+                                                <span>Nome</span>
+                                                <span>Data</span>
+                                                <span>Status</span>
+                                            </div>
+                                            {indications.map((ind: any) => (
+                                                <div class="indication-row">
+                                                    <span class="ind-name">
+                                                        {ind.name}
+                                                    </span>
+                                                    <span class="ind-date">
+                                                        {new Date(
+                                                            ind.createdAt,
+                                                        ).toLocaleDateString(
+                                                            "pt-BR",
+                                                        )}
+                                                    </span>
+                                                    <span class="ind-status">
+                                                        Recebido
+                                                    </span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ) : (
+                                        <div class="empty-indications">
+                                            <i class="fas fa-user-plus" />
+                                            <p>
+                                                Nenhuma indicação recebida
+                                                ainda.
+                                            </p>
+                                        </div>
+                                    )}
                                 </div>
                             </section>
                         )
@@ -3282,6 +3397,111 @@ export const prerender = false;
                     min-height: 100px;
                     justify-content: center;
                 }
+            }
+
+            /* Partner Portal Specific */
+            .partner-portal-section {
+                border: 1px solid rgba(139, 92, 246, 0.2) !important; /* Slightly purple to distinguish */
+                background: linear-gradient(
+                    135deg,
+                    rgba(20, 20, 20, 0.4) 0%,
+                    rgba(139, 92, 246, 0.05) 100%
+                ) !important;
+            }
+            .badge-partner {
+                background: rgba(16, 185, 129, 0.1);
+                color: #10b981;
+                padding: 4px 12px;
+                border-radius: 20px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                border: 1px solid rgba(16, 185, 129, 0.2);
+            }
+            .referral-box {
+                background: rgba(255, 255, 255, 0.03);
+                padding: 1.5rem;
+                border-radius: 16px;
+                margin-bottom: 2rem;
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+            .referral-info h3 {
+                font-size: 1.1rem;
+                margin-bottom: 0.5rem;
+                color: white;
+            }
+            .referral-info p {
+                font-size: 0.9rem;
+                color: var(--color-text-muted);
+                margin-bottom: 1rem;
+            }
+            .partner-link {
+                background: rgba(0, 0, 0, 0.2) !important;
+                margin: 1rem 0;
+            }
+            .code-display {
+                font-size: 0.9rem;
+                color: var(--color-text-muted);
+            }
+            .code-display strong {
+                color: #a78bfa;
+                letter-spacing: 1px;
+            }
+            .indications-list-wrapper h3 {
+                font-size: 1rem;
+                margin-bottom: 1rem;
+                opacity: 0.8;
+                color: white;
+            }
+            .indications-table {
+                display: flex;
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+            .indications-header {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                padding: 0.75rem 1rem;
+                font-size: 0.8rem;
+                font-weight: 600;
+                color: var(--color-text-muted);
+                text-transform: uppercase;
+                letter-spacing: 1px;
+            }
+            .indication-row {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                padding: 1rem;
+                background: rgba(255, 255, 255, 0.02);
+                border-radius: 12px;
+                font-size: 0.9rem;
+                align-items: center;
+                transition: background 0.3s ease;
+            }
+            .indication-row:hover {
+                background: rgba(255, 255, 255, 0.05);
+            }
+            .ind-status {
+                color: #34d399;
+                font-size: 0.8rem;
+                font-weight: 600;
+            }
+            .empty-indications {
+                text-align: center;
+                padding: 3rem;
+                color: var(--color-text-muted);
+                background: rgba(255, 255, 255, 0.01);
+                border-radius: 16px;
+                border: 1px dashed rgba(255, 255, 255, 0.1);
+            }
+            .empty-indications i {
+                font-size: 2rem;
+                margin-bottom: 1rem;
+                opacity: 0.3;
+            }
+
+            .stat-icon.partner {
+                background: rgba(139, 92, 246, 0.1);
+                color: #a78bfa;
             }
         </style>
     </div>

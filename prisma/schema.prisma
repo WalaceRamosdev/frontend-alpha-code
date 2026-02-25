@@ -23,6 +23,9 @@ model User {
   plan          String    @default("FREE")
   siteUrl       String?
   role          String    @default("USER")
+  userType      String    @default("CLIENT") // CLIENT or PARTNER
+  referralCode  String?   @unique           // Unique code for partners
+  referredBy    String?                    // Code of the partner who referred this user
   loginAttempts Int       @default(0)
   lockUntil     DateTime?
   createdAt     DateTime  @default(now())
@@ -120,6 +123,7 @@ model Lead {
   complexity      String?
   investmentRange String?
   diagnosisData   Json?
+  referredBy      String?  // Code of the partner who referred this lead
   createdAt       DateTime @default(now())
 }
 

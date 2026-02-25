@@ -8,7 +8,7 @@ export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
         console.log("PDF Request Body:", JSON.stringify(body, null, 2));
-        const { contact, diagnosis, results } = body;
+        const { contact, diagnosis, results, referredBy } = body;
 
         if (!contact || !diagnosis || !results) {
             console.error("Missing required data in PDF request");
@@ -25,10 +25,37 @@ export const POST: APIRoute = async ({ request }) => {
                     projectLevel: results.level,
                     complexity: results.complexity,
                     investmentRange: results.investment,
-                    diagnosisData: diagnosis
+                    diagnosisData: diagnosis,
+                    referredBy: referredBy || null
                 }
             });
             console.log("Lead saved successfully");
+
+            // NOTIFICAÇÃO POR EMAIL PARA O PARCEIRO
+            if (referredBy) {
+                try {
+                    const { sendReferralNotification } = await import("../../lib/mail");
+                    const partner = await prisma.user.findUnique({
+                        where: { referralCode: referredBy },
+                        select: { email: true, name: true }
+                    });
+
+                    if (partner && partner.email) {
+                        await sendReferralNotification(
+                            partner.email,
+                            partner.name || "Parceiro",
+                            {
+                                name: contact.name,
+                                email: contact.email,
+                                whatsapp: contact.whatsapp,
+                                details: `Fez um Diagnóstico: ${results.level}`
+                            }
+                        );
+                    }
+                } catch (mailErr) {
+                    console.error("Erro ao enviar email de notificação (PDF):", mailErr);
+                }
+            }
         } catch (dbError) {
             console.error("Error saving lead:", dbError);
         }

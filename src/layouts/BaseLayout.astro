@@ -190,6 +190,14 @@ const seo = createSEOMeta({
         <slot name="scripts" />
 
         <script>
+            // Capture referral code if present in URL
+            const urlParams = new URLSearchParams(window.location.search);
+            const ref = urlParams.get("ref");
+            if (ref) {
+                localStorage.setItem("alpha_ref_code", ref);
+                console.log("Referral code captured:", ref);
+            }
+
             import { ScrollTrigger } from "gsap/ScrollTrigger";
             // Globally disable markers
             ScrollTrigger.config({ limitCallbacks: true });

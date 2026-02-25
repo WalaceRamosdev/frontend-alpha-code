@@ -239,6 +239,27 @@ export default function OrderForm({ user }) {
                 }
             }
 
+            // Sync with local database for leads/indications
+            if (!isMaintenance && response.ok) {
+                try {
+                    const referredBy = localStorage.getItem("alpha_ref_code") || user?.referredBy;
+                    await fetch('/api/leads/create', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            name: payload.nome,
+                            email: payload.email,
+                            whatsapp: payload.whatsapp,
+                            plan: payload.plano,
+                            details: payload.detalhes,
+                            referredBy: referredBy || null
+                        })
+                    });
+                } catch (localErr) {
+                    console.error("Lead sync failed:", localErr);
+                }
+            }
+
             if (response.ok) {
                 const linkLabel = isMaintenance ? 'LINK DO SITE' : 'REFERÊNCIAS';
                 let messageBody = `*NOVO PEDIDO - ALPHA CODE* 🚀\n\n` +

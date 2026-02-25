@@ -20,11 +20,17 @@ export default function RegisterForm() {
         return null;
     };
 
+    const [userType, setUserType] = useState("CLIENT");
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         setError("");
         const formData = new FormData(e.target);
         const data = Object.fromEntries(formData);
+
+        // Add userType and referredBy
+        data.userType = userType;
+        data.referredBy = localStorage.getItem("alpha_ref_code");
 
         // Validation
         if (data.password !== data.confirmPassword) {
@@ -63,6 +69,25 @@ export default function RegisterForm() {
                 throw new Error(errorMessage);
             }
 
+            // Create Lead record if referred
+            if (data.referredBy) {
+                try {
+                    await fetch("/api/leads/create", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name: data.name,
+                            whatsapp: data.phone || "Não informado",
+                            email: data.email,
+                            plan: "Cadastro via Link",
+                            referredBy: data.referredBy
+                        }),
+                    });
+                } catch (e) {
+                    console.error("Referral lead creation failed:", e);
+                }
+            }
+
             // Success Modal
             if (window.showModal) {
                 window.showModal("Sucesso!", "Sua conta foi criada com sucesso.", "success");
@@ -79,7 +104,7 @@ export default function RegisterForm() {
             await signIn("credentials", {
                 email: data.email,
                 password: data.password,
-                callbackUrl: "/planos?signup=true",
+                callbackUrl: userType === 'PARTNER' ? "/parceiro-alpha" : "/planos?signup=true",
             });
 
         } catch (err) {
@@ -117,6 +142,57 @@ export default function RegisterForm() {
             <div className="auth-right-panel">
                 <div className="glass-card">
                     <form onSubmit={handleSubmit}>
+                        {/* Tipo de Conta Selector */}
+                        <div className="form-group" style={{ marginBottom: '2rem' }}>
+                            <label className="form-label" style={{ textAlign: 'center', display: 'block', marginBottom: '1rem' }}>
+                                O que você busca na Alpha Code?
+                            </label>
+                            <div style={{
+                                display: 'grid',
+                                gridTemplateColumns: '1fr 1fr',
+                                gap: '1rem',
+                                background: 'rgba(255,255,255,0.05)',
+                                padding: '0.5rem',
+                                borderRadius: '16px',
+                                border: '1px solid rgba(255,255,255,0.1)'
+                            }}>
+                                <button
+                                    type="button"
+                                    onClick={() => setUserType("CLIENT")}
+                                    style={{
+                                        padding: '0.75rem',
+                                        borderRadius: '12px',
+                                        border: 'none',
+                                        background: userType === 'CLIENT' ? 'var(--color-primary)' : 'transparent',
+                                        color: userType === 'CLIENT' ? 'white' : 'rgba(255,255,255,0.6)',
+                                        cursor: 'pointer',
+                                        fontWeight: '600',
+                                        transition: 'all 0.3s ease',
+                                        fontSize: '0.85rem'
+                                    }}
+                                >
+                                    Quero comprar um site
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setUserType("PARTNER")}
+                                    style={{
+                                        padding: '0.75rem',
+                                        borderRadius: '12px',
+                                        border: 'none',
+                                        background: userType === 'PARTNER' ? 'var(--color-primary)' : 'transparent',
+                                        color: userType === 'PARTNER' ? 'white' : 'rgba(255,255,255,0.6)',
+                                        cursor: 'pointer',
+                                        fontWeight: '600',
+                                        transition: 'all 0.3s ease',
+                                        fontSize: '0.85rem'
+                                    }}
+                                >
+                                    Quero ser parceiro
+                                </button>
+                            </div>
+                        </div>
+
                         <div className="form-group">
                             <label className="form-label">Nome Completo</label>
                             <input
@@ -228,7 +304,7 @@ export default function RegisterForm() {
                             type="submit"
                             className="submit-btn"
                         >
-                            CRIAR MINHA CONTA
+                            {userType === 'PARTNER' ? 'CRIAR CONTA DE PARCEIRO' : 'CRIAR MINHA CONTA'}
                         </button>
                     </form>
                 </div>

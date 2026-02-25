@@ -132,6 +132,9 @@ export default {
                             plan: true,
                             siteUrl: true,
                             role: true,
+                            userType: true,
+                            referralCode: true,
+                            referredBy: true,
                         },
                     });
 
@@ -147,6 +150,9 @@ export default {
                         session.user.plan = dbUser.plan || "FREE";
                         session.user.siteUrl = dbUser.siteUrl ?? null;
                         session.user.role = dbUser.role || "USER";
+                        session.user.userType = dbUser.userType || "CLIENT";
+                        session.user.referralCode = dbUser.referralCode ?? null;
+                        session.user.referredBy = dbUser.referredBy ?? null;
                     } else {
                         console.warn("[Session] User not found in DB for id:", token.sub);
                     }

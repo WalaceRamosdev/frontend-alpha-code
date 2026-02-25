@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 export const POST: APIRoute = async ({ request }) => {
     try {
         const body = await request.json();
-        const { name, email, password, phone } = body;
+        const { name, email, password, phone, userType, referredBy } = body;
 
         // Validação básica
         if (!name || !email || !password) {
@@ -34,13 +34,17 @@ export const POST: APIRoute = async ({ request }) => {
         }
 
         // Verificar se o usuário já existe (Email ou Telefone)
+        const whereClause: any = {
+            OR: [
+                { email }
+            ]
+        };
+        if (phone) {
+            whereClause.OR.push({ phone });
+        }
+
         const existingUser = await prisma.user.findFirst({
-            where: {
-                OR: [
-                    { email },
-                    phone ? { phone } : {}
-                ]
-            },
+            where: whereClause,
         });
 
         if (existingUser) {
@@ -61,6 +65,20 @@ export const POST: APIRoute = async ({ request }) => {
         // Hash da senha
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        // Gerar código de indicação se for parceiro
+        let referralCode = null;
+        if (userType === 'PARTNER') {
+            const prefix = name.split(' ')[0].substring(0, 3).toUpperCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+            referralCode = `${prefix}${random}`;
+
+            // Garantir unicidade básica
+            const codeExists = await prisma.user.findUnique({ where: { referralCode } });
+            if (codeExists) {
+                referralCode = `${prefix}${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+            }
+        }
+
         // Criar usuário
         const user = await prisma.user.create({
             data: {
@@ -68,13 +86,23 @@ export const POST: APIRoute = async ({ request }) => {
                 email,
                 phone: phone || null,
                 password: hashedPassword,
+                userType: userType || 'CLIENT',
+                referralCode,
+                referredBy: referredBy || null,
+                role: userType === 'PARTNER' ? 'PARTNER' : 'USER'
             },
         });
 
         return new Response(
             JSON.stringify({
                 message: "Usuário criado com sucesso!",
-                user: { id: user.id, name: user.name, email: user.email }
+                user: {
+                    id: user.id,
+                    name: user.name,
+                    email: user.email,
+                    userType: user.userType,
+                    referralCode: user.referralCode
+                }
             }),
             { status: 201, headers: { "Content-Type": "application/json" } }
         );

@@ -1288,6 +1288,9 @@ export const prerender = false;
                 const whatsapp = whatsappInput.value;
                 const email = emailInput.value;
 
+                // Collect referral info
+                const referredBy = localStorage.getItem("alpha_ref_code");
+
                 // Collect diagnostic data
                 const diagFormData = new FormData(form);
                 const diagnosticData: any = {};
@@ -1311,6 +1314,7 @@ export const prerender = false;
                             body: JSON.stringify({
                                 contact: { name, whatsapp, email },
                                 diagnosis: diagnosticData,
+                                referredBy: referredBy || null,
                                 results: {
                                     level: nivelRes,
                                     complexity:
