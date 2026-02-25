@@ -15,6 +15,7 @@ try {
 
 const currentPath = Astro.url.pathname;
 const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
+const isAdmin = session?.user?.role === "ADMIN";
 import { niches } from "../../data/niches";
 ---
 
@@ -101,7 +102,13 @@ import { niches } from "../../data/niches";
                     >
                         <span class="profile-text-node">Perfil</span>
                         <div class="profile-avatar-node">
-                            {session.user?.image ? (
+                            {isAdmin ? (
+                                <img
+                                    src="/assets/logo3d.svg"
+                                    alt="Alpha Code Admin"
+                                    style="width:100%;height:100%;object-fit:cover;"
+                                />
+                            ) : session.user?.image ? (
                                 <img
                                     src={session.user.image}
                                     alt={`Avatar de ${session.user.name || "usuário"}`}
@@ -576,7 +583,13 @@ import { niches } from "../../data/niches";
                     <div class="menu-footer">
                         <a href="/dashboard" class="user-profile-bar">
                             <div class="user-avatar">
-                                {session.user?.image ? (
+                                {isAdmin ? (
+                                    <img
+                                        src="/assets/logo3d.svg"
+                                        alt="Alpha Code Admin"
+                                        style="width:100%;height:100%;object-fit:cover;"
+                                    />
+                                ) : session.user?.image ? (
                                     <img
                                         src={session.user.image}
                                         alt={session.user.name}
@@ -873,7 +886,7 @@ import { niches } from "../../data/niches";
         .profile-avatar-node img {
             width: 100%;
             height: 100%;
-            object-fit: contain;
+            object-fit: cover;
         }
         .avatar-letter {
             width: 100%;

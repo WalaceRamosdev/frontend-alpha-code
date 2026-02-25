@@ -1,7 +1,8 @@
 ---
-import Layout from "../layouts/BaseLayout.astro";
-import { getSession } from "../lib/auth";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import AdminSidebar from "../components/admin/AdminSidebar.astro";
 import StatusModal from "../components/ui/StatusModal.astro";
+import { getSession } from "../lib/auth";
 
 let session = null;
 try {
@@ -10,545 +11,734 @@ try {
     console.error("Profile Auth Error:", e);
 }
 
-if (!session) {
-    return Astro.redirect("/login");
-}
+if (!session) return Astro.redirect("/login");
+
+const isAdmin = session.user?.role === "ADMIN";
+
 const formatPhone = (phone: string | null | undefined) => {
     if (!phone) return "";
     const cleaned = phone.replace(/\D/g, "");
     const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-    if (match) {
-        return `${match[1]} ${match[2]}-${match[3]}`;
-    }
+    if (match) return `(${match[1]}) ${match[2]}-${match[3]}`;
     return phone;
 };
 
 export const prerender = false;
 ---
 
-<Layout title="Meu Perfil | Alpha Code" showWhatsApp={false}>
-    <div class="dashboard-wrapper">
-        <div class="ambient-glow"></div>
-        <div class="container dashboard-container">
+<BaseLayout
+    title="Meu Perfil | Alpha Code"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="profile" isAdmin={isAdmin} />
+
+        <main class="main-content">
+            <!-- Header -->
             <header class="dashboard-header">
-                <div class="welcome-text">
-                    <a href="/dashboard" class="back-link"
-                        >← Voltar para o Dashboard</a
-                    >
-                    <h1 class="user-name">Meu Perfil</h1>
+                <div class="user-welcome">
+                    <h1>Meu Perfil</h1>
+                    <p>Gerencie suas informações pessoais e foto de perfil</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/dashboard" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+                    </a>
                 </div>
             </header>
 
-            <div class="content-grid single-col">
-                <section class="main-card">
-                    <div class="profile-header">
-                        <div class="avatar-container">
-                            <div class="avatar-large" id="avatar-preview">
-                                {
-                                    session.user?.image ? (
-                                        <img
-                                            src={session.user.image}
-                                            alt="Avatar"
-                                        />
-                                    ) : (
-                                        session.user?.name?.charAt(0) || "U"
-                                    )
-                                }
-                            </div>
-                            <label
-                                for="avatar-input"
-                                class="edit-avatar-btn"
-                                title="Alterar Foto"
-                            >
-                                <svg
-                                    width="20"
-                                    height="20"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    ><path
-                                        d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"
-                                    ></path><circle cx="12" cy="13" r="4"
-                                    ></circle></svg
-                                >
-                            </label>
-                            <input
-                                type="file"
-                                id="avatar-input"
-                                accept="image/*"
-                                style="display: none;"
-                            />
+            <div class="profile-layout">
+                <!-- Left: Avatar Card -->
+                <aside class="avatar-card">
+                    <div class="avatar-wrap">
+                        <div class="avatar-large" id="avatar-preview">
+                            {
+                                isAdmin ? (
+                                    <img
+                                        src="/assets/logo3d.svg"
+                                        alt="Alpha Code"
+                                        class="admin-logo"
+                                    />
+                                ) : session.user?.image ? (
+                                    <img
+                                        src={session.user.image}
+                                        alt="Avatar"
+                                        style="width:100%;height:100%;object-fit:cover;border-radius:inherit;"
+                                    />
+                                ) : (
+                                    <span>
+                                        {session.user?.name
+                                            ?.charAt(0)
+                                            ?.toUpperCase() || "U"}
+                                    </span>
+                                )
+                            }
                         </div>
-                        <div class="profile-info-top">
-                            <h2 id="profile-name-display">
-                                {session.user?.name || "Usuário"}
-                            </h2>
-                            <span>
-                                <i
-                                    class="fas fa-phone mr-1"
-                                    style="font-size: 0.8rem; opacity: 0.7;"
-                                ></i>
-                                {
-                                    formatPhone(session.user?.phone) ||
-                                        session.user?.email
-                                }
-                            </span>
-                        </div>
+                        <label
+                            for="avatar-input"
+                            class="avatar-change-btn"
+                            title="Alterar foto"
+                        >
+                            <i class="fas fa-camera"></i>
+                        </label>
+                        <input
+                            type="file"
+                            id="avatar-input"
+                            accept="image/*"
+                            style="display:none"
+                        />
                     </div>
+                    <h2 id="profile-name-display">
+                        {session.user?.name || "Usuário"}
+                    </h2>
+                    <span class="contact-text">
+                        {
+                            formatPhone(session.user?.phone) ||
+                                session.user?.email ||
+                                ""
+                        }
+                    </span>
+                    <span class="plan-badge">
+                        <i class="fas fa-award"></i>
+                        {isAdmin ? "ADMIN" : session.user?.plan || "FREE"}
+                    </span>
+                    <p class="avatar-hint">
+                        <i class="fas fa-info-circle"></i> Max 2MB · JPG, PNG, GIF
+                    </p>
+                </aside>
 
-                    <form class="profile-form" id="profile-form">
+                <!-- Right: Form -->
+                <section class="form-card">
+                    <form id="profile-form">
+                        <!-- Section: Dados Pessoais -->
+                        <div class="section-label">
+                            <i class="fas fa-user"></i> Dados Pessoais
+                        </div>
                         <div class="form-grid">
-                            <div class="form-group">
+                            <div class="field">
                                 <label>Nome Completo</label>
                                 <input
                                     type="text"
                                     id="input-name"
-                                    value={session.user?.name}
+                                    value={session.user?.name || ""}
                                     required
+                                    placeholder="Seu nome completo"
                                 />
                             </div>
-                            <div class="form-group">
-                                <label>E-mail ou WhatsApp (Não editável)</label>
+                            <div class="field">
+                                <label
+                                    >E-mail / Login <span class="readonly-tag"
+                                        >Não editável</span
+                                    ></label
+                                >
                                 <input
                                     type="text"
-                                    value={formatPhone(session.user?.phone) ||
-                                        session.user?.email}
+                                    value={session.user?.email || ""}
                                     disabled
                                 />
                             </div>
-                            <div class="form-group">
-                                <label>Telefone</label>
+                            <div class="field">
+                                <label>WhatsApp</label>
                                 <input
-                                    type="text"
+                                    type="tel"
                                     id="input-phone"
+                                    value={formatPhone(session.user?.phone) ||
+                                        ""}
                                     placeholder="(DD) 99999-9999"
-                                    value={session.user?.phone || ""}
                                 />
                             </div>
-                            <div class="form-group">
-                                <label>Empresa</label>
+                            <div class="field">
+                                <label>Empresa / Negócio</label>
                                 <input
                                     type="text"
                                     id="input-company"
+                                    value={(session.user as any)?.company || ""}
                                     placeholder="Nome da sua empresa"
-                                    value={session.user?.company || ""}
                                 />
                             </div>
-                            <div class="form-group">
-                                <label>Link do Site</label>
+                            <div class="field full">
+                                <label>Profissão / Área de atuação</label>
                                 <input
                                     type="text"
-                                    id="input-site-url"
-                                    placeholder="seu-site.com.br"
-                                    value={session.user?.siteUrl || ""}
+                                    id="input-profession"
+                                    value={(session.user as any)?.profession ||
+                                        ""}
+                                    placeholder="Ex: Psicóloga, Advogado, E-commerce..."
                                 />
                             </div>
                         </div>
 
-                        <div class="password-section">
-                            <h3>Segurança</h3>
-                            <div class="form-grid">
-                                <div class="form-group">
-                                    <label>Senha Atual</label>
+                        <!-- Section: Presença Digital -->
+                        <div class="section-label">
+                            <i class="fas fa-globe"></i> Presença Digital
+                        </div>
+                        <div class="form-grid">
+                            <div class="field full">
+                                <label>URL do Site</label>
+                                <input
+                                    type="text"
+                                    id="input-site-url"
+                                    value={(session.user as any)?.siteUrl || ""}
+                                    placeholder="https://seu-site.com.br"
+                                />
+                            </div>
+                            <div class="field">
+                                <label>Instagram</label>
+                                <div class="input-icon">
+                                    <i class="fab fa-instagram"></i>
                                     <input
-                                        type="password"
-                                        id="input-old-password"
-                                        placeholder="••••••••"
+                                        type="text"
+                                        id="input-instagram"
+                                        value={(session.user as any)
+                                            ?.instagram || ""}
+                                        placeholder="@seu.perfil"
                                     />
                                 </div>
-                                <div class="form-group">
-                                    <label>Nova Senha</label>
+                            </div>
+                            <div class="field">
+                                <label>LinkedIn</label>
+                                <div class="input-icon">
+                                    <i class="fab fa-linkedin"></i>
                                     <input
-                                        type="password"
-                                        id="input-new-password"
-                                        placeholder="Mínimo 6 caracteres"
+                                        type="text"
+                                        id="input-linkedin"
+                                        value={(session.user as any)
+                                            ?.linkedin || ""}
+                                        placeholder="linkedin.com/in/..."
                                     />
                                 </div>
+                            </div>
+                        </div>
+
+                        <!-- Section: Segurança -->
+                        <div class="section-label">
+                            <i class="fas fa-lock"></i> Segurança
+                        </div>
+                        <div class="form-grid">
+                            <div class="field">
+                                <label>Senha Atual</label>
+                                <input
+                                    type="password"
+                                    id="input-old-password"
+                                    placeholder="••••••••"
+                                />
+                            </div>
+                            <div class="field">
+                                <label>Nova Senha</label>
+                                <input
+                                    type="password"
+                                    id="input-new-password"
+                                    placeholder="Mínimo 6 caracteres"
+                                />
                             </div>
                         </div>
 
                         <div class="form-actions">
                             <button
                                 type="submit"
-                                class="btn-primary-small"
-                                id="save-btn">Salvar Alterações</button
+                                class="btn-save"
+                                id="save-btn"
                             >
+                                <i class="fas fa-check"></i> Salvar Alterações
+                            </button>
                         </div>
                     </form>
                 </section>
             </div>
-        </div>
+        </main>
     </div>
 
     <StatusModal
         id="profile-status-modal"
         title="Salvando..."
-        message="Suas alterações estão sendo registradas"
+        message="Sincronizando seus dados"
         type="loading"
     />
+</BaseLayout>
 
-    <script>
-        // Use type assertions and null checks to satisfy TypeScript
-        const form = document.getElementById(
-            "profile-form",
-        ) as HTMLFormElement | null;
-        const saveBtn = document.getElementById(
-            "save-btn",
-        ) as HTMLButtonElement | null;
-        const avatarInput = document.getElementById(
-            "avatar-input",
-        ) as HTMLInputElement | null;
-        const avatarPreview = document.getElementById(
-            "avatar-preview",
-        ) as HTMLElement | null;
-        const nameDisplay = document.getElementById(
-            "profile-name-display",
-        ) as HTMLElement | null;
+<script>
+    let currentImageBase64: string | null = null;
 
-        let currentImageBase64: string | null = null;
+    const avatarInput = document.getElementById(
+        "avatar-input",
+    ) as HTMLInputElement;
+    const avatarPreview = document.getElementById(
+        "avatar-preview",
+    ) as HTMLElement;
 
-        // Avatar Preview Logic
-        if (avatarInput && avatarPreview) {
-            avatarInput.addEventListener("change", (e: Event) => {
-                const target = e.target as HTMLInputElement;
-                const file = target.files ? target.files[0] : null;
-                if (file) {
-                    if (file.size > 2 * 1024 * 1024) {
-                        (window as any).showModal(
-                            "Imagem muito grande",
-                            "A imagem deve ter no máximo 2MB.",
-                            "error",
-                        );
-                        setTimeout(() => (window as any).hideModal(), 3000);
-                        return;
-                    }
-                    const reader = new FileReader();
-                    reader.onload = (
-                        readerEvent: ProgressEvent<FileReader>,
-                    ) => {
-                        const base64 = readerEvent.target?.result as string;
-                        currentImageBase64 = base64;
-                        if (avatarPreview) {
-                            avatarPreview.innerHTML = `<img src="${base64}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover; border-radius: inherit;" />`;
-                        }
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
+    avatarInput?.addEventListener("change", (e) => {
+        const file = (e.target as HTMLInputElement).files?.[0];
+        if (!file) return;
+        if (file.size > 2 * 1024 * 1024) {
+            (window as any).showModal?.(
+                "Imagem muito grande",
+                "Máximo 2MB.",
+                "error",
+            );
+            setTimeout(() => (window as any).hideModal?.(), 3000);
+            return;
         }
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+            const base64 = ev.target?.result as string;
+            currentImageBase64 = base64;
+            avatarPreview.innerHTML = `<img src="${base64}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />`;
+        };
+        reader.readAsDataURL(file);
+    });
 
-        // Form Submit Logic
-        if (form && saveBtn && nameDisplay) {
-            form.addEventListener("submit", async (e: Event) => {
-                e.preventDefault();
-                const originalText = saveBtn.innerText;
-                saveBtn.innerText = "Salvando...";
-                saveBtn.disabled = true;
+    // Phone mask
+    const phoneInput = document.getElementById(
+        "input-phone",
+    ) as HTMLInputElement;
+    phoneInput?.addEventListener("input", () => {
+        let v = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+        if (v.length > 7)
+            phoneInput.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+        else if (v.length > 2)
+            phoneInput.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+        else phoneInput.value = v;
+    });
 
-                const nameInput = document.getElementById(
-                    "input-name",
-                ) as HTMLInputElement | null;
-                const phoneInput = document.getElementById(
-                    "input-phone",
-                ) as HTMLInputElement | null;
-                const companyInput = document.getElementById(
-                    "input-company",
-                ) as HTMLInputElement | null;
-                const siteUrlInput = document.getElementById(
-                    "input-site-url",
-                ) as HTMLInputElement | null;
+    // Form submit
+    const form = document.getElementById("profile-form") as HTMLFormElement;
+    const saveBtn = document.getElementById("save-btn") as HTMLButtonElement;
+    const nameDisplay = document.getElementById(
+        "profile-name-display",
+    ) as HTMLElement;
 
-                const name = nameInput ? nameInput.value : "";
-                const phone = phoneInput ? phoneInput.value : "";
-                const company = companyInput ? companyInput.value : "";
-                const siteUrl = siteUrlInput ? siteUrlInput.value : "";
+    form?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        const original = saveBtn.innerHTML;
+        saveBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Salvando...';
+        saveBtn.disabled = true;
 
-                try {
-                    // Show Loading
-                    (window as any).showModal(
-                        "Salvando...",
-                        "Sincronizando seus dados",
-                        "loading",
-                    );
+        const get = (id: string) =>
+            (document.getElementById(id) as HTMLInputElement)?.value ?? "";
 
-                    const res = await fetch("/api/user/update", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({
-                            name,
-                            phone,
-                            company,
-                            siteUrl,
-                            image: currentImageBase64 || undefined,
-                        }),
-                    });
-
-                    if (res.ok) {
-                        if (nameDisplay) nameDisplay.innerText = name;
-
-                        (window as any).showModal(
-                            "Perfil Atualizado!",
-                            "Seus dados foram salvos com sucesso. Retornando ao dashboard...",
-                            "success",
-                        );
-
-                        // Redirecionar para o dashboard após sucesso
-                        setTimeout(() => {
-                            window.location.href = "/dashboard";
-                        }, 2000);
-                    } else {
-                        const data = await res.json();
-                        (window as any).showModal(
-                            "Erro ao Salvar",
-                            data.message ||
-                                "Não foi possível atualizar seu perfil.",
-                            "error",
-                        );
-
-                        setTimeout(() => {
-                            (window as any).hideModal();
-                        }, 3000);
-                    }
-                } catch (err) {
-                    console.error(err);
-                    (window as any).showModal(
-                        "Erro de Conexão",
-                        "Falha ao comunicar com o servidor.",
-                        "error",
-                    );
-
-                    setTimeout(() => {
-                        (window as any).hideModal();
-                    }, 3000);
-                } finally {
-                    if (saveBtn) {
-                        saveBtn.innerText = originalText;
-                        saveBtn.disabled = false;
-                    }
-                }
+        try {
+            (window as any).showModal?.(
+                "Salvando...",
+                "Sincronizando seus dados",
+                "loading",
+            );
+            const res = await fetch("/api/user/update", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    name: get("input-name"),
+                    phone: get("input-phone"),
+                    company: get("input-company"),
+                    profession: get("input-profession"),
+                    siteUrl: get("input-site-url"),
+                    instagram: get("input-instagram"),
+                    linkedin: get("input-linkedin"),
+                    oldPassword: get("input-old-password"),
+                    newPassword: get("input-new-password"),
+                    image: currentImageBase64 || undefined,
+                }),
             });
+
+            if (res.ok) {
+                const data = await res.json();
+                nameDisplay.innerText = get("input-name");
+
+                // If the user uploaded a new avatar, update the preview immediately
+                if (currentImageBase64) {
+                    avatarPreview.innerHTML = `<img src="${currentImageBase64}" alt="Avatar" style="width:100%;height:100%;object-fit:cover;border-radius:inherit;" />`;
+                }
+
+                (window as any).showModal?.(
+                    "Perfil Atualizado!",
+                    "Suas informações foram salvas.",
+                    "success",
+                );
+                // Force a hard-reload of the dashboard so session reflects the latest image from DB
+                setTimeout(() => {
+                    window.location.replace("/dashboard?refresh=" + Date.now());
+                }, 1800);
+            } else {
+                const data = await res.json();
+                (window as any).showModal?.(
+                    "Erro",
+                    data.message || "Não foi possível salvar.",
+                    "error",
+                );
+                setTimeout(() => (window as any).hideModal?.(), 3000);
+            }
+        } catch {
+            (window as any).showModal?.(
+                "Erro de Conexão",
+                "Verifique sua internet.",
+                "error",
+            );
+            setTimeout(() => (window as any).hideModal?.(), 3000);
+        } finally {
+            saveBtn.innerHTML = original;
+            saveBtn.disabled = false;
         }
-    </script>
-</Layout>
+    });
+</script>
 
 <style>
-    .dashboard-wrapper {
-        min-height: 100vh;
-        background-color: var(--color-bg-body);
-        padding-top: 120px;
-        position: relative;
+    :root {
+        --color-primary: #8a1c26;
+        --glass: rgba(255, 255, 255, 0.03);
+        --glass-border: rgba(255, 255, 255, 0.06);
     }
-    .ambient-glow {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 500px;
-        background: radial-gradient(
-            circle at top,
-            rgba(138, 28, 38, 0.1),
-            transparent 70%
-        );
-        pointer-events: none;
-    }
+
     .dashboard-container {
-        position: relative;
-        z-index: 1;
+        display: flex;
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
     }
-    .back-link {
-        color: var(--color-text-muted);
-        text-decoration: none;
-        font-size: 0.9rem;
-        display: block;
-        margin-bottom: 0.5rem;
-    }
-    .back-link:hover {
-        color: var(--color-primary);
-    }
-    .user-name {
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: white;
-    }
-    .main-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 24px;
+
+    .main-content {
+        flex: 1;
         padding: 3rem;
-        backdrop-filter: blur(10px);
+        overflow-x: hidden;
     }
-    .profile-header {
+
+    /* Header */
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .user-welcome h1 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.25rem;
+    }
+
+    .user-welcome p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.95rem;
+    }
+
+    .back-btn {
         display: flex;
         align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        padding: 10px 20px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+    .back-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    /* Layout */
+    .profile-layout {
+        display: grid;
+        grid-template-columns: 260px 1fr;
         gap: 2rem;
-        margin-bottom: 3rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        align-items: start;
     }
-    .avatar-container {
+
+    /* Avatar card */
+    .avatar-card {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.75rem;
+        text-align: center;
+        position: sticky;
+        top: 2rem;
+    }
+
+    .avatar-wrap {
         position: relative;
+        margin-bottom: 0.5rem;
     }
+
     .avatar-large {
-        width: 100px;
-        height: 100px;
+        width: 110px;
+        height: 110px;
         background: var(--color-primary);
-        color: white;
         border-radius: 30px;
         display: flex;
         align-items: center;
         justify-content: center;
         font-size: 3rem;
         font-weight: 800;
-        box-shadow: 0 10px 30px rgba(138, 28, 38, 0.3);
         overflow: hidden;
+        box-shadow: 0 10px 30px rgba(138, 28, 38, 0.4);
     }
+
     .avatar-large img {
         width: 100%;
         height: 100%;
-        object-fit: contain; /* Melhor para logos transparentes */
+        object-fit: cover;
     }
     .avatar-large:has(img) {
         background: transparent;
         box-shadow: none;
     }
-    .edit-avatar-btn {
+
+    .avatar-change-btn {
         position: absolute;
-        bottom: -5px;
-        right: -5px;
-        background: white;
-        color: black;
-        width: 32px;
-        height: 32px;
+        bottom: -6px;
+        right: -6px;
+        width: 34px;
+        height: 34px;
+        background: #fff;
+        color: #111;
         border-radius: 10px;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-        transition: 0.3s;
+        font-size: 0.85rem;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+        transition: 0.2s;
     }
-    .edit-avatar-btn:hover {
-        transform: scale(1.1);
+
+    .avatar-change-btn:hover {
         background: var(--color-primary);
-        color: white;
+        color: #fff;
+        transform: scale(1.1);
     }
-    .profile-info-top h2 {
-        color: white;
-        margin: 0;
-        font-size: 1.8rem;
+
+    .avatar-card h2 {
+        color: #fff;
+        font-size: 1.15rem;
+        font-weight: 700;
     }
-    .profile-info-top span {
-        color: #777;
+    .contact-text {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.82rem;
     }
+
+    .plan-badge {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        background: rgba(138, 28, 38, 0.12);
+        border: 1px solid rgba(138, 28, 38, 0.25);
+        color: var(--color-primary);
+        padding: 5px 14px;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .avatar-hint {
+        color: rgba(255, 255, 255, 0.25);
+        font-size: 0.72rem;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+    }
+
+    /* Form card */
+    .form-card {
+        background: var(--glass);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2.5rem;
+    }
+
+    .section-label {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: rgba(255, 255, 255, 0.35);
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        margin-top: 2rem;
+    }
+
+    .section-label:first-child {
+        margin-top: 0;
+    }
+    .section-label i {
+        color: var(--color-primary);
+    }
+
     .form-grid {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 1.5rem;
+        gap: 1.2rem;
+        margin-bottom: 0.5rem;
     }
-    /* Mobile Optimization */
-    @media (max-width: 600px) {
-        .dashboard-wrapper {
-            padding-top: 100px;
-        }
 
-        .user-name {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+    }
+    .field.full {
+        grid-column: 1 / -1;
+    }
 
-        .main-card {
+    .field label {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.45);
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+    }
+
+    .readonly-tag {
+        background: rgba(255, 255, 255, 0.06);
+        color: rgba(255, 255, 255, 0.3);
+        padding: 1px 7px;
+        border-radius: 4px;
+        font-size: 0.68rem;
+        font-weight: 600;
+    }
+
+    .field input {
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        color: #fff;
+        padding: 0.8rem 1rem;
+        font-size: 0.92rem;
+        outline: none;
+        transition: 0.2s;
+        width: 100%;
+    }
+
+    .field input:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
+        background: rgba(0, 0, 0, 0.5);
+    }
+
+    .field input:disabled {
+        opacity: 0.4;
+        cursor: not-allowed;
+    }
+
+    /* Input with icon prefix */
+    .input-icon {
+        position: relative;
+    }
+
+    .input-icon i {
+        position: absolute;
+        left: 12px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: rgba(255, 255, 255, 0.3);
+        font-size: 0.85rem;
+        pointer-events: none;
+    }
+
+    .input-icon input {
+        padding-left: 2.4rem;
+    }
+
+    /* Actions */
+    .form-actions {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 2rem;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .btn-save {
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        padding: 0.9rem 2.4rem;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.95rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+    }
+
+    .btn-save:hover {
+        background: #a52030;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(138, 28, 38, 0.4);
+    }
+    .btn-save:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+        .profile-layout {
+            grid-template-columns: 1fr;
+        }
+        .avatar-card {
+            position: static;
+            flex-direction: row;
+            text-align: left;
             padding: 1.5rem;
-            border-radius: 20px;
+            align-items: center;
         }
-
-        .profile-header {
-            flex-direction: column;
-            text-align: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+        .avatar-card h2,
+        .contact-text,
+        .plan-badge,
+        .avatar-hint {
+            text-align: left;
         }
+    }
 
+    @media (max-width: 640px) {
+        .main-content {
+            padding: 1.5rem 1.5rem 90px; /* extra bottom for mobile nav bar */
+        }
         .form-grid {
             grid-template-columns: 1fr;
         }
-
-        .btn-primary-small {
-            width: 100%;
+        .field.full {
+            grid-column: 1;
+        }
+        .avatar-card {
+            flex-direction: column;
             text-align: center;
         }
+        .form-card {
+            padding: 1.5rem;
+        }
     }
-    .password-section {
-        margin-top: 3rem;
-        padding-top: 2rem;
-        border-top: 1px solid rgba(255, 255, 255, 0.05);
-    }
-    .password-section h3 {
-        color: white;
-        margin-bottom: 1.5rem;
-    }
-    .form-group label {
-        display: block;
-        color: #888;
-        margin-bottom: 0.5rem;
-        font-size: 0.9rem;
-    }
-    .form-group input {
-        width: 100%;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        color: white;
-        padding: 1rem;
-    }
-    .form-group input:focus {
-        outline: none;
-        border-color: var(--color-primary);
-        background: rgba(255, 255, 255, 0.08);
-    }
-    .form-group input:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-    .btn-primary-small {
-        background: var(--color-primary);
-        color: white;
-        border: none;
-        padding: 1rem 2.5rem;
-        border-radius: 50px;
-        font-weight: 700;
-        cursor: pointer;
-        margin-top: 2rem;
-        transition: 0.3s;
-    }
-    .btn-primary-small:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(138, 28, 38, 0.4);
-    }
-    .single-col {
-        max-width: 900px;
-        margin: 0 auto;
+
+    /* Admin logo inside avatar circle */
+    .avatar-large .admin-logo {
+        width: 80%;
+        height: 80%;
+        object-fit: contain;
+        filter: drop-shadow(0 4px 12px rgba(138, 28, 38, 0.5));
     }
 </style>
-
-<script>
-    const inputPhone = document.getElementById(
-        "input-phone",
-    ) as HTMLInputElement;
-    if (inputPhone) {
-        inputPhone.addEventListener("input", (e) => {
-            const target = e.target as HTMLInputElement;
-            let value = target.value.replace(/\D/g, "");
-            if (value.length > 11) value = value.slice(0, 11);
-
-            if (value.length > 7) {
-                target.value = `${value.slice(0, 2)} ${value.slice(2, 7)}-${value.slice(7)}`;
-            } else if (value.length > 2) {
-                target.value = `${value.slice(0, 2)} ${value.slice(2)}`;
-            } else {
-                target.value = value;
-            }
-        });
-    }
-</script>

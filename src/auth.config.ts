@@ -115,26 +115,43 @@ export default {
             if (token?.sub && session.user) {
                 session.user.id = token.sub;
 
-                // BUSCA DINÂMICA: Pegamos a imagem e o plano direto do banco 
-                // para NÃO inflar o Cookie com dados pesados (Base64)
+                // Always fetch fresh user data from DB so the session always
+                // reflects the latest profile (including updated image, plan, etc.)
                 try {
-                    const dbUser = await prisma.user.findUnique({
+                    const dbUser = await (prisma.user as any).findFirst({
                         where: { id: token.sub },
-                        select: { plan: true, siteUrl: true, image: true, name: true, email: true, role: true, phone: true, company: true }
-                    } as any);
+                        select: {
+                            name: true,
+                            email: true,
+                            phone: true,
+                            company: true,
+                            profession: true,
+                            instagram: true,
+                            linkedin: true,
+                            image: true,
+                            plan: true,
+                            siteUrl: true,
+                            role: true,
+                        },
+                    });
 
                     if (dbUser) {
-                        session.user.plan = (dbUser as any).plan || "BRONZE";
-                        session.user.siteUrl = (dbUser as any).siteUrl || null;
-                        session.user.role = (dbUser as any).role || "USER";
-                        session.user.image = dbUser.image || null;
-                        session.user.name = dbUser.name || null;
-                        session.user.email = dbUser.email || null;
-                        session.user.phone = (dbUser as any).phone || null;
-                        session.user.company = (dbUser as any).company || null;
+                        session.user.name = dbUser.name ?? null;
+                        session.user.email = dbUser.email ?? null;
+                        session.user.phone = dbUser.phone ?? null;
+                        session.user.company = dbUser.company ?? null;
+                        session.user.profession = dbUser.profession ?? null;
+                        session.user.instagram = dbUser.instagram ?? null;
+                        session.user.linkedin = dbUser.linkedin ?? null;
+                        session.user.image = dbUser.image ?? null;
+                        session.user.plan = dbUser.plan || "FREE";
+                        session.user.siteUrl = dbUser.siteUrl ?? null;
+                        session.user.role = dbUser.role || "USER";
+                    } else {
+                        console.warn("[Session] User not found in DB for id:", token.sub);
                     }
-                } catch (e) {
-                    console.error("Session sync error:", e);
+                } catch (e: any) {
+                    console.error("[Session] DB sync error:", e?.message ?? e);
                 }
             }
             return session;

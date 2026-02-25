@@ -1,5 +1,6 @@
 ---
 import Layout from "../../layouts/BaseLayout.astro";
+import AdminSidebar from "../../components/admin/AdminSidebar.astro";
 import { getSession } from "../../lib/auth";
 import { prisma } from "../../lib/prisma";
 import StatusModal from "../../components/ui/StatusModal.astro";
@@ -11,301 +12,308 @@ try {
     console.error("Admin Auth Error:", e);
 }
 
-// Proteção de Rota
 if (!session || session.user?.role !== "ADMIN") {
     return Astro.redirect("/login");
 }
 
-// Buscar estatísticas simples
-const totalUsers = await prisma.user.count();
-const recentUsers = await prisma.user.findMany({
-    take: 5,
+const isAdmin = session.user?.role === "ADMIN";
+
+const allUsers = await prisma.user.findMany({
     orderBy: { createdAt: "desc" },
     where: { role: "USER" },
 });
+
+const totalUsers = allUsers.length;
 
 const formatPhone = (phone: string | null | undefined) => {
     if (!phone) return "";
     const cleaned = phone.replace(/\D/g, "");
     const match = cleaned.match(/^(\d{2})(\d{5})(\d{4})$/);
-    if (match) {
-        return `${match[1]} ${match[2]}-${match[3]}`;
-    }
+    if (match) return `(${match[1]}) ${match[2]}-${match[3]}`;
     return phone;
+};
+
+const planColors: Record<string, string> = {
+    BRONZE: "#cd7f32",
+    PRATA: "#aaa",
+    OURO: "#f5c211",
+    FREE: "#555",
 };
 
 export const prerender = false;
 ---
 
-<Layout title="Admin Panel | Alpha Code" showWhatsApp={false}>
-    <div class="admin-wrapper">
-        <div class="ambient-glow"></div>
+<Layout
+    title="Gestão de Clientes | Alpha Code"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="users" isAdmin={isAdmin} />
 
-        <div class="container admin-container">
-            <header class="admin-header">
-                <div class="header-left">
-                    <span class="badge">Painel de Controle</span>
-                    <h1>Gestão de Clientes Alpha</h1>
+        <main class="main-content">
+            <!-- Header -->
+            <header class="dashboard-header">
+                <div class="user-welcome">
+                    <h1>Gestão de Clientes</h1>
+                    <p>
+                        {totalUsers} cliente{totalUsers !== 1 ? "s" : ""} cadastrado{
+                            totalUsers !== 1 ? "s" : ""
+                        }
+                    </p>
                 </div>
-                <div class="header-right">
-                    <a href="/dashboard" class="back-link"
-                        >Voltar ao Dashboard</a
-                    >
+                <div class="header-actions">
+                    <button class="add-btn" id="toggle-create-form">
+                        <i class="fas fa-user-plus"></i>
+                        Novo Cliente
+                    </button>
                 </div>
             </header>
 
-            <div class="admin-grid">
-                <!-- Form Area -->
-                <section class="admin-card create-user-card">
-                    <div class="card-header">
-                        <h2>Adicionar Novo Cliente</h2>
-                        <p>
-                            Cadastre clientes que já adquiriram sites
-                            anteriormente.
-                        </p>
+            <!-- Create User Inline Panel (collapsed by default) -->
+            <div class="create-panel" id="create-panel">
+                <div class="panel-inner">
+                    <div class="panel-title">
+                        <i class="fas fa-user-plus"></i>
+                        <span>Cadastrar Novo Cliente</span>
+                        <button class="close-panel-btn" id="close-create-panel"
+                            ><i class="fas fa-times"></i></button
+                        >
                     </div>
-
-                    <form id="create-user-form" class="admin-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name">Nome Completo</label>
+                    <form id="create-user-form" class="create-form">
+                        <div class="create-grid">
+                            <div class="field">
+                                <label>Nome Completo</label>
                                 <input
                                     type="text"
-                                    id="name"
                                     name="name"
+                                    id="name"
                                     placeholder="Ex: João Silva"
                                     required
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="email">E-mail ou WhatsApp</label>
+                            <div class="field">
+                                <label>E-mail ou WhatsApp</label>
                                 <input
                                     type="text"
-                                    id="email"
                                     name="email"
-                                    placeholder="Ex: (21) 99999-9999"
+                                    id="email"
+                                    placeholder="email@... ou (21) 99999-9999"
                                     required
                                 />
                             </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="password">Senha Inicial</label>
+                            <div class="field">
+                                <label>Senha Inicial</label>
                                 <input
                                     type="text"
-                                    id="password"
                                     name="password"
                                     value="alpha123"
                                     required
                                 />
                             </div>
-                            <div class="form-group">
-                                <label for="plan">Plano Adquirido</label>
-                                <div class="custom-select">
-                                    <select id="plan" name="plan">
-                                        <option value="BRONZE">Bronze</option>
-                                        <option value="PRATA">Prata</option>
-                                        <option value="OURO">Ouro</option>
-                                    </select>
-                                    <div class="select-arrow">
-                                        <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            width="16"
-                                            height="16"
-                                            viewBox="0 0 24 24"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            stroke-width="2"
-                                            stroke-linecap="round"
-                                            stroke-linejoin="round"
-                                            ><polyline points="6 9 12 15 18 9"
-                                            ></polyline></svg
-                                        >
-                                    </div>
-                                </div>
+                            <div class="field">
+                                <label>Plano</label>
+                                <select name="plan">
+                                    <option value="FREE">Free</option>
+                                    <option value="BRONZE">Bronze</option>
+                                    <option value="PRATA">Prata</option>
+                                    <option value="OURO">Ouro</option>
+                                </select>
+                            </div>
+                            <div class="field full">
+                                <label>URL do Site (opcional)</label>
+                                <input
+                                    type="url"
+                                    name="siteUrl"
+                                    placeholder="https://cliente.vercel.app"
+                                />
                             </div>
                         </div>
-
-                        <div class="form-group">
-                            <label for="siteUrl">URL do Site (opcional)</label>
-                            <input
-                                type="url"
-                                id="siteUrl"
-                                name="siteUrl"
-                                placeholder="https://nome-do-cliente.vercel.app"
-                            />
-                        </div>
-
                         <button
                             type="submit"
-                            class="btn-submit"
+                            class="btn-create"
                             id="submit-btn"
                         >
-                            <span>Cadastrar Cliente</span>
-                            <img
-                                src="/assets/logo.svg"
-                                alt="Carregando"
-                                class="btn-loader hidden pulsing-logo"
-                            />
+                            <i class="fas fa-check"></i> Cadastrar Cliente
                         </button>
                     </form>
-                </section>
-
-                <!-- Stats/List Area -->
-                <aside class="admin-sidebar">
-                    <div class="admin-card stats-summary">
-                        <h3>Resumo da Plataforma</h3>
-                        <div class="stat-item">
-                            <span class="label">Total de Usuários</span>
-                            <span class="value">{totalUsers}</span>
-                        </div>
-                    </div>
-
-                    <div class="admin-card recent-users">
-                        <h3>Últimos Cadastros</h3>
-                        <div class="users-list">
-                            {
-                                recentUsers.length === 0 ? (
-                                    <p class="empty-msg">
-                                        Nenhum cliente cadastrado.
-                                    </p>
-                                ) : (
-                                    recentUsers.map((u) => (
-                                        <div class="user-item">
-                                            <div class="user-info-group">
-                                                <div class="user-initials">
-                                                    {u.name?.charAt(0)}
-                                                </div>
-                                                <div class="user-meta">
-                                                    <strong>{u.name}</strong>
-                                                    <span class="user-id-text">
-                                                        <i
-                                                            class="fas fa-phone mr-1"
-                                                            style="font-size: 0.8rem; opacity: 0.7;"
-                                                        />
-                                                        {formatPhone(u.phone) ||
-                                                            u.email}
-                                                    </span>
-                                                    <span
-                                                        class={`plan-tag ${u.plan.toLowerCase()}`}
-                                                    >
-                                                        {u.plan}
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="user-actions">
-                                                <button
-                                                    class="action-btn edit-btn"
-                                                    title="Editar"
-                                                    data-user={JSON.stringify(
-                                                        u,
-                                                    )}
-                                                    onclick="openEditModal(this)"
-                                                >
-                                                    ✎
-                                                </button>
-                                                <button
-                                                    class="action-btn reset-btn"
-                                                    title="Resetar Senha"
-                                                    data-id={u.id}
-                                                    data-name={u.name}
-                                                    onclick="openResetModal(this)"
-                                                >
-                                                    🔑
-                                                </button>
-                                                <button
-                                                    class="action-btn delete-btn"
-                                                    title="Excluir"
-                                                    data-id={u.id}
-                                                    data-name={u.name}
-                                                    onclick="openDeleteModal(this)"
-                                                >
-                                                    🗑️
-                                                </button>
-                                            </div>
-                                        </div>
-                                    ))
-                                )
-                            }
-                        </div>
-                    </div>
-                </aside>
+                </div>
             </div>
-        </div>
+
+            <!-- Users Table -->
+            <div class="table-card">
+                {
+                    allUsers.length === 0 ? (
+                        <div class="empty-state">
+                            <i class="fas fa-users" />
+                            <p>Nenhum cliente cadastrado ainda.</p>
+                            <button class="add-btn" id="toggle-create-form-2">
+                                Cadastrar primeiro cliente
+                            </button>
+                        </div>
+                    ) : (
+                        <table class="users-table">
+                            <thead>
+                                <tr>
+                                    <th>Cliente</th>
+                                    <th>Contato</th>
+                                    <th>Plano</th>
+                                    <th>Site</th>
+                                    <th>Desde</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {allUsers.map((u) => (
+                                    <tr>
+                                        <td class="td-name">
+                                            <div class="avatar-initials">
+                                                {u.name
+                                                    ?.charAt(0)
+                                                    ?.toUpperCase() || "?"}
+                                            </div>
+                                            <span class="name-text">
+                                                {u.name}
+                                            </span>
+                                        </td>
+                                        <td class="td-contact">
+                                            {formatPhone(u.phone) ||
+                                                u.email ||
+                                                "—"}
+                                        </td>
+                                        <td>
+                                            <span
+                                                class="plan-badge"
+                                                style={`color:${planColors[u.plan] || "#aaa"}; border-color:${planColors[u.plan] || "#aaa"}44`}
+                                            >
+                                                {u.plan}
+                                            </span>
+                                        </td>
+                                        <td class="td-site">
+                                            {u.siteUrl ? (
+                                                <a
+                                                    href={u.siteUrl}
+                                                    target="_blank"
+                                                    rel="noopener"
+                                                    class="site-link"
+                                                >
+                                                    <i class="fas fa-external-link-alt" />
+                                                    {
+                                                        u.siteUrl
+                                                            .replace(
+                                                                /https?:\/\//,
+                                                                "",
+                                                            )
+                                                            .split("/")[0]
+                                                    }
+                                                </a>
+                                            ) : (
+                                                <span class="muted">—</span>
+                                            )}
+                                        </td>
+                                        <td class="td-date muted">
+                                            {new Date(
+                                                u.createdAt,
+                                            ).toLocaleDateString("pt-BR")}
+                                        </td>
+                                        <td class="td-actions">
+                                            <button
+                                                class="action-btn edit-btn"
+                                                title="Editar cliente"
+                                                data-user={JSON.stringify(u)}
+                                                onclick="openEditModal(this)"
+                                            >
+                                                <i class="fas fa-pen" />
+                                            </button>
+                                            <button
+                                                class="action-btn reset-btn"
+                                                title="Resetar senha"
+                                                data-id={u.id}
+                                                data-name={u.name}
+                                                onclick="openResetModal(this)"
+                                            >
+                                                <i class="fas fa-key" />
+                                            </button>
+                                            <button
+                                                class="action-btn delete-btn"
+                                                title="Excluir cliente"
+                                                data-id={u.id}
+                                                data-name={u.name}
+                                                onclick="openDeleteModal(this)"
+                                            >
+                                                <i class="fas fa-trash" />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    )
+                }
+            </div>
+        </main>
     </div>
 
-    <!-- Modals -->
+    <!-- EDIT MODAL -->
     <div id="edit-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Editar Cliente</h2>
-                <button class="close-modal" onclick="closeModal('edit-modal')"
-                    >&times;</button
+        <div class="modal-box">
+            <div class="modal-hdr">
+                <h2><i class="fas fa-pen"></i> Editar Cliente</h2>
+                <button class="modal-close" onclick="closeModal('edit-modal')"
+                    ><i class="fas fa-times"></i></button
                 >
             </div>
-            <form id="edit-user-form">
+            <form id="edit-user-form" class="modal-form">
                 <input type="hidden" id="edit-id" name="id" />
-                <div class="form-group">
+                <div class="field">
                     <label>Nome</label>
                     <input type="text" id="edit-name" name="name" required />
                 </div>
-                <div class="form-group">
+                <div class="field">
                     <label>E-mail ou WhatsApp</label>
                     <input type="text" id="edit-email" name="email" required />
                 </div>
-                <div class="form-group">
+                <div class="field">
                     <label>Plano</label>
-                    <div class="custom-select">
-                        <select id="edit-plan" name="plan">
-                            <option value="BRONZE">Bronze</option>
-                            <option value="PRATA">Prata</option>
-                            <option value="OURO">Ouro</option>
-                        </select>
-                        <div class="select-arrow">
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                width="16"
-                                height="16"
-                                viewBox="0 0 24 24"
-                                fill="none"
-                                stroke="currentColor"
-                                stroke-width="2"
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                ><polyline points="6 9 12 15 18 9"
-                                ></polyline></svg
-                            >
-                        </div>
-                    </div>
+                    <select id="edit-plan" name="plan">
+                        <option value="FREE">Free</option>
+                        <option value="BRONZE">Bronze</option>
+                        <option value="PRATA">Prata</option>
+                        <option value="OURO">Ouro</option>
+                    </select>
                 </div>
-                <div class="form-group">
-                    <label>Site URL</label>
-                    <input type="text" id="edit-siteUrl" name="siteUrl" />
+                <div class="field">
+                    <label>URL do Site</label>
+                    <input
+                        type="text"
+                        id="edit-siteUrl"
+                        name="siteUrl"
+                        placeholder="https://..."
+                    />
                 </div>
-                <button type="submit" class="btn-submit"
-                    >Salvar Alterações</button
-                >
+                <button type="submit" class="btn-modal-submit">
+                    <i class="fas fa-check"></i> Salvar Alterações
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- RESET PASSWORD MODAL -->
     <div id="reset-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Resetar Senha</h2>
-                <button class="close-modal" onclick="closeModal('reset-modal')"
-                    >&times;</button
+        <div class="modal-box">
+            <div class="modal-hdr">
+                <h2><i class="fas fa-key"></i> Resetar Senha</h2>
+                <button class="modal-close" onclick="closeModal('reset-modal')"
+                    ><i class="fas fa-times"></i></button
                 >
             </div>
-            <p>
-                Defina uma nova senha para <strong id="reset-user-name"
-                    >Usuário</strong
-                >
+            <p class="modal-desc">
+                Nova senha para <strong id="reset-user-name">Usuário</strong>
             </p>
-            <form id="reset-password-form">
+            <form id="reset-password-form" class="modal-form">
                 <input type="hidden" id="reset-id" name="userId" />
-                <div class="form-group">
+                <div class="field">
                     <label>Nova Senha</label>
                     <input
                         type="text"
@@ -314,32 +322,37 @@ export const prerender = false;
                         required
                     />
                 </div>
-                <button type="submit" class="btn-submit">Alterar Senha</button>
+                <button type="submit" class="btn-modal-submit">
+                    <i class="fas fa-lock"></i> Alterar Senha
+                </button>
             </form>
         </div>
     </div>
 
+    <!-- DELETE MODAL -->
     <div id="delete-modal" class="modal-backdrop hidden">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Excluir Cliente</h2>
-                <button class="close-modal" onclick="closeModal('delete-modal')"
-                    >&times;</button
+        <div class="modal-box modal-box--sm">
+            <div class="modal-hdr">
+                <h2><i class="fas fa-trash"></i> Excluir Cliente</h2>
+                <button class="modal-close" onclick="closeModal('delete-modal')"
+                    ><i class="fas fa-times"></i></button
                 >
             </div>
-            <p>
+            <p class="modal-desc">
                 Tem certeza que deseja excluir <strong id="delete-user-name"
                     >Usuário</strong
                 >?
             </p>
-            <p class="warning-text">Esta ação não pode ser desfeita.</p>
-
+            <p class="warning-text">
+                <i class="fas fa-exclamation-triangle"></i> Esta ação não pode ser
+                desfeita.
+            </p>
             <div class="modal-actions">
                 <button class="btn-cancel" onclick="closeModal('delete-modal')"
                     >Cancelar</button
                 >
                 <button id="confirm-delete-btn" class="btn-delete"
-                    >Confirmar Exclusão</button
+                    ><i class="fas fa-trash"></i> Confirmar</button
                 >
             </div>
         </div>
@@ -354,7 +367,24 @@ export const prerender = false;
 </Layout>
 
 <script is:inline>
-    // Global Modal Functions
+    // Toggle create panel
+    const toggleBtns = ["toggle-create-form", "toggle-create-form-2"];
+    toggleBtns.forEach((id) => {
+        const btn = document.getElementById(id);
+        if (btn)
+            btn.addEventListener("click", () => {
+                document
+                    .getElementById("create-panel")
+                    .classList.toggle("open");
+            });
+    });
+    document
+        .getElementById("close-create-panel")
+        ?.addEventListener("click", () => {
+            document.getElementById("create-panel").classList.remove("open");
+        });
+
+    // Modal helpers
     window.openEditModal = (btn) => {
         const user = JSON.parse(btn.getAttribute("data-user"));
         document.getElementById("edit-id").value = user.id;
@@ -362,671 +392,668 @@ export const prerender = false;
         document.getElementById("edit-email").value = user.email;
         document.getElementById("edit-plan").value = user.plan;
         document.getElementById("edit-siteUrl").value = user.siteUrl || "";
-
         document.getElementById("edit-modal").classList.remove("hidden");
     };
-
     window.openResetModal = (btn) => {
-        const id = btn.getAttribute("data-id");
-        const name = btn.getAttribute("data-name");
-        document.getElementById("reset-id").value = id;
-        document.getElementById("reset-user-name").innerText = name;
+        document.getElementById("reset-id").value = btn.dataset.id;
+        document.getElementById("reset-user-name").innerText = btn.dataset.name;
         document.getElementById("reset-modal").classList.remove("hidden");
     };
-
     let deleteUserId = null;
     window.openDeleteModal = (btn) => {
-        deleteUserId = btn.getAttribute("data-id");
-        const name = btn.getAttribute("data-name");
-        document.getElementById("delete-user-name").innerText = name;
+        deleteUserId = btn.dataset.id;
+        document.getElementById("delete-user-name").innerText =
+            btn.dataset.name;
         document.getElementById("delete-modal").classList.remove("hidden");
     };
-
-    window.closeModal = (id) => {
+    window.closeModal = (id) =>
         document.getElementById(id).classList.add("hidden");
-    };
-
-    // Close on backdrop click
     window.onclick = (e) => {
-        if (e.target.classList.contains("modal-backdrop")) {
+        if (e.target.classList.contains("modal-backdrop"))
             e.target.classList.add("hidden");
-        }
     };
 
-    // --- Forms Handlers ---
-
-    // 1. Create User
-    const createForm = document.getElementById("create-user-form");
-    if (createForm) {
-        createForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            const btn = document.getElementById("submit-btn");
-            if (btn) btn.innerText = "Cadastrando...";
-
-            await handleAdminAction(
-                "/api/admin/create-user",
-                createForm,
-                () => {
-                    window.location.reload();
-                },
-            );
-
-            if (btn) btn.innerText = "Cadastrar Cliente";
-        });
-    }
-
-    // 2. Edit User
-    const editForm = document.getElementById("edit-user-form");
-    if (editForm) {
-        editForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            window.closeModal("edit-modal");
-            await handleAdminAction("/api/admin/update-user", editForm, () => {
-                window.location.reload();
-            });
-        });
-    }
-
-    // 3. Reset Password
-    const resetForm = document.getElementById("reset-password-form");
-    if (resetForm) {
-        resetForm.addEventListener("submit", async (e) => {
-            e.preventDefault();
-            window.closeModal("reset-modal");
-            await handleAdminAction("/api/admin/reset-password", resetForm);
-        });
-    }
-
-    // 4. Delete User
-    const deleteBtn = document.getElementById("confirm-delete-btn");
-    if (deleteBtn) {
-        deleteBtn.addEventListener("click", async () => {
-            window.closeModal("delete-modal");
-
-            if (window.showModal)
-                window.showModal(
-                    "Excluindo...",
-                    "Removendo usuário do sistema",
-                    "loading",
-                );
-
-            try {
-                const res = await fetch("/api/admin/delete-user", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ userId: deleteUserId }),
-                });
-
-                if (res.ok) {
-                    if (window.showModal)
-                        window.showModal(
-                            "Sucesso",
-                            "Usuário excluído.",
-                            "success",
-                        );
-                    setTimeout(() => window.location.reload(), 1500);
-                } else {
-                    const data = await res.json();
-                    if (window.showModal)
-                        window.showModal(
-                            "Erro",
-                            data.message || "Falha ao excluir",
-                            "error",
-                        );
-                    setTimeout(() => window.hideModal(), 3000);
-                }
-            } catch (err) {
-                if (window.showModal)
-                    window.showModal("Erro", "Erro de conexão", "error");
-                setTimeout(() => window.hideModal(), 3000);
-            }
-        });
-    }
-
-    // Helper
-    async function handleAdminAction(url, formElement, onSuccess) {
-        const formData = new FormData(formElement);
-        const data = Object.fromEntries(formData);
-
-        if (window.showModal)
-            window.showModal("Processando...", "Aguarde", "loading");
-
+    // Shared helper
+    async function handleAction(url, formEl, onSuccess) {
+        const data = Object.fromEntries(new FormData(formEl));
+        window.showModal?.("Processando...", "Aguarde", "loading");
         try {
             const res = await fetch(url, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(data),
             });
-
             const result = await res.json();
-
             if (res.ok) {
-                if (window.showModal)
-                    window.showModal("Sucesso!", result.message, "success");
-                if (formElement) formElement.reset();
+                window.showModal?.("Sucesso!", result.message, "success");
+                formEl.reset();
                 if (onSuccess) setTimeout(onSuccess, 1500);
-                else setTimeout(() => window.hideModal(), 2000);
+                else setTimeout(() => window.hideModal?.(), 2000);
             } else {
-                if (window.showModal)
-                    window.showModal(
-                        "Erro",
-                        result.message || "Algo deu errado",
-                        "error",
-                    );
-                setTimeout(() => window.hideModal(), 3000);
+                window.showModal?.(
+                    "Erro",
+                    result.message || "Algo deu errado",
+                    "error",
+                );
+                setTimeout(() => window.hideModal?.(), 3000);
             }
-        } catch (err) {
-            console.error(err);
-            if (window.showModal)
-                window.showModal("Erro", "Falha de conexão", "error");
-            setTimeout(() => window.hideModal(), 3000);
+        } catch {
+            window.showModal?.("Erro", "Falha de conexão", "error");
+            setTimeout(() => window.hideModal?.(), 3000);
         }
     }
+
+    document
+        .getElementById("create-user-form")
+        ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const btn = document.getElementById("submit-btn");
+            if (btn)
+                btn.innerHTML =
+                    '<i class="fas fa-spinner fa-spin"></i> Cadastrando...';
+            await handleAction("/api/admin/create-user", e.target, () =>
+                window.location.reload(),
+            );
+            if (btn)
+                btn.innerHTML =
+                    '<i class="fas fa-check"></i> Cadastrar Cliente';
+        });
+
+    document
+        .getElementById("edit-user-form")
+        ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            window.closeModal("edit-modal");
+            await handleAction("/api/admin/update-user", e.target, () =>
+                window.location.reload(),
+            );
+        });
+
+    document
+        .getElementById("reset-password-form")
+        ?.addEventListener("submit", async (e) => {
+            e.preventDefault();
+            window.closeModal("reset-modal");
+            await handleAction("/api/admin/reset-password", e.target, () =>
+                window.location.reload(),
+            );
+        });
+
+    document
+        .getElementById("confirm-delete-btn")
+        ?.addEventListener("click", async () => {
+            window.closeModal("delete-modal");
+            window.showModal?.("Excluindo...", "Removendo cliente", "loading");
+            try {
+                const res = await fetch("/api/admin/delete-user", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ userId: deleteUserId }),
+                });
+                if (res.ok) {
+                    window.showModal?.(
+                        "Removido!",
+                        "Cliente excluído com sucesso.",
+                        "success",
+                    );
+                    setTimeout(() => window.location.reload(), 1500);
+                } else {
+                    const d = await res.json();
+                    window.showModal?.(
+                        "Erro",
+                        d.message || "Falha ao excluir",
+                        "error",
+                    );
+                    setTimeout(() => window.hideModal?.(), 3000);
+                }
+            } catch {
+                window.showModal?.("Erro", "Erro de conexão", "error");
+                setTimeout(() => window.hideModal?.(), 3000);
+            }
+        });
+
+    // Phone mask
+    ["email", "edit-email"].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el)
+            el.addEventListener("input", (e) => {
+                if (/^\d/.test(e.target.value)) {
+                    let v = e.target.value.replace(/\D/g, "").slice(0, 11);
+                    if (v.length > 7)
+                        e.target.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+                    else if (v.length > 2)
+                        e.target.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+                    else e.target.value = v;
+                }
+            });
+    });
 </script>
 
 <style>
-    .admin-wrapper {
+    :root {
+        --color-primary: #8a1c26;
+        --glass-border: rgba(255, 255, 255, 0.06);
+    }
+
+    .dashboard-container {
+        display: flex;
         min-height: 100vh;
-        background-color: var(--color-bg-body);
-        padding-top: 140px;
-        position: relative;
-        overflow: hidden;
+        background: #050505;
+        color: #fff;
     }
 
-    .ambient-glow {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 100%;
-        height: 500px;
-        background: radial-gradient(
-            circle at top,
-            rgba(138, 28, 38, 0.1),
-            transparent 70%
-        );
-        pointer-events: none;
+    .main-content {
+        flex: 1;
+        padding: 3rem;
+        overflow-x: hidden;
     }
 
-    .admin-container {
-        position: relative;
-        z-index: 10;
-        max-width: 1100px;
-        margin: 0 auto;
-    }
-
-    .admin-header {
+    /* Header */
+    .dashboard-header {
         display: flex;
         justify-content: space-between;
-        align-items: flex-end;
-        margin-bottom: 3rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        padding-bottom: 1.5rem;
-    }
-
-    .admin-header h1 {
-        font-size: 2.2rem;
-        color: #fff;
-        margin-top: 0.5rem;
-    }
-
-    .badge {
-        background: rgba(138, 28, 38, 0.1);
-        color: var(--color-primary);
-        padding: 4px 12px;
-        border-radius: 100px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        border: 1px solid rgba(138, 28, 38, 0.2);
-    }
-
-    .back-link {
-        color: var(--color-text-secondary);
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: color 0.3s;
-    }
-
-    .back-link:hover {
-        color: #fff;
-    }
-
-    .admin-grid {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr;
-        gap: 2rem;
-    }
-
-    .admin-card {
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        padding: 2rem;
-        backdrop-filter: blur(10px);
-    }
-
-    .card-header h2 {
-        font-size: 1.4rem;
-        color: #fff;
-        margin-bottom: 0.5rem;
-    }
-
-    .card-header p {
-        color: var(--color-text-secondary);
-        font-size: 0.9rem;
+        align-items: flex-start;
         margin-bottom: 2rem;
-    }
-
-    .admin-form {
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-    .form-row {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
+        flex-wrap: wrap;
         gap: 1rem;
     }
 
-    .form-group {
+    .user-welcome h1 {
+        font-size: clamp(1.6rem, 3vw, 2.2rem);
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 0.25rem;
+    }
+
+    .user-welcome p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.95rem;
+    }
+
+    .add-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: var(--color-primary);
+        border: none;
+        color: #fff;
+        padding: 11px 22px;
+        border-radius: 12px;
+        font-weight: 700;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: 0.3s;
+    }
+
+    .add-btn:hover {
+        background: #a52030;
+        transform: translateY(-1px);
+        box-shadow: 0 8px 20px rgba(138, 28, 38, 0.4);
+    }
+
+    /* Create Panel */
+    .create-panel {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+            max-height 0.4s ease,
+            opacity 0.3s;
+        opacity: 0;
+        margin-bottom: 0;
+    }
+
+    .create-panel.open {
+        max-height: 600px;
+        opacity: 1;
+        margin-bottom: 2rem;
+    }
+
+    .panel-inner {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        padding: 2rem;
+    }
+
+    .panel-title {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 700;
+        font-size: 1.05rem;
+        color: #fff;
+        margin-bottom: 1.5rem;
+    }
+
+    .panel-title i {
+        color: var(--color-primary);
+    }
+
+    .close-panel-btn {
+        margin-left: auto;
+        background: rgba(255, 255, 255, 0.06);
+        border: none;
+        color: #888;
+        width: 30px;
+        height: 30px;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .close-panel-btn:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .create-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .field.full {
+        grid-column: 1 / -1;
+    }
+
+    .field {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 6px;
     }
 
-    .form-group label {
-        font-size: 0.85rem;
-        color: var(--color-text-secondary);
-        font-weight: 500;
+    .field label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
     }
 
-    .form-group input,
-    .custom-select select {
+    .field input,
+    .field select {
         background: rgba(0, 0, 0, 0.4);
         border: 1px solid rgba(255, 255, 255, 0.1);
-        padding: 0.8rem 1rem;
-        border-radius: 8px;
+        border-radius: 10px;
         color: #fff;
+        padding: 0.75rem 1rem;
         font-size: 0.95rem;
         outline: none;
-        transition: all 0.3s;
+        transition: 0.2s;
         width: 100%;
         appearance: none;
     }
 
-    .custom-select {
-        position: relative;
-        width: 100%;
-    }
-
-    .select-arrow {
-        position: absolute;
-        right: 12px;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: none;
-        color: var(--color-text-secondary);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .form-group input:focus,
-    .custom-select select:focus {
+    .field input:focus,
+    .field select:focus {
         border-color: var(--color-primary);
-        background: rgba(0, 0, 0, 0.5);
         box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
     }
 
-    .custom-select select option {
+    .field select option {
         background: #1a1a1a;
-        color: #fff;
-        padding: 10px;
     }
 
-    .btn-submit {
-        background: #ffffff;
+    .btn-create {
+        background: #fff;
         color: var(--color-primary);
         border: none;
-        padding: 1rem;
-        border-radius: 8px;
+        padding: 0.85rem 2rem;
+        border-radius: 10px;
         font-weight: 700;
         cursor: pointer;
-        transition:
-            transform 0.2s,
-            box-shadow 0.3s;
+        font-size: 0.95rem;
+        transition: 0.3s;
         display: flex;
         align-items: center;
-        justify-content: center;
-        gap: 0.8rem;
-        margin-top: 1rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        gap: 8px;
     }
 
-    .btn-submit:hover {
-        background: #f8fafc;
-        transform: translateY(-2px);
-        box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
+    .btn-create:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
     }
 
-    .btn-loader {
-        width: 24px;
-        height: 24px;
-        object-fit: contain;
+    /* Table */
+    .table-card {
+        background: rgba(255, 255, 255, 0.025);
+        border: 1px solid var(--glass-border);
+        border-radius: 16px;
+        overflow: hidden;
     }
 
-    .pulsing-logo {
-        animation: pulseLogo 1.5s infinite ease-in-out;
+    .users-table {
+        width: 100%;
+        border-collapse: collapse;
     }
 
-    @keyframes pulseLogo {
-        0% {
-            transform: scale(0.85);
-            opacity: 0.8;
-        }
-        50% {
-            transform: scale(1.15);
-            opacity: 1;
-            filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.6));
-        }
-        100% {
-            transform: scale(0.85);
-            opacity: 0.8;
-        }
+    .users-table thead {
+        background: rgba(255, 255, 255, 0.03);
+        border-bottom: 1px solid var(--glass-border);
     }
 
-    /* Sidebar */
-    .admin-sidebar {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .stat-item {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 1rem;
-    }
-
-    .stat-item .value {
-        font-size: 2rem;
-        font-weight: 800;
-        color: var(--color-primary);
-    }
-
-    .users-list {
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        margin-top: 1.5rem;
-    }
-
-    .user-item {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-        padding: 0.8rem;
-        background: rgba(255, 255, 255, 0.02);
-        border-radius: 10px;
-    }
-
-    .user-initials {
-        width: 36px;
-        height: 36px;
-        background: var(--color-primary);
-        color: #fff;
-        border-radius: 8px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .users-table th {
+        padding: 14px 18px;
+        text-align: left;
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: rgba(255, 255, 255, 0.35);
         font-weight: 700;
     }
 
-    .user-meta {
-        display: flex;
-        flex-direction: column;
-        font-size: 0.8rem;
-    }
-
-    .user-meta strong {
-        color: #fff;
+    .users-table td {
+        padding: 14px 18px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.04);
         font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.75);
+        vertical-align: middle;
     }
 
-    .plan-tag {
-        font-size: 0.65rem;
-        font-weight: 800;
-        padding: 2px 6px;
-        border-radius: 4px;
-        width: fit-content;
-        margin-top: 4px;
+    .users-table tbody tr:last-child td {
+        border-bottom: none;
     }
 
-    .plan-tag.free {
-        background: #4b5563;
-        color: #fff;
-    }
-    .plan-tag.pro {
-        background: #2563eb;
-        color: #fff;
-    }
-    .plan-tag.vip {
-        background: #7c3aed;
-        color: #fff;
+    .users-table tbody tr:hover td {
+        background: rgba(255, 255, 255, 0.025);
     }
 
-    @media (max-width: 850px) {
-        .admin-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .admin-header {
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            gap: 1.5rem;
-        }
-
-        .admin-header h1 {
-            font-size: 1.8rem;
-        }
-    }
-
-    /* User Actions */
-    .user-actions {
+    .td-name {
         display: flex;
-        gap: 0.5rem;
-        margin-left: auto;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar-initials {
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        background: rgba(138, 28, 38, 0.25);
+        color: var(--color-primary);
+        border: 1px solid rgba(138, 28, 38, 0.3);
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 0.95rem;
+    }
+
+    .name-text {
+        color: #fff;
+        font-weight: 600;
+    }
+
+    .plan-badge {
+        border: 1px solid;
+        border-radius: 6px;
+        padding: 3px 10px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+    }
+
+    .site-link {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        color: #60a5fa;
+        text-decoration: none;
+        font-size: 0.85rem;
+        transition: 0.2s;
+    }
+
+    .site-link:hover {
+        color: #93c5fd;
+    }
+
+    .site-link i {
+        font-size: 0.7rem;
+        opacity: 0.7;
+    }
+
+    .muted {
+        color: rgba(255, 255, 255, 0.3) !important;
+    }
+
+    .td-actions {
+        display: flex;
+        gap: 6px;
     }
 
     .action-btn {
         width: 32px;
         height: 32px;
-        border-radius: 6px;
-        border: none;
+        border-radius: 8px;
+        border: 1px solid transparent;
         display: flex;
         align-items: center;
         justify-content: center;
         cursor: pointer;
-        font-size: 1rem;
-        transition:
-            transform 0.2s,
-            background 0.3s;
-        color: #fff;
+        font-size: 0.8rem;
+        transition: 0.2s;
     }
 
     .edit-btn {
-        background: rgba(59, 130, 246, 0.2);
+        background: rgba(59, 130, 246, 0.1);
         color: #60a5fa;
-        border: 1px solid rgba(59, 130, 246, 0.3);
+        border-color: rgba(59, 130, 246, 0.2);
     }
-    .edit-btn:hover {
-        background: rgba(59, 130, 246, 0.4);
+    .reset-btn {
+        background: rgba(245, 158, 11, 0.1);
+        color: #fbbf24;
+        border-color: rgba(245, 158, 11, 0.2);
+    }
+    .delete-btn {
+        background: rgba(239, 68, 68, 0.1);
+        color: #f87171;
+        border-color: rgba(239, 68, 68, 0.2);
     }
 
-    .reset-btn {
-        background: rgba(245, 158, 11, 0.2);
-        color: #fbbf24;
-        border: 1px solid rgba(245, 158, 11, 0.3);
+    .edit-btn:hover {
+        background: rgba(59, 130, 246, 0.25);
     }
     .reset-btn:hover {
-        background: rgba(245, 158, 11, 0.4);
-    }
-
-    .delete-btn {
-        background: rgba(239, 68, 68, 0.2);
-        color: #f87171;
-        border: 1px solid rgba(239, 68, 68, 0.3);
+        background: rgba(245, 158, 11, 0.25);
     }
     .delete-btn:hover {
-        background: rgba(239, 68, 68, 0.4);
+        background: rgba(239, 68, 68, 0.25);
+    }
+
+    /* Empty state */
+    .empty-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 5rem 2rem;
+        gap: 1rem;
+        color: rgba(255, 255, 255, 0.25);
+    }
+    .empty-state i {
+        font-size: 3.5rem;
+    }
+    .empty-state p {
+        font-size: 1.1rem;
     }
 
     /* Modals */
     .modal-backdrop {
         position: fixed;
         inset: 0;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.75);
+        backdrop-filter: blur(6px);
         z-index: 1000;
         display: flex;
         align-items: center;
         justify-content: center;
         padding: 1rem;
     }
-
     .modal-backdrop.hidden {
         display: none;
     }
 
-    .modal-content {
+    .modal-box {
         background: #0f0f0f;
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
         padding: 2rem;
-        border-radius: 16px;
         width: 100%;
-        max-width: 500px;
-        position: relative;
-        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        max-width: 480px;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6);
     }
 
-    .modal-header {
+    .modal-box--sm {
+        max-width: 380px;
+    }
+
+    .modal-hdr {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        margin-bottom: 2rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        gap: 10px;
+        margin-bottom: 1.5rem;
         padding-bottom: 1rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
     }
 
-    .modal-header h2 {
+    .modal-hdr h2 {
         color: #fff;
+        font-size: 1.25rem;
         margin: 0;
-        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
-    .close-modal {
-        background: transparent;
+    .modal-hdr h2 i {
+        color: var(--color-primary);
+        font-size: 1rem;
+    }
+
+    .modal-close {
+        margin-left: auto;
+        background: rgba(255, 255, 255, 0.06);
         border: none;
-        color: #fff;
-        font-size: 2rem;
+        color: #888;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
         cursor: pointer;
-        line-height: 1;
+        transition: 0.2s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .modal-close:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.12);
+    }
+
+    .modal-form {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .modal-desc {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.95rem;
+        margin-bottom: 1rem;
+    }
+
+    .btn-modal-submit {
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        padding: 0.9rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 700;
+        cursor: pointer;
+        margin-top: 0.5rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        transition: 0.2s;
+    }
+
+    .btn-modal-submit:hover {
+        background: #a52030;
     }
 
     .modal-actions {
         display: flex;
         justify-content: flex-end;
         gap: 1rem;
-        margin-top: 2rem;
+        margin-top: 1.5rem;
     }
 
     .btn-cancel {
         background: transparent;
-        border: 1px solid rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.15);
         color: #fff;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
         cursor: pointer;
+        transition: 0.2s;
+    }
+
+    .btn-cancel:hover {
+        background: rgba(255, 255, 255, 0.06);
     }
 
     .btn-delete {
-        background: #ef4444;
-        border: none;
-        color: #fff;
-        padding: 0.8rem 1.5rem;
-        border-radius: 8px;
+        background: rgba(239, 68, 68, 0.15);
+        border: 1px solid rgba(239, 68, 68, 0.3);
+        color: #f87171;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
         cursor: pointer;
         font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        transition: 0.2s;
+    }
+
+    .btn-delete:hover {
+        background: rgba(239, 68, 68, 0.3);
     }
 
     .warning-text {
-        color: #ef4444;
-        font-size: 0.9rem;
-        margin-top: 0.5rem;
+        color: #f87171;
+        font-size: 0.85rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 6px;
     }
 
-    @media (max-width: 580px) {
-        .admin-wrapper {
-            padding-top: 100px;
-        }
-
-        .admin-card {
+    /* Responsive */
+    @media (max-width: 900px) {
+        .main-content {
             padding: 1.5rem;
         }
-
-        .form-row {
+        .td-contact,
+        .td-date {
+            display: none;
+        }
+        .create-grid {
             grid-template-columns: 1fr;
         }
+    }
 
-        .card-header h2 {
-            font-size: 1.25rem;
+    @media (max-width: 600px) {
+        .td-site {
+            display: none;
         }
-
-        .user-item {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 1rem;
-        }
-
-        .user-actions {
-            width: 100%;
-            justify-content: flex-end;
+        .users-table th:nth-child(4),
+        .users-table th:nth-child(5) {
+            display: none;
         }
     }
 </style>
-
-<script>
-    const maskPhone = (value: string) => {
-        let clean = value.replace(/\D/g, "");
-        if (clean.length > 11) clean = clean.slice(0, 11);
-
-        if (clean.length > 7) {
-            return `${clean.slice(0, 2)} ${clean.slice(2, 7)}-${clean.slice(7)}`;
-        } else if (clean.length > 2) {
-            return `${clean.slice(0, 2)} ${clean.slice(2)}`;
-        }
-        return clean;
-    };
-
-    const setupMask = (id: string) => {
-        const input = document.getElementById(id) as HTMLInputElement;
-        if (input) {
-            input.addEventListener("input", (e) => {
-                const target = e.target as HTMLInputElement;
-                // Only mask if it looks like a phone (starts with digits or has digits)
-                // Actually, let's always try to mask if it's strictly digits, but here we allow email too.
-                // For "E-mail ou WhatsApp", we should probably mask only if they start typing numbers.
-                if (/^\d/.test(target.value)) {
-                    target.value = maskPhone(target.value);
-                }
-            });
-        }
-    };
-
-    setupMask("email"); // Create form
-    setupMask("edit-email"); // Edit modal
-</script>

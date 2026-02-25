@@ -16,6 +16,9 @@ model User {
   image         String?
   phone         String?   @unique
   company       String?
+  profession    String?
+  instagram     String?
+  linkedin      String?
   password      String?
   plan          String    @default("FREE")
   siteUrl       String?

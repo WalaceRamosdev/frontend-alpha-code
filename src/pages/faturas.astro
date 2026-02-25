@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
 import { getSession } from "../lib/auth";
+import { prisma } from "../lib/prisma";
 
 let session = null;
 try {
@@ -14,29 +15,24 @@ if (!session) {
 }
 export const prerender = false;
 
-const faturas = [
-    {
-        id: "#001",
-        data: "15/01/2025",
-        valor: "R$ 450,00",
-        status: "Pago",
-        link: "#",
-    },
-    {
-        id: "#002",
-        data: "01/01/2025",
-        valor: "R$ 1.200,00",
-        status: "Pago",
-        link: "#",
-    },
-    {
-        id: "#003",
-        data: "20/12/2025",
-        valor: "R$ 300,00",
-        status: "Pendente",
-        link: "#",
-    },
-];
+const userEmail = session.user?.email;
+
+// Fetch real maintenance requests for this user
+const requests = await (prisma as any).maintenanceRequest.findMany({
+    where: { email: userEmail },
+    orderBy: { createdAt: "desc" },
+});
+
+const faturas = requests.map((req: any) => ({
+    id: `#${req.id.slice(-4).toUpperCase()}`,
+    data: new Intl.DateTimeFormat("pt-BR").format(new Date(req.createdAt)),
+    valor: new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+    }).format(req.amount),
+    status: req.paymentStatus === "PAGO" ? "Pago" : "Pendente",
+    link: "#", // Add real PDF link if available
+}));
 ---
 
 <Layout title="Minhas Faturas | Alpha Code" showWhatsApp={false}>
@@ -54,7 +50,7 @@ const faturas = [
 
             <div class="faturas-list">
                 {
-                    faturas.map((fatura) => (
+                    faturas.map((fatura: any) => (
                         <div class="fatura-card">
                             <div class="fatura-main">
                                 <span class="fatura-id">{fatura.id}</span>

@@ -21,6 +21,10 @@ if (!session) {
 const isAdmin = session.user?.role === "ADMIN";
 const userEmail = session.user?.email;
 
+const totalUsers = isAdmin
+    ? await prisma.user.count({ where: { role: "USER" } })
+    : 0;
+
 const projectCount = isAdmin
     ? await prisma.project.count()
     : await prisma.project.count({ where: { clientEmail: userEmail } });
@@ -129,7 +133,13 @@ export const prerender = false;
                     <div class="user-profile-header">
                         <div class="header-avatar">
                             {
-                                session.user?.image ? (
+                                isAdmin ? (
+                                    <img
+                                        src="/assets/logo3d.svg"
+                                        alt="Alpha Code Admin"
+                                        id="header-avatar-img"
+                                    />
+                                ) : session.user?.image ? (
                                     <img
                                         src={session.user.image}
                                         alt="Profile"
@@ -164,37 +174,41 @@ export const prerender = false;
                             /* ADMIN STATS */
                             <>
                                 <div class="stat-card">
-                                    <div class="stat-icon project">
-                                        <i class="fas fa-briefcase" />
-                                    </div>
-                                    <div class="stat-info">
-                                        <span class="stat-value">
-                                            {projectCount}
-                                        </span>{" "}
-                                        <span class="stat-label">
-                                            Projetos Entregues
-                                        </span>
+                                    <div class="card-top">
+                                        <div class="stat-icon project">
+                                            <i class="fas fa-briefcase" />
+                                        </div>
+                                        <div class="stat-info">
+                                            <span class="stat-value">
+                                                {projectCount}
+                                            </span>
+                                            <span class="stat-label">
+                                                Projetos Entregues
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="financial-actions">
                                         <a
                                             href="/admin/projects/history"
                                             class="history-link-card"
                                         >
-                                            📂 Gerenciar
+                                            📂 Gerenciar Projetos
                                         </a>
                                     </div>
                                 </div>
                                 <div class="stat-card">
-                                    <div class="stat-icon invoice">
-                                        <i class="fas fa-wallet" />
-                                    </div>
-                                    <div class="stat-info">
-                                        <span class="stat-value">
-                                            {formattedProfit}
-                                        </span>
-                                        <span class="stat-label">
-                                            Lucro Líquido Real
-                                        </span>
+                                    <div class="card-top">
+                                        <div class="stat-icon invoice">
+                                            <i class="fas fa-wallet" />
+                                        </div>
+                                        <div class="stat-info">
+                                            <span class="stat-value">
+                                                {formattedProfit}
+                                            </span>
+                                            <span class="stat-label">
+                                                Lucro Líquido Real
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="financial-actions">
                                         <a
@@ -212,21 +226,23 @@ export const prerender = false;
                                     </div>
                                 </div>
                                 <div class="stat-card">
-                                    <div
-                                        class={`stat-icon support ${maintenanceCount > 0 ? "has-notification" : ""}`}
-                                    >
-                                        <i class="fas fa-tools" />
-                                        {maintenanceCount > 0 && (
-                                            <span class="notification-badge-dot" />
-                                        )}
-                                    </div>
-                                    <div class="stat-info">
-                                        <span class="stat-value">
-                                            {maintenanceCount}
-                                        </span>
-                                        <span class="stat-label">
-                                            Solicitações
-                                        </span>
+                                    <div class="card-top">
+                                        <div
+                                            class={`stat-icon support ${maintenanceCount > 0 ? "has-notification" : ""}`}
+                                        >
+                                            <i class="fas fa-tools" />
+                                            {maintenanceCount > 0 && (
+                                                <span class="notification-badge-dot" />
+                                            )}
+                                        </div>
+                                        <div class="stat-info">
+                                            <span class="stat-value">
+                                                {maintenanceCount}
+                                            </span>
+                                            <span class="stat-label">
+                                                Solicitações
+                                            </span>
+                                        </div>
                                     </div>
                                     <div class="financial-actions">
                                         <a
@@ -234,6 +250,30 @@ export const prerender = false;
                                             class="history-link-card"
                                         >
                                             🔧 Gerenciar
+                                        </a>
+                                    </div>
+                                </div>
+                                {/* Clients Management Card */}
+                                <div class="stat-card">
+                                    <div class="card-top">
+                                        <div class="stat-icon users">
+                                            <i class="fas fa-users" />
+                                        </div>
+                                        <div class="stat-info">
+                                            <span class="stat-value">
+                                                {totalUsers}
+                                            </span>
+                                            <span class="stat-label">
+                                                Clientes Cadastrados
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="financial-actions">
+                                        <a
+                                            href="/admin"
+                                            class="history-link-card"
+                                        >
+                                            👥 Gerenciar Clientes
                                         </a>
                                     </div>
                                 </div>
@@ -1497,6 +1537,13 @@ export const prerender = false;
                 padding-bottom: 8rem;
             }
 
+            /* Mobile: prevent bottom nav from covering content */
+            @media (max-width: 768px) {
+                .dashboard-wrapper {
+                    padding-bottom: 80px;
+                }
+            }
+
             /* Header */
             .dashboard-header {
                 display: flex;
@@ -1581,9 +1628,15 @@ export const prerender = false;
             /* Stats Grid */
             .stats-grid {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                grid-template-columns: repeat(2, 1fr);
                 gap: 1.5rem;
                 margin-bottom: 3rem;
+            }
+
+            @media (max-width: 640px) {
+                .stats-grid {
+                    grid-template-columns: 1fr;
+                }
             }
 
             .stat-card {
@@ -1592,16 +1645,25 @@ export const prerender = false;
                 border-radius: 12px;
                 padding: 1.5rem;
                 display: flex;
-                align-items: center;
-                gap: 1rem;
+                flex-direction: column;
+                gap: 0.75rem;
                 transition: transform 0.3s ease;
                 backdrop-filter: blur(10px);
+                overflow: hidden;
+                min-width: 0;
             }
 
             .stat-card:hover {
                 transform: translateY(-2px);
                 border-color: rgba(255, 255, 255, 0.1);
                 background: rgba(255, 255, 255, 0.05);
+            }
+
+            /* Icon + label row inside a column-flex card */
+            .card-top {
+                display: flex;
+                align-items: center;
+                gap: 1rem;
             }
 
             .stat-icon {
@@ -1635,6 +1697,10 @@ export const prerender = false;
             .stat-icon.store {
                 background: rgba(138, 28, 38, 0.2);
                 color: var(--color-primary);
+            }
+            .stat-icon.users {
+                background: rgba(59, 130, 246, 0.15);
+                color: #3b82f6;
             }
 
             .notification-badge-dot {
@@ -1696,7 +1762,8 @@ export const prerender = false;
 
             .stat-info {
                 display: flex;
-                flex-direction: column;
+                align-items: center;
+                gap: 1rem;
             }
 
             .stat-value {
@@ -1711,11 +1778,10 @@ export const prerender = false;
             }
 
             .financial-actions {
-                margin-left: auto;
                 display: flex;
-                flex-direction: column;
-                align-items: flex-end;
+                flex-wrap: wrap;
                 gap: 0.5rem;
+                margin-top: auto;
             }
 
             .history-link-card,

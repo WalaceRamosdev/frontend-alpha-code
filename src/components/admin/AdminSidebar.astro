@@ -5,7 +5,9 @@ interface Props {
         | "financial"
         | "projects"
         | "maintenance"
-        | "store";
+        | "store"
+        | "users"
+        | "profile";
     isAdmin?: boolean;
 }
 
@@ -41,27 +43,6 @@ const { activePage, isAdmin = false } = Astro.props;
                     </a>
 
                     <a
-                        href="/"
-                        class="nav-item back-to-site"
-                        title="Voltar ao Site"
-                    >
-                        <span class="nav-icon">
-                            <i class="fas fa-house-user" />
-                        </span>
-                        <span class="nav-label">Voltar ao Site</span>
-                    </a>
-
-                    <a
-                        href="/admin/projects/history"
-                        class={`nav-item ${activePage === "projects" ? "active" : ""}`}
-                        title="Projetos"
-                    >
-                        <span class="nav-icon">
-                            <i class="fas fa-folder-open" />
-                        </span>
-                        <span class="nav-label">Projetos</span>
-                    </a>
-                    <a
                         href="/admin/maintenance/requests"
                         class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
                         title="Manutenção/SEO"
@@ -70,6 +51,28 @@ const { activePage, isAdmin = false } = Astro.props;
                             <i class="fas fa-tools" />
                         </span>
                         <span class="nav-label">Manutenção</span>
+                    </a>
+
+                    <a
+                        href="/perfil"
+                        class={`nav-item ${activePage === "profile" ? "active" : ""}`}
+                        title="Meu Perfil"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-user-circle" />
+                        </span>
+                        <span class="nav-label">Perfil</span>
+                    </a>
+
+                    <a
+                        href="/"
+                        class="nav-item back-to-site"
+                        title="Voltar ao Site"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-house-user" />
+                        </span>
+                        <span class="nav-label">Voltar ao Site</span>
                     </a>
                 </>
             ) : (
