@@ -71,14 +71,21 @@ import { niches } from "../../data/niches";
                             <li>
                                 <a href="/solucoes/contadores">Contadores</a>
                             </li>
-                            <li
-                                style="border-top: 1px solid rgba(255,255,255,0.05); margin-top: 5px; padding-top: 5px;"
-                            >
+                            <li class="featured-dropdown-item">
                                 <a
                                     href="/parceiro-alpha"
-                                    style="color: var(--color-primary); font-weight: 700;"
-                                    >🤝 Parceiro Alpha</a
+                                    class="partner-link-featured"
                                 >
+                                    <span class="partner-icon">🤝</span>
+                                    <div class="partner-text">
+                                        <span class="partner-title"
+                                            >Parceiro Alpha</span
+                                        >
+                                        <span class="partner-badge"
+                                            >VANTAGEM</span
+                                        >
+                                    </div>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -227,6 +234,24 @@ import { niches } from "../../data/niches";
                                     ></polyline></svg
                                 >
                                 Início
+                            </a>
+                        </li>
+                        <li class="mobile-featured-item">
+                            <a
+                                href="/parceiro-alpha"
+                                class="partner-button-mobile"
+                            >
+                                <div class="partner-content">
+                                    <span class="icon">🤝</span>
+                                    <div class="text">
+                                        <span class="title">Parceiro Alpha</span
+                                        >
+                                        <span class="desc"
+                                            >Ganhe seu site profissional</span
+                                        >
+                                    </div>
+                                </div>
+                                <i class="fas fa-chevron-right"></i>
                             </a>
                         </li>
                         {
@@ -445,32 +470,6 @@ import { niches } from "../../data/niches";
                                         y2="8"></line></svg
                                 >
                                 Sobre
-                            </a>
-                        </li>
-                        <li>
-                            <a
-                                href="/parceiro-alpha"
-                                style="color: var(--color-primary); font-weight: 700;"
-                            >
-                                <svg
-                                    width="18"
-                                    height="18"
-                                    viewBox="0 0 24 24"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    stroke-width="2"
-                                    stroke-linecap="round"
-                                    stroke-linejoin="round"
-                                    aria-hidden="true"
-                                    ><path
-                                        d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"
-                                    ></path><circle cx="9" cy="7" r="4"
-                                    ></circle><path
-                                        d="M23 21v-2a4 4 0 0 0-3-3.87"
-                                    ></path><path d="M16 3.13a4 4 0 0 1 0 7.75"
-                                    ></path></svg
-                                >
-                                Parceiro Alpha
                             </a>
                         </li>
                         <li>
@@ -1444,6 +1443,94 @@ import { niches } from "../../data/niches";
             background: rgba(255, 255, 255, 0.08);
             color: white;
             transform: translateX(4px);
+        }
+
+        /* Featured Dropdown Item */
+        .featured-dropdown-item {
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            margin-top: 8px;
+            padding-top: 8px;
+        }
+        .partner-link-featured {
+            display: flex !important;
+            align-items: center;
+            gap: 12px;
+            background: rgba(138, 28, 38, 0.05) !important;
+            border: 1px solid rgba(138, 28, 38, 0.2);
+            border-radius: 10px !important;
+            padding: 12px 16px !important;
+            transition: all 0.3s ease !important;
+        }
+        .partner-link-featured:hover {
+            background: rgba(138, 28, 38, 0.12) !important;
+            border-color: var(--color-primary);
+            transform: translateY(-2px) !important;
+        }
+        .partner-icon {
+            font-size: 1.4rem;
+        }
+        .partner-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+        .partner-title {
+            color: white;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+        .partner-badge {
+            font-size: 0.65rem;
+            font-weight: 800;
+            background: var(--color-primary);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        /* Mobile Featured Styling */
+        .mobile-featured-item {
+            margin: 12px 0 20px !important;
+        }
+        .partner-button-mobile {
+            display: flex !important;
+            justify-content: space-between;
+            align-items: center;
+            background: linear-gradient(
+                135deg,
+                rgba(138, 28, 38, 0.1) 0%,
+                rgba(20, 20, 20, 0.4) 100%
+            ) !important;
+            border: 1px solid rgba(138, 28, 38, 0.3) !important;
+            padding: 16px 20px !important;
+            border-radius: 16px !important;
+            color: white !important;
+        }
+        .partner-button-mobile .partner-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .partner-button-mobile .icon {
+            font-size: 1.6rem;
+        }
+        .partner-button-mobile .text {
+            display: flex;
+            flex-direction: column;
+        }
+        .partner-button-mobile .title {
+            font-weight: 800;
+            font-size: 1rem;
+            color: var(--color-primary);
+        }
+        .partner-button-mobile .desc {
+            font-size: 0.75rem;
+            color: #888;
+        }
+        .partner-button-mobile i {
+            font-size: 0.8rem;
+            color: #444;
         }
 
         /* Mobile Dropdown Styles */
