@@ -1,0 +1,363 @@
+---
+import Layout from "../layouts/BaseLayout.astro";
+import AdminSidebar from "../components/admin/AdminSidebar.astro";
+import { getSession } from "../lib/auth";
+import { prisma } from "../lib/prisma";
+
+const session = await getSession(Astro.request);
+if (!session) return Astro.redirect("/login");
+
+const isAdmin = session.user?.role === "ADMIN";
+
+export const prerender = false;
+---
+
+<Layout
+    title="Alpha Store | Turbine seu Site"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="store" isAdmin={isAdmin} />
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="user-welcome">
+                    <h1>Loja Alpha Code</h1>
+                    <p>
+                        Potencialize seu projeto com nossos serviços
+                        especializados.
+                    </p>
+                </div>
+                <div class="header-actions">
+                    <a href="/dashboard" class="back-btn">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+                    </a>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <section class="main-card store-section-full">
+                    <div class="card-header">
+                        <h2>Explorar Serviços</h2>
+                        <span class="badge-active">CONECTADO</span>
+                    </div>
+
+                    <div class="store-grid">
+                        <!-- Blog Item -->
+                        <div class="store-item featured">
+                            <div class="store-icon blog">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <div class="store-info">
+                                <strong>Artigos para Blog</strong>
+                                <p>
+                                    Criação de 8 artigos mensais (2x por semana)
+                                    otimizados para SEO. Ideal para gerar
+                                    autoridade e tráfego orgânico constante.
+                                </p>
+                                <div class="item-footer">
+                                    <span class="price"
+                                        >A partir de R$ 247/mês</span
+                                    >
+                                    <a
+                                        href="/pedido?plan=artigos"
+                                        class="store-btn-main">Saber Mais</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Redesign Item -->
+                        <div class="store-item">
+                            <div class="store-icon design">
+                                <i class="fas fa-pen-nib"></i>
+                            </div>
+                            <div class="store-info">
+                                <strong>Redesign Premium</strong>
+                                <p>
+                                    Uma nova cara para o seu site. Interface
+                                    moderna, rápida e focada 100% em conversão
+                                    de visitantes em clientes.
+                                </p>
+                                <div class="item-footer">
+                                    <span class="price">Sob Consulta</span>
+                                    <a
+                                        href="/pedido?plan=redesign"
+                                        class="store-btn-main">Solicitar Orç.</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Speed Item -->
+                        <div class="store-item">
+                            <div class="store-icon speed">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="store-info">
+                                <strong>Turbo Speed</strong>
+                                <p>
+                                    Otimização técnica profunda para
+                                    carregamento instantâneo. Melhore sua nota
+                                    no Google PageSpeed significativamente.
+                                </p>
+                                <div class="item-footer">
+                                    <span class="price"
+                                        >R$ 199 (Taxa única)</span
+                                    >
+                                    <a
+                                        href="/pedido?plan=speed"
+                                        class="store-btn-main">Contratar</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ads Item -->
+                        <div class="store-item">
+                            <div class="store-icon ads">
+                                <i class="fas fa-rectangle-ad"></i>
+                            </div>
+                            <div class="store-info">
+                                <strong>Alpha Ads</strong>
+                                <p>
+                                    Gestão de anúncios no Google e Meta. Atraia
+                                    o público certo no momento exato da decisão
+                                    de compra.
+                                </p>
+                                <div class="item-footer">
+                                    <span class="price">Gestão mensal fixa</span
+                                    >
+                                    <a
+                                        href="/pedido?plan=ads"
+                                        class="store-btn-main">Configurar</a
+                                    >
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    :root {
+        --color-primary: #8a1c26;
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --color-text-muted: #888;
+    }
+
+    .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+    }
+
+    .user-welcome h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .user-welcome p {
+        color: var(--color-text-muted);
+        font-size: 1.1rem;
+    }
+
+    .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        padding: 10px 20px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+    .back-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .main-card {
+        background: rgba(15, 15, 15, 0.6);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2.5rem;
+        backdrop-filter: blur(20px);
+    }
+
+    .card-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2.5rem;
+    }
+
+    .card-header h2 {
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+
+    .badge-active {
+        background: rgba(16, 185, 129, 0.1);
+        color: #10b981;
+        padding: 5px 12px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    .store-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .store-item {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--glass-border);
+        border-radius: 24px;
+        padding: 2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .store-item:hover {
+        transform: translateY(-8px);
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(138, 28, 38, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .store-item.featured {
+        border-color: rgba(138, 28, 38, 0.2);
+        background: linear-gradient(
+            145deg,
+            rgba(255, 255, 255, 0.02) 0%,
+            rgba(138, 28, 38, 0.05) 100%
+        );
+    }
+
+    .store-icon {
+        width: 64px;
+        height: 64px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+    }
+
+    .store-icon.blog {
+        background: rgba(168, 85, 247, 0.15);
+        color: #a855f7;
+    }
+    .store-icon.design {
+        background: rgba(59, 130, 246, 0.15);
+        color: #3b82f6;
+    }
+    .store-icon.speed {
+        background: rgba(245, 158, 11, 0.15);
+        color: #f59e0b;
+    }
+    .store-icon.ads {
+        background: rgba(16, 185, 129, 0.15);
+        color: #10b981;
+    }
+
+    .store-info strong {
+        display: block;
+        font-size: 1.3rem;
+        margin-bottom: 0.8rem;
+        color: #fff;
+    }
+
+    .store-info p {
+        font-size: 0.95rem;
+        color: var(--color-text-muted);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    .item-footer {
+        margin-top: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .price {
+        font-size: 0.8rem;
+        font-weight: 800;
+        color: var(--color-primary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    .store-btn-main {
+        display: block;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+        padding: 12px;
+        border-radius: 12px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: 0.3s;
+        text-align: center;
+        text-decoration: none;
+    }
+
+    .store-btn-main:hover {
+        background: var(--color-primary);
+        border-color: var(--color-primary);
+        box-shadow: 0 8px 16px rgba(138, 28, 38, 0.3);
+    }
+
+    @media (max-width: 900px) {
+        .main-content {
+            padding: 1.5rem;
+        }
+        .dashboard-header {
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .store-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

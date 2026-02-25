@@ -31,7 +31,11 @@ const plans = {
         stripeLink: 'https://buy.stripe.com/4gMcN72S6cvQ9HE9Ik93y03',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_premium'
     },
-    'manutencao': { name: 'Manutenção', price: 'R$ 100', numericPrice: 100, numericPriceEUR: 50, id: 'Manutenção' }
+    'manutencao': { name: 'Manutenção', price: 'R$ 100', numericPrice: 100, numericPriceEUR: 50, id: 'Manutenção' },
+    'artigos': { name: 'Artigos para Blog', subtitle: '8 Artigos Mensais', price: 'R$ 247', numericPrice: 247, numericPriceEUR: 199, id: 'Artigos para Blog' },
+    'speed': { name: 'Turbo Speed', subtitle: 'Otimização Técnica', price: 'R$ 199', numericPrice: 199, numericPriceEUR: 149, id: 'Turbo Speed' },
+    'redesign': { name: 'Redesign Premium', subtitle: 'Nova Interface', price: 'Sob Consulta', numericPrice: 0, numericPriceEUR: 0, id: 'Redesign Premium' },
+    'ads': { name: 'Alpha Ads', subtitle: 'Gestão de Tráfego', price: 'Gestão Fixa', numericPrice: 0, numericPriceEUR: 0, id: 'Alpha Ads' }
 };
 
 const COUPONS = {
@@ -46,6 +50,7 @@ export default function OrderForm({ user }) {
         nome: '', whatsapp: '', email: '', profissao: '', objetivo: '', cores: '', referencias: '', detalhes: '', plano: ''
     });
     const [selectedPlan, setSelectedPlan] = useState(null);
+    const [planKey, setPlanKey] = useState('');
     const [isMaintenance, setIsMaintenance] = useState(false);
     const [loading, setLoading] = useState(false);
     const [modalOpen, setModalOpen] = useState(false);
@@ -64,6 +69,9 @@ export default function OrderForm({ user }) {
     const [inspirationLinks, setInspirationLinks] = useState(['']);
     const [seoPrice] = useState(150);
 
+    const STORE_PLANS = ['artigos', 'speed', 'redesign', 'ads'];
+    const isStorePlan = STORE_PLANS.includes(planKey);
+
     const isPortugal = typeof navigator !== 'undefined' && (
         navigator.language === 'pt-PT' ||
         navigator.languages.includes('pt-PT') ||
@@ -78,23 +86,28 @@ export default function OrderForm({ user }) {
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
-        const planKey = urlParams.get('plan');
-        if (planKey && plans[planKey]) {
-            const plan = plans[planKey];
+        const key = urlParams.get('plan');
+        if (key && plans[key]) {
+            const plan = plans[key];
+            setPlanKey(key);
             setSelectedPlan(plan);
             setFormData(prev => ({ ...prev, plano: plan.name }));
 
-            // Auto-apply ALPHA25 PROMO
-            if (planKey !== 'manutencao') {
+            const sitePlans = ['simples', 'completa', 'premium'];
+            const basePrice = isPortugal ? plan.numericPriceEUR : plan.numericPrice;
+
+            if (key === 'manutencao') {
+                setFinalPrice(basePrice);
+                setIsMaintenance(true);
+            } else if (sitePlans.includes(key)) {
+                // Auto-apply ALPHA25 PROMO only for site plans
                 const promoCoupon = COUPONS['ALPHA25'];
                 setAppliedCoupon({ ...promoCoupon, code: 'ALPHA25' });
-
-                const basePrice = isPortugal ? plan.numericPriceEUR : plan.numericPrice;
                 const discountedPrice = basePrice * (1 - promoCoupon.value / 100);
                 setFinalPrice(discountedPrice);
             } else {
-                setFinalPrice(isPortugal ? plan.numericPriceEUR : plan.numericPrice);
-                setIsMaintenance(true);
+                // Store service plans: no coupon, original price
+                setFinalPrice(basePrice);
             }
         }
     }, [isPortugal]);
@@ -315,7 +328,13 @@ export default function OrderForm({ user }) {
                                 )}
                                 {appliedCoupon && <span className="old-price">{selectedPlan?.price.replace('R$', currency)}</span>}
                                 {hasSEO && <div className="sidebar-item-row"><span>+ Plano SEO (3 meses)</span><span>{currency} {isPortugal ? '25,00' : '150,00'}</span></div>}
-                                <span className="final-price">{currency} {finalPrice.toFixed(2).replace('.', ',')}</span>
+                                <span className="final-price">
+                                    {finalPrice > 0 ? (
+                                        `${currency} ${finalPrice.toFixed(2).replace('.', ',')}`
+                                    ) : (
+                                        selectedPlan?.price || 'Sob Consulta'
+                                    )}
+                                </span>
                             </div>
 
                             {!isMaintenance && (
@@ -346,6 +365,7 @@ export default function OrderForm({ user }) {
                 {/* FORM */}
                 <main className="order-content">
                     <form onSubmit={handleSubmit} className="premium-card form-inner">
+                        {/* Step 01: Contact info (always shown except maintenance which pre-fills) */}
                         {!isMaintenance && (
                             <section className="form-step">
                                 <div className="step-header">
@@ -355,25 +375,132 @@ export default function OrderForm({ user }) {
                                 <div className="inputs-grid">
                                     <div className="field">
                                         <label>Nome Completo</label>
-                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required={!isMaintenance} placeholder="Como devemos te chamar?" />
+                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
                                     </div>
                                     <div className="field">
                                         <label>WhatsApp</label>
-                                        <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required={!isMaintenance} placeholder="(XX) XXXXX-XXXX" />
+                                        <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
                                     </div>
                                     <div className="field">
                                         <label>E-mail</label>
-                                        <input type="email" name="email" value={formData.email} onChange={handleChange} required={!isMaintenance} placeholder="seu@email.com" />
+                                        <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
                                     </div>
                                     <div className="field">
                                         <label>Sua Profissão / Negócio</label>
-                                        <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required={!isMaintenance} placeholder="Ex: Arquiteto, Psicóloga..." />
+                                        <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required placeholder="Ex: Nutricionista, E-commerce..." />
                                     </div>
                                 </div>
                             </section>
                         )}
 
-                        {!isMaintenance && (
+                        {/* Step 02: Context-specific fields for STORE plans */}
+                        {isStorePlan && (
+                            <section className="form-step">
+                                <div className="step-header">
+                                    <span className="step-num">02</span>
+                                    <h3>
+                                        {planKey === 'artigos' && 'Sobre o seu Blog'}
+                                        {planKey === 'speed' && 'Sobre o seu Site'}
+                                        {planKey === 'redesign' && 'Sobre o seu Projeto'}
+                                        {planKey === 'ads' && 'Sobre sua Campanha'}
+                                    </h3>
+                                </div>
+
+                                {/* ARTIGOS fields */}
+                                {planKey === 'artigos' && (
+                                    <>
+                                        <div className="field">
+                                            <label>URL do seu site / blog</label>
+                                            <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" />
+                                        </div>
+                                        <div className="field">
+                                            <label>Nicho / Tema principal dos artigos</label>
+                                            <input type="text" name="objetivo" value={formData.objetivo} onChange={handleChange} required placeholder="Ex: Saúde mental, Gastronomia, Advocacia..." />
+                                        </div>
+                                        <div className="field">
+                                            <label>Palavras-chave ou assuntos que deseja abordar</label>
+                                            <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" required placeholder="Ex: ansiedade, nutrição esportiva, direito trabalhista..." className="glass-input" />
+                                        </div>
+                                    </>
+                                )}
+
+                                {/* SPEED fields */}
+                                {planKey === 'speed' && (
+                                    <>
+                                        <div className="field">
+                                            <label>URL do site a ser otimizado</label>
+                                            <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" />
+                                        </div>
+                                        <div className="field">
+                                            <label>Qual plataforma seu site utiliza?</label>
+                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                <option value="">Selecione...</option>
+                                                <option value="WordPress">WordPress</option>
+                                                <option value="Wix">Wix</option>
+                                                <option value="Squarespace">Squarespace</option>
+                                                <option value="Loja Integrada">Loja Integrada</option>
+                                                <option value="Alpha Code (Astro)">Alpha Code (Astro)</option>
+                                                <option value="Outro">Outro</option>
+                                            </select>
+                                        </div>
+                                        <div className="field">
+                                            <label>Descreva os problemas de lentidão que percebe</label>
+                                            <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" placeholder="Ex: imagens demoram a carregar, nota 40 no PageSpeed..." className="glass-input" />
+                                        </div>
+                                    </>
+                                )}
+
+                                {/* REDESIGN fields */}
+                                {planKey === 'redesign' && (
+                                    <>
+                                        <div className="field">
+                                            <label>URL do site atual (se houver)</label>
+                                            <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} placeholder="seusite.com.br ou deixe vazio" />
+                                        </div>
+                                        <div className="field">
+                                            <label>Objetivo principal do redesign</label>
+                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                <option value="">Selecione...</option>
+                                                <option value="Modernizar identidade visual">Modernizar identidade visual</option>
+                                                <option value="Melhorar conversão de clientes">Melhorar conversão de clientes</option>
+                                                <option value="Tornar responsivo para mobile">Tornar responsivo para mobile</option>
+                                                <option value="Reposicionamento de marca">Reposicionamento de marca</option>
+                                            </select>
+                                        </div>
+                                        <div className="field">
+                                            <label>Referências visuais ou expectativas</label>
+                                            <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" required placeholder="Cole links de sites que admira ou descreva o estilo desejado..." className="glass-input" />
+                                        </div>
+                                    </>
+                                )}
+
+                                {/* ADS fields */}
+                                {planKey === 'ads' && (
+                                    <>
+                                        <div className="field">
+                                            <label>Site ou página de destino dos anúncios</label>
+                                            <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" />
+                                        </div>
+                                        <div className="field">
+                                            <label>Plataforma desejada</label>
+                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                <option value="">Selecione...</option>
+                                                <option value="Google Ads">Google Ads</option>
+                                                <option value="Meta Ads (Facebook/Instagram)">Meta Ads (Facebook/Instagram)</option>
+                                                <option value="Ambos">Ambos (Google + Meta)</option>
+                                            </select>
+                                        </div>
+                                        <div className="field">
+                                            <label>Público-alvo e objetivo da campanha</label>
+                                            <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="4" required placeholder="Ex: Mulheres 25-45 anos em SP, objetivo: captação de leads para clínica..." className="glass-input" />
+                                        </div>
+                                    </>
+                                )}
+                            </section>
+                        )}
+
+                        {/* Step 02: Site creation specific fields */}
+                        {!isMaintenance && !isStorePlan && (
                             <section className="form-step">
                                 <div className="step-header">
                                     <span className="step-num">02</span>
@@ -397,122 +524,128 @@ export default function OrderForm({ user }) {
                             </section>
                         )}
 
-                        <section className="form-step">
-                            {isMaintenance && (
-                                <div style={{ marginBottom: '25px' }}>
-                                    <h3 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
-                                        Olá, <span style={{ color: '#d62839' }}>{user?.name?.split(' ')[0] || 'Cliente'}</span>!
-                                    </h3>
-                                    <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', marginTop: '5px' }}>
-                                        {user?.siteUrl
-                                            ? <span>O que gostaria de mudar em <strong style={{ color: '#fff' }}>{user.siteUrl.replace('https://', '').replace('http://', '')}</strong>?</span>
-                                            : "O que deseja melhorar no seu site hoje?"
-                                        }
-                                    </p>
-                                </div>
-                            )}
+                        {/* Step 03: Expectations — only for site plans and maintenance */}
+                        {!isStorePlan && (
+                            <>
+                                <section className="form-step">
 
-                            <div className="step-header">
-                                <span className="step-num">{isMaintenance ? '01' : '03'}</span>
-                                <h3>{isMaintenance ? 'Detalhes da Solicitação' : 'Expectativas'}</h3>
-                            </div>
-                            {/* Link do Site - Apenas se não tiver site vinculado */}
-                            {(!isMaintenance || !user?.siteUrl) && (
-                                <div className="field">
-                                    <label>{isMaintenance ? 'Link do Site (Obrigatório)' : 'Link de Referência / Site Atual'}</label>
-                                    <input
-                                        type="text"
-                                        name="referencias"
-                                        value={formData.referencias}
-                                        onChange={handleChange}
-                                        required={isMaintenance}
-                                        placeholder={isMaintenance ? "seu-site.com.br" : "https://..."}
-                                    />
-                                </div>
-                            )}
-                            {/* Hidden input for 'referencias' if siteUrl exists and in maintenance mode */}
-                            {isMaintenance && user?.siteUrl && (
-                                <input type="hidden" name="referencias" value={user.siteUrl} />
-                            )}
-
-                            {/* Campo Extra para Manutenção: Inspiração */}
-                            {isMaintenance && (
-                                <div className="field inspiration-box">
-                                    <label className="inspiration-label">Teve inspiração em algum local da internet?</label>
-
-                                    <div className="inspiration-options">
-                                        <button
-                                            type="button"
-                                            onClick={() => setHasInspiration(true)}
-                                            className={`option-btn ${hasInspiration === true ? 'active' : ''}`}
-                                        >
-                                            <span className="btn-icon">💡</span>
-                                            Sim, vi algo legal
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => { setHasInspiration(false); setInspirationLinks(['']); }}
-                                            className={`option-btn ${hasInspiration === false ? 'active' : ''}`}
-                                        >
-                                            <span className="btn-icon">🧠</span>
-                                            Não, é ideia própria
-                                        </button>
-                                    </div>
-
-                                    {hasInspiration && (
-                                        <div className="inspiration-links-container">
-                                            {inspirationLinks.map((link, index) => (
-                                                <div key={index} className="link-input-row">
-                                                    <input
-                                                        type="text"
-                                                        value={link}
-                                                        onChange={(e) => {
-                                                            const newLinks = [...inspirationLinks];
-                                                            newLinks[index] = e.target.value;
-                                                            setInspirationLinks(newLinks);
-                                                        }}
-                                                        placeholder={`Cole o link ${index + 1} aqui...`}
-                                                        className="glass-input"
-                                                    />
-                                                    {inspirationLinks.length > 1 && (
-                                                        <button
-                                                            type="button"
-                                                            onClick={() => {
-                                                                const newLinks = inspirationLinks.filter((_, i) => i !== index);
-                                                                setInspirationLinks(newLinks);
-                                                            }}
-                                                            className="remove-link-btn"
-                                                        >
-                                                            &times;
-                                                        </button>
-                                                    )}
-                                                </div>
-                                            ))}
-                                            <button
-                                                type="button"
-                                                onClick={() => setInspirationLinks([...inspirationLinks, ''])}
-                                                className="add-link-btn"
-                                            >
-                                                + Adicionar outro link
-                                            </button>
+                                    {isMaintenance && (
+                                        <div style={{ marginBottom: '25px' }}>
+                                            <h3 style={{ fontSize: '1.4rem', color: '#fff', fontWeight: '700' }}>
+                                                Olá, <span style={{ color: '#d62839' }}>{user?.name?.split(' ')[0] || 'Cliente'}</span>!
+                                            </h3>
+                                            <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1rem', marginTop: '5px' }}>
+                                                {user?.siteUrl
+                                                    ? <span>O que gostaria de mudar em <strong style={{ color: '#fff' }}>{user.siteUrl.replace('https://', '').replace('http://', '')}</strong>?</span>
+                                                    : "O que deseja melhorar no seu site hoje?"
+                                                }
+                                            </p>
                                         </div>
                                     )}
-                                </div>
-                            )}
 
-                            <div className="field">
-                                <label>Conte mais sobre sua ideia</label>
-                                <textarea
-                                    name="detalhes"
-                                    value={formData.detalhes}
-                                    onChange={handleChange}
-                                    rows="5"
-                                    required
-                                    placeholder="Descreva como imagina essa melhoria..."
-                                    className="glass-input textarea-expanded"
-                                ></textarea>
-                            </div>
-                        </section>
+                                    <div className="step-header">
+                                        <span className="step-num">{isMaintenance ? '01' : '03'}</span>
+                                        <h3>{isMaintenance ? 'Detalhes da Solicitação' : 'Expectativas'}</h3>
+                                    </div>
+                                    {/* Link do Site - Apenas se não tiver site vinculado */}
+                                    {(!isMaintenance || !user?.siteUrl) && (
+                                        <div className="field">
+                                            <label>{isMaintenance ? 'Link do Site (Obrigatório)' : 'Link de Referência / Site Atual'}</label>
+                                            <input
+                                                type="text"
+                                                name="referencias"
+                                                value={formData.referencias}
+                                                onChange={handleChange}
+                                                required={isMaintenance}
+                                                placeholder={isMaintenance ? "seu-site.com.br" : "https://..."}
+                                            />
+                                        </div>
+                                    )}
+                                    {/* Hidden input for 'referencias' if siteUrl exists and in maintenance mode */}
+                                    {isMaintenance && user?.siteUrl && (
+                                        <input type="hidden" name="referencias" value={user.siteUrl} />
+                                    )}
+
+                                    {/* Campo Extra para Manutenção: Inspiração */}
+                                    {isMaintenance && (
+                                        <div className="field inspiration-box">
+                                            <label className="inspiration-label">Teve inspiração em algum local da internet?</label>
+
+                                            <div className="inspiration-options">
+                                                <button
+                                                    type="button"
+                                                    onClick={() => setHasInspiration(true)}
+                                                    className={`option-btn ${hasInspiration === true ? 'active' : ''}`}
+                                                >
+                                                    <span className="btn-icon">💡</span>
+                                                    Sim, vi algo legal
+                                                </button>
+                                                <button
+                                                    type="button"
+                                                    onClick={() => { setHasInspiration(false); setInspirationLinks(['']); }}
+                                                    className={`option-btn ${hasInspiration === false ? 'active' : ''}`}
+                                                >
+                                                    <span className="btn-icon">🧠</span>
+                                                    Não, é ideia própria
+                                                </button>
+                                            </div>
+
+                                            {hasInspiration && (
+                                                <div className="inspiration-links-container">
+                                                    {inspirationLinks.map((link, index) => (
+                                                        <div key={index} className="link-input-row">
+                                                            <input
+                                                                type="text"
+                                                                value={link}
+                                                                onChange={(e) => {
+                                                                    const newLinks = [...inspirationLinks];
+                                                                    newLinks[index] = e.target.value;
+                                                                    setInspirationLinks(newLinks);
+                                                                }}
+                                                                placeholder={`Cole o link ${index + 1} aqui...`}
+                                                                className="glass-input"
+                                                            />
+                                                            {inspirationLinks.length > 1 && (
+                                                                <button
+                                                                    type="button"
+                                                                    onClick={() => {
+                                                                        const newLinks = inspirationLinks.filter((_, i) => i !== index);
+                                                                        setInspirationLinks(newLinks);
+                                                                    }}
+                                                                    className="remove-link-btn"
+                                                                >
+                                                                    &times;
+                                                                </button>
+                                                            )}
+                                                        </div>
+                                                    ))}
+                                                    <button
+                                                        type="button"
+                                                        onClick={() => setInspirationLinks([...inspirationLinks, ''])}
+                                                        className="add-link-btn"
+                                                    >
+                                                        + Adicionar outro link
+                                                    </button>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )}
+
+                                    <div className="field">
+                                        <label>Conte mais sobre sua ideia</label>
+                                        <textarea
+                                            name="detalhes"
+                                            value={formData.detalhes}
+                                            onChange={handleChange}
+                                            rows="5"
+                                            required
+                                            placeholder="Descreva como imagina essa melhoria..."
+                                            className="glass-input textarea-expanded"
+                                        ></textarea>
+                                    </div>
+                                </section>
+                            </>
+                        )}
 
                         <button
                             type="submit"

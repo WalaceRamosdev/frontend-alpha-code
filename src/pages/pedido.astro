@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import AdminSidebar from "../components/admin/AdminSidebar.astro";
 import OrderForm from "../components/react/OrderForm.jsx";
 import { getSession } from "../lib/auth";
 
@@ -9,49 +10,167 @@ if (!session) {
     return Astro.redirect("/login?callbackUrl=/pedido");
 }
 
+const isAdmin = session.user?.role === "ADMIN";
 const title = "Finalizar Pedido | Alpha Code";
 export const prerender = false;
 const planParam = Astro.url.searchParams.get("plan");
 const isMaintenance = planParam === "manutencao";
-const headline = isMaintenance
-    ? "Solicitação de Melhoria"
-    : "Vamos iniciar seu projeto";
-const subheadline = isMaintenance
-    ? "Descreva sua ideia para evoluirmos seu projeto."
-    : "Preencha os dados abaixo para oficializar seu pedido.";
+
+const STORE_PLANS = ["artigos", "speed", "redesign", "ads"];
+const isStorePlan = STORE_PLANS.includes(planParam ?? "");
+
+const headlineMap: Record<string, { headline: string; subheadline: string }> = {
+    simples: {
+        headline: "Vamos criar seu site!",
+        subheadline:
+            "Preencha os dados abaixo para oficializar seu pedido do Plano Bronze.",
+    },
+    completa: {
+        headline: "Seu site completo te aguarda",
+        subheadline:
+            "Preencha os dados abaixo para oficializar seu pedido do Plano Prata.",
+    },
+    premium: {
+        headline: "Experiência Premium Alpha",
+        subheadline:
+            "Preencha os dados abaixo para oficializar seu pedido do Plano Ouro.",
+    },
+    manutencao: {
+        headline: "Solicitação de Melhoria",
+        subheadline: "Descreva sua ideia para evoluirmos seu projeto.",
+    },
+    artigos: {
+        headline: "Artigos que vendem por você",
+        subheadline:
+            "8 artigos mensais otimizados para SEO — conte-nos sobre o seu negócio.",
+    },
+    speed: {
+        headline: "Hora de acelerar seu site!",
+        subheadline:
+            "Conte-nos sobre o seu site e nossa equipe prepara a otimização.",
+    },
+    redesign: {
+        headline: "Novo visual, novos clientes",
+        subheadline:
+            "Descreva sua visão e vamos transformar a identidade do seu site.",
+    },
+    ads: {
+        headline: "Tráfego pago no piloto automático",
+        subheadline:
+            "Informe-nos sobre o seu negócio e os objetivos da sua campanha.",
+    },
+};
+
+const { headline, subheadline } = headlineMap[planParam ?? ""] ?? {
+    headline: "Vamos iniciar seu projeto",
+    subheadline: "Preencha os dados abaixo para oficializar seu pedido.",
+};
+
+/* Back target: store plans go back to /loja, site plans go to /dashboard */
+const backHref = isStorePlan ? "/loja" : "/dashboard";
+const backLabel = isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard";
 ---
 
 <BaseLayout
     title={title}
     noIndex={true}
     showWhatsApp={false}
-    showSocialProof={true}
+    showHeader={false}
+    showFooter={false}
 >
-    <section class="order-page">
-        <div class="order-header container">
-            <h1>{headline}</h1>
-            <p>{subheadline}</p>
-        </div>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="store" isAdmin={isAdmin} />
 
-        <OrderForm client:load user={session.user} />
-    </section>
+        <main class="main-content">
+            <!-- Page header -->
+            <header class="dashboard-header">
+                <div class="user-welcome">
+                    <h1>{headline}</h1>
+                    <p>{subheadline}</p>
+                </div>
+                <div class="header-actions">
+                    <a href={backHref} class="back-btn">
+                        <i class="fas fa-arrow-left"></i>
+                        {backLabel}
+                    </a>
+                </div>
+            </header>
+
+            <!-- Order form -->
+            <div class="content-body">
+                <OrderForm client:load user={session.user} />
+            </div>
+        </main>
+    </div>
 </BaseLayout>
 
 <style>
-    .order-page {
-        padding: 80px 0;
+    :root {
+        --color-primary: #8a1c26;
+        --glass-border: rgba(255, 255, 255, 0.05);
+        --color-text-muted: #888;
     }
-    .order-header {
-        text-align: center;
-        margin-bottom: 60px;
+
+    .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
     }
-    h1 {
-        font-size: clamp(2.5rem, 8vw, 3.5rem);
+
+    .main-content {
+        flex: 1;
+        padding: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+        width: 100%;
+        overflow-x: hidden;
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 2.5rem;
+        flex-wrap: wrap;
+        gap: 1rem;
+    }
+
+    .user-welcome h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 0.4rem;
         font-weight: 800;
-        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
     }
-    p {
-        color: var(--color-text-light);
-        font-size: 1.1rem;
+
+    .user-welcome p {
+        color: var(--color-text-muted);
+        font-size: 1rem;
+    }
+
+    .back-btn {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--glass-border);
+        padding: 10px 20px;
+        border-radius: 12px;
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+        white-space: nowrap;
+    }
+
+    .back-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content-body {
+        width: 100%;
     }
 </style>

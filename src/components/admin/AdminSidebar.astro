@@ -1,6 +1,11 @@
 ---
 interface Props {
-    activePage: "dashboard" | "financial" | "projects" | "maintenance";
+    activePage:
+        | "dashboard"
+        | "financial"
+        | "projects"
+        | "maintenance"
+        | "store";
     isAdmin?: boolean;
 }
 
@@ -22,7 +27,7 @@ const { activePage, isAdmin = false } = Astro.props;
         </a>
 
         {
-            isAdmin && (
+            isAdmin ? (
                 <>
                     <a
                         href="/admin/financial/history"
@@ -33,6 +38,17 @@ const { activePage, isAdmin = false } = Astro.props;
                             <i class="fas fa-wallet" />
                         </span>
                         <span class="nav-label">Financeiro</span>
+                    </a>
+
+                    <a
+                        href="/"
+                        class="nav-item back-to-site"
+                        title="Voltar ao Site"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-house-user" />
+                        </span>
+                        <span class="nav-label">Voltar ao Site</span>
                     </a>
 
                     <a
@@ -56,13 +72,59 @@ const { activePage, isAdmin = false } = Astro.props;
                         <span class="nav-label">Manutenção</span>
                     </a>
                 </>
+            ) : (
+                <>
+                    <a
+                        href="/pedido?plan=manutencao"
+                        class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
+                        title="Solicitar Manutenção"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-screwdriver-wrench" />
+                        </span>
+                        <span class="nav-label">Manutenção</span>
+                    </a>
+
+                    <a
+                        href="/"
+                        class="nav-item back-to-site"
+                        title="Voltar ao Site"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-house-user" />
+                        </span>
+                        <span class="nav-label">Voltar ao Site</span>
+                    </a>
+
+                    <a
+                        href="/faturas"
+                        class={`nav-item ${activePage === "financial" ? "active" : ""}`}
+                        title="Minhas Faturas"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-file-invoice-dollar" />
+                        </span>
+                        <span class="nav-label">Minhas Faturas</span>
+                    </a>
+                    <a href="/perfil" class="nav-item" title="Meu Perfil">
+                        <span class="nav-icon">
+                            <i class="fas fa-user-circle" />
+                        </span>
+                        <span class="nav-label">Meu Perfil</span>
+                    </a>
+                    <a
+                        href="/loja"
+                        class={`nav-item ${activePage === "store" ? "active" : ""}`}
+                        title="Loja Alpha"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-shopping-bag" />
+                        </span>
+                        <span class="nav-label">Loja Alpha</span>
+                    </a>
+                </>
             )
         }
-
-        <a href="/" class="nav-item back-to-site" title="Voltar ao Site">
-            <span class="nav-icon"><i class="fas fa-house-user"></i></span>
-            <span class="nav-label">Voltar ao Site</span>
-        </a>
     </nav>
 </aside>
 

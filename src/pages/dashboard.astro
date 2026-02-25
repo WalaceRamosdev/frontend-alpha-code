@@ -100,6 +100,8 @@ const totalProfit = financialRecords.reduce(
     (acc, record) => acc + (record.amount - (record.hostingCost || 0)),
     0,
 );
+const hasActivePlan = ["BRONZE", "PRATA", "OURO"].includes(session.user?.plan);
+
 const formattedProfit = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -279,6 +281,21 @@ export const prerender = false;
                                         </span>
                                     </div>
                                 </div>
+                                <div class="stat-card store-card-btn">
+                                    <div class="stat-icon store">
+                                        <i class="fas fa-shopping-bag" />
+                                    </div>
+                                    <div class="stat-info">
+                                        <span class="stat-value">LOJA</span>
+                                        <span class="stat-label">
+                                            Turbine seu Site
+                                        </span>
+                                    </div>
+                                    <a href="/loja" class="launch-btn">
+                                        Explorar{" "}
+                                        <i class="fas fa-chevron-right" />
+                                    </a>
+                                </div>
                             </>
                         )
                     }
@@ -288,7 +305,7 @@ export const prerender = false;
                 <div class="content-grid">
                     <!-- My Site URL Section - CLIENT ONLY -->
                     {
-                        !isAdmin && (
+                        !isAdmin && hasActivePlan && (
                             <section class="main-card site-url-section">
                                 <div class="card-header">
                                     <h2>Link de Acesso Direto</h2>
@@ -341,6 +358,59 @@ export const prerender = false;
                                         </div>
                                     </div>
                                 )}
+                            </section>
+                        )
+                    }
+
+                    <!-- Upgrade Banner - CLIENT WITHOUT PLAN -->
+                    {
+                        !isAdmin && !hasActivePlan && (
+                            <section class="main-card upgrade-banner-section">
+                                <div class="upgrade-container">
+                                    <div class="upgrade-info">
+                                        <span class="badge-promo">
+                                            OPORTUNIDADE ALPHA
+                                        </span>
+                                        <h2>Seu site merece o Próximo Nível</h2>
+                                        <p>
+                                            Você está acessando o dashboard em
+                                            modo limitado. Ao adquirir um Plano
+                                            Alpha, você desbloqueia:
+                                        </p>
+                                        <ul class="upgrade-benefits">
+                                            <li>
+                                                <i class="fas fa-check-circle" />{" "}
+                                                Suporte Prioritário (Até 12h)
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-check-circle" />{" "}
+                                                Manutenção Técnica Mensal
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-check-circle" />{" "}
+                                                Hospedagem de Alta Performance
+                                            </li>
+                                            <li>
+                                                <i class="fas fa-check-circle" />{" "}
+                                                20% OFF em novos projetos
+                                            </li>
+                                        </ul>
+                                        <a
+                                            href="/pedido"
+                                            class="btn-upgrade-main"
+                                        >
+                                            Escolher meu Plano{" "}
+                                            <i class="fas fa-arrow-right" />
+                                        </a>
+                                    </div>
+                                    <div class="upgrade-visual">
+                                        <div class="floating-icons">
+                                            <i class="fas fa-shield-halved" />
+                                            <i class="fas fa-gauge-high" />
+                                            <i class="fas fa-headset" />
+                                        </div>
+                                    </div>
+                                </div>
                             </section>
                         )
                     }
@@ -641,108 +711,6 @@ export const prerender = false;
                             </section>
                         )
                     }
-
-                    <!-- Sidebar / Quick Actions -->
-                    <aside class="sidebar-actions">
-                        <div class="main-card action-card">
-                            <h3>Ações Rápidas</h3>
-                            <div class="quick-links">
-                                {
-                                    isAdmin ? (
-                                        /* ADMIN ACTIONS */
-                                        <>
-                                            <a href="/admin" class="quick-link">
-                                                <span class="icon users">
-                                                    <i class="fas fa-users-gear" />
-                                                </span>
-                                                <div>
-                                                    <strong>
-                                                        Editar perfil de cliente
-                                                    </strong>
-                                                    <span>
-                                                        Gestão de usuários
-                                                    </span>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="/admin/projects/history"
-                                                class="quick-link"
-                                            >
-                                                <span class="icon history">
-                                                    <i class="fas fa-scroll" />
-                                                </span>
-                                                <div>
-                                                    <strong>
-                                                        Histórico de Projetos
-                                                    </strong>
-                                                    <span>
-                                                        Ver detalhes completos
-                                                    </span>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="/perfil"
-                                                class="quick-link"
-                                            >
-                                                <span class="icon profile">
-                                                    <i class="fas fa-user-circle" />
-                                                </span>
-                                                <div>
-                                                    <strong>Perfil</strong>
-                                                    <span>Editar dados</span>
-                                                </div>
-                                            </a>
-                                        </>
-                                    ) : (
-                                        /* CLIENT ACTIONS */
-                                        <>
-                                            <a
-                                                href="/pedido?plan=manutencao"
-                                                class="quick-link"
-                                            >
-                                                <span class="icon maintenance">
-                                                    <i class="fas fa-screwdriver-wrench" />
-                                                </span>
-                                                <div>
-                                                    <strong>Manutenção</strong>
-                                                    <span>
-                                                        Solicitar ajuste ou
-                                                        reparo
-                                                    </span>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="/faturas"
-                                                class="quick-link"
-                                            >
-                                                <span class="icon invoices">
-                                                    <i class="fas fa-file-invoice-dollar" />
-                                                </span>
-                                                <div>
-                                                    <strong>
-                                                        Minhas Faturas
-                                                    </strong>
-                                                    <span>Ver histórico</span>
-                                                </div>
-                                            </a>
-                                            <a
-                                                href="/perfil"
-                                                class="quick-link"
-                                            >
-                                                <span class="icon profile">
-                                                    <i class="fas fa-user-circle" />
-                                                </span>
-                                                <div>
-                                                    <strong>Perfil</strong>
-                                                    <span>Editar dados</span>
-                                                </div>
-                                            </a>
-                                        </>
-                                    )
-                                }
-                            </div>
-                        </div>
-                    </aside>
                 </div>
             </div>
         </div>
@@ -1526,7 +1494,7 @@ export const prerender = false;
             .dashboard-container {
                 position: relative;
                 z-index: 1;
-                padding-bottom: 4rem;
+                padding-bottom: 8rem;
             }
 
             /* Header */
@@ -1660,6 +1628,14 @@ export const prerender = false;
                 color: #fb923c;
                 position: relative;
             }
+            .stat-icon.plan {
+                background: rgba(168, 85, 247, 0.15);
+                color: #a855f7;
+            }
+            .stat-icon.store {
+                background: rgba(138, 28, 38, 0.2);
+                color: var(--color-primary);
+            }
 
             .notification-badge-dot {
                 position: absolute;
@@ -1781,6 +1757,17 @@ export const prerender = false;
                 transform: translateY(-2px);
             }
 
+            /* Store Card Button Override */
+            .store-card-btn .launch-btn {
+                background: rgba(138, 28, 38, 0.1);
+                border-color: rgba(138, 28, 38, 0.2);
+                color: var(--color-primary);
+            }
+            .store-card-btn .launch-btn:hover {
+                background: rgba(138, 28, 38, 0.2);
+                border-color: rgba(138, 28, 38, 0.4);
+            }
+
             .history-link-card svg {
                 opacity: 0.7;
             }
@@ -1792,7 +1779,7 @@ export const prerender = false;
             /* Content Grid */
             .content-grid {
                 display: grid;
-                grid-template-columns: 2fr 1fr;
+                grid-template-columns: 1fr;
                 gap: 2rem;
             }
 
@@ -2204,6 +2191,11 @@ export const prerender = false;
                 color: #d4af37;
                 border: 1px solid rgba(212, 175, 55, 0.3);
             }
+            .plan-badge.free {
+                background: rgba(255, 255, 255, 0.05);
+                color: var(--color-text-muted);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
 
             .benefits-grid {
                 display: grid;
@@ -2216,11 +2208,11 @@ export const prerender = false;
                 display: flex;
                 align-items: center;
                 gap: 1.2rem;
-                padding: 1.2rem;
+                padding: 1.5rem;
                 background: rgba(255, 255, 255, 0.02);
                 border: 1px solid var(--glass-border);
                 border-radius: 12px;
-                transition: all 0.3s ease;
+                transition: 0.3s;
                 cursor: pointer;
             }
 
@@ -2259,6 +2251,265 @@ export const prerender = false;
                 border-radius: 10px;
             }
 
+            /* Upgrade Banner Styles */
+            .upgrade-banner-section {
+                grid-column: 1 / -1;
+                background: linear-gradient(
+                    135deg,
+                    rgba(138, 28, 38, 0.1) 0%,
+                    rgba(138, 28, 38, 0.02) 100%
+                );
+                border: 1px solid rgba(138, 28, 38, 0.2);
+                padding: 0;
+                overflow: hidden;
+                position: relative;
+            }
+
+            .upgrade-container {
+                display: grid;
+                grid-template-columns: 1.5fr 1fr;
+                min-height: 350px;
+            }
+
+            @media (max-width: 768px) {
+                .upgrade-container {
+                    grid-template-columns: 1fr;
+                }
+                .upgrade-visual {
+                    display: none;
+                }
+            }
+
+            .upgrade-info {
+                padding: 3rem;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                gap: 1.5rem;
+            }
+
+            .badge-promo {
+                background: rgba(138, 28, 38, 0.15);
+                color: var(--color-primary);
+                font-size: 0.75rem;
+                font-weight: 800;
+                padding: 5px 12px;
+                border-radius: 50px;
+                align-self: flex-start;
+                letter-spacing: 1px;
+                border: 1px solid rgba(138, 28, 38, 0.3);
+            }
+
+            .upgrade-info h2 {
+                font-size: 2.2rem;
+                color: #fff;
+                margin: 0;
+                line-height: 1.2;
+            }
+
+            .upgrade-info p {
+                color: var(--color-text-muted);
+                font-size: 1.05rem;
+                max-width: 500px;
+                line-height: 1.6;
+            }
+
+            .upgrade-benefits {
+                list-style: none;
+                padding: 0;
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+
+            .upgrade-benefits li {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                color: #e0e0e0;
+                font-size: 0.9rem;
+            }
+
+            .upgrade-benefits li i {
+                color: var(--color-primary);
+            }
+
+            .btn-upgrade-main {
+                background: var(--color-primary);
+                color: white;
+                text-decoration: none;
+                padding: 1rem 2rem;
+                border-radius: 12px;
+                font-weight: 700;
+                display: inline-flex;
+                align-items: center;
+                gap: 10px;
+                align-self: flex-start;
+                transition: all 0.3s ease;
+                margin-top: 1rem;
+                box-shadow: 0 10px 20px rgba(138, 28, 38, 0.3);
+            }
+
+            .btn-upgrade-main:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 15px 30px rgba(138, 28, 38, 0.5);
+                background: #a31525;
+            }
+
+            .upgrade-visual {
+                background: rgba(255, 255, 255, 0.02);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                position: relative;
+            }
+
+            .floating-icons {
+                font-size: 3rem;
+                color: var(--color-primary);
+                display: flex;
+                gap: 2rem;
+                opacity: 0.4;
+            }
+
+            .floating-icons i:nth-child(1) {
+                animation: float 6s infinite ease-in-out;
+            }
+            .floating-icons i:nth-child(2) {
+                animation: float 6s infinite ease-in-out 1.5s;
+            }
+            .floating-icons i:nth-child(3) {
+                animation: float 6s infinite ease-in-out 3s;
+            }
+
+            @keyframes float {
+                0%,
+                100% {
+                    transform: translateY(0);
+                }
+                50% {
+                    transform: translateY(-20px);
+                }
+            }
+
+            /* Alpha Store Styles */
+            .store-section {
+                grid-column: 1 / -1;
+                margin-top: 2rem;
+                border: 1px solid rgba(138, 28, 38, 0.2);
+                background: linear-gradient(
+                    145deg,
+                    rgba(20, 20, 20, 0.6),
+                    rgba(138, 28, 38, 0.02)
+                );
+            }
+
+            .badge-new {
+                background: var(--color-primary);
+                color: white;
+                font-size: 0.65rem;
+                font-weight: 800;
+                padding: 3px 8px;
+                border-radius: 4px;
+                letter-spacing: 1px;
+            }
+
+            .store-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1rem;
+            }
+
+            .store-item {
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid var(--glass-border);
+                border-radius: 16px;
+                padding: 1.5rem;
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
+                transition: all 0.3s ease;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .store-item:hover {
+                background: rgba(255, 255, 255, 0.05);
+                transform: translateY(-5px);
+                border-color: rgba(138, 28, 38, 0.4);
+                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            }
+
+            .store-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .store-icon.seo {
+                background: rgba(168, 85, 247, 0.1);
+                color: #a855f7;
+            }
+            .store-icon.design {
+                background: rgba(59, 130, 246, 0.1);
+                color: #3b82f6;
+            }
+            .store-icon.speed {
+                background: rgba(245, 158, 11, 0.1);
+                color: #f59e0b;
+            }
+            .store-icon.ads {
+                background: rgba(16, 185, 129, 0.1);
+                color: #10b981;
+            }
+
+            .store-info strong {
+                display: block;
+                font-size: 1.1rem;
+                color: #fff;
+                margin-bottom: 0.5rem;
+            }
+
+            .store-info p {
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+                line-height: 1.4;
+                margin-bottom: 1rem;
+            }
+
+            .store-info .price {
+                display: block;
+                font-size: 0.75rem;
+                font-weight: 700;
+                color: var(--color-primary);
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+
+            .store-btn {
+                margin-top: auto;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+                color: white;
+                padding: 0.8rem;
+                border-radius: 10px;
+                font-size: 0.9rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: all 0.3s ease;
+            }
+
+            .store-btn:hover {
+                background: var(--color-primary);
+                border-color: var(--color-primary);
+                transform: scale(1.02);
+            }
             .benefit-info strong {
                 display: block;
                 color: #fff;
