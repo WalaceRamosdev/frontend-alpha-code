@@ -144,11 +144,14 @@ export const prerender = false;
                                         src={session.user.image}
                                         alt="Profile"
                                         id="header-avatar-img"
+                                        onerror="this.onerror=null;this.src='/assets/logo3d.svg';this.style.objectFit='contain';this.style.padding='4px';"
                                     />
                                 ) : (
-                                    <div class="avatar-letter">
-                                        {session.user?.name?.charAt(0) || "U"}
-                                    </div>
+                                    <img
+                                        src="/assets/logo3d.svg"
+                                        alt="Alpha Code"
+                                        style="width: 32px; height: 32px; object-fit: contain;"
+                                    />
                                 )
                             }
                         </div>
@@ -280,7 +283,6 @@ export const prerender = false;
                                 {/* No VIP Card for Admin */}
                             </>
                         ) : (
-                            /* CLIENT STATS */
                             <>
                                 <div class="stat-card">
                                     <div class="stat-icon project">
@@ -316,9 +318,25 @@ export const prerender = false;
                                         <span class="stat-value">
                                             {session.user?.plan || "FREE"}
                                         </span>
-                                        <span class="stat-label">
-                                            Seu Plano Alpha
-                                        </span>
+                                        <div style="display: flex; flex-direction: column;">
+                                            <span class="stat-label">
+                                                Seu Plano Alpha
+                                            </span>
+                                            {(!session.user?.plan ||
+                                                session.user?.plan ===
+                                                    "FREE") && (
+                                                <a
+                                                    href="/pedido"
+                                                    class="upgrade-link"
+                                                >
+                                                    Adquirir Plano{" "}
+                                                    <i
+                                                        class="fas fa-arrow-right"
+                                                        style="font-size: 0.7rem;"
+                                                    />
+                                                </a>
+                                            )}
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="stat-card store-card-btn">
