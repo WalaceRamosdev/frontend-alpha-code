@@ -9,7 +9,7 @@ draft: false
 ctaType: "fundo"
 ---
 
-# Quanto tempo leva para criar um site profissional?
+
 
 "Consigo meu site pronto para amanhã?". Esta é uma das perguntas mais comuns que recebemos. A resposta curta é: um site pode ser feito em 24h, mas um **site estratégico que gera autoridade e vendas** leva mais tempo. 
 

@@ -41,11 +41,10 @@ if (heroImage) {
     if (heroImage.startsWith("http") || heroImage.startsWith("https")) {
         finalHeroImage = heroImage;
     } else {
-        const publicDir = path.join(process.cwd(), "public");
-        const imagePath = path.join(publicDir, heroImage);
-        if (fs.existsSync(imagePath)) {
-            finalHeroImage = heroImage;
-        }
+        // Enforce leading slash for absolute paths from public root
+        finalHeroImage = heroImage.startsWith("/")
+            ? heroImage
+            : `/assets/blog/${heroImage.split("/").pop()}`;
     }
 }
 
