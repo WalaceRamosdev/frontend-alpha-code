@@ -11,7 +11,7 @@ export const POST: APIRoute = async ({ request }) => {
 
 
         const body = await request.json();
-        const { name, email, password, plan, siteUrl } = body;
+        const { name, email, password, plan, siteUrl, createdAt } = body;
 
         if (!name || !email || !password || !plan) {
             return new Response(
@@ -38,7 +38,8 @@ export const POST: APIRoute = async ({ request }) => {
                 password: hashedPassword,
                 plan: plan.toUpperCase(),
                 siteUrl: siteUrl || null,
-                role: "USER"
+                role: "USER",
+                createdAt: createdAt ? new Date(createdAt) : undefined
             } as any
         });
 

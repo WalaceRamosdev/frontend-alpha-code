@@ -1,0 +1,49 @@
+﻿commit f13b07c7b93805a9e2ed405313913b0a2e416255
+Author: Walace Ramos <contatowalace.dev@gmail.com>
+Date:   Wed Feb 25 19:18:24 2026 -0300
+
+    adicionando l├│gica para parceiros
+
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+index 8833eb8..701eabd 100644
+--- a/prisma/schema.prisma
++++ b/prisma/schema.prisma
+@@ -23,6 +23,9 @@ model User {
+   plan          String    @default("FREE")
+   siteUrl       String?
+   role          String    @default("USER")
++  userType      String    @default("CLIENT") // CLIENT or PARTNER
++  referralCode  String?   @unique           // Unique code for partners
++  referredBy    String?                    // Code of the partner who referred this user
+   loginAttempts Int       @default(0)
+   lockUntil     DateTime?
+   createdAt     DateTime  @default(now())
+@@ -120,6 +123,7 @@ model Lead {
+   complexity      String?
+   investmentRange String?
+   diagnosisData   Json?
++  referredBy      String?  // Code of the partner who referred this lead
+   createdAt       DateTime @default(now())
+ }
+ 
+
+commit 8d2486a91c81ee64a85bdf68cdbe8c2b6a576946
+Author: Walace Ramos <contatowalace.dev@gmail.com>
+Date:   Wed Feb 25 15:28:53 2026 -0300
+
+    corrindo erros de dashboard
+
+diff --git a/prisma/schema.prisma b/prisma/schema.prisma
+index 50b80e9..8833eb8 100644
+--- a/prisma/schema.prisma
++++ b/prisma/schema.prisma
+@@ -16,6 +16,9 @@ model User {
+   image         String?
+   phone         String?   @unique
+   company       String?
++  profession    String?
++  instagram     String?
++  linkedin      String?
+   password      String?
+   plan          String    @default("FREE")
+   siteUrl       String?

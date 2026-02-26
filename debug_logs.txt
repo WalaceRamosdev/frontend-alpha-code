@@ -1,0 +1,6 @@
+2026-02-25T23:08:31.772Z | FAILED_LOGIN_UNKNOWN_USER | {"identifier":"adminemail"}
+2026-02-25T23:06:30.015Z | FAILED_LOGIN_UNKNOWN_USER | {"identifier":"alphacodecontato@gmail.com"}
+2026-02-25T23:03:26.783Z | FAILED_LOGIN_UNKNOWN_USER | {"identifier":"alphacodecontato@gmail.com"}
+2026-02-25T23:00:59.501Z | FAILED_LOGIN_UNKNOWN_USER | {"identifier":"alphacodecontato@gmail.com"}
+2026-02-25T22:59:52.468Z | GOOGLE_SIGNIN_ATTEMPT | {"email":"designbycah@gmail.com"}
+2026-02-25T22:08:08.304Z | SUCCESSFUL_LOGIN | {"role":"PARTNER","identifier":"parceiroalpha@gmail.com"}

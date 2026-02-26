@@ -134,6 +134,10 @@ export const prerender = false;
                                     placeholder="https://cliente.vercel.app"
                                 />
                             </div>
+                            <div class="field full">
+                                <label>Data de Cadastro (Opcional)</label>
+                                <input type="date" name="createdAt" />
+                            </div>
                         </div>
                         <button
                             type="submit"
@@ -306,6 +310,10 @@ export const prerender = false;
                         placeholder="https://..."
                     />
                 </div>
+                <div class="field">
+                    <label>Data de Cadastro</label>
+                    <input type="date" id="edit-createdAt" name="createdAt" />
+                </div>
                 <button type="submit" class="btn-modal-submit">
                     <i class="fas fa-check"></i> Salvar Alterações
                 </button>
@@ -406,6 +414,16 @@ export const prerender = false;
         document.getElementById("edit-email").value = user.email;
         document.getElementById("edit-plan").value = user.plan;
         document.getElementById("edit-siteUrl").value = user.siteUrl || "";
+
+        if (user.createdAt) {
+            const date = new Date(user.createdAt);
+            document.getElementById("edit-createdAt").value = date
+                .toISOString()
+                .split("T")[0];
+        } else {
+            document.getElementById("edit-createdAt").value = "";
+        }
+
         document.getElementById("edit-modal").classList.remove("hidden");
     };
     window.openResetModal = (btn) => {

@@ -89,10 +89,16 @@ const ChartParticles = () => {
             renderer.setSize(w, h);
         };
 
+        const resizeObserver = new ResizeObserver(handleResize);
+        if (mountRef.current) {
+            resizeObserver.observe(mountRef.current);
+        }
+
         window.addEventListener("resize", handleResize);
 
         return () => {
             window.removeEventListener("resize", handleResize);
+            resizeObserver.disconnect();
             if (mountRef.current && renderer.domElement) {
                 mountRef.current.removeChild(renderer.domElement);
             }

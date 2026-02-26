@@ -13,7 +13,7 @@ export const POST: APIRoute = async ({ request }) => {
 
     try {
         const body = await request.json();
-        const { id, name, email, plan, siteUrl } = body;
+        const { id, name, email, plan, siteUrl, createdAt } = body;
 
         await prisma.user.update({
             where: { id },
@@ -22,6 +22,7 @@ export const POST: APIRoute = async ({ request }) => {
                 email,
                 plan,
                 siteUrl: siteUrl || null,
+                createdAt: createdAt ? new Date(createdAt) : undefined,
             },
         });
 

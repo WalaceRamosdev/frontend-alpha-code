@@ -216,37 +216,17 @@ const isLoggedIn = !!session;
             </Card>
         </div>
 
-        <div class="countdown-anchor fade-up-plans">
-            <div class="countdown-box minimalist">
-                <span class="countdown-label">O REAJUSTE OCORRE EM:</span>
-                <div id="countdown-main" class="countdown-timer">
-                    <div class="timer-item">
-                        <span id="days-main">00</span><small>dias</small>
-                    </div>
-                    <div class="timer-divider">:</div>
-                    <div class="timer-item">
-                        <span id="hours-main">00</span><small>hrs</small>
-                    </div>
-                    <div class="timer-divider">:</div>
-                    <div class="timer-item">
-                        <span id="minutes-main">00</span><small>min</small>
-                    </div>
-                    <div class="timer-divider">:</div>
-                    <div class="timer-item">
-                        <span id="seconds-main">00</span><small>seg</small>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="pricing-footer fade-up-plans delay-2">
             <p>* Projetos personalizados. Fale com um consultor.</p>
             <p class="maintenance-note">
                 Manutenção opcional disponível por R$ 100/mês.
             </p>
-            <p class="niche-note">
-                📍 Restaurantes, Clínicas e Lanchonetes:{" "}
-                <strong>A partir de R$ 1.099</strong> (Sistemas sob consulta).
-            </p>
+            <a href="/sistemas-personalizados" class="niche-note-link">
+                <p class="niche-note">
+                    📍 Restaurantes, Clínicas e Lanchonetes:{" "}
+                    <strong>A partir de R$ 1.099</strong> (Sistemas sob consulta).
+                </p>
+            </a>
         </div>
         <div class="compare-cta fade-up-plans delay-3">
             <Button href="/planos" variant="outline" class="btn-large">
@@ -317,51 +297,6 @@ const isLoggedIn = !!session;
                     "100 €",
                 );
             }
-        }
-
-        // Countdown Timer Logic
-        const targetDate = new Date("March 31, 2026 23:59:59").getTime();
-
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-
-            if (distance < 0) {
-                const countdownEl = document.getElementById("countdown-main");
-                if (countdownEl) {
-                    const parent = countdownEl.closest(".countdown-box");
-                    if (parent)
-                        parent.innerHTML =
-                            '<span class="countdown-label">OFERTA ENCERRADA</span>';
-                }
-                return;
-            }
-
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor(
-                (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60),
-            );
-            const minutes = Math.floor(
-                (distance % (1000 * 60 * 60)) / (1000 * 60),
-            );
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            const daysEl = document.getElementById("days-main");
-            const hoursEl = document.getElementById("hours-main");
-            const minutesEl = document.getElementById("minutes-main");
-            const secondsEl = document.getElementById("seconds-main");
-
-            if (daysEl) daysEl.innerText = days.toString().padStart(2, "0");
-            if (hoursEl) hoursEl.innerText = hours.toString().padStart(2, "0");
-            if (minutesEl)
-                minutesEl.innerText = minutes.toString().padStart(2, "0");
-            if (secondsEl)
-                secondsEl.innerText = seconds.toString().padStart(2, "0");
-        }
-
-        if (document.getElementById("countdown-main")) {
-            setInterval(updateCountdown, 1000);
-            updateCountdown();
         }
     }
 </script>
@@ -788,6 +723,19 @@ const isLoggedIn = !!session;
         border-radius: 50px;
         border: 1px solid rgba(138, 28, 38, 0.2);
         font-size: 0.85rem;
+        transition: all 0.3s ease;
+    }
+
+    .niche-note-link {
+        text-decoration: none;
+        display: block;
+    }
+
+    .niche-note-link:hover .niche-note {
+        background: rgba(138, 28, 38, 0.2);
+        border-color: rgba(138, 28, 38, 0.5);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(138, 28, 38, 0.2);
     }
 
     .niche-note strong {

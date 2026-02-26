@@ -2,7 +2,7 @@
 title: "Quanto tempo leva para criar um site profissional?"
 description: "Prazos reais: entenda todas as etapas do processo de criação de um site e por que pressa excessiva pode destruir seus resultados no Google."
 pubDate: 2026-02-25T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1607799276668-88b08ac0029e?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/quanto-tempo-leva-para-criar-um-site-profissional-sitesalphacode.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "prazo", "planejamento digital"]
 draft: false

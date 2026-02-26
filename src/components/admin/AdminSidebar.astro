@@ -32,39 +32,6 @@ const { activePage, isAdmin = false } = Astro.props;
             isAdmin ? (
                 <>
                     <a
-                        href="/admin/financial/history"
-                        class={`nav-item ${activePage === "financial" ? "active" : ""}`}
-                        title="Financeiro"
-                    >
-                        <span class="nav-icon">
-                            <i class="fas fa-wallet" />
-                        </span>
-                        <span class="nav-label">Financeiro</span>
-                    </a>
-
-                    <a
-                        href="/admin/maintenance/requests"
-                        class={`nav-item ${activePage === "maintenance" ? "active" : ""}`}
-                        title="Manutenção/SEO"
-                    >
-                        <span class="nav-icon">
-                            <i class="fas fa-tools" />
-                        </span>
-                        <span class="nav-label">Manutenção</span>
-                    </a>
-
-                    <a
-                        href="/perfil"
-                        class={`nav-item ${activePage === "profile" ? "active" : ""}`}
-                        title="Meu Perfil"
-                    >
-                        <span class="nav-icon">
-                            <i class="fas fa-user-circle" />
-                        </span>
-                        <span class="nav-label">Perfil</span>
-                    </a>
-
-                    <a
                         href="/"
                         class="nav-item back-to-site"
                         title="Voltar ao Site"
@@ -72,7 +39,7 @@ const { activePage, isAdmin = false } = Astro.props;
                         <span class="nav-icon">
                             <i class="fas fa-house-user" />
                         </span>
-                        <span class="nav-label">Voltar ao Site</span>
+                        <span class="nav-label">Home</span>
                     </a>
                 </>
             ) : (
@@ -89,6 +56,17 @@ const { activePage, isAdmin = false } = Astro.props;
                     </a>
 
                     <a
+                        href="/loja"
+                        class={`nav-item ${activePage === "store" ? "active" : ""}`}
+                        title="Alpha Store"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-store" />
+                        </span>
+                        <span class="nav-label">Loja</span>
+                    </a>
+
+                    <a
                         href="/"
                         class="nav-item back-to-site"
                         title="Voltar ao Site"
@@ -96,7 +74,7 @@ const { activePage, isAdmin = false } = Astro.props;
                         <span class="nav-icon">
                             <i class="fas fa-house-user" />
                         </span>
-                        <span class="nav-label">Voltar ao Site</span>
+                        <span class="nav-label">Home</span>
                     </a>
 
                     <a
@@ -107,13 +85,14 @@ const { activePage, isAdmin = false } = Astro.props;
                         <span class="nav-icon">
                             <i class="fas fa-file-invoice-dollar" />
                         </span>
-                        <span class="nav-label">Minhas Faturas</span>
+                        <span class="nav-label">Faturas</span>
                     </a>
+
                     <a href="/perfil" class="nav-item" title="Meu Perfil">
                         <span class="nav-icon">
                             <i class="fas fa-user-circle" />
                         </span>
-                        <span class="nav-label">Meu Perfil</span>
+                        <span class="nav-label">Perfil</span>
                     </a>
                 </>
             )

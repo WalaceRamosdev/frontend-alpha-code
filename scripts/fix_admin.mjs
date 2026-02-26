@@ -4,53 +4,58 @@ import bcrypt from 'bcryptjs';
 const prisma = new PrismaClient();
 
 async function main() {
-    const adminEmail = 'alphacodecontato@gmail.com';
-    const adminPassword = 'admin_alpha_2025';
-    const hashedPassword = await bcrypt.hash(adminPassword, 10);
+    const admins = [
+        {
+            email: 'alphacodecontato@gmail.com',
+            password: 'admin_alpha_2025',
+            name: 'Administrador Alpha'
+        },
+        {
+            email: 'contatowalace.dev@gmail.com',
+            password: 'admin_alpha_2025',
+            name: 'Walace Ramos'
+        }
+    ];
 
-    console.log('--- Verificando/Criando Administrador ---');
+    console.log('--- Verificando/Criando Administradores ---');
 
-    const existingUser = await prisma.user.findUnique({
-        where: { email: adminEmail }
-    });
-
-    if (existingUser) {
-        console.log('Usuário já existe. Atualizando cargo para ADMIN e resetando senha...');
-        await prisma.user.update({
-            where: { email: adminEmail },
-            data: {
-                role: 'ADMIN',
-                password: hashedPassword,
-                name: 'Administrador Alpha'
-            }
+    for (const admin of admins) {
+        const hashedPassword = await bcrypt.hash(admin.password, 10);
+        const existingUser = await prisma.user.findUnique({
+            where: { email: admin.email }
         });
-    } else {
-        console.log('Criando novo usuário administrador...');
-        await prisma.user.create({
-            data: {
-                name: 'Administrador Alpha',
-                email: adminEmail,
-                password: hashedPassword,
-                role: 'ADMIN',
-                plan: 'VIP'
-            }
-        });
-    }
 
-    // Também vamos garantir que o Walace seja ADMIN, para facilitar
-    const walaceEmail = 'contatowalace.dev@gmail.com';
-    const walace = await prisma.user.findUnique({ where: { email: walaceEmail } });
-    if (walace) {
-        console.log(`Elevando ${walaceEmail} para ADMIN...`);
-        await prisma.user.update({
-            where: { email: walaceEmail },
-            data: { role: 'ADMIN' }
-        });
+        if (existingUser) {
+            console.log(`Usuário ${admin.email} já existe. Atualizando cargo para ADMIN e resetando senha...`);
+            await prisma.user.update({
+                where: { email: admin.email },
+                data: {
+                    role: 'ADMIN',
+                    password: hashedPassword,
+                    name: admin.name,
+                    loginAttempts: 0,
+                    lockUntil: null
+                }
+            });
+        } else {
+            console.log(`Criando novo usuário administrador: ${admin.email}...`);
+            await prisma.user.create({
+                data: {
+                    name: admin.name,
+                    email: admin.email,
+                    password: hashedPassword,
+                    role: 'ADMIN',
+                    plan: 'VIP'
+                }
+            });
+        }
     }
 
     console.log('--- Configuração Concluída ---');
-    console.log(`Login: ${adminEmail}`);
-    console.log(`Senha: ${adminPassword}`);
+    admins.forEach(a => {
+        console.log(`Login: ${a.email}`);
+        console.log(`Senha: ${a.password}`);
+    });
 }
 
 main()
