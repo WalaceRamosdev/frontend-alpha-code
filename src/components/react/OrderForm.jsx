@@ -671,15 +671,36 @@ export default function OrderForm({ user }) {
                 <div className="fixed-overlay">
                     <div className="modal-box checkout-summary-box">
                         <button onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
-                        <img src="/assets/logo.svg" className="modal-logo" />
-                        <h2>Confirmação do Pedido</h2>
+                        <img src="/assets/logo3d.svg" className="modal-logo" />
+                        <h2 style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}>Confirmação do Pedido</h2>
                         <p className="summary-intro">Veja o que estamos preparando para você:</p>
 
                         <div className="checkout-items-list">
-                            <div className="checkout-item">
-                                <span className="item-name">📦 {selectedPlan?.name}</span>
+                            <div className="checkout-item no-border-bottom">
+                                <span className="item-name">📦 {selectedPlan?.name} (Valor Normal)</span>
                                 <span className="item-price">{currency} {isPortugal ? selectedPlan.numericPriceEUR : selectedPlan.numericPrice}</span>
                             </div>
+
+                            {appliedCoupon && (
+                                <>
+                                    <div className="checkout-item no-border-bottom coupon-item">
+                                        <span className="item-name" style={{ paddingLeft: '20px', fontSize: '0.82rem', opacity: 0.8 }}>🎫 Desconto Cupom ({appliedCoupon.code})</span>
+                                        <span className="item-price" style={{ fontSize: '0.82rem' }}>
+                                            -{currency} {
+                                                appliedCoupon.code === 'ALPHA25'
+                                                    ? (isPortugal ? (selectedPlan.numericPriceEUR - selectedPlan.promoPriceEUR) : (selectedPlan.numericPrice - selectedPlan.promoPrice)).toFixed(2).replace('.', ',')
+                                                    : (appliedCoupon.type === 'percent'
+                                                        ? ((isPortugal ? selectedPlan.numericPriceEUR : selectedPlan.numericPrice) * appliedCoupon.value / 100).toFixed(2).replace('.', ',')
+                                                        : appliedCoupon.value.toFixed(2).replace('.', ','))
+                                            }
+                                        </span>
+                                    </div>
+                                    <div className="checkout-item" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: '12px', paddingBottom: '12px' }}>
+                                        <span className="item-name" style={{ fontWeight: '800', fontSize: '0.9rem' }}>✨ Valor Promocional do Plano</span>
+                                        <span className="item-price" style={{ fontWeight: '800', fontSize: '0.9rem' }}>{currency} {isPortugal ? selectedPlan.promoPriceEUR : selectedPlan.promoPrice}</span>
+                                    </div>
+                                </>
+                            )}
 
                             {hasSEO && (
                                 <div className="checkout-item highlight-item">
@@ -688,10 +709,10 @@ export default function OrderForm({ user }) {
                                 </div>
                             )}
 
-                            {appliedCoupon && (
-                                <div className="checkout-item coupon-item">
-                                    <span className="item-name">🎫 Cupom: {appliedCoupon.code}</span>
-                                    <span className="item-price">-{appliedCoupon.type === 'percent' ? `${appliedCoupon.value}%` : `${currency} ${appliedCoupon.value}`}</span>
+                            {buyDomain && (
+                                <div className="checkout-item highlight-item">
+                                    <span className="item-name">🌐 Compra de Domínio</span>
+                                    <span className="item-price">{currency} {isPortugal ? '12,00' : '59,00'}</span>
                                 </div>
                             )}
 
@@ -717,6 +738,9 @@ export default function OrderForm({ user }) {
                     margin: 0 auto;
                     padding: 0 5%;
                 }
+                @media (max-width: 768px) {
+                    .order-main-wrapper { padding: 0 1%; }
+                }
                 .order-grid {
                     display: grid;
                     grid-template-columns: 1fr;
@@ -725,6 +749,10 @@ export default function OrderForm({ user }) {
                 }
                 @media (min-width: 992px) {
                     .order-grid { grid-template-columns: 350px 1fr; gap: 50px; }
+                }
+                @media (max-width: 991px) {
+                    .order-grid { gap: 20px; }
+                    .order-sidebar { order: -1; } /* Mostra resumo antes do form em telas menores */
                 }
 
                 .premium-card {
@@ -736,8 +764,19 @@ export default function OrderForm({ user }) {
 
                 /* Sidebar Styles */
                 .sticky-card { padding: 30px; position: sticky; top: 100px; border-color: rgba(138, 28, 38, 0.3); }
+                @media (max-width: 768px) {
+                    .sticky-card { 
+                        position: relative; 
+                        top: 0; 
+                        padding: 25px 10px; 
+                        border-radius: 20px;
+                    }
+                }
                 .label { color: rgba(255,255,255,0.4); font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; }
                 .plan-name { font-size: 1.8rem; margin: 10px 0 5px 0; font-weight: 800; line-height: 1; }
+                @media (max-width: 480px) {
+                    .plan-name { font-size: 1.5rem; }
+                }
                 .plan-subtitle-form { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; color: rgba(255,255,255,0.5); margin-bottom: 20px; font-weight: 600; }
                 .price-stack { margin: 10px 0 20px 0; display: flex; flex-direction: column; position: relative; }
                 .discount-badge-mini {
@@ -764,6 +803,9 @@ export default function OrderForm({ user }) {
                 }
                 .old-price { text-decoration: line-through; color: rgba(255,255,255,0.3); font-size: 1.1rem; }
                 .final-price { font-size: 2.5rem; font-weight: 900; color: #d62839; text-shadow: 0 0 20px rgba(214, 40, 57, 0.2); }
+                @media (max-width: 480px) {
+                    .final-price { font-size: 2rem; }
+                }
                 .sidebar-item-row {
                     display: flex;
                     justify-content: space-between;
@@ -776,6 +818,9 @@ export default function OrderForm({ user }) {
 
                 /* Form Styles */
                 .form-inner { padding: 40px; }
+                @media (max-width: 768px) {
+                    .form-inner { padding: 25px 10px; }
+                }
                 .form-step { margin-bottom: 40px; }
                 .step-header { display: flex; align-items: center; gap: 15px; margin-bottom: 25px; }
                 .step-num { width: 32px; height: 32px; background: #d62839; border-radius: 50%; display: grid; place-items: center; font-weight: 900; font-size: 0.8rem; }
@@ -798,6 +843,9 @@ export default function OrderForm({ user }) {
                 .submit-main-btn {
                     width: 100%; padding: 20px; border-radius: 15px; background: #d62839; color: #fff;
                     font-weight: 900; font-size: 1.1rem; border: none; cursor: pointer; transition: 0.3s;
+                }
+                @media (max-width: 480px) {
+                    .submit-main-btn { padding: 16px; font-size: 1rem; }
                 }
                 .submit-main-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(214, 40, 57, 0.3); }
 
@@ -845,11 +893,14 @@ export default function OrderForm({ user }) {
                     100% { width: 100%; }
                 }
 
-                .modal-box { background: #0a0a0a; padding: 40px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; position: relative; }
-                .modal-logo { width: 100px; margin: 0 auto 20px auto; display: block; }
-                .modal-actions { display: grid; gap: 10px; margin-top: 30px; }
+                .modal-box { background: #0a0a0a; padding: 30px; border-radius: 30px; border: 1px solid rgba(255,255,255,0.1); max-width: 450px; width: 100%; text-align: center; position: relative; }
+                @media (max-width: 768px) {
+                    .modal-box { padding: 20px 15px; border-radius: 20px; }
+                }
+                .modal-logo { width: 80px; margin: 0 auto 15px auto; display: block; }
+                .modal-actions { display: grid; gap: 10px; margin-top: 20px; }
                 .pay-btn { background: #d62839; color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
-                .wa-btn { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; }
+                .wa-btn { border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 15px; border-radius: 12px; font-weight: bold; text-align: center; }
                 
                 .close-modal-btn {
                     position: absolute;
@@ -904,6 +955,9 @@ export default function OrderForm({ user }) {
                     transition: all 0.3s ease;
                     animation: button-pulse 2s infinite;
                 }
+                @media (max-width: 480px) {
+                    .upsell-confirm-btn { padding: 15px; font-size: 0.95rem; }
+                }
 
                 .upsell-confirm-btn:hover {
                     transform: scale(1.03);
@@ -940,21 +994,23 @@ export default function OrderForm({ user }) {
                 }
                 .summary-intro {
                     color: rgba(255,255,255,0.6);
-                    margin-bottom: 25px;
+                    margin-bottom: 15px;
                     text-align: center;
+                    font-size: 0.9rem;
                 }
                 .checkout-items-list {
                     background: rgba(255,255,255,0.03);
                     border-radius: 15px;
-                    padding: 20px;
-                    margin-bottom: 25px;
+                    padding: 15px;
+                    margin-bottom: 15px;
                 }
                 .checkout-item {
                     display: flex;
                     justify-content: space-between;
-                    padding: 12px 0;
+                    padding: 10px 0;
                     border-bottom: 1px solid rgba(255,255,255,0.05);
                 }
+                .no-border-bottom { border-bottom: none !important; padding-bottom: 5px; }
                 .checkout-item:last-child {
                     border-bottom: none;
                 }
@@ -965,27 +1021,27 @@ export default function OrderForm({ user }) {
                     font-weight: 700;
                 }
                 .highlight-item {
-                    color: #d62839;
+                    color: #fff;
                 }
-                .highlight-item .item-name { color: #d62839; font-weight: 700; }
+                .highlight-item .item-name { color: #fff; font-weight: 700; }
                 .coupon-item .item-name { color: #25D366; }
                 .coupon-item .item-price { color: #25D366; }
                 
                 .checkout-total {
                     display: flex;
                     justify-content: space-between;
-                    margin-top: 20px;
-                    padding-top: 20px;
+                    margin-top: 15px;
+                    padding-top: 15px;
                     border-top: 2px solid rgba(255,255,255,0.1);
-                    font-size: 1.2rem;
+                    font-size: 1.1rem;
                     font-weight: 900;
                     color: #fff;
                 }
                 .summary-footer {
-                    font-size: 0.85rem;
+                    font-size: 0.8rem;
                     color: rgba(255,255,255,0.4);
                     text-align: center;
-                    margin-bottom: 20px;
+                    margin-bottom: 15px;
                 }
 
                 /* Inspiration Box */
@@ -1008,6 +1064,9 @@ export default function OrderForm({ user }) {
                     display: flex;
                     gap: 15px;
                     margin-bottom: 20px;
+                }
+                @media (max-width: 480px) {
+                    .inspiration-options { flex-direction: column; gap: 10px; }
                 }
                 
                 .option-btn {
@@ -1109,12 +1168,15 @@ export default function OrderForm({ user }) {
 
                 /* Stepper UI */
                 .stepper-indicator { display: flex; align-items: center; justify-content: center; margin-bottom: 50px; gap: 10px; }
+                @media (max-width: 480px) { .stepper-indicator { margin-bottom: 30px; } }
                 .step-dot { width: 35px; height: 35px; border-radius: 50%; background: rgba(255,255,255,0.05); color: rgba(255,255,255,0.4); display: grid; place-items: center; font-weight: 800; border: 1px solid rgba(255,255,255,0.1); transition: 0.3s; }
                 .step-line { flex: 1; height: 1px; background: rgba(255,255,255,0.1); max-width: 50px; }
+                @media (max-width: 480px) { .step-line { max-width: 30px; } }
                 .step-dot.active { background: #d62839; color: #fff; border-color: #d62839; box-shadow: 0 0 15px rgba(214, 40, 57, 0.4); }
                 .step-line.active { background: #d62839; }
 
                 .step-actions { display: flex; gap: 15px; margin-top: 30px; }
+                @media (max-width: 480px) { .step-actions { flex-direction: column-reverse; } }
                 .next-step-btn { flex: 1; padding: 18px; border-radius: 14px; background: #d62839; color: #fff; border: none; font-weight: 800; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; }
                 .prev-step-btn { padding: 18px 25px; border-radius: 14px; background: rgba(255,255,255,0.05); color: #fff; border: 1px solid rgba(255,255,255,0.1); font-weight: 800; cursor: pointer; }
 
@@ -1134,15 +1196,53 @@ export default function OrderForm({ user }) {
                 
                 /* Addon Card */
                 .addon-option-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 20px; padding: 25px; display: flex; justify-content: space-between; align-items: center; margin: 30px 0; }
+                @media (max-width: 600px) {
+                    .addon-option-card { flex-direction: column; align-items: flex-start; gap: 20px; padding: 20px; }
+                    .switch-container { width: 100%; justify-content: space-between; flex-direction: row-reverse; }
+                    .addon-price { margin-left: 0; margin-right: 15px; }
+                }
                 .addon-info h4 { font-size: 1.1rem; margin-bottom: 5px; }
                 .addon-info p { font-size: 0.85rem; color: rgba(255,255,255,0.5); }
-                .addon-price { font-weight: 900; color: #cd7f32; margin-left: 15px; font-size: 0.9rem; }
+                .addon-price { 
+                    font-weight: 900; 
+                    color: #cd7f32; 
+                    margin-left: 15px; 
+                    font-size: 0.95rem; 
+                    white-space: nowrap;
+                    flex-shrink: 0;
+                }
 
                 /* Switch Toggle */
-                .switch-container { position: relative; display: flex; align-items: center; cursor: pointer; }
+                .switch-container { 
+                    position: relative; 
+                    display: flex; 
+                    align-items: center; 
+                    cursor: pointer;
+                    user-select: none;
+                }
                 .switch-container input { opacity: 0; width: 0; height: 0; }
-                .switch-slider { width: 50px; height: 26px; background-color: rgba(255,255,255,0.1); border-radius: 34px; transition: .4s; position: relative; }
-                .switch-slider:before { position: absolute; content: ""; height: 20px; width: 20px; left: 3px; bottom: 3px; background-color: white; transition: .4s; border-radius: 50%; }
+                .switch-slider { 
+                    width: 50px; 
+                    min-width: 50px;
+                    height: 26px; 
+                    background-color: rgba(255,255,255,0.1); 
+                    border-radius: 34px; 
+                    transition: .4s; 
+                    position: relative;
+                    flex-shrink: 0;
+                }
+                .switch-slider:before { 
+                    position: absolute; 
+                    content: ""; 
+                    height: 20px; 
+                    width: 20px; 
+                    left: 3px; 
+                    top: 3px; 
+                    background-color: white; 
+                    transition: .4s; 
+                    border-radius: 50%;
+                    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+                }
                 input:checked + .switch-slider { background-color: #cd7f32; }
                 input:checked + .switch-slider:before { transform: translateX(24px); }
 
