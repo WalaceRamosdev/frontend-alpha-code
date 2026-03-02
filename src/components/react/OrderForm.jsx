@@ -227,19 +227,13 @@ export default function OrderForm({ user }) {
 
             console.log(`📡 [${new Date().toLocaleTimeString()}] Enviando lead para: ${apiUrl}`);
 
-            // Timeout de 30 segundos - o backend pode demorar por causa do fallback do e-mail
-            const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 30000);
-
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload),
-                signal: controller.signal
+                body: JSON.stringify(payload)
             });
 
-            clearTimeout(timeoutId);
-            console.log(`✅ [${new Date().toLocaleTimeString()}] Resposta do servidor recebida.`);
+            console.log(`✅ [${new Date().toLocaleTimeString()}] Resposta do servidor:`, response.status, response.statusText);
 
             if (response.ok) {
                 console.log("✅ Pedido processado com sucesso pelo servidor.");
@@ -272,11 +266,11 @@ export default function OrderForm({ user }) {
         } catch (error) {
             console.error('❌ Erro no processamento do pedido:', error);
             if (error.name === 'AbortError') {
-                setErrorMessage('O servidor demorou muito a responder. Por favor, tente novamente ou use o botão do WhatsApp.');
+                setErrorMessage('Conexão interrompida. Por favor, tente novamente ou use o WhatsApp.');
             } else {
-                setErrorMessage('Erro ao enviar. Verifique sua conexão ou tente o WhatsApp.');
+                setErrorMessage(`Erro: ${error.message}. Verifique sua conexão.`);
             }
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+            // Removido scrollTo para evitar que o usuário perca o contexto do modal
         } finally { setLoading(false); }
     };
 
@@ -427,7 +421,7 @@ export default function OrderForm({ user }) {
 
                 {/* FORM */}
                 <main className="order-content">
-                    <form onSubmit={handleSubmit} className={`premium-card form-inner theme-${planKey}`}>
+                    <form className={`premium-card form-inner theme-${planKey}`}>
                         {/* Progressive Stepper Header */}
                         <div className="stepper-indicator">
                             <div className={`step-dot ${currentStep >= 1 ? 'active' : ''}`}>1</div>
@@ -622,7 +616,7 @@ export default function OrderForm({ user }) {
 
                                 <div className="step-actions">
                                     <button type="button" onClick={() => setCurrentStep(2)} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
-                                    <button type="submit" className="submit-main-btn" disabled={loading}>
+                                    <button type="button" onClick={handleSubmit} className="submit-main-btn" disabled={loading}>
                                         {loading ? 'Processando... 🚀' : 'Fechar meu Pedido 🚀'}
                                     </button>
                                 </div>
