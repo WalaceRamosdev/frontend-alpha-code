@@ -242,6 +242,8 @@ export default function OrderForm({ user }) {
             console.log(`✅ [${new Date().toLocaleTimeString()}] Resposta do servidor recebida.`);
 
             if (response.ok) {
+                console.log("✅ Pedido processado com sucesso pelo servidor.");
+
                 // WhatsApp URL generation with actual final price
                 const linkLabel = isMaintenance ? 'LINK DO SITE' : 'REFERÊNCIAS';
                 let messageBody = `*NOVO PEDIDO - ALPHA CODE* 🚀\n\n` +
