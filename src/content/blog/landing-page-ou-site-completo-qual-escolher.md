@@ -2,7 +2,7 @@
 title: "Landing Page ou Site Completo: qual a melhor escolha para 2026?"
 description: "Não jogue dinheiro fora. Entenda as diferenças estratégicas entre uma Landing Page e um Site Institucional e saiba qual deles seu negócio precisa agora."
 pubDate: 2026-03-02T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1607799276668-88b08ac0029e?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/landing-page-ou-site-completo-qual-escolher-sitesalphacode.webp"
 categories: ["Estratégia Digital"]
 tags: ["landing page", "site institucional", "marketing digital"]
 draft: false
