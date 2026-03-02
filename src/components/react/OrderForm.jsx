@@ -220,12 +220,26 @@ export default function OrderForm({ user }) {
         };
 
         try {
-            const apiUrl = 'https://backend-rp7j.onrender.com/send-email';
+            // DETECTA SE ESTÁ EM LOCALHOST OU PRODUÇÃO
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const backendBase = isLocal ? 'http://localhost:3000' : 'https://backend-rp7j.onrender.com';
+            const apiUrl = `${backendBase}/send-email`;
+
+            console.log(`📡 [${new Date().toLocaleTimeString()}] Enviando lead para: ${apiUrl}`);
+
+            // Timeout de 8 segundos para evitar travamentos infinitos
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => controller.abort(), 8000);
+
             const response = await fetch(apiUrl, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload),
+                signal: controller.signal
             });
+
+            clearTimeout(timeoutId);
+            console.log(`✅ [${new Date().toLocaleTimeString()}] Resposta do servidor recebida.`);
 
             if (response.ok) {
                 // WhatsApp URL generation with actual final price
@@ -252,7 +266,12 @@ export default function OrderForm({ user }) {
                 }
             } else throw new Error('Erro servidor');
         } catch (error) {
-            setErrorMessage('Erro ao enviar. Tente o WhatsApp.');
+            console.error('❌ Erro no processamento do pedido:', error);
+            if (error.name === 'AbortError') {
+                setErrorMessage('O servidor demorou muito a responder. Por favor, tente novamente ou use o botão do WhatsApp.');
+            } else {
+                setErrorMessage('Erro ao enviar. Verifique sua conexão ou tente o WhatsApp.');
+            }
             window.scrollTo({ top: 0, behavior: 'smooth' });
         } finally { setLoading(false); }
     };
@@ -295,8 +314,13 @@ export default function OrderForm({ user }) {
         console.log("PAYMENT PAYLOAD DEBUG:", payload);
 
         try {
-            // USANDO O BACKEND DE PRODUÇÃO
-            const res = await fetch('https://backend-rp7j.onrender.com/create-checkout-session', {
+            // DETECTA SE ESTÁ EM LOCALHOST OU PRODUÇÃO
+            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+            const backendBase = isLocal ? 'http://localhost:3000' : 'https://backend-rp7j.onrender.com';
+
+            console.log(`💳 Criando sessão de checkout em: ${backendBase}`);
+
+            const res = await fetch(`${backendBase}/create-checkout-session`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
