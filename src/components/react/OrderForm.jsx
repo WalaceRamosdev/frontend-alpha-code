@@ -227,9 +227,9 @@ export default function OrderForm({ user }) {
 
             console.log(`📡 [${new Date().toLocaleTimeString()}] Enviando lead para: ${apiUrl}`);
 
-            // Timeout de 8 segundos para evitar travamentos infinitos
+            // Timeout de 30 segundos - o backend pode demorar por causa do fallback do e-mail
             const controller = new AbortController();
-            const timeoutId = setTimeout(() => controller.abort(), 8000);
+            const timeoutId = setTimeout(() => controller.abort(), 30000);
 
             const response = await fetch(apiUrl, {
                 method: 'POST',
@@ -262,8 +262,10 @@ export default function OrderForm({ user }) {
                 setWhatsappUrl(`https://wa.me/5521999064502?text=${encodeURIComponent(messageBody)}`);
 
                 if (isMaintenance) {
+                    console.log("🛠️ Plano de Manutenção detectado - Redirecionando direto...");
                     handlePayment();
                 } else {
+                    console.log("📋 Plano padrão detectado - Abrindo modal de resumo.");
                     setModalOpen(true);
                 }
             } else throw new Error('Erro servidor');
@@ -332,19 +334,25 @@ export default function OrderForm({ user }) {
             console.log("PAYMENT RESPONSE DEBUG:", data);
 
             if (res.ok && data.url) {
+                console.log("✅ Checkout Gerado:", data.url);
                 setModalOpen(false); // Fecha o modal ao redirecionar
+
                 const newWindow = window.open(data.url, '_blank');
                 if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                    console.log("⚠️ Popup bloqueado, redirecionando na mesma aba...");
                     window.location.href = data.url;
                 } else {
+                    console.log("🚀 Checkout aberto em nova aba.");
                     setPayBtnText(defaultBtnText);
                     setIsRedirecting(false);
                 }
             } else {
-                throw new Error(data.error || data.details || 'Erro ao gerar link de pagamento');
+                const errorDetail = data.error || data.details || 'Erro desconhecido';
+                console.error("❌ Erro no Backend:", errorDetail);
+                throw new Error(errorDetail);
             }
         } catch (err) {
-            console.error("Payment Error:", err);
+            console.error("❌ Erro Fatal handlePayment:", err);
             setErrorMessage(`Erro no pagamento: ${err.message}`);
             setPayBtnText(defaultBtnText);
             setIsRedirecting(false);
@@ -615,7 +623,7 @@ export default function OrderForm({ user }) {
                                 <div className="step-actions">
                                     <button type="button" onClick={() => setCurrentStep(2)} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
                                     <button type="submit" className="submit-main-btn" disabled={loading}>
-                                        {loading ? 'Processando...' : 'Fechar meu Pedido 🚀'}
+                                        {loading ? 'Processando... 🚀' : 'Fechar meu Pedido 🚀'}
                                     </button>
                                 </div>
                             </section>
@@ -665,7 +673,9 @@ export default function OrderForm({ user }) {
                         </p>
                         <div className="modal-actions">
                             <button
+                                type="button"
                                 onClick={() => {
+                                    console.log("💎 Usuário aceitou SEO Upsell");
                                     setHasSEO(true);
                                     setUpsellAnswered(true);
                                     setShowUpsell(false);
@@ -676,7 +686,9 @@ export default function OrderForm({ user }) {
                                 SIM, ADICIONAR SEO AO MEU SITE! 🚀
                             </button>
                             <button
+                                type="button"
                                 onClick={() => {
+                                    console.log("❌ Usuário recusou SEO Upsell");
                                     setHasSEO(false);
                                     setUpsellAnswered(true);
                                     setShowUpsell(false);
@@ -694,7 +706,7 @@ export default function OrderForm({ user }) {
             {modalOpen && !loading && (
                 <div className="fixed-overlay">
                     <div className="modal-box checkout-summary-box">
-                        <button onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
+                        <button type="button" onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
                         <img src="/assets/logo3d.svg" className="modal-logo" />
                         <h2 style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}>Confirmação do Pedido</h2>
                         <p className="summary-intro">Veja o que estamos preparando para você:</p>
@@ -764,6 +776,7 @@ export default function OrderForm({ user }) {
 
                         <div className="modal-actions">
                             <button
+                                type="button"
                                 onClick={handlePayment}
                                 className={`pay-btn ${isRedirecting ? 'btn-disabled' : ''}`}
                                 disabled={isRedirecting}
