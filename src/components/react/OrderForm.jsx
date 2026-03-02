@@ -332,10 +332,8 @@ export default function OrderForm({ user }) {
             console.log("PAYMENT RESPONSE DEBUG:", data);
 
             if (res.ok && data.url) {
-                // Tentando abrir em nova aba conforme pedido (pode ser bloqueado por alguns browsers)
+                setModalOpen(false); // Fecha o modal ao redirecionar
                 const newWindow = window.open(data.url, '_blank');
-
-                // Se o navegador bloquear o popup, redireciona na mesma aba para não perder a venda
                 if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
                     window.location.href = data.url;
                 } else {
@@ -343,11 +341,11 @@ export default function OrderForm({ user }) {
                     setIsRedirecting(false);
                 }
             } else {
-                throw new Error(data.error || 'Erro ao gerar link de pagamento');
+                throw new Error(data.error || data.details || 'Erro ao gerar link de pagamento');
             }
         } catch (err) {
             console.error("Payment Error:", err);
-            setErrorMessage('O sistema de pagamento falhou. Por favor, clique em "Confirmar via WhatsApp" para finalizar.');
+            setErrorMessage(`Erro no pagamento: ${err.message}`);
             setPayBtnText(defaultBtnText);
             setIsRedirecting(false);
         }
@@ -693,7 +691,7 @@ export default function OrderForm({ user }) {
                 </div>
             )}
 
-            {modalOpen && !loading && !isRedirecting && (
+            {modalOpen && !loading && (
                 <div className="fixed-overlay">
                     <div className="modal-box checkout-summary-box">
                         <button onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
@@ -748,11 +746,38 @@ export default function OrderForm({ user }) {
                             </div>
                         </div>
 
-                        <p className="summary-footer">Tudo certo? Clique abaixo para pagar e iniciar seu projeto.</p>
+                        {errorMessage && (
+                            <div className="error-msg-modal" style={{
+                                color: '#ff4d4d',
+                                background: 'rgba(255, 77, 77, 0.1)',
+                                padding: '10px',
+                                borderRadius: '5px',
+                                marginBottom: '15px',
+                                fontSize: '0.85rem',
+                                textAlign: 'center',
+                                border: '1px solid rgba(255, 77, 77, 0.2)'
+                            }}>
+                                <i className="fas fa-exclamation-circle" style={{ marginRight: '5px' }}></i>
+                                {errorMessage}
+                            </div>
+                        )}
 
                         <div className="modal-actions">
-                            <button onClick={handlePayment} className="pay-btn">{payBtnText}</button>
-                            <a href={whatsappUrl} target="_blank" className="wa-btn">Confirmar via WhatsApp</a>
+                            <button
+                                onClick={handlePayment}
+                                className={`pay-btn ${isRedirecting ? 'btn-disabled' : ''}`}
+                                disabled={isRedirecting}
+                            >
+                                {isRedirecting ? (
+                                    <>
+                                        <i className="fas fa-spinner fa-spin" style={{ marginRight: '8px' }}></i>
+                                        Processando...
+                                    </>
+                                ) : payBtnText}
+                            </button>
+                            <a href={whatsappUrl} target="_blank" className={`wa-btn ${isRedirecting ? 'btn-disabled' : ''}`}>
+                                Confirmar via WhatsApp
+                            </a>
                         </div>
                     </div>
                 </div>
