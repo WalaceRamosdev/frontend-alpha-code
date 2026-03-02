@@ -7,8 +7,10 @@ const plans = {
         originalPrice: 397,
         originalPriceEUR: 249,
         price: 'R$ 295',
-        numericPrice: 295,
-        numericPriceEUR: 195,
+        numericPrice: 397,
+        numericPriceEUR: 249,
+        promoPrice: 295,
+        promoPriceEUR: 195,
         id: 'Plano Bronze',
         stripeLink: 'https://buy.stripe.com/aFacN7aky67s3jg8Eg93y01',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_simples'
@@ -19,8 +21,10 @@ const plans = {
         originalPrice: 697,
         originalPriceEUR: 549,
         price: 'R$ 449',
-        numericPrice: 449,
-        numericPriceEUR: 349,
+        numericPrice: 697,
+        numericPriceEUR: 549,
+        promoPrice: 449,
+        promoPriceEUR: 349,
         id: 'Plano Prata',
         stripeLink: 'https://buy.stripe.com/7sYbJ32S62Vg2fc7Ac93y02',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_completa'
@@ -31,8 +35,10 @@ const plans = {
         originalPrice: 1297,
         originalPriceEUR: 995,
         price: 'R$ 710',
-        numericPrice: 710,
-        numericPriceEUR: 595,
+        numericPrice: 1297,
+        numericPriceEUR: 995,
+        promoPrice: 710,
+        promoPriceEUR: 595,
         id: 'Plano Ouro',
         stripeLink: 'https://buy.stripe.com/4gMcN72S6cvQ9HE9Ik93y03',
         mpLink: 'https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=placeholder_premium'
@@ -109,13 +115,10 @@ export default function OrderForm({ user }) {
                 setFinalPrice(basePrice);
                 setIsMaintenance(true);
             } else if (sitePlans.includes(key)) {
-                // Auto-apply ALPHA25 PROMO only for site plans
-                const promoCoupon = COUPONS['ALPHA25'];
-                setAppliedCoupon({ ...promoCoupon, code: 'ALPHA25' });
-                const discountedPrice = basePrice * (1 - promoCoupon.value / 100);
-                setFinalPrice(discountedPrice);
+                // Auto-apply ALPHA25 labels, but the price itself comes from the plan's promoPrice
+                setAppliedCoupon({ code: 'ALPHA25', type: 'promo', value: 0 });
+                setFinalPrice(isPortugal ? plan.promoPriceEUR : plan.promoPrice);
             } else {
-                // Store service plans: no coupon, original price
                 setFinalPrice(basePrice);
             }
         }
@@ -127,9 +130,14 @@ export default function OrderForm({ user }) {
         let price = isPortugal ? selectedPlan.numericPriceEUR : selectedPlan.numericPrice;
 
         if (customCoupon) {
-            price = customCoupon.type === 'percent'
-                ? price * (1 - customCoupon.value / 100)
-                : Math.max(0, price - customCoupon.value);
+            // Se for o cupom ALPHA25, usamos o promoPrice fixo do plano para evitar erro matemático
+            if (customCoupon.code === 'ALPHA25' && selectedPlan.promoPrice) {
+                price = isPortugal ? selectedPlan.promoPriceEUR : selectedPlan.promoPrice;
+            } else {
+                price = customCoupon.type === 'percent'
+                    ? price * (1 - customCoupon.value / 100)
+                    : Math.max(0, price - customCoupon.value);
+            }
         }
 
         if (customHasSeo) {
@@ -333,7 +341,7 @@ export default function OrderForm({ user }) {
                             <div className="price-stack">
                                 {selectedPlan?.originalPrice && (
                                     <div className="savings-badge">
-                                        ECONOMIZE {currency} {(isPortugal ? (selectedPlan.originalPriceEUR - selectedPlan.numericPriceEUR) : (selectedPlan.originalPrice - selectedPlan.numericPrice))}
+                                        ECONOMIZE {currency} {(isPortugal ? (selectedPlan.originalPriceEUR - selectedPlan.promoPriceEUR) : (selectedPlan.originalPrice - selectedPlan.promoPrice))}
                                     </div>
                                 )}
                                 {selectedPlan?.originalPrice && (
