@@ -83,6 +83,7 @@ export default function OrderForm({ user }) {
     const [buyDomain, setBuyDomain] = useState(false);
     const [domainPrice] = useState(59);
     const [seoPrice] = useState(150);
+    const [loadingSubtext, setLoadingSubtext] = useState('');
 
     const STORE_PLANS = ['artigos', 'speed', 'redesign', 'ads'];
     const isStorePlan = STORE_PLANS.includes(planKey);
@@ -166,6 +167,18 @@ export default function OrderForm({ user }) {
             }));
         }
     }, [user]);
+
+    // FEEDBACK DINÂMICO NO CARREGAMENTO
+    useEffect(() => {
+        let timer;
+        if (loading) {
+            setLoadingSubtext('Organizando os detalhes do seu projeto Alpha...');
+            timer = setTimeout(() => {
+                setLoadingSubtext('O servidor está processando os dados, quase lá... ⏳');
+            }, 7000);
+        }
+        return () => clearTimeout(timer);
+    }, [loading]);
 
     // WARM-UP BACKEND (Prevent Cold Start Delay)
     useEffect(() => {
@@ -638,7 +651,7 @@ export default function OrderForm({ user }) {
                             {loading ? (
                                 <>
                                     <h3>Enviando seu Briefing</h3>
-                                    <p>Organizando os detalhes do seu projeto Alpha...</p>
+                                    <p>{loadingSubtext || 'Organizando os detalhes do seu projeto Alpha...'}</p>
                                 </>
                             ) : (
                                 <>
