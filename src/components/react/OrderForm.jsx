@@ -295,8 +295,8 @@ export default function OrderForm({ user }) {
         console.log("PAYMENT PAYLOAD DEBUG:", payload);
 
         try {
-            // USANDO O BACKEND LOCAL PARA VALIDAR A NOVA ABA (Já que o Render está com código antigo)
-            const res = await fetch('http://localhost:3000/create-checkout-session', {
+            // USANDO O BACKEND DE PRODUÇÃO
+            const res = await fetch('https://backend-rp7j.onrender.com/create-checkout-session', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload)
@@ -605,7 +605,7 @@ export default function OrderForm({ user }) {
                 <div className="fixed-overlay loader-overlay">
                     <div className="loader-content">
                         <div className="logo-pulsar">
-                            <img src="/assets/logo.svg" className="loading-logo" />
+                            <img src="/assets/logo3d.svg" className="loading-logo" />
                             <div className="glow-ring"></div>
                         </div>
                         <div className="loader-text">
