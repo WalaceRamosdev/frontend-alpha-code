@@ -1,21 +1,21 @@
 export const projectsData = [
     {
-        name: 'Construtora Nova Era',
-        type: '+890% Visibilidade (SEO)',
-        category: 'institucional',
+        name: 'Pizzaria',
+        type: 'Gastronomia',
+        category: 'gastronomia',
         image: '/assets/imagens-de-paginas/pizzaria.svg',
         link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {
-        name: 'Loja Fit Store',
-        type: '+383% em Vendas',
+        name: 'Alzimara Nunes',
+        type: 'Psicologia',
         category: 'saude',
         image: '/assets/imagens-de-paginas/alzimara.svg',
         link: 'https://www.alzimaranunes.com.br'
     },
     {
-        name: 'Mecânica Premium',
-        type: '+450% Leads Qualificados',
+        name: 'Camila Ferraz',
+        type: 'Personal Trainer',
         category: 'saude',
         image: '/assets/imagens-de-paginas/camilaFerrazPersonal.svg',
         link: 'https://camilaferrazpersonal.vercel.app/'

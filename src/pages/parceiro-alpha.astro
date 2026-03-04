@@ -536,7 +536,11 @@ const schema = {
                                 class="fas fa-chevron-down"></i></summary
                         >
                         <div class="content">
-                            Sim! Além da manutenção gratuita do seu site, o Programa tem níveis (Bronze, Silver e Gold). No nível Silver, você começa a receber 10% de cashback sobre as vendas fechadas, e no Gold, essa comissão sobe para 20% + consultoria VIP.
+                            Sim! Além da manutenção gratuita do seu site, o
+                            Programa tem níveis (Bronze, Silver e Gold). No
+                            nível Silver, você começa a receber 10% de cashback
+                            sobre as vendas fechadas, e no Gold, essa comissão
+                            sobe para 20% + consultoria VIP.
                         </div>
                     </details>
                     <details data-aos="fade-up" data-aos-delay="300">
@@ -1557,14 +1561,16 @@ const schema = {
                 font-size: 0.85rem;
             }
             .form-wrapper {
-                grid-template-columns: 1fr;
+                grid-template-columns: 1fr !important;
                 gap: 3rem;
             }
-            .rules-grid {
-                grid-template-columns: 1fr;
+            .rules-grid,
+            .rules-layout {
+                grid-template-columns: 1fr !important;
             }
-            .stats-grid {
-                grid-template-columns: 1fr;
+            .stats-grid,
+            .tiers-grid {
+                grid-template-columns: 1fr !important;
                 gap: 2rem;
             }
             .interactive-timeline::before {
