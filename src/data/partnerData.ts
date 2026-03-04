@@ -31,11 +31,11 @@ export const partnerTiers = [
 
 export const marketingResources = [
     {
-        title: 'Banners para Redes Sociais',
-        type: 'Imagens',
-        icon: 'fas fa-image',
-        downloadUrl: '/assets/marketing/banners/Kit-Banners-Alpha.zip',
-        description: 'Pacote com artes premium (Feed e Stories) prontas para postagem e conversão.'
+        title: 'CRM para Parceiros (Template Notion)',
+        type: 'Ferramenta',
+        icon: 'fas fa-columns',
+        externalUrl: 'https://www.notion.so/',
+        description: 'Template completo para você organizar seus leads, gerenciar o funil de indicações e projetar seus ganhos mensais de forma inteligente.'
     },
     {
         title: 'Scripts de Alta Conversão',
