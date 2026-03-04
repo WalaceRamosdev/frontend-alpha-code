@@ -5,6 +5,7 @@ import { prisma } from "../lib/prisma";
 import AdminSidebar from "../components/admin/AdminSidebar.astro";
 import StatusModal from "../components/ui/StatusModal.astro";
 import ChartParticles from "../components/ui/ChartParticles.jsx";
+import { partnerTiers, marketingResources } from "../data/partnerData";
 // import authConfig from "../auth.config";
 // import { SignOut } from "auth-astro/components";
 
@@ -128,6 +129,22 @@ const formattedProfit = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
 }).format(totalProfit);
+
+// Partner Gamification Logic
+const currentUser = isPartner
+    ? await prisma.user.findUnique({ where: { id: session.user.id } })
+    : null;
+const partnerTier =
+    partnerTiers.find(
+        (t) => t.id === (currentUser?.partnerTier?.toLowerCase() || "bronze"),
+    ) || partnerTiers[0];
+const nextTier = partnerTiers[partnerTiers.indexOf(partnerTier) + 1] || null;
+const indicationsToNextTier = nextTier
+    ? Math.max(0, nextTier.reqN - totalIndications)
+    : 0;
+const partnerProgress = nextTier
+    ? Math.min(100, (totalIndications / nextTier.reqN) * 100)
+    : 100;
 
 export const prerender = false;
 ---
@@ -302,7 +319,9 @@ export const prerender = false;
                             </>
                         ) : (
                             <>
-                                <div class="stat-card">
+                                {!isPartner && (
+                                    <>
+                                        <div class="stat-card">
                                     <div class="stat-icon project">
                                         <i class="fas fa-rocket" />
                                     </div>
@@ -372,7 +391,9 @@ export const prerender = false;
                                         <i class="fas fa-chevron-right" />
                                     </a>
                                 </div>
-                                {isPartner && (
+                                </>
+                            )}
+                            {isPartner && (
                                     <div class="stat-card partner-stats-card">
                                         <div class="stat-icon partner">
                                             <i class="fas fa-handshake" />
@@ -396,7 +417,7 @@ export const prerender = false;
                 <div class="content-grid">
                     <!-- My Site URL Section - CLIENT ONLY -->
                     {
-                        !isAdmin && hasActivePlan && (
+                        !isAdmin && !isPartner && hasActivePlan && (
                             <section class="main-card site-url-section">
                                 <div class="card-header">
                                     <h2>Link de Acesso Direto</h2>
@@ -455,7 +476,7 @@ export const prerender = false;
 
                     <!-- Upgrade Banner - CLIENT WITHOUT PLAN -->
                     {
-                        !isAdmin && !hasActivePlan && (
+                        !isAdmin && !isPartner && !hasActivePlan && (
                             <section class="main-card upgrade-banner-section">
                                 <div class="upgrade-container">
                                     <div class="upgrade-info">
@@ -508,89 +529,160 @@ export const prerender = false;
 
                     {
                         isPartner && (
-                            <section class="main-card partner-portal-section">
-                                <div class="card-header">
-                                    <h2>Portal do Parceiro</h2>
-                                    <span class="badge-partner">
-                                        Status: Ativo
-                                    </span>
-                                </div>
+                            <>
+                                <section class="main-card partner-portal-section">
+                                    <div class="card-header">
+                                        <div class="header-main-title">
+                                            <h2>Portal do Parceiro</h2>
+                                            <span class="badge-partner" style={`background: ${partnerTier.color}22; color: ${partnerTier.color}; border-color: ${partnerTier.color}44`}>
+                                                {partnerTier.badge} Parceiro {partnerTier.name}
+                                            </span>
+                                        </div>
+                                        <div class="points-badge">
+                                            <i class="fas fa-star" /> {currentUser?.partnerPoints || 0} pts
+                                        </div>
+                                    </div>
 
-                                <div class="referral-box">
-                                    <div class="referral-info">
-                                        <h3>Seu Link de Indicação</h3>
-                                        <p>
-                                            Compartilhe este link para que
-                                            possamos rastrear suas indicações
-                                            automaticamente.
-                                        </p>
-                                    </div>
-                                    <div class="url-capsule partner-link">
-                                        <code id="partner-referral-url">
-                                            https://www.sitesalphacode.com.br?ref=
-                                            {session.user.referralCode}
-                                        </code>
-                                        <button
-                                            class="copy-url-btn"
-                                            data-url={`https://www.sitesalphacode.com.br?ref=${session.user.referralCode}`}
-                                        >
-                                            <i class="fas fa-copy" />
-                                        </button>
-                                    </div>
-                                    <div class="code-display">
-                                        <span>
-                                            Seu código:{" "}
-                                            <strong>
-                                                {session.user.referralCode}
-                                            </strong>
-                                        </span>
-                                    </div>
-                                </div>
-
-                                <div class="indications-list-wrapper">
-                                    <h3>Suas Últimas Indicações</h3>
-                                    {indications.length > 0 ? (
-                                        <div class="indications-table">
-                                            <div class="indications-header">
-                                                <span>Nome</span>
-                                                <span>Data</span>
-                                                <span>Status</span>
+                                    <!-- Progress Bar Gamification -->
+                                    <div class="partner-gamification-box">
+                                        <div class="tier-progress-header">
+                                            <div class="tier-text">
+                                                {nextTier ? (
+                                                    <p>Você está a <strong>{indicationsToNextTier}</strong> indicações do nível <strong>{nextTier.name}</strong></p>
+                                                ) : (
+                                                    <p>Você atingiu o nível máximo! 🚀</p>
+                                                )}
                                             </div>
-                                            {indications.map((ind: any) => (
-                                                <div class="indication-row">
-                                                    <span class="ind-name">
-                                                        {ind.name}
-                                                    </span>
-                                                    <span class="ind-date">
-                                                        {new Date(
-                                                            ind.createdAt,
-                                                        ).toLocaleDateString(
-                                                            "pt-BR",
-                                                        )}
-                                                    </span>
-                                                    <span class="ind-status">
-                                                        Recebido
-                                                    </span>
+                                            <span class="progress-percentage">{Math.round(partnerProgress)}%</span>
+                                        </div>
+                                        <div class="custom-progress-bar">
+                                            <div class="progress-fill" style={`width: ${partnerProgress}%`}>
+                                                <div class="progress-glow"></div>
+                                            </div>
+                                        </div>
+                                        <div class="tier-milestones">
+                                            {partnerTiers.map(tier => (
+                                                <div class={`milestone ${totalIndications >= tier.reqN ? 'active' : ''}`}>
+                                                    <span class="m-dot"></span>
+                                                    <span class="m-label">{tier.name}</span>
                                                 </div>
                                             ))}
                                         </div>
-                                    ) : (
-                                        <div class="empty-indications">
-                                            <i class="fas fa-user-plus" />
+                                    </div>
+
+                                    <div class="referral-box">
+                                        <div class="referral-info">
+                                            <h3>Seu Link de Indicação</h3>
                                             <p>
-                                                Nenhuma indicação recebida
-                                                ainda.
+                                                Compartilhe este link para que
+                                                possamos rastrear suas indicações
+                                                automaticamente.
                                             </p>
                                         </div>
-                                    )}
-                                </div>
-                            </section>
+                                        <div class="url-capsule partner-link">
+                                            <code id="partner-referral-url">
+                                                https://www.sitesalphacode.com.br?ref=
+                                                {session.user.referralCode}
+                                            </code>
+                                            <button
+                                                class="copy-url-btn"
+                                                data-url={`https://www.sitesalphacode.com.br?ref=${session.user.referralCode}`}
+                                            >
+                                                <i class="fas fa-copy" />
+                                            </button>
+                                        </div>
+                                    </div>
+
+                                    <div class="indications-list-wrapper">
+                                        <div class="list-header">
+                                            <h3>Monitor de Indicações</h3>
+                                            <a href="javascript:void(0)" class="view-all">Ver todos</a>
+                                        </div>
+                                        {indications.length > 0 ? (
+                                            <div class="indications-table">
+                                                <div class="indications-header">
+                                                    <span>Nome</span>
+                                                    <span>Data</span>
+                                                    <span>Status</span>
+                                                </div>
+                                                {indications.map((ind: any) => (
+                                                    <div class="indication-row">
+                                                        <span class="ind-name">
+                                                            {ind.name}
+                                                        </span>
+                                                        <span class="ind-date">
+                                                            {new Date(
+                                                                ind.createdAt,
+                                                            ).toLocaleDateString(
+                                                                "pt-BR",
+                                                            )}
+                                                        </span>
+                                                        <span class={`ind-status-pill status-${ind.status?.toLowerCase() || 'new'}`}>
+                                                            {ind.status === 'CLOSED' ? 'Fechado ✅' : 
+                                                             ind.status === 'NEGOTIATING' ? 'Em Negociação 💬' : 
+                                                             ind.status === 'CONTACTED' ? 'Contatado 📞' : 'Recebido 📥'}
+                                                        </span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        ) : (
+                                            <div class="empty-indications">
+                                                <i class="fas fa-user-plus" />
+                                                <p>
+                                                    Nenhuma indicação recebida
+                                                    ainda.
+                                                </p>
+                                            </div>
+                                        )}
+                                    </div>
+                                </section>
+
+                                <!-- Kit do Parceiro (Resources) -->
+                                <section class="main-card resources-section">
+                                    <div class="card-header">
+                                        <div class="header-main-title">
+                                            <h2>Kit de Marketing Alpha</h2>
+                                            <p>Baixe criativos e use scripts validados para converter mais.</p>
+                                        </div>
+                                    </div>
+                                    <div class="resources-grid">
+                                        {marketingResources.map(res => (
+                                            <div class="resource-card">
+                                                <div class="res-icon">
+                                                    <i class={res.icon}></i>
+                                                </div>
+                                                <div class="res-content">
+                                                    <h4>{res.title}</h4>
+                                                    <p>{res.description}</p>
+                                                    <div class="res-actions">
+                                                        {res.downloadUrl && (
+                                                            <a href={res.downloadUrl} class="res-btn download" download>
+                                                                <i class="fas fa-download"></i> Baixar
+                                                            </a>
+                                                        )}
+                                                        {res.copyText && (
+                                                            <button type="button" class="res-btn copy-content-btn" data-content={res.copyText}>
+                                                                <i class="fas fa-copy"></i> Copiar
+                                                            </button>
+                                                        )}
+                                                        {res.externalUrl && (
+                                                            <a href={res.externalUrl} target="_blank" rel="noopener noreferrer" class="res-btn external">
+                                                                <i class="fas fa-external-link-alt"></i> Abrir
+                                                            </a>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </section>
+                            </>
                         )
                     }
 
                     <!-- Exclusive Benefits Section - CLIENT ONLY -->
                     {
-                        !isAdmin && (
+                        !isAdmin && !isPartner && (
                             <>
                                 {userRequests.length > 0 && (
                                     <section class="main-card maintenance-section">
@@ -807,7 +899,7 @@ export const prerender = false;
                                     </div>
                                 </div>
                             </section>
-                        ) : (
+                        ) : !isPartner ? (
                             /* Projects Section - CLIENT ONLY */
                             <section
                                 class="main-card projects-section"
@@ -882,7 +974,7 @@ export const prerender = false;
                                     </div>
                                 )}
                             </section>
-                        )
+                        ) : null
                     }
                 </div>
             </div>
@@ -3499,6 +3591,185 @@ export const prerender = false;
                 opacity: 0.3;
             }
 
+            .header-main-title h2 {
+                font-size: 1.5rem;
+                margin-bottom: 0.25rem;
+                color: white;
+            }
+            .header-main-title p {
+                font-size: 0.9rem;
+                color: var(--color-text-muted);
+            }
+            .points-badge {
+                background: rgba(255, 215, 0, 0.1);
+                color: #ffd700;
+                padding: 6px 12px;
+                border-radius: 50px;
+                font-size: 0.85rem;
+                font-weight: 700;
+                border: 1px solid rgba(255, 215, 0, 0.2);
+            }
+
+            /* Gamification Box */
+            .partner-gamification-box {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 20px;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            .tier-progress-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 1rem;
+            }
+            .tier-text p {
+                font-size: 0.95rem;
+                color: rgba(255, 255, 255, 0.8);
+            }
+            .progress-percentage {
+                font-weight: 800;
+                color: white;
+                font-size: 1.1rem;
+            }
+            .custom-progress-bar {
+                height: 12px;
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 10px;
+                overflow: hidden;
+                position: relative;
+                margin-bottom: 1rem;
+            }
+            .progress-fill {
+                height: 100%;
+                background: linear-gradient(90deg, #8a1c26, #ff4d4d);
+                border-radius: 10px;
+                transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+                position: relative;
+            }
+            .progress-glow {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 20px;
+                height: 100%;
+                background: white;
+                filter: blur(5px);
+                opacity: 0.3;
+            }
+            .tier-milestones {
+                display: flex;
+                justify-content: space-between;
+                padding: 0 5px;
+            }
+            .milestone {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 5px;
+                opacity: 0.3;
+                transition: 0.3s;
+            }
+            .milestone.active {
+                opacity: 1;
+            }
+            .m-dot {
+                width: 8px;
+                height: 8px;
+                background: white;
+                border-radius: 50%;
+            }
+            .milestone.active .m-dot {
+                background: #ff4d4d;
+                box-shadow: 0 0 10px #ff4d4d;
+            }
+            .m-label {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: white;
+            }
+
+            /* Resources Section */
+            .resources-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+                gap: 1.5rem;
+                margin-top: 1.5rem;
+            }
+            .resource-card {
+                background: rgba(255, 255, 255, 0.02);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+                border-radius: 16px;
+                padding: 1.5rem;
+                display: flex;
+                gap: 1rem;
+                transition: transform 0.3s ease, background 0.3s ease;
+            }
+            .resource-card:hover {
+                transform: translateY(-5px);
+                background: rgba(255, 255, 255, 0.04);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+            .res-icon {
+                width: 45px;
+                height: 45px;
+                background: rgba(138, 28, 38, 0.1);
+                color: #ff4d4d;
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.25rem;
+                flex-shrink: 0;
+            }
+            .res-content h4 {
+                font-size: 1rem;
+                margin-bottom: 0.5rem;
+                color: white;
+            }
+            .res-content p {
+                font-size: 0.85rem;
+                color: var(--color-text-muted);
+                margin-bottom: 1rem;
+                line-height: 1.4;
+            }
+            .res-actions {
+                display: flex;
+                gap: 0.75rem;
+            }
+            .res-btn {
+                padding: 6px 12px;
+                border-radius: 8px;
+                font-size: 0.75rem;
+                font-weight: 600;
+                text-decoration: none;
+                cursor: pointer;
+                border: none;
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                transition: 0.2s;
+            }
+            .res-btn.download { background: #10b98122; color: #10b981; }
+            .res-btn.copy-content-btn { background: #3b82f622; color: #3b82f6; }
+            .res-btn.external { background: #6366f122; color: #6366f1; }
+            .res-btn:hover { filter: brightness(1.2); }
+
+            /* Status Pills */
+            .ind-status-pill {
+                padding: 4px 10px;
+                border-radius: 50px;
+                font-size: 0.7rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+            }
+            .status-new { background: rgba(59, 130, 246, 0.1); color: #3b82f6; }
+            .status-contacted { background: rgba(167, 139, 250, 0.1); color: #a78bfa; }
+            .status-negotiating { background: rgba(251, 191, 36, 0.1); color: #fbbf24; }
+            .status-closed { background: rgba(16, 185, 129, 0.1); color: #10b981; }
+
             .stat-icon.partner {
                 background: rgba(139, 92, 246, 0.1);
                 color: #a78bfa;
@@ -3673,5 +3944,43 @@ export const prerender = false;
         if (wrapper) {
             resizeObserver.observe(wrapper);
         }
+
+    });
+
+    // Copy content for Partner Resources
+    document.addEventListener("DOMContentLoaded", () => {
+        document.querySelectorAll('.copy-content-btn').forEach(btn => {
+            btn.addEventListener('click', async (e) => {
+                e.preventDefault();
+                let content = btn.getAttribute('data-content');
+                
+                // Tratamento especial em caso de quebras de linha para manter a formatação correta
+                content = content.replace(/\\n/g, '\n');
+
+                try {
+                    if (navigator.clipboard) {
+                        await navigator.clipboard.writeText(content);
+                    } else {
+                        // Fallback para navegadores antigos ou sem https
+                        const textArea = document.createElement("textarea");
+                        textArea.value = content;
+                        document.body.appendChild(textArea);
+                        textArea.select();
+                        document.execCommand("Copy");
+                        textArea.remove();
+                    }
+                    
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+                    btn.style.background = '#10b98144';
+                    setTimeout(() => {
+                        btn.innerHTML = originalHtml;
+                        btn.style.background = '';
+                    }, 2000);
+                } catch (err) {
+                    console.error('Falha ao copiar:', err);
+                }
+            });
+        });
     });
 </script>

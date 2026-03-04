@@ -28,6 +28,8 @@ model User {
   referredBy    String?                    // Code of the partner who referred this user
   loginAttempts Int       @default(0)
   lockUntil     DateTime?
+  partnerTier   String    @default("BRONZE") // BRONZE, SILVER, GOLD
+  partnerPoints Int       @default(0)       // For points/gamification
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
@@ -124,6 +126,7 @@ model Lead {
   investmentRange String?
   diagnosisData   Json?
   referredBy      String?  // Code of the partner who referred this lead
+  status          String   @default("NEW")  // NEW, CONTACTED, NEGOTIATING, CLOSED, LOST
   createdAt       DateTime @default(now())
 }
 
