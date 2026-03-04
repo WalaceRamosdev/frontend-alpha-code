@@ -1,0 +1,152 @@
+---
+import Card from "../ui/Card.astro";
+---
+
+<section id="partner-testimonials" class="testimonials-section">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <span class="sub-badge">RESULTADOS REAIS</span>
+            <h2>O que dizem os <span class="highlight">Parceiros Alpha</span></h2>
+            <p>Profissionais que saíram do terreno alugado e construíram autoridade digital.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="text">"Como gestor de tráfego, meu site é minha maior ferramenta de fechamento. Quando o cliente vê a velocidade e o design do meu site Alpha, a venda é automática."</p>
+                <div class="author">
+                    <div class="author-img">
+                        <div class="img-placeholder">JS</div>
+                    </div>
+                    <div class="author-info">
+                        <h4>João Santos</h4>
+                        <span>Gestor de Tráfego</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="200">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="text">"Eu dependia 100% do Instagram. Depois que ganhei minha Landing Page da Alpha Code, comecei a aparecer no Google e parei de ser refém das quedas de alcance."</p>
+                <div class="author">
+                    <div class="author-img">
+                        <div class="img-placeholder">AM</div>
+                    </div>
+                    <div class="author-info">
+                        <h4>Ana Mendes</h4>
+                        <span>Social Media Strategist</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="testimonial-card" data-aos="fade-up" data-aos-delay="300">
+                <div class="quote-icon"><i class="fas fa-quote-left"></i></div>
+                <div class="stars">⭐⭐⭐⭐⭐</div>
+                <p class="text">"O Programa Parceiro Alpha é a melhor troca que já fiz. Tenho um site de elite sem ter gasto com desenvolvimento, e meus clientes adoram as indicações que faço."</p>
+                <div class="author">
+                    <div class="author-img">
+                        <div class="img-placeholder">RL</div>
+                    </div>
+                    <div class="author-info">
+                        <h4>Ricardo Lima</h4>
+                        <span>Consultor Digital</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    .testimonials-section {
+        padding: 120px 0;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+        gap: 2.5rem;
+        margin-top: 4rem;
+    }
+
+    .testimonial-card {
+        background: rgba(15, 15, 15, 0.8);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 3rem 2rem;
+        border-radius: 30px;
+        position: relative;
+        backdrop-filter: blur(10px);
+        transition: 0.4s;
+    }
+
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(138, 28, 38, 0.3);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .quote-icon {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 2rem;
+        color: rgba(138, 28, 38, 0.2);
+    }
+
+    .stars {
+        color: #fbbf24;
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .text {
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 1.1rem;
+        line-height: 1.7;
+        margin-bottom: 2.5rem;
+        font-style: italic;
+    }
+
+    .author {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .author-img {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background: var(--color-primary, #8a1c26);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+
+    .img-placeholder {
+        font-weight: 800;
+        color: #fff;
+        font-size: 1rem;
+    }
+
+    .author-info h4 {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 2px;
+    }
+
+    .author-info span {
+        font-size: 0.85rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

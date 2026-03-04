@@ -1,0 +1,107 @@
+---
+// StatCard.astro
+const { valor, label, prefixo = '', sufixo = '' } = Astro.props;
+---
+
+<div class="stat-card-animated" data-valor={valor}>
+  <div class="stat-number-wrapper">
+    <span class="prefix">{prefixo}</span>
+    <span class="stat-number" id={`stat-${label.replace(/\s+/g, '-').toLowerCase()}`}>0</span>
+    <span class="suffix">{sufixo}</span>
+  </div>
+  <div class="stat-label">{label}</div>
+</div>
+
+<script>
+  // Isso roda no cliente
+  const initStats = () => {
+    const stats = document.querySelectorAll('.stat-card-animated');
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const stat = entry.target as HTMLElement;
+          const targetStr = stat.dataset.valor || "0";
+          const target = parseInt(targetStr.replace(/\D/g, ''));
+          const element = stat.querySelector('.stat-number');
+          
+          if (!element) return;
+          
+          let current = 0;
+          const duration = 2000;
+          const steps = 60;
+          const increment = target / steps;
+          const stepTime = duration / steps;
+          
+          const timer = setInterval(() => {
+            current += increment;
+            if (current >= target) {
+              element.textContent = target.toLocaleString();
+              clearInterval(timer);
+            } else {
+              element.textContent = Math.floor(current).toLocaleString();
+            }
+          }, stepTime);
+          
+          observer.unobserve(stat);
+        }
+      });
+    }, { threshold: 0.5 });
+
+    stats.forEach(stat => observer.observe(stat));
+  };
+
+  document.addEventListener('DOMContentLoaded', initStats);
+  // Also run for Astro transitions if enabled
+  document.addEventListener('astro:page-load', initStats);
+</script>
+
+<style>
+  .stat-card-animated {
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 24px;
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+  }
+
+  .stat-card-animated:hover {
+    transform: translateY(-5px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: rgba(138, 28, 38, 0.3);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+  }
+
+  .stat-number-wrapper {
+    font-size: 3.5rem;
+    font-weight: 900;
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    color: #fff;
+    line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+
+  .stat-number {
+    background: linear-gradient(135deg, #fff 30%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .prefix, .suffix {
+    font-size: 1.5rem;
+    color: #8a1c26;
+    font-weight: 700;
+  }
+
+  .stat-label {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+  }
+</style>

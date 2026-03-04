@@ -98,6 +98,16 @@
                 );
             }
 
+            if (path.includes("parceiro-alpha")) {
+                pool = [
+                    { action: "Candidatura recebida", detail: "Gestor de Tráfego • RJ", type: "lead" },
+                    { action: "Novo Parceiro Alpha", detail: "Social Media • SP", type: "project" },
+                    { action: "Site de Parceiro no Ar", detail: "Creator • MG", type: "deploy" },
+                    { action: "Vaga preenchida", detail: "Consultoria • DF", type: "sale" },
+                    { action: "Candidatura analisada", detail: "Designer • SC", type: "tech" }
+                ];
+            }
+
             // 2. Logic & Config
             const wrapper = document.getElementById("social-proof-popup");
             const card = wrapper.querySelector(".proof-card");

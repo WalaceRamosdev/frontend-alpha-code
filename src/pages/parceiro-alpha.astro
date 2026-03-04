@@ -1,43 +1,98 @@
 ---
 import Layout from "../layouts/BaseLayout.astro";
+import AlgorithmPain from "../components/sections/AlgorithmPain.astro";
+import PartnerTestimonials from "../components/sections/PartnerTestimonials.astro";
+import VagasCounter from "../components/sections/VagasCounter.astro";
+import BackgroundEffects from "../components/ui/BackgroundEffects.astro";
+import MouseEffects from "../components/ui/MouseEffects.astro";
+import StatCard from "../components/ui/StatCard.astro";
+
+const title = "Parceiro Alpha | Site Grátis para Criadores de Conteúdo e Gestores de Tráfego";
+const description = "Pare de ser refém do algoritmo. Tenha sua própria sede digital com o Programa Parceiro Alpha. Landing Pages exclusivas para gestores de tráfego, social medias e criadores.";
+const keywords = ["site para criador de conteúdo", "landing page grátis para gestor de tráfego", "site próprio para social media", "sair do algoritmo"];
+const canonicalUrl = "https://www.sitesalphacode.com.br/parceiro-alpha";
+
+const schema = {
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": "Programa Parceiro Alpha",
+  "image": "https://www.sitesalphacode.com.br/assets/logo.svg",
+  "description": "Programa de parceria para criação de sites profissionais sem custo para criadores de conteúdo e profissionais digitais.",
+  "brand": {
+    "@type": "Brand",
+    "name": "Alpha Code"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "BRL",
+    "availability": "https://schema.org/LimitedAvailability"
+  }
+};
 ---
 
-<Layout title="Parceiro Alpha | A Sua Nova Sede Digital" showWhatsApp={true}>
-    <main class="partner-page">
+<Layout 
+    title={title} 
+    description={description} 
+    keywords={keywords}
+    canonicalUrl={canonicalUrl}
+    showWhatsApp={true}
+    showSocialProof={true}
+>
+    <script type="application/ld+json" set:html={JSON.stringify(schema)} slot="head"></script>
+    <div class="partner-page">
+        <BackgroundEffects />
+        <MouseEffects />
+        
         <!-- Scroll Progress Bar -->
         <div class="scroll-progress"></div>
 
         <!-- Hero Section -->
         <section class="partner-hero">
-            <div class="hero-particles" id="particles-js"></div>
-            <div class="ambient-glow"></div>
-            <div class="container hero-content">
-                <div class="badge-animated" data-aos="fade-down">
-                    ✨ PROGRAMA EXCLUSIVO 2026
+            <div class="container hero-layout">
+                <div class="hero-content-side">
+                    <div class="badge-animated" data-aos="fade-right">
+                        ✨ PROGRAMA EXCLUSIVO 2026
+                    </div>
+                    <h1 data-aos="fade-right" data-aos-delay="200">
+                        Transforme sua <span class="highlight">Influência</span> em <span
+                            class="gradient-text-animated">Autoridade</span
+                        >
+                    </h1>
+                    <p class="subtitle" data-aos="fade-right" data-aos-delay="400">
+                        Sua rede social é <span class="strikethrough">terreno alugado</span>. O <span
+                            class="text-white">Parceiro Alpha</span
+                        > é a sua chance de ter uma <span class="glow-text">sede digital de alto padrão</span> sem custo
+                        de desenvolvimento.
+                    </p>
+                    
+                    <div class="hero-actions" data-aos="fade-up" data-aos-delay="600">
+                        <a href="#application-form" class="btn-premium">
+                            <span class="btn-text">Candidatar-me Agora</span>
+                            <i class="fas fa-arrow-right"></i>
+                            <span class="btn-glow"></span>
+                        </a>
+                        <a href="#how-it-works" class="btn-outline">
+                            <span>Ver como funciona</span>
+                        </a>
+                    </div>
+
+                    <div class="social-proof-mini" data-aos="fade-up" data-aos-delay="800">
+                        <div class="avatars-group">
+                            <img src="https://i.pravatar.cc/150?u=1" alt="Parceiro" />
+                            <img src="https://i.pravatar.cc/150?u=2" alt="Parceiro" />
+                            <img src="https://i.pravatar.cc/150?u=3" alt="Parceiro" />
+                        </div>
+                        <!-- <p><strong>+127 parceiros</strong> já saíram do terreno alugado</p> -->
+                    </div>
                 </div>
-                <h1 data-aos="zoom-out-up" data-aos-delay="200">
-                    Transforme sua <span class="highlight">Influência</span> em <span
-                        class="highlight">Autoridade</span
-                    >
-                </h1>
-                <p class="subtitle" data-aos="fade-up" data-aos-delay="400">
-                    Sua rede social é terreno alugado. O <span
-                        class="text-white">Parceiro Alpha</span
-                    > é a sua chance de ter uma sede digital de alto padrão sem custo
-                    de desenvolvimento.
-                </p>
-                <div
-                    class="hero-actions"
-                    data-aos="fade-up"
-                    data-aos-delay="600"
-                >
-                    <a href="#application-form" class="btn-premium">
-                        <span>Candidatar-me Agora</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                    <a href="#how-it-works" class="btn-outline"
-                        >Ver como funciona</a
-                    >
+
+                <div class="hero-visual-side" data-aos="zoom-in" data-aos-delay="500">
+                    <div class="handshake-wrapper">
+                        <img src="/assets/images/parceiro-alpha/handshake.png" alt="Parceria Alpha" class="handshake-img" />
+                        <div class="img-glow"></div>
+                        <div class="glass-overlay"></div>
+                    </div>
                 </div>
             </div>
 
@@ -50,29 +105,21 @@ import Layout from "../layouts/BaseLayout.astro";
         <section class="quick-stats">
             <div class="container">
                 <div class="stats-grid">
-                    <div class="stat-item" data-aos="fade-up">
-                        <span class="stat-num">R$ 0</span>
-                        <span class="stat-desc">Custo de Criação</span>
+                    <div data-aos="fade-up" data-aos-delay="100">
+                        <StatCard valor="0" prefixo="R$ " label="Custo de Criação" />
                     </div>
-                    <div
-                        class="stat-item"
-                        data-aos="fade-up"
-                        data-aos-delay="100"
-                    >
-                        <span class="stat-num">100%</span>
-                        <span class="stat-desc">Foco em Performance</span>
+                    <div data-aos="fade-up" data-aos-delay="200">
+                        <StatCard valor="100" label="Foco em Performance" sufixo="%" />
                     </div>
-                    <div
-                        class="stat-item"
-                        data-aos="fade-up"
-                        data-aos-delay="200"
-                    >
-                        <span class="stat-num">Site</span>
-                        <span class="stat-desc">Propriedade Sua</span>
+                    <div data-aos="fade-up" data-aos-delay="300">
+                        <StatCard valor="100" label="Site Propriedade Sua" sufixo="%" />
                     </div>
                 </div>
             </div>
         </section>
+
+        <!-- Algorithm Pain Section -->
+        <AlgorithmPain />
 
         <!-- How it Works (Visual Timeline) -->
         <section id="how-it-works" class="workflow-section">
@@ -82,57 +129,52 @@ import Layout from "../layouts/BaseLayout.astro";
                     <h2>O Caminho da <span class="highlight">Aliança</span></h2>
                 </div>
 
-                <div class="workflow-timeline">
-                    <div class="timeline-step" data-aos="fade-right">
-                        <div class="step-icon">
-                            <i class="fas fa-paper-plane"></i>
-                        </div>
-                        <div class="step-content">
-                            <h3>1. Candidatura</h3>
-                            <p>
-                                Preencha nosso formulário de perfil. Analisamos
-                                seu nicho e potencial de parceria.
-                            </p>
-                        </div>
-                    </div>
-
-                    <div class="timeline-step" data-aos="fade-left">
-                        <div class="step-icon">
-                            <i class="fas fa-comments"></i>
-                        </div>
-                        <div class="step-content">
-                            <h3>2. Alinhamento</h3>
-                            <p>
-                                Conversamos via WhatsApp para definir os
-                                detalhes da sua Landing Page e das regras de
-                                indicação.
-                            </p>
+                <div class="interactive-timeline">
+                    <div class="timeline-node" data-aos="fade-up">
+                        <div class="timeline-dot pulse"></div>
+                        <div class="timeline-card">
+                            <span class="step-num">01</span>
+                            <div class="step-icon">
+                                <i class="fas fa-paper-plane"></i>
+                            </div>
+                            <h3>Candidatura</h3>
+                            <p>Preencha nosso formulário de perfil. Analisamos seu nicho e potencial em 24h.</p>
                         </div>
                     </div>
 
-                    <div class="timeline-step" data-aos="fade-right">
-                        <div class="step-icon">
-                            <i class="fas fa-magic"></i>
-                        </div>
-                        <div class="step-content">
-                            <h3>3. Design & Deploy</h3>
-                            <p>
-                                Nossa equipe cria seu site com tecnologia Alpha.
-                                Você aprova e colocamos no ar.
-                            </p>
+                    <div class="timeline-node" data-aos="fade-up" data-aos-delay="100">
+                        <div class="timeline-dot pulse"></div>
+                        <div class="timeline-card">
+                            <span class="step-num">02</span>
+                            <div class="step-icon">
+                                <i class="fas fa-comments"></i>
+                            </div>
+                            <h3>Alinhamento</h3>
+                            <p>Conversamos via WhatsApp para definir os detalhes da sua Landing Page.</p>
                         </div>
                     </div>
 
-                    <div class="timeline-step" data-aos="fade-left">
-                        <div class="step-icon">
-                            <i class="fas fa-handshake"></i>
+                    <div class="timeline-node" data-aos="fade-up" data-aos-delay="200">
+                        <div class="timeline-dot pulse"></div>
+                        <div class="timeline-card">
+                            <span class="step-num">03</span>
+                            <div class="step-icon">
+                                <i class="fas fa-magic"></i>
+                            </div>
+                            <h3>Design & Deploy</h3>
+                            <p>Nossa equipe cria seu site com tecnologia Alpha. Você aprova e colocamos no ar.</p>
                         </div>
-                        <div class="step-content">
-                            <h3>4. Ativação</h3>
-                            <p>
-                                Você divulga seu novo site e começa a jornada de
-                                indicações para manter o benefício.
-                            </p>
+                    </div>
+
+                    <div class="timeline-node" data-aos="fade-up" data-aos-delay="300">
+                        <div class="timeline-dot pulse"></div>
+                        <div class="timeline-card">
+                            <span class="step-num">04</span>
+                            <div class="step-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3>Ativação</h3>
+                            <p>Você divulga seu novo site e inicia sua jornada de autoridade digital.</p>
                         </div>
                     </div>
                 </div>
@@ -193,6 +235,9 @@ import Layout from "../layouts/BaseLayout.astro";
             </div>
         </section>
 
+        <!-- Testimonials Section -->
+        <PartnerTestimonials />
+
         <!-- Profile Analysis Form (THE HEART) -->
         <section id="application-form" class="application-section">
             <div class="container">
@@ -221,13 +266,7 @@ import Layout from "../layouts/BaseLayout.astro";
                             </div>
                         </div>
 
-                        <div class="analysis-meter">
-                            <span>Status das Vagas:</span>
-                            <div class="meter">
-                                <div class="fill" style="width: 85%"></div>
-                            </div>
-                            <small>85% preenchidas este mês</small>
-                        </div>
+                        <VagasCounter />
                     </div>
 
                     <div class="form-container" data-aos="fade-left">
@@ -365,82 +404,45 @@ import Layout from "../layouts/BaseLayout.astro";
                 </div>
             </div>
         </section>
-    </main>
-</Layout>
 
-<!-- Particles & AOS LIBRARY -->
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-<script is:inline src="https://unpkg.com/aos@next/dist/aos.js"></script>
-<script
-    is:inline
-    src="https://cdn.jsdelivr.net/npm/@tsparticles/all@3.1.0/tsparticles.all.bundle.min.js"
-></script>
+        <!-- Final CTA Section -->
+        <section class="final-cta-section">
+            <div class="container">
+                <div class="cta-box" data-aos="zoom-in">
+                    <h2>Pronto para Ter Sua <span class="highlight">Sede Digital?</span></h2>
+                    <p>Não deixe sua autoridade nas mãos do acaso. Candidate-se hoje e mude o jogo do seu negócio.</p>
+                    <a href="#application-form" class="btn-premium">
+                        <span>Quero ser um Parceiro</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+
+<!-- AOS LIBRARY -->
+<link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+<script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
 <script is:inline>
-    // Initialize Particles
-    tsParticles.load({
-        id: "particles-js",
-        options: {
-            fpsLimit: 60,
-            particles: {
-                number: { value: 60, density: { enable: true, area: 800 } },
-                color: { value: "#8a1c26" },
-                shape: { type: "circle" },
-                opacity: {
-                    value: 0.25,
-                    random: true,
-                    anim: {
-                        enable: true,
-                        speed: 0.5,
-                        opacity_min: 0.1,
-                        sync: false,
-                    },
-                },
-                size: {
-                    value: 2,
-                    random: true,
-                    anim: {
-                        enable: false,
-                        speed: 40,
-                        size_min: 0.1,
-                        sync: false,
-                    },
-                },
-                links: {
-                    enable: true,
-                    distance: 150,
-                    color: "#8a1c26",
-                    opacity: 0.1,
-                    width: 1,
-                },
-                move: {
-                    enable: true,
-                    speed: 0.8,
-                    direction: "none",
-                    random: true,
-                    straight: false,
-                    outModes: { default: "out" },
-                },
-            },
-            interactivity: {
-                detectsOn: "canvas",
-                events: {
-                    onHover: { enable: true, mode: "grab" },
-                    resize: true,
-                },
-                modes: {
-                    grab: { distance: 160, links: { opacity: 0.3 } },
-                },
-            },
-            retina_detect: true,
-        },
-    });
-    // Initialize AOS
-    AOS.init({
-        duration: 1000,
-        once: true,
-        offset: 100,
-    });
+    // Initialize AOS after all resources are loaded
+    function initAOS() {
+        if (typeof AOS !== 'undefined') {
+            AOS.init({
+                duration: 800,
+                once: true,
+                offset: 50,
+                mirror: false,
+                anchorPlacement: 'top-bottom',
+            });
+        }
+    }
+
+    if (document.readyState === 'complete') {
+        initAOS();
+    } else {
+        window.addEventListener('load', initAOS);
+    }
 
     // Scroll Progress
     window.addEventListener("scroll", () => {
@@ -461,9 +463,13 @@ import Layout from "../layouts/BaseLayout.astro";
     form?.addEventListener("submit", async (e) => {
         e.preventDefault();
 
-        btn.disabled = true;
-        btn.querySelector("span").innerText = "Analisando...";
-        loader.classList.remove("hidden");
+        const currentBtn = form.querySelector(".btn-submit");
+        const currentLoader = form.querySelector(".loader-form");
+        const btnText = currentBtn.querySelector("span");
+
+        currentBtn.disabled = true;
+        btnText.innerText = "Processando...";
+        currentLoader?.classList.remove("hidden");
 
         const formData = {
             nome: document.getElementById("form-name").value,
@@ -474,11 +480,41 @@ import Layout from "../layouts/BaseLayout.astro";
             mensagem: document.getElementById("form-msg").value,
         };
 
-        // Simulating processing
-        setTimeout(() => {
-            const waMsg = `Olá! Acabei de enviar minha candidatura para Parceiro Alpha.%0A%0A*Dados:*%0ANome: ${formData.nome}%0AÁrea: ${formData.area}%0AInsta: ${formData.instagram}`;
-            window.location.href = `https://wa.me/5521999064502?text=${waMsg}`;
-        }, 1500);
+        try {
+            const response = await fetch("/api/cadastro-parceiro", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(formData),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                btnText.innerText = "Candidatura Enviada!";
+                
+                // Redirect to WhatsApp after a short delay
+                setTimeout(() => {
+                    const waMsg = `Olá! Acabei de enviar minha candidatura para Parceiro Alpha.%0A%0A*Dados:*%0ANome: ${formData.nome}%0AÁrea: ${formData.area}%0AInsta: ${formData.instagram}`;
+                    window.location.href = `https://wa.me/5521999064502?text=${waMsg}`;
+                }, 1000);
+            } else {
+                throw new Error(result.message || "Erro desconhecido");
+            }
+        } catch (error) {
+            console.error("Erro no formulário:", error);
+            if (window.showToast) {
+                window.showToast("Erro ao enviar. Tente novamente ou use o WhatsApp direto.", "error");
+            } else {
+                alert("Erro ao enviar candidatura. Por favor, tente falar direto pelo WhatsApp.");
+            }
+            const submitBtn = form.querySelector(".btn-submit");
+            const submitLoader = form.querySelector(".loader-form");
+            const submitBtnText = submitBtn.querySelector("span");
+            
+            submitBtn.disabled = false;
+            submitBtnText.innerText = "Enviar para Análise";
+            submitLoader?.classList.add("hidden");
+        }
     });
 
     // Phone Mask
@@ -502,26 +538,50 @@ import Layout from "../layouts/BaseLayout.astro";
 
     .partner-page {
         color: #fff;
-        background: #050505;
+        background: transparent;
         font-family: "Outfit", sans-serif;
         color-scheme: dark;
+        position: relative;
+        z-index: 1;
+        overflow-x: hidden;
     }
 
     .container {
         max-width: 1200px;
         margin: 0 auto;
         padding: 0 2rem;
+        position: relative;
+        z-index: 2;
     }
 
     .highlight {
         color: var(--color-primary);
-        background: linear-gradient(
-            135deg,
-            #fff 30%,
-            var(--color-primary) 100%
-        );
+        font-weight: 800;
+    }
+
+    .gradient-text-animated {
+        background: linear-gradient(135deg, #fff 0%, var(--color-primary) 50%, #fff 100%);
+        background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
+        animation: shine 3s linear infinite;
+        display: inline-block;
+    }
+
+    @keyframes shine {
+        to { background-position: 200% center; }
+    }
+
+    .strikethrough {
+        text-decoration: line-through;
+        opacity: 0.5;
+        font-weight: 400;
+    }
+
+    .glow-text {
+        color: #fff;
+        text-shadow: 0 0 15px rgba(138, 28, 38, 0.6);
+        font-weight: 700;
     }
 
     /* Scroll Progress */
@@ -536,53 +596,25 @@ import Layout from "../layouts/BaseLayout.astro";
         box-shadow: 0 0 10px var(--color-primary);
     }
 
-    .hero-particles {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        pointer-events: none;
-    }
-
-    #particles-js {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-    }
-
-    /* Hero Section */
+    /* Hero Section Refactor */
     .partner-hero {
         min-height: 100vh;
         display: flex;
-        flex-direction: column;
-        justify-content: center;
         align-items: center;
         padding: 120px 0;
         position: relative;
-        text-align: center;
-        overflow: hidden;
+        z-index: 10;
     }
 
-    .ambient-glow {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 150%;
-        height: 150%;
-        background: radial-gradient(
-            circle at 50% 50%,
-            rgba(138, 28, 38, 0.15) 0%,
-            transparent 50%
-        );
-        pointer-events: none;
-        z-index: -1;
+    .hero-layout {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 4rem;
+        align-items: center;
+    }
+
+    .hero-content-side {
+        text-align: left;
     }
 
     .badge-animated {
@@ -600,39 +632,120 @@ import Layout from "../layouts/BaseLayout.astro";
     }
 
     .partner-hero h1 {
-        font-size: clamp(2.5rem, 8vw, 5rem);
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
         font-weight: 900;
-        line-height: 1;
+        line-height: 1.1;
         margin-bottom: 2rem;
         letter-spacing: -2px;
     }
 
     .subtitle {
-        font-size: clamp(1.1rem, 2vw, 1.4rem);
+        font-size: clamp(1.1rem, 2vw, 1.3rem);
         color: var(--text-muted);
-        max-width: 800px;
-        margin: 0 auto 3.5rem;
+        max-width: 650px;
+        margin: 0 0 3.5rem;
         line-height: 1.6;
     }
 
     .hero-actions {
         display: flex;
         gap: 1.5rem;
-        justify-content: center;
+        justify-content: flex-start;
         flex-wrap: wrap;
+        margin-bottom: 3rem;
+    }
+
+    .social-proof-mini {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    .avatars-group {
+        display: flex;
+    }
+
+    .avatars-group img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border: 2px solid #000;
+        margin-left: -12px;
+        object-fit: cover;
+    }
+
+    .avatars-group img:first-child { margin-left: 0; }
+
+    .social-proof-mini p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+    }
+
+    /* Hero Visual Side handshake */
+    .hero-visual-side {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .handshake-wrapper {
+        position: relative;
+        width: 100%;
+        max-width: 500px;
+        border-radius: 30px;
+        overflow: hidden;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        transform: perspective(1000px) rotateY(-5deg);
+        transition: transform 0.5s ease;
+    }
+
+    .handshake-wrapper:hover {
+        transform: perspective(1000px) rotateY(0deg) scale(1.02);
+    }
+
+    .handshake-img {
+        width: 100%;
+        height: auto;
+        display: block;
+        filter: contrast(1.1) brightness(0.9);
+    }
+
+    .img-glow {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(circle at center, rgba(138, 28, 38, 0.2), transparent 70%);
+        pointer-events: none;
+    }
+
+    .glass-overlay {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+        background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        pointer-events: none;
     }
 
     .btn-premium {
+        position: relative;
         background: var(--color-primary);
-        color: #fff;
+        color: #fff !important;
         padding: 1.2rem 2.5rem;
-        border-radius: 14px;
+        border-radius: 50px;
         font-weight: 700;
         text-decoration: none;
-        display: flex;
+        display: inline-flex;
         align-items: center;
         gap: 12px;
-        transition: 0.3s;
+        transition: all 0.3s ease;
+        overflow: hidden;
+        z-index: 1;
         box-shadow: 0 15px 35px rgba(138, 28, 38, 0.4);
     }
 
@@ -642,20 +755,48 @@ import Layout from "../layouts/BaseLayout.astro";
         background: #a31525;
     }
 
+    .btn-glow {
+        position: absolute;
+        top: -20%;
+        left: -20%;
+        width: 140%;
+        height: 140%;
+        background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2), transparent 70%);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+        pointer-events: none;
+        z-index: -1;
+    }
+
+    .btn-premium:hover .btn-glow {
+        opacity: 1;
+        animation: rotate-btn 4s linear infinite;
+    }
+
+    @keyframes rotate-btn {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+
     .btn-outline {
+        position: relative;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid var(--glass-border);
-        color: #fff;
+        color: #fff !important;
         padding: 1.2rem 2.5rem;
-        border-radius: 14px;
+        border-radius: 50px;
         font-weight: 600;
         text-decoration: none;
         transition: 0.3s;
+        display: inline-flex;
+        align-items: center;
+        overflow: hidden;
     }
 
     .btn-outline:hover {
         background: rgba(255, 255, 255, 0.1);
         transform: translateY(-5px);
+        border-color: rgba(255, 255, 255, 0.2);
     }
 
     /* Stats Quick Access */
@@ -664,6 +805,8 @@ import Layout from "../layouts/BaseLayout.astro";
         border-top: 1px solid var(--glass-border);
         border-bottom: 1px solid var(--glass-border);
         background: rgba(255, 255, 255, 0.01);
+        position: relative;
+        z-index: 20;
     }
 
     .stats-grid {
@@ -689,107 +832,106 @@ import Layout from "../layouts/BaseLayout.astro";
         letter-spacing: 1px;
     }
 
-    /* Workflow Timeline */
+    /* Interactive Timeline */
     .workflow-section {
         padding: 120px 0;
+        position: relative;
+        z-index: 15;
     }
 
-    .section-header {
-        text-align: center;
-        margin-bottom: 5rem;
-    }
-
-    .sub-badge {
-        color: var(--color-primary);
-        font-weight: 800;
-        font-size: 0.8rem;
-        letter-spacing: 3px;
-        margin-bottom: 1rem;
-        display: block;
-    }
-
-    .section-header h2 {
-        font-size: clamp(2rem, 4vw, 3rem);
-        font-weight: 900;
-    }
-
-    .workflow-timeline {
-        max-width: 900px;
-        margin: 0 auto;
+    .interactive-timeline {
+        max-width: 800px;
+        margin: 4rem auto 0;
         position: relative;
     }
 
-    .workflow-timeline::before {
-        content: "";
+    .interactive-timeline::before {
+        content: '';
         position: absolute;
-        left: 50%;
+        left: 31px;
         top: 0;
-        bottom: 0;
         width: 2px;
-        background: linear-gradient(
-            to bottom,
-            transparent,
-            var(--glass-border) 10%,
-            var(--glass-border) 90%,
-            transparent
-        );
-        transform: translateX(-50%);
+        height: 100%;
+        background: linear-gradient(to bottom, var(--color-primary), rgba(138, 28, 38, 0.1), transparent);
+        z-index: 1;
     }
 
-    .timeline-step {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 4rem;
-        width: 50%;
+    .timeline-node {
         position: relative;
+        margin-bottom: 4rem;
+        padding-left: 80px;
     }
 
-    .timeline-step:nth-child(odd) {
-        flex-direction: row-reverse;
-        margin-left: auto;
-        padding-left: 50px;
-        text-align: left;
-    }
-
-    .timeline-step:nth-child(even) {
-        margin-right: auto;
-        padding-right: 50px;
-        text-align: right;
-    }
-
-    .step-icon {
-        width: 60px;
-        height: 60px;
-        background: #111;
-        border: 2px solid var(--color-primary);
+    .timeline-dot {
+        position: absolute;
+        left: 32px;
+        top: 30px;
+        width: 20px;
+        height: 20px;
+        background: var(--color-primary);
         border-radius: 50%;
+        transform: translateX(-50%);
+        z-index: 2;
+        box-shadow: 0 0 20px var(--color-primary);
+    }
+
+    .pulse {
+        animation: pulse-ring 2s infinite;
+    }
+
+    @keyframes pulse-ring {
+        0% { box-shadow: 0 0 0 0 rgba(138, 28, 38, 0.7); }
+        70% { box-shadow: 0 0 0 15px rgba(138, 28, 38, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(138, 28, 38, 0); }
+    }
+
+    .timeline-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 2.5rem;
+        position: relative;
+        transition: 0.3s;
+    }
+
+    .timeline-card:hover {
+        background: rgba(255, 255, 255, 0.05);
+        border-color: rgba(138, 28, 38, 0.3);
+        transform: translateX(10px);
+    }
+
+    .step-num {
+        position: absolute;
+        top: 1.5rem;
+        right: 1.5rem;
+        font-size: 3rem;
+        font-weight: 900;
+        color: rgba(255, 255, 255, 0.03);
+        line-height: 1;
+    }
+
+    .timeline-card .step-icon {
+        width: 50px;
+        height: 50px;
+        background: rgba(138, 28, 38, 0.1);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.5rem;
+        font-size: 1.25rem;
         color: var(--color-primary);
-        position: absolute;
-        top: 0;
-        z-index: 2;
-        box-shadow: 0 0 20px rgba(138, 28, 38, 0.2);
+        margin-bottom: 1.5rem;
+        border: 1px solid rgba(138, 28, 38, 0.2);
     }
 
-    .timeline-step:nth-child(odd) .step-icon {
-        left: -30px;
-    }
-
-    .timeline-step:nth-child(even) .step-icon {
-        right: -30px;
-    }
-
-    .step-content h3 {
+    .timeline-card h3 {
         font-size: 1.5rem;
         font-weight: 800;
-        margin-bottom: 1rem;
+        margin-bottom: 0.8rem;
     }
 
-    .step-content p {
+    .timeline-card p {
         color: var(--text-muted);
         line-height: 1.6;
     }
@@ -807,34 +949,63 @@ import Layout from "../layouts/BaseLayout.astro";
     }
 
     .rule-card {
-        padding: 3rem 2rem;
-        background: #0a0a0a;
-        border: 1px solid var(--glass-border);
-        border-radius: 24px;
+        padding: 4rem 2.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 30px;
         text-align: center;
         position: relative;
         overflow: hidden;
-        transition: 0.4s;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .rule-card::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.05),
+            transparent
+        );
+        transition: 0.6s;
+    }
+
+    .rule-card:hover {
+        transform: translateY(-10px);
+        border-color: rgba(138, 28, 38, 0.4);
+        background: rgba(255, 255, 255, 0.05);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .rule-card:hover::after {
+        left: 100%;
     }
 
     .rule-card.special {
-        border-color: var(--color-primary);
-        background: linear-gradient(135deg, #0a0a0a 0%, #150505 100%);
-        transform: scale(1.05);
+        border-color: rgba(138, 28, 38, 0.6);
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.04) 0%, rgba(138, 28, 38, 0.05) 100%);
     }
 
     .rule-icon {
-        width: 70px;
-        height: 70px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 20px;
+        width: 80px;
+        height: 80px;
+        background: rgba(138, 28, 38, 0.1);
+        border-radius: 24px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 2rem;
+        font-size: 2.2rem;
         color: var(--color-primary);
-        margin: 0 auto 2rem;
-        transition: 0.3s;
+        margin: 0 auto 2.5rem;
+        transition: 0.4s;
+        border: 1px solid rgba(138, 28, 38, 0.2);
+        filter: drop-shadow(0 0 15px rgba(138, 28, 38, 0.3));
     }
 
     .rule-card:hover .rule-icon {
@@ -1011,6 +1182,8 @@ import Layout from "../layouts/BaseLayout.astro";
     /* FAQ */
     .faq-section {
         padding: 120px 0;
+        position: relative;
+        z-index: 10;
     }
 
     .accordion-container {
@@ -1057,8 +1230,82 @@ import Layout from "../layouts/BaseLayout.astro";
         background: rgba(0, 0, 0, 0.2);
     }
 
+    /* Final CTA */
+    .final-cta-section {
+        padding: 100px 0;
+        text-align: center;
+    }
+
+    .final-cta-section .cta-box {
+        background: linear-gradient(135deg, rgba(138, 28, 38, 0.1), rgba(10, 10, 10, 0.9));
+        padding: 5rem 2rem;
+        border-radius: 40px;
+        border: 1px solid rgba(138, 28, 38, 0.3);
+        max-width: 900px;
+        margin: 0 auto;
+    }
+
+    .final-cta-section h2 {
+        font-size: 3rem;
+        font-weight: 900;
+        margin-bottom: 1.5rem;
+    }
+
+    .final-cta-section p {
+        font-size: 1.25rem;
+        color: var(--text-muted);
+        margin-bottom: 3rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .final-cta-section .btn-premium {
+        display: inline-flex;
+        margin: 0 auto;
+    }
+
+    /* Aura effect in Hero */
+    .partner-hero::after {
+        content: '';
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(138, 28, 38, 0.15) 0%, transparent 70%);
+        filter: blur(50px);
+        pointer-events: none;
+        z-index: 0;
+    }
+
     /* Responsive */
     @media (max-width: 968px) {
+        .hero-layout {
+            grid-template-columns: 1fr;
+            text-align: center;
+            gap: 2rem;
+        }
+        .hero-content-side {
+            text-align: center;
+        }
+        .hero-actions {
+            justify-content: center;
+        }
+        .subtitle {
+            margin: 0 auto 2.5rem;
+        }
+        .social-proof-mini {
+            justify-content: center;
+        }
+        .hero-visual-side {
+            height: 300px;
+        }
+        .mini-card {
+            padding: 0.8rem 1.2rem;
+            font-size: 0.85rem;
+        }
         .form-wrapper {
             grid-template-columns: 1fr;
             gap: 3rem;
@@ -1070,16 +1317,23 @@ import Layout from "../layouts/BaseLayout.astro";
             grid-template-columns: 1fr;
             gap: 2rem;
         }
-        .timeline-step {
-            width: 100%;
-            text-align: left !important;
-            padding: 0 0 0 80px !important;
+        .interactive-timeline::before {
+            left: 20px;
         }
-        .workflow-timeline::before {
-            left: 30px;
+        .timeline-node {
+            padding-left: 50px;
+            margin-bottom: 3rem;
         }
-        .step-icon {
-            left: 0 !important;
+        .timeline-dot {
+            left: 21px;
+        }
+        .timeline-card {
+            padding: 1.5rem;
+        }
+        .step-num {
+            font-size: 2rem;
+            top: 1rem;
+            right: 1rem;
         }
         .input-row {
             grid-template-columns: 1fr;
@@ -1089,3 +1343,4 @@ import Layout from "../layouts/BaseLayout.astro";
         }
     }
 </style>
+</Layout>
