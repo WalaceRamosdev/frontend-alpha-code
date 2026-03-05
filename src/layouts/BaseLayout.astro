@@ -6,6 +6,8 @@ import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import SocialProof from "../components/ui/SocialProof.astro";
 import PromoModal from "../components/ui/PromoModal.astro";
 import PremiumWhatsapp from "../components/ui/PremiumWhatsapp.astro";
+import { ViewTransitions } from "astro:transitions";
+import FomoBubble from "../components/ui/FomoBubble.astro";
 import "../styles/variables.css";
 import "../styles/utilities.css";
 import "../styles/global.css";
@@ -183,6 +185,7 @@ const seo = createSEOMeta({
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}
 
+        <ViewTransitions />
         <slot name="head" />
     </head>
     <body>
@@ -208,7 +211,7 @@ const seo = createSEOMeta({
 
         <!-- Toast Notification Container -->
         <div id="toast-container" class="toast-container"></div>
-
+        <FomoBubble />
         <slot name="scripts" />
 
         <script>

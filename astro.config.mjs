@@ -5,6 +5,7 @@ import react from '@astrojs/react';
 import sitemap from '@astrojs/sitemap';
 import vercel from '@astrojs/vercel';
 import auth from 'auth-astro';
+import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
@@ -14,5 +15,8 @@ export default defineConfig({
   integrations: [react(), sitemap(), auth()], // Trigger deploy
   build: {
     inlineStylesheets: 'always'
+  },
+  vite: {
+    plugins: [tailwindcss()],
   }
 });

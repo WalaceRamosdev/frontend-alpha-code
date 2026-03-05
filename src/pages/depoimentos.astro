@@ -1,0 +1,215 @@
+---
+// src/pages/depoimentos.astro
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SocialProofGrid from "../components/sections/SocialProofGrid.astro";
+import CTAButton from "../components/ui/CTAButton.astro";
+
+const testimonials = [
+    {
+        name: "Dr. Roberto Campos",
+        role: "Psicanalista",
+        location: "São Paulo, SP",
+        image: "https://randomuser.me/api/portraits/men/32.jpg",
+        content:
+            "A Alpha Code transformou minha presença digital. Antes eu dependia de indicações, hoje recebo contatos qualificados todos os dias pelo Google. O retorno do investimento foi imediato.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Dra. Juliana Mendes",
+        role: "Psicóloga Clínica",
+        location: "Rio de Janeiro, RJ",
+        image: "https://randomuser.me/api/portraits/women/44.jpg",
+        content:
+            "O site ficou impecável. Transmite exatamente o acolhimento que eu queria passar para os meus pacientes. O suporte da equipe é excelente e muito atencioso.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Dra. Camila Ferraz",
+        role: "Personal Trainer",
+        location: "Brasília, DF",
+        image: "https://randomuser.me/api/portraits/women/68.jpg",
+        content:
+            "Minha autoridade como profissional subiu de nível. Quando envio meu site para um possível cliente, a conversão é muito mais alta. Vale cada centavo.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Dr. Alessandro Silva",
+        role: "Médico Ortopedista",
+        location: "Belo Horizonte, MG",
+        image: "https://randomuser.me/api/portraits/men/45.jpg",
+        content:
+            "O carregamento rápido do site (Astro.js) faz toda a diferença. Muitos pacientes comentam que o site é muito fácil de navegar no celular.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Dra. Aline Barbosa",
+        role: "Advogada Civilista",
+        location: "Curitiba, PR",
+        image: "https://randomuser.me/api/portraits/women/32.jpg",
+        content:
+            "Enfim um site que respeita as normas da OAB e ainda assim gera resultados reais. Meu escritório agora é visto como uma autoridade digital.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Ricardo Silva",
+        role: "Empresário",
+        location: "Florianópolis, SC",
+        image: "https://randomuser.me/api/portraits/men/88.jpg",
+        content:
+            "A agilidade da equipe da Alpha Code é fora do comum. Em 15 dias meu site estava no ar e já gerando leads. Recomendo muito!",
+        stars: 4,
+        verified: true,
+    },
+];
+---
+
+<BaseLayout
+    title="Depoimentos e Casos de Sucesso"
+    description="Veja o que nossos clientes dizem sobre os sites e estratégias digitais da Alpha Code. Mais de 1.400 projetos entregues com sucesso."
+>
+    <!-- Hero Section -->
+    <section class="py-20 bg-gradient-to-b from-black to-[#050505]">
+        <div class="container mx-auto px-4 text-center">
+            <span
+                class="text-primary font-bold tracking-widest uppercase text-sm mb-4 block"
+                >Prova Real</span
+            >
+            <h1
+                class="text-4xl md:text-6xl font-black text-white mb-6 font-outfit"
+            >
+                O que nossos clientes <span class="text-primary"
+                    >estão dizendo</span
+                >
+            </h1>
+            <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+                Não somos apenas uma fábrica de sites. Somos parceiros no
+                crescimento do seu negócio digital.
+            </p>
+            <div class="flex justify-center gap-4">
+                <div
+                    class="flex items-center gap-2 bg-white/5 border border-white/10 px-4 py-2 rounded-full"
+                >
+                    <span class="text-yellow-500">★★★★★</span>
+                    <span class="text-white font-bold">4.9/5</span>
+                    <span class="text-gray-500 text-sm">no Google Reviews</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Grid -->
+    <SocialProofGrid />
+
+    <!-- Testimonials Grid -->
+    <section class="py-20 bg-[#050505]">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                {
+                    testimonials.map((t) => (
+                        <div class="testimonial-card bg-[#111] p-8 rounded-3xl border border-white/5 hover:border-primary/20 transition-all duration-300">
+                            <div class="flex gap-1 mb-6 text-yellow-500">
+                                {[...Array(t.stars)].map(() => (
+                                    <i class="fas fa-star" />
+                                ))}
+                            </div>
+                            <p class="text-lg text-gray-300 italic mb-8 leading-relaxed">
+                                "{t.content}"
+                            </p>
+                            <div class="flex items-center gap-4">
+                                <img
+                                    src={t.image}
+                                    alt={t.name}
+                                    class="w-14 h-14 rounded-full border-2 border-primary/20"
+                                />
+                                <div>
+                                    <h4 class="text-white font-bold">
+                                        {t.name}
+                                    </h4>
+                                    <p class="text-sm text-gray-500">
+                                        {t.role}
+                                    </p>
+                                    <div class="flex items-center gap-1 mt-1">
+                                        <span class="text-[10px] text-primary uppercase font-bold tracking-tighter">
+                                            Cliente Verificado
+                                        </span>
+                                        <i class="fas fa-check-circle text-primary text-[10px]" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    ))
+                }
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Testimonials Placeholder -->
+    <section class="py-20 bg-alt">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-3xl font-bold text-white mb-12 font-outfit">
+                Depoimentos em Vídeo
+            </h2>
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <div
+                    class="video-placeholder aspect-video bg-black/40 rounded-3xl border-2 border-white/5 flex items-center justify-center group cursor-pointer hover:border-primary/40 transition-all overflow-hidden relative"
+                >
+                    <div
+                        class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform"
+                    >
+                        <i class="fas fa-play text-3xl"></i>
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-left">
+                        <p class="text-white font-bold">Dra. Juliana Mendes</p>
+                        <p class="text-xs text-gray-400">Psicóloga Clínica</p>
+                    </div>
+                </div>
+                <div
+                    class="video-placeholder aspect-video bg-black/40 rounded-3xl border-2 border-white/5 flex items-center justify-center group cursor-pointer hover:border-primary/40 transition-all overflow-hidden relative"
+                >
+                    <div
+                        class="w-20 h-20 bg-primary/20 rounded-full flex items-center justify-center text-primary group-hover:scale-110 transition-transform"
+                    >
+                        <i class="fas fa-play text-3xl"></i>
+                    </div>
+                    <div class="absolute bottom-6 left-6 text-left">
+                        <p class="text-white font-bold">Dr. Roberto Campos</p>
+                        <p class="text-xs text-gray-400">Psicanalista</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Final CTA -->
+    <section class="py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold text-white mb-6 font-outfit">
+                Seja o próximo caso de sucesso
+            </h2>
+            <p class="text-xl text-gray-400 mb-10 max-w-xl mx-auto">
+                Sua autoridade digital começa com um clique. Vamos transformar
+                seu negócio hoje?
+            </p>
+            <CTAButton
+                text="QUERO MEU ORÇAMENTO EM 24H"
+                href="https://wa.me/5521999064502?text=Vi%20os%20depoimentos%20e%20quero%20um%20site%20para%20mim%20tamb%C3%A9m"
+                variant="primary"
+                size="lg"
+            />
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .font-outfit {
+        font-family: "Outfit", sans-serif;
+    }
+    .bg-alt {
+        background: #080808;
+    }
+</style>

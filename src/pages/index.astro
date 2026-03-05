@@ -16,11 +16,13 @@ import SEOContent from "../components/sections/SEOContent.astro";
 import RecentPosts from "../components/sections/RecentPosts.astro";
 import Contact from "../components/sections/Contact.astro";
 import ServiceSegments from "../components/sections/ServiceSegments.astro";
+import SocialProofGrid from "../components/sections/SocialProofGrid.astro";
+import CTAButton from "../components/ui/CTAButton.astro";
 import { createSEOMeta } from "../utils/seo";
 
-const title = "Criação de Sites Profissionais | Alpha Code";
+const title = "Criação de Sites Profissionais de Elite | Alpha Code";
 const description =
-  "Criação de sites profissionais para empresas que querem aparecer no Google e gerar clientes. Solicite um orçamento.";
+  "Transformamos seu negócio em uma autoridade digital. Criação de sites de alta performance (Astro.js) com foco em conversão e SEO. Orçamento em 24h.";
 
 const keywords = [
   "criação de sites",
@@ -30,15 +32,8 @@ const keywords = [
   "site para advogados",
   "site institucional empresas",
   "site profissional clínicas",
-  "site para escola particular",
-  "site para escritório advocacia",
-  "desenvolvimento web",
-  "criação de sites rj",
-  "agência de sites",
-  "sites rápidos",
   "seo para sites",
   "alpha code",
-  "portfólio online",
 ];
 
 export const prerender = false;
@@ -46,20 +41,42 @@ export const prerender = false;
 
 <BaseLayout title={title} description={description} keywords={keywords}>
   <Hero
-    title = " VOCÊ ESTÁ PERDENDO DINHEIRO TODOS OS DIAS !",
-    description = "Todos os dias, pessoas procuram soluções para seus problemas. Sem um site forte, claro e confiável, você simplesmente não existe para elas.<br/><br/>Nós transformamos essa busca ativa em agendamentos automáticos, 24 horas por dia.<br/><br/><strong>+247% aumento em conversão<br>+156% mais tráfego qualificado<br>+98% de satisfação</strong>",
-    badge = "Estratégia Digital de Alta Performance",
+    title=" VOCÊ ESTÁ <span class='text-primary'>PERDENDO DINHEIRO</span> TODOS OS DIAS !"
+    description="Todos os dias, pessoas procuram soluções para seus problemas. Sem um site forte, claro e confiável, você simplesmente não existe para elas.<br/><br/>Nós transformamos essa busca ativa em agendamentos automáticos, 24 horas por dia.<br/><br/><strong>+247% aumento médio em conversão | +156% mais tráfego qualificado | 98% de satisfação</strong>"
+    badge="Estratégia Digital de Alta Performance"
+    ctaText="QUERO MEU ORÇAMENTO EM 24H"
   />
-  <div class="desktop-only">
+
+  <SocialProofGrid />
+
+  <div class="desktop-only border-t border-white/5">
     <TrustBar />
   </div>
+
   <Features />
+
   <!-- Why Section -->
   <Audience />
+
   <div class="desktop-only">
     <ServiceSegments />
   </div>
-  <Projects />
+
+  <div class="flex justify-center py-20 bg-alt">
+    <div class="text-center px-4">
+      <h2 class="text-3xl md:text-5xl font-black text-white mb-8 font-outfit">
+        Pronto para dominar o seu mercado?
+      </h2>
+      <CTAButton
+        text="GARANTIR MEU DIAGNÓSTICO GRATUITO"
+        href="https://wa.me/5521999064502?text=Quero%20um%20diagnostico%20gratuito%20do%20meu%20projeto"
+        variant="primary"
+        size="lg"
+      />
+    </div>
+  </div>
+
+  <Projects title="Nosso Portfólio de Elite" />
   <Process />
   <Testimonials />
   <SEOContent />

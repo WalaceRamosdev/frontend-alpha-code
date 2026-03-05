@@ -1,0 +1,156 @@
+---
+// src/components/ui/SiteRoiCalculator.astro
+---
+
+<div
+    class="roi-calculator glass-panel p-8 rounded-3xl border border-white/10"
+    id="roi-calc"
+>
+    <div class="text-center mb-8">
+        <h3 class="text-2xl font-bold text-white mb-2">Calculadora de ROI</h3>
+        <p class="text-gray-400 text-sm">
+            Descubra quanto um site de elite pode gerar para você
+        </p>
+    </div>
+
+    <div class="space-y-6">
+        <div class="input-group">
+            <div class="flex justify-between mb-2">
+                <label class="text-sm font-medium text-gray-300"
+                    >Ticket Médio (R$)</label
+                >
+                <span id="ticket-val" class="text-primary font-bold"
+                    >R$ 500</span
+                >
+            </div>
+            <input
+                type="range"
+                id="ticket-input"
+                min="50"
+                max="10000"
+                step="50"
+                value="500"
+                class="w-full accent-primary"
+            />
+        </div>
+
+        <div class="input-group">
+            <div class="flex justify-between mb-2">
+                <label class="text-sm font-medium text-gray-300"
+                    >Contatos por Mês (Base)</label
+                >
+                <span id="leads-val" class="text-primary font-bold">20</span>
+            </div>
+            <input
+                type="range"
+                id="leads-input"
+                min="5"
+                max="500"
+                step="5"
+                value="20"
+                class="w-full accent-primary"
+            />
+        </div>
+
+        <div
+            class="result-area bg-black/40 p-6 rounded-2xl border border-white/5 mt-8"
+        >
+            <div class="flex items-center justify-between mb-4">
+                <span class="text-gray-400 text-sm italic"
+                    >Projeção Alpha (+150% Leads)</span
+                >
+                <span
+                    class="bg-green-500/10 text-green-500 text-[10px] font-black px-2 py-1 rounded"
+                    >ALTA PERFORMANCE</span
+                >
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">
+                        Novos Leads
+                    </p>
+                    <p id="new-leads" class="text-3xl font-black text-white">
+                        50
+                    </p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-500 uppercase font-bold mb-1">
+                        Novos Clientes*
+                    </p>
+                    <p id="new-clients" class="text-3xl font-black text-white">
+                        5
+                    </p>
+                </div>
+            </div>
+            <div class="mt-6 pt-6 border-t border-white/5">
+                <p class="text-xs text-gray-500 uppercase font-bold mb-1">
+                    Aumento de Faturamento Est.
+                </p>
+                <p id="roi-total" class="text-4xl font-black text-primary">
+                    R$ 2.500,00
+                </p>
+            </div>
+            <p class="text-[10px] text-gray-600 mt-4 leading-tight">
+                *Considerando taxa de fechamento conservadora de 10%
+            </p>
+        </div>
+
+        <a
+            href="https://wa.me/5521999064502?text=Fiz%20a%20simula%C3%A7%C3%A3o%20de%20ROI%20e%20quero%20esse%20resultado"
+            class="block text-center py-4 bg-primary text-white font-black rounded-xl hover:bg-primary-dark transition-colors mt-6 shadow-lg shadow-primary/20"
+        >
+            QUERO ESSE RESULTADO
+        </a>
+    </div>
+</div>
+
+<script>
+    function updateROI() {
+        const ticket = parseInt(
+            (document.getElementById("ticket-input") as HTMLInputElement).value,
+        );
+        const leads = parseInt(
+            (document.getElementById("leads-input") as HTMLInputElement).value,
+        );
+
+        const leadsVal = document.getElementById("leads-val");
+        const ticketVal = document.getElementById("ticket-val");
+        const newLeads = document.getElementById("new-leads");
+        const newClientsNum = document.getElementById("new-clients");
+        const roiTotal = document.getElementById("roi-total");
+
+        if (!leadsVal || !ticketVal || !newLeads || !newClientsNum || !roiTotal)
+            return;
+
+        leadsVal.innerText = leads.toString();
+        ticketVal.innerText = `R$ ${ticket.toLocaleString("pt-BR")}`;
+
+        // Assume +150% increase in leads with our tech
+        const optimizedLeads = Math.round(leads * 2.5);
+        newLeads.innerText = optimizedLeads.toString();
+
+        // 10% conversion rate
+        const clients = Math.max(1, Math.round(optimizedLeads * 0.1));
+        newClientsNum.innerText = clients.toString();
+
+        const faturamento = clients * ticket;
+        roiTotal.innerText = `R$ ${faturamento.toLocaleString("pt-BR", { minimumFractionDigits: 2 })}`;
+    }
+
+    document
+        .getElementById("ticket-input")
+        ?.addEventListener("input", updateROI);
+    document
+        .getElementById("leads-input")
+        ?.addEventListener("input", updateROI);
+</script>
+
+<style>
+    .accent-primary {
+        accent-color: var(--color-primary);
+    }
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.02);
+        backdrop-filter: blur(20px);
+    }
+</style>

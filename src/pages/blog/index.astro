@@ -3,6 +3,7 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
+import LeadMagnet from "../../components/ui/LeadMagnet.astro";
 
 export const prerender = false;
 
@@ -72,6 +73,10 @@ const sortedPosts: CollectionEntry<"blog">[] = posts.sort(
                         />
                     ))
                 }
+            </div>
+
+            <div class="mt-20 max-w-4xl mx-auto">
+                <LeadMagnet />
             </div>
 
             {

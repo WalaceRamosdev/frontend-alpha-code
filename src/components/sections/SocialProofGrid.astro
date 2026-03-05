@@ -1,0 +1,82 @@
+---
+// src/components/sections/SocialProofGrid.astro
+const stats = [
+    { number: "+1.400", label: "sites entregues", icon: "🚀" },
+    { number: "20+", label: "anos de mercado", icon: "🏆" },
+    { number: "100%", label: "clientes satisfeitos", icon: "💎" },
+    { number: "24h", label: "resposta no orçamento", icon: "⚡" },
+];
+---
+
+<section class="social-proof-grid py-12">
+    <div class="container container-grid">
+        <div class="stats-grid">
+            {
+                stats.map((stat) => (
+                    <div class="stat-card glass-panel group">
+                        <div class="stat-icon">{stat.icon}</div>
+                        <div class="stat-number font-outfit">{stat.number}</div>
+                        <div class="stat-label uppercase letter-spacing-wide">
+                            {stat.label}
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+</section>
+
+<style>
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    @media (min-width: 1024px) {
+        .stats-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+    }
+
+    .stat-card {
+        padding: 2rem;
+        text-align: center;
+        border-radius: var(--radius-md);
+        transition: all 0.3s ease;
+    }
+
+    .stat-icon {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+        transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover .stat-icon {
+        transform: scale(1.1);
+    }
+
+    .stat-number {
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: white;
+        margin-bottom: 0.5rem;
+        font-family: "Outfit", sans-serif;
+    }
+
+    .stat-label {
+        font-size: 0.85rem;
+        color: var(--color-text-secondary);
+        font-weight: 500;
+        letter-spacing: 1px;
+    }
+
+    .letter-spacing-wide {
+        letter-spacing: 1px;
+    }
+
+    .glass-panel {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+    }
+</style>

@@ -1,64 +1,31 @@
-# Astro Starter Kit: Basics
+# Alpha Code - Projeto Refatorado
 
-```sh
-npm create astro@latest -- --template basics
-```
+Este é o repositório principal do projeto Alpha Code, agora limpo e organizado.
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+## 🚀 Estrutura do Projeto
 
-## 🚀 Project Structure
+- `src/`: Código fonte da aplicação Astro.
+- `backend/`: Servidor Express para processamento de contratos e funcionalidades auxiliares.
+- `prisma/`: Esquema do banco de dados e migrações.
+- `scripts/`: Scripts utilitários para manutenção e geração de conteúdo.
+- `public/`: Assets estáticos.
 
-Inside of your Astro project, you'll see the following folders and files:
+## 🛠️ Comandos Principais
 
-```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
-```
+### Frontend (Raiz)
+- `npm run dev`: Inicia o servidor de desenvolvimento.
+- `npm run build`: Gera o build de produção (gera Prisma client + Astro build).
+- `npx prisma studio`: Abre a interface visual do banco de dados.
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `npm install`             | Installs dependencies                            |
-| `npm run dev`             | Starts local dev server at `localhost:4321`      |
-| `npm run build`           | Build your production site to `./dist/`          |
-| `npm run preview`         | Preview your build locally, before deploying     |
-| `npm run astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `npm run astro -- --help` | Get help using the Astro CLI                     |
+### Backend (`/backend`)
+- `node server.js`: Inicia o servidor backend.
 
 ## 🗄️ Banco de Dados
+O projeto utiliza **SQLite** (`dev.db`) para desenvolvimento local via Prisma ORM.
 
-O projeto utiliza **SQLite** para desenvolvimento local. O arquivo do banco está localizado na raiz como `dev.db`.
-
-### Como acessar via DBeaver:
-1. Abra o **DBeaver**.
-2. Clique em **Nova Conexão** (ícone de tomada com um +).
-3. Selecione **SQLite** e clique em *Próximo*.
-4. No campo **Path**, clique em *Navegar* e selecione o arquivo `dev.db` na pasta raiz deste projeto.
-5. Clique em **Testar Conexão** (ele pode pedir para baixar os drivers do SQLite, aceite).
-6. Clique em **Finalizar**.
-
-### Como acessar via Prisma Studio (Recomendado):
-Execute o comando abaixo no terminal para abrir uma interface visual no seu navegador:
-```sh
-npx prisma studio
-```
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+## 🧹 Limpeza Realizada
+O projeto passou por uma varredura completa onde foram removidos:
+- Arquivos de log e erro acumulados.
+- Pastas temporárias (`tmp`, `refactored-site`).
+- Scripts de debug e testes unitários pontuais que já não eram necessários.
+- Pasta de identidade visual redundante (assets principais estão em `public/`).

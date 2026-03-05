@@ -1,0 +1,98 @@
+---
+// src/components/ui/AstroBadge.astro
+---
+
+<div
+    class="astro-badge group"
+    title="Site construído com Astro.js - Velocidade e Performance Superior"
+>
+    <div class="badge-content">
+        <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            class="astro-icon"
+        >
+            <path
+                d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+            ></path>
+            <path
+                d="m12 15-3-3a22 22 0 0 1 2-3.95A4.4 4.4 0 0 1 14 9c0 .12 0 .24-.02.36l-1.17 6.84a1.1 1.1 0 0 1-1.81.8z"
+            ></path>
+            <path d="M9 12a27.19 27.19 0 0 1 5 19L14 9A4.1 4.1 0 0 0 9 12z"
+            ></path>
+            <path
+                d="M18.5 16.5c1.5 1.26 2 5 2 5s-3.74-.5-5-2c-.71-.84-.7-2.13.09-2.91a2.18 2.18 0 0 1 2.91-.09z"
+            ></path>
+        </svg>
+        <span class="text">POWERED BY ASTRO</span>
+    </div>
+    <div class="badge-glow"></div>
+</div>
+
+<style>
+    .astro-badge {
+        display: inline-flex;
+        position: relative;
+        padding: 4px 12px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 100px;
+        cursor: help;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        overflow: hidden;
+    }
+
+    .badge-content {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        z-index: 2;
+    }
+
+    .astro-icon {
+        color: #ff5d01; /* Astro Brand Color */
+        filter: drop-shadow(0 0 5px rgba(255, 93, 1, 0.5));
+    }
+
+    .text {
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: rgba(255, 255, 255, 0.7);
+        transition: color 0.3s;
+    }
+
+    .astro-badge:hover {
+        background: rgba(255, 93, 1, 0.1);
+        border-color: rgba(255, 93, 1, 0.3);
+        transform: translateY(-2px);
+    }
+
+    .astro-badge:hover .text {
+        color: #fff;
+    }
+
+    .badge-glow {
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+            circle at center,
+            rgba(255, 93, 1, 0.2) 0%,
+            transparent 70%
+        );
+        opacity: 0;
+        transition: opacity 0.3s;
+        z-index: 1;
+    }
+
+    .astro-badge:hover .badge-glow {
+        opacity: 1;
+    }
+</style>

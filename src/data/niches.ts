@@ -10,6 +10,12 @@ export interface NicheContent {
     benefits: string[];
     faq: { question: string; answer: string }[];
     ctaText?: string;
+    stats?: { number: string; label: string }[];
+    metaFormulas: {
+        formula1: string;
+        formula2: string;
+        formula3: string;
+    };
 }
 
 export const niches: NicheContent[] = [
@@ -37,7 +43,12 @@ export const niches: NicheContent[] = [
             { question: "Quanto tempo leva para ficar pronto?", answer: "O prazo médio para um site institucional jurídico de alto padrão é de 15 a 25 dias úteis." },
             { question: "O site aparece no Google?", answer: "Sim, implementamos o SEO técnico básico em todas as páginas, e oferecemos estratégias avançadas para ranqueamento local." }
         ],
-        ctaText: "Quero Mais Clientes na Advocacia"
+        ctaText: "Quero Mais Clientes na Advocacia",
+        metaFormulas: {
+            formula1: "Atraia mais clientes com um site profissional para Advogados. Design sério, conformidade OAB e SEO jurídico. +1.400 sites entregues. Orçamento em 24h!",
+            formula2: "Site para Advogado com carregamento ultrarrápido, SEO otimizado e integração com WhatsApp. Destaque-se no Google Search. Solicite orçamento gratuito!",
+            formula3: "Seu escritório de advocacia é encontrado no Google? Criamos sites que geram autoridade e convertem leads. +20 anos de experiência. Fale conosco!"
+        }
     },
     {
         slug: "medicos",
@@ -60,10 +71,15 @@ export const niches: NicheContent[] = [
         ],
         faq: [
             { question: "Posso integrar com meu sistema de prontuário?", answer: "Sim, podemos integrar links de agendamento de plataformas como Doctoralia, iClinic, entre outros." },
-            { question: "O site é seguro (LGPD)?", answer: "Sim, implementamos certificados SSL e seguimos boas práticas de proteção de dados e privacidade." },
+            { question: "O site é seguro (LGPD)?", answer: "Sim, implementamos certificados SSL e seguimos boas práticas de proteção de dados e privacy." },
             { question: "Funciona bem no celular?", answer: "Totalmente. Mais de 80% das buscas por saúde são mobile, por isso focamos prioritariamente nisso." }
         ],
-        ctaText: "Quero Mais Pacientes Particulares"
+        ctaText: "Quero Mais Pacientes Particulares",
+        metaFormulas: {
+            formula1: "Atraia mais pacientes com um site profissional para Médicos. Design humanizado, agendamento online e SEO. +1.400 sites entregues. Orçamento em 24h!",
+            formula2: "Site para Médico com carregamento ultrarrápido, UX focado em saúde e integração com WhatsApp. Destaque-se no Google. Solicite um diagnóstico!",
+            formula3: "Médico, seja encontrado por quem precisa de você. Criamos sites que geram autoridade e facilitam agendamentos. +20 anos de mercado. Fale conosco!"
+        }
     },
     {
         slug: "contadores",
@@ -87,7 +103,12 @@ export const niches: NicheContent[] = [
             { question: "Vocês escrevem os textos dos serviços?", answer: "Sim, temos especialistas em copy que criam os textos base focados no público de contabilidade." },
             { question: "O site ajuda a vender consultoria?", answer: "Com certeza. Estruturamos o site para que a consultoria apareça como um serviço premium e diferenciado." }
         ],
-        ctaText: "Quero Atrair Grandes Empresas"
+        ctaText: "Quero Atrair Grandes Empresas",
+        metaFormulas: {
+            formula1: "Atraia mais clientes B2B com um site profissional para Contadores. Design sério, blog de notícias e área do cliente. +1.400 sites entregues. Orçamento em 24h!",
+            formula2: "Site para Contabilidade focado em autoridade e prospecção de empresas. SEO otimizado e integração WhatsApp. Solicite seu diagnóstico gratuito!",
+            formula3: "Seu escritório de contabilidade transparece segurança? Criamos sites que geram confiança e novos contratos. +20 anos de experiência. Fale conosco!"
+        }
     },
     {
         slug: "arquitetos",
@@ -111,7 +132,157 @@ export const niches: NicheContent[] = [
             { question: "As fotos pesadas não deixam o site lento?", answer: "Não, usamos as tecnologias mais modernas de compressão (WebP/AVIF) e carregamento sob demanda." },
             { question: "Consigo atualizar o portfólio sozinho?", answer: "Sim, entregamos com um painel administrativo intuitivo para você subir novos projetos sempre que desejar." }
         ],
-        ctaText: "Quero um Portfólio de Luxo"
+        ctaText: "Quero um Portfólio de Luxo",
+        metaFormulas: {
+            formula1: "Destaque seus projetos com um site para Arquitetos. Portfólio imersivo, carregamento ultrarrápido e SEO de luxo. +1.400 sites entregues. Orçamento em 24h!",
+            formula2: "Site de arquitetura focado em visual e experiência. Transforme sua arte em novos contratos. SEO otimizado para alto padrão. Solicite orçamento!",
+            formula3: "Seu escritório de arquitetura merece uma moldura digital de luxo. Criamos sites que encantam e convertem. +20 anos de experiência. Saiba mais!"
+        }
     },
-
+    {
+        slug: "psicologos",
+        name: "Psicólogos",
+        title: "Criação de Sites para Psicólogos - Atue com Ética e Autoridade",
+        heroTitle: "Todos os dias, Psicólogos perdem pacientes por não serem encontrados no Google. Vamos mudar isso.",
+        heroDesc: "Sites profissionais que transmitem acolhimento, autoridade e segurança. Conquiste mais pacientes particulares sem depender apenas de redes sociais ou indicações.",
+        badge: "Estratégia Digital Ética",
+        keywords: ["site para psicólogo", "marketing para psicólogos", "agenda lotada psicologia", "site profissional saúde mental"],
+        detailedContent: `
+            <p>Um site para psicólogos deve ser um ambiente de <strong>acolhimento digital</strong>. Muito mais do que um portfólio, ele é a primeira etapa do vínculo terapêutico.</p>
+            <p>Nossa abordagem foca no <strong>Marketing Ético</strong>, respeitando as diretrizes do CRP enquanto utilizamos o poder do SEO (Otimização para Buscas) para que você seja encontrado por quem busca ajuda agora. Oferecemos integração com agendamento online e blogs para que você compartilhe conhecimento e gere autoridade.</p>
+        `,
+        benefits: [
+            "Acolhimento Digital: Design que transmite calma, segurança e profissionalismo.",
+            "SEO para Terapia: Apareça quando buscarem por termos como 'psicólogo online' ou especialidades.",
+            "Agendamento Facilitado: Botões direto para WhatsApp ou sistemas de reserva.",
+            "Segurança de Dados: Site seguro e em conformidade com as normas de privacidade."
+        ],
+        faq: [
+            { question: "O site segue as normas do CRP?", answer: "Sim, cuidamos para que toda a comunicação seja ética e baseada em informação, evitando promessas de cura ou sensacionalismo." },
+            { question: "Como vou atrair pacientes?", answer: "O site é otimizado para o Google. Quando alguém buscar por um psicólogo na sua região ou especialidade, você estará lá." },
+            { question: "Eu preciso aparecer em vídeos?", answer: "Não! Um bom site com SEO focado em conteúdo e prova social é suficiente para gerar autoridade sem exposição excessiva." }
+        ],
+        ctaText: "QUERO MEU ORÇAMENTO EM 24H",
+        metaFormulas: {
+            formula1: "Atraia mais pacientes com um site profissional para Psicólogo. Design acolhedor, blog para artigos e agendamento online. +1.400 sites entregues. Orçamento em 24h!",
+            formula2: "Site para Psicólogo com carregamento ultrarrápido (Astro.js), SEO otimizado e integração com WhatsApp. Destaque-se no Google. Solicite um diagnóstico gratuito!",
+            formula3: "Psicólogo, você é encontrado no Google? Criamos sites que geram autoridade, atraem pacientes e convertem. +20 anos de experiência. Fale conosco!"
+        }
+    },
+    {
+        slug: "fotografos",
+        name: "Fotógrafos",
+        title: "Criação de Sites para Fotógrafos - Onde Sua Arte Ganha Vida",
+        heroTitle: "Destaque seu trabalho com um portfólio online impecável.",
+        heroDesc: "Galerias de alta resolução, carregamento ultrarrápido e SEO para garantir que seus cliques sejam vistos e seus contratos assinados. O portfólio que seu talento merece.",
+        badge: "Portfólios de Alta Performance",
+        keywords: ["site para fotógrafo", "portfólio fotografia", "marketing para fotógrafos", "site de foto profissional"],
+        detailedContent: `
+            <p>Para fotógrafos, o site é a prova real da sua técnica. No Instagram, as fotos perdem qualidade e somem no feed. No seu site, elas são as protagonistas em <strong>glórias de alta resolução</strong>.</p>
+            <p>Desenvolvemos sites que carregam instantaneamente, mesmo com centenas de imagens, usando tecnologia de compressão de última geração (WebP). Focamos no <strong>SEO local</strong> para que noivos, empresas e famílias te encontrem na hora certa.</p>
+        `,
+        benefits: [
+            "Velocidade com Qualidade: Imagens nítidas que carregam em milissegundos.",
+            "Galerias Categorizadas: Organize seu trabalho por casamentos, retratos, eventos, etc.",
+            "Foco em Orçamento: Landing pages específicas para converter interessados rápido.",
+            "Blog de Ensaios: Conte a história de cada sessão e melhore seu ranqueamento no Google."
+        ],
+        faq: [
+            { question: "As fotos perdem qualidade?", answer: "Não, usamos compressão inteligente que mantém a nitidez perfeita para telas Retina enquanto reduz o peso do arquivo." },
+            { question: "Funciona bem no celular?", answer: "Sim, o portfólio se adapta perfeitamente, permitindo que seus clientes vejam suas fotos em qualquer lugar." }
+        ],
+        ctaText: "CRIAR MEU PORTFÓLIO AGORA",
+        metaFormulas: {
+            formula1: "Destaque seu trabalho com um portfólio online para Fotógrafos. Galerias de alta resolução, carregamento ultrarrápido e SEO. +1.400 clientes satisfeitos. Orçamento em 24h!",
+            formula2: "Site para Fotógrafo com galerias profissionais, carregamento instantâneo e SEO para casamentos e eventos. Apareça na frente. Peça seu orçamento!",
+            formula3: "Sua fotografia merece um site de elite. Portfólios imersivos que convertem cliques em contratos. +20 anos de mercado. Confira nossos modelos!"
+        }
+    },
+    {
+        slug: "medicos",
+        name: "Médicos",
+        title: "Criação de Sites para Médicos e Clínicas | Alpha Code",
+        heroTitle: "Sua <span class='text-primary'>Clínica</span> na primeira página do Google",
+        heroDesc: "Desenvolvemos sites médicos de alta performance que transmitem autoridade, confiança e facilitam o agendamento de consultas 24h por dia.",
+        badge: "Sites Médicos em conformidade com o CFM",
+        keywords: ["site para médicos", "marketing médico", "site para clínicas", "seo médico"],
+        detailedContent: `
+            <p>No mercado da saúde, a confiança é o ativo mais valioso. Seu site precisa refletir o <strong>profissionalismo e o acolhimento</strong> que o paciente encontrará no seu consultório.</p>
+            <p>Desenvolvemos plataformas que seguem rigorosamente as normas de ética do CFM, com foco em agendamento simplificado e SEO local. Garantimos que sua expertise seja a primeira resposta quando alguém buscar por sua especialidade na sua região.</p>
+        `,
+        benefits: [
+            "Agendamento Online Integrado: Reduza a carga da sua recepção.",
+            "SEO para Especialistas: Seja a referência na sua cidade e área de atuação.",
+            "Design Ético e Premium: Website elegante que respeita as normas da medicina.",
+            "Blog de Saúde: Eduque seus pacientes e gere autoridade orgânica."
+        ],
+        faq: [
+            { question: "O site respeita as normas do CFM?", answer: "Sim, todos os nossos sites médicos são construídos seguindo as diretrizes de publicidade médica do Conselho Federal de Medicina." },
+            { question: "Vocês cuidam dos textos?", answer: "Sim, temos especialistas que podem criar conteúdos educativos baseados na sua área de atuação." }
+        ],
+        ctaText: "QUERO MINHA CLÍNICA NO TOPO",
+        metaFormulas: {
+            formula1: "Criação de sites para Médicos e Clínicas. Design ético, SEO Local para especialistas e agendamento integrado. Transmita autoridade. Orçamento em 24h!",
+            formula2: "Destaque seu consultório no Google com um site médico de elite. Alta performance e foco total na jornada do paciente. Solicite um diagnóstico!",
+            formula3: "Médico, seja referência na sua região. Sites profissionais para clínicas e consultórios respeitando as normas do CFM. Confira nossos cases!"
+        }
+    },
+    {
+        slug: "advogados",
+        name: "Advogados",
+        title: "Criação de Sites para Advogados e Escritórios | Alpha Code",
+        heroTitle: "Posicione seu <span class='text-primary'>Escritório</span> como Autoridade Jurídica",
+        heroDesc: "Sites jurídicos estratégicos que respeitam o Provimento da OAB e focam na captação de clientes qualificados através de SEO jurídico avançado.",
+        badge: "Sites Jurídicos Éticos e de Alta Performance",
+        keywords: ["site para advogados", "marketing jurídico", "seo jurídico", "site escritório advocacia"],
+        detailedContent: `
+            <p>No direito, a credibilidade é construída através do conhecimento e do posicionamento. Sua sede digital deve ser tão <strong>imponente e profissional</strong> quanto seu escritório físico.</p>
+            <p>Criamos sites que servem como ferramentas de educação e captação ética, totalmente alinhados com o Provimento 205/2021 da OAB. Nossa tecnologia garante que seus artigos jurídicos alcancem o topo das buscas, convertendo interessados em clientes.</p>
+        `,
+        benefits: [
+            "Conformidade com a OAB: Marketing jurídico ético e informativo.",
+            "SEO Jurídico Avançado: Destaque suas áreas de atuação nas buscas específicas.",
+            "Design de Autoridade: Transmita seriedade, competência e tradição.",
+            "Blog de Conteúdo: Posicione-se como especialista através de artigos informativos."
+        ],
+        faq: [
+            { question: "Posso captar clientes pelo site?", answer: "Sim, o marketing jurídico informativo é permitido e extremamente eficaz para atrair leads qualificados." },
+            { question: "O site é seguro para dados sensíveis?", answer: "Sim, utilizamos criptografia e as melhores práticas de segurança digital." }
+        ],
+        ctaText: "QUERO MEU ESCRITÓRIO NO TOPO",
+        metaFormulas: {
+            formula1: "Criação de sites para Advogados e Escritórios. Posicionamento de autoridade, respeito à OAB e SEO jurídico estratégico. Orçamento em 24h!",
+            formula2: "Destaque seu escritório de advocacia no Google. Sites éticos, imponentes e focados em resultados. Solicite seu orçamento hoje!",
+            formula3: "Advogado, sua sede digital precisa ser elite. Especialistas em sites jurídicos que convertem autoridade em contratos. Fale conosco!"
+        }
+    },
+    {
+        slug: "arquitetos",
+        name: "Arquitetos",
+        title: "Criação de Sites para Arquitetos e Designers | Alpha Code",
+        heroTitle: "Transforme seus <span class='text-primary'>Projetos</span> em Contratos de Alto Padrão",
+        heroDesc: "Portfólios de arquitetura imersivos com alta qualidade visual e carregamento ultrarrápido para encantar clientes que buscam exclusividade.",
+        badge: "Design de Elite para Arquitetura",
+        keywords: ["site para arquitetos", "portfólio arquitetura", "design de interiores", "site arquitetura premium"],
+        detailedContent: `
+            <p>Arquitetura é sobre estética, funcionalidade e experiência. Seu site deve ser a <strong>tradução digital do seu bom gosto</strong> e rigor técnico.</p>
+            <p>Focamos em galerias imersivas que exibem seus projetos em alta definição sem comprometer a velocidade de carregamento. Otimizamos sua presença para o público que busca arquitetura de luxo e design de interiores, transformando visitantes em novos orçamentos.</p>
+        `,
+        benefits: [
+            "Experiência Visual Imersiva: Suas fotos são as estrelas da página.",
+            "Performance LCP: Carregamento instantâneo de portfólios pesados.",
+            "SEO para Alto Padrão: Atraia clientes que valorizam design e exclusividade.",
+            "Blog de Estilo: Compartilhe suas tendências e gere desejo em potenciais clientes."
+        ],
+        faq: [
+            { question: "As fotos carregam rápido?", answer: "Sim, usamos tecnologia de ponta para carregar imagens pesadas instantaneamente sem perder a nitidez." },
+            { question: "Posso mudar as fotos sozinho?", answer: "Sim, você terá acesso a um sistema simples para atualizar seu portfólio sempre que terminar uma obra." }
+        ],
+        ctaText: "QUERO UM PORTFÓLIO DE IMPACTO",
+        metaFormulas: {
+            formula1: "Criação de sites para Arquitetos e Designers de Interiores. Portfólios imersivos, alta performance e SEO para público de elite. Orçamento em 24h!",
+            formula2: "Seus projetos merecem um site digno. Design de elite e velocidade extrema para arquitetura. Solicite um diagnóstico gratuito!",
+            formula3: "Arquiteto, transforme seu portfólio em desejo. Sites de alto padrão que convertem bom gosto em novos projetos. Confira!"
+        }
+    }
 ];

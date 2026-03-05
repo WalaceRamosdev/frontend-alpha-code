@@ -1,5 +1,6 @@
 ---
-const currentYear = 2026;
+import AstroBadge from "../ui/AstroBadge.astro";
+const currentYear = new Date().getFullYear();
 ---
 
 <footer>
@@ -28,7 +29,11 @@ const currentYear = 2026;
                 <li><a href="/solucoes/contadores">Contadores</a></li>
                 <li><a href="/solucoes/arquitetos">Arquitetos</a></li>
                 <li><a href="/solucoes/psicologos">Psicólogos</a></li>
-                <li><a href="/parceiro-alpha" class="text-primary font-bold">Programa de Parceiros</a></li>
+                <li>
+                    <a href="/parceiro-alpha" class="text-primary font-bold"
+                        >Programa de Parceiros</a
+                    >
+                </li>
             </ul>
         </div>
         <div class="footer-col">
@@ -138,9 +143,12 @@ const currentYear = 2026;
         </div>
     </div>
     <div class="footer-bottom">
+        <div class="mb-4">
+            <AstroBadge />
+        </div>
         <p>
             Sites Alpha Code - Transformando negócios através de sites que
-            realmente vendem. © 2025
+            realmente vendem. © {currentYear}
         </p>
         <a href="/" class="developed-by">
             <span>Desenvolvido por nós</span>

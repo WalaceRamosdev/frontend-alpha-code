@@ -1,0 +1,91 @@
+---
+// src/components/ui/CTAButton.astro
+interface Props {
+    text: string;
+    href: string;
+    variant?: "primary" | "secondary" | "outline";
+    size?: "sm" | "md" | "lg";
+    class?: string;
+    target?: string;
+}
+
+const {
+    text,
+    href,
+    variant = "primary",
+    size = "md",
+    class: className = "",
+    target = "_self",
+} = Astro.props;
+
+const variants = {
+    primary:
+        "bg-primary text-white border-primary hover:bg-opacity-90 shadow-primary-glow",
+    secondary: "bg-white text-dark hover:bg-gray-100",
+    outline:
+        "bg-transparent text-white border-white border-opacity-20 hover:border-primary hover:text-primary",
+};
+
+const sizes = {
+    sm: "px-4 py-2 text-sm",
+    md: "px-6 py-3 text-base",
+    lg: "px-8 py-4 text-lg md:text-xl font-bold",
+};
+---
+
+<a
+    href={href}
+    target={target}
+    class:list={[
+        "cta-button inline-flex items-center justify-center rounded-xl transition-all duration-300 border-2",
+        variants[variant],
+        sizes[size],
+        className,
+    ]}
+>
+    {text}
+</a>
+
+<style>
+    .cta-button {
+        text-decoration: none;
+        cursor: pointer;
+        font-family: "Outfit", sans-serif;
+        letter-spacing: 0.5px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .cta-button.bg-primary {
+        background-color: var(--color-primary);
+        border-color: var(--color-primary);
+    }
+
+    .shadow-primary-glow {
+        box-shadow: 0 10px 25px -5px rgba(var(--color-primary-rgb), 0.4);
+    }
+
+    .cta-button:active {
+        transform: scale(0.98);
+    }
+
+    .cta-button::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+            90deg,
+            transparent,
+            rgba(255, 255, 255, 0.2),
+            transparent
+        );
+        transition: 0.5s;
+    }
+
+    .cta-button:hover::after {
+        left: 100%;
+    }
+</style>

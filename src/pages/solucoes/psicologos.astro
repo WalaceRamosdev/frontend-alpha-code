@@ -1,6 +1,13 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
+import NicheMeta from "../../components/seo/NicheMeta.astro";
+import SocialProofGrid from "../../components/sections/SocialProofGrid.astro";
+import CTAButton from "../../components/ui/CTAButton.astro";
+import FaqAccordion from "../../components/ui/FaqAccordion.astro";
+import { niches } from "../../data/niches";
+
+const niche = niches.find((n) => n.slug === "psicologos");
 
 const painPoints = [
     {
@@ -61,6 +68,7 @@ const testimonials = [
     showFooter={true}
     showSocialProof={true}
 >
+    <NicheMeta slug="psicologos" slot="head" />
     <!-- GSAP Scripts -->
     <script>
         import { gsap } from "gsap";
@@ -183,6 +191,8 @@ const testimonials = [
             </div>
             <div class="hero-bg-glow"></div>
         </section>
+
+        <SocialProofGrid />
 
         <!-- Social Proof (Resultados) -->
         <section class="social-proof-section anim-fade-up">

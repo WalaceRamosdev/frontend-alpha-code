@@ -1,0 +1,115 @@
+---
+// src/components/ui/FomoBubble.astro
+---
+
+<div
+    id="fomo-bubble"
+    class="fixed bottom-6 left-6 z-[100] transform translate-y-20 opacity-0 transition-all duration-700 ease-out"
+>
+    <div
+        class="bg-black/80 backdrop-blur-xl border border-white/10 p-4 rounded-2xl shadow-2xl flex items-center gap-4 max-w-[320px]"
+    >
+        <div
+            class="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center shrink-0 border border-primary/30"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-6 h-6 text-primary"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+            </svg>
+        </div>
+        <div class="flex-1">
+            <p
+                class="text-[10px] text-gray-500 font-black uppercase tracking-widest mb-1"
+            >
+                Novo Orçamento
+            </p>
+            <p
+                class="text-sm text-white font-medium leading-tight"
+                id="fomo-text"
+            >
+                Um <strong>Psicólogo</strong> acabou de solicitar um diagnóstico.
+            </p>
+            <p class="text-[10px] text-primary font-bold mt-1" id="fomo-time">
+                há 4 minutos
+            </p>
+        </div>
+        <button id="close-fomo" class="text-gray-500 hover:text-white">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+            >
+                <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+        </button>
+    </div>
+</div>
+
+<script>
+    const niches = [
+        "Psicólogo",
+        "Médico",
+        "Advogado",
+        "Arquiteto",
+        "Dentista",
+        "Escritório",
+        "Social Media",
+    ];
+    const locations = [
+        "São Paulo",
+        "Rio de Janeiro",
+        "Curitiba",
+        "Belo Horizonte",
+        "Porto Alegre",
+    ];
+
+    function showFomo() {
+        const bubble = document.getElementById("fomo-bubble");
+        const text = document.getElementById("fomo-text");
+        const time = document.getElementById("fomo-time");
+
+        if (!bubble || !text || !time) return;
+
+        const niche = niches[Math.floor(Math.random() * niches.length)];
+        const loc = locations[Math.floor(Math.random() * locations.length)];
+        const minutes = Math.floor(Math.random() * 55) + 5;
+
+        text.innerHTML = `Um <strong>${niche}</strong> de ${loc} solicitou um diagnóstico gratuito.`;
+        time.innerText = `há ${minutes} minutos`;
+
+        bubble.classList.remove("translate-y-20", "opacity-0");
+
+        setTimeout(() => {
+            hideFomo();
+        }, 6000);
+    }
+
+    function hideFomo() {
+        const bubble = document.getElementById("fomo-bubble");
+        bubble?.classList.add("translate-y-20", "opacity-0");
+    }
+
+    document.getElementById("close-fomo")?.addEventListener("click", hideFomo);
+
+    // Initial delay
+    setTimeout(() => {
+        showFomo();
+        // Show again every 45-60 seconds
+        setInterval(showFomo, 50000);
+    }, 8000);
+</script>

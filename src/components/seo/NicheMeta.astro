@@ -1,0 +1,29 @@
+---
+// src/components/seo/NicheMeta.astro
+import { niches } from "../../data/niches";
+
+interface Props {
+    slug: string;
+}
+
+const { slug } = Astro.props;
+const niche = niches.find((n) => n.slug === slug);
+
+if (!niche) return null;
+
+// Select formula based on simple pseudo-random logic or just index
+// For SEO consistency, we usually want one per page, but we can rotate
+// Let's just use formula 1 as default, or we could pass it.
+// The user suggested "Meta descriptions variadas", so maybe rotate by month/day or just use different ones on different niche landing variations.
+// However, for a single page, we need ONE description.
+// I'll default to formula 2 (Benefit + Speed + CTA) as it's very effective.
+
+const description = niche.metaFormulas.formula2;
+const title = `${niche.title} | Alpha Code`;
+---
+
+<meta name="description" content={description} />
+<meta property="og:title" content={title} />
+<meta property="og:description" content={description} />
+<meta name="twitter:title" content={title} />
+<meta name="twitter:description" content={description} />
