@@ -6,11 +6,7 @@ import { getSession } from "../lib/auth";
 
 const session = await getSession(Astro.request);
 
-if (!session) {
-    return Astro.redirect("/login?callbackUrl=/pedido");
-}
-
-const isAdmin = session.user?.role === "ADMIN";
+const isAdmin = session?.user?.role === "ADMIN";
 const title = "Finalizar Pedido | Alpha Code";
 export const prerender = false;
 const planParam = Astro.url.searchParams.get("plan");
@@ -98,7 +94,7 @@ const backLabel = isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard";
 
             <!-- Order form -->
             <div class="content-body">
-                <OrderForm client:load user={session.user} />
+                <OrderForm client:load user={session?.user || null} />
             </div>
         </main>
     </div>
