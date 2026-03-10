@@ -40,7 +40,7 @@ const {
     title,
     description,
     canonicalUrl = Astro.url.href,
-    ogImage = "/assets/logo.svg",
+    ogImage = "/assets/og-image-3d.jpg",
     keywords = [],
     noIndex = false,
     showWhatsApp = true,
@@ -74,11 +74,15 @@ const serveLocations = [
     "Zona Sul de São Paulo",
 ];
 
+const absoluteOgImage = typeof ogImage === 'string' && ogImage.startsWith('http') 
+    ? ogImage 
+    : new URL(ogImage || "/assets/og-image-3d.jpg", Astro.site || Astro.url).href;
+
 const seo = createSEOMeta({
     title, // Removing the pipe here since utility already adds it
     description,
     canonicalUrl,
-    ogImage,
+    ogImage: absoluteOgImage,
     keywords: [...keywords, ...serveLocations],
 });
 ---
