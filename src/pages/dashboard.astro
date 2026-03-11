@@ -1347,21 +1347,14 @@ export const prerender = false;
                         </div>
 
                         <div class="form-group">
-                            <label>Valor Líquido (R$)</label>
+                            <label>Valor da Receita (R$)</label>
                             <input
                                 type="number"
                                 name="amount"
                                 step="0.01"
                                 required
                                 placeholder="0,00"
-                                readonly
-                                style="background: rgba(0,0,0,0.3); color: var(--color-primary); font-weight: bold;"
                             />
-                            <small
-                                style="color:var(--color-text-muted); font-size: 0.75rem;"
-                                >Calculado automaticamente: (Plano + Serviço) -
-                                Hospedagem</small
-                            >
                         </div>
                         <div class="modal-actions">
                             <button
@@ -1626,11 +1619,12 @@ export const prerender = false;
                     const planPrice = prices[planSelect.value] || 0;
                     const extraPrice = prices[extraServiceSelect.value] || 0;
                     const extraPrice2 = extraService2Select ? (prices[extraService2Select.value] || 0) : 0;
-                    const hosting = hostingCostInput.value
-                        ? parseFloat(hostingCostInput.value)
-                        : 0;
+                    // Hosting cost is no longer subtracted from the total revenue field
+                    // const hosting = hostingCostInput.value
+                    //     ? parseFloat(hostingCostInput.value)
+                    //     : 0;
 
-                    const total = planPrice + extraPrice + extraPrice2 - hosting;
+                    const total = planPrice + extraPrice + extraPrice2;
                     amountInput.value = total.toFixed(2);
 
                     // Show/Hide second service
