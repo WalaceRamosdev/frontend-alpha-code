@@ -1279,6 +1279,49 @@ export const prerender = false;
                             </div>
                         </div>
 
+                        <div class="form-group" id="extra-service-2-group" style="display: none;">
+                            <label>2º Serviço Adicional</label>
+                            <div class="custom-select">
+                                <select
+                                    name="extraService2"
+                                    id="financial-service-extra-2"
+                                >
+                                    <option value="">Nenhum</option>
+                                    <option value="Manutenção"
+                                        >Manutenção Mensal</option
+                                    >
+                                    <option value="Consultoria"
+                                        >Consultoria</option
+                                    >
+                                    <option value="Landing Page Avulsa"
+                                        >Landing Page Avulsa</option
+                                    >
+                                    <option value="E-commerce"
+                                        >E-commerce</option
+                                    >
+                                    <option value="SEO Turbinado"
+                                        >SEO Turbinado</option
+                                    >
+                                    <option value="Compra de Hospedagem"
+                                        >Compra de Hospedagem</option
+                                    >
+                                    <option value="Outros">Outros</option>
+                                </select>
+                                <div class="select-arrow">
+                                    <svg
+                                        width="16"
+                                        height="16"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        ><polyline points="6 9 12 15 18 9"
+                                        ></polyline></svg
+                                    >
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Custo de Hospedagem (R$)</label>
                             <input
@@ -1550,6 +1593,12 @@ export const prerender = false;
                 const extraServiceSelect = document.getElementById(
                     "financial-service-extra",
                 ) as HTMLSelectElement;
+                const extraService2Select = document.getElementById(
+                    "financial-service-extra-2",
+                ) as HTMLSelectElement;
+                const extraService2Group = document.getElementById(
+                    "extra-service-2-group",
+                );
                 const hostingCostInput = document.getElementById(
                     "financial-hosting-cost",
                 ) as HTMLInputElement;
@@ -1576,12 +1625,23 @@ export const prerender = false;
                     if (!amountInput) return;
                     const planPrice = prices[planSelect.value] || 0;
                     const extraPrice = prices[extraServiceSelect.value] || 0;
+                    const extraPrice2 = extraService2Select ? (prices[extraService2Select.value] || 0) : 0;
                     const hosting = hostingCostInput.value
                         ? parseFloat(hostingCostInput.value)
                         : 0;
 
-                    const total = planPrice + extraPrice - hosting;
+                    const total = planPrice + extraPrice + extraPrice2 - hosting;
                     amountInput.value = total.toFixed(2);
+
+                    // Show/Hide second service
+                    if (extraService2Group) {
+                        if (extraServiceSelect.value !== "") {
+                            extraService2Group.style.display = "block";
+                        } else {
+                            extraService2Group.style.display = "none";
+                            if (extraService2Select) extraService2Select.value = "";
+                        }
+                    }
                 };
 
                 if (planSelect && extraServiceSelect && hostingCostInput) {
@@ -1590,6 +1650,9 @@ export const prerender = false;
                         "change",
                         calculateTotal,
                     );
+                    if (extraService2Select) {
+                        extraService2Select.addEventListener("change", calculateTotal);
+                    }
                     hostingCostInput.addEventListener("input", calculateTotal);
                     // Initial calculation
                     calculateTotal();
@@ -1610,9 +1673,18 @@ export const prerender = false;
                     // Combine service names
                     const plan = formData.get("service") as string;
                     const extra = formData.get("extraService") as string;
+                    const extra2 = formData.get("extraService2") as string;
                     let combinedService = plan;
-                    if (extra) {
-                        combinedService += " + " + extra;
+
+                    if (extra && extra !== "Nenhum") {
+                        if (combinedService === "Nenhum") {
+                            combinedService = extra;
+                        } else {
+                            combinedService += " + " + extra;
+                        }
+                    }
+                    if (extra2 && extra2 !== "Nenhum" && extra2 !== "") {
+                        combinedService += " + " + extra2;
                     }
 
                     const data = {
