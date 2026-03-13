@@ -158,17 +158,25 @@ const jsonLd = {
 </style>
 
 <script>
-    const faqItems = document.querySelectorAll(".faq-item");
-    faqItems.forEach((item) => {
-        const trigger = item.querySelector(".faq-trigger");
-        trigger?.addEventListener("click", () => {
-            const isActive = item.classList.contains("active");
+    document.addEventListener("astro:page-load", () => {
+        const faqItems = document.querySelectorAll(".faq-item");
+        faqItems.forEach((item) => {
+            const trigger = item.querySelector(".faq-trigger");
+            // Remove previous event listeners if any to prevent duplicates during navigation
+            if (trigger && trigger.parentNode) {
+                const newTrigger = trigger.cloneNode(true);
+                trigger.parentNode.replaceChild(newTrigger, trigger);
+                
+                newTrigger.addEventListener("click", () => {
+                    const isActive = item.classList.contains("active");
 
-            // Fechar outros
-            faqItems.forEach((other) => other.classList.remove("active"));
+                    // Fechar outros
+                    faqItems.forEach((other) => other.classList.remove("active"));
 
-            if (!isActive) {
-                item.classList.add("active");
+                    if (!isActive) {
+                        item.classList.add("active");
+                    }
+                });
             }
         });
     });

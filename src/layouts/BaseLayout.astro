@@ -24,6 +24,7 @@ interface Props {
     showHeader?: boolean;
     showFooter?: boolean;
     showSocialProof?: boolean;
+    showFomoBubble?: boolean;
     schemaType?:
         | "Organization"
         | "WebSite"
@@ -47,6 +48,7 @@ const {
     showHeader = true,
     showFooter = true,
     showSocialProof = false,
+    showFomoBubble = false,
     schemaType = "ProfessionalService",
     schemaName,
     schemaDescription,
@@ -257,7 +259,7 @@ const seo = createSEOMeta({
 
         <!-- Toast Notification Container -->
         <div id="toast-container" class="toast-container"></div>
-        <FomoBubble />
+        {showFomoBubble && <FomoBubble />}
         <slot name="scripts" />
 
         <script>
