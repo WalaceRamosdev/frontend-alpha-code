@@ -990,7 +990,7 @@ export const prerender = false;
             steps.forEach((s) => s.classList.remove("active"));
             const activeStep = document.querySelector(
                 `.diag-step[data-step="${currentStep}"]`,
-            );
+            ) as HTMLElement | null;
             if (activeStep) activeStep.classList.add("active");
 
             // Progress Bar
@@ -1018,6 +1018,7 @@ export const prerender = false;
                 }
             }
 
+            // Important: Re-check validity whenever step changes
             checkValidity();
         };
 
@@ -1067,6 +1068,13 @@ export const prerender = false;
         form.addEventListener("change", checkValidity);
         form.addEventListener("input", checkValidity);
 
+        // Click on labels or radio containers should also trigger it
+        form.querySelectorAll('.option-card, .checkbox-card').forEach(card => {
+            card.addEventListener('click', () => {
+                setTimeout(checkValidity, 50);
+            });
+        });
+
         // Initialize first step
         updateStep();
 
@@ -1115,8 +1123,10 @@ export const prerender = false;
 
         const closeModal = () => modalOutro?.classList.add("hidden");
 
-        radioOutro?.addEventListener("click", (e) => {
-            openModal();
+        radioOutro?.addEventListener("change", (e) => {
+            if (radioOutro.checked) {
+                openModal();
+            }
         });
 
         btnSaveModal?.addEventListener("click", () => {
