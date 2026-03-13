@@ -3858,16 +3858,20 @@ export const prerender = false;
 <!-- Chart.js Libraries -->
 <script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline></script>
 <script is:inline>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         const ctx = document.getElementById("financialChart");
         if (!ctx) return;
 
-        const labels = JSON.parse(ctx.getAttribute("data-labels"));
-        const revenue = JSON.parse(ctx.getAttribute("data-revenue"));
-        const expenses = JSON.parse(ctx.getAttribute("data-expenses"));
-        const profit = JSON.parse(ctx.getAttribute("data-profit"));
+        if (window.financialChartInstance) {
+            window.financialChartInstance.destroy();
+        }
 
-        const chart = new Chart(ctx, {
+        const labels = JSON.parse(ctx.getAttribute("data-labels") || "[]");
+        const revenue = JSON.parse(ctx.getAttribute("data-revenue") || "[]");
+        const expenses = JSON.parse(ctx.getAttribute("data-expenses") || "[]");
+        const profit = JSON.parse(ctx.getAttribute("data-profit") || "[]");
+
+        window.financialChartInstance = new Chart(ctx, {
             type: "line",
             data: {
                 labels: labels,
@@ -4015,7 +4019,9 @@ export const prerender = false;
 
         // ResizeObserver para lidar com a expansão da sidebar
         const resizeObserver = new ResizeObserver(() => {
-            chart.resize();
+            if (window.financialChartInstance) {
+                window.financialChartInstance.resize();
+            }
         });
         const wrapper = ctx.closest(".chart-wrapper-inner");
         if (wrapper) {
@@ -4025,7 +4031,7 @@ export const prerender = false;
     });
 
     // Copy content for Partner Resources
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         document.querySelectorAll('.copy-content-btn').forEach(btn => {
             btn.addEventListener('click', async (e) => {
                 e.preventDefault();
