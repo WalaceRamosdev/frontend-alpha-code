@@ -64,6 +64,62 @@ const projects = [
         result: 'Marketing nutricional de elite',
         image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
         link: 'https://nutricao-pied.vercel.app/'
+    },
+    {
+        name: 'Ricardo Silva',
+        niche: 'Psicanálise',
+        category: 'saude',
+        result: 'Aumento de pacientes online',
+        image: '/assets/imagens-de-paginas/ricardoSilva.svg',
+        link: 'https://psicanalista-online.vercel.app/'
+    },
+    {
+        name: 'CTIM',
+        niche: 'Clínica',
+        category: 'saude',
+        result: 'Agendamentos simplificados',
+        image: '/assets/imagens-de-paginas/ctim.svg',
+        link: 'https://ctim.vercel.app/'
+    },
+    {
+        name: 'Pizzaria',
+        niche: 'Gastronomia',
+        category: 'gastronomia',
+        result: 'Cardápio digital de alta conversão',
+        image: '/assets/imagens-de-paginas/pizzaria.svg',
+        link: 'https://projeto-pizzaria-ecru.vercel.app/'
+    },
+    {
+        name: 'Cafeteria Premium',
+        niche: 'Gastronomia',
+        category: 'gastronomia',
+        result: 'Experiência online elegante',
+        image: '/assets/imagens-de-paginas/cafeteria.svg',
+        link: 'https://cafeteria-premium.vercel.app/'
+    },
+    {
+        name: 'ARQ.',
+        niche: 'Arquitetura',
+        category: 'institucional',
+        result: 'Projetos que inspiram confiança',
+        image: '/assets/imagens-de-paginas/arquiteto.svg',
+        link: 'https://projeto-arquiteto.vercel.app/'
+    },
+    {
+        name: 'Joalheria LUMIÈRE',
+        niche: 'Joalheria',
+        category: 'institucional',
+        result: 'Design sofisticado e premium',
+        image: '/assets/imagens-de-paginas/lumiere.svg',
+        link: 'https://lumiere-joias.vercel.app/'
+    },
+    {
+        name: 'João Silva',
+        niche: 'Educação',
+        category: 'educacao',
+        result: 'Captação de alunos otimizada',
+        image: '/assets/imagens-de-paginas/profJoao.svg',
+        link: 'https://landing-page-professor.vercel.app/'
     }
 ];
 
@@ -72,7 +128,8 @@ const categories = [
     { id: 'saude', label: 'Saúde & Psicologia' },
     { id: 'juridico', label: 'Jurídico' },
     { id: 'institucional', label: 'Institucional/Empresas' },
-    { id: 'gastronomia', label: 'Gastronomia' }
+    { id: 'gastronomia', label: 'Gastronomia' },
+    { id: 'educacao', label: 'Educação' }
 ];
 
 export default function PortfolioGrid() {
@@ -85,28 +142,38 @@ export default function PortfolioGrid() {
     return (
         <div className="portfolio-content">
             {/* Filters */}
-            <div className="filter-container" style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '12px', marginBottom: '60px' }}>
-                {categories.map(cat => (
-                    <button
-                        key={cat.id}
-                        onClick={() => setActiveCategory(cat.id)}
-                        className={`filter-btn ${activeCategory === cat.id ? 'active' : ''}`}
-                        style={{
-                            padding: '10px 24px',
-                            borderRadius: '50px',
-                            border: '2px solid',
-                            borderColor: activeCategory === cat.id ? 'var(--color-primary)' : 'rgba(255, 255, 255, 0.1)',
-                            backgroundColor: activeCategory === cat.id ? 'var(--color-primary)' : 'transparent',
-                            color: activeCategory === cat.id ? 'white' : 'var(--color-text-secondary)',
-                            fontWeight: '600',
-                            cursor: 'pointer',
-                            transition: 'all 0.3s ease',
-                            fontSize: '0.9rem'
-                        }}
-                    >
-                        {cat.label}
-                    </button>
-                ))}
+            <div className="filter-container" style={{ display: 'flex', justifyContent: 'center', marginBottom: '60px' }}>
+                <select 
+                    value={activeCategory}
+                    onChange={(e) => setActiveCategory(e.target.value)}
+                    style={{
+                        padding: '14px 40px 14px 24px',
+                        borderRadius: '50px',
+                        border: '2px solid var(--color-primary)',
+                        backgroundColor: 'rgba(138, 28, 38, 0.05)',
+                        color: 'white',
+                        fontWeight: '600',
+                        fontSize: '1rem',
+                        cursor: 'pointer',
+                        outline: 'none',
+                        appearance: 'none',
+                        minWidth: '280px',
+                        backgroundImage: `url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23FFFFFF%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")`,
+                        backgroundRepeat: 'no-repeat',
+                        backgroundPosition: 'right 24px center',
+                        backgroundSize: '12px auto',
+                        boxShadow: '0 4px 12px rgba(138, 28, 38, 0.15)',
+                        transition: 'all 0.3s ease'
+                    }}
+                    onMouseOver={(e) => (e.currentTarget.style.backgroundColor = 'rgba(138, 28, 38, 0.15)')}
+                    onMouseOut={(e) => (e.currentTarget.style.backgroundColor = 'rgba(138, 28, 38, 0.05)')}
+                >
+                    {categories.map(cat => (
+                        <option key={cat.id} value={cat.id} style={{ backgroundColor: '#050505', color: 'white', padding: '10px' }}>
+                            {cat.label}
+                        </option>
+                    ))}
+                </select>
             </div>
 
             {/* Grid */}
