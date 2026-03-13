@@ -90,8 +90,11 @@ const seo = createSEOMeta({
 <!doctype html>
 <html lang="pt-BR">
     <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <!-- Google Tag Manager -->
-        <script type="text/partytown">
+        <script is:inline>
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({
@@ -110,10 +113,10 @@ const seo = createSEOMeta({
 
         <!-- Google tag (gtag.js) -->
         <script
-            type="text/partytown"
+            async
             src="https://www.googletagmanager.com/gtag/js?id=AW-17948194634"
         ></script>
-        <script type="text/partytown">
+        <script is:inline>
             window.dataLayer = window.dataLayer || [];
             function gtag() {
                 dataLayer.push(arguments);
@@ -122,11 +125,9 @@ const seo = createSEOMeta({
 
             gtag("config", "AW-17948194634");
         </script>
-        <meta charset="UTF-8" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
         <link rel="icon" type="image/svg+xml" href="/assets/logo3d.svg" />
         <meta name="generator" content={Astro.generator} />
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
