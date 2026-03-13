@@ -2,7 +2,7 @@
 title: "Sinais claros de que seu site está espantando clientes em 2026"
 description: "Invisibilidade, desconfiança e silêncio no WhatsApp: aprenda a identificar os sintomas de um site doente que está prejudicando seu faturamento."
 pubDate: 2026-03-13T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1559526324-4b87b5d49e5e?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/sinais-de-que-seu-site-esta-espantando-clientes-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["experiência do usuário", "análise de site", "marketing digital"]
 draft: false
