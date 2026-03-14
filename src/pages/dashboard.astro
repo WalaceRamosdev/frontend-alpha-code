@@ -363,12 +363,24 @@ export const prerender = false;
                                                 session.user?.plan ===
                                                     "FREE") && (
                                                 <a
-                                                    href="/pedido"
+                                                    href="/planos"
                                                     class="upgrade-link"
                                                 >
                                                     Adquirir Plano{" "}
                                                     <i
                                                         class="fas fa-arrow-right"
+                                                        style="font-size: 0.7rem;"
+                                                    />
+                                                </a>
+                                            )}
+                                            {(session.user?.plan === "BRONZE" || session.user?.plan === "PRATA") && (
+                                                <a
+                                                    href="/upgrade"
+                                                    class="upgrade-link highlight"
+                                                >
+                                                    Upgrade de Plano{" "}
+                                                    <i
+                                                        class="fas fa-crown"
                                                         style="font-size: 0.7rem;"
                                                     />
                                                 </a>
@@ -508,7 +520,7 @@ export const prerender = false;
                                             </li>
                                         </ul>
                                         <a
-                                            href="/pedido"
+                                            href="/planos"
                                             class="btn-upgrade-main"
                                         >
                                             Escolher meu Plano{" "}

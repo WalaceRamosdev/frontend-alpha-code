@@ -122,6 +122,13 @@ export default function OrderForm({ user }) {
             } else {
                 setFinalPrice(basePrice);
             }
+        } else {
+            // Se cair no /pedido sem plano, redireciona para escolher um
+            console.warn("⚠️ Nenhum plano detectado na URL. Redirecionando para /planos...");
+            const timer = setTimeout(() => {
+                if (typeof window !== 'undefined') window.location.href = '/planos';
+            }, 3000);
+            return () => clearTimeout(timer);
         }
     }, [isPortugal]);
 

@@ -13,12 +13,12 @@ if (!session) {
     return Astro.redirect("/login");
 }
 
-const currentPlan = session.user?.plan || "BRONZE";
-const isFreePlan = currentPlan === "BRONZE";
-const canUpgrade = isFreePlan; // Only allow upgrade if in Bronze (assuming higher plans are end-goals or handled differently)
-// Actually, Prata can upgrade to Ouro.
-// Let's refine the logic.
-const canAlwaysUpgrade = currentPlan !== "OURO";
+const currentPlan = session.user?.plan?.toUpperCase() || "FREE";
+const isFreeUser = currentPlan === "FREE";
+const isBronze = currentPlan === "BRONZE";
+const isPrata = currentPlan === "PRATA";
+const isOuro = currentPlan === "OURO";
+
 export const prerender = false;
 ---
 
@@ -34,7 +34,7 @@ export const prerender = false;
                     Escolha o plano ideal para a escala do seu negócio digital.
                 </p>
                 {
-                    isFreePlan ? (
+                    isFreeUser ? (
                         <div class="free-plan-notice">
                             <span class="icon">⚠️</span>
                             <div class="notice-content">
@@ -51,14 +51,21 @@ export const prerender = false;
                                 </a>
                             </div>
                         </div>
+                    ) : isOuro ? (
+                        <div class="discount-notice gold-notice">
+                            <span class="icon">👑</span>
+                            <p>
+                                <strong>Plano Ouro Ativo:</strong> Você já possui nossa estrutura de elite. 
+                                Aproveite todos os benefícios premium!
+                            </p>
+                        </div>
                     ) : (
                         <div class="discount-notice">
-                            <span class="icon">🎁</span>
+                            <span class="icon">💎</span>
                             <p>
-                                Upgrade Exclusivo: Pague apenas a diferença
-                                entre os planos com{" "}
-                                <strong>15% de desconto extra</strong> na taxa
-                                de transição.
+                                <strong>Upgrade Premium:</strong> Evolua sua estrutura com 
+                                crédito integral do seu plano atual + 
+                                <strong>1 ano de SEO Grátis</strong> (ganhe autoridade no Google).
                             </p>
                         </div>
                     )
@@ -80,39 +87,36 @@ export const prerender = false;
                         <span class="plan-subtitle">Página Completa</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">197</span>
-                            <span class="period">/mês</span>
+                            <span class="amount">449</span>
                         </div>
                     </div>
                     <ul class="features-list">
                         <li>
-                            <span class="check">✓</span> Layout Profissional
+                            <span class="check">✓</span> Layout Estratégico
                         </li>
                         <li>
-                            <span class="check">✓</span> SEO Básico
+                            <span class="check">✓</span> Otimização SEO
                         </li>
                         <li>
-                            <span class="check">✓</span> Seções de Conversão
+                            <span class="check">✓</span> Funis de Captação
                         </li>
                         <li>
-                            <span class="check">✓</span> CTA Posicionado
+                            <span class="check">✓</span> Bônus: Linktree Pro
                         </li>
                     </ul>
                     <button
                         class="btn-upgrade prata-btn"
                         data-plan="PRATA"
-                        disabled={isFreePlan ||
-                            currentPlan === "PRATA" ||
-                            currentPlan === "OURO"}
+                        disabled={isFreeUser || isPrata || isOuro}
                     >
                         {
-                            isFreePlan
+                            isFreeUser
                                 ? "Adquira um Plano"
-                                : currentPlan === "PRATA"
-                                  ? "Já Ativo"
-                                  : currentPlan === "OURO"
+                                : isPrata
+                                  ? "Plano Atual"
+                                  : isOuro
                                     ? "Incluído no OURO"
-                                    : "Fazer Upgrade PRATA"
+                                    : "Fazer Upgrade para PRATA"
                         }
                     </button>
                 </div>
@@ -132,38 +136,37 @@ export const prerender = false;
                         <span class="plan-subtitle">Página Premium</span>
                         <div class="price">
                             <span class="currency">R$</span>
-                            <span class="amount">497</span>
-                            <span class="period">/mês</span>
+                            <span class="amount">710</span>
                         </div>
                     </div>
                     <ul class="features-list">
                         <li>
-                            <span class="check">✓</span> Design Exclusivo
+                            <span class="check">✓</span> Design Único & Exclusivo
                         </li>
                         <li>
-                            <span class="check">✓</span> SEO Avançado
+                            <span class="check">✓</span> SEO Avançado Alpha
                         </li>
                         <li>
-                            <span class="check">✓</span> Foco em Vendas
+                            <span class="check">✓</span> Ecossistema focado em Vendas
                         </li>
                         <li>
-                            <span class="check">✓</span> Integração Completa
+                            <span class="check">✓</span> Suporte Prioritário VIP
                         </li>
                         <li>
-                            <span class="check">✓</span> Todos os Benefícios do Prata
+                            <span class="check">✓</span> Manual do Projeto White Label
                         </li>
                     </ul>
                     <button
                         class="btn-upgrade ouro-btn"
                         data-plan="OURO"
-                        disabled={isFreePlan || currentPlan === "OURO"}
+                        disabled={isFreeUser || isOuro}
                     >
                         {
-                            isFreePlan
+                            isFreeUser
                                 ? "Adquira um Plano"
-                                : currentPlan === "OURO"
-                                  ? "Já Ativo"
-                                  : "Tornar-se OURO AGORA!"
+                                : isOuro
+                                  ? "Plano Atual"
+                                  : "Fazer Upgrade para OURO"
                         }
                     </button>
                 </div>
@@ -197,9 +200,13 @@ export const prerender = false;
                         <span>Crédito Plano Atual</span>
                         <span id="modal-credit-price"></span>
                     </div>
-                    <div class="breakdown-item discount">
-                        <span>Desconto Alpha (15%)</span>
-                        <span id="modal-discount"></span>
+                    <div class="breakdown-item fee">
+                        <span>Taxa de Implementação (Setup)</span>
+                        <span id="modal-fee-price"></span>
+                    </div>
+                    <div class="breakdown-item bonus" style="color: #34d399; font-size: 0.8rem; margin-top: -5px; margin-bottom: 10px;">
+                        <span>🎁 Bônus: 1 Ano de SEO Turbinado</span>
+                        <span>GRÁTIS</span>
                     </div>
                     <div class="breakdown-total">
                         <span>Total a Pagar Hoje</span>
@@ -240,8 +247,15 @@ export const prerender = false;
         </div>
     </div>
 
-    <!-- Elemento oculto com o plano atual do usuário -->
-    <div id="user-current-plan" data-plan={currentPlan} style="display: none;">
+    <!-- Elemento oculto com o plano atual do usuário e dados de sessão -->
+    <div 
+        id="user-current-plan" 
+        data-plan={currentPlan} 
+        data-user-name={session.user?.name || "Cliente Alpha"}
+        data-user-email={session.user?.email}
+        data-user-phone={session.user?.phone || "Não informado"}
+        style="display: none;"
+    >
     </div>
 
     <script>
@@ -258,17 +272,13 @@ export const prerender = false;
         ) as HTMLButtonElement;
 
         let selectedPlan = "";
-        // Preços dos planos de upgrade (destino do upgrade)
-        const UPGRADE_PLAN_PRICES: any = {
-            PRATA: 599,
-            OURO: 947,
-        };
-
-        // Preços dos planos já adquiridos (crédito do usuário)
-        // BRONZE = plano inicial, PRATA e OURO = upgrades
+        let total = 0;
+        // Preços oficiais dos planos (conforme Plans.astro e OrderForm.jsx)
         const SITE_PLAN_PRICES: any = {
-            BRONZE: 0,
-            PRATA: 197, // Crédito para quem já é PRATA fazer upgrade para OURO
+            FREE: 0,
+            BRONZE: 295,
+            PRATA: 449,
+            OURO: 710,
         };
 
         // Obtém o plano atual do elemento oculto (passado do servidor)
@@ -281,35 +291,35 @@ export const prerender = false;
                 selectedPlan = btn.getAttribute("data-plan") || "";
                 if (!selectedPlan) return;
 
-                // Novo plano de upgrade (mensal)
-                const newPrice = UPGRADE_PLAN_PRICES[selectedPlan];
-                // Crédito do plano de site que o usuário já pagou
+                // Novo plano de upgrade
+                const newPrice = SITE_PLAN_PRICES[selectedPlan];
+                // Crédito do plano que o usuário já possui
                 const oldPrice = SITE_PLAN_PRICES[currentPlan] || 0;
-                // Diferença a pagar
-                const difference = newPrice - oldPrice;
-                // Desconto de 15% na diferença
-                const discount = difference * 0.15;
-                // Total final com desconto
-                const total = difference - discount;
+                // Taxa de implementação fixa
+                const setupFee = 97;
+                // Diferença a pagar + Taxa
+                total = Math.max(0, newPrice - oldPrice) + setupFee;
 
                 // Update Modal Content
-                const modalPlanName =
-                    document.getElementById("modal-plan-name");
-                const modalFullPrice =
-                    document.getElementById("modal-full-price");
-                const modalCreditPrice =
-                    document.getElementById("modal-credit-price");
+                const modalPlanName = document.getElementById("modal-plan-name");
+                const modalFullPrice = document.getElementById("modal-full-price");
+                const modalCreditPrice = document.getElementById("modal-credit-price");
                 const modalDiscount = document.getElementById("modal-discount");
                 const modalTotal = document.getElementById("modal-total");
 
                 if (modalPlanName) modalPlanName.innerText = selectedPlan;
-                if (modalFullPrice)
-                    modalFullPrice.innerText = `R$ ${newPrice},00`;
-                if (modalCreditPrice)
+                if (modalFullPrice) modalFullPrice.innerText = `R$ ${newPrice},00`;
+                if (modalCreditPrice) {
+                    const row = modalCreditPrice.closest('.breakdown-item');
+                    if (row) (row as HTMLElement).style.display = 'flex';
                     modalCreditPrice.innerText = `- R$ ${oldPrice},00`;
-                if (modalDiscount)
-                    modalDiscount.innerText = `- R$ ${discount.toFixed(2)}`;
-                if (modalTotal) modalTotal.innerText = `R$ ${total.toFixed(2)}`;
+                }
+                
+                // Exibir taxa de implementação
+                const modalFee = document.getElementById("modal-fee-price");
+                if (modalFee) modalFee.innerText = `+ R$ ${setupFee},00`;
+                
+                if (modalTotal) modalTotal.innerText = `R$ ${total.toFixed(2).replace('.', ',')}`;
 
                 modal?.classList.add("active");
             });
@@ -360,32 +370,76 @@ export const prerender = false;
         }
 
         confirmBtn?.addEventListener("click", async () => {
+            const originalText = confirmBtn.innerText;
             confirmBtn.disabled = true;
-            confirmBtn.innerText = "Processando Pagamento...";
+            confirmBtn.innerText = "Preparando Checkout...";
+
+            // Captura dados do usuário do DOM
+            const userData = document.getElementById("user-current-plan");
+            const nome = userData?.getAttribute("data-user-name");
+            const email = userData?.getAttribute("data-user-email");
+            const whatsapp = userData?.getAttribute("data-user-phone");
 
             try {
-                const response = await fetch("/api/user/update", {
+                // DETECTA SE ESTÁ EM LOCALHOST OU PRODUÇÃO para o Backend
+                const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
+                const backendBase = isLocal ? 'http://localhost:3000' : 'https://backend-rp7j.onrender.com';
+
+                // 1. Enviar Email de "Intenção de Upgrade" (Lead)
+                await fetch(`${backendBase}/send-email`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ plan: selectedPlan }),
+                    body: JSON.stringify({
+                        nome,
+                        email,
+                        whatsapp,
+                        plano: `${selectedPlan} (UPGRADE)`,
+                        detalhes: `Upgrade de ${currentPlan} para ${selectedPlan}. Valor total calculado com setups e bônus.`,
+                        isPaid: false
+                    }),
                 });
 
-                if (response.ok) {
-                    modal?.classList.remove("active");
-                    startCelebration(selectedPlan);
+                // 2. Criar Sessão de Checkout
+                const response = await fetch(`${backendBase}/create-checkout-session`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({
+                        planName: `Upgrade: ${selectedPlan}`,
+                        price: total.toFixed(2),
+                        customerData: {
+                            nome,
+                            email,
+                            whatsapp,
+                            detalhes: `Upgrade de ${currentPlan} para ${selectedPlan}`
+                        }
+                    }),
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.url) {
+                    confirmBtn.innerText = "Check-out Aberto!";
+                    const newWindow = window.open(data.url, '_blank');
+                    
+                    // Fallback se o popup for bloqueado
+                    if (!newWindow || newWindow.closed || typeof newWindow.closed === 'undefined') {
+                        window.location.href = data.url;
+                    } else {
+                        // Se abrir em nova aba, fecha o modal para o usuário não clicar duas vezes
+                        setTimeout(() => {
+                            modal?.classList.remove("active");
+                            confirmBtn.disabled = false;
+                            confirmBtn.innerText = originalText;
+                        }, 1000);
+                    }
                 } else {
-                    const data = await response.json();
-                    (window as any).showToast(
-                        data.message || "Erro no processamento",
-                        "error",
-                    );
-                    confirmBtn.disabled = false;
-                    confirmBtn.innerText = "Confirmar e Pagar";
+                    throw new Error(data.error || "Erro ao gerar pagamento");
                 }
-            } catch (error) {
-                (window as any).showToast("Erro de conexão", "error");
+            } catch (error: any) {
+                console.error("Erro no checkout:", error);
+                (window as any).showToast(error.message || "Erro de conexão", "error");
                 confirmBtn.disabled = false;
-                confirmBtn.innerText = "Confirmar e Pagar";
+                confirmBtn.innerText = originalText;
             }
         });
     </script>
@@ -688,6 +742,17 @@ export const prerender = false;
     }
     .discount-notice strong {
         color: white;
+    }
+
+    .discount-notice.gold-notice {
+        background: rgba(212, 175, 55, 0.1);
+        border-color: rgba(212, 175, 55, 0.3);
+    }
+    .discount-notice.gold-notice p {
+        color: #d4af37;
+    }
+    .discount-notice.gold-notice strong {
+        color: #fff;
     }
 
     /* Free Plan Notice Styles */
