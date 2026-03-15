@@ -958,7 +958,7 @@ export const prerender = false;
 </BaseLayout>
 
 <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         const form = document.querySelector(
             "#diagnostico-form",
         ) as HTMLFormElement | null;

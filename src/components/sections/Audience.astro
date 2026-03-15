@@ -87,7 +87,7 @@ import Card from "../ui/Card.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         let mm = gsap.matchMedia();
         const section = document.getElementById("audience");
         if (!section) return;

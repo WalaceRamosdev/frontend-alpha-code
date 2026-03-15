@@ -100,11 +100,7 @@
             }
         };
 
-        if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", initWA);
-        } else {
-            initWA();
-        }
+        document.addEventListener("astro:page-load", initWA);
     })();
 </script>
 

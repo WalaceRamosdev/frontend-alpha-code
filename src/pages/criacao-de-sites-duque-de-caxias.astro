@@ -146,7 +146,7 @@ const targetAudiences = [
 
         gsap.registerPlugin(ScrollTrigger);
 
-        document.addEventListener("DOMContentLoaded", () => {
+        document.addEventListener("astro:page-load", () => {
             const tl = gsap.timeline();
             tl.from(".hero-badge", {
                 y: -10,

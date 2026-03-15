@@ -273,7 +273,7 @@ const {
 <script>
     import { gsap } from "gsap";
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         let mm = gsap.matchMedia();
 
         const tl = gsap.timeline({

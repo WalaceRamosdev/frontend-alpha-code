@@ -304,7 +304,7 @@ import Button from "../ui/Button.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("astro:page-load", () => {
         gsap.fromTo(
             ".fade-up-inv",
             { opacity: 0, y: 50 },
