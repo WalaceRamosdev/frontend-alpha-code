@@ -1,28 +1,18 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/sections/Hero.astro";
-import TrustBar from "../components/sections/TrustBar.astro";
+import Proof from "../components/sections/Proof.astro";
+import Portfolio from "../components/sections/Portfolio.astro";
 import Features from "../components/sections/Features.astro";
-import Audience from "../components/sections/Audience.astro";
-import Projects from "../components/sections/Projects.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
-import Services from "../components/sections/Services.astro";
-import Plans from "../components/sections/Plans.astro";
 import Process from "../components/sections/Process.astro";
-import Investment from "../components/sections/Investment.astro";
-import About from "../components/sections/About.astro";
-import FAQ from "../components/sections/FAQ.astro";
+import Testimonials from "../components/sections/Testimonials.astro";
+import Pricing from "../components/sections/Pricing.astro";
+import Faq from "../components/sections/Faq.astro";
+import CTA from "../components/sections/CTA.astro";
 import SEOContent from "../components/sections/SEOContent.astro";
-import RecentPosts from "../components/sections/RecentPosts.astro";
-import Contact from "../components/sections/Contact.astro";
-import ServiceSegments from "../components/sections/ServiceSegments.astro";
-import SocialProofGrid from "../components/sections/SocialProofGrid.astro";
-import CTAButton from "../components/ui/CTAButton.astro";
-import { createSEOMeta } from "../utils/seo";
 
 const title = "Criação de Sites Profissionais de Elite | Alpha Code";
-const description =
-  "Transformamos seu negócio em uma autoridade digital. Criação de sites de alta performance (Astro.js) com foco em conversão e SEO. Orçamento em 24h.";
+const description = "Transformamos seu negócio em uma autoridade digital. Criação de sites de alta performance (Astro.js) com foco em conversão e SEO. Orçamento em 24h.";
 
 const keywords = [
   "criação de sites",
@@ -30,9 +20,6 @@ const keywords = [
   "landing page",
   "site para médicos",
   "site para advogados",
-  "site institucional empresas",
-  "site profissional clínicas",
-  "seo para sites",
   "alpha code",
 ];
 
@@ -40,51 +27,35 @@ export const prerender = false;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
-  <Hero
-    title=" VOCÊ ESTÁ <span class='text-primary'>PERDENDO DINHEIRO</span> TODOS OS DIAS !"
-    description="Todos os dias, pessoas procuram soluções para seus problemas. Sem um site forte, claro e confiável, você simplesmente não existe para elas.<br/><br/>Nós transformamos essa busca ativa em agendamentos automáticos, 24 horas por dia.<br/><br/><strong>+247% aumento médio em conversão | +156% mais tráfego qualificado | 98% de satisfação</strong>"
-    badge="Estratégia Digital de Alta Performance"
-    ctaText="QUERO MEU ORÇAMENTO EM 24H"
-  />
+  <!-- 1. ATENÇÃO: Hero de Alto Impacto -->
+  <Hero />
 
-  <SocialProofGrid />
+  <!-- 2. INTERESSE: Autoridade e Números Reais -->
+  <Proof />
 
-  <div class="desktop-only border-t border-white/5">
-    <TrustBar />
-  </div>
+  <!-- 3. DESEJO: Portfólio de Elite (3 Projetos Fortes) -->
+  <Portfolio />
 
+  <!-- 4. DIFERENCIAIS: Por que somos a escolha lógica -->
   <Features />
 
-  <!-- Why Section -->
-  <Audience />
-
-  <div class="desktop-only">
-    <ServiceSegments />
-  </div>
-
-  <div class="flex justify-center py-20 bg-alt">
-    <div class="text-center px-4">
-      <h2 class="text-3xl md:text-5xl font-black text-white mb-8 font-outfit">
-        Pronto para dominar o seu mercado?
-      </h2>
-      <CTAButton
-        text="GARANTIR MEU DIAGNÓSTICO GRATUITO"
-        href="https://wa.me/5521999064502?text=Quero%20um%20diagnostico%20gratuito%20do%20meu%20projeto"
-        variant="primary"
-        size="lg"
-      />
-    </div>
-  </div>
-
-  <Projects title="Nosso Portfólio de Elite" />
+  <!-- 5. CLAREZA: Processo Profissional em 5 Etapas -->
   <Process />
+
+  <!-- 6. PROVA SOCIAL: Depoimentos de Clientes Reais -->
   <Testimonials />
-  <SEOContent />
-  <Services />
-  <Plans />
-  <Investment />
-  <About />
-  <RecentPosts />
-  <FAQ />
-  <Contact />
+
+  <!-- 7. DECISÃO: Planos e Oferta Estratégica -->
+  <Pricing />
+
+  <!-- 8. OBJEÇÃO: FAQ para quebrar barreiras -->
+  <Faq />
+  
+  <!-- 9. AÇÃO: CTA Final Inescapável -->
+  <CTA />
+
+  <!-- SEO Técnico (Escondido por padrão para UX) -->
+  <div class="opacity-80">
+    <SEOContent />
+  </div>
 </BaseLayout>

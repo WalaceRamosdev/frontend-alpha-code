@@ -339,10 +339,13 @@ const testimonials = [
                             </p>
                         </div>
                         <div class="price-box">
-                            <span class="currency">R$</span>
-                            <span class="amount">260</span>
-                            <span class="payment-term">À vista (25% OFF)</span>
-                            <span class="original-price">De R$ 347</span>
+                            <span class="old-price">De R$ 397</span>
+                            <span class="save-badge">25% OFF</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">295</span>
+                            </div>
+                            <span class="payment-term">À visto no PIX</span>
                         </div>
                         <ul class="features-list">
                             <li>✅ <strong>Site One-Page</strong> Otimizado</li>
@@ -374,10 +377,13 @@ const testimonials = [
                             </p>
                         </div>
                         <div class="price-box">
-                            <span class="currency">R$</span>
-                            <span class="amount">449</span>
-                            <span class="payment-term">À vista (25% OFF)</span>
-                            <span class="original-price">De R$ 599</span>
+                            <span class="old-price">De R$ 697</span>
+                            <span class="save-badge">ECONOMIZE R$ 248</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">449</span>
+                            </div>
+                            <span class="payment-term">À vista no PIX</span>
                         </div>
                         <ul class="features-list">
                             <li>
@@ -400,6 +406,42 @@ const testimonials = [
                                 class="w-full glow-effect"
                             >
                                 QUERO SER AUTORIDADE
+                            </Button>
+                        </div>
+                    </div>
+
+                    <!-- Card 3 -->
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h3>Elite</h3>
+                            <p class="card-desc">
+                                Ecossistema completo para dominação total do nicho.
+                            </p>
+                        </div>
+                        <div class="price-box">
+                            <span class="old-price">De R$ 1.297</span>
+                            <span class="save-badge">ECONOMIZE R$ 587</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">710</span>
+                            </div>
+                            <span class="payment-term">À vista no PIX</span>
+                        </div>
+                        <ul class="features-list">
+                            <li>✅ Tudo do Plano Autoridade</li>
+                            <li>✅ Funil de Vendas Automatizado</li>
+                            <li>✅ SEO Técnico Nível 100</li>
+                            <li>✅ Integração CRM Avançada</li>
+                            <li>✅ Mentoria Estratégica Individual</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button
+                                href="https://wa.me/5521999064502?text=Olá! Quero saber mais sobre o Plano Elite para minha clínica."
+                                target="_blank"
+                                variant="outline"
+                                class="w-full"
+                            >
+                                Consultar detalhes
                             </Button>
                         </div>
                     </div>
@@ -859,7 +901,7 @@ const testimonials = [
     .pricing-card.featured h3,
     .pricing-card.featured .amount,
     .pricing-card.featured .currency,
-    .pricing-card.featured .original-price,
+    .pricing-card.featured .old-price,
     .pricing-card.featured .card-desc,
     .pricing-card.featured .features-list li,
     .pricing-card.featured .card-header,
@@ -907,12 +949,24 @@ const testimonials = [
         margin-right: 4px;
     }
 
-    .original-price {
+    .old-price {
         display: block;
         text-decoration: line-through;
-        color: #777;
+        color: rgba(255, 255, 255, 0.4);
         font-size: 1.1rem;
-        margin-top: 5px;
+        margin-bottom: 4px;
+    }
+
+    .save-badge {
+        display: inline-block;
+        background: #ef4444;
+        color: white;
+        padding: 4px 12px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        margin-bottom: 12px;
+        text-transform: uppercase;
     }
 
     .payment-term {

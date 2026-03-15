@@ -1,0 +1,21 @@
+---
+// src/components/sections/CTA.astro
+import Button from "../ui/Button.astro";
+---
+<section class="py-20 relative overflow-hidden bg-black">
+    <div class="container text-center relative z-10">
+        <h2 class="text-4xl md:text-6xl font-black text-white mb-8 font-outfit uppercase leading-tight">
+            Pare de deixar dinheiro <br class="hidden md:block"/> <span class="text-primary">na mesa da concorrência</span>
+        </h2>
+        <p class="text-gray-400 text-lg md:text-xl max-w-2xl mx-auto mb-12">
+            Cada dia sem um site profissional é uma oportunidade perdida. Escolha ser o líder do seu mercado hoje.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-6">
+            <Button href="#pricing" variant="primary" size="lg" class="shadow-2xl">QUERO COMEÇAR AGORA</Button>
+            <Button href="https://wa.me/5521999064502?text=Quero um diagnóstico gratuito" variant="outline" size="lg">FALAR COM ESPECIALISTA</Button>
+        </div>
+    </div>
+    
+    <!-- Visual background elements -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-primary/10 rounded-full blur-[120px] -z-1"></div>
+</section>

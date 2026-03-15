@@ -119,22 +119,28 @@ ul {
 }
 
 /* Premium Card Styles */
-/* Premium Card Styles */
 .card,
 .service-item,
 .price-card,
 .project-card,
 .testimonial-card,
 .audience-card {
-    background-color: var(--color-bg-card);
-    border: var(--glass-border);
-    border-radius: var(--radius-md);
-    transition: all var(--transition-speed) var(--transition-bounce);
+    background-color: rgba(15, 15, 15, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 24px;
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
     position: relative;
-    overflow: hidden;
-    backdrop-filter: var(--glass-blur);
-    -webkit-backdrop-filter: var(--glass-blur);
-    box-shadow: var(--shadow-soft);
+    /* Removed overflow: hidden to allow badges and floating elements */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: var(--shadow-premium);
+}
+
+/* Allow Price Card to show solid background if utility is used */
+.price-card.bg-primary {
+    background-color: #8a1c26 !important; /* Force primary red */
+    backdrop-filter: none !important;
+    border: none !important;
 }
 
 .card:hover,
@@ -142,9 +148,13 @@ ul {
 .price-card:hover,
 .project-card:hover,
 .testimonial-card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-medium), var(--shadow-glow);
-    border-color: var(--color-primary);
+    transform: translateY(-10px);
+    box-shadow: 0 40px 80px -15px rgba(0, 0, 0, 0.8), var(--shadow-glow);
+    border-color: rgba(214, 40, 57, 0.4);
+}
+
+.price-card:not(.bg-primary):hover {
+    background-color: rgba(20, 20, 20, 0.9);
 }
 
 /* Container */
@@ -240,6 +250,14 @@ ul {
 @media (max-width: 768px) {
     .desktop-only {
         display: none !important;
+    }
+
+    section {
+        padding: 60px 0 !important;
+    }
+
+    .container {
+        padding: 0 1.25rem;
     }
 }
 

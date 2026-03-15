@@ -1,235 +1,177 @@
 ---
+// src/components/sections/Testimonials.astro
 import Card from "../ui/Card.astro";
+
+const testimonials = [
+    {
+        name: "João Silva",
+        role: "CEO na Construtora Nova Era",
+        text: "Já tinha tentado fazer site com várias agências. Com a Alpha Code, em 30 dias meu telefone não parava de tocar. O investimento se pagou no primeiro mês.",
+        stars: 5
+    },
+    {
+        name: "Maria Santos",
+        role: "Diretora na Fit Store",
+        text: "Hoje apareço na primeira página do Google para termos competitivos. O tráfego orgânico que recebo me economiza milhares de reais em anúncios mensalmente.",
+        stars: 5
+    },
+    {
+        name: "Carlos Oliveira",
+        role: "Fundador da Mecânica Premium",
+        text: "O diferencial foi o acompanhamento estratégico. Eles não só entregaram o site, me ensinaram como usar ele para vender 3x mais. Mudou meu jogo.",
+        stars: 5
+    }
+];
 ---
 
-<section id="testimonials">
-    <div class="container">
-        <div class="section-header">
-            <h2 class="fade-up-testimonials">
-                O que Dizem Nossos <span class="text-primary">Parceiros</span>
-            </h2>
-            <p class="fade-up-testimonials delay-1 section-desc">
-                Resultados reais de quem confiou na Alpha Code.
-            </p>
-        </div>
-        <div class="testimonials-grid">
-            <Card variant="testimonial" class="testimonial-card-anim">
-                <div class="stars" aria-label="5 de 5 estrelas">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "Já tinha tentado fazer site com sobrinho, com agência
-                    grande... Só perdi dinheiro. Com a Alpha Code, em 30 dias
-                    meu telefone não parava de tocar. O investimento se pagou no
-                    primeiro mês."
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-info">
-                        <h3>João Silva</h3>
-                        <span class="author-role">Construtora Nova Era</span>
-                    </div>
-                </div>
-            </Card>
-            <Card variant="testimonial" class="testimonial-card-anim">
-                <div class="stars" aria-label="5 de 5 estrelas">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "Hoje apareço na primeira página do Google para 'Loja
-                    Fitness em SP'. O tráfego orgânico que recebo hoje me
-                    economiza uns 2 mil reais de anúncios por mês."
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-info">
-                        <h3>Maria Santos</h3>
-                        <span class="author-role">Fit Store</span>
-                    </div>
-                </div>
-            </Card>
-            <Card variant="testimonial" class="testimonial-card-anim">
-                <div class="stars" aria-label="5 de 5 estrelas">⭐⭐⭐⭐⭐</div>
-                <div class="testimonial-text">
-                    "O diferencial foi o acompanhamento. Eles não só entregaram
-                    o site, me ensinaram como usar ele pra vender. Mudou o jogo
-                    da minha oficina."
-                </div>
-                <div class="testimonial-author">
-                    <div class="author-info">
-                        <h3>Carlos Oliveira</h3>
-                        <span class="author-role">Mecânica Premium</span>
-                    </div>
-                </div>
-            </Card>
-        </div>
-    </div>
-</section>
-
-<script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    const section = document.getElementById("testimonials");
-
-    if (section) {
-        const header = section.querySelector(".section-header");
-        const grid = section.querySelector(".testimonials-grid");
-
-        gsap.fromTo(
-            section.querySelectorAll(".fade-up-testimonials"),
-            { opacity: 0, y: 30 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: header,
-                    start: "top 90%",
-                },
-            },
-        );
-
-        gsap.fromTo(
-            section.querySelectorAll(".testimonial-card-anim"),
-            { opacity: 0, y: 50 },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                stagger: 0.2,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: grid,
-                    start: "top 85%",
-                },
-            },
-        );
-    }
-</script>
-
 <style>
-    #testimonials {
-        padding: 100px 0;
-        background-color: var(--color-bg-surface);
-        position: relative;
-        overflow: hidden;
-    }
-    .testimonials-grid {
+    .testimonials-grid-elite {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-        gap: 40px;
-        justify-content: center;
-        margin-top: 60px;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 2.5rem;
+        align-items: stretch;
+    }
+    @media (min-width: 768px) {
+        .testimonials-grid-elite {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
     }
 
-    .section-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-    .section-desc {
-        max-width: 600px;
-        margin: 1rem auto;
-        color: var(--color-text-secondary);
-        font-size: 1.1rem;
-    }
-
-    /* PREMIUM CARD OVERRIDES */
-    /* We use specific selectors to override the default Card component if needed, 
-       or assume we add a class like .testimonial-card to the Card component in the HTML */
-    #testimonials :global(.testimonial-card-anim) {
-        background: radial-gradient(
-            circle at top left,
-            rgba(30, 30, 30, 0.8),
-            rgba(10, 10, 10, 0.95)
-        ) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.5) !important;
-        padding: 40px 30px !important;
-        border-radius: 20px !important;
-        transition:
-            transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275),
-            box-shadow 0.4s ease !important;
+    .testimonial-card-elite {
+        background: rgba(12, 12, 12, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        backdrop-filter: blur(20px) !important;
+        padding: 3rem 2.5rem !important;
+        border-radius: 32px !important;
         position: relative;
+        transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
-    #testimonials :global(.testimonial-card-anim:hover) {
-        transform: translateY(-10px) !important;
-        box-shadow: 0 20px 50px -10px rgba(var(--color-primary-rgb), 0.15) !important;
-        border-color: rgba(var(--color-primary-rgb), 0.3) !important;
+    .testimonial-card-elite:hover {
+        transform: translateY(-10px);
+        border-color: rgba(212, 175, 55, 0.3) !important;
+        background: rgba(18, 18, 18, 0.6) !important;
+        box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(212, 175, 55, 0.05);
     }
 
-    /* Decorative Quote Icon Effect */
-    #testimonials :global(.testimonial-card-anim)::before {
-        content: "“";
+    .quote-mark {
         position: absolute;
-        top: 20px;
-        right: 30px;
-        font-size: 8rem;
+        top: 2rem;
+        right: 2.5rem;
+        font-size: 6rem;
         line-height: 1;
         font-family: serif;
-        color: rgba(255, 255, 255, 0.03);
+        background: linear-gradient(135deg, rgba(212, 175, 55, 0.1), transparent);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
         pointer-events: none;
-        z-index: 0;
+        user-select: none;
     }
 
-    .stars {
-        color: #ffd700; /* Gold */
-        margin-bottom: 1.5rem;
-        font-size: 1.1rem;
-        letter-spacing: 2px;
-        display: inline-block;
-        filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.3));
+    .star-rating {
+        display: flex;
+        gap: 4px;
+        margin-bottom: 2rem;
     }
 
-    .testimonial-text {
-        font-family: "Inter", sans-serif; /* Ensure clean font */
-        font-weight: 300;
-        font-style: normal; /* Remove italic for cleaner look, or keep if preferred. Let's keep distinct. */
-        font-size: 1.05rem;
-        margin-bottom: 30px;
+    .star-gold {
+        color: #d4af37;
+        filter: drop-shadow(0 0 5px rgba(212, 175, 55, 0.3));
+    }
+
+    .testimonial-text-elite {
         color: rgba(255, 255, 255, 0.85);
+        font-size: 1.05rem;
+        line-height: 1.8;
+        font-style: italic;
+        margin-bottom: 2.5rem;
         position: relative;
         z-index: 1;
-        line-height: 1.7;
     }
 
-    .testimonial-author {
+    .author-badge {
         display: flex;
         align-items: center;
-        gap: 15px;
-        margin-top: auto;
-        padding-top: 20px;
+        gap: 1rem;
+        padding-top: 2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
-        position: relative;
-        z-index: 1;
     }
 
-    .author-info h4 {
-        margin-bottom: 4px;
-        font-weight: 700;
+    .author-avatar {
+        width: 48px;
+        height: 48px;
+        background: linear-gradient(135deg, #1a1a1a, #0a0a0a);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #d4af37;
+        font-weight: 900;
+        font-size: 1.2rem;
+    }
+
+    .author-info-elite h4 {
+        color: #fff;
         font-size: 1.1rem;
-        color: #ffffff; /* Pure white for contrast */
-        letter-spacing: 0.5px;
+        font-weight: 800;
+        margin-bottom: 2px;
     }
 
-    .author-role {
-        font-size: 0.85rem;
-        color: var(--color-text-secondary); /* Muted contrast */
-        font-weight: 500;
+    .author-info-elite p {
+        color: #d4af37;
+        font-size: 0.75rem;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 1px;
         opacity: 0.8;
     }
-
-    @media (max-width: 768px) {
-        .testimonials-grid {
-            gap: 20px;
-            margin-top: 40px;
-        }
-        #testimonials :global(.testimonial-card-anim) {
-            padding: 30px 20px !important;
-        }
-        .testimonial-text {
-            font-size: 0.95rem;
-        }
-    }
 </style>
+
+<section id="testimonials" class="bg-black py-24 relative overflow-hidden">
+    <!-- Ambient Light - Gold -->
+    <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-gold/5 rounded-full blur-[150px] pointer-events-none"></div>
+
+    <div class="container relative z-10">
+        <div class="text-center mb-24 text-balance">
+            <span class="text-primary text-[11px] font-black uppercase tracking-[5px] mb-4 block">Prova Social de Elite</span>
+            <h2 class="text-4xl md:text-6xl font-black text-white mt-4 font-outfit uppercase tracking-tighter">
+                Quem Confia, <span class="text-primary">Escala</span>
+            </h2>
+            <p class="text-gray-400 max-w-2xl mx-auto text-lg mt-6">
+                Resultados concretos de negócios que decidiram abandonar o amadorismo e dominar o mercado digital.
+            </p>
+        </div>
+
+        <div class="testimonials-grid-elite">
+            {testimonials.map((item) => (
+                <div class="testimonial-card-elite group">
+                    <span class="quote-mark">“</span>
+                    
+                    <div class="card-top">
+                        <div class="star-rating">
+                            {[...Array(item.stars)].map(() => (
+                                <svg class="star-gold" width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z" />
+                                </svg>
+                            ))}
+                        </div>
+                        <p class="testimonial-text-elite tracking-tight">"{item.text}"</p>
+                    </div>
+
+                    <div class="author-badge">
+                        <div class="author-avatar">{item.name.charAt(0)}</div>
+                        <div class="author-info-elite">
+                            <h4 class="font-outfit">{item.name}</h4>
+                            <p>{item.role}</p>
+                        </div>
+                    </div>
+                </div>
+            ))}
+        </div>
+    </div>
+</section>
