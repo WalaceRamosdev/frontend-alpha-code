@@ -110,6 +110,16 @@ const seo = createSEOMeta({
                 j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                 f.parentNode.insertBefore(j, f);
             })(window, document, "script", "dataLayer", "GTM-T98FLHVM");
+
+            // Re-trigger GTM on page transitions (ViewTransitions)
+            document.addEventListener('astro:page-load', () => {
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({
+                    'event': 'virt_page_view',
+                    'page_path': window.location.pathname,
+                    'page_title': document.title
+                });
+            });
         </script>
         <!-- End Google Tag Manager -->
 
@@ -125,7 +135,14 @@ const seo = createSEOMeta({
             }
             gtag("js", new Date());
 
+            // IDs de Rastreamento
             gtag("config", "AW-17948194634");
+            gtag("config", "G-Z1TRD8DK7P"); 
+
+            // Re-trigger Page View on transitions
+            document.addEventListener('astro:page-load', () => {
+                gtag('event', 'page_view');
+            });
         </script>
         
 
