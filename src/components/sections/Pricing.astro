@@ -7,10 +7,40 @@ import Button from "../ui/Button.astro";
 <style>
     .pricing-grid-container {
         display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 2.5rem;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
         align-items: stretch;
     }
+
+    @media (max-width: 767px) {
+        .pricing-grid-container {
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.5rem;
+        }
+
+        /* Reduz padding interno dos cards no mobile */
+        .pricing-grid-container :global(.price-card),
+        .pricing-grid-container > * {
+            padding: 1.25rem 0.75rem !important;
+        }
+
+        /* Remove o scale do card central no mobile */
+        .pricing-grid-container > *:nth-child(2) {
+            transform: none !important;
+            scale: 1 !important;
+        }
+
+        /* Fonte menor no mobile */
+        .pricing-grid-container h3 {
+            font-size: 0.8rem !important;
+        }
+        .pricing-grid-container p,
+        .pricing-grid-container li span,
+        .pricing-grid-container .urgency-text {
+            font-size: 0.6rem !important;
+        }
+    }
+
     @media (min-width: 768px) {
         .pricing-grid-container {
             grid-template-columns: repeat(3, 1fr);
