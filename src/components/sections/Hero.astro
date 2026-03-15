@@ -273,21 +273,55 @@ const {
 <script>
     import { gsap } from "gsap";
 
+    // Track autoplay timer so we can clear it on page transitions
+    let _heroAutoplayTimer: ReturnType<typeof setInterval> | null = null;
+
+    // Ensure hero text is ALWAYS visible (safety net if GSAP fails or is slow)
+    function ensureHeroVisible() {
+        const heroEls = document.querySelectorAll(
+            ".hero-text .badge, .hero-title-lcp, .hero-text p, .hero-cta, .trust-indicator, .projects-carousel"
+        );
+        heroEls.forEach((el) => {
+            (el as HTMLElement).style.opacity = "1";
+        });
+    }
+
+    document.addEventListener("astro:before-preparation", () => {
+        // Clean up on page transitions to prevent stale tweens
+        if (_heroAutoplayTimer) {
+            clearInterval(_heroAutoplayTimer);
+            _heroAutoplayTimer = null;
+        }
+        gsap.killTweensOf(
+            ".hero-text .badge, .hero-title-lcp, .hero-text p, .hero-cta, .trust-indicator, .projects-carousel"
+        );
+    });
+
     document.addEventListener("astro:page-load", () => {
-        let mm = gsap.matchMedia();
+        const isMobile = window.innerWidth <= 968;
+
+        // Kill any leftover tweens from previous page load
+        gsap.killTweensOf(
+            ".hero-text .badge, .hero-title-lcp, .hero-text p, .hero-cta, .trust-indicator, .projects-carousel"
+        );
+
+        // Verify hero elements exist on this page before running
+        const heroSection = document.getElementById("hero");
+        if (!heroSection) return;
+
+        // Safety timeout: if GSAP doesn't complete in 3s, force visibility
+        const safetyTimer = setTimeout(ensureHeroVisible, 3000);
 
         const tl = gsap.timeline({
             defaults: { ease: "power3.out", duration: 1 },
+            onComplete: () => clearTimeout(safetyTimer),
         });
 
-        // Universal Elements (Subtle on mobile)
-        const isMobile = window.innerWidth <= 968;
-
         tl.fromTo(
-            ".hero-text .badge",
-            { y: 20, opacity: 0 },
-            { y: 0, opacity: 1, duration: 0.8 },
-        )
+                ".hero-text .badge",
+                { y: 20, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.8 },
+            )
             .fromTo(
                 ".hero-title-lcp",
                 { y: isMobile ? 5 : 30, opacity: isMobile ? 0.9 : 0 },
@@ -313,30 +347,23 @@ const {
                 "-=0.8",
             );
 
-        // Desktop Only Features - Performance Optimized
-        mm.add("(min-width: 969px)", () => {
-            // Floating 3D removed for performance
-            // Parallax orbs removed for performance - significantly improves FPS
-        });
-
-        // Optimized Carousel Logic
+        // Carousel Logic
         const slides = document.querySelectorAll(".carousel-slide");
         let currentSlide = 0;
         const totalSlides = slides.length;
-        const autoplayInterval = 5000; // Increased interval slightly
 
         function goToSlide(index: number) {
             if (slides.length === 0 || index === currentSlide) return;
 
             const prevSlide = slides[currentSlide];
             const nextSlide = slides[index];
-            const isMobile = window.innerWidth <= 968;
+            const mobile = window.innerWidth <= 968;
 
             gsap.set(nextSlide, {
                 opacity: 0,
                 visibility: "visible",
                 zIndex: 5,
-                scale: isMobile ? 1 : 1.05,
+                scale: mobile ? 1 : 1.05,
             });
 
             const tlScroll = gsap.timeline({
@@ -348,50 +375,38 @@ const {
                 },
             });
 
-            // Fast, performance-friendly transition
-            tlScroll.to(prevSlide, {
-                opacity: 0,
-                duration: 0.4,
-                ease: "power1.inOut",
-            });
-
-            tlScroll.to(
-                nextSlide,
-                {
-                    opacity: 1,
-                    scale: 1,
-                    duration: 0.6,
-                    ease: "power2.out",
-                },
-                "-=0.2",
-            );
+            tlScroll.to(prevSlide, { opacity: 0, duration: 0.4, ease: "power1.inOut" });
+            tlScroll.to(nextSlide, { opacity: 1, scale: 1, duration: 0.6, ease: "power2.out" }, "-=0.2");
         }
 
-        function nextSlide() {
+        function advanceSlide() {
             goToSlide((currentSlide + 1) % totalSlides);
         }
 
-        let autoplayTimer = setInterval(nextSlide, autoplayInterval);
+        if (_heroAutoplayTimer) clearInterval(_heroAutoplayTimer);
+        _heroAutoplayTimer = setInterval(advanceSlide, 5000);
 
-        // Initial carousel reveal (Only if near top)
+        // Carousel initial reveal
         gsap.fromTo(
             ".projects-carousel",
-            {
-                opacity: 0,
-                y: isMobile ? 10 : 20,
-            },
-            {
-                opacity: 1,
-                y: 0,
-                duration: 0.8,
-                ease: "power2.out",
-                delay: 0.4,
-            },
+            { opacity: 0, y: isMobile ? 10 : 20 },
+            { opacity: 1, y: 0, duration: 0.8, ease: "power2.out", delay: 0.4 },
         );
     });
 </script>
 
 <style>
+    /* Safety: hero text is always visible by default.
+       GSAP will set opacity:0 ONLY when it's ready to animate.
+       This prevents permanently invisible text if JS is slow or fails. */
+    .hero-text .badge,
+    .hero-title-lcp,
+    .hero-text p,
+    .hero-cta,
+    .trust-indicator {
+        opacity: 1;
+    }
+
     /* Hero Styles */
     #hero {
         position: relative;
