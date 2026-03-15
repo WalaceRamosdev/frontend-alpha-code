@@ -1,5 +1,4 @@
 {
-    "buildCommand": "npm cache clean --force && prisma generate && astro build",
     "headers": [
         {
             "source": "/(assets|fonts|images)/(.+)",
