@@ -8,17 +8,17 @@
 >
     <!-- Card wrapper with relative positioning for absolute close button -->
     <div
-        class="relative bg-[#0a0a0a]/95 backdrop-blur-xl border border-white/5 p-5 rounded-2xl shadow-[0_15px_40px_rgba(214,40,57,0.15)] flex items-start gap-4 max-w-[340px]"
+        class="relative bg-[#0d0d0d]/90 backdrop-blur-md border border-white/10 p-3.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.5)] flex items-center gap-3.5 max-w-[290px]"
     >
         <!-- Close Button (absolute positioned) -->
         <button
             id="close-fomo"
-            class="absolute top-3 right-3 text-gray-500 hover:text-white transition-colors bg-white/5 hover:bg-white/10 p-1.5 rounded-full cursor-pointer z-10"
+            class="absolute -top-2 -right-2 text-gray-400 hover:text-white transition-colors bg-[#1a1a1a] border border-white/10 p-1 rounded-full cursor-pointer z-10 shadow-lg"
             aria-label="Fechar notificação"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-3.5 h-3.5"
+                class="w-3 h-3"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -26,17 +26,17 @@
                 <path
                     stroke-linecap="round"
                     stroke-linejoin="round"
-                    stroke-width="2"
+                    stroke-width="2.5"
                     d="M6 18L18 6M6 6l12 12"></path>
             </svg>
         </button>
 
         <div
-            class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0 border border-primary/20 shadow-[0_0_15px_rgba(214,40,57,0.2)] mt-0.5"
+            class="w-8 h-8 rounded-lg bg-primary/5 flex items-center justify-center shrink-0 border border-primary/10"
         >
             <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="w-5 h-5 text-primary"
+                class="w-4 h-4 text-primary/80"
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -48,24 +48,19 @@
                     d="M13 10V3L4 14h7v7l9-11h-7z"></path>
             </svg>
         </div>
-        <div class="flex-1 pr-2">
+        <div class="flex-1">
             <p
-                class="text-[10px] text-gray-400 font-extrabold uppercase tracking-[0.2em] mb-1.5"
-            >
-                Novo Orçamento
-            </p>
-            <p
-                class="text-sm text-gray-200 font-medium leading-relaxed drop-shadow-sm"
+                class="text-[12px] text-gray-200 font-medium leading-snug"
                 id="fomo-text"
             >
-                Um <strong>Psicólogo</strong> de São Paulo solicitou um diagnóstico.
+                Um <strong>Psicólogo</strong> de São Paulo solicitou um orçamento.
             </p>
             <p
-                class="text-xs text-primary font-semibold mt-2 flex items-center opacity-90"
+                class="text-[10px] text-primary/70 font-bold mt-1.5 flex items-center"
                 id="fomo-time"
             >
                 <span
-                    class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse inline-block mr-1.5"
+                    class="w-1 h-1 rounded-full bg-primary/60 inline-block mr-1.5"
                 ></span>
                 há 4 minutos
             </p>
@@ -113,8 +108,8 @@
             const loc = locations[Math.floor(Math.random() * locations.length)];
             const minutes = Math.floor(Math.random() * 55) + 2;
 
-            text.innerHTML = `Um <strong>${niche}</strong> de ${loc} solicitou um diagnóstico gratuito.`;
-            time.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse inline-block mr-1.5"></span>há ${minutes} minutos`;
+            text.innerHTML = `Um <strong>${niche}</strong> de ${loc} solicitou um orçamento.`;
+            time.innerHTML = `<span class="w-1 h-1 rounded-full bg-primary/60 inline-block mr-1.5"></span>há ${minutes} minutos`;
 
             bubble.classList.remove(
                 "translate-y-24",

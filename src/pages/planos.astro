@@ -967,7 +967,7 @@ export const prerender = false;
 
 <style is:global>
     .plans-hero {
-        padding: 180px 0 40px;
+        padding: 220px 0 100px;
     }
     .plans-hero h1 {
         font-size: 3rem;
@@ -1046,6 +1046,19 @@ export const prerender = false;
     @media (max-width: 768px) {
         .plans-page-container .pricing-grid {
             grid-template-columns: 1fr;
+            gap: 7rem; /* Aumento drástico para máxima clareza visual */
+            padding: 0 15px;
+        }
+        
+        /* Espaçamento extra para evitar que a escala e animação do card central "toquem" nos vizinhos */
+        .plans-page-container .price-card {
+            padding: 3.5rem 1.75rem !important;
+        }
+
+        .plans-page-container .featured {
+            transform: scale(1.05) !important;
+            margin: 5rem 0 !important;
+            z-index: 20;
         }
     }
 
@@ -1807,7 +1820,7 @@ export const prerender = false;
 
     /* BASE EXCELLENCE */
     .base-excellence {
-        padding: 100px 0;
+        padding: 130px 0;
         background: rgba(255, 255, 255, 0.01);
     }
 
@@ -1894,8 +1907,8 @@ export const prerender = false;
 
     /* FAQ SECTION */
     .faq-section {
-        margin-top: 100px;
-        padding-top: 60px;
+        margin-top: 140px;
+        padding-top: 80px;
         border-top: 1px solid rgba(255, 255, 255, 0.05);
     }
 
@@ -1998,7 +2011,7 @@ export const prerender = false;
 
     /* GOOGLE PROOF SECTION */
     .google-proof {
-        margin: 100px 0;
+        margin: 140px 0;
         text-align: center;
     }
 
@@ -2156,11 +2169,11 @@ export const prerender = false;
 
     /* 🧨 TENSION SECTION */
     .tension-section {
-        padding: 60px 0;
+        padding: 100px 0;
         background: rgba(138, 28, 38, 0.03);
         border-top: 1px solid rgba(138, 28, 38, 0.1);
         border-bottom: 1px solid rgba(138, 28, 38, 0.1);
-        margin-bottom: 20px;
+        margin-bottom: 40px;
     }
 
     .tension-section h2 {

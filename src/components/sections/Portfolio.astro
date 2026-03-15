@@ -55,7 +55,7 @@ const displayedProjects = projectsData.slice(0, 3);
     }
 
     .project-content {
-        padding: 1.75rem;
+        padding: 2.25rem 2rem;
         border-top: 1px solid rgba(255, 255, 255, 0.03);
     }
 
@@ -64,8 +64,8 @@ const displayedProjects = projectsData.slice(0, 3);
             display: flex !important;
             overflow-x: auto;
             scroll-snap-type: x mandatory;
-            gap: 16px;
-            padding: 0 20px 40px 20px;
+            gap: 40px;
+            padding: 0 20px 50px 20px;
             margin: 0 -20px;
             scrollbar-width: none;
         }
@@ -73,8 +73,11 @@ const displayedProjects = projectsData.slice(0, 3);
             display: none;
         }
         .portfolio-card {
-            flex: 0 0 85%;
+            flex: 0 0 92%;
             scroll-snap-align: center;
+        }
+        .project-content {
+            padding: 2.5rem 1.75rem;
         }
     }
 </style>

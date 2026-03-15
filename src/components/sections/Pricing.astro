@@ -14,30 +14,33 @@ import Button from "../ui/Button.astro";
 
     @media (max-width: 767px) {
         .pricing-grid-container {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 0.5rem;
+            grid-template-columns: 1fr;
+            gap: 4rem;
+            padding: 0 1rem;
         }
 
-        /* Reduz padding interno dos cards no mobile */
+        /* Melhora padding interno dos cards no mobile */
         .pricing-grid-container :global(.price-card),
         .pricing-grid-container > * {
-            padding: 1.25rem 0.75rem !important;
+            padding: 2.5rem 1.5rem !important;
+            max-width: 100%;
         }
 
-        /* Remove o scale do card central no mobile */
+        /* Mantém destaque no card central sem margin extra interferindo no gap */
         .pricing-grid-container > *:nth-child(2) {
-            transform: none !important;
-            scale: 1 !important;
+            transform: scale(1.05) !important;
+            margin: 1.5rem 0;
+            z-index: 10;
         }
 
-        /* Fonte menor no mobile */
+        /* Fonte adequada no mobile */
         .pricing-grid-container h3 {
-            font-size: 0.8rem !important;
+            font-size: 1.75rem !important;
         }
         .pricing-grid-container p,
         .pricing-grid-container li span,
         .pricing-grid-container .urgency-text {
-            font-size: 0.6rem !important;
+            font-size: 0.9rem !important;
         }
     }
 
