@@ -580,12 +580,18 @@ const schema = {
         </section>
     </div>
 
-    <!-- AOS LIBRARY -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" />
+    <!-- AOS LIBRARY via head slot -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" slot="head" />
+
+    <!-- AOS fallback: ensure elements are ALWAYS visible even if AOS fails -->
+    <style slot="head">
+        /* If AOS script hasn't run or is blocked, make all [data-aos] elements visible */
+        [data-aos] { opacity: 1 !important; transform: none !important; }
+    </style>
+
     <script is:inline src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 
     <script is:inline>
-        // Initialize AOS after all resources are loaded
         function initAOS() {
             if (typeof AOS !== "undefined") {
                 AOS.init({
@@ -598,28 +604,27 @@ const schema = {
             }
         }
 
+        // Init on first load
         if (document.readyState === "complete") {
             initAOS();
         } else {
             window.addEventListener("load", initAOS);
         }
 
+        // Re-init on Astro View Transitions
+        document.addEventListener("astro:page-load", initAOS);
+
         // Scroll Progress
         window.addEventListener("scroll", () => {
-            const winScroll =
-                document.body.scrollTop || document.documentElement.scrollTop;
-            const height =
-                document.documentElement.scrollHeight -
-                document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector(".scroll-progress").style.width =
-                scrolled + "%";
+            const el = document.querySelector(".scroll-progress");
+            if (!el) return;
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            el.style.width = ((winScroll / height) * 100) + "%";
         });
 
         // Form Handling
         const form = document.getElementById("partner-apply-form");
-        const btn = form?.querySelector(".btn-submit");
-        const loader = form?.querySelector(".loader-form");
 
         form?.addEventListener("submit", async (e) => {
             e.preventDefault();
@@ -652,8 +657,6 @@ const schema = {
 
                 if (result.success) {
                     btnText.innerText = "Candidatura Enviada!";
-
-                    // Redirect to WhatsApp after a short delay
                     setTimeout(() => {
                         const waMsg = `Olá! Acabei de enviar minha candidatura para Parceiro Alpha.%0A%0A*Dados:*%0ANome: ${formData.nome}%0AÁrea: ${formData.area}%0AInsta: ${formData.instagram}`;
                         window.location.href = `https://wa.me/5521999064502?text=${waMsg}`;
@@ -664,19 +667,13 @@ const schema = {
             } catch (error) {
                 console.error("Erro no formulário:", error);
                 if (window.showToast) {
-                    window.showToast(
-                        "Erro ao enviar. Tente novamente ou use o WhatsApp direto.",
-                        "error",
-                    );
+                    window.showToast("Erro ao enviar. Tente novamente ou use o WhatsApp direto.", "error");
                 } else {
-                    alert(
-                        "Erro ao enviar candidatura. Por favor, tente falar direto pelo WhatsApp.",
-                    );
+                    alert("Erro ao enviar candidatura. Por favor, tente falar direto pelo WhatsApp.");
                 }
                 const submitBtn = form.querySelector(".btn-submit");
                 const submitLoader = form.querySelector(".loader-form");
                 const submitBtnText = submitBtn.querySelector("span");
-
                 submitBtn.disabled = false;
                 submitBtnText.innerText = "Enviar para Análise";
                 submitLoader?.classList.add("hidden");
@@ -684,16 +681,10 @@ const schema = {
         });
 
         // Phone Mask
-        document
-            .querySelector(".phone-mask")
-            ?.addEventListener("input", (e) => {
-                let x = e.target.value
-                    .replace(/\D/g, "")
-                    .match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
-                e.target.value = !x[2]
-                    ? x[1]
-                    : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
-            });
+        document.querySelector(".phone-mask")?.addEventListener("input", (e) => {
+            let x = e.target.value.replace(/\D/g, "").match(/(\d{0,2})(\d{0,5})(\d{0,4})/);
+            e.target.value = !x[2] ? x[1] : "(" + x[1] + ") " + x[2] + (x[3] ? "-" + x[3] : "");
+        });
     </script>
 
     <style>
