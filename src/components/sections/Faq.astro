@@ -67,7 +67,7 @@ const jsonLd = {
             {
                 faqs.map((item, index) => (
                     <div
-                        class="faq-item fade-up"
+                        class="faq-item"
                         style={`animation-delay: ${index * 0.1}s`}
                     >
                         <div class="faq-trigger">
@@ -88,6 +88,11 @@ const jsonLd = {
 </section>
 
 <style>
+    @keyframes faqFadeIn {
+        from { opacity: 0; transform: translateY(20px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
     .faq-section {
         padding: 100px 0;
         background: #050505;
@@ -112,6 +117,8 @@ const jsonLd = {
         border-radius: 16px;
         overflow: hidden;
         transition: 0.3s;
+        opacity: 0;
+        animation: faqFadeIn 0.6s ease forwards;
     }
 
     .faq-item:hover {
