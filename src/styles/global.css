@@ -38,6 +38,7 @@ body {
     overflow: visible;
     /* Prevent body from creating its own scroll context */
     width: 100%;
+    overflow-x: hidden;
 }
 
 h1,
