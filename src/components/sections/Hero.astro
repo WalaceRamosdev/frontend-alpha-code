@@ -40,17 +40,18 @@ const {
                 <Fragment set:html={badge} />
             </div>
             <h1 class="hero-title-lcp">
-                O Site Que Sua Empresa <span class="text-primary">Realmente Merece</span>
+                O Site Que Sua Empresa <br><span class="text-primary">Realmente Merece</span>
             </h1>
             <p class="fade-up">
                 Não fazemos apenas sites bonitos. Criamos <strong>ativos digitais de alta performance</strong> que transformam visitantes em clientes 24 horas por dia.
             </p>
             <div class="hero-cta fade-up">
                 <Button
-                    href="#contact"
+                    href="https://wa.me/5521999064502?text=Olá! Vim pelo site e gostaria de ter mais informações sobre os sistemas."
                     size="lg"
                     variant="primary"
                     class="glow-effect"
+                    target="_blank"
                 >
                     <span class="btn-content">SOLICITAR ORÇAMENTO</span>
                 </Button>
@@ -440,15 +441,21 @@ const {
     }
 
     .orb-1 {
-        width: 60vw;
-        height: 60vw;
+        width: 80vw;
+        height: 80vw;
         background: radial-gradient(
             circle,
             rgba(138, 28, 38, 0.4) 0%,
             transparent 70%
         );
-        top: -20%;
-        right: -10%;
+        top: -30%;
+        right: -20%;
+        animation: floatOrb 20s infinite alternate ease-in-out;
+    }
+
+    @keyframes floatOrb {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-50px, 50px); }
     }
 
     .orb-2 {

@@ -15,7 +15,7 @@ import Button from "../ui/Button.astro";
     @media (max-width: 767px) {
         .pricing-grid-container {
             grid-template-columns: 1fr;
-            gap: 4rem;
+            gap: 2.5rem; /* Reduced gap */
             padding: 0 1rem;
         }
 
@@ -26,10 +26,10 @@ import Button from "../ui/Button.astro";
             max-width: 100%;
         }
 
-        /* Mantém destaque no card central sem margin extra interferindo no gap */
+        /* Mantém destaque no card central de forma discreta */
         .pricing-grid-container > *:nth-child(2) {
-            transform: scale(1.05) !important;
-            margin: 1.5rem 0;
+            transform: scale(1.02) !important;
+            margin: 0;
             z-index: 10;
         }
 
@@ -139,7 +139,7 @@ import Button from "../ui/Button.astro";
             </p>
         </div>
 
-        <div class="pricing-grid-container">
+        <div class="pricing-grid-container glow-bg">
             <!-- Essencial -->
             <Card variant="price" class="p-10 bg-[#080808] border border-white/5 rounded-[32px] flex flex-col items-center h-full group hover:border-primary/40 transition-all duration-500">
                 <div class="w-full text-center mb-8">
@@ -147,7 +147,7 @@ import Button from "../ui/Button.astro";
                     <p class="text-primary text-[11px] font-black uppercase tracking-[3px] opacity-80 decoration-primary underline underline-offset-4">Padrão Alpha Bronze</p>
                 </div>
                 
-                <div class="mb-10 flex flex-col items-center justify-center min-h-[140px]">
+                <div class="mb-10 flex flex-col items-center justify-center">
                     <div class="h-px w-20 bg-white/10 mb-6"></div>
                     <p class="text-white/60 text-xs uppercase tracking-[4px] font-bold text-center leading-relaxed">
                         Estrutura <br/> Essencial
@@ -190,7 +190,7 @@ import Button from "../ui/Button.astro";
                     <p class="text-white/80 text-[11px] font-black uppercase tracking-[3px]">Padrão Alpha Prata</p>
                 </div>
                 
-                <div class="mb-10 flex flex-col items-center justify-center min-h-[140px]">
+                <div class="mb-10 flex flex-col items-center justify-center">
                     <div class="h-px w-20 bg-white/20 mb-6"></div>
                     <p class="text-white text-xs uppercase tracking-[4px] font-black text-center leading-relaxed">
                         Autoridade <br/> Digital
@@ -236,7 +236,7 @@ import Button from "../ui/Button.astro";
                     <p class="premium-text text-[11px] uppercase tracking-[3px]">Padrão Alpha Ouro</p>
                 </div>
                 
-                <div class="mb-10 flex flex-col items-center justify-center min-h-[140px]">
+                <div class="mb-10 flex flex-col items-center justify-center">
                     <div class="h-px w-20 bg-gold/30 mb-6"></div>
                     <p class="premium-text text-xs uppercase tracking-[4px] font-black text-center leading-relaxed">
                         Dominância <br/> Total

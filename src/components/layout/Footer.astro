@@ -201,7 +201,7 @@ const currentYear = new Date().getFullYear();
             flex-direction: column !important;
             align-items: center !important;
             text-align: center !important;
-            gap: 40px !important;
+            gap: 5rem !important; /* Increased space between footer columns */
         }
 
         .footer-col {
@@ -234,12 +234,14 @@ const currentYear = new Date().getFullYear();
     }
 
     .footer-col ul li {
-        margin-bottom: 0.8rem;
+        margin-bottom: 1.15rem; /* More breathing room for links */
     }
 
     .footer-col ul li a {
         color: var(--color-text-secondary);
         transition: color 0.3s ease;
+        line-height: 1.6;
+        display: inline-block;
     }
 
     .footer-col ul li a:hover {
