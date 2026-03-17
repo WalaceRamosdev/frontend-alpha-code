@@ -17,7 +17,7 @@ Se você é médico e seu site ainda parece uma relíquia de 2015 (ou pior, se v
 
 ## Por que redes sociais não substituem um site profissional?
 
-É um erro comum acreditar que um perfil no Instagram é o suficiente. No Instagram, você interrompe o usuário; no Google (através do seu site), você **responde a uma necessidade ativa**.
+É um erro comum acreditar que um perfil no Instagram é o suficiente. No Instagram, você interrompe o usuário; no Google (através do seu site), você **responde a uma necessidade ativa**
 
 1. **Propriedade:** Seu site é seu terreno próprio. O Instagram é alugado.
 2. **Autoridade:** Um site bem estruturado comunica seriedade e profissionalismo de forma que um feed dinâmico raramente consegue.
