@@ -442,205 +442,214 @@ export default function OrderForm({ user }) {
                 {/* FORM */}
                 <main className="order-content">
                     <form className={`premium-card form-inner theme-${planKey}`}>
-                        {/* Progressive Stepper Header */}
-                        <div className="stepper-indicator">
-                            <div className={`step-dot ${currentStep >= 1 ? 'active' : ''}`}>1</div>
-                            <div className={`step-line ${currentStep >= 2 ? 'active' : ''}`}></div>
-                            <div className={`step-dot ${currentStep >= 2 ? 'active' : ''}`}>2</div>
-                            <div className={`step-line ${currentStep >= 3 ? 'active' : ''}`}></div>
-                            <div className={`step-dot ${currentStep >= 3 ? 'active' : ''}`}>3</div>
-                        </div>
+                        {/* Progressive Stepper Header - ONLY FOR NON-MAINTENANCE */}
+                        {!isMaintenance && (
+                            <div className="stepper-indicator">
+                                <div className={`step-dot ${currentStep >= 1 ? 'active' : ''}`}>1</div>
+                                <div className={`step-line ${currentStep >= 2 ? 'active' : ''}`}></div>
+                                <div className={`step-dot ${currentStep >= 2 ? 'active' : ''}`}>2</div>
+                                <div className={`step-line ${currentStep >= 3 ? 'active' : ''}`}></div>
+                                <div className={`step-dot ${currentStep >= 3 ? 'active' : ''}`}>3</div>
+                            </div>
+                        )}
 
-                        {/* Step 01: Contact info */}
-                        {currentStep === 1 && (
+                        {/* SINGLE STEP FOR MAINTENANCE */}
+                        {isMaintenance ? (
                             <section className="form-step fade-in">
                                 <div className="step-header">
-                                    <span className="step-num">01</span>
-                                    <h3>Suas Informações</h3>
+                                    <span className="step-num">⚡</span>
+                                    <h3>Solicitação Rápida</h3>
                                 </div>
                                 <div className="inputs-grid">
                                     <div className="field">
-                                        <label>Nome Completo</label>
-                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
-                                    </div>
-                                    <div className="field">
-                                        <label>WhatsApp</label>
-                                        <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
-                                    </div>
-                                    <div className="field">
-                                        <label>E-mail</label>
-                                        <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
-                                    </div>
-                                    <div className="field">
-                                        <label>Sua Profissão / Negócio</label>
-                                        <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required placeholder="Ex: Nutricionista, E-commerce..." />
+                                        <label>Seu Nome</label>
+                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como você se chama?" />
                                     </div>
                                 </div>
-                                <div className="step-actions">
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            if (formData.nome && formData.whatsapp && formData.email && formData.profissao) {
-                                                setCurrentStep(2);
-                                            } else {
-                                                setErrorMessage('Por favor, preencha todos os campos obrigatórios.');
-                                            }
-                                        }}
-                                        className="next-step-btn"
-                                    >
-                                        Continuar para o Projeto <i className="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </section>
-                        )}
 
-                        {/* Step 02: Context-specific fields */}
-                        {currentStep === 2 && (
-                            <section className="form-step fade-in">
-                                <div className="step-header">
-                                    <span className="step-num">02</span>
-                                    <h3>Definições do Projeto</h3>
-                                </div>
-
-                                {isStorePlan ? (
-                                    <>
-                                        {/* Store specific logic here if still applicable, abbreviated for stepper logic */}
-                                        {planKey === 'artigos' && (
-                                            <>
-                                                <div className="field"><label>URL do seu site / blog</label><input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" /></div>
-                                                <div className="field"><label>Nicho / Tema principal</label><input type="text" name="objetivo" value={formData.objetivo} onChange={handleChange} required placeholder="Ex: Saúde mental, Gastronomia..." /></div>
-                                            </>
-                                        )}
-                                        {planKey === 'speed' && (
-                                            <>
-                                                <div className="field"><label>URL do site a ser otimizado</label><input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" /></div>
-                                                <div className="field">
-                                                    <label>Qual plataforma utiliza?</label>
-                                                    <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
-                                                        <option value="">Selecione...</option>
-                                                        <option value="WordPress">WordPress</option>
-                                                        <option value="Alpha Code (Astro)">Alpha Code (Astro)</option>
-                                                        <option value="Outro">Outro</option>
-                                                    </select>
-                                                </div>
-                                            </>
-                                        )}
-                                        {/* Redesign and Ads omitted for brevity but should follow same pattern */}
-                                    </>
-                                ) : (
-                                    <>
-                                        <div className="field">
-                                            <label>Objetivo Principal</label>
-                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
-                                                <option value="">Selecione...</option>
-                                                <option value="Captar Clientes">Captar mais clientes</option>
-                                                <option value="Autoridade">Gerar Autoridade</option>
-                                                <option value="Vendas">Venda Direta</option>
-                                            </select>
-                                        </div>
-                                        <div className="field">
-                                            <label>Cores de Preferência</label>
-                                            <input type="text" name="cores" value={formData.cores} onChange={handleChange} placeholder="Ex: Azul e Branco, Dark Mode..." />
-                                        </div>
-
-                                        {/* BRONZE DOMAIN ADD-ON */}
-                                        {planKey === 'simples' && (
-                                            <div className="addon-option-card">
-                                                <div className="addon-info">
-                                                    <h4>Deseja que compremos seu domínio? 🌐</h4>
-                                                    <p>O plano Bronze não inclui o custo do domínio (.com.br ou .com). Podemos cuidar disso por você.</p>
-                                                </div>
-                                                <label className="switch-container">
-                                                    <input type="checkbox" checked={buyDomain} onChange={(e) => setBuyDomain(e.target.checked)} />
-                                                    <span className="switch-slider"></span>
-                                                    <span className="addon-price">+ R$ 59/ano</span>
-                                                </label>
-                                            </div>
-                                        )}
-
-                                        {/* MAINTENANCE SPECIFIC: INSPIRATION BOX */}
-                                        {isMaintenance && (
-                                            <div className="field inspiration-box">
-                                                <label className="inspiration-label">Inspirou-se em algum visual específico?</label>
-                                                <div className="inspiration-options">
-                                                    <button type="button" onClick={() => setHasInspiration(true)} className={`option-btn ${hasInspiration === true ? 'active' : ''}`}>💡 Sim, vi algo</button>
-                                                    <button type="button" onClick={() => { setHasInspiration(false); setInspirationLinks(['']); }} className={`option-btn ${hasInspiration === false ? 'active' : ''}`}>🧠 Não, ideia própria</button>
-                                                </div>
-                                                {hasInspiration && (
-                                                    <div className="inspiration-links-container">
-                                                        {inspirationLinks.map((link, index) => (
-                                                            <div key={index} className="link-input-row">
-                                                                <input type="text" value={link} onChange={(e) => {
-                                                                    const n = [...inspirationLinks]; n[index] = e.target.value; setInspirationLinks(n);
-                                                                }} placeholder="Cole o link aqui..." className="glass-input" />
-                                                                {inspirationLinks.length > 1 && <button type="button" onClick={() => setInspirationLinks(inspirationLinks.filter((_, i) => i !== index))} className="remove-link-btn">&times;</button>}
-                                                            </div>
-                                                        ))}
-                                                        <button type="button" onClick={() => setInspirationLinks([...inspirationLinks, ''])} className="add-link-btn">+ Adicionar link</button>
-                                                    </div>
-                                                )}
-                                            </div>
-                                        )}
-                                    </>
-                                )}
-
-                                <div className="step-actions">
-                                    <button type="button" onClick={() => { setErrorMessage(''); setCurrentStep(1); }} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
-                                    <button
-                                        type="button"
-                                        onClick={() => {
-                                            if (isStorePlan) {
-                                                if (formData.referencias && formData.objetivo) {
-                                                    setCurrentStep(3);
-                                                } else {
-                                                    setErrorMessage('Por favor, informe a URL e o objetivo do serviço.');
-                                                }
-                                            } else {
-                                                if (formData.objetivo) {
-                                                    setCurrentStep(3);
-                                                } else {
-                                                    setErrorMessage('Por favor, selecione o objetivo principal.');
-                                                }
-                                            }
-                                        }}
-                                        className="next-step-btn"
-                                    >
-                                        Finalizar Detalhes <i className="fas fa-arrow-right"></i>
-                                    </button>
-                                </div>
-                            </section>
-                        )}
-
-                        {/* Step 03: Details & Submission */}
-                        {currentStep === 3 && (
-                            <section className="form-step fade-in">
-                                <div className="step-header">
-                                    <span className="step-num">03</span>
-                                    <h3>Expectativas Finais</h3>
-                                </div>
-                                <div className="field">
-                                    <label>Referência ou Site Atual</label>
-                                    <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} placeholder="Ex: site-que-gosto.com.br" />
-                                </div>
-                                <div className="field">
-                                    <label>Conte mais sobre sua ideia</label>
-                                    <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="5" required placeholder="Descreva como você imagina o seu projeto dos sonhos..." className="textarea-expanded"></textarea>
-                                </div>
-
-                                <div className="guarantee-seal-mini">
-                                    <i className="fas fa-shield-check"></i>
-                                    <span>Você está protegido pela nossa garantia de satisfação total Alpha.</span>
+                                <div className="field" style={{ marginTop: '1.2rem' }}>
+                                    <label>O que deve ser feito?</label>
+                                    <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="6" required placeholder="Descreva os ajustes ou melhorias que você deseja implementar no seu site hoje..." className="textarea-expanded"></textarea>
                                 </div>
 
                                 {errorMessage && <p className="error-msg-form">{errorMessage}</p>}
 
                                 <div className="step-actions">
-                                    <button type="button" onClick={() => setCurrentStep(2)} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
                                     <button type="button" onClick={handleSubmit} className="submit-main-btn" disabled={loading}>
-                                        {loading ? 'Processando... 🚀' : 'Fechar meu Pedido 🚀'}
+                                        {loading ? 'Processando... 🚀' : 'Confirmar e Pagar 🚀'}
                                     </button>
                                 </div>
                             </section>
+                        ) : (
+                            <>
+                                {/* Step 01: Contact info */}
+                                {currentStep === 1 && (
+                                    <section className="form-step fade-in">
+                                        <div className="step-header">
+                                            <span className="step-num">01</span>
+                                            <h3>Suas Informações</h3>
+                                        </div>
+                                        <div className="inputs-grid">
+                                            <div className="field">
+                                                <label>Nome Completo</label>
+                                                <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
+                                            </div>
+                                            <div className="field">
+                                                <label>WhatsApp</label>
+                                                <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
+                                            </div>
+                                            <div className="field">
+                                                <label>E-mail</label>
+                                                <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
+                                            </div>
+                                            <div className="field">
+                                                <label>Sua Profissão / Negócio</label>
+                                                <input type="text" name="profissao" value={formData.profissao} onChange={handleChange} required placeholder="Ex: Nutricionista, E-commerce..." />
+                                            </div>
+                                        </div>
+                                        <div className="step-actions">
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if (formData.nome && formData.whatsapp && formData.email && formData.profissao) {
+                                                        setCurrentStep(2);
+                                                    } else {
+                                                        setErrorMessage('Por favor, preencha todos os campos obrigatórios.');
+                                                    }
+                                                }}
+                                                className="next-step-btn"
+                                            >
+                                                Continuar para o Projeto <i className="fas fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </section>
+                                )}
+
+                                {/* Step 02: Context-specific fields */}
+                                {currentStep === 2 && (
+                                    <section className="form-step fade-in">
+                                        <div className="step-header">
+                                            <span className="step-num">02</span>
+                                            <h3>Definições do Projeto</h3>
+                                        </div>
+
+                                        {isStorePlan ? (
+                                            <>
+                                                {/* Store specific logic here if still applicable, abbreviated for stepper logic */}
+                                                {planKey === 'artigos' && (
+                                                    <>
+                                                        <div className="field"><label>URL do seu site / blog</label><input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" /></div>
+                                                        <div className="field"><label>Nicho / Tema principal</label><input type="text" name="objetivo" value={formData.objetivo} onChange={handleChange} required placeholder="Ex: Saúde mental, Gastronomia..." /></div>
+                                                    </>
+                                                )}
+                                                {planKey === 'speed' && (
+                                                    <>
+                                                        <div className="field"><label>URL do site a ser otimizado</label><input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" /></div>
+                                                        <div className="field">
+                                                            <label>Qual plataforma utiliza?</label>
+                                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                                <option value="">Selecione...</option>
+                                                                <option value="WordPress">WordPress</option>
+                                                                <option value="Alpha Code (Astro)">Alpha Code (Astro)</option>
+                                                                <option value="Outro">Outro</option>
+                                                            </select>
+                                                        </div>
+                                                    </>
+                                                )}
+                                                {/* Redesign and Ads omitted for brevity but should follow same pattern */}
+                                            </>
+                                        ) : (
+                                            <>
+                                                <div className="field">
+                                                    <label>Objetivo Principal</label>
+                                                    <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                        <option value="">Selecione...</option>
+                                                        <option value="Captar Clientes">Captar mais clientes</option>
+                                                        <option value="Autoridade">Gerar Autoridade</option>
+                                                        <option value="Vendas">Venda Direta</option>
+                                                    </select>
+                                                </div>
+                                                <div className="field">
+                                                    <label>Cores de Preferência</label>
+                                                    <input type="text" name="cores" value={formData.cores} onChange={handleChange} placeholder="Ex: Azul e Branco, Dark Mode..." />
+                                                </div>
+
+                                                {/* BRONZE DOMAIN ADD-ON */}
+                                                {planKey === 'simples' && (
+                                                    <div className="addon-option-card">
+                                                        <div className="addon-info">
+                                                            <h4>Deseja que compremos seu domínio? 🌐</h4>
+                                                            <p>O plano Bronze não inclui o custo do domínio (.com.br ou .com). Podemos cuidar disso por você.</p>
+                                                        </div>
+                                                        <label className="switch-container">
+                                                            <input type="checkbox" checked={buyDomain} onChange={(e) => setBuyDomain(e.target.checked)} />
+                                                            <span className="switch-slider"></span>
+                                                            <span className="addon-price">+ R$ 59/ano</span>
+                                                        </label>
+                                                    </div>
+                                                )}
+                                            </>
+                                        )}
+
+                                        <div className="step-actions">
+                                            <button type="button" onClick={() => { setErrorMessage(''); setCurrentStep(1); }} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
+                                            <button
+                                                type="button"
+                                                onClick={() => {
+                                                    if (isStorePlan) {
+                                                        if (formData.referencias && formData.objetivo) {
+                                                            setCurrentStep(3);
+                                                        } else {
+                                                            setErrorMessage('Por favor, informe a URL e o objetivo do serviço.');
+                                                        }
+                                                    } else {
+                                                        if (formData.objetivo) {
+                                                            setCurrentStep(3);
+                                                        } else {
+                                                            setErrorMessage('Por favor, selecione o objetivo principal.');
+                                                        }
+                                                    }
+                                                }}
+                                                className="next-step-btn"
+                                            >
+                                                Finalizar Detalhes <i className="fas fa-arrow-right"></i>
+                                            </button>
+                                        </div>
+                                    </section>
+                                )}
+
+                                {/* Step 03: Details & Submission */}
+                                {currentStep === 3 && (
+                                    <section className="form-step fade-in">
+                                        <div className="step-header">
+                                            <span className="step-num">03</span>
+                                            <h3>Expectativas Finais</h3>
+                                        </div>
+                                        <div className="field">
+                                            <label>Referência ou Site Atual</label>
+                                            <input type="text" name="referencias" value={formData.referencias} onChange={handleChange} placeholder="Ex: site-que-gosto.com.br" />
+                                        </div>
+                                        <div className="field">
+                                            <label>Conte mais sobre sua ideia</label>
+                                            <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="5" required placeholder="Descreva como você imagina o seu projeto dos sonhos..." className="textarea-expanded"></textarea>
+                                        </div>
+
+                                        <div className="guarantee-seal-mini">
+                                            <i className="fas fa-shield-check"></i>
+                                            <span>Você está protegido pela nossa garantia de satisfação total Alpha.</span>
+                                        </div>
+
+                                        {errorMessage && <p className="error-msg-form">{errorMessage}</p>}
+
+                                        <div className="step-actions">
+                                            <button type="button" onClick={() => setCurrentStep(2)} className="prev-step-btn"><i className="fas fa-arrow-left"></i> Voltar</button>
+                                            <button type="button" onClick={handleSubmit} className="submit-main-btn" disabled={loading}>
+                                                {loading ? 'Processando... 🚀' : 'Fechar meu Pedido 🚀'}
+                                            </button>
+                                        </div>
+                                    </section>
+                                )}
+                            </>
                         )}
                     </form>
                 </main>
