@@ -5,6 +5,7 @@ import OrderForm from "../components/react/OrderForm.jsx";
 import { getSession } from "../lib/auth";
 
 const session = await getSession(Astro.request);
+const isLoggedIn = !!session;
 
 const isAdmin = session?.user?.role === "ADMIN";
 const title = "Finalizar Pedido | Alpha Code";
@@ -62,9 +63,9 @@ const { headline, subheadline } = headlineMap[planParam ?? ""] ?? {
     subheadline: "Preencha os dados abaixo para oficializar seu pedido.",
 };
 
-/* Back target: store plans go back to /loja, site plans go to /dashboard */
-const backHref = isStorePlan ? "/loja" : "/dashboard";
-const backLabel = isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard";
+/* Back target: store plans go back to /loja, site plans go to /dashboard. If not logged, go to /planos */
+const backHref = isLoggedIn ? (isStorePlan ? "/loja" : "/dashboard") : "/planos";
+const backLabel = isLoggedIn ? (isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard") : "Voltar aos Planos";
 ---
 
 <BaseLayout
@@ -74,8 +75,8 @@ const backLabel = isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard";
     showHeader={false}
     showFooter={false}
 >
-    <div class="dashboard-container">
-        <AdminSidebar activePage="store" isAdmin={isAdmin} />
+    <div class={`dashboard-container ${!isLoggedIn ? 'public-view' : ''}`}>
+        {isLoggedIn && <AdminSidebar activePage="store" isAdmin={isAdmin} />}
 
         <main class="main-content">
             <!-- Page header -->
@@ -112,6 +113,11 @@ const backLabel = isStorePlan ? "Voltar à Loja" : "Voltar ao Dashboard";
         min-height: 100vh;
         background: #050505;
         color: #fff;
+    }
+
+    .dashboard-container.public-view {
+        justify-content: center;
+        background: radial-gradient(circle at top right, #0a0a0a, #000);
     }
 
     .main-content {

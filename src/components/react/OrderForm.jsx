@@ -47,7 +47,17 @@ const plans = {
     'artigos': { name: 'Artigos para Blog', subtitle: '8 Artigos Mensais', price: 'R$ 247', numericPrice: 247, numericPriceEUR: 199, id: 'Artigos para Blog' },
     'speed': { name: 'Turbo Speed', subtitle: 'Otimização Técnica', price: 'R$ 199', numericPrice: 199, numericPriceEUR: 149, id: 'Turbo Speed' },
     'redesign': { name: 'Redesign Premium', subtitle: 'Nova Interface', price: 'Sob Consulta', numericPrice: 0, numericPriceEUR: 0, id: 'Redesign Premium' },
-    'ads': { name: 'Alpha Ads', subtitle: 'Gestão de Tráfego', price: 'Gestão Fixa', numericPrice: 0, numericPriceEUR: 0, id: 'Alpha Ads' }
+    'ads': { name: 'Alpha Ads', subtitle: 'Gestão de Tráfego', price: 'Gestão Fixa', numericPrice: 0, numericPriceEUR: 0, id: 'Alpha Ads' },
+    'dominio': { 
+        name: 'Domínio Alpha', 
+        subtitle: 'Registro & Configuração', 
+        price: 'R$ 59', 
+        numericPrice: 59, 
+        numericPriceEUR: 12, 
+        id: 'Domínio Alpha',
+        promoPrice: 59,
+        promoPriceEUR: 12
+    }
 };
 
 const COUPONS = {
@@ -85,7 +95,7 @@ export default function OrderForm({ user }) {
     const [seoPrice] = useState(150);
     const [loadingSubtext, setLoadingSubtext] = useState('');
 
-    const STORE_PLANS = ['artigos', 'speed', 'redesign', 'ads'];
+    const STORE_PLANS = ['artigos', 'speed', 'redesign', 'ads', 'dominio'];
     const isStorePlan = STORE_PLANS.includes(planKey);
 
     const isPortugal = typeof navigator !== 'undefined' && (
@@ -442,8 +452,8 @@ export default function OrderForm({ user }) {
                 {/* FORM */}
                 <main className="order-content">
                     <form className={`premium-card form-inner theme-${planKey}`}>
-                        {/* Progressive Stepper Header - ONLY FOR NON-MAINTENANCE */}
-                        {!isMaintenance && (
+                        {/* Progressive Stepper Header - ONLY FOR STANDARD SITE PLANS */}
+                        {(!isMaintenance && planKey !== 'dominio') && (
                             <div className="stepper-indicator">
                                 <div className={`step-dot ${currentStep >= 1 ? 'active' : ''}`}>1</div>
                                 <div className={`step-line ${currentStep >= 2 ? 'active' : ''}`}></div>
@@ -453,24 +463,60 @@ export default function OrderForm({ user }) {
                             </div>
                         )}
 
-                        {/* SINGLE STEP FOR MAINTENANCE */}
-                        {isMaintenance ? (
+                        {/* SINGLE STEP FOR MAINTENANCE OR DOMAIN */}
+                        {(isMaintenance || planKey === 'dominio') ? (
                             <section className="form-step fade-in">
                                 <div className="step-header">
-                                    <span className="step-num">⚡</span>
-                                    <h3>Solicitação Rápida</h3>
+                                    <span className="step-num">{planKey === 'dominio' ? '🌐' : '⚡'}</span>
+                                    <h3>{planKey === 'dominio' ? 'Reserva de Domínio Alpha' : 'Solicitação Rápida'}</h3>
                                 </div>
                                 <div className="inputs-grid">
                                     <div className="field">
                                         <label>Seu Nome</label>
-                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como você se chama?" />
+                                        <input type="text" name="nome" value={formData.nome} onChange={handleChange} required placeholder="Como devemos te chamar?" />
                                     </div>
+                                    <div className="field">
+                                        <label>WhatsApp</label>
+                                        <input type="tel" name="whatsapp" value={formData.whatsapp} onChange={handleChange} required placeholder="(XX) XXXXX-XXXX" />
+                                    </div>
+                                    <div className="field">
+                                        <label>E-mail</label>
+                                        <input type="email" name="email" value={formData.email} onChange={handleChange} required placeholder="seu@email.com" />
+                                    </div>
+                                    
+                                    {planKey === 'dominio' && (
+                                        <>
+                                            <div className="field">
+                                                <label>Domínio Desejado</label>
+                                                <input 
+                                                    type="text" 
+                                                    name="detalhes" 
+                                                    value={formData.detalhes} 
+                                                    onChange={handleChange} 
+                                                    required 
+                                                    placeholder="exemplo.com.br" 
+                                                />
+                                            </div>
+                                            <div className="field">
+                                                <label>Extensão Preferida</label>
+                                                <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                    <option value="">Selecione...</option>
+                                                    <option value=".com.br">.com.br (Recomendado)</option>
+                                                    <option value=".com">.com</option>
+                                                    <option value=".online">.online</option>
+                                                    <option value=".net">.net</option>
+                                                </select>
+                                            </div>
+                                        </>
+                                    )}
                                 </div>
 
-                                <div className="field" style={{ marginTop: '1.2rem' }}>
-                                    <label>O que deve ser feito?</label>
-                                    <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="6" required placeholder="Descreva os ajustes ou melhorias que você deseja implementar no seu site hoje..." className="textarea-expanded"></textarea>
-                                </div>
+                                {isMaintenance && (
+                                    <div className="field" style={{ marginTop: '1.2rem' }}>
+                                        <label>O que deve ser feito?</label>
+                                        <textarea name="detalhes" value={formData.detalhes} onChange={handleChange} rows="6" required placeholder="Descreva os ajustes ou melhorias que você deseja implementar no seu site hoje..." className="textarea-expanded"></textarea>
+                                    </div>
+                                )}
 
                                 {errorMessage && <p className="error-msg-form">{errorMessage}</p>}
 
@@ -536,6 +582,20 @@ export default function OrderForm({ user }) {
                                         {isStorePlan ? (
                                             <>
                                                 {/* Store specific logic here if still applicable, abbreviated for stepper logic */}
+                                                {planKey === 'dominio' && (
+                                                    <>
+                                                        <div className="field"><label>Domínio Desejado</label><input type="text" name="detalhes" value={formData.detalhes} onChange={handleChange} required placeholder="exemplo.com.br" /></div>
+                                                        <div className="field"><label>Extensão Preferida</label>
+                                                            <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
+                                                                <option value="">Selecione...</option>
+                                                                <option value=".com.br">.com.br (Recomendado)</option>
+                                                                <option value=".com">.com</option>
+                                                                <option value=".online">.online</option>
+                                                                <option value=".net">.net</option>
+                                                            </select>
+                                                        </div>
+                                                    </>
+                                                )}
                                                 {planKey === 'artigos' && (
                                                     <>
                                                         <div className="field"><label>URL do seu site / blog</label><input type="text" name="referencias" value={formData.referencias} onChange={handleChange} required placeholder="seusite.com.br" /></div>
@@ -574,12 +634,12 @@ export default function OrderForm({ user }) {
                                                     <input type="text" name="cores" value={formData.cores} onChange={handleChange} placeholder="Ex: Azul e Branco, Dark Mode..." />
                                                 </div>
 
-                                                {/* BRONZE DOMAIN ADD-ON */}
-                                                {planKey === 'simples' && (
+                                                {/* DOMAIN ADD-ON FOR SITE PLANS */}
+                                                {['simples', 'completa', 'premium'].includes(planKey) && (
                                                     <div className="addon-option-card">
                                                         <div className="addon-info">
                                                             <h4>Deseja que compremos seu domínio? 🌐</h4>
-                                                            <p>O plano Bronze não inclui o custo do domínio (.com.br ou .com). Podemos cuidar disso por você.</p>
+                                                            <p>Este plano não inclui o custo do domínio (.com.br ou .com). Podemos cuidar disso por você.</p>
                                                         </div>
                                                         <label className="switch-container">
                                                             <input type="checkbox" checked={buyDomain} onChange={(e) => setBuyDomain(e.target.checked)} />
@@ -1342,7 +1402,6 @@ export default function OrderForm({ user }) {
                     color: #ef4444;
                     padding: 12px;
                     border-radius: 10px;
-                    font-size: 0.85rem;
                     text-align: center;
                     margin-bottom: 20px;
                 }

@@ -128,12 +128,31 @@ export const prerender = false;
                                     de compra.
                                 </p>
                                 <div class="item-footer">
-                                    <span class="price">Gestão mensal fixa</span
-                                    >
+                                    <span class="price">Gestão mensal fixa</span>
                                     <a
                                         href="/pedido?plan=ads"
-                                        class="store-btn-main">Configurar</a
-                                    >
+                                        class="store-btn-main">Configurar</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Domain Item -->
+                        <div class="store-item">
+                            <div class="store-icon domain">
+                                <i class="fas fa-globe"></i>
+                            </div>
+                            <div class="store-info">
+                                <strong>Domínio Alpha</strong>
+                                <p>
+                                    Registro e configuração do seu domínio profissional
+                                    (.com.br ou .com). Tenha sua marca protegida na web
+                                    com gestão completa.
+                                </p>
+                                <div class="item-footer">
+                                    <span class="price">R$ 59 (Anual)</span>
+                                    <a
+                                        href="/pedido?plan=dominio"
+                                        class="store-btn-main">Contratar</a>
                                 </div>
                             </div>
                         </div>
@@ -145,6 +164,16 @@ export const prerender = false;
 </Layout>
 
 <style>
+    /* Add color for domain icon */
+    .store-icon.domain {
+        background: linear-gradient(
+            135deg,
+            rgba(6, 182, 212, 0.2) 0%,
+            rgba(6, 182, 212, 0) 100%
+        );
+        color: #06b6d4;
+        border: 1px solid rgba(6, 182, 212, 0.3);
+    }
     .dashboard-container {
         display: flex;
         min-height: 100vh;

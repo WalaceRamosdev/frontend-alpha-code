@@ -5,6 +5,7 @@ import { createSEOMeta } from "../utils/seo";
 import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import SocialProof from "../components/ui/SocialProof.astro";
 import PromoModal from "../components/ui/PromoModal.astro";
+import DomainPromoModal from "../components/ui/DomainPromoModal.astro";
 import PremiumWhatsapp from "../components/ui/PremiumWhatsapp.astro";
 import { ViewTransitions } from "astro:transitions";
 import FomoBubble from "../components/ui/FomoBubble.astro";
@@ -271,8 +272,9 @@ const seo = createSEOMeta({
         <!-- Social Proof Popup -->
         {showSocialProof && <SocialProof />}
 
-        <!-- Promotional Modal -->
+        <!-- Promotional Modals -->
         <PromoModal />
+        <DomainPromoModal />
 
         <!-- Toast Notification Container -->
         <div id="toast-container" class="toast-container"></div>
