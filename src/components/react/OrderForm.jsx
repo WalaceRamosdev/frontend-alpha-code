@@ -114,6 +114,8 @@ export default function OrderForm({ user }) {
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         const key = urlParams.get('plan');
+        const couponParam = urlParams.get('coupon');
+
         if (key && plans[key]) {
             const plan = plans[key];
             setPlanKey(key);
@@ -123,13 +125,19 @@ export default function OrderForm({ user }) {
             const sitePlans = ['simples', 'completa', 'premium'];
             const basePrice = isPortugal ? plan.numericPriceEUR : plan.numericPrice;
 
+            if (couponParam && COUPONS[couponParam.toUpperCase()]) {
+                setAppliedCoupon({ ...COUPONS[couponParam.toUpperCase()], code: couponParam.toUpperCase() });
+            }
+
             if (key === 'manutencao') {
                 setFinalPrice(basePrice);
                 setIsMaintenance(true);
             } else if (sitePlans.includes(key)) {
-                // Auto-apply ALPHA25 labels, but the price itself comes from the plan's promoPrice
-                setAppliedCoupon({ code: 'ALPHA25', type: 'promo', value: 0 });
-                setFinalPrice(isPortugal ? plan.promoPriceEUR : plan.promoPrice);
+                // Se não houver cupom na URL, aplica o ALPHA25 padrão
+                if (!couponParam || !COUPONS[couponParam.toUpperCase()]) {
+                    setAppliedCoupon({ code: 'ALPHA25', type: 'promo', value: 0 });
+                    setFinalPrice(isPortugal ? plan.promoPriceEUR : plan.promoPrice);
+                }
             } else {
                 setFinalPrice(basePrice);
             }

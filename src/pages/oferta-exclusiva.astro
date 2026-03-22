@@ -1,0 +1,356 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
+
+const title = "OFERTA EXCLUSIVA | Sua Estrutura Prata por 97 Reais";
+const description = "A maior oportunidade da história da Alpha Code. Sua presença digital profissional por um preço simbólico.";
+---
+
+<BaseLayout 
+    title={title} 
+    description={description}
+    showWhatsApp={true}
+    showHeader={false}
+>
+    <!-- ⚡ TOP BAR URGÊNCIA DINÂMICO -->
+    <div class="timer-bar bg-[#8a1c26] py-3 px-4 sticky top-0 z-[100] text-white flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8 shadow-2xl">
+        <span class="font-black text-[10px] md:text-sm tracking-[3px] uppercase flex items-center gap-2">
+            <span class="animate-pulse">⚡</span> OFERTA EXPIRA EM:
+        </span>
+        
+        <div id="countdown" class="flex items-center gap-4 font-outfit text-sm md:text-base font-black tracking-widest">
+            <div class="flex flex-col items-center">
+                <span id="days" class="text-xl md:text-2xl leading-none">00</span>
+                <span class="text-[8px] uppercase font-bold opacity-60">Dias</span>
+            </div>
+            <span class="opacity-30">:</span>
+            <div class="flex flex-col items-center">
+                <span id="hours" class="text-xl md:text-2xl leading-none">00</span>
+                <span class="text-[8px] uppercase font-bold opacity-60">Hrs</span>
+            </div>
+            <span class="opacity-30">:</span>
+            <div class="flex flex-col items-center">
+                <span id="minutes" class="text-xl md:text-2xl leading-none">00</span>
+                <span class="text-[8px] uppercase font-bold opacity-60">Min</span>
+            </div>
+            <span class="opacity-30">:</span>
+            <div class="flex flex-col items-center">
+                <span id="seconds" class="text-xl md:text-2xl leading-none text-white/90">00</span>
+                <span class="text-[8px] uppercase font-bold opacity-60">Seg</span>
+            </div>
+        </div>
+
+        <span class="hidden md:inline font-black text-[10px] md:text-sm tracking-[3px] uppercase opacity-60">
+            • ÚLTIMAS VAGAS DISPONÍVEIS •
+        </span>
+    </div>
+
+    <!-- 🧨 HERO EXPLOSIVO -->
+    <section class="offer-hero relative overflow-hidden py-24 md:py-32">
+        <div class="container relative z-10">
+            <div class="max-w-4xl mx-auto text-center">
+                <div class="badge-discount mb-8 inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full backdrop-blur-xl">
+                    <span class="text-primary font-black">86% DE DESCONTO</span>
+                    <div class="w-px h-4 bg-white/20"></div>
+                    <span class="text-white/60 text-xs">JANELA DE OPORTUNIDADE</span>
+                </div>
+                
+                <h1 class="text-6xl md:text-9xl font-black text-white mb-8 leading-[0.85] tracking-tighter uppercase font-outfit">
+                    A ESTRUTURA <br/>
+                    <span class="text-gradient">DOS SONHOS</span> <br/>
+                    <span class="text-white">POR R$ 97/ANO</span>
+                </h1>
+                
+                <p class="text-gray-400 text-lg md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
+                    Somente esta semana, liberei o <strong>Plano Prata</strong> por um investimento único de 
+                    <span class="text-white">R$ 97,00</span>. O padrão <span class="text-primary font-bold">Alpha Code</span> agora ao seu alcance.
+                </p>
+
+                <div class="hero-actions flex flex-col md:flex-row gap-6 justify-center items-center">
+                    <Button 
+                        href="/pedido?plan=completa&coupon=ALPHA97" 
+                        variant="primary" 
+                        class="w-full md:w-auto px-16 py-7 text-2xl btn-hero-glow font-black tracking-widest"
+                    >
+                        RESERVAR MINHA VAGA AGORA 🚀
+                    </Button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ABSTRACT BACKGROUND -->
+        <div class="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+            <div class="orb orb-red"></div>
+            <div class="orb orb-gold"></div>
+            <div class="grid-overlay-promo"></div>
+        </div>
+    </section>
+
+    <!-- 🔍 O QUE É O PLANO PRATA? -->
+    <section class="py-24 bg-[#050505]">
+        <div class="container">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="fade-up">
+                    <h2 class="text-4xl md:text-6xl font-black text-white mb-8 uppercase leading-none tracking-tighter">
+                        O QUE VOCÊ VAI <span class="text-primary">RECEBER HOJE</span>
+                    </h2>
+                    <p class="text-gray-400 text-lg mb-12">
+                        O Plano Prata é nossa estrutura mais vendida (87% dos clientes escolhem este caminho). É uma máquina de autoridade focada em conversão.
+                    </p>
+                    
+                    <ul class="space-y-8">
+                        <li class="flex gap-6">
+                            <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                                <span class="text-primary text-2xl">🏢</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">Estrutura Institucional Completa</h4>
+                                <p class="text-gray-500">Design exclusivo, limpo e extremamente luxuoso para elevar seu ticket médio.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6">
+                            <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                                <span class="text-primary text-2xl">📈</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">Otimização SEO Local</h4>
+                                <p class="text-gray-500">Apareça no Google My Business e capture clientes que já estão te procurando.</p>
+                            </div>
+                        </li>
+                        <li class="flex gap-6">
+                            <div class="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                                <span class="text-primary text-2xl">✍️</span>
+                            </div>
+                            <div>
+                                <h4 class="text-white font-bold text-xl mb-2">Copywriting Estratégico</h4>
+                                <p class="text-gray-500">Textos escritos para vender seu serviço enquanto você dorme.</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="relative">
+                    <div class="absolute -inset-4 bg-primary/20 blur-3xl rounded-full"></div>
+                    <Card variant="price" class="relative bg-black/40 border-white/5 backdrop-blur-3xl p-8 md:p-12 rotate-2 hover:rotate-0 transition-all duration-700">
+                         <div class="text-center">
+                            <span class="text-gray-500 block mb-4 uppercase tracking-[4px] text-[10px] font-black">VALOR ORIGINAL</span>
+                            <span class="text-gray-600 line-through text-4xl font-bold mb-4 block">R$ 697,00</span>
+                            
+                            <div class="h-px bg-white/5 my-8"></div>
+                            
+                            <span class="text-primary block mb-2 uppercase tracking-[4px] text-[10px] font-black">APENAS ESTA SEMANA</span>
+                            <div class="flex items-center justify-center gap-2 mb-8">
+                                <span class="text-white text-2xl font-black">R$</span>
+                                <span class="text-6xl md:text-8xl font-black text-white tracking-tighter">97</span>
+                                <span class="text-white text-xl font-medium">,00</span>
+                            </div>
+
+                            <Button 
+                                href="/pedido?plan=completa&coupon=ALPHA97" 
+                                variant="primary" 
+                                class="w-full py-6 text-lg tracking-widest"
+                            >
+                                QUERO MINHA ESTRUTURA 💳
+                            </Button>
+                            
+                            <p class="text-white/30 text-[9px] mt-6 leading-relaxed">
+                                *Pagamento único via Cartão de Crédito ou Pix. <br/>
+                                Vagas limitadas por ordem de chegada.
+                            </p>
+                         </div>
+                    </Card>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🏆 COMPARAÇÃO PSICOLÓGICA -->
+    <section class="py-24 bg-black">
+        <div class="container text-center mb-16">
+            <h2 class="text-3xl md:text-5xl font-black text-white uppercase mb-4 tracking-tighter italic">QUAL FOI A <span class="text-primary">ÚLTIMA VEZ</span> QUE</h2>
+            <p class="text-gray-400">Você investiu 97 reais em algo que realmente pudesse mudar sua vida financeira?</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch px-4">
+            <div class="p-8 bg-white/5 rounded-3xl border border-white/5 flex flex-col justify-between">
+                <div>
+                    <span class="text-3xl block mb-4">🍔</span>
+                    <h5 class="text-white font-bold mb-2">Fast Food em Família</h5>
+                    <p class="text-gray-500 text-sm">R$ 120,00 gastos em 15 minutos de prazer momentâneo.</p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-white/5 text-gray-600 text-xs italic">Dura uma refeição</div>
+            </div>
+            
+            <div class="p-8 bg-primary/5 rounded-3xl border-2 border-primary/20 flex flex-col justify-between transform md:scale-110 shadow-2xl relative z-10">
+                <div class="absolute -top-4 left-1/2 -translate-x-1/2 bg-primary text-white text-[9px] font-black px-4 py-1 rounded-full uppercase tracking-tighter">MELHOR ESCOLHA</div>
+                <div>
+                    <span class="text-3xl block mb-4">🚀</span>
+                    <h5 class="text-white font-bold mb-2">Site Alpha Prata</h5>
+                    <p class="text-white/80 text-sm">R$ 97,00 investidos em uma máquina que gera autoridade 24h por dia.</p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-primary/10 text-primary font-black text-[10px] uppercase tracking-widest">Dura anos / Gera Lucro</div>
+            </div>
+
+            <div class="p-8 bg-white/5 rounded-3xl border border-white/5 flex flex-col justify-between">
+                <div>
+                    <span class="text-3xl block mb-4">🛒</span>
+                    <h5 class="text-white font-bold mb-2">Assinatura de Streaming</h5>
+                    <p class="text-gray-500 text-sm">R$ 55,00 mensais para consumir conteúdo e perder tempo produtivo.</p>
+                </div>
+                <div class="mt-8 pt-4 border-t border-white/5 text-gray-600 text-xs italic">Gasto recorrente</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 🤝 GARANTIA E CONFIANÇA -->
+    <section class="py-24 bg-gradient-to-b from-black to-[#050505]">
+        <div class="container max-w-4xl border border-white/5 p-16 md:p-24 rounded-[40px] bg-white/[0.02] backdrop-blur-2xl text-center shadow-2xl relative overflow-hidden">
+            <div class="absolute inset-0 bg-primary/5 blur-3xl opacity-30"></div>
+            <div class="relative z-10">
+            <div class="w-24 h-24 mx-auto mb-8">
+                <img src="/seloGarantia.svg" alt="Garantia" class="w-full h-full object-contain filter invert opacity-80" />
+            </div>
+            <h2 class="text-3xl font-black text-white mb-6 uppercase tracking-tighter italic">SEU RISCO É <span class="text-primary">ZERO</span>.</h2>
+            <p class="text-gray-400 leading-relaxed text-lg italic">
+                "Se em até 7 dias você não sentir que o seu novo site vale 10x mais do que você investiu, eu devolvo cada centavo sem perguntas. Eu confio tanto na nossa entrega que coloco o prejuízo no meu bolso se você não ficar chocado com a qualidade."
+            </p>
+            <div class="mt-12 flex items-center justify-center gap-6">
+                <div class="w-16 h-16 rounded-full overflow-hidden border-2 border-primary shadow-2xl">
+                     <img src="/assets/team/walace.webp" alt="Walace - CEO Alpha Code" class="w-full h-full object-cover">
+                </div>
+                <div class="text-left">
+                    <span class="text-white font-black block text-lg tracking-widest uppercase">Walace Ramos</span>
+                    <span class="text-primary text-xs uppercase font-bold tracking-tighter">Fundador & CEO Alpha Code</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+    <!-- 🛑 CTA FINAL -->
+    <section class="py-32 bg-[#8a1c26]">
+        <div class="container text-center">
+            <h2 class="text-4xl md:text-7xl font-black text-white mb-12 uppercase leading-none tracking-tighter">
+                NÃO DEIXE PARA <br/> AMANHÃ O SITE QUE <br/> <span class="text-white/40">VOCÊ PRECISA HOJE.</span>
+            </h2>
+            <Button 
+                href="/pedido?plan=completa&coupon=ALPHA97" 
+                variant="secondary" 
+                class="px-20 py-8 text-2xl bg-white text-black hover:bg-black hover:text-white transition-all border-none font-black shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            >
+                ESTOU PRONTO PARA COMEÇAR ➡️
+            </Button>
+            <div class="mt-12 flex justify-center gap-8 text-white/60 font-black text-[10px] tracking-widest uppercase items-center">
+                <span class="flex items-center gap-2"><div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div> 03 VAGAS RESTANTES</span>
+                <span>•</span>
+                <span>COMPRA 100% SEGURA</span>
+            </div>
+        </div>
+    </section>
+
+    </section>
+
+    <script is:inline>
+        function updateCountdown() {
+            const targetDate = new Date("March 31, 2026 23:59:59").getTime();
+            
+            const timer = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+                
+                if (distance < 0) {
+                    clearInterval(timer);
+                    document.getElementById("countdown").innerHTML = "OFERTA ENCERRADA";
+                    return;
+                }
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById("days").innerText = String(days).padStart(2, '0');
+                document.getElementById("hours").innerText = String(hours).padStart(2, '0');
+                document.getElementById("minutes").innerText = String(minutes).padStart(2, '0');
+                document.getElementById("seconds").innerText = String(seconds).padStart(2, '0');
+            }, 1000);
+        }
+
+        // Initialize
+        updateCountdown();
+    </script>
+</BaseLayout>
+
+<style>
+    .text-gradient {
+        background: linear-gradient(135deg, #8a1c26 0%, #d42839 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    
+    .btn-hero-glow {
+        box-shadow: 0 0 50px rgba(138, 28, 38, 0.4);
+        border: none !important;
+    }
+    
+    .btn-hero-glow:hover {
+        box-shadow: 0 0 80px rgba(138, 28, 38, 0.7);
+        transform: translateY(-5px) scale(1.02);
+    }
+
+    .timer-bar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+    }
+
+    .offer-hero {
+        background: #000;
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+    }
+
+    .orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        opacity: 0.4;
+        z-index: 0;
+    }
+
+    .orb-red {
+        width: 60vw;
+        height: 60vw;
+        background: radial-gradient(circle, rgba(138, 28, 38, 0.3) 0%, transparent 70%);
+        top: -20%;
+        right: -10%;
+        animation: float 15s infinite alternate ease-in-out;
+    }
+
+    .orb-gold {
+        width: 40vw;
+        height: 40vw;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 70%);
+        bottom: -10%;
+        left: -5%;
+        animation: float 20s infinite alternate-reverse ease-in-out;
+    }
+
+    .grid-overlay-promo {
+        position: absolute;
+        inset: 0;
+        background-image: 
+            linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+        background-size: 60px 60px;
+        mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+        -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    }
+
+    @keyframes float {
+        from { transform: translate(0, 0) scale(1); }
+        to { transform: translate(-30px, 40px) scale(1.1); }
+    }
+</style>
