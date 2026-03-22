@@ -51,11 +51,11 @@ const plans = {
     'dominio': { 
         name: 'Domínio Alpha', 
         subtitle: 'Registro & Configuração', 
-        price: 'R$ 59', 
-        numericPrice: 59, 
+        price: 'R$ 97', 
+        numericPrice: 97, 
         numericPriceEUR: 12, 
         id: 'Domínio Alpha',
-        promoPrice: 59,
+        promoPrice: 97,
         promoPriceEUR: 12
     }
 };
@@ -64,7 +64,8 @@ const COUPONS = {
     'ALPHA25': { type: 'percent', value: 25 }, // Promoção Válida até 14/02/2026
     'ALPHAFIRST': { type: 'percent', value: 10 },
     'QUERO50': { type: 'fixed', value: 50 },
-    'PARCEIRO15': { type: 'percent', value: 15 }
+    'PARCEIRO15': { type: 'percent', value: 15 },
+    'ALPHA97': { type: 'fixed', value: 600 } // Oferta Especial Prata: 697 - 600 = 97
 };
 
 export default function OrderForm({ user }) {
@@ -91,7 +92,7 @@ export default function OrderForm({ user }) {
     const [inspirationLinks, setInspirationLinks] = useState(['']);
     const [currentStep, setCurrentStep] = useState(1);
     const [buyDomain, setBuyDomain] = useState(false);
-    const [domainPrice] = useState(59);
+    const [domainPrice] = useState(97);
     const [seoPrice] = useState(150);
     const [loadingSubtext, setLoadingSubtext] = useState('');
 
@@ -644,7 +645,7 @@ export default function OrderForm({ user }) {
                                                         <label className="switch-container">
                                                             <input type="checkbox" checked={buyDomain} onChange={(e) => setBuyDomain(e.target.checked)} />
                                                             <span className="switch-slider"></span>
-                                                            <span className="addon-price">+ R$ 59/ano</span>
+                                                            <span className="addon-price">+ R$ 97/ano</span>
                                                         </label>
                                                     </div>
                                                 )}
