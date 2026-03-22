@@ -3,11 +3,11 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import Card from "../components/ui/Card.astro";
 
-const title = "OFERTA EXCLUSIVE | Site Profissional por R$ 109/ANO | Alpha Code";
-const description = "🔥 A maior oportunidade da Alpha Code: Estrutura Prata completa por apenas R$ 109/ano. Hospedagem e Domínio inclusos. Vagas limitadas para Advogados, Médicos e Profissionais.";
+const title = "OFERTA EXCLUSIVE | Site Profissional por R$ 147/ANO | Alpha Code";
+const description = "🔥 A maior oportunidade da Alpha Code: Estrutura Prata completa por apenas R$ 147/ano. Hospedagem e Domínio inclusos. Vagas limitadas para Advogados, Médicos e Profissionais.";
 const keywords = [
     "criação de sites profissionais",
-    "site por 109 reais",
+    "site por 147 reais",
     "agência web brasília",
     "agência web são paulo",
     "site para advogados",
@@ -19,7 +19,7 @@ const keywords = [
 ];
 
 const faqItems = [
-    { question: "O preço é R$ 109,00 mesmo?", answer: "Sim, para as vagas liberadas nesta oferta especial, o investimento é único de R$ 109,00 para a estrutura vitalícia. A hospedagem e o domínio são bônus incluídos no primeiro ano." },
+    { question: "O preço é R$ 147,00 mesmo?", answer: "Sim, para as vagas liberadas nesta oferta especial, o investimento é único de R$ 147,00 para a estrutura vitalícia. A hospedagem e o domínio são bônus incluídos no primeiro ano." },
     { question: "Em quanto tempo fica pronto?", answer: "Nossa meta de entrega é de até 7 dias úteis após o envio das informações básicas. Somos famosos pela velocidade e qualidade." },
     { question: "Eu tenho controle do meu site?", answer: "Total. Após a entrega, o site é 100% seu. Você recebe acesso para solicitar manutenções ou ele segue rodando de forma independente." }
 ];
@@ -30,7 +30,7 @@ const faqItems = [
     description={description}
     showWhatsApp={true}
     showHeader={false}
-    ogImage="/assets/og-oferta.png"
+    ogImage="/assets/og-oferta-147.png"
     keywords={keywords}
     faqItems={faqItems}
     schemaType="Service"
@@ -41,7 +41,7 @@ const faqItems = [
         "@context": "https://schema.org/",
         "@type": "Product",
         "name": "Site Profissional Plano Prata - Alpha Code",
-        "image": "https://alphacode.com.br/assets/og-oferta.png",
+        "image": "https://alphacode.com.br/assets/og-oferta-147.png",
         "description": "Estrutura completa de site institucional com design premium, hospedagem e domínio inclusos no primeiro ano.",
         "brand": {
           "@type": "Brand",
@@ -51,13 +51,14 @@ const faqItems = [
           "@type": "Offer",
           "url": "https://alphacode.com.br/oferta-exclusiva",
           "priceCurrency": "BRL",
-          "price": "109.00",
+          "price": "147.00",
           "priceValidUntil": "2026-03-31",
           "availability": "https://schema.org/LimitedAvailability",
           "itemCondition": "https://schema.org/NewCondition"
         }
       }
     </script>
+
     <!-- ⚡ TOP BAR URGÊNCIA DINÂMICO -->
     <div class="timer-bar bg-[#8a1c26] py-3 px-4 sticky top-0 z-[100] text-white flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8 shadow-2xl">
         <span class="font-black text-[10px] md:text-sm tracking-[3px] uppercase flex items-center gap-2">
@@ -98,23 +99,23 @@ const faqItems = [
                 <div class="badge-discount mb-8 inline-flex items-center gap-2 bg-white/5 border border-white/10 px-6 py-2 rounded-full backdrop-blur-xl">
                     <span class="text-primary font-black">OFERTA DE LANÇAMENTO</span>
                     <div class="w-px h-4 bg-white/20"></div>
-                    <span class="text-white/60 text-xs">84% DE DESCONTO APLICADO</span>
+                    <span class="text-white/60 text-xs text-green-500 font-bold">78% DE DESCONTO</span>
                 </div>
                 
                 <h1 class="text-6xl md:text-9xl font-black text-white mb-8 leading-[0.85] tracking-tighter uppercase font-outfit">
                     A ESTRUTURA <br/>
                     <span class="text-gradient">DOS SONHOS</span> <br/>
-                    <span class="text-white">POR R$ 109/ANO</span>
+                    <span class="text-white">POR R$ 147/ANO</span>
                 </h1>
                 
                 <p class="text-gray-400 text-lg md:text-2xl mb-12 max-w-2xl mx-auto leading-relaxed font-medium">
                     Somente esta semana, liberei o <strong>Plano Prata</strong> (Nossa estrutura mais completa) por um investimento único de apenas 
-                    <span class="text-white">R$ 109,00</span>. O padrão <span class="text-primary font-bold">Alpha Code</span> agora ao seu alcance.
+                    <span class="text-white">R$ 147,00</span>. O padrão <span class="text-primary font-bold">Alpha Code</span> agora ao seu alcance.
                 </p>
 
                 <div class="hero-actions flex flex-col md:flex-row gap-6 justify-center items-center">
                     <Button 
-                        href="/pedido?plan=completa&coupon=ALPHA109" 
+                        href="/pedido?plan=completa&coupon=ALPHA147" 
                         variant="primary" 
                         class="w-full md:w-auto px-16 py-7 text-2xl btn-hero-glow font-black tracking-widest"
                     >
@@ -193,12 +194,12 @@ const faqItems = [
                             <span class="text-primary block mb-2 uppercase tracking-[4px] text-[10px] font-black">APENAS ESTA SEMANA</span>
                             <div class="flex items-center justify-center gap-2 mb-8">
                                 <span class="text-white text-2xl font-black">R$</span>
-                                <span class="text-6xl md:text-8xl font-black text-white tracking-tighter">109</span>
+                                <span class="text-6xl md:text-8xl font-black text-white tracking-tighter">147</span>
                                 <span class="text-white text-xl font-medium">,00</span>
                             </div>
 
                             <Button 
-                                href="/pedido?plan=completa&coupon=ALPHA109" 
+                                href="/pedido?plan=completa&coupon=ALPHA147" 
                                 variant="primary" 
                                 class="w-full py-6 text-lg tracking-widest btn-hero-glow"
                             >
@@ -251,7 +252,7 @@ const faqItems = [
     <section class="py-24 bg-black">
         <div class="container text-center mb-16">
             <h2 class="text-3xl md:text-5xl font-black text-white uppercase mb-4 tracking-tighter italic">QUAL FOI A <span class="text-primary">ÚLTIMA VEZ</span> QUE</h2>
-            <p class="text-gray-400">Você investiu 109 reais em algo que realmente pudesse mudar sua vida financeira?</p>
+            <p class="text-gray-400">Você investiu 147 reais em algo que realmente pudesse mudar sua vida financeira?</p>
         </div>
 
         <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto items-stretch px-4">
@@ -269,7 +270,7 @@ const faqItems = [
                 <div>
                     <span class="text-3xl block mb-4">🚀</span>
                     <h5 class="text-white font-bold mb-2">Site Alpha Prata</h5>
-                    <p class="text-white/80 text-sm">R$ 109,00 investidos em uma máquina que gera autoridade 24h por dia.</p>
+                    <p class="text-white/80 text-sm">R$ 147,00 investidos em uma máquina que gera autoridade 24h por dia.</p>
                 </div>
                 <div class="mt-8 pt-4 border-t border-primary/10 text-primary font-black text-[10px] uppercase tracking-widest">Dura anos / Gera Lucro</div>
             </div>
@@ -307,8 +308,7 @@ const faqItems = [
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
     <!-- ❓ FAQ OBJEÇÕES -->
     <section class="py-24 bg-black">
@@ -317,11 +317,11 @@ const faqItems = [
             <div class="space-y-4">
                 <details class="group bg-white/[0.02] border border-white/5 rounded-2xl p-6 open:bg-white/5 transition-all">
                     <summary class="text-white font-bold cursor-pointer list-none flex justify-between items-center uppercase tracking-tighter">
-                        O PREÇO É R$ 109,00 MESMO?
+                        O PREÇO É R$ 147,00 MESMO?
                         <span class="text-primary group-open:rotate-180 transition-transform">↓</span>
                     </summary>
                     <p class="text-gray-500 mt-4 text-sm leading-relaxed">
-                        Sim, para as vagas liberadas nesta oferta especial, o investimento é único de R$ 109,00 para a estrutura vitalícia. A hospedagem e o domínio são bônus incluídos no primeiro ano.
+                        Sim, para as vagas liberadas nesta oferta especial, o investimento é único de R$ 147,00 para a estrutura vitalícia. A hospedagem e o domínio são bônus incluídos no primeiro ano.
                     </p>
                 </details>
                 <details class="group bg-white/[0.02] border border-white/5 rounded-2xl p-6 open:bg-white/5 transition-all">
@@ -353,7 +353,7 @@ const faqItems = [
                 NÃO DEIXE PARA <br/> AMANHÃ O SITE QUE <br/> <span class="text-white/40">VOCÊ PRECISA HOJE.</span>
             </h2>
             <Button 
-                href="/pedido?plan=completa&coupon=ALPHA109" 
+                href="/pedido?plan=completa&coupon=ALPHA147" 
                 variant="secondary" 
                 class="px-20 py-8 text-2xl bg-white text-black hover:bg-black hover:text-white transition-all border-none font-black shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
             >

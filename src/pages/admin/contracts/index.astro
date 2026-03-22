@@ -1,0 +1,441 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+import AdminSidebar from "../../../components/admin/AdminSidebar.astro";
+import { getSession } from "../../../lib/auth";
+import { prisma } from "../../../lib/prisma";
+import StatusModal from "../../../components/ui/StatusModal.astro";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Admin Auth Error:", e);
+}
+
+if (!session || session.user?.role !== "ADMIN") {
+    return Astro.redirect("/login");
+}
+
+const isAdmin = session.user?.role === "ADMIN";
+
+const allUsers = await prisma.user.findMany({
+    orderBy: { name: "asc" },
+    where: { role: "USER" },
+});
+
+export const prerender = false;
+---
+
+<Layout
+    title="Gerador de Contratos | Alpha Code"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="contracts" isAdmin={isAdmin} />
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="user-welcome">
+                    <h1>Gerador de Contratos</h1>
+                    <p>Crie contratos profissionais em PDF para seus clientes em segundos.</p>
+                </div>
+            </header>
+
+            <div class="contract-grid">
+                <!-- FORM SIDE -->
+                <div class="form-card">
+                    <form id="contract-form" class="contract-form">
+                        <section class="form-section">
+                            <h3><i class="fas fa-user-tie"></i> Dados do Contratante</h3>
+                            <div class="field-group">
+                                <div class="field">
+                                    <label>Selecionar Cliente (Auto-preencher)</label>
+                                    <select id="client-selector">
+                                        <option value="">-- Selecione ou preencha manual --</option>
+                                        {allUsers.map(u => (
+                                            <option value={JSON.stringify({
+                                                name: u.name,
+                                                email: u.email,
+                                                whatsapp: u.phone,
+                                                plan: u.plan
+                                            })}>{u.name}</option>
+                                        ))}
+                                    </select>
+                                </div>
+                                <div class="field">
+                                    <label>Nome Completo</label>
+                                    <input type="text" name="clientName" id="clientName" required />
+                                </div>
+                                <div class="field">
+                                    <label>E-mail</label>
+                                    <input type="email" name="clientEmail" id="clientEmail" required />
+                                </div>
+                                <div class="field">
+                                    <label>WhatsApp</label>
+                                    <input type="text" name="clientWhatsapp" id="clientWhatsapp" placeholder="(XX) XXXXX-XXXX" required />
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="form-section">
+                            <h3><i class="fas fa-boxes-packing"></i> Detalhes do Escopo</h3>
+                            <div class="field-group">
+                                <div class="field">
+                                    <label>Nome do Plano / Serviço</label>
+                                    <input type="text" name="planName" id="planName" placeholder="Ex: Estrutura Prata Completa" required />
+                                </div>
+                                <div class="field">
+                                    <label>Valor Total</label>
+                                    <input type="text" name="totalValue" id="totalValue" placeholder="Ex: R$ 147,00" required />
+                                </div>
+                                <div class="field">
+                                    <label>Método de Pagamento</label>
+                                    <input type="text" name="paymentMethod" placeholder="Ex: Cartão de Crédito / PIX" required />
+                                </div>
+                                <div class="field">
+                                    <label>Status do Pedido</label>
+                                    <select name="status">
+                                        <option value="APROVADO">Aprovado</option>
+                                        <option value="AGUARDANDO">Aguardando Pagamento</option>
+                                        <option value="EM PROCESSAMENTO">Em Processamento</option>
+                                        <option value="CORTESIA">Cortesia / Bonificação</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </section>
+
+                        <section class="form-section">
+                            <h3><i class="fas fa-list-check"></i> Itens Inclusos (Garantias)</h3>
+                            <div class="field">
+                                <label>Entregáveis (Um por linha)</label>
+                                <textarea name="deliverables" id="deliverables" rows="8">
+Criação de Website Profissional Completo
+Hospedagem de Alta Performance Inclusa
+Domínio .com ou .com.br Incluso
+Certificado de Segurança SSL
+Manutenção Suporte Alpha
+Painel Administrativo para Edição
+Otimização de Velocidade (PageSpeed 90+)
+                                </textarea>
+                            </div>
+                        </section>
+
+                        <div class="form-actions">
+                            <button type="submit" class="generate-btn" id="generate-btn">
+                                <i class="fas fa-file-pdf"></i> GERAR CONTRATO EM PDF
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- PREVIEW SIDE (Mock or Info) -->
+                <div class="info-card">
+                    <div class="branding-preview">
+                        <img src="/assets/logo3d.svg" alt="Logo" class="preview-logo" />
+                        <h2>Padrão Alpha Elite</h2>
+                        <p>Os contratos gerados seguem o layout premium da agência, incluindo:</p>
+                        <ul class="benefit-list">
+                            <li><i class="fas fa-check"></i> Marca d'água oficial</li>
+                            <li><i class="fas fa-check"></i> QR Code para validação (em breve)</li>
+                            <li><i class="fas fa-check"></i> Termos de propriedade intelectual</li>
+                            <li><i class="fas fa-check"></i> Garantia de performance</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <StatusModal
+        id="contract-status-modal"
+        title="Gerando documento..."
+        message="Aguarde enquanto criamos o PDF"
+        type="loading"
+    />
+</Layout>
+
+<script is:inline>
+    const clientSelector = document.getElementById('client-selector');
+    const contractForm = document.getElementById('contract-form');
+    const generateBtn = document.getElementById('generate-btn');
+
+    // Auto-fill logic
+    clientSelector?.addEventListener('change', (e) => {
+        if (!e.target.value) return;
+        const data = JSON.parse(e.target.value);
+        document.getElementById('clientName').value = data.name;
+        document.getElementById('clientEmail').value = data.email || '';
+        document.getElementById('clientWhatsapp').value = data.whatsapp || '';
+        
+        // Contextual plan name
+        if (data.plan === 'PRATA') document.getElementById('planName').value = 'Estrutura Prata Alpha';
+        else if (data.plan === 'BRONZE') document.getElementById('planName').value = 'Estrutura Bronze Alpha';
+        else if (data.plan === 'OURO') document.getElementById('planName').value = 'Estrutura Ouro Alpha';
+    });
+
+    contractForm?.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const formData = new FormData(contractForm);
+        const data = Object.fromEntries(formData);
+        
+        // Convert deliverables string to array
+        data.deliverables = data.deliverables.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+        
+        window.showModal?.("Processando PDF...", "Isso pode levar alguns segundos", "loading");
+        
+        try {
+            const response = await fetch('/api/admin/generate-contract', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            });
+
+            if (!response.ok) throw new Error('Falha ao gerar PDF');
+
+            const blob = await response.blob();
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = `Contrato_${data.clientName.replace(/\s+/g, '_')}.pdf`;
+            document.body.appendChild(a);
+            a.click();
+            window.URL.revokeObjectURL(url);
+            
+            window.showModal?.("Sucesso!", "O contrato foi gerado e o download iniciado.", "success");
+            setTimeout(() => window.hideModal?.(), 3000);
+        } catch (error) {
+            console.error(error);
+            window.showModal?.("Erro", "Não foi possível gerar o PDF. Tente novamente.", "error");
+            setTimeout(() => window.hideModal?.(), 3000);
+        }
+    });
+
+    // Simple phone mask
+    document.getElementById('clientWhatsapp')?.addEventListener('input', (e) => {
+        let v = e.target.value.replace(/\D/g, "").slice(0, 11);
+        if (v.length > 7) e.target.value = `(${v.slice(0, 2)}) ${v.slice(2, 7)}-${v.slice(7)}`;
+        else if (v.length > 2) e.target.value = `(${v.slice(0, 2)}) ${v.slice(2)}`;
+        else e.target.value = v;
+    });
+</script>
+
+<style>
+    :root {
+        --color-primary: #8a1c26;
+        --glass-border: rgba(255, 255, 255, 0.06);
+    }
+
+    .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 3rem;
+        max-width: 1400px;
+        margin: 0 auto;
+    }
+
+    .dashboard-header {
+        margin-bottom: 3rem;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2.5rem;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .dashboard-header p {
+        color: rgba(255, 255, 255, 0.4);
+        margin-top: 0.5rem;
+    }
+
+    .contract-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 2rem;
+    }
+
+    /* Form Card */
+    .form-card {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 2.5rem;
+    }
+
+    .form-section {
+        margin-bottom: 2.5rem;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .form-section:last-child {
+        border-bottom: none;
+    }
+
+    .form-section h3 {
+        font-size: 1.1rem;
+        color: #fff;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .form-section h3 i {
+        color: var(--color-primary);
+    }
+
+    .field-group {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+    }
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .field label {
+        font-size: 0.8rem;
+        color: rgba(255, 255, 255, 0.5);
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .field input, .field select, .field textarea {
+        background: rgba(0, 0, 0, 0.3);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        color: #fff;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
+        outline: none;
+        transition: 0.3s;
+    }
+
+    .field input:focus, .field select:focus, .field textarea:focus {
+        border-color: var(--color-primary);
+        box-shadow: 0 0 0 2px rgba(138, 28, 38, 0.2);
+    }
+
+    textarea {
+        resize: vertical;
+        line-height: 1.5;
+        font-family: inherit;
+    }
+
+    .generate-btn {
+        width: 100%;
+        background: var(--color-primary);
+        color: #fff;
+        border: none;
+        padding: 1.2rem;
+        border-radius: 14px;
+        font-size: 1.1rem;
+        font-weight: 800;
+        cursor: pointer;
+        transition: all 0.4s;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        box-shadow: 0 5px 20px rgba(138, 28, 38, 0.3);
+    }
+
+    .generate-btn:hover {
+        background: #a52030;
+        transform: translateY(-3px);
+        box-shadow: 0 12px 30px rgba(138, 28, 38, 0.5);
+    }
+
+    /* Info Card */
+    .info-card {
+        background: linear-gradient(135deg, rgba(138, 28, 38, 0.05) 0%, rgba(0, 0, 0, 0.4) 100%);
+        border: 1px solid var(--glass-border);
+        border-radius: 20px;
+        padding: 3rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        position: sticky;
+        top: 3rem;
+        height: fit-content;
+    }
+
+    .branding-preview {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
+
+    .preview-logo {
+        width: 100px;
+        margin-bottom: 2rem;
+        filter: drop-shadow(0 0 15px rgba(138, 28, 38, 0.5));
+    }
+
+    .info-card h2 {
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+        color: #fff;
+    }
+
+    .info-card p {
+        color: rgba(255, 255, 255, 0.5);
+        margin-bottom: 2rem;
+    }
+
+    .benefit-list {
+        list-style: none;
+        padding: 0;
+        text-align: left;
+        display: inline-block;
+    }
+
+    .benefit-list li {
+        margin-bottom: 1rem;
+        color: rgba(255, 255, 255, 0.8);
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .benefit-list i {
+        color: #10b981;
+    }
+
+    @media (max-width: 1024px) {
+        .contract-grid {
+            grid-template-columns: 1fr;
+        }
+        .info-card {
+            display: none;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .field-group {
+            grid-template-columns: 1fr;
+        }
+        .main-content {
+            padding: 1.5rem;
+        }
+    }
+</style>

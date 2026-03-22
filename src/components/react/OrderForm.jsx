@@ -66,7 +66,8 @@ const COUPONS = {
     'QUERO50': { type: 'fixed', value: 50 },
     'PARCEIRO15': { type: 'percent', value: 15 },
     'ALPHA97': { type: 'fixed', value: 600 }, // Oferta Especial Prata: 697 - 600 = 97
-    'ALPHA109': { type: 'fixed', value: 588 } // Oferta Especial Prata: 697 - 588 = 109
+    'ALPHA109': { type: 'fixed', value: 588 }, // Oferta Especial Prata: 697 - 588 = 109
+    'ALPHA147': { type: 'fixed', value: 550 } // Oferta Especial Prata: 697 - 550 = 147
 };
 
 export default function OrderForm({ user }) {
