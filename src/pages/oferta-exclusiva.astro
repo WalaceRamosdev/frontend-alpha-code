@@ -3,8 +3,26 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import Card from "../components/ui/Card.astro";
 
-const title = "OFERTA EXCLUSIVA | Sua Estrutura Prata por 109 Reais";
-const description = "A maior oportunidade da história da Alpha Code. Sua presença digital profissional por um preço simbólico.";
+const title = "OFERTA EXCLUSIVE | Site Profissional por R$ 109/ANO | Alpha Code";
+const description = "🔥 A maior oportunidade da Alpha Code: Estrutura Prata completa por apenas R$ 109/ano. Hospedagem e Domínio inclusos. Vagas limitadas para Advogados, Médicos e Profissionais.";
+const keywords = [
+    "criação de sites profissionais",
+    "site por 109 reais",
+    "agência web brasília",
+    "agência web são paulo",
+    "site para advogados",
+    "site para médicos",
+    "site para psicólogos",
+    "presença digital",
+    "site de alta conversão",
+    "alpha code oferta"
+];
+
+const faqItems = [
+    { question: "O preço é R$ 109,00 mesmo?", answer: "Sim, para as vagas liberadas nesta oferta especial, o investimento é único de R$ 109,00 para a estrutura vitalícia. A hospedagem e o domínio são bônus incluídos no primeiro ano." },
+    { question: "Em quanto tempo fica pronto?", answer: "Nossa meta de entrega é de até 7 dias úteis após o envio das informações básicas. Somos famosos pela velocidade e qualidade." },
+    { question: "Eu tenho controle do meu site?", answer: "Total. Após a entrega, o site é 100% seu. Você recebe acesso para solicitar manutenções ou ele segue rodando de forma independente." }
+];
 ---
 
 <BaseLayout 
@@ -12,7 +30,34 @@ const description = "A maior oportunidade da história da Alpha Code. Sua presen
     description={description}
     showWhatsApp={true}
     showHeader={false}
+    ogImage="/assets/og-oferta.png"
+    keywords={keywords}
+    faqItems={faqItems}
+    schemaType="Service"
 >
+    <!-- Schema.org - Produto/Oferta -->
+    <script type="application/ld+json" is:inline>
+      {
+        "@context": "https://schema.org/",
+        "@type": "Product",
+        "name": "Site Profissional Plano Prata - Alpha Code",
+        "image": "https://alphacode.com.br/assets/og-oferta.png",
+        "description": "Estrutura completa de site institucional com design premium, hospedagem e domínio inclusos no primeiro ano.",
+        "brand": {
+          "@type": "Brand",
+          "name": "Alpha Code"
+        },
+        "offers": {
+          "@type": "Offer",
+          "url": "https://alphacode.com.br/oferta-exclusiva",
+          "priceCurrency": "BRL",
+          "price": "109.00",
+          "priceValidUntil": "2026-03-31",
+          "availability": "https://schema.org/LimitedAvailability",
+          "itemCondition": "https://schema.org/NewCondition"
+        }
+      }
+    </script>
     <!-- ⚡ TOP BAR URGÊNCIA DINÂMICO -->
     <div class="timer-bar bg-[#8a1c26] py-3 px-4 sticky top-0 z-[100] text-white flex flex-col md:flex-row justify-center items-center gap-2 md:gap-8 shadow-2xl">
         <span class="font-black text-[10px] md:text-sm tracking-[3px] uppercase flex items-center gap-2">
