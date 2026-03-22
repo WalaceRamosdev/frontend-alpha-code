@@ -842,7 +842,7 @@ export default function OrderForm({ user }) {
                             {buyDomain && (
                                 <div className="checkout-item highlight-item">
                                     <span className="item-name">🌐 Compra de Domínio</span>
-                                    <span className="item-price">{currency} {isPortugal ? '12,00' : '59,00'}</span>
+                                    <span className="item-price">{currency} {isPortugal ? '12,00' : '97,00'}</span>
                                 </div>
                             )}
 
