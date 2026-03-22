@@ -407,7 +407,7 @@ export default function OrderForm({ user }) {
                             <div className="price-stack">
                                 {selectedPlan?.originalPrice && (
                                     <div className="savings-badge">
-                                        ECONOMIZE {currency} {(isPortugal ? (selectedPlan.originalPriceEUR - selectedPlan.promoPriceEUR) : (selectedPlan.originalPrice - selectedPlan.promoPrice))}
+                                        ECONOMIZE {currency} {Math.max(0, (isPortugal ? selectedPlan.originalPriceEUR : selectedPlan.originalPrice) - (finalPrice - (hasSEO ? (isPortugal ? 25 : seoPrice) : 0) - (buyDomain ? (isPortugal ? 12 : domainPrice) : 0))).toFixed(0)}
                                     </div>
                                 )}
                                 {selectedPlan?.originalPrice && (
