@@ -658,7 +658,7 @@ import { niches } from "../../data/niches";
             const closeMenuBtn = document.getElementById("close-menu-btn");
             const menuOverlay = document.getElementById("menu-overlay");
             const mobileMenu = document.querySelector(".mobile-menu");
-            const mobileLinks = document.querySelectorAll(".mobile-menu a");
+            const mobileLinks = document.querySelectorAll(".mobile-menu a:not(.mobile-dropdown-trigger a)");
 
             const toggleMenu = (open: boolean) => {
                 if (!mobileMenu || !mobileMenuBtn) return;
@@ -673,65 +673,53 @@ import { niches } from "../../data/niches";
                 }
             };
 
-            if (mobileMenuBtn)
-                mobileMenuBtn.addEventListener("click", () => toggleMenu(true));
-            if (closeMenuBtn)
-                closeMenuBtn.addEventListener("click", () => toggleMenu(false));
-            if (menuOverlay)
-                menuOverlay.addEventListener("click", () => toggleMenu(false));
+            if (mobileMenuBtn) mobileMenuBtn.onclick = () => toggleMenu(true);
+            if (closeMenuBtn) closeMenuBtn.onclick = () => toggleMenu(false);
+            if (menuOverlay) menuOverlay.onclick = () => toggleMenu(false);
             
-            if (mobileLinks) {
-                mobileLinks.forEach((link) => {
-                    link.addEventListener("click", () => toggleMenu(false));
-                });
-            }
+            mobileLinks.forEach((link) => {
+                link.onclick = () => toggleMenu(false);
+            });
 
             // Profile Navigation
-            const profileBtn = document.querySelectorAll(
-                "#desktop-profile-trigger, #mobile-profile-trigger",
-            );
+            const profileBtn = document.querySelectorAll("#desktop-profile-trigger, #mobile-profile-trigger");
             profileBtn.forEach((btn) => {
-                btn.addEventListener("click", (e) => {
+                btn.onclick = () => {
                     const link = btn.getAttribute("href");
                     if (link && !btn.classList.contains("active-dash")) {
                         window.location.href = link;
                     }
-                });
+                };
             });
-
-            // Mobile Dropdown Toggle
-            const mobileDropdownTrigger = document.querySelector(
-                ".mobile-dropdown-trigger",
-            );
-            const mobileDropdownMenu = document.querySelector(
-                ".mobile-dropdown-menu",
-            );
-            const mobileChevron = document.querySelector(
-                ".mobile-chevron",
-            ) as HTMLElement;
-
-            if (mobileDropdownTrigger && mobileDropdownMenu && mobileChevron) {
-                mobileDropdownTrigger.addEventListener("click", () => {
-                    const isExpanded =
-                        mobileDropdownTrigger.getAttribute("aria-expanded") ===
-                        "true";
-
-                    mobileDropdownTrigger.setAttribute(
-                        "aria-expanded",
-                        String(!isExpanded),
-                    );
-                    mobileDropdownMenu.classList.toggle("open");
-                    mobileChevron.style.transform = isExpanded
-                        ? "rotate(0deg)"
-                        : "rotate(180deg)";
-                });
-            }
         };
 
-        // Initialize on first load
-        initHeader();
+        // Mobile Dropdown Toggle (Using delegation for bulletproof behavior)
+        document.addEventListener("click", (e) => {
+            const target = e.target as HTMLElement;
+            const trigger = target.closest(".mobile-dropdown-trigger");
+            
+            if (trigger) {
+                e.preventDefault();
+                e.stopPropagation();
+                
+                const menu = trigger.parentElement?.querySelector(".mobile-dropdown-menu");
+                const chevron = trigger.querySelector(".mobile-chevron");
+                
+                if (menu) {
+                    const isExpanded = trigger.getAttribute("aria-expanded") === "true";
+                    const newState = !isExpanded;
+                    
+                    trigger.setAttribute("aria-expanded", String(newState));
+                    menu.classList.toggle("open", newState);
+                    
+                    if (chevron instanceof HTMLElement) {
+                        chevron.style.transform = newState ? "rotate(180deg)" : "rotate(0deg)";
+                    }
+                }
+            }
+        });
 
-        // Re-initialize after Astro page transitions
+        // Initialize on page load and after every Astro page transition
         document.addEventListener("astro:page-load", initHeader);
     </script>
 
@@ -1662,26 +1650,30 @@ import { niches } from "../../data/niches";
         }
 
         .mobile-dropdown-trigger {
-            width: 100%;
+            width: calc(100% - 12px);
+            margin: 0 6px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: none;
-            border: none;
-            padding: 10px 12px;
-            color: #999; /* Match unactive links */
+            background: rgba(138, 28, 38, 0.05); /* Sutil vermelho no fundo */
+            border: 1px solid rgba(138, 28, 38, 0.3); /* Borda vermelha igual ao print */
+            padding: 14px 18px;
+            color: white; /* Texto branco no print */
             font-family: inherit;
-            font-size: 0.95rem; /* Match links */
-            font-weight: 500;
+            font-size: 0.95rem;
+            font-weight: 600;
             cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.2s ease;
+            border-radius: 100px; /* Bordas bem arredondadas no print */
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             text-align: left;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
 
-        .mobile-dropdown-trigger:hover {
-            background: rgba(255, 255, 255, 0.04);
-            color: white;
+        .mobile-dropdown-trigger:hover,
+        .mobile-dropdown-trigger[aria-expanded="true"] {
+            background: rgba(138, 28, 38, 0.1);
+            border-color: rgba(138, 28, 38, 0.6);
+            box-shadow: 0 0 15px rgba(138, 28, 38, 0.2);
         }
 
         .trigger-content {
