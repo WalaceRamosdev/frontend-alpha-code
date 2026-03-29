@@ -103,7 +103,7 @@ const displayedProjects = projectsData.slice(0, 3);
                     <div class="project-image-wrapper">
                         <Image 
                             src={project.image} 
-                            alt={project.name}
+                            alt={project.alt || project.name}
                             width={600} 
                             height={400}
                             class="project-image"

@@ -137,12 +137,26 @@ const seo = createSEOMeta({
             gtag("js", new Date());
 
             // IDs de Rastreamento
+            const urlParams = new URLSearchParams(window.location.search);
+            const isAdmin = urlParams.get("admin") === "true" || localStorage.getItem("alpha_admin_mode") === "true";
+            
+            if (urlParams.get("admin") === "true") {
+                localStorage.setItem("alpha_admin_mode", "true");
+                console.log("Admin mode enabled - traffic will be marked as internal");
+            }
+
+            const trafficType = isAdmin ? "internal" : "external";
+
             gtag("config", "AW-17948194634");
-            gtag("config", "G-Z1TRD8DK7P"); 
+            gtag("config", "G-Z1TRD8DK7P", {
+                'traffic_type': trafficType
+            }); 
 
             // Re-trigger Page View on transitions
             document.addEventListener('astro:page-load', () => {
-                gtag('event', 'page_view');
+                gtag('event', 'page_view', {
+                    'traffic_type': trafficType
+                });
             });
         </script>
         

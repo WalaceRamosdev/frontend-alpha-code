@@ -1,0 +1,344 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/ui/Button.astro";
+import NicheMeta from "../../components/seo/NicheMeta.astro";
+import SocialProofGrid from "../../components/sections/SocialProofGrid.astro";
+
+const nicheName = "Advogados";
+const slug = "advogados";
+
+const painPoints = [
+    {
+        icon: "⚖️",
+        title: "Prospecção Ética",
+        desc: "Você quer crescer, mas precisa respeitar os limites do código de ética da OAB.",
+    },
+    {
+        icon: "🏢",
+        title: "Imagem de Escritório Físico",
+        desc: "Seu site parece um blog pessoal e não transmite a robustez do seu escritório.",
+    },
+    {
+        icon: "🕵️",
+        title: "Dificuldade em Leads Qualificados",
+        desc: "Muitos curiosos entram em contato, mas poucos são os clientes ideais para o seu escritório.",
+    },
+];
+
+const benefits = [
+    {
+        icon: "📜",
+        title: "Conformidade Total OAB",
+        desc: "Marketing jurídico focado em informação e autoridade, sem ferir a ética profissional.",
+    },
+    {
+        icon: "🏛️",
+        title: "Design de Autoridade",
+        desc: "Estética que transmite seriedade, segurança e competência técnica.",
+    },
+    {
+        icon: "📍",
+        title: "SEO Jurídico Local",
+        desc: "Seja a primeira resposta quando um cliente busca por um especialista em sua cidade.",
+    },
+];
+
+const testimonials = [
+    {
+        name: "Dr. Ricardo Oliveira",
+        role: "Direito Tributário e Civil",
+        result: "Posicionamento como autoridade",
+        quote: "A Alpha Code entendeu exatamente a seriedade que meu escritório precisava. Hoje meu site é minha principal ferramenta de apresentação para grandes clientes.",
+    },
+    {
+        name: "Dra. Patrícia Silveira",
+        role: "Direito de Família",
+        result: "Dobro de consultas agendadas",
+        quote: "O SEO local foi um divisor de águas. Sou encontrada por pessoas que realmente precisam de ajuda jurídica na minha região.",
+    },
+];
+---
+
+<BaseLayout
+    title="Criação de Sites para Advogados e Escritórios de Advocacia | Alpha Code"
+    description="Eleve o patamar do seu escritório jurídico. Sites éticos, imponentes e otimizados para atrair clientes de alto valor."
+    showHeader={false}
+    showFooter={true}
+    showSocialProof={true}
+>
+    <!-- GSAP Scripts -->
+    <script>
+        import { gsap } from "gsap";
+        import { ScrollTrigger } from "gsap/ScrollTrigger";
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.addEventListener("astro:page-load", () => {
+            const tl = gsap.timeline();
+            tl.from(".hero-badge", { y: -10, opacity: 0, duration: 1, ease: "power3.out" })
+                .from(".hero-title", { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6")
+                .from(".hero-sub", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
+                .from(".hero-cta", { scale: 0.95, opacity: 0, duration: 0.6, ease: "back.out(1.7)", delay: 0.2 }, "-=0.1");
+
+            gsap.utils.toArray(".anim-fade-up").forEach((elem: any) => {
+                gsap.from(elem, {
+                    scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" },
+                    y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
+                });
+            });
+        });
+    </script>
+
+    <div class="landing-page-niche">
+        <section class="hero-lp">
+            <div class="container">
+                <div class="hero-content">
+                    <span class="hero-badge badge">Marketing Jurídico de Performance</span>
+                    <h1 class="hero-title">
+                        Seu <span class="highlight">Escritório de Advocacia</span> com presença de elite.
+                    </h1>
+                    <p class="hero-sub subheadline">
+                        Não seja apenas mais um no diretório. Tenha um site que transmite autoridade jurídica absoluta e atrai os clientes que o seu conhecimento merece.
+                    </p>
+                    <div class="hero-cta cta-wrapper">
+                        <Button
+                            href="https://wa.me/5521999064502?text=Olá! Sou advogado e gostaria de um site que transmita autoridade e seriedade para meu escritório."
+                            target="_blank"
+                            variant="primary"
+                            size="lg"
+                            class="pulse-anim main-cta-btn"
+                        >
+                            QUERO AGENDAR UM DIAGNÓSTICO
+                        </Button>
+                        <span class="secure-text">
+                            Projetos em total conformidade com a OAB
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-bg-glow"></div>
+        </section>
+
+        <SocialProofGrid />
+
+        <section class="social-proof-section anim-fade-up">
+            <div class="container">
+                <div class="proof-header">
+                    <h2>Resultados no Setor Jurídico</h2>
+                </div>
+                <div class="testimonials-grid">
+                    {testimonials.map((t) => (
+                        <div class="testimonial-card">
+                            <div class="testimonial-header">
+                                <div class="avatar-placeholder">{t.name.charAt(0)}</div>
+                                <div>
+                                    <h4>{t.name}</h4>
+                                    <span class="role">{t.role}</span>
+                                </div>
+                            </div>
+                            <div class="result-badge">🚀 {t.result}</div>
+                            <p class="quote">"{t.quote}"</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section class="problem-section">
+            <div class="container">
+                <div class="section-header anim-fade-up">
+                    <span class="section-tag">POSICIONAMENTO É TUDO</span>
+                    <h2>A primeira impressão jurídica agora é digital.</h2>
+                    <p>Clientes de alto ticket pesquisam antes de contratar. O que eles encontram sobre você?</p>
+                </div>
+                <div class="problems-grid stagger-container">
+                    {painPoints.map((pain) => (
+                        <div class="problem-card stagger-item">
+                            <div class="icon-box">{pain.icon}</div>
+                            <h3>{pain.title}</h3>
+                            <p>{pain.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <section class="solution-section">
+            <div class="container">
+                <div class="solution-wrapper">
+                    <div class="solution-text anim-fade-up">
+                        <h2>Sua Banca com Imagem Global</h2>
+                        <p class="lead">Combinamos o rigor do direito com a tecnologia da Alpha Code.</p>
+                        <div class="benefits-list">
+                            {benefits.map((benefit) => (
+                                <div class="benefit-item">
+                                    <div class="benefit-icon">{benefit.icon}</div>
+                                    <div class="benefit-content">
+                                        <h4>{benefit.title}</h4>
+                                        <p>{benefit.desc}</p>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-section">
+            <div class="container">
+                <div class="pricing-header anim-fade-up">
+                    <h2>Planos Estratégicos</h2>
+                </div>
+                <div class="pricing-grid stagger-container">
+                    <div class="pricing-card stagger-item">
+                        <div class="card-header">
+                            <h3>Escritório Digital</h3>
+                            <p class="card-desc">Para advogados autônomos ou pequenos escritórios.</p>
+                        </div>
+                        <div class="price-box">
+                            <span class="old-price">De R$ 397</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">295</span>
+                            </div>
+                        </div>
+                        <ul class="features-list">
+                            <li>✅ Landing Page de Alta Performance</li>
+                            <li>✅ Conformidade OAB</li>
+                            <li>✅ SEO Local Estratégico</li>
+                            <li>✅ Hospedagem Inclusa</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">VER DISPONIBILIDADE</Button>
+                        </div>
+                    </div>
+                    <div class="pricing-card featured stagger-item">
+                        <div class="badge-popular">RECOMENDADO</div>
+                        <div class="card-header">
+                            <h3>Banca Autoridade</h3>
+                            <p class="card-desc">Estrutura completa para escritórios em expansão.</p>
+                        </div>
+                        <div class="price-box">
+                            <span class="old-price">De R$ 697</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">449</span>
+                            </div>
+                        </div>
+                        <ul class="features-list">
+                            <li>✅ Site Completo Multi-páginas</li>
+                            <li>✅ Blog Jurídico Informativo</li>
+                            <li>✅ SEO Avançado por Área</li>
+                            <li>✅ Design de Alto Padrão</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-effect">QUERO SER AUTORIDADE</Button>
+                        </div>
+                    </div>
+
+                    <!-- Elite Plan -->
+                    <div class="pricing-card stagger-item">
+                        <div class="card-header">
+                            <h3>Elite</h3>
+                            <p class="card-desc">Digitalização total e prospecção de alta escala.</p>
+                        </div>
+                        <div class="price-box">
+                            <span class="old-price">De R$ 1.297</span>
+                            <div class="flex items-baseline gap-1">
+                                <span class="currency">R$</span>
+                                <span class="amount">710</span>
+                            </div>
+                        </div>
+                        <ul class="features-list">
+                            <li>✅ Tudo do Plano Autoridade</li>
+                            <li>✅ Estratégia de Conteúdo Premium</li>
+                            <li>✅ SEO Técnico Nível 100</li>
+                            <li>✅ Integração CRM Especializada</li>
+                            <li>✅ Mentoria de Posicionamento</li>
+                        </ul>
+                        <div class="card-footer">
+                            <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CONSULTAR DETALHES</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="final-cta-section anim-fade-up">
+            <div class="container">
+                <div class="final-cta-content">
+                    <h2>O direito evoluiu. Sua forma de atrair clientes também.</h2>
+                    <p>Construa sua reputação digital com quem entende do assunto.</p>
+                    <div class="actions">
+                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-effect pulse-anim">FALAR COM UM ESPECIALISTA AGORA</Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</BaseLayout>
+
+<style>
+    .landing-page-niche { color: #e0e0e0; font-family: "Plus Jakarta Sans", sans-serif; background-color: #050505; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
+    .highlight { color: var(--color-primary); font-weight: 800; text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4); }
+    .hero-lp { padding: 140px 0 100px; text-align: center; background: radial-gradient(circle at center top, #1a0505 0%, #000000 60%); }
+    .hero-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
+    .badge { background: rgba(255, 255, 255, 0.08); color: var(--color-primary); padding: 8px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); }
+    .hero-title { font-family: "Outfit", sans-serif; font-size: 3.8rem; line-height: 1.1; font-weight: 800; color: white; margin-bottom: 24px; letter-spacing: -0.03em; }
+    .hero-sub { font-size: 1.35rem; color: #a0a0a0; max-width: 780px; margin-bottom: 48px; line-height: 1.6; }
+    .main-cta-btn { box-shadow: 0 10px 40px rgba(var(--color-primary-rgb), 0.3); font-weight: 800 !important; }
+    .secure-text { font-size: 0.9rem; color: #666; margin-top: 16px; display: block; }
+    .social-proof-section { padding: 80px 0; background: #0a0a0a; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+    .proof-header h2 { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: white; }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
+    .testimonial-card { background: #141414; padding: 32px; border-radius: 20px; border: 1px solid #333; }
+    .testimonial-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
+    .avatar-placeholder { width: 50px; height: 50px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; }
+    .testimonial-header h4 { margin: 0; color: white; font-size: 1.15rem; }
+    .role { font-size: 0.95rem; color: #999; }
+    .result-badge { display: inline-block; background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; border: 1px solid rgba(16, 185, 129, 0.3); }
+    .quote { color: #ddd; font-style: italic; line-height: 1.6; }
+    .problem-section { padding: 100px 0; background: #050505; text-align: center; }
+    .section-tag { color: #ff4444; font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
+    .section-header h2 { font-size: 2.8rem; color: white; margin-bottom: 16px; }
+    .problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 50px; }
+    .problem-card { background: #111; padding: 40px 24px; border-radius: 16px; border: 1px solid #222; transition: transform 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+    .icon-box { font-size: 2.5rem; margin-bottom: 20px; }
+    .problem-card h3 { color: white; font-size: 1.3rem; margin-bottom: 12px; }
+    .problem-card p { color: #ccc; font-size: 1rem; line-height: 1.6; }
+    .solution-section { padding: 100px 0; background: linear-gradient(to right, #0d0d0d, #121212); }
+    .solution-text h2 { font-size: 3rem; color: white; margin-bottom: 20px; }
+    .solution-text .lead { font-size: 1.3rem; color: #bbb; margin-bottom: 60px; }
+    .benefits-list { display: grid; gap: 30px; }
+    .benefit-item { display: flex; gap: 24px; background: #141414; padding: 30px; border-radius: 16px; border: 1px solid #222; }
+    .benefit-icon { font-size: 2rem; }
+    .benefit-content h4 { color: white; font-size: 1.4rem; margin-bottom: 8px; }
+    .benefit-content p { color: #ccc; }
+    .scarcity-box { background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 16px; padding: 30px; display: flex; align-items: center; gap: 30px; }
+    .scarcity-icon { font-size: 3rem; }
+    .scarcity-status { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 50px; }
+    .status-dot { width: 8px; height: 8px; background: #ff4444; border-radius: 50%; box-shadow: 0 0 10px #ff4444; animation: blink 1.5s infinite; }
+    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+    .pricing-section { padding: 100px 0; }
+    .pricing-header { text-align: center; margin-bottom: 60px; }
+    .pricing-header h2 { font-size: 3rem; color: white; }
+    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1300px; margin: 0 auto; }
+    .pricing-card { background: #111; padding: 40px; border-radius: 24px; border: 1px solid #222; position: relative; }
+    .featured { border-color: var(--color-primary) !important; background: rgba(var(--color-primary-rgb), 0.03) !important; }
+    .badge-popular { position: absolute; top: 0; right: 40px; transform: translateY(-50%); background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 900; }
+    .price-box { margin: 30px 0; }
+    .old-price { text-decoration: line-through; color: #666; font-size: 0.9rem; }
+    .amount { font-size: 4rem; font-weight: 800; color: white; font-family: "Outfit"; }
+    .features-list { margin-bottom: 40px; }
+    .features-list li { margin-bottom: 12px; color: #bbb; }
+    .final-cta-section { padding: 120px 0; text-align: center; background: radial-gradient(circle at center bottom, #1a0505 0%, #000 70%); }
+    .final-cta-section h2 { font-size: 3rem; color: white; max-width: 800px; margin: 0 auto 30px; }
+    @media (max-width: 968px) {
+        .hero-title { font-size: 2.5rem; }
+        .problems-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
+        .hero-lp { padding-top: 100px; }
+        .scarcity-box { flex-direction: column; text-align: center; }
+    }
+</style>
+---

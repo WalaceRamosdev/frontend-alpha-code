@@ -4,6 +4,7 @@ export const projectsData = [
         type: 'Gastronomia',
         category: 'gastronomia',
         image: '/assets/imagens-de-paginas/pizzaria.svg',
+        alt: 'Site para pizzaria com cardápio online e design atrativo para aumentar pedidos no delivery',
         link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {
@@ -11,6 +12,7 @@ export const projectsData = [
         type: 'Psicologia',
         category: 'saude',
         image: '/assets/imagens-de-paginas/alzimara.svg',
+        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
         link: 'https://www.alzimaranunes.com.br'
     },
     {
@@ -18,6 +20,7 @@ export const projectsData = [
         type: 'Personal Trainer',
         category: 'saude',
         image: '/assets/imagens-de-paginas/camilaFerrazPersonal.svg',
+        alt: 'Landing page para personal trainer otimizada para captação de alunos e consultoria online',
         link: 'https://camilaferrazpersonal.vercel.app/'
     },
     {
@@ -25,6 +28,7 @@ export const projectsData = [
         type: 'Advogados',
         category: 'juridico',
         image: '/assets/imagens-de-paginas/alineBarbosa.svg',
+        alt: 'Site jurídico para advogada com foco em conversão de leads e SEO local especializado',
         link: 'https://advogada-aline-barbosa.vercel.app/'
     },
     {
@@ -32,6 +36,7 @@ export const projectsData = [
         type: 'Arquitetura',
         category: 'institucional',
         image: '/assets/imagens-de-paginas/arquiteto.svg',
+        alt: 'Portfólio para arquiteto com foco em apresentação de projetos e design de alto padrão',
         link: 'https://projeto-arquiteto.vercel.app/'
     },
     /*{
@@ -46,6 +51,7 @@ export const projectsData = [
         type: 'Professores Particular',
         category: 'educacao',
         image: '/assets/imagens-de-paginas/profJoao.svg',
+        alt: 'Landing page para professores particulares com foco em aulas online e conversão de alunos',
         link: 'https://landing-page-professor.vercel.app/'
     },
     {
@@ -53,6 +59,7 @@ export const projectsData = [
         type: 'Gastronomia',
         category: 'gastronomia',
         image: '/assets/imagens-de-paginas/cafeteria.svg',
+        alt: 'Site institucional para cafeteria com foco em experiência do usuário e fortalecimento de marca',
         link: 'https://cafeteria-premium.vercel.app/'
     },
     {
@@ -60,6 +67,7 @@ export const projectsData = [
         type: 'Joalheria',
         category: 'institucional',
         image: '/assets/imagens-de-paginas/lumiere.svg',
+        alt: 'Site institucional de luxo para joalheria com design exclusivo e apresentação de coleções',
         link: 'https://lumiere-joias.vercel.app/'
     },
     {
@@ -67,6 +75,7 @@ export const projectsData = [
         type: 'Institucional',
         category: 'institucional',
         image: '/assets/imagens-de-paginas/ctim.svg',
+        alt: 'Site institucional para clínica médica com foco em terapias integrativas e agendamento online',
         link: 'https://ctim.vercel.app/'
     },
     {
@@ -74,6 +83,7 @@ export const projectsData = [
         type: 'Fotografia',
         category: 'institucional',
         image: '/assets/imagens-de-paginas/fotografia.svg',
+        alt: 'Portfólio para fotógrafo profissional com impacto visual e galeria de fotos para eventos',
         link: 'https://projeto-fotografo-two.vercel.app/'
     },
     {
@@ -81,6 +91,7 @@ export const projectsData = [
         type: 'contabilidade',
         category: 'institucional',
         image: '/assets/imagens-de-paginas/nexusContabilidade.svg',
+        alt: 'Site institucional desenvolvido para contabilidade com foco em conversão e SEO estratégico',
         link: 'https://nexuscontabilidades.vercel.app/'
     },
     {
@@ -88,6 +99,7 @@ export const projectsData = [
         type: 'Direitos e Advogados',
         category: 'juridico',
         image: '/assets/imagens-de-paginas/eleganceAdvocacia.svg',
+        alt: 'Site para escritório de advocacia de luxo com foco em autoridade e captação de leads qualificados',
         link: 'https://eleganceadvocacia.vercel.app/'
     },
     {
@@ -95,6 +107,7 @@ export const projectsData = [
         type: 'Psicanalista',
         category: 'saude',
         image: '/assets/imagens-de-paginas/ricardoSilva.svg',
+        alt: 'Site para psicanalista com foco em agendamento online e acolhimento digital do paciente',
         link: 'https://psicanalista-online.vercel.app/'
     },
     {
@@ -102,6 +115,7 @@ export const projectsData = [
         type: 'Terapeutas',
         category: 'saude',
         image: '/assets/imagens-de-paginas/silviaOrlandi.svg',
+        alt: 'Site para terapeuta com foco em resultados clínicos e facilidade de contato via WhatsApp',
         link: 'https://silvia-terapeuta.vercel.app/'
     },
     {
@@ -109,6 +123,7 @@ export const projectsData = [
         type: 'Nutricionista',
         category: 'saude',
         image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
+        alt: 'Landing page para nutricionista focada em planos alimentares e captação de pacientes',
         link: 'https://nutricao-pied.vercel.app/'
     },
 
