@@ -673,23 +673,23 @@ import { niches } from "../../data/niches";
                 }
             };
 
-            if (mobileMenuBtn) mobileMenuBtn.onclick = () => toggleMenu(true);
-            if (closeMenuBtn) closeMenuBtn.onclick = () => toggleMenu(false);
-            if (menuOverlay) menuOverlay.onclick = () => toggleMenu(false);
+            if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", () => toggleMenu(true));
+            if (closeMenuBtn) closeMenuBtn.addEventListener("click", () => toggleMenu(false));
+            if (menuOverlay) menuOverlay.addEventListener("click", () => toggleMenu(false));
             
             mobileLinks.forEach((link) => {
-                link.onclick = () => toggleMenu(false);
+                link.addEventListener("click", () => toggleMenu(false));
             });
 
             // Profile Navigation
             const profileBtn = document.querySelectorAll("#desktop-profile-trigger, #mobile-profile-trigger");
             profileBtn.forEach((btn) => {
-                btn.onclick = () => {
+                btn.addEventListener("click", () => {
                     const link = btn.getAttribute("href");
                     if (link && !btn.classList.contains("active-dash")) {
                         window.location.href = link;
                     }
-                };
+                });
             });
         };
 
