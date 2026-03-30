@@ -104,6 +104,14 @@ h1, h2, h3 {
     letter-spacing: -0.04em !important;
 }
 
+/* Visibility Fallback for GSAP revealers */
+.reveal-up {
+    opacity: 1; /* Safety: visible if JS fails */
+}
+:root.js-enabled .reveal-up {
+    opacity: 0; /* Only hide if we have JS to reveal it */
+}
+
 /* Glassmorphism Ultra */
 .glass-ultra {
     background: rgba(10, 10, 10, 0.45);

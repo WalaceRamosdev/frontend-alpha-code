@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
 import Card from "../components/ui/Card.astro";
+import mercadoPagoLogo from "../assets/mercadoPago.svg";
 
 const title = "OFERTA EXCLUSIVE | Site Profissional por R$ 147/ANO | Alpha Code";
 const description = "🔥 A maior oportunidade da Alpha Code: Estrutura Prata completa por apenas R$ 147/ano. Hospedagem e Domínio inclusos. Vagas limitadas para Advogados, Médicos e Profissionais.";
@@ -124,9 +125,15 @@ const faqItems = [
                 </div>
 
                 <div class="mt-8 flex justify-center gap-12 text-white/40 text-[10px] font-black uppercase tracking-widest">
-                    <span>💳 CARTÃO OU PIX</span>
-                    <span>🔒 AMBIENTE SEGURO</span>
                     <span>✅ ENTREGA RÁPIDA</span>
+                </div>
+                
+                <!-- NEW: SECURE PAYMENT BADGE -->
+                <div class="mt-8 flex flex-col items-center gap-2 opacity-60">
+                    <span class="text-[9px] font-black uppercase tracking-[2px]">Ambiente de Checkout Seguro</span>
+                    <div class="bg-white px-3 py-1.5 rounded-lg flex items-center shadow-lg">
+                        <img src={mercadoPagoLogo.src} alt="Mercado Pago" class="h-6 md:h-8 object-contain" />
+                    </div>
                 </div>
             </div>
         </div>
@@ -210,6 +217,14 @@ const faqItems = [
                                 *Pagamento único via Cartão de Crédito ou Pix. <br/>
                                 Vagas limitadas por ordem de chegada.
                             </p>
+                            
+                            <!-- NEW: MERCADO PAGO SEAL -->
+                            <div class="mt-6 pt-6 border-t border-white/5 flex flex-col items-center gap-3">
+                                <span class="text-[8px] font-black uppercase tracking-widest text-white/40">Pagamento Processado por:</span>
+                                <div class="bg-white px-3 py-1.5 rounded-lg flex items-center shadow-sm">
+                                    <img src={mercadoPagoLogo.src} alt="Mercado Pago" class="h-6 object-contain" />
+                                </div>
+                            </div>
                          </div>
                     </Card>
                 </div>

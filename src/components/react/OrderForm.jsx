@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import mercadoPagoLogo from '../../assets/mercadoPago.svg';
 
 const plans = {
     'simples': {
@@ -451,8 +452,11 @@ export default function OrderForm({ user }) {
                                 <span>🛡️ Garantia Alpha de 7 Dias</span>
                             </div>
 
-                            <div className="security-seals">
+                            <div className="security-seals" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '20px' }}>
                                 <i className="fas fa-lock"></i>
+                                <div style={{ background: '#fff', padding: '4px 8px', borderRadius: '4px', display: 'flex', alignItems: 'center' }}>
+                                    <img src={mercadoPagoLogo.src || mercadoPagoLogo} alt="Mercado Pago" style={{ height: '14px', objectFit: 'contain' }} />
+                                </div>
                                 <i className="fab fa-stripe"></i>
                                 <i className="fas fa-shield-halved"></i>
                             </div>
@@ -827,7 +831,11 @@ export default function OrderForm({ user }) {
                                     </div>
                                     <div className="checkout-item" style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', marginBottom: '12px', paddingBottom: '12px' }}>
                                         <span className="item-name" style={{ fontWeight: '800', fontSize: '0.9rem' }}>✨ Valor Promocional do Plano</span>
-                                        <span className="item-price" style={{ fontWeight: '800', fontSize: '0.9rem' }}>{currency} {isPortugal ? selectedPlan.promoPriceEUR : selectedPlan.promoPrice}</span>
+                                        <span className="item-price" style={{ fontWeight: '800', fontSize: '0.9rem' }}>{currency} {
+                                            appliedCoupon.code === 'ALPHA147'
+                                                ? '147,00'
+                                                : (isPortugal ? selectedPlan.promoPriceEUR : selectedPlan.promoPrice).toFixed(2).replace('.', ',')
+                                        }</span>
                                     </div>
                                 </>
                             )}
@@ -885,6 +893,15 @@ export default function OrderForm({ user }) {
                             <a href={whatsappUrl} target="_blank" className={`wa-btn ${isRedirecting ? 'btn-disabled' : ''}`}>
                                 Confirmar via WhatsApp
                             </a>
+                        </div>
+                        <div className="payment-security-footer" style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+                            <div style={{ display: 'flex', alignItems: 'center', gap: '8px', opacity: 0.6 }}>
+                                <i className="fas fa-lock" style={{ fontSize: '0.8rem' }}></i>
+                                <span style={{ fontSize: '0.7rem', fontWeight: '700', textTransform: 'uppercase', letterSpacing: '1px' }}>Processamento Seguro</span>
+                            </div>
+                            <div style={{ background: '#fff', padding: '6px 12px', borderRadius: '6px', display: 'flex', alignItems: 'center', marginTop: '4px' }}>
+                                <img src={mercadoPagoLogo.src || mercadoPagoLogo} alt="Mercado Pago" style={{ height: '20px', objectFit: 'contain' }} />
+                            </div>
                         </div>
                     </div>
                 </div>

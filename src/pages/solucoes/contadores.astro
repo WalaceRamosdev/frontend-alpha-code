@@ -1,54 +1,51 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
-import NicheMeta from "../../components/seo/NicheMeta.astro";
 
 const painPoints = [
     {
-        icon: "🦷",
-        title: "Dependência de Convênios",
-        desc: "Você trabalha muito atendendo planos, mas o lucro real nas consultas particulares é baixo.",
-    },
-    {
         icon: "📉",
-        title: "Cadeira Vazia",
-        desc: "Seus horários nobres estão vagos porque você não é encontrado por quem busca estética dental.",
+        title: "Perda de Clientes para o Digital",
+        desc: "Escritórios de contabilidade online estão crescendo porque oferecem uma experiência digital que você ainda não tem.",
     },
     {
         icon: "🏢",
-        title: "Visual Amador",
-        desc: "Seu site atual (ou a falta de um) não reflete a tecnologia e cuidado que você tem no consultório.",
+        title: "Imagem Burocrática",
+        desc: "Seu site atual (ou a falta de um) transmite uma imagem de empresa antiga e pouco tecnológica.",
+    },
+    {
+        icon: "⚖️",
+        title: "Dificuldade em Leads B2B",
+        desc: "Empresas modernas buscam parceiros contábeis que falem a língua da tecnologia e eficiência.",
     },
 ];
 
 const benefits = [
     {
-        icon: "✨",
-        title: "Foco em Estética e Alto Valor",
-        desc: "Atraia pacientes para procedimentos de ticket alto como lentes de contato e implantes.",
+        icon: "🛡️",
+        title: "Autoridade e Confiança Corporativa",
+        desc: "Um posicionamento digital que transmite a segurança necessária para gerir o patrimônio do seu cliente.",
     },
     {
-        icon: "🎯",
-        title: "Autoridade Local Imediata",
-        desc: "Seja o dentista número 1 no Google quando buscarem por especialistas em sua cidade.",
+        icon: "⚙️",
+        title: "Eficiência no Atendimento",
+        desc: "Centralize documentos e facilite o contato inicial através de formulários e botões inteligentes.",
     },
     {
-        icon: "💎",
-        title: "Experiência Digital Premium",
-        desc: "O paciente começa a confiar no seu 'sorriso' antes mesmo de sentar na sua cadeira.",
+        icon: "📊",
+        title: "Visibilidade Estratégica",
+        desc: "Seja encontrado por empresários que buscam uma contoria contábil de excelência no Google.",
     },
 ];
-
-const slug = "dentistas";
 ---
 
 <BaseLayout
-    title="Marketing para Dentistas e Clínicas Odontológicas | Alpha Code"
-    description="Lote sua agenda de implantes e estética dental. Sites premium para dentistas focados em autoridade e captação de pacientes particulares."
+    title="Marketing Contábil e Sites para Contadores | Alpha Code"
+    description="Digitalize seu escritório de contabilidade. Sites modernos, eficientes e focados em prospecção de clientes B2B qualificados."
     showHeader={true}
     showSocialProof={true}
 >
-    <!-- animations script same as others -->
+    <!-- animations script same -->
     <script>
         import { gsap } from "gsap";
         import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -60,28 +57,28 @@ const slug = "dentistas";
         });
     </script>
 
-    <div class="niche-page dental-theme">
+    <div class="niche-page accounting-theme">
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
-                <img src="/assets/banners/saude-hero.png" alt="Clínica Odontológica Moderna" class="hero-bg-image" />
+                <img src="/assets/banners/contadores-hero.png" alt="Escritório de Contabilidade Moderno" class="hero-bg-image" />
                 <div class="hero-overlay"></div>
             </div>
             
             <div class="container relative z-10">
                 <div class="hero-content-v2">
                     <div class="hero-badge-v2 reveal-up">
-                        <span class="dot dental"></span> ESTRATÉGIA DIGITAL PARA DENTISTAS DE ELITE
+                        <span class="dot accounting"></span> ESTRATÉGIA DIGITAL PARA ESCRITÓRIOS DE CONTABILIDADE
                     </div>
                     <h1 class="hero-title-v2 reveal-up">
-                        O Sorriso do seu Paciente <br/> Começa no seu <span class="text-gradient-dental">Novo Site</span>.
+                        Sua Contabilidade na <br/> <span class="text-gradient-accounting">Era da Eficiência</span>.
                     </h1>
                     <p class="hero-sub-v2 reveal-up">
-                        Para quem busca excelência em implantes, estética e ortodontia de alto padrão. Tenha um site que converte cliques em agendamentos qualificados.
+                        Não deixe seu escritório ficar para trás. Tenha uma presença digital que transmite segurança absoluta e atrai empresas que buscam uma parceria contábil moderna.
                     </p>
                     <div class="hero-actions-v2 reveal-up">
-                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button-dental">LOTAR MINHA AGENDA DE ESTÉTICA</Button>
+                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button-accounting uppercase">Digitalizar meu Escritório</Button>
                         <div class="hero-trust">
-                            <i class="fas fa-check-circle"></i> Foco em ROI e Captação de Pacientes Particulares
+                            <i class="fas fa-shield-alt"></i> Foco em Segurança, Credibilidade e Resultados B2B
                         </div>
                     </div>
                 </div>
@@ -93,44 +90,42 @@ const slug = "dentistas";
             <div class="container">
                 <div class="stats-wrapper-v2">
                     <div class="stat-item-v2">
-                        <span class="stat-num">+10k</span>
-                        <span class="stat-txt">Agendamentos Gerados</span>
+                        <span class="stat-num">99.9%</span>
+                        <span class="stat-txt">Uptime de Sistemas</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">99%</span>
-                        <span class="stat-txt">Satisfação Odontológica</span>
+                        <span class="stat-num">+1k</span>
+                        <span class="stat-txt">Empresas Impactadas</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">Elite</span>
-                        <span class="stat-txt">Padrão Alpha Code</span>
+                        <span class="stat-num">A+</span>
+                        <span class="stat-txt">Autoridade Digital</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Problem Awareness -->
+        <!-- Problems -->
         <section class="problem-v2 py-24">
-            <div class="container">
-                <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Por que sua cadeira <span class="text-dental">não para cheia?</span></h2>
-                </div>
+            <div class="container text-center">
+                <h2 class="reveal-up text-4xl md:text-5xl font-black mb-16">O mercado contábil <span class="text-accounting">mudou</span>. E você?</h2>
                 <div class="grid md:grid-cols-3 gap-8 stagger-container">
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-tooth text-dental"></i></div>
-                        <h3>Dependência de Convênios</h3>
-                        <p>Você trabalha muito atendendo planos, mas o lucro real nas consultas particulares é baixo.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-chart-line-down text-accounting"></i></div>
+                        <h3>Perda para o Digital</h3>
+                        <p>Contabilidades online crescem porque oferecem uma experiência digital que seu escritório ainda não tem.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-calendar-times text-dental"></i></div>
-                        <h3>Cadeira Vazia</h3>
-                        <p>Seus horários nobres estão vagos porque você não é encontrado por quem busca estética dental.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-building text-accounting"></i></div>
+                        <h3>Imagem Burocrática</h3>
+                        <p>Seu site atual transmite uma imagem de empresa estagnada, o que afasta novos empresários modernos.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-frown text-dental"></i></div>
-                        <h3>Visual Amador</h3>
-                        <p>Seu site atual não reflete a tecnologia e o cuidado de ponta do seu consultório.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-user-tie text-accounting"></i></div>
+                        <h3>Dificuldade em Leads B2B</h3>
+                        <p>Empresas buscam parceiros contábeis que demonstrem tecnologia e eficiência logo no primeiro contato.</p>
                     </div>
                 </div>
             </div>
@@ -141,18 +136,18 @@ const slug = "dentistas";
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <div class="content-side reveal-up">
-                        <span class="tag-v2 dental">DENTISTRY 4.0</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Sua Clínica com <br/> <span class="text-dental">Zero Atrito</span>.</h2>
+                        <span class="tag-v2 accounting">CREDIBILIDADE 2.0</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">De Burocrático <br/> Para <span class="text-accounting">Inovador</span>.</h2>
                         <ul class="check-list mt-8">
-                            <li><i class="fas fa-check"></i> Sites que abrem em menos de 1 segundo</li>
-                            <li><i class="fas fa-check"></i> Design focado em autoridade clínica</li>
-                            <li><i class="fas fa-check"></i> SEO para dominar as buscas locais</li>
+                            <li><i class="fas fa-check"></i> Layout focado em conversão de empresas (B2B)</li>
+                            <li><i class="fas fa-check"></i> SEO técnico para dominar buscas empresariais</li>
+                            <li><i class="fas fa-check"></i> Integração com sistemas de atendimento</li>
                         </ul>
                     </div>
                     <div class="image-side reveal-up">
                         <div class="comparison-container">
                             <div class="comparison-card legacy">
-                                <div class="card-tag">ANTES (GENÉRICO)</div>
+                                <div class="card-tag">ANTES (ESTÁTICO)</div>
                                 <div class="card-browser-mockup">
                                     <div class="browser-dot-red"></div>
                                     <div class="browser-dot-yellow"></div>
@@ -166,17 +161,17 @@ const slug = "dentistas";
                                 </div>
                             </div>
                             
-                            <div class="comparison-card premium bord-dental">
-                                <div class="card-tag flagship-dental">DEPOIS (ALPHA CODE)</div>
+                            <div class="comparison-card premium bord-accounting">
+                                <div class="card-tag flagship-accounting">DEPOIS (ALPHA CODE)</div>
                                 <div class="card-browser-mockup">
                                     <div class="browser-dot-red"></div>
                                     <div class="browser-dot-yellow"></div>
                                     <div class="browser-dot-green"></div>
                                 </div>
-                                <img src="/assets/imagens-de-paginas/ctim.svg" alt="Projeto Real Odonto" class="project-preview-img" />
+                                <img src="/assets/imagens-de-paginas/nexusContabilidade.svg" alt="Projeto Real Contabilidade" class="project-preview-img" />
                                 <div class="project-info-overlay">
-                                    <strong>Flagship: Clínica Elite</strong>
-                                    <span>Padrão Internacional de Saúde</span>
+                                    <strong>Flagship: Nexus Contabilidade</strong>
+                                    <span>Gestão e Eficiência Digital</span>
                                 </div>
                             </div>
                         </div>
@@ -190,14 +185,14 @@ const slug = "dentistas";
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
                     <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
-                    <p class="reveal-up text-gray-400 mt-4">Menos do que o valor de uma única aplicação de lentes ou implante para transformar sua carreira.</p>
+                    <p class="reveal-up text-gray-400 mt-4">Menos que o valor de um único honorário mensal recorrente para digitalizar seu escritório.</p>
                 </div>
                 
                 <div class="pricing-grid-v2">
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>ESSENCIAL</h3>
-                            <p>Presença digital odontológica ágil</p>
+                            <h3>BÁSICO</h3>
+                            <p>Presença digital institucional</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 397</span>
@@ -211,10 +206,10 @@ const slug = "dentistas";
                     </div>
 
                     <div class="p-card-v2 featured reveal-up">
-                        <div class="pop">LOTE SUA AGENDA</div>
+                        <div class="pop">O MAIS COMPLETO</div>
                         <div class="head">
-                            <h3>Sorriso Autoridade</h3>
-                            <p>Foco em implantes e estética dental</p>
+                            <h3>Contabilidade Autoridade</h3>
+                            <p>Ecossistema de conteúdo e prospecção</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 697</span>
@@ -224,13 +219,13 @@ const slug = "dentistas";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-dental">QUERO CRESCER</Button>
+                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-accounting">QUERO ESTE PLANO</Button>
                     </div>
 
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>ELITE DENTAL</h3>
-                            <p>Dominação de mercado e alta conversão</p>
+                            <h3>ELITE B2B</h3>
+                            <p>Escala total e automação de leads</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 1.297</span>
@@ -246,21 +241,16 @@ const slug = "dentistas";
             </div>
         </section>
 
-        <!-- Final CTA -->
-        <section class="final-cta-v2 py-32 text-center relative overflow-hidden">
-            <div class="container relative z-10">
-                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">O Futuro da sua <br/> <span class="text-dental font-outfit">Odontologia</span></h2>
-                <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-dental uppercase font-black">Falar com especialista agora</Button>
-            </div>
-            <div class="glow-dental-1"></div>
+        <section class="final-cta-v2 py-32 text-center bg-black/50 overflow-hidden relative">
+            <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Construa sua <br/> <span class="text-accounting font-outfit">Autoridade Contábil</span></h2>
+            <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-accounting uppercase font-black">Falar com especialista agora</Button>
+            <div class="glow-accounting-1"></div>
         </section>
     </div>
 </BaseLayout>
-
 <style>
-    .dental-theme {
-        --color-dental: #4ade80; /* Dental theme can be Green/Mint for health and freshness */
-        --color-primary: #8a1c26;
+    .accounting-theme {
+        --color-accounting: #3b82f6; /* Royal Blue for trust and corporate accounting */
         --color-bg-dark: #050505;
         --color-surface: #0a0a0a;
         --color-accent: #111111;
@@ -269,30 +259,7 @@ const slug = "dentistas";
     }
     .niche-page { font-family: var(--font-main); background-color: var(--color-bg-dark); color: white; overflow-x: hidden; }
     .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
-    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background-color: black; }
-    .hero-bg-container { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.4; filter: saturate(0.8) brightness(0.65); }
-    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.9) 70%, black 100%); }
-    .hero-content-v2 { max-width: 850px; }
-    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 10px 24px; background: rgba(74, 222, 128, 0.1); border: 1px solid rgba(74, 222, 128, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: var(--color-dental); }
-    .hero-badge-v2 .dot.dental { width: 8px; height: 8px; background: var(--color-dental); border-radius: 50%; box-shadow: 0 0 10px var(--color-dental); }
-    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 2rem; }
-    .text-gradient-dental { background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-sub-v2 { font-size: 1.25rem; color: #a0a0a0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 680px; }
-    .hero-actions-v2 { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-    .hero-trust { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px; }
-    .hero-trust i { color: var(--color-dental); }
-    .text-dental { color: var(--color-dental); }
-    .bg-dental { background: var(--color-dental) !important; color: black !important; }
-    .tag-v2.dental { color: var(--color-dental); }
-    .problem-card-v2:hover { border-color: var(--color-dental); transform: translateY(-8px); }
-    .icon-circle { width: 80px; height: 80px; background: rgba(74, 222, 128, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 2rem; border: 1px solid rgba(74, 222, 128, 0.1); }
-    .check-list { display: flex; flex-direction: column; gap: 1rem; }
-    .check-list li { display: flex; align-items: center; gap: 12px; color: #bbb; }
-    .check-list i { color: var(--color-dental); }
-    .glow-btn-dental { background: var(--color-dental) !important; color: black !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(74, 222, 128, 0.3); }
-    .glow-btn-dental:hover { box-shadow: 0 15px 50px rgba(74, 222, 128, 0.5); transform: translateY(-2px); }
-    .glow-dental-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(74, 222, 128, 0.05) 0%, transparent 70%); }
+
     @media (max-width: 768px) {
         .hero-title-v2 { font-size: 2.8rem; }
     }
@@ -322,7 +289,7 @@ const slug = "dentistas";
 
     .comparison-card.premium {
         z-index: 2;
-        border: 2px solid var(--color-dental);
+        border: 2px solid var(--color-accounting);
     }
 
     .card-tag {
@@ -342,16 +309,13 @@ const slug = "dentistas";
         border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .card-tag.flagship-dental { background: var(--color-dental); color: black; border: none; }
+    .card-tag.flagship-accounting { background: var(--color-accounting); color: white; border: none; }
 
     .card-browser-mockup {
         height: 30px;
         background: #222;
         display: flex;
-        align-items: center;
-        gap: 6px;
-        padding-left: 15px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
+        align-items: center; gap: 6px; padding-left: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
     .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
@@ -423,19 +387,41 @@ const slug = "dentistas";
     }
     .project-info-overlay span { 
         font-size: 0.7rem; 
-        color: var(--color-dental); 
+        color: var(--color-accounting); 
         font-weight: 900; 
         text-transform: uppercase;
         letter-spacing: 0.05em;
     }
 
     .problem-card-v2 p { color: #cecece; line-height: 1.6; }
-    .shadow-dental-sm { box-shadow: 0 0 20px rgba(0, 242, 255, 0.1); }
-    .bord-dental { border: 2px solid var(--color-dental) !important; }
+    .shadow-accounting-sm { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
+    .bord-accounting { border: 2px solid var(--color-accounting) !important; }
 
     @media (min-width: 1024px) {
         .comparison-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; }
         .comparison-card.legacy { transform: translateX(30px) scale(0.9); z-index: 1; }
         .comparison-card.premium { transform: scale(1.05); }
     }
+    .reveal-up { opacity: 1; }
 </style>
+
+<script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    });
+</script>

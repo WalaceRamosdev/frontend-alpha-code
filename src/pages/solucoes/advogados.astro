@@ -3,24 +3,25 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
 import SocialProofGrid from "../../components/sections/SocialProofGrid.astro";
+import { Image } from "astro:assets";
 
 const nicheName = "Advogados";
 const slug = "advogados";
 
 const painPoints = [
     {
-        icon: "⚖️",
+        faIcon: "fas fa-gavel",
         title: "Prospecção Ética",
         desc: "Você quer crescer, mas precisa respeitar os limites do código de ética da OAB.",
     },
     {
-        icon: "🏢",
-        title: "Imagem de Escritório Físico",
-        desc: "Seu site parece um blog pessoal e não transmite a robustez do seu escritório.",
+        faIcon: "fas fa-building",
+        title: "Escritório Fantasma",
+        desc: "Seu site atual é amador e não transmite a robustez e seriedade que sua banca exige.",
     },
     {
-        icon: "🕵️",
-        title: "Dificuldade em Leads Qualificados",
+        faIcon: "fas fa-user-slash",
+        title: "Leads de Baixa Qualidade",
         desc: "Muitos curiosos entram em contato, mas poucos são os clientes ideais para o seu escritório.",
     },
 ];
@@ -29,316 +30,561 @@ const benefits = [
     {
         icon: "📜",
         title: "Conformidade Total OAB",
-        desc: "Marketing jurídico focado em informação e autoridade, sem ferir a ética profissional.",
+        desc: "Marketing jurídico focado em informação e autoridade, respeitando 100% o código de ética.",
     },
     {
         icon: "🏛️",
         title: "Design de Autoridade",
-        desc: "Estética que transmite seriedade, segurança e competência técnica.",
+        desc: "Estética imponente que transmite segurança, confiança e competência técnica imediata.",
     },
     {
         icon: "📍",
         title: "SEO Jurídico Local",
-        desc: "Seja a primeira resposta quando um cliente busca por um especialista em sua cidade.",
+        desc: "Seja a primeira resposta no Google quando um cliente busca por um especialista em sua região.",
     },
 ];
 
 const testimonials = [
     {
         name: "Dr. Ricardo Oliveira",
-        role: "Direito Tributário e Civil",
-        result: "Posicionamento como autoridade",
+        role: "Direito Tributário",
+        result: "Autoridade Digital Estabelecida",
         quote: "A Alpha Code entendeu exatamente a seriedade que meu escritório precisava. Hoje meu site é minha principal ferramenta de apresentação para grandes clientes.",
     },
     {
         name: "Dra. Patrícia Silveira",
         role: "Direito de Família",
         result: "Dobro de consultas agendadas",
-        quote: "O SEO local foi um divisor de águas. Sou encontrada por pessoas que realmente precisam de ajuda jurídica na minha região.",
+        quote: "O SEO local foi um divisor de águas. Sou encontrada por pessoas que realmente precisam de ajuda jurídica qualificada na minha região.",
     },
+];
+
+const lawProjects = [
+    {
+        name: "Aline Barbosa",
+        image: "/assets/imagens-de-paginas/alineBarbosa.svg",
+        result: "Estrategia e Conversão",
+        link: "https://advogada-aline-barbosa.vercel.app/"
+    },
+    {
+        name: "Elegance Advocacia",
+        image: "/assets/imagens-de-paginas/eleganceAdvocacia.svg",
+        result: "Banca de Alto Padrão",
+        link: "https://eleganceadvocacia.vercel.app/"
+    }
 ];
 ---
 
 <BaseLayout
-    title="Criação de Sites para Advogados e Escritórios de Advocacia | Alpha Code"
+    title="Sites para Advogados e Escritórios de Advocacia | Alpha Code"
     description="Eleve o patamar do seu escritório jurídico. Sites éticos, imponentes e otimizados para atrair clientes de alto valor."
-    showHeader={false}
+    showHeader={true}
     showFooter={true}
     showSocialProof={true}
 >
-    <!-- GSAP Scripts -->
+    <!-- GSAP / Animations -->
     <script>
         import { gsap } from "gsap";
         import { ScrollTrigger } from "gsap/ScrollTrigger";
         gsap.registerPlugin(ScrollTrigger);
 
         document.addEventListener("astro:page-load", () => {
-            const tl = gsap.timeline();
-            tl.from(".hero-badge", { y: -10, opacity: 0, duration: 1, ease: "power3.out" })
-                .from(".hero-title", { y: 30, opacity: 0, duration: 1, ease: "power3.out" }, "-=0.6")
-                .from(".hero-sub", { y: 20, opacity: 0, duration: 0.8, ease: "power3.out" }, "-=0.4")
-                .from(".hero-cta", { scale: 0.95, opacity: 0, duration: 0.6, ease: "back.out(1.7)", delay: 0.2 }, "-=0.1");
+            gsap.to(".hero-bg-image", {
+                scrollTrigger: { trigger: ".hero-lp-v2", start: "top top", scrub: true },
+                y: 100, opacity: 0.4
+            });
 
-            gsap.utils.toArray(".anim-fade-up").forEach((elem: any) => {
-                gsap.from(elem, {
-                    scrollTrigger: { trigger: elem, start: "top 85%", toggleActions: "play none none reverse" },
-                    y: 40, opacity: 0, duration: 0.8, ease: "power3.out"
+            document.querySelectorAll(".reveal-up").forEach((el) => {
+                gsap.from(el, {
+                    scrollTrigger: { trigger: el, start: "top 90%", toggleActions: "play none none reverse" },
+                    y: 40, opacity: 0, duration: 1, ease: "power3.out"
                 });
+            });
+
+            gsap.from(".stagger-card", {
+                scrollTrigger: { trigger: ".stagger-container", start: "top 80%" },
+                y: 60, opacity: 0, duration: 0.8, stagger: 0.15, ease: "power2.out"
             });
         });
     </script>
 
-    <div class="landing-page-niche">
-        <section class="hero-lp">
-            <div class="container">
-                <div class="hero-content">
-                    <span class="hero-badge badge">Marketing Jurídico de Performance</span>
-                    <h1 class="hero-title">
-                        Seu <span class="highlight">Escritório de Advocacia</span> com presença de elite.
+    <div class="niche-page law-theme">
+        
+        <!-- HERO V2 -->
+        <section class="hero-lp-v2">
+            <div class="hero-bg-container">
+                <img src="/assets/banners/advogados-hero.png" alt="Escritório de Advocacia Premium" class="hero-bg-image" />
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container relative z-10">
+                <div class="hero-content-v2">
+                    <div class="hero-badge-v2 reveal-up">
+                        <span class="dot gold"></span> POSICIONAMENTO DE ELITE PARA ADVOGADOS
+                    </div>
+                    <h1 class="hero-title-v2 reveal-up">
+                        Sua Banca com a <br/>
+                        <span class="text-gradient-gold">Autoridade Máxima</span> que o Direito Exige.
                     </h1>
-                    <p class="hero-sub subheadline">
-                        Não seja apenas mais um no diretório. Tenha um site que transmite autoridade jurídica absoluta e atrai os clientes que o seu conhecimento merece.
+                    <p class="hero-sub-v2 reveal-up">
+                        Não seja apenas mais um no diretório. Tenha um ecossistema digital que transmite seriedade inquestionável e atrai clientes que valorizam sua expertise.
                     </p>
-                    <div class="hero-cta cta-wrapper">
+                    <div class="hero-actions-v2 reveal-up">
                         <Button
-                            href="https://wa.me/5521999064502?text=Olá! Sou advogado e gostaria de um site que transmita autoridade e seriedade para meu escritório."
+                            href="https://wa.me/5521999064502?text=Olá! Sou advogado(a) e desejo um site que transmita autoridade e seriedade para meu escritório."
                             target="_blank"
                             variant="primary"
                             size="lg"
-                            class="pulse-anim main-cta-btn"
+                            class="glow-button-gold"
                         >
-                            QUERO AGENDAR UM DIAGNÓSTICO
+                            SOLICITAR DIAGNÓSTICO DE AUTORIDADE
                         </Button>
-                        <span class="secure-text">
-                            Projetos em total conformidade com a OAB
-                        </span>
+                        <div class="hero-trust">
+                            <i class="fas fa-balance-scale"></i> Projetos 100% em conformidade com a OAB
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="hero-bg-glow"></div>
         </section>
 
-        <SocialProofGrid />
-
-        <section class="social-proof-section anim-fade-up">
+        <!-- Stats Bar -->
+        <div class="stats-bar-v2">
             <div class="container">
-                <div class="proof-header">
-                    <h2>Resultados no Setor Jurídico</h2>
+                <div class="stats-wrapper-v2">
+                    <div class="stat-item-v2">
+                        <span class="stat-num">OAB OK</span>
+                        <span class="stat-txt">Ética e Conformidade</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">3 dias</span>
+                        <span class="stat-txt">Implementação Ágil</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">Premium</span>
+                        <span class="stat-txt">Design de Alto Padrão</span>
+                    </div>
                 </div>
-                <div class="testimonials-grid">
-                    {testimonials.map((t) => (
-                        <div class="testimonial-card">
-                            <div class="testimonial-header">
-                                <div class="avatar-placeholder">{t.name.charAt(0)}</div>
-                                <div>
-                                    <h4>{t.name}</h4>
-                                    <span class="role">{t.role}</span>
+            </div>
+        </div>
+
+        <!-- Problem Awareness -->
+        <section class="problem-v2 py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">O Desafio do <span class="text-gold">Posicionamento</span></h2>
+                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg">
+                        Escritórios de excelência não podem ser representados por sites genéricos.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-3 gap-8 stagger-container">
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-gavel text-gold"></i></div>
+                        <h3>Site "Cartão de Visitas"</h3>
+                        <p>Sites que só têm o nome e telefone não convencem o cliente moderno a confiar sua causa a você.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-user-slash text-gold"></i></div>
+                        <h3>Ausência Consultiva</h3>
+                        <p>O cliente busca autoridade. Se o seu site não educa e acolhe, ele busca o próximo especialista.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-hourglass-half text-gold"></i></div>
+                        <h3>Morosidade Digital</h3>
+                        <p>Websites lentos passam uma imagem de desorganização que o cliente projeta no seu serviço jurídico.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transformation -->
+        <section class="transformation-v2 py-24 bg-dark-accent">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="content-side reveal-up">
+                        <span class="tag-v2 gold">A BANCA DO FUTURO</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Sua vitrine jurídica <br/> em <span class="text-gold">Nível Global</span>.</h2>
+                        <div class="transformation-points">
+                            <div class="point-item">
+                                <div class="point-icon"><i class="fas fa-times-circle"></i></div>
+                                <div class="point-text">
+                                    <strong>Cenário Comum:</strong>
+                                    Websites confusos, lentos e que não passam a segurança necessária para grandes causas.
                                 </div>
                             </div>
-                            <div class="result-badge">🚀 {t.result}</div>
-                            <p class="quote">"{t.quote}"</p>
+                            <div class="point-item success-gold">
+                                <div class="point-icon"><i class="fas fa-shield-alt"></i></div>
+                                <div class="point-text">
+                                    <strong>Sua Nova Realidade:</strong>
+                                    Presença imponente, SEO jurídico técnico e total foco em autoridade e prospecção ética.
+                                </div>
+                            </div>
                         </div>
+                        <Button href="#investimento" variant="outline" class="mt-8">VER ESTRUTURA E INVESTIMENTO</Button>
+                    </div>
+                    <div class="image-side reveal-up">
+                        <div class="comparison-container">
+                            <div class="comparison-card legacy">
+                                <div class="card-tag">ANTES (GENÉRICO)</div>
+                                <div class="card-browser-mockup">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                </div>
+                                <div class="legacy-content">
+                                    <div class="skeleton-title"></div>
+                                    <div class="skeleton-text"></div>
+                                    <div class="skeleton-text short"></div>
+                                    <div class="skeleton-img"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="comparison-card premium bord-gold">
+                                <div class="card-tag flagship-gold">DEPOIS (ALPHA CODE)</div>
+                                <div class="card-browser-mockup">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                </div>
+                                <img src="/assets/imagens-de-paginas/eleganceAdvocacia.svg" alt="Projeto Real Elegance Advocacia" class="project-preview-img" />
+                                <div class="project-info-overlay">
+                                    <strong>Flagship: Elegance Advocacia</strong>
+                                    <span>Presença Jurídica de Impacto</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Specialist -->
+        <section class="niche-portfolio py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Cases de <span class="text-gold">Sucesso Jurídico</span></h2>
+                </div>
+                <div class="grid md:grid-cols-2 max-w-4xl mx-auto gap-8">
+                    {lawProjects.map((p) => (
+                        <a href={p.link} target="_blank" class="psy-project-card reveal-up group border-gold-hover">
+                            <div class="psy-img-wrapper">
+                                <img src={p.image} alt={p.name} />
+                                <div class="psy-overlay gold-bg">
+                                    <span>CONHECER SITE <i class="fas fa-external-link-alt"></i></span>
+                                </div>
+                            </div>
+                            <div class="psy-info">
+                                <h3>{p.name}</h3>
+                                <p><span class="dot gold"></span> {p.result}</p>
+                            </div>
+                        </a>
                     ))}
                 </div>
             </div>
         </section>
 
-        <section class="problem-section">
+        <!-- Pricing Section -->
+        <section class="pricing-v2 py-24" id="investimento">
             <div class="container">
-                <div class="section-header anim-fade-up">
-                    <span class="section-tag">POSICIONAMENTO É TUDO</span>
-                    <h2>A primeira impressão jurídica agora é digital.</h2>
-                    <p>Clientes de alto ticket pesquisam antes de contratar. O que eles encontram sobre você?</p>
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
+                    <p class="reveal-up text-gray-400 mt-4">Menos do que o valor de uma única consultoria para elevar o patamar do seu escritório.</p>
                 </div>
-                <div class="problems-grid stagger-container">
-                    {painPoints.map((pain) => (
-                        <div class="problem-card stagger-item">
-                            <div class="icon-box">{pain.icon}</div>
-                            <h3>{pain.title}</h3>
-                            <p>{pain.desc}</p>
+                
+                <div class="pricing-grid-v2">
+                    <div class="p-card-v2 reveal-up">
+                        <div class="head">
+                            <h3>ESSENCIAL</h3>
+                            <p>Presença jurídica digital eficiente</p>
                         </div>
-                    ))}
-                </div>
-            </div>
-        </section>
-
-        <section class="solution-section">
-            <div class="container">
-                <div class="solution-wrapper">
-                    <div class="solution-text anim-fade-up">
-                        <h2>Sua Banca com Imagem Global</h2>
-                        <p class="lead">Combinamos o rigor do direito com a tecnologia da Alpha Code.</p>
-                        <div class="benefits-list">
-                            {benefits.map((benefit) => (
-                                <div class="benefit-item">
-                                    <div class="benefit-icon">{benefit.icon}</div>
-                                    <div class="benefit-content">
-                                        <h4>{benefit.title}</h4>
-                                        <p>{benefit.desc}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="pricing-section">
-            <div class="container">
-                <div class="pricing-header anim-fade-up">
-                    <h2>Planos Estratégicos</h2>
-                </div>
-                <div class="pricing-grid stagger-container">
-                    <div class="pricing-card stagger-item">
-                        <div class="card-header">
-                            <h3>Escritório Digital</h3>
-                            <p class="card-desc">Para advogados autônomos ou pequenos escritórios.</p>
-                        </div>
-                        <div class="price-box">
-                            <span class="old-price">De R$ 397</span>
-                            <div class="flex items-baseline gap-1">
-                                <span class="currency">R$</span>
-                                <span class="amount">295</span>
+                        <div class="price">
+                            <span class="old font-outfit">R$ 397</span>
+                            <div class="current">
+                                <span class="curr">R$</span>
+                                <span class="val">295</span>
                             </div>
+                            <span class="method">À vista no PIX</span>
                         </div>
-                        <ul class="features-list">
-                            <li>✅ Landing Page de Alta Performance</li>
-                            <li>✅ Conformidade OAB</li>
-                            <li>✅ SEO Local Estratégico</li>
-                            <li>✅ Hospedagem Inclusa</li>
-                        </ul>
-                        <div class="card-footer">
-                            <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">VER DISPONIBILIDADE</Button>
-                        </div>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CHECKOUT SEGURO</Button>
                     </div>
-                    <div class="pricing-card featured stagger-item">
-                        <div class="badge-popular">RECOMENDADO</div>
-                        <div class="card-header">
+
+                    <div class="p-card-v2 featured reveal-up">
+                        <div class="pop">MAIS PROCURADO</div>
+                        <div class="head">
                             <h3>Banca Autoridade</h3>
-                            <p class="card-desc">Estrutura completa para escritórios em expansão.</p>
+                            <p>Ecossistema de autoridade e blog</p>
                         </div>
-                        <div class="price-box">
-                            <span class="old-price">De R$ 697</span>
-                            <div class="flex items-baseline gap-1">
-                                <span class="currency">R$</span>
-                                <span class="amount">449</span>
+                        <div class="price">
+                            <span class="old font-outfit">R$ 697</span>
+                            <div class="current">
+                                <span class="curr">R$</span>
+                                <span class="val">449</span>
                             </div>
+                            <span class="method">À vista no PIX</span>
                         </div>
-                        <ul class="features-list">
-                            <li>✅ Site Completo Multi-páginas</li>
-                            <li>✅ Blog Jurídico Informativo</li>
-                            <li>✅ SEO Avançado por Área</li>
-                            <li>✅ Design de Alto Padrão</li>
-                        </ul>
-                        <div class="card-footer">
-                            <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-effect">QUERO SER AUTORIDADE</Button>
-                        </div>
+                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-gold">QUERO ESTE PLANO</Button>
                     </div>
 
-                    <!-- Elite Plan -->
-                    <div class="pricing-card stagger-item">
-                        <div class="card-header">
-                            <h3>Elite</h3>
-                            <p class="card-desc">Digitalização total e prospecção de alta escala.</p>
+                    <div class="p-card-v2 reveal-up">
+                        <div class="head">
+                            <h3>ELITE JURÍDICA</h3>
+                            <p>Marketing de alta escala e prospecção</p>
                         </div>
-                        <div class="price-box">
-                            <span class="old-price">De R$ 1.297</span>
-                            <div class="flex items-baseline gap-1">
-                                <span class="currency">R$</span>
-                                <span class="amount">710</span>
+                        <div class="price">
+                            <span class="old font-outfit">R$ 1.297</span>
+                            <div class="current">
+                                <span class="curr">R$</span>
+                                <span class="val">710</span>
                             </div>
+                            <span class="method">À vista no PIX</span>
                         </div>
-                        <ul class="features-list">
-                            <li>✅ Tudo do Plano Autoridade</li>
-                            <li>✅ Estratégia de Conteúdo Premium</li>
-                            <li>✅ SEO Técnico Nível 100</li>
-                            <li>✅ Integração CRM Especializada</li>
-                            <li>✅ Mentoria de Posicionamento</li>
-                        </ul>
-                        <div class="card-footer">
-                            <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CONSULTAR DETALHES</Button>
-                        </div>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CONSULTAR DETALHES</Button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="final-cta-section anim-fade-up">
-            <div class="container">
-                <div class="final-cta-content">
-                    <h2>O direito evoluiu. Sua forma de atrair clientes também.</h2>
-                    <p>Construa sua reputação digital com quem entende do assunto.</p>
-                    <div class="actions">
-                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-effect pulse-anim">FALAR COM UM ESPECIALISTA AGORA</Button>
-                    </div>
+        <!-- Final CTA -->
+        <section class="final-cta-v2 py-32 relative overflow-hidden">
+            <div class="container relative z-10 text-center">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Construa seu <br/> <span class="text-gold font-outfit">Legado Digital</span></h2>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-gold">FALAR COM UM ESPECIALISTA</Button>
                 </div>
             </div>
+            <div class="glow-gold-1"></div>
         </section>
+
     </div>
 </BaseLayout>
 
 <style>
-    .landing-page-niche { color: #e0e0e0; font-family: "Plus Jakarta Sans", sans-serif; background-color: #050505; }
-    .container { max-width: 1300px; margin: 0 auto; padding: 0 24px; }
-    .highlight { color: var(--color-primary); font-weight: 800; text-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.4); }
-    .hero-lp { padding: 140px 0 100px; text-align: center; background: radial-gradient(circle at center top, #1a0505 0%, #000000 60%); }
-    .hero-content { max-width: 900px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; }
-    .badge { background: rgba(255, 255, 255, 0.08); color: var(--color-primary); padding: 8px 18px; border-radius: 100px; font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 24px; border: 1px solid rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); }
-    .hero-title { font-family: "Outfit", sans-serif; font-size: 3.8rem; line-height: 1.1; font-weight: 800; color: white; margin-bottom: 24px; letter-spacing: -0.03em; }
-    .hero-sub { font-size: 1.35rem; color: #a0a0a0; max-width: 780px; margin-bottom: 48px; line-height: 1.6; }
-    .main-cta-btn { box-shadow: 0 10px 40px rgba(var(--color-primary-rgb), 0.3); font-weight: 800 !important; }
-    .secure-text { font-size: 0.9rem; color: #666; margin-top: 16px; display: block; }
-    .social-proof-section { padding: 80px 0; background: #0a0a0a; border-top: 1px solid #222; border-bottom: 1px solid #222; }
-    .proof-header h2 { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: white; }
-    .testimonials-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 32px; }
-    .testimonial-card { background: #141414; padding: 32px; border-radius: 20px; border: 1px solid #333; }
-    .testimonial-header { display: flex; align-items: center; gap: 16px; margin-bottom: 20px; }
-    .avatar-placeholder { width: 50px; height: 50px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 800; }
-    .testimonial-header h4 { margin: 0; color: white; font-size: 1.15rem; }
-    .role { font-size: 0.95rem; color: #999; }
-    .result-badge { display: inline-block; background: rgba(16, 185, 129, 0.15); color: #34d399; padding: 6px 12px; border-radius: 8px; font-size: 0.9rem; font-weight: 700; margin-bottom: 16px; border: 1px solid rgba(16, 185, 129, 0.3); }
-    .quote { color: #ddd; font-style: italic; line-height: 1.6; }
-    .problem-section { padding: 100px 0; background: #050505; text-align: center; }
-    .section-tag { color: #ff4444; font-weight: 800; font-size: 0.9rem; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 12px; display: block; }
-    .section-header h2 { font-size: 2.8rem; color: white; margin-bottom: 16px; }
-    .problems-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-bottom: 50px; }
-    .problem-card { background: #111; padding: 40px 24px; border-radius: 16px; border: 1px solid #222; transition: transform 0.3s ease; display: flex; flex-direction: column; align-items: center; }
-    .icon-box { font-size: 2.5rem; margin-bottom: 20px; }
-    .problem-card h3 { color: white; font-size: 1.3rem; margin-bottom: 12px; }
-    .problem-card p { color: #ccc; font-size: 1rem; line-height: 1.6; }
-    .solution-section { padding: 100px 0; background: linear-gradient(to right, #0d0d0d, #121212); }
-    .solution-text h2 { font-size: 3rem; color: white; margin-bottom: 20px; }
-    .solution-text .lead { font-size: 1.3rem; color: #bbb; margin-bottom: 60px; }
-    .benefits-list { display: grid; gap: 30px; }
-    .benefit-item { display: flex; gap: 24px; background: #141414; padding: 30px; border-radius: 16px; border: 1px solid #222; }
-    .benefit-icon { font-size: 2rem; }
-    .benefit-content h4 { color: white; font-size: 1.4rem; margin-bottom: 8px; }
-    .benefit-content p { color: #ccc; }
-    .scarcity-box { background: rgba(255, 215, 0, 0.05); border: 1px solid rgba(255, 215, 0, 0.2); border-radius: 16px; padding: 30px; display: flex; align-items: center; gap: 30px; }
-    .scarcity-icon { font-size: 3rem; }
-    .scarcity-status { display: flex; align-items: center; gap: 10px; background: rgba(255, 255, 255, 0.05); padding: 10px 20px; border-radius: 50px; }
-    .status-dot { width: 8px; height: 8px; background: #ff4444; border-radius: 50%; box-shadow: 0 0 10px #ff4444; animation: blink 1.5s infinite; }
-    @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
-    .pricing-section { padding: 100px 0; }
-    .pricing-header { text-align: center; margin-bottom: 60px; }
-    .pricing-header h2 { font-size: 3rem; color: white; }
-    .pricing-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; max-width: 1300px; margin: 0 auto; }
-    .pricing-card { background: #111; padding: 40px; border-radius: 24px; border: 1px solid #222; position: relative; }
-    .featured { border-color: var(--color-primary) !important; background: rgba(var(--color-primary-rgb), 0.03) !important; }
-    .badge-popular { position: absolute; top: 0; right: 40px; transform: translateY(-50%); background: var(--color-primary); color: white; padding: 4px 12px; border-radius: 50px; font-size: 0.75rem; font-weight: 900; }
-    .price-box { margin: 30px 0; }
-    .old-price { text-decoration: line-through; color: #666; font-size: 0.9rem; }
-    .amount { font-size: 4rem; font-weight: 800; color: white; font-family: "Outfit"; }
-    .features-list { margin-bottom: 40px; }
-    .features-list li { margin-bottom: 12px; color: #bbb; }
-    .final-cta-section { padding: 120px 0; text-align: center; background: radial-gradient(circle at center bottom, #1a0505 0%, #000 70%); }
-    .final-cta-section h2 { font-size: 3rem; color: white; max-width: 800px; margin: 0 auto 30px; }
-    @media (max-width: 968px) {
-        .hero-title { font-size: 2.5rem; }
-        .problems-grid, .testimonials-grid, .pricing-grid { grid-template-columns: 1fr; }
-        .hero-lp { padding-top: 100px; }
-        .scarcity-box { flex-direction: column; text-align: center; }
+    .law-theme {
+        --color-gold: #D4AF37;
+        --color-primary: #8a1c26;
+        --color-bg-dark: #050505;
+        --color-surface: #0a0a0a;
+        --color-accent: #111111;
+        --font-main: 'Plus Jakarta Sans', sans-serif;
+        --font-heading: 'Outfit', sans-serif;
     }
+
+    .niche-page { font-family: var(--font-main); background-color: var(--color-bg-dark); color: white; overflow-x: hidden; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Hero */
+    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background-color: black; }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.5; filter: saturate(0.6) brightness(0.6); }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.9) 70%, black 100%); }
+    .hero-content-v2 { max-width: 850px; }
+    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 10px 24px; background: rgba(212, 175, 55, 0.1); border: 1px solid rgba(212, 175, 55, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: var(--color-gold); }
+    .hero-badge-v2 .dot.gold { width: 8px; height: 8px; background: var(--color-gold); border-radius: 50%; box-shadow: 0 0 10px var(--color-gold); }
+    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 2rem; }
+    .text-gradient-gold { background: linear-gradient(135deg, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-v2 { font-size: 1.25rem; color: #a0a0a0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 680px; }
+    .hero-actions-v2 { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+    .hero-trust { font-size: 0.9rem; color: #666; display: flex; align-items: center; gap: 10px; }
+    .hero-trust i { color: var(--color-gold); }
+
+    /* Stats */
+    .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
+    .stats-wrapper-v2 { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: var(--color-gold); }
+    .stat-txt { font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255, 255, 255, 0.1); }
+
+    /* Problem */
+    .problem-card-v2 { background: var(--color-accent); padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease; text-align: center; }
+    .problem-card-v2:hover { border-color: var(--color-gold); transform: translateY(-8px); }
+    .icon-circle { width: 80px; height: 80px; background: rgba(212, 175, 55, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 2rem; border: 1px solid rgba(212, 175, 55, 0.1); }
+    .text-gold { color: var(--color-gold); }
+
+    /* Transformation */
+    .bg-gold { background: var(--color-gold) !important; color: black !important; }
+    .tag-v2.gold { color: var(--color-gold); }
+    .success-gold { border-color: rgba(212, 175, 55, 0.2) !important; background: rgba(212, 175, 55, 0.02) !important; }
+    .success-gold i { color: var(--color-gold) !important; }
+    .comparison-frame { border-radius: 24px; overflow: hidden; border: 1px solid rgba(212, 175, 55, 0.2); box-shadow: 0 40px 80px rgba(0,0,0,0.6); }
+
+    /* Portfolio */
+    .border-gold-hover:hover { border-color: var(--color-gold) !important; }
+    .gold-bg { background: rgba(212, 175, 55, 0.9) !important; }
+    .dot.gold { background: var(--color-gold); box-shadow: 0 0 5px var(--color-gold); }
+
+    /* CTA */
+    .final-cta-v2 { background: radial-gradient(circle at center, #0a0a0a 0%, black 100%); }
+    .glow-btn-gold { background: var(--color-gold) !important; color: black !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(212, 175, 55, 0.3); }
+    .glow-btn-gold:hover { box-shadow: 0 15px 50px rgba(212, 175, 55, 0.5); transform: translateY(-2px); }
+    .glow-gold-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(212, 175, 55, 0.08) 0%, transparent 70%); }
+
+    @media (max-width: 768px) {
+        .hero-title-v2 { font-size: 2.8rem; }
+        .stat-divider { display: none; }
+    }
+    /* Advanced Transformation Styles */
+    .comparison-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        position: relative;
+    }
+
+    .comparison-card {
+        background: #0f0f0f;
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+        position: relative;
+        box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+    }
+
+    .comparison-card.legacy {
+        opacity: 0.6;
+        transform: scale(0.95);
+        filter: grayscale(0.2);
+    }
+
+    .comparison-card.premium {
+        z-index: 2;
+        border: 2px solid var(--color-gold);
+    }
+
+    .card-tag {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        z-index: 10;
+        padding: 4px 10px;
+        font-size: 0.65rem;
+        font-weight: 900;
+        border-radius: 4px;
+        background: rgba(0,0,0,0.8);
+        color: white;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        backdrop-filter: blur(4px);
+        border: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .card-tag.flagship-gold { background: var(--color-gold); color: black; border: none; }
+
+    .card-browser-mockup {
+        height: 30px;
+        background: #222;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding-left: 15px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+
+    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+
+    .legacy-content { padding: 3rem; display: flex; flex-direction: column; gap: 1rem; }
+    .skeleton-title { height: 20px; width: 60%; background: #333; border-radius: 4px; }
+    .skeleton-text { height: 12px; width: 90%; background: #222; border-radius: 4px; }
+    .skeleton-text.short { width: 40%; }
+    .skeleton-img { height: 100px; width: 100%; background: #222; border-radius: 8px; margin-top: 1rem; }
+
+    .project-preview-img { 
+        width: 100%; 
+        height: auto; 
+        display: block; 
+        filter: brightness(1.05); 
+        transition: transform 0.5s ease;
+    }
+
+    .comparison-card.premium::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(
+            to right,
+            transparent,
+            rgba(255, 255, 255, 0.1),
+            transparent
+        );
+        transform: skewX(-25deg);
+        transition: 0.7s;
+        pointer-events: none;
+    }
+
+    .comparison-card.premium:hover::after {
+        left: 150%;
+        transition: 0.7s;
+    }
+
+    .project-info-overlay {
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+        right: 20px;
+        background: rgba(15, 15, 15, 0.7);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 12px 20px;
+        border-radius: 12px;
+        border: 1px solid rgba(255,255,255,0.1);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+        transform: translateY(0);
+        transition: transform 0.3s ease;
+    }
+
+    .project-info-overlay strong { 
+        display: block; 
+        font-size: 0.95rem; 
+        font-family: var(--font-heading);
+        font-weight: 800;
+        letter-spacing: -0.02em;
+    }
+    .project-info-overlay span { 
+        font-size: 0.7rem; 
+        color: var(--color-gold); 
+        font-weight: 900; 
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .problem-card-v2 p { color: #cecece; line-height: 1.6; }
+    .shadow-gold-sm { box-shadow: 0 0 20px rgba(212, 175, 55, 0.1); }
+    .bord-gold { border: 2px solid var(--color-gold) !important; }
+
+    @media (min-width: 1024px) {
+        .comparison-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; }
+        .comparison-card.legacy { transform: translateX(30px) scale(0.9); z-index: 1; }
+        .comparison-card.premium { transform: scale(1.05); }
+    }
+    .reveal-up { opacity: 1; }
 </style>
----
+
+<script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.from(el, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 90%",
+                },
+                y: 40,
+                opacity: 0,
+                duration: 1,
+                ease: "power3.out"
+            });
+        });
+    });
+</script>
