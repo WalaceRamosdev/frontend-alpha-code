@@ -262,9 +262,8 @@ export default function OrderForm({ user }) {
         };
 
         try {
-            // DETECTA SE ESTÁ EM LOCALHOST OU PRODUÇÃO
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const backendBase = isLocal ? 'http://localhost:3000' : 'https://backend-rp7j.onrender.com';
+            // PRIORIZA PRODUÇÃO PARA TESTES FACILITADOS
+            const backendBase = 'https://backend-rp7j.onrender.com';
             const apiUrl = `${backendBase}/send-email`;
 
             console.log(`📡 [${new Date().toLocaleTimeString()}] Enviando lead para: ${apiUrl}`);
@@ -354,9 +353,7 @@ export default function OrderForm({ user }) {
         console.log("PAYMENT PAYLOAD DEBUG:", payload);
 
         try {
-            // DETECTA SE ESTÁ EM LOCALHOST OU PRODUÇÃO
-            const isLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-            const backendBase = isLocal ? 'http://localhost:3000' : 'https://backend-rp7j.onrender.com';
+            const backendBase = 'https://backend-rp7j.onrender.com';
 
             console.log(`💳 Criando sessão de checkout em: ${backendBase}`);
 
@@ -639,9 +636,13 @@ export default function OrderForm({ user }) {
                                                     <label>Objetivo Principal</label>
                                                     <select name="objetivo" value={formData.objetivo} onChange={handleChange} required>
                                                         <option value="">Selecione...</option>
-                                                        <option value="Captar Clientes">Captar mais clientes</option>
-                                                        <option value="Autoridade">Gerar Autoridade</option>
-                                                        <option value="Vendas">Venda Direta</option>
+                                                        <option value="Captar Clientes">Captar mais clientes (Landing Page)</option>
+                                                        <option value="Gerar Autoridade">Gerar Autoridade (Marca Pessoal)</option>
+                                                        <option value="Vendas">Venda Direta / E-commerce</option>
+                                                        <option value="Portfolio">Portfólio / Exibição de Projetos</option>
+                                                        <option value="Agendamento">Agendamento Online (Consultórios)</option>
+                                                        <option value="Infoprodutos">Lançamento de Infoprodutos</option>
+                                                        <option value="Redesign">Reformulação completa de site antigo</option>
                                                     </select>
                                                 </div>
                                                 <div className="field">
