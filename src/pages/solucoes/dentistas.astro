@@ -226,10 +226,6 @@ const slug = "dentistas";
                                     <div class="browser-dot-green"></div>
                                 </div>
                                 <img src="/assets/imagens-de-paginas/ctim.svg" alt="Projeto Real Odonto" class="project-preview-img" />
-                                <div class="project-info-overlay">
-                                    <strong>Flagship: Clínica Elite</strong>
-                                    <span>Padrão Internacional de Saúde</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -347,37 +343,43 @@ const slug = "dentistas";
     .glow-dental-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(74, 222, 128, 0.05) 0%, transparent 70%); }
     @media (max-width: 768px) {
         .hero-title-v2 { font-size: 2.8rem; }
+        .pricing-grid-v2 { grid-template-columns: 1fr; }
+        .p-card-v2.featured { transform: none; margin: 2rem 0; }
+        .transformation-v2 .grid { grid-template-columns: 1fr; }
+
+        /* Mobile fixes for comparison cards */
+        .comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            perspective: none;
+            margin-top: 1rem;
+        }
+        .comparison-card.legacy, .comparison-card.premium {
+            transform: none !important;
+            opacity: 1 !important;
+            filter: none !important;
+            margin: 0 !important;
+        }
+        .comparison-card.premium {
+            order: -1; /* Premium results first on mobile */
+            border-width: 1px;
+        }
+        .project-info-overlay {
+            position: relative;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            margin: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: none;
+            border-radius: 12px;
+        }
+        .project-info-overlay strong { font-size: 1rem; }
+        .project-info-overlay span { font-size: 0.7rem; }
     }
 
-    /* Advanced Transformation Styles */
-    .comparison-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        position: relative;
-    }
-
-    .comparison-card {
-        background: #0f0f0f;
-        border-radius: 20px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        position: relative;
-        box-shadow: 0 40px 80px rgba(0,0,0,0.4);
-    }
-
-    .comparison-card.legacy {
-        opacity: 0.6;
-        transform: scale(0.95);
-        filter: grayscale(0.2);
-    }
-
-    .comparison-card.premium {
-        z-index: 2;
-        border: 2px solid var(--color-dental);
-    }
-
-    .card-tag {
     /* Advanced Transformation Styles */
     .comparison-container {
         display: flex;
@@ -396,6 +398,7 @@ const slug = "dentistas";
         position: relative;
         box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        min-height: 200px; /* Fallback height */
     }
 
     .comparison-card.legacy {
@@ -472,42 +475,11 @@ const slug = "dentistas";
     .project-preview-img { 
         width: 100%; 
         height: auto; 
+        min-height: 250px; /* Ensure visibility during load */
+        object-fit: cover;
         display: block; 
         filter: brightness(1.05);
         transition: transform 0.8s ease;
-    }
-
-    .project-info-overlay {
-        position: absolute;
-        bottom: 30px;
-        left: 30px;
-        right: 30px;
-        background: rgba(10, 10, 10, 0.6);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        padding: 20px 30px;
-        border-radius: 20px;
-        border: 1px solid rgba(255,255,255,0.1);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-    }
-
-    .project-info-overlay strong { 
-        display: block; 
-        font-size: 1.1rem; 
-        font-family: var(--font-heading);
-        font-weight: 800;
-        letter-spacing: -0.01em;
-    }
-    .project-info-overlay span { 
-        font-size: 0.8rem; 
-        color: #4ade80; 
-        font-weight: 700; 
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
     }
 
     @media (min-width: 1024px) {
@@ -525,7 +497,7 @@ const slug = "dentistas";
             box-shadow: 0 60px 120px rgba(0,0,0,0.9);
         }
     }
-    .reveal-up { opacity: 1; }
+    .reveal-up { opacity: 1 !important; }
 </style>
 
 </style>

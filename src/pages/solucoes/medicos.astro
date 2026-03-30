@@ -239,10 +239,6 @@ const slug = "medicos";
                                     <div class="browser-dot-green"></div>
                                 </div>
                                 <img src="/assets/imagens-de-paginas/ctim.svg" alt="Projeto Real CTIM" class="project-preview-img" />
-                                <div class="project-info-overlay">
-                                    <strong>Flagship: CTIM Clínica</strong>
-                                    <span>Ecossistema Digital de Saúde</span>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -386,6 +382,47 @@ const slug = "medicos";
     .glow-btn-medical { background: var(--color-medical) !important; color: black !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(0, 242, 255, 0.3); }
     .glow-btn-medical:hover { box-shadow: 0 15px 50px rgba(0, 242, 255, 0.5); transform: translateY(-2px); }
     .glow-medical-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%); }
+    @media (max-width: 768px) {
+        .hero-title-v2 { font-size: 2.8rem; }
+        .stats-bar-v2 { padding: 4rem 0; }
+        .stat-divider { display: none; }
+        .stats-wrapper-v2 { gap: 3rem; }
+        .pricing-grid-v2 { grid-template-columns: 1fr; }
+        .p-card-v2.featured { transform: none; margin: 2rem 0; }
+        .transformation-v2 .grid { grid-template-columns: 1fr; }
+
+        /* Mobile fixes for comparison cards */
+        .comparison-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            perspective: none;
+            margin-top: 1rem;
+        }
+        .comparison-card.legacy, .comparison-card.premium {
+            transform: none !important;
+            opacity: 1 !important;
+            filter: none !important;
+            margin: 0 !important;
+        }
+        .comparison-card.premium {
+            order: -1; /* Premium results first on mobile */
+            border-width: 1px;
+        }
+        .project-info-overlay {
+            position: relative;
+            bottom: auto;
+            left: auto;
+            right: auto;
+            margin: 1rem;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: none;
+            border-radius: 12px;
+        }
+        .project-info-overlay strong { font-size: 1rem; }
+        .project-info-overlay span { font-size: 0.7rem; }
+    }
     /* Advanced Transformation Styles */
     .comparison-container {
         display: flex;
@@ -404,6 +441,7 @@ const slug = "medicos";
         position: relative;
         box-shadow: 0 40px 80px rgba(0,0,0,0.6);
         transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        min-height: 200px; /* Fallback height */
     }
 
     .comparison-card.legacy {
@@ -480,42 +518,11 @@ const slug = "medicos";
     .project-preview-img { 
         width: 100%; 
         height: auto; 
+        min-height: 250px; /* Ensure visibility during load */
+        object-fit: cover;
         display: block; 
         filter: brightness(1.05);
         transition: transform 0.5s ease;
-    }
-
-    .project-info-overlay {
-        position: absolute;
-        bottom: 25px;
-        left: 25px;
-        right: 25px;
-        background: rgba(10, 10, 10, 0.6);
-        backdrop-filter: blur(25px);
-        -webkit-backdrop-filter: blur(25px);
-        padding: 15px 25px;
-        border-radius: 16px;
-        border: 1px solid rgba(255,255,255,0.1);
-        color: white;
-        display: flex;
-        flex-direction: column;
-        gap: 6px;
-        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
-    }
-
-    .project-info-overlay strong { 
-        display: block; 
-        font-size: 1.1rem; 
-        font-family: var(--font-heading);
-        font-weight: 800;
-        letter-spacing: -0.01em;
-    }
-    .project-info-overlay span { 
-        font-size: 0.8rem; 
-        color: #4ade80; 
-        font-weight: 700; 
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
     }
 
     @media (min-width: 1024px) {
@@ -533,7 +540,8 @@ const slug = "medicos";
             box-shadow: 0 60px 120px rgba(0,0,0,0.9);
         }
     }
-    .reveal-up { opacity: 1; }
+    .reveal-up { opacity: 1 !important; }
 </style>
+
 
 </style>
