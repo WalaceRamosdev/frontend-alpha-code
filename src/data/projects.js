@@ -13,7 +13,15 @@ export const projectsData = [
         category: 'saude',
         image: '/assets/imagens-de-paginas/erikaSpinola.svg',
         alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
-        link: 'https://www.erikspinola.com.br'
+        link: 'https://www.erikaspinola.com.br'
+    },
+    {
+        name: 'Ana Bottesi',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/anaBottesi.svg',
+        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
+        link: 'https://www.anabottesi.com.br'
     },
     {
         name: 'Alzimara Nunes',
