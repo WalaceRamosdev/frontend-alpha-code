@@ -2,6 +2,30 @@ import React, { useState } from 'react';
 
 const projects = [
     {
+        name: 'Dra. Nayanne Justiniano',
+        niche: 'Psicologia',
+        category: 'saude',
+        result: 'Presença digital estratégica',
+        image: '/assets/imagens-de-paginas/nayanneJustiniano.svg',
+        link: 'https://www.nayannejustiniano.com.br/'
+    },
+    {
+        name: 'Dra. Erika Spinola',
+        niche: 'Psicologia',
+        category: 'saude',
+        result: 'Autoridade clínica e agendamentos',
+        image: '/assets/imagens-de-paginas/erikaSpinola.svg',
+        link: 'https://www.erikaspinola.com.br'
+    },
+    {
+        name: 'Dra. Ana Bottesi',
+        niche: 'Psicologia',
+        category: 'saude',
+        result: 'Posicionamento e conversão',
+        image: '/assets/imagens-de-paginas/anaBottesi.svg',
+        link: 'https://www.anabottesi.com.br'
+    },
+    {
         name: 'Dra. Alzimara Nunes',
         niche: 'Psicologia',
         category: 'saude',
