@@ -154,7 +154,7 @@ const slug = "arquitetos";
                                 </div>
                             </div>
                             
-                            <div class="comparison-card premium bord-arch">
+                            <div class="comparison-card premium">
                                 <div class="card-tag flagship-arch">DEPOIS (ALPHA CODE)</div>
                                 <div class="card-browser-mockup">
                                     <div class="browser-dot-red"></div>
@@ -300,19 +300,6 @@ const slug = "arquitetos";
             order: -1; /* Premium results first on mobile */
             border-width: 1px;
         }
-        .project-info-overlay {
-            position: relative;
-            bottom: auto;
-            left: auto;
-            right: auto;
-            margin: 1rem;
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: none;
-            border-radius: 12px;
-        }
-        .project-info-overlay strong { font-size: 1rem; }
-        .project-info-overlay span { font-size: 0.7rem; }
     }
 
     /* Stats Bar */
@@ -353,8 +340,11 @@ const slug = "arquitetos";
         border: 1px solid rgba(255,255,255,0.05);
         position: relative;
         box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
-        min-height: 200px; /* Fallback height */
+        transition: all 0.8s cubic-bezier(0.23, 1, 1, 1);
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        display: flex;
+        flex-direction: column;
     }
 
     .comparison-card.legacy {
@@ -417,11 +407,13 @@ const slug = "arquitetos";
     .browser-dot-green { width: 10px; height: 10px; border-radius: 50%; background: #27c93f; }
 
     .legacy-content { 
-        padding: 4rem 3rem; 
+        padding: 2rem; 
         display: flex; 
         flex-direction: column; 
-        gap: 1.5rem; 
+        gap: 1rem; 
         background: #080808;
+        flex-grow: 1;
+        justify-content: center;
     }
     .skeleton-title { height: 12px; width: 35%; background: #222; border-radius: 2px; }
     .skeleton-text { height: 6px; width: 85%; background: #1a1a1a; border-radius: 1px; }
@@ -430,12 +422,12 @@ const slug = "arquitetos";
 
     .project-preview-img { 
         width: 100%; 
-        height: auto; 
-        min-height: 250px; /* Ensure visibility during load */
+        height: 100%;
         object-fit: cover;
         display: block; 
         filter: brightness(1.05);
         transition: transform 0.8s ease;
+        flex-grow: 1;
     }
 
     @media (min-width: 1024px) {
@@ -453,10 +445,6 @@ const slug = "arquitetos";
             box-shadow: 0 60px 120px rgba(0,0,0,0.9);
         }
     }
-    .reveal-up { opacity: 1 !important; }
-</style>
-
-
 </style>
 
 <script>
