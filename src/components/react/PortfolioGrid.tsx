@@ -183,15 +183,20 @@ export default function PortfolioGrid() {
                 gap: '40px'
             }}>
                 {filteredProjects.map((project) => (
-                    <div
+                    <a
                         key={project.name}
-                        className="project-card"
+                        href={project.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="project-card block no-underline"
                         style={{
                             backgroundColor: 'var(--color-bg-card)',
                             borderRadius: '24px',
                             overflow: 'hidden',
                             border: '1px solid rgba(255, 255, 255, 0.05)',
                             transition: 'all 0.4s ease',
+                            display: 'block',
+                            textDecoration: 'none'
                         }}
                     >
                         <div className="project-thumbnail" style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
@@ -225,10 +230,7 @@ export default function PortfolioGrid() {
                                 {project.result}
                             </p>
 
-                            <a
-                                href={project.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
+                            <div
                                 style={{
                                     color: 'white',
                                     fontWeight: '800',
@@ -241,9 +243,9 @@ export default function PortfolioGrid() {
                                 }}
                             >
                                 VISITAR SITE <span>→</span>
-                            </a>
+                            </div>
                         </div>
-                    </div>
+                    </a>
                 ))}
             </div>
         </div>

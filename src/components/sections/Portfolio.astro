@@ -99,7 +99,12 @@ const displayedProjects = projectsData.slice(0, 3);
 
         <div class="portfolio-grid-container mobile-carousel">
             {displayedProjects.map((project) => (
-                <div class="portfolio-card group">
+                <a 
+                    href={project.link} 
+                    target="_blank" 
+                    rel="noopener noreferrer" 
+                    class="portfolio-card group block no-underline"
+                >
                     <div class="project-image-wrapper">
                         <Image 
                             src={project.image} 
@@ -120,7 +125,7 @@ const displayedProjects = projectsData.slice(0, 3);
                         <span class="text-primary text-[10px] font-black uppercase tracking-[2px] block mb-2">{project.type}</span>
                         <h3 class="text-white text-2xl font-black tracking-tight group-hover:text-primary transition-colors duration-300">{project.name}</h3>
                     </div>
-                </div>
+                </a>
             ))}
         </div>
         

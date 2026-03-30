@@ -1,11 +1,19 @@
 export const projectsData = [
     {
-        name: 'Pizzaria',
-        type: 'Gastronomia',
-        category: 'gastronomia',
-        image: '/assets/imagens-de-paginas/pizzaria.svg',
-        alt: 'Site para pizzaria com cardápio online e design atrativo para aumentar pedidos no delivery',
-        link: 'https://projeto-pizzaria-ecru.vercel.app/'
+        name: 'Nayanne Justiniano',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/nayanneJustiniano.svg',
+        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
+        link: 'https://www.nayannejustiniano.com.br/'
+    },
+    {
+        name: 'Erika Spinola',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/erikaSpinola.svg',
+        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
+        link: 'https://www.erikspinola.com.br'
     },
     {
         name: 'Alzimara Nunes',
@@ -14,6 +22,14 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/alzimara.svg',
         alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
         link: 'https://www.alzimaranunes.com.br'
+    },
+    {
+        name: 'Pizzaria',
+        type: 'Gastronomia',
+        category: 'gastronomia',
+        image: '/assets/imagens-de-paginas/pizzaria.svg',
+        alt: 'Site para pizzaria com cardápio online e design atrativo para aumentar pedidos no delivery',
+        link: 'https://projeto-pizzaria-ecru.vercel.app/'
     },
     {
         name: 'Camila Ferraz',
