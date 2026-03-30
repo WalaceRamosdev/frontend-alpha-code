@@ -106,6 +106,9 @@ const psyProjects = [
         gsap.registerPlugin(ScrollTrigger);
 
         document.addEventListener("astro:page-load", () => {
+            // Refresh ScrollTrigger as heights might change after navigation
+            ScrollTrigger.refresh();
+
             // Hero parallax
             gsap.to(".hero-bg-image", {
                 scrollTrigger: {
@@ -121,31 +124,44 @@ const psyProjects = [
             // Reveal animations
             const revealElements = document.querySelectorAll(".reveal-up");
             revealElements.forEach((el) => {
-                gsap.from(el, {
-                    scrollTrigger: {
-                        trigger: el,
-                        start: "top 90%",
-                        toggleActions: "play none none reverse"
+                // Use fromTo for rock-solid visibility regardless of CSS initial state
+                gsap.fromTo(el, 
+                    { 
+                        y: 40, 
+                        opacity: 0 
                     },
-                    y: 40,
-                    opacity: 0,
-                    duration: 1,
-                    ease: "power3.out"
-                });
+                    {
+                        scrollTrigger: {
+                            trigger: el,
+                            start: "top 90%",
+                            toggleActions: "play none none reverse"
+                        },
+                        y: 0,
+                        opacity: 1,
+                        duration: 1,
+                        ease: "power3.out"
+                    }
+                );
             });
 
             // Card stagger
-            gsap.from(".stagger-card", {
-                scrollTrigger: {
-                    trigger: ".stagger-container",
-                    start: "top 80%"
+            gsap.fromTo(".stagger-card", 
+                { 
+                    y: 60, 
+                    opacity: 0 
                 },
-                y: 60,
-                opacity: 0,
-                duration: 0.8,
-                stagger: 0.15,
-                ease: "power2.out"
-            });
+                {
+                    scrollTrigger: {
+                        trigger: ".stagger-container",
+                        start: "top 80%"
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    stagger: 0.15,
+                    ease: "power2.out"
+                }
+            );
         });
     </script>
 
@@ -277,10 +293,11 @@ const psyProjects = [
                                     <div class="browser-dot-green"></div>
                                 </div>
                                 <div class="legacy-content">
-                                    <div class="skeleton-title"></div>
-                                    <div class="skeleton-text"></div>
-                                    <div class="skeleton-text short"></div>
-                                    <div class="skeleton-img"></div>
+                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
+                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
+                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
                                 </div>
                             </div>
                             
@@ -1031,109 +1048,145 @@ const psyProjects = [
         flex-direction: column;
         gap: 2rem;
         position: relative;
+        perspective: 1500px;
+        margin-top: 2rem;
     }
 
     .comparison-card {
         background: #0f0f0f;
-        border-radius: 20px;
+        border-radius: 28px;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.05);
         position: relative;
-        box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .comparison-card.legacy {
-        opacity: 0.6;
-        transform: scale(0.95);
-        filter: grayscale(0.2);
+        opacity: 0.35;
+        transform: scale(0.9) rotateY(15deg) translateX(-30px);
+        filter: grayscale(1) blur(1px);
+        z-index: 1;
     }
 
     .comparison-card.premium {
-        z-index: 2;
+        z-index: 3;
         border: 2px solid var(--color-primary);
-        box-shadow: 0 0 50px rgba(138, 28, 38, 0.2);
+        box-shadow: 0 0 100px rgba(138, 28, 38, 0.2);
+        transform: scale(1.1) rotateY(-10deg) translateX(30px) translateY(-20px);
+    }
+
+    .comparison-card:hover {
+        transform: scale(1.05) translateZ(50px) !important;
+        z-index: 10;
+        opacity: 1 !important;
+        filter: none !important;
     }
 
     .card-tag {
         position: absolute;
-        top: 40px;
+        top: 20px;
         left: 20px;
-        z-index: 10;
-        padding: 6px 12px;
-        font-size: 0.7rem;
-        font-weight: 900;
-        border-radius: 4px;
-        background: #333;
+        z-index: 15;
+        padding: 6px 14px;
+        font-size: 0.65rem;
+        font-weight: 950;
+        border-radius: 6px;
+        background: rgba(0,0,0,0.8);
         color: white;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.1);
     }
 
     .card-tag.flagship {
         background: var(--color-primary);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 20px rgba(138, 28, 38, 0.5);
     }
 
     .card-browser-mockup {
-        height: 30px;
-        background: #222;
+        height: 40px;
+        background: #111;
         display: flex;
         align-items: center;
-        gap: 6px;
-        padding-left: 15px;
+        gap: 10px;
+        padding-left: 25px;
         border-bottom: 1px solid rgba(255,255,255,0.05);
     }
 
-    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
-    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
-    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+    .browser-dot-red { width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 10px; height: 10px; border-radius: 50%; background: #27c93f; }
 
-    .legacy-content {
-        padding: 3rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    .legacy-content { 
+        padding: 4rem 3rem; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 1.5rem; 
+        background: #080808;
     }
+    .skeleton-title { height: 12px; width: 35%; background: #222; border-radius: 2px; }
+    .skeleton-text { height: 6px; width: 85%; background: #1a1a1a; border-radius: 1px; }
+    .skeleton-text.short { width: 25%; }
+    .skeleton-img { height: 140px; width: 100%; background: #151515; border-radius: 8px; border: 1px dashed #222; margin-top: 1rem; }
 
-    .skeleton-title { height: 20px; width: 60%; background: #333; border-radius: 4px; }
-    .skeleton-text { height: 12px; width: 90%; background: #222; border-radius: 4px; }
-    .skeleton-text.short { width: 40%; }
-    .skeleton-img { height: 100px; width: 100%; background: #222; border-radius: 8px; margin-top: 1rem; }
-
-    .project-preview-img {
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: transform 0.6s ease;
-    }
-
-    .comparison-card.premium:hover .project-preview-img {
-        transform: scale(1.02);
+    .project-preview-img { 
+        width: 100%; 
+        height: auto; 
+        display: block; 
+        filter: brightness(1.05);
+        transition: transform 0.8s ease;
     }
 
     .project-info-overlay {
         position: absolute;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background: linear-gradient(transparent, rgba(0,0,0,0.9));
-        padding: 2rem;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        background: rgba(10, 10, 10, 0.6);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        padding: 20px 30px;
+        border-radius: 20px;
+        border: 1px solid rgba(255,255,255,0.1);
         color: white;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        box-shadow: 0 20px 40px rgba(0,0,0,0.5);
     }
 
-    .project-info-overlay strong { display: block; font-size: 1.1rem; margin-bottom: 0.25rem; }
-    .project-info-overlay span { font-size: 0.85rem; color: var(--color-primary); font-weight: 800; }
+    .project-info-overlay strong { 
+        display: block; 
+        font-size: 1.1rem; 
+        font-family: var(--font-heading);
+        font-weight: 800;
+        letter-spacing: -0.01em;
+    }
+    .project-info-overlay span { 
+        font-size: 0.8rem; 
+        color: #4ade80; 
+        font-weight: 700; 
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+    }
 
     @media (min-width: 1024px) {
-        .comparison-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            gap: 0;
+        .comparison-container { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            align-items: center; 
+            gap: 0; 
         }
-        .comparison-card.legacy {
-            transform: translateX(40px) scale(0.85);
-            z-index: 1;
+        .comparison-card.legacy { 
+            transform: translateX(60px) scale(0.85) rotateY(20deg);
         }
-        .comparison-card.premium {
-            transform: scale(1.05);
+        .comparison-card.premium { 
+            transform: scale(1.15) rotateY(-15deg) translateX(-20px);
+            box-shadow: 0 60px 120px rgba(0,0,0,0.9);
         }
     }
     .reveal-up {

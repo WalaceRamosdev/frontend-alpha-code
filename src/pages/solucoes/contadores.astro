@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
+import NicheMeta from "../../components/seo/NicheMeta.astro";
+
 
 const painPoints = [
     {
@@ -45,15 +47,65 @@ const benefits = [
     showHeader={true}
     showSocialProof={true}
 >
+    <NicheMeta slug="contadores" slot="head" />
+
     <!-- animations script same -->
     <script>
         import { gsap } from "gsap";
         import { ScrollTrigger } from "gsap/ScrollTrigger";
         gsap.registerPlugin(ScrollTrigger);
+
         document.addEventListener("astro:page-load", () => {
-            gsap.to(".hero-bg-image", { scrollTrigger: { trigger: ".hero-lp-v2", start: "top top", scrub: true }, y: 100, opacity: 0.4 });
-            document.querySelectorAll(".reveal-up").forEach((el) => { gsap.from(el, { scrollTrigger: { trigger: el, start: "top 90%" }, y: 40, opacity: 0, duration: 1, ease: "power3.out" }); });
-            gsap.from(".stagger-card", { scrollTrigger: { trigger: ".stagger-container", start: "top 80%" }, y: 60, opacity: 0, duration: 0.8, stagger: 0.15 });
+            ScrollTrigger.refresh();
+
+            // Parallax Hero
+            gsap.to(".hero-bg-image", { 
+                scrollTrigger: { 
+                    trigger: ".hero-lp-v2", 
+                    start: "top top", 
+                    scrub: true 
+                }, 
+                y: 100, 
+                opacity: 0.4 
+            });
+
+            // Reveal Up
+            document.querySelectorAll(".reveal-up").forEach((el) => { 
+                gsap.fromTo(el, 
+                    { 
+                        y: 40, 
+                        opacity: 0 
+                    },
+                    {
+                        scrollTrigger: { 
+                            trigger: el, 
+                            start: "top 90%" 
+                        }, 
+                        y: 0, 
+                        opacity: 1, 
+                        duration: 1, 
+                        ease: "power3.out" 
+                    }
+                ); 
+            });
+
+            // Card stagger
+            gsap.fromTo(".stagger-card", 
+                { 
+                    y: 60, 
+                    opacity: 0 
+                },
+                {
+                    scrollTrigger: { 
+                        trigger: ".stagger-container", 
+                        start: "top 80%" 
+                    }, 
+                    y: 0, 
+                    opacity: 1, 
+                    duration: 0.8, 
+                    stagger: 0.15 
+                }
+            );
         });
     </script>
 
@@ -154,10 +206,11 @@ const benefits = [
                                     <div class="browser-dot-green"></div>
                                 </div>
                                 <div class="legacy-content">
-                                    <div class="skeleton-title"></div>
-                                    <div class="skeleton-text"></div>
-                                    <div class="skeleton-text short"></div>
-                                    <div class="skeleton-img"></div>
+                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
+                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
+                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
                                 </div>
                             </div>
                             
@@ -260,9 +313,59 @@ const benefits = [
     .niche-page { font-family: var(--font-main); background-color: var(--color-bg-dark); color: white; overflow-x: hidden; }
     .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
 
+    /* Hero */
+    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background-color: black; }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.5; filter: saturate(0.6) brightness(0.6); }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.9) 70%, black 100%); }
+    .hero-content-v2 { max-width: 850px; }
+    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 10px 24px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: var(--color-accounting); }
+    .hero-badge-v2 .dot.accounting { width: 8px; height: 8px; background: var(--color-accounting); border-radius: 50%; box-shadow: 0 0 10px var(--color-accounting); }
+    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 2rem; }
+    .text-gradient-accounting { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-v2 { font-size: 1.25rem; color: #a0a0a0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 680px; }
+    .hero-actions-v2 { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
+    .hero-trust { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px; }
+    .hero-trust i { color: var(--color-accounting); }
+    .text-accounting { color: var(--color-accounting); }
+    .bg-accounting { background: var(--color-accounting) !important; color: white !important; }
+    .tag-v2.accounting { color: var(--color-accounting); }
+    .problem-card-v2:hover { border-color: var(--color-accounting); transform: translateY(-8px); }
+    .icon-circle { width: 80px; height: 80px; background: rgba(59, 130, 246, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 2rem; border: 1px solid rgba(59, 130, 246, 0.1); }
+    .check-list { display: flex; flex-direction: column; gap: 1rem; }
+    .check-list li { display: flex; align-items: center; gap: 12px; color: #bbb; }
+    .check-list i { color: var(--color-accounting); }
+    .glow-btn-accounting { background: var(--color-accounting) !important; color: white !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(59, 130, 246, 0.3); }
+    .glow-btn-accounting:hover { box-shadow: 0 15px 50px rgba(59, 130, 246, 0.5); transform: translateY(-2px); }
+    .glow-accounting-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59, 130, 246, 0.08) 0%, transparent 70%); }
+
     @media (max-width: 768px) {
         .hero-title-v2 { font-size: 2.8rem; }
+        .stat-divider { display: none; }
     }
+
+    /* Stats Bar */
+    .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
+    .stats-wrapper-v2 { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .stat-item-v2 { display: flex; flex-direction: column; align-items: center; text-align: center; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: white; }
+    .stat-txt { font-size: 0.85rem; color: #666; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255, 255, 255, 0.1); align-self: center; }
+
+    /* Problem Cards */
+    .problem-card-v2 { background: var(--color-accent); padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255, 255, 255, 0.05); transition: all 0.4s ease; text-align: center; }
+    .problem-card-v2 h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 700; margin-bottom: 1rem; }
+    .problem-card-v2 p { color: #cecece; line-height: 1.6; }
+
+    /* Transformation & Points */
+    .bg-dark-accent { background-color: #080808; }
+    .tag-v2 { font-weight: 900; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 1rem; }
+    .point-item { display: flex; gap: 1rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); }
+    .point-icon { font-size: 1.25rem; color: var(--color-primary); }
+    .point-text { font-size: 1rem; color: #999; line-height: 1.5; text-align: left; }
+    .point-text strong { display: block; color: white; margin-bottom: 4px; }
+
+
 
     /* Advanced Transformation Styles */
     .comparison-container {
@@ -270,137 +373,146 @@ const benefits = [
         flex-direction: column;
         gap: 2rem;
         position: relative;
+        perspective: 1500px;
+        margin-top: 2rem;
     }
 
     .comparison-card {
         background: #0f0f0f;
-        border-radius: 20px;
+        border-radius: 28px;
         overflow: hidden;
         border: 1px solid rgba(255,255,255,0.05);
         position: relative;
-        box-shadow: 0 40px 80px rgba(0,0,0,0.4);
+        box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+        transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
     .comparison-card.legacy {
-        opacity: 0.6;
-        transform: scale(0.95);
-        filter: grayscale(0.2);
+        opacity: 0.35;
+        transform: scale(0.9) rotateY(15deg) translateX(-30px);
+        filter: grayscale(1) blur(1px);
+        z-index: 1;
     }
 
     .comparison-card.premium {
-        z-index: 2;
+        z-index: 3;
         border: 2px solid var(--color-accounting);
+        box-shadow: 0 0 100px rgba(59, 130, 246, 0.15);
+        transform: scale(1.1) rotateY(-10deg) translateX(30px) translateY(-20px);
+    }
+
+    .comparison-card:hover {
+        transform: scale(1.05) translateZ(50px) !important;
+        z-index: 10;
+        opacity: 1 !important;
+        filter: none !important;
     }
 
     .card-tag {
         position: absolute;
-        top: 15px;
-        left: 15px;
-        z-index: 10;
-        padding: 4px 10px;
+        top: 20px;
+        left: 20px;
+        z-index: 15;
+        padding: 6px 14px;
         font-size: 0.65rem;
-        font-weight: 900;
-        border-radius: 4px;
+        font-weight: 950;
+        border-radius: 6px;
         background: rgba(0,0,0,0.8);
         color: white;
         text-transform: uppercase;
-        letter-spacing: 1px;
-        backdrop-filter: blur(4px);
+        letter-spacing: 1.5px;
+        backdrop-filter: blur(8px);
         border: 1px solid rgba(255,255,255,0.1);
     }
 
-    .card-tag.flagship-accounting { background: var(--color-accounting); color: white; border: none; }
-
-    .card-browser-mockup {
-        height: 30px;
-        background: #222;
-        display: flex;
-        align-items: center; gap: 6px; padding-left: 15px; border-bottom: 1px solid rgba(255,255,255,0.05);
+    .card-tag.flagship-accounting {
+        background: var(--color-accounting);
+        color: white;
+        border: none;
+        box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
     }
 
-    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
-    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
-    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+    .card-browser-mockup {
+        height: 40px;
+        background: #111;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding-left: 25px;
+        border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
 
-    .legacy-content { padding: 3rem; display: flex; flex-direction: column; gap: 1rem; }
-    .skeleton-title { height: 20px; width: 60%; background: #333; border-radius: 4px; }
-    .skeleton-text { height: 12px; width: 90%; background: #222; border-radius: 4px; }
-    .skeleton-text.short { width: 40%; }
-    .skeleton-img { height: 100px; width: 100%; background: #222; border-radius: 8px; margin-top: 1rem; }
+    .browser-dot-red { width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 10px; height: 10px; border-radius: 50%; background: #27c93f; }
+
+    .legacy-content { 
+        padding: 4rem 3rem; 
+        display: flex; 
+        flex-direction: column; 
+        gap: 1.5rem; 
+        background: #080808;
+    }
+    .skeleton-title { height: 12px; width: 35%; background: #222; border-radius: 2px; }
+    .skeleton-text { height: 6px; width: 85%; background: #1a1a1a; border-radius: 1px; }
+    .skeleton-text.short { width: 25%; }
+    .skeleton-img { height: 140px; width: 100%; background: #151515; border-radius: 8px; border: 1px dashed #222; margin-top: 1rem; }
 
     .project-preview-img { 
         width: 100%; 
         height: auto; 
         display: block; 
-        filter: brightness(1.05); 
-        transition: transform 0.5s ease;
-    }
-
-    .comparison-card.premium::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: -100%;
-        width: 50%;
-        height: 100%;
-        background: linear-gradient(
-            to right,
-            transparent,
-            rgba(255, 255, 255, 0.1),
-            transparent
-        );
-        transform: skewX(-25deg);
-        transition: 0.7s;
-        pointer-events: none;
-    }
-
-    .comparison-card.premium:hover::after {
-        left: 150%;
-        transition: 0.7s;
+        filter: brightness(1.05);
+        transition: transform 0.8s ease;
     }
 
     .project-info-overlay {
         position: absolute;
-        bottom: 20px;
-        left: 20px;
-        right: 20px;
-        background: rgba(15, 15, 15, 0.7);
-        backdrop-filter: blur(12px);
-        -webkit-backdrop-filter: blur(12px);
-        padding: 12px 20px;
-        border-radius: 12px;
+        bottom: 30px;
+        left: 30px;
+        right: 30px;
+        background: rgba(10, 10, 10, 0.6);
+        backdrop-filter: blur(25px);
+        -webkit-backdrop-filter: blur(25px);
+        padding: 20px 30px;
+        border-radius: 20px;
         border: 1px solid rgba(255,255,255,0.1);
         color: white;
         display: flex;
         flex-direction: column;
-        gap: 2px;
-        transform: translateY(0);
-        transition: transform 0.3s ease;
+        gap: 6px;
+        box-shadow: 0 15px 30px rgba(0,0,0,0.5);
     }
 
     .project-info-overlay strong { 
         display: block; 
-        font-size: 0.95rem; 
+        font-size: 1.1rem; 
         font-family: var(--font-heading);
         font-weight: 800;
-        letter-spacing: -0.02em;
+        letter-spacing: -0.01em;
     }
     .project-info-overlay span { 
-        font-size: 0.7rem; 
-        color: var(--color-accounting); 
-        font-weight: 900; 
+        font-size: 0.8rem; 
+        color: #4ade80; 
+        font-weight: 700; 
         text-transform: uppercase;
-        letter-spacing: 0.05em;
+        letter-spacing: 0.08em;
     }
 
-    .problem-card-v2 p { color: #cecece; line-height: 1.6; }
-    .shadow-accounting-sm { box-shadow: 0 0 20px rgba(59, 130, 246, 0.1); }
-    .bord-accounting { border: 2px solid var(--color-accounting) !important; }
-
     @media (min-width: 1024px) {
-        .comparison-container { display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 0; }
-        .comparison-card.legacy { transform: translateX(30px) scale(0.9); z-index: 1; }
-        .comparison-card.premium { transform: scale(1.05); }
+        .comparison-container { 
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            align-items: center; 
+            gap: 0; 
+        }
+        .comparison-card.legacy { 
+            transform: translateX(60px) scale(0.85) rotateY(20deg);
+        }
+        .comparison-card.premium { 
+            transform: scale(1.15) rotateY(-15deg) translateX(-20px);
+            box-shadow: 0 60px 120px rgba(0,0,0,0.9);
+        }
     }
     .reveal-up { opacity: 1; }
 </style>
