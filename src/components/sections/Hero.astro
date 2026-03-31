@@ -40,13 +40,10 @@ const {
                 <Fragment set:html={badge} />
             </div>
             <h1 class="hero-title-lcp">
-                Criação de Sites Profissionais <br><span class="text-primary">de Alta Performance</span>
+                <Fragment set:html={title} />
             </h1>
-            <h2 class="text-xl md:text-2xl text-white/80 font-medium mb-6 fade-up">
-                O Site Que Sua Empresa Realmente Merece
-            </h2>
             <p class="fade-up">
-                Não fazemos apenas sites bonitos. Criamos <strong>ativos digitais de alta performance</strong> que transformam visitantes em clientes 24 horas por dia.
+                <Fragment set:html={description} />
             </p>
             <div class="hero-cta fade-up">
                 <Button

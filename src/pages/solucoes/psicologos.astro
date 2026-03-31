@@ -8,6 +8,8 @@ import FaqAccordion from "../../components/ui/FaqAccordion.astro";
 import { niches } from "../../data/niches";
 import { Image } from "astro:assets";
 
+export const prerender = true;
+
 const niche = niches.find((n) => n.slug === "psicologos");
 
 const painPoints = [
