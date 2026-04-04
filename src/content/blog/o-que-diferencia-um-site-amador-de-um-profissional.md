@@ -2,7 +2,7 @@
 title: "O que diferencia um site amador de um profissional"
 description: "Guia completo sobre o que diferencia um site amador de um profissional focado em resultados e SEO para 2026."
 pubDate: 2026-04-03T19:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/o-que-diferencia-um-site-amador-de-um-profissional-sitesalphacode.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
 draft: false
