@@ -305,7 +305,22 @@ const seo = createSEOMeta({
                 console.log("Referral code captured:", ref);
             }
 
+            import { gsap } from "gsap";
             import { ScrollTrigger } from "gsap/ScrollTrigger";
+            
+            gsap.registerPlugin(ScrollTrigger);
+
+            document.addEventListener("astro:page-load", () => {
+                // Ensure correct calculation of page height on navigation
+                ScrollTrigger.refresh();
+                
+                // Cleanup to prevent memory leaks and zombie triggers
+                // during ViewTransitions
+                document.addEventListener("astro:before-preparation", () => {
+                   ScrollTrigger.getAll().forEach(t => t.kill());
+                }, { once: true });
+            });
+
             // Globally disable markers
             ScrollTrigger.config({ limitCallbacks: true });
             ScrollTrigger.defaults({ markers: false });
