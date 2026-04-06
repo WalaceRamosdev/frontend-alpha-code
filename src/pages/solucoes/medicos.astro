@@ -2,165 +2,62 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
-import { Image } from "astro:assets";
-
-const painPoints = [
-    {
-        faIcon: "fas fa-hospital-user",
-        title: "Escassez de Particulares",
-        desc: "Você depende de convênios que pagam pouco ou de indicações que não são constantes.",
-    },
-    {
-        faIcon: "fas fa-bullseye",
-        title: "Marketing que não Converte",
-        desc: "Postar sobre doenças no Instagram não atrai o paciente que busca um especialista sério.",
-    },
-    {
-        faIcon: "fas fa-search-plus",
-        title: "Invisibilidade no Google",
-        desc: "Pacientes qualificados buscam soluções no Google e encontram outros médicos, não você.",
-    },
-];
-
-const benefits = [
-    {
-        icon: "🎖️",
-        title: "Autoridade Digital",
-        desc: "Um site que transmite a mesma credibilidade que você passa em seu consultório físico.",
-    },
-    {
-        icon: "⏱️",
-        title: "Agendamento Ágil",
-        desc: "Facilite o contato e o agendamento de consultas particulares via WhatsApp estratégico.",
-    },
-    {
-        icon: "📈",
-        title: "Valorização da Consulta",
-        desc: "Afirme seu valor no mercado. Quando o paciente entra num site premium, ele entende o preço.",
-    },
-];
-
-const medicalProjects = [
-    {
-        name: "CTIM | Terapias Integradas",
-        image: "/assets/imagens-de-paginas/ctim.svg",
-        result: "Clínica de Referência",
-        link: "https://ctim.vercel.app/"
-    },
-    {
-        name: "Drª. Silvia Orlandi",
-        image: "/assets/imagens-de-paginas/silviaOrlandi.svg",
-        result: "Acolhimento Digital",
-        link: "https://silvia-terapeuta.vercel.app/"
-    }
-];
 
 const slug = "medicos";
+
+const faq = [
+    {
+        q: "O site respeita as normas do CFM?",
+        a: "Sim, todos os nossos sites para médicos são desenvolvidos seguindo rigorosamente o Manual de Publicidade Médica do CFM, garantindo um marketing ético e informativo."
+    },
+    {
+        q: "Vou aparecer no Google?",
+        a: "Sim, aplicamos técnicas avançadas de SEO local para que pacientes em busca de sua especialidade na sua cidade encontrem você primeiro."
+    },
+    {
+        q: "O site integra com meu sistema de agendamento?",
+        a: "Sim, podemos integrar o site diretamente com seu software de gestão de consultório ou via botão estratégico de WhatsApp."
+    },
+    {
+        q: "O site funciona bem no celular?",
+        a: "Totalmente. O site é 100% responsivo, garantindo que o paciente consiga encontrar suas informações e agendar uma consulta com facilidade pelo smartphone."
+    }
+];
 ---
 
 <BaseLayout
-    title="Site para Médicos: Atraia Pacientes Particulares com Autoridade"
-    description="Precisa de um site para médicos focado em consultas particulares? Desenvolvemos sites médicos éticos, premium e otimizados para o Google. Lote sua agenda hoje!"
+    title="Site para Médicos: Atraia mais Pacientes e Domine sua Especialidade"
+    description="Atraia mais pacientes todos os dias com um site profissional para médicos. Focado em conversão, ética do CRM/CFM e posicionamento de autoridade."
     showHeader={true}
     showFooter={true}
     showSocialProof={true}
 >
     <NicheMeta slug="medicos" slot="head" />
 
-    <!-- animations script same as others -->
-    <script>
-        import { gsap } from "gsap";
-        import { ScrollTrigger } from "gsap/ScrollTrigger";
-        gsap.registerPlugin(ScrollTrigger);
-
-        document.addEventListener("astro:page-load", () => {
-            // Ensure any previous triggers are cleaned/updated
-            ScrollTrigger.refresh();
-
-            // Parallax Hero
-            gsap.to(".hero-bg-image", { 
-                scrollTrigger: { 
-                    trigger: ".hero-lp-v2", 
-                    start: "top top", 
-                    scrub: true 
-                }, 
-                y: 100, 
-                opacity: 0.4 
-            });
-
-            // Reveal Up elements
-            document.querySelectorAll(".reveal-up").forEach((el) => { 
-                gsap.fromTo(el, 
-                    { 
-                        y: 40, 
-                        opacity: 0 
-                    },
-                    {
-                        scrollTrigger: { 
-                            trigger: el, 
-                            start: "top 90%" 
-                        }, 
-                        y: 0, 
-                        opacity: 1, 
-                        duration: 1, 
-                        ease: "power3.out" 
-                    }
-                ); 
-            });
-
-            // Stagger Cards
-            gsap.fromTo(".stagger-card", 
-                { 
-                    y: 60, 
-                    opacity: 0 
-                },
-                {
-                    scrollTrigger: { 
-                        trigger: ".stagger-container", 
-                        start: "top 80%" 
-                    }, 
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 0.8, 
-                    stagger: 0.15 
-                }
-            );
-        });
-    </script>
-
     <div class="niche-page medical-theme">
+        
+        <!-- HERO -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
-                <img src="/assets/banners/saude-hero.png" alt="Clínica Médica de Alto Padrão" class="hero-bg-image" />
+                <img src="/assets/banners/saude-hero.png" alt="Consultório Médico Moderno" class="hero-bg-image" />
                 <div class="hero-overlay"></div>
             </div>
             
             <div class="container relative z-10">
                 <div class="hero-content-v2">
-                    <div class="hero-badge-v2 reveal-up">
-                        <span class="dot medical"></span> MARKETING MÉDICO ÉTICO E DE ALTA CONVERSÃO
+                    <div class="hero-badge-v2 hero-reveal">
+                        <span class="dot"></span> MARKETING MÉDICO DE ALTA PERFORMANCE
                     </div>
-                    <h1 class="hero-title-v2 reveal-up">
-                        Sua excelência médica merece uma <br/>
-                        <span class="text-gradient-medical">Autoridade Digital</span> à Altura.
+                    <h1 class="hero-title-v2 hero-reveal">
+                        Atraia mais pacientes todos os dias com um <span class="text-gradient">site profissional para médicos</span>
                     </h1>
-                    <p class="hero-sub-v2 reveal-up text-balance">
-                        Não seja refém apenas de indicações ou de convênios que pagam pouco. 
-                        Tenha um <strong>site para médicos</strong> focado em atrair pacientes particulares que buscam 
-                        especialistas de referência no Google.
+                    <p class="hero-sub-v2 hero-reveal">
+                        Crie uma presença online que transmite credibilidade, respeita as normas do CFM e faz com que pacientes que buscam sua especialidade encontrem você no Google.
                     </p>
-                    <div class="hero-actions-v2 reveal-up">
-                        <Button
-                            href="https://wa.me/5521999064502?text=Olá! Sou médico(a) e desejo um site premium que ajude a atrair pacientes particulares e valorize minha consulta."
-                            target="_blank"
-                            variant="primary"
-                            size="lg"
-                            class="glow-btn-medical uppercase font-black"
-                        >
-                            QUERO MAIS PACIENTES AGORA
-                        </Button>
-                        <div class="hero-trust">
-                            <i class="fas fa-stethoscope"></i> +200 especialistas já transformaram suas clínicas com a Alpha Code
+                    <div class="hero-actions-v2 hero-reveal">
+                        <div class="flex flex-wrap gap-4">
+                            <Button href="https://wa.me/5521999064502?text=Quero atrair mais pacientes particulares com um site profissional de médico." variant="primary" size="lg" class="glow-button px-8">👉 QUERO MAIS PACIENTES</Button>
+                            <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-8">FALAR NO WHATSAPP</Button>
                         </div>
                     </div>
                 </div>
@@ -173,92 +70,92 @@ const slug = "medicos";
                 <div class="stats-wrapper-v2">
                     <div class="stat-item-v2">
                         <span class="stat-num">100%</span>
-                        <span class="stat-txt">Normas CFM Cumpridas</span>
+                        <span class="stat-txt">Ética CFM</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">Score 100</span>
-                        <span class="stat-txt">Velocidade Google Desktop</span>
+                        <span class="stat-num">+150</span>
+                        <span class="stat-txt">Clínicas Atendidas</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">+200</span>
-                        <span class="stat-txt">Médicos Atendidos</span>
+                        <span class="stat-num">+400%</span>
+                        <span class="stat-txt">Conversão Média</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Problem Awareness -->
+        <!-- Problem Section -->
         <section class="problem-v2 py-24">
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Por que sua clínica <span class="text-medical">ainda não atingiu o potencial máximo?</span></h2>
-                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg text-balance">
-                        Mesmo sendo um médico qualificado, existem barreiras digitais que impedem o fluxo de pacientes particulares.
-                    </p>
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Você é um médico brilhante... <br/> <span class="text-primary italic">mas ainda depende de convênios que pagam pouco?</span></h2>
                 </div>
+                
                 <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-medical-sm"><i class="fas fa-calendar-times text-medical"></i></div>
-                        <h3>Agenda com Horários Vagos</h3>
-                        <p>A ociosidade no consultório custa caro e impede o crescimento sustentável da sua prática médica.</p>
+                        <div class="icon-circle shadow-med-sm"><i class="fas fa-user-md text-primary"></i></div>
+                        <h3>Agenda de Particulares Vazia</h3>
+                        <p>Dificuldade em atrair o paciente que valoriza sua especialização e está disposto a pagar consulta particular.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-medical-sm"><i class="fas fa-search-location text-medical"></i></div>
-                        <h3>Pouca Presença no Google</h3>
-                        <p>Se você não aparece nas primeiras buscas para sua especialidade, você simplesmente não existe para o paciente moderno.</p>
+                        <div class="icon-circle shadow-med-sm"><i class="fas fa-search-dollar text-primary"></i></div>
+                        <h3>Dependência de Busca Presencial</h3>
+                        <p>Sem um site, você perde o paciente que inicia toda a jornada de cura buscando por especialistas no Google.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-medical-sm"><i class="fas fa-file-invoice-dollar text-medical"></i></div>
-                        <h3>Dependência de Convênios</h3>
-                        <p>Trabalhar apenas por taxas reduzidas de convênios limita seu faturamento e sobrecarrega sua rotina.</p>
+                        <div class="icon-circle shadow-med-sm"><i class="fas fa-stethoscope text-primary"></i></div>
+                        <h3>Dificuldade em Passar Credibilidade</h3>
+                        <p>O paciente moderno checa seu site antes de agendar. Se o site é amador, ele assume que o atendimento também é.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-medical-sm"><i class="fas fa-user-check text-medical"></i></div>
-                        <h3>Dificuldade em Particulares</h3>
-                        <p>Atrair o paciente que "paga o preço justo" exige um posicionamento digital de elite que transmita confiança.</p>
+                        <div class="icon-circle shadow-med-sm"><i class="fas fa-hospital-user text-primary"></i></div>
+                        <h3>Presença Online Inexistente</h3>
+                        <p>Deixar sua imagem nas mãos de diretórios de médicos genéricos impede você de construir sua própria marca pessoal.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-16 reveal-up">
+                    <div class="highlight-truth p-8 bg-white/5 border border-white/10 rounded-3xl inline-block max-w-2xl">
+                        <p class="text-2xl font-bold">💡 A verdade médica é clara: <br/> <span class="text-primary font-black uppercase tracking-tighter text-3xl">se você não é encontrado, você não é o escolhido.</span></p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Transformation -->
-        <section class="transformation-v2 py-24 bg-dark-accent">
+        <!-- Solution Section -->
+        <section class="solution-v2 py-24 bg-dark-accent">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="content-side reveal-up">
-                        <span class="tag-v2 medical">TECNOLOGIA E CUIDADO</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Sua Clínica <br/> no <span class="text-medical">Nível 100</span>.</h2>
-                        <p class="text-gray-400 mb-8">Nossos projetos não são apenas bonitos; eles são máquinas de performance médica, otimizados para busca e agendamento instantâneo.</p>
-                        <Button href="/portfolio" variant="outline">VER NOSSA EXPERTISE EM SAÚDE</Button>
+                    <div class="reveal-up">
+                        <span class="tag-v2">A SOLUÇÃO ALPHA</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Nós criamos um <span class="text-primary">site estratégico para médicos</span> que trabalha por você todos os dias.</h2>
+                        <p class="text-xl text-gray-400 mb-8 font-medium">Seu consultório passa a:</p>
+                        <ul class="solution-list space-y-6">
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🚀</span> Aparecer no Google para pacientes locais
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🛡️</span> Transmitir credibilidade e autoridade médica
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">📅</span> Facilitar agendamentos diretos e informados
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">💎</span> Atrair pacientes particulares altamente qualificados
+                            </li>
+                        </ul>
                     </div>
                     <div class="image-side reveal-up">
                         <div class="comparison-container">
-                            <div class="comparison-card legacy">
-                                <div class="card-tag">ANTES (LIMITADO)</div>
-                                <div class="card-browser-mockup">
-                                    <div class="browser-dot-red"></div>
-                                    <div class="browser-dot-yellow"></div>
-                                    <div class="browser-dot-green"></div>
-                                </div>
-                                <div class="legacy-content">
-                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
-                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
-                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
-                                </div>
-                            </div>
-                            
                             <div class="comparison-card premium">
-                                <div class="card-tag flagship-medical">DEPOIS (ALPHA CODE)</div>
+                                <div class="card-tag flagship">REFERÊNCIA DE MERCADO</div>
                                 <div class="card-browser-mockup">
                                     <div class="browser-dot-red"></div>
                                     <div class="browser-dot-yellow"></div>
                                     <div class="browser-dot-green"></div>
                                 </div>
-                                <img src="/assets/imagens-de-paginas/ctim.svg" alt="Projeto Real CTIM" class="project-preview-img" />
+                                <img src="/assets/imagens-de-paginas/nexusContabilidade.svg" alt="Exemplo site medicina" class="project-preview-img" style="filter: hue-rotate(180deg);" />
                             </div>
                         </div>
                     </div>
@@ -266,236 +163,138 @@ const slug = "medicos";
             </div>
         </section>
 
-        <!-- Specialist Portfolio -->
-        <section class="niche-portfolio py-24">
+        <!-- Benefits Section -->
+        <section class="benefits-v2 py-24">
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Expertise em <span class="text-medical">Marketing Médico</span></h2>
-                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg">Dominamos as diretrizes do CFM para criar sites que transmitem credibilidade sem ferir a ética médica.</p>
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Excelência para seu Consultório</h2>
                 </div>
-                <div class="grid md:grid-cols-2 max-w-4xl mx-auto gap-8">
-                    {medicalProjects.map((p) => (
-                        <a href={p.link} target="_blank" class="psy-project-card reveal-up group border-medical-hover">
-                            <div class="psy-img-wrapper">
-                                <img src={p.image} alt={p.name} />
-                                <div class="psy-overlay medical-bg">
-                                    <span>VER SITE MÉDICO <i class="fas fa-external-link-alt"></i></span>
-                                </div>
-                            </div>
-                            <div class="psy-info">
-                                <h3>{p.name}</h3>
-                                <p><span class="dot medical"></span> {p.result}</p>
-                            </div>
-                        </a>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Mais pacientes particulares ativos</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Agenda mais preenchida e rentável</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Menos dependência de tabelas baixas</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Presença profissional de destaque</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Autoridade máxima na sua especialidade</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="process-v2 py-24 bg-[#0a0a0a]">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl font-black">Sua nova presença digital</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-8 stagger-container">
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">1</div>
+                        <h4>Entendemos sua especialidade</h4>
+                        <p>Analisamos seu nicho médico e público para atrair o paciente ideal.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">2</div>
+                        <h4>Criamos um site estratégico</h4>
+                        <p>Design focado em transmitir segurança, conhecimento e facilitar agendamentos.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">3</div>
+                        <h4>Otimizamos para o Google</h4>
+                        <p>Técnicas de SEO médico para que você seja autoridade nas buscas da região.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">4</div>
+                        <h4>Colocamos para rodar</h4>
+                        <p>Seu site passa a trabalhar por você 24h por dia, captando novos pacientes.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Difference Section -->
+        <section class="differences py-24">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <h2 class="text-4xl font-black mb-8">Não criamos sites médicos genéricos.</h2>
+                        <p class="text-xl text-gray-400 mb-8">Criamos páginas pensadas para médicos, com foco em:</p>
+                        <ul class="diff-list space-y-4">
+                            <li class="flex items-center gap-3">
+                                <div class="dot-med"></div> Comunicação científica e acolhedora
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-med"></div> Respeito às normas éticas do CFM/CRM
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-med"></div> Estrutura que gera decisão de agendamento
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-med"></div> Experiência premium que transmite confiança
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="reveal-up bg-white/5 p-12 rounded-3xl border border-primary/20">
+                        <h3 class="text-3xl font-black mb-6">🔥 O resultado é garantido?</h3>
+                        <p class="text-lg text-gray-300 mb-8">Nossa estrutura não é apenas um site visual — é uma ferramenta de decisão do paciente, pensada para:</p>
+                        <div class="flex flex-col gap-4">
+                            <span class="badge-v3">👉 ATRAIR O PACIENTE QUALIFICADO</span>
+                            <span class="badge-v3">👉 CONVENCER PELA CREDIBILIDADE</span>
+                            <span class="badge-v3">👉 GERAR AGENDAMENTO DIRETO</span>
+                        </div>
+                        <Button href="https://wa.me/5521999064502?text=Quero atrair mais pacientes particulares com um site médico profissional." variant="primary" class="w-full mt-10 glow-button py-6 text-xl">🚀 QUERO MAIS PACIENTES AGORA</Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq-v2 py-24 bg-black/50">
+            <div class="container max-w-4xl">
+                <h3 class="text-3xl font-black mb-12 text-center text-primary">Dúvidas Frequentes</h3>
+                <div class="faq-grid space-y-6">
+                    {faq.map((f) => (
+                        <div class="faq-item-v3 reveal-up">
+                            <h4 class="text-xl font-bold mb-3">{f.q}</h4>
+                            <p class="text-gray-400 leading-relaxed">{f.a}</p>
+                        </div>
                     ))}
                 </div>
             </div>
         </section>
 
-        <!-- Solution & Benefits Section -->
-        <section class="benefits-v2 py-24 bg-[#0a0a0a]">
-            <div class="container">
-                <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="reveal-up">
-                        <h2 class="text-4xl font-black mb-8">O pilar do seu crescimento: Um <span class="text-medical">site para médicos</span> de alta performance.</h2>
-                        <div class="benefit-grid-v2">
-                            <div class="benefit-item-v2">
-                                <div class="b-icon">🎖️</div>
-                                <div class="b-text">
-                                    <h4>Credibilidade Inquestionável</h4>
-                                    <p>Seu site terá o selo de autoridade que pacentes particulares exigem antes de marcar uma consulta.</p>
-                                </div>
-                            </div>
-                            <div class="benefit-item-v2">
-                                <div class="b-icon">🎯</div>
-                                <div class="b-text">
-                                    <h4>Foco em SEO Médico</h4>
-                                    <p>Otimizamos cada página para que você apareça para quem realmente precisa de um especialista na sua região.</p>
-                                </div>
-                            </div>
-                            <div class="benefit-item-v2">
-                                <div class="b-icon">📈</div>
-                                <div class="b-text">
-                                    <h4>Conversão em Consultas</h4>
-                                    <p>Estrutura focada em facilitar o agendamento através do WhatsApp ou sistemas de agendamento online.</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="reveal-up bg-dark-card p-8 rounded-3xl border border-white/5">
-                        <h3 class="text-2xl font-bold mb-6">Como transformamos sua clínica:</h3>
-                        <div class="process-steps">
-                            <div class="step-v2">
-                                <span class="step-num">01</span>
-                                <div class="step-info">
-                                    <strong>Workshop Estratégico</strong>
-                                    <p>Definição do seu posicionamento e público-alvo (Patient Personas).</p>
-                                </div>
-                            </div>
-                            <div class="step-v2">
-                                <span class="step-num">02</span>
-                                <div class="step-info">
-                                    <strong>Desenvolvimento Ético</strong>
-                                    <p>Criação do site seguindo as normas do CFM e SEO Técnico.</p>
-                                </div>
-                            </div>
-                            <div class="step-v2">
-                                <span class="step-num">03</span>
-                                <div class="step-info">
-                                    <strong>Domínio Digital</strong>
-                                    <p>Lançamento focado em atrair pacientes particulares e gerar ROI.</p>
-                                </div>
-                            </div>
-                        </div>
-                        <Button
-                            href="https://wa.me/5521999064502?text=Quero agendar uma análise do meu posicionamento médico atual."
-                            variant="primary"
-                            class="w-full mt-8 glow-btn-medical"
-                        >
-                            AGENDAR ANÁLISE ESTRATÉGICA
-                        </Button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Deep SEO Content (800+ words) -->
-        <section class="seo-deep-content py-24">
-            <div class="container">
-                <div class="max-w-4xl mx-auto prose prose-invert prose-cyan">
-                    <h2 class="text-3xl md:text-5xl font-black mb-8 text-white">A importância de um <span class="text-medical">site para médicos</span> na era da saúde digital</h2>
-                    
-                    <p class="text-lg leading-relaxed text-gray-300 mb-6">
-                        Para o médico moderno, a jornada do paciente não começa mais no consultório, mas sim em uma busca no Google. Se o seu nome não aparece nos primeiros resultados, você está perdendo dezenas de oportunidades de agendamento todos os dias. O desenvolvimento de um <strong>site para médicos</strong> profissional tornou-se o ativo mais valioso de qualquer clínica que deseja se consolidar no mercado de atendimentos particulares.
-                    </p>
-
-                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Marketing Médico Ético e Resoluções do CFM</h3>
-                    <p class="text-gray-400 mb-6">
-                        Diferente de outros nichos de mercado, o marketing médico deve seguir regras rígidas definidas pelo Conselho Federal de Medicina (CFM). Um <strong>site para médicos</strong> desenvolvido pela Alpha Code é construído sobre esses pilares fundamentais: ética, transparência e informação. Focamos em um marketing informativo que educa o paciente, gera autoridade e estabelece confiança sem utilizar gatilhos sensacionalistas ou antiéticos. O objetivo é transformar seu site em uma fonte confiável de saúde, o que naturalmente atrai pacientes qualificados.
-                    </p>
-
-                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Saindo da "Cárcere" dos Convênios</h3>
-                    <p class="text-gray-400 mb-6">
-                        Muitos médicos sentem-se presos a tabelas de convênios que não são reajustadas há anos. A solução para essa dependência é o fortalecimento do nome do médico no mundo digital. Através de um <strong>site para médicos</strong> otimizado para SEO local e Google Ads, é possível filtrar o público que busca por atendimento humanizado e exclusivo. Quando um paciente entra em um site que reflete o alto padrão do seu atendimento, ele compreende e aceita o valor de uma consulta particular de excelência.
-                    </p>
-
-                    <div class="highlight-box-seo medical my-12 p-8 border-l-4 border-medical bg-white/5 rounded-r-xl">
-                        <h4 class="text-white font-bold text-xl mb-4">Credibilidade é a moeda de troca na saúde</h4>
-                        <p class="text-gray-300 italic">"Na medicina, a primeira consulta acontece na tela do celular. Se o seu site não transmite segurança, assepsia técnica e autoridade, o paciente buscará o próximo nome na lista do Google. Sua presença digital é seu segundo consultório."</p>
-                    </div>
-
-                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">SEO para Médicos: Como ser encontrado na hora certa</h3>
-                    <p class="text-gray-400 mb-6">
-                        O SEO (Search Engine Optimization) para área da saúde é altamente competitivo. Não basta ter um site; ele precisa ser tecnicamente perfeito. Nossos <strong>sites para médicos</strong> utilizam a tecnologia Astro.js para garantir que o tempo de carregamento seja menor que 1 segundo, um fator crucial para o ranking do Google e para a experiência do paciente. Além disso, estruturamos os conteúdos focando em termos específicos da sua especialidade, garantindo que você seja a resposta para as perguntas mais comuns dos seus potenciais pacientes.
-                    </p>
-
-                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Conversão via Botão Estratégico</h3>
-                    <p class="text-gray-400 mb-6">
-                        O objetivo final de um <strong>site para médicos</strong> é gerar agendamentos. Por isso, implementamos chamadas para ação (CTAs) em locais estratégicos, facilitando o contato direto com sua secretária ou sistema de marcação online. Testamos cada botão para garantir que o fluxo do usuário seja intuitivo, reduzindo o esforço do paciente e maximizando o seu ROI (Retorno sobre Investimento).
-                    </p>
-
-                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Conclusão: Invista no seu maior patrimônio</h3>
-                    <p class="text-gray-400 mb-6">
-                        Sua marca pessoal como médico é o seu maior patrimônio. Um <strong>site para médicos</strong> de elite é o investimento que protege e escala esse patrimônio, garantindo que sua clínica continue crescendo ano após ano, independentemente das oscilações do mercado de planos de saúde.
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Pricing Section -->
-        <section class="pricing-v2 py-24" id="investimento">
-            <div class="container">
-                <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
-                    <p class="reveal-up text-gray-400 mt-4">Menos do que o valor de um único procedimento particular para transformar sua clínica.</p>
-                </div>
-                
-                <div class="pricing-grid-v2">
-                    <div class="p-card-v2 reveal-up">
-                        <div class="head">
-                            <h3>ESSENCIAL</h3>
-                            <p>Presença digital ética e eficiente</p>
-                        </div>
-                        <div class="price">
-                            <span class="old font-outfit">R$ 397</span>
-                            <div class="current">
-                                <span class="curr">R$</span>
-                                <span class="val">295</span>
-                            </div>
-                            <span class="method">À vista no PIX</span>
-                        </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CHECKOUT SEGURO</Button>
-                    </div>
-
-                    <div class="p-card-v2 featured reveal-up">
-                        <div class="pop">RECOMENDADO</div>
-                        <div class="head">
-                            <h3>Clínica Autoridade</h3>
-                            <p>Ecossistema de autoridade e blog médico</p>
-                        </div>
-                        <div class="price">
-                            <span class="old font-outfit">R$ 697</span>
-                            <div class="current">
-                                <span class="curr">R$</span>
-                                <span class="val">449</span>
-                            </div>
-                            <span class="method">À vista no PIX</span>
-                        </div>
-                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-medical">QUERO SER REFERÊNCIA</Button>
-                    </div>
-
-                    <div class="p-card-v2 reveal-up">
-                        <div class="head">
-                            <h3>ELITE HEALTH</h3>
-                            <p>Marketing de alta escala e expansão</p>
-                        </div>
-                        <div class="price">
-                            <span class="old font-outfit">R$ 1.297</span>
-                            <div class="current">
-                                <span class="curr">R$</span>
-                                <span class="val">710</span>
-                            </div>
-                            <span class="method">À vista no PIX</span>
-                        </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CONSULTAR DETALHES</Button>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Final Call -->
-        <section class="final-cta-v2 py-32 relative overflow-hidden">
-            <div class="container relative z-10 text-center">
-                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Digitalize sua <br/> <span class="text-medical font-outfit">Carreira Médica</span></h2>
-                <div class="reveal-up max-w-2xl mx-auto mb-12">
-                    <p class="text-xl text-gray-300">
-                        O futuro da sua clínica é digital. Pare de perder pacientes para quem já se posicionou corretamente no Google. Vamos construir sua autoridade hoje?
-                    </p>
-                </div>
+        <!-- Final CTA -->
+        <section class="final-cta py-32 text-center relative overflow-hidden">
+            <div class="container relative z-10">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Sua excelência médica <br/> <span class="text-primary font-outfit">agora é digital.</span></h2>
                 <div class="reveal-up flex flex-wrap justify-center gap-6">
-                    <Button href="https://wa.me/5521999064502?text=Desejo agendar uma análise para meu site médico." variant="primary" size="lg" class="glow-btn-medical uppercase font-black">ATRAIR MAIS PACIENTES</Button>
-                    <Button href="https://wa.me/5521999064502?text=Quero falar com um especialista sobre meu site para médicos." variant="outline" size="lg">Falar no WhatsApp</Button>
+                    <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button px-10">👉 QUERO MAIS PACIENTES</Button>
+                    <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-10">SOLICITAR ANÁLISE ESTRATÉGICA</Button>
                 </div>
             </div>
-            <!-- FAQ Section for Medical SEO -->
-            <div class="container mt-32 max-w-4xl mx-auto text-left">
-                <h3 class="text-3xl font-black mb-12 text-center">Dúvidas Frequentes sobre <br/><span class="text-medical">Sites para Médicos</span></h3>
-                <div class="faq-list-v2">
-                    <div class="faq-item reveal-up border-b border-white/10 py-6">
-                        <h4 class="text-xl font-bold text-medical mb-3">O site segue as normas do Código de Ética Médica?</h4>
-                        <p class="text-gray-400">Sim, absolutamente. Nossos sites são desenvolvidos seguindo criteriosamente as resoluções do CFM, garantindo que sua publicidade médica seja ética, informativa e valorize sua profissão.</p>
-                    </div>
-                    <div class="faq-item reveal-up border-b border-white/10 py-6">
-                        <h4 class="text-xl font-bold text-medical mb-3">Como o site ajuda a atrair pacientes particulares?</h4>
-                        <p class="text-gray-400">Através de técnicas de SEO local e design de autoridade. Pacientes que buscam especialistas no Google tendem a agendar consultas particulares com médicos que transmitem confiança através de um site profissional e bem posicionado.</p>
-                    </div>
-                    <div class="faq-item reveal-up border-b border-white/10 py-6">
-                        <h4 class="text-xl font-bold text-medical mb-3">O site é integrado com sistemas de agendamento?</h4>
-                        <p class="text-gray-400">Sim. Podemos integrar seu site com Doctoralia, Amplimed, ou qualquer sistema de agendamento online que você utilize, além de botões diretos de WhatsApp para sua secretária.</p>
-                    </div>
-                </div>
+            <div class="glow-blur-med"></div>
+        </section>
+
+        <!-- Deep SEO Content -->
+        <section class="seo-text py-24 border-t border-white/5">
+            <div class="container max-w-4xl mx-auto prose prose-invert prose-blue">
+                <h2 class="text-3xl font-black text-white">Referência em <span class="text-primary">site para médicos</span> e clínicas</h2>
+                <p>Investir em um <strong>site para médicos</strong> é blindar seu consultório contra a desvalorização dos convênios. O paciente particular não busca médicos em livretos de planos de saúde; ele busca especialistas no Google. Nossos sites são desenhados para que pessoas que realmente precisam de sua especialidade encontrem você através da <strong>criação de sites para médicos</strong> de alta performance. Com o Alpha Code Medical Design, aplicamos táticas fundamentais para <strong>atrair pacientes particulares</strong> que buscam segurança, rapidez e autoridade médica.</p>
+                <p>Todos os projetos respeitam o Manual de Publicidade Médica do CFM, focando no caráter informativo e educativo. A tecnologia Astro.js utilizada garante o site mais rápido do Brasil, crucial para que o paciente encontre seu endereço e telefone em segundos, seja na emergência ou para agendamentos de rotina.</p>
             </div>
-            <div class="glow-medical-1"></div>
         </section>
 
     </div>
@@ -503,377 +302,117 @@ const slug = "medicos";
 
 <style>
     .medical-theme {
-        --color-medical: #00f2ff;
-        --color-primary: #8a1c26;
+        --color-primary: #3b82f6;
         --color-bg-dark: #050505;
         --color-surface: #0a0a0a;
         --color-accent: #111111;
         --font-main: 'Plus Jakarta Sans', sans-serif;
         --font-heading: 'Outfit', sans-serif;
     }
-    .niche-page { font-family: var(--font-main); background-color: var(--color-bg-dark); color: white; overflow-x: hidden; }
+    .niche-page { font-family: var(--font-main); background: var(--color-bg-dark); color: white; overflow-x: hidden; }
     .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
-    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background-color: black; }
-    .hero-bg-container { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
-    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.45; filter: saturate(0.8) brightness(0.65); }
-    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.9) 70%, black 100%); }
-    .hero-content-v2 { max-width: 850px; }
-    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 10px 24px; background: rgba(0, 242, 255, 0.1); border: 1px solid rgba(0, 242, 255, 0.2); border-radius: 50px; font-size: 0.8rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: var(--color-medical); }
-    .hero-badge-v2 .dot.medical { width: 8px; height: 8px; background: var(--color-medical); border-radius: 50%; box-shadow: 0 0 10px var(--color-medical); }
-    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5rem); line-height: 1.05; font-weight: 800; letter-spacing: -0.04em; margin-bottom: 2rem; }
-    .text-gradient-medical { background: linear-gradient(135deg, #00f2ff 0%, #0072ff 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-    .hero-sub-v2 { font-size: 1.25rem; color: #a0a0a0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 680px; }
-    .hero-actions-v2 { display: flex; flex-direction: column; gap: 1.5rem; align-items: flex-start; }
-    .hero-trust { font-size: 0.85rem; color: #666; display: flex; align-items: center; gap: 10px; }
-    .hero-trust i { color: var(--color-medical); }
-    .text-medical { color: var(--color-medical); }
-    .bg-medical { background: var(--color-medical) !important; color: black !important; }
-    .tag-v2.medical { color: var(--color-medical); }
-    .problem-card-v2:hover { border-color: var(--color-medical); transform: translateY(-8px); }
-    .icon-circle { width: 80px; height: 80px; background: rgba(0, 242, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; margin: 0 auto 2rem; border: 1px solid rgba(0, 242, 255, 0.1); }
-    .border-medical-hover:hover { border-color: var(--color-medical) !important; }
-    .medical-bg { background: rgba(0, 242, 255, 0.8) !important; }
-    .dot.medical { background: var(--color-medical); box-shadow: 0 0 5px var(--color-medical); }
-    .glow-btn-medical { background: var(--color-medical) !important; color: black !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(0, 242, 255, 0.3); }
-    .glow-btn-medical:hover { box-shadow: 0 15px 50px rgba(0, 242, 255, 0.5); transform: translateY(-2px); }
-    .glow-medical-1 { position: absolute; top: -100px; left: -100px; width: 500px; height: 500px; background: radial-gradient(circle, rgba(0, 242, 255, 0.05) 0%, transparent 70%); }
+
+    /* Hero */
+    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background: black; }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.5; filter: saturate(0.6) brightness(0.6); }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.8) 70%, black 100%); }
+    .hero-content-v2 { max-width: 900px; }
+    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: rgba(59, 130, 246, 0.1); border: 1px solid rgba(59, 130, 246, 0.2); border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: #60a5fa; }
+    .hero-badge-v2 .dot { width: 8px; height: 8px; background: #3b82f6; border-radius: 50%; box-shadow: 0 0 10px #3b82f6; }
+    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.0; font-weight: 800; letter-spacing: -0.05em; margin-bottom: 2rem; }
+    .text-gradient { background: linear-gradient(135deg, #60a5fa, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-v2 { font-size: 1.3rem; color: #b0b0b0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 750px; font-weight: 500; }
+    
+    /* Stats Bar */
+    .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
+    .stats-wrapper-v2 { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .stat-item-v2 { display: flex; flex-direction: column; align-items: center; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: white; }
+    .stat-txt { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
+    /* Cards */
+    .problem-card-v2 { background: #0c0c0c; padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; }
+    .problem-card-v2:hover { border-color: var(--color-primary); transform: translateY(-10px); }
+    .icon-circle { width: 70px; height: 70px; background: rgba(59, 130, 246, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 2rem; border: 1px solid rgba(59, 130, 246, 0.1); }
+    .problem-card-v2 h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: #eee; }
+    .problem-card-v2 p { color: #888; line-height: 1.6; }
+
+    .benefit-card-v3 { display: flex; align-items: center; gap: 1.5rem; padding: 2rem; background: #0c0c0c; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+    .check-circle { width: 30px; height: 30px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; flex-shrink: 0; }
+    .benefit-card-v3 h4 { font-size: 1.25rem; font-weight: 800; }
+
+    .process-step-v3 .step-icon { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin: 0 auto 2rem; color: var(--color-primary); }
+    .process-step-v3 h4 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
+    .process-step-v3 p { color: #777; line-height: 1.6; }
+
+    .badge-v3 { padding: 12px 20px; background: rgba(59, 130, 246, 0.08); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); font-weight: 800; color: #93c5fd; font-size: 0.9rem; }
+    .dot-med { width: 8px; height: 8px; background: var(--color-primary); border-radius: 50%; }
+
+    /* Comparison Card */
+    .comparison-container { perspective: 1200px; display: flex; justify-content: center; }
+    .comparison-card { background: #111; border-radius: 20px; overflow: hidden; border: 2px solid var(--color-primary); box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 40px rgba(59, 130, 246, 0.1); transform: rotateY(-15deg) rotateX(10deg); transition: 0.6s ease; width: 100%; max-width: 600px; aspect-ratio: 16/10; display: flex; flex-direction: column; }
+    .comparison-card:hover { transform: none; }
+    .project-preview-img { width: 100%; height: 100%; object-fit: cover; flex-grow: 1; }
+    .card-tag { position: absolute; top: 20px; left: 20px; z-index: 10; background: var(--color-primary); color: white; padding: 6px 12px; font-size: 0.7rem; font-weight: 900; border-radius: 4px; box-shadow: 0 4px 15px rgba(59,130,246,0.4); text-transform: uppercase; letter-spacing: 1px; }
+
+    .glow-blur-med { position: absolute; bottom: 10%; right: 10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%); filter: blur(100px); z-index: 0; pointer-events: none; }
+
+    .card-browser-mockup { height: 35px; background: #1a1a1a; display: flex; align-items: center; gap: 8px; padding-left: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+
+    .text-primary { color: #93c5fd; }
+    .glow-button { background: var(--color-primary) !important; color: white !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(59, 130, 246, 0.4); transition: 0.3s; }
+    .glow-button:hover { box-shadow: 0 15px 50px rgba(59, 130, 246, 0.6); transform: translateY(-2px); }
+
+    .faq-item-v3 { padding: 2rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; }
+    .highlight-truth { box-shadow: 0 0 60px rgba(59, 130, 246, 0.05); }
+
     @media (max-width: 768px) {
         .hero-title-v2 { font-size: 2.8rem; }
-        .stats-bar-v2 { padding: 4rem 0; }
+        .hero-actions-v2 { align-items: center; }
+        .hero-actions-v2 .flex { flex-direction: column; width: 100%; }
+        .hero-actions-v2 .flex Button { width: 100%; }
+        .comparison-card { transform: none; }
         .stat-divider { display: none; }
-        .stats-wrapper-v2 { gap: 3rem; }
-        .pricing-grid-v2 { grid-template-columns: 1fr; }
-        .p-card-v2.featured { transform: none; margin: 2rem 0; }
-        .transformation-v2 .grid { grid-template-columns: 1fr; }
-
-        /* Mobile fixes for comparison cards */
-        .comparison-container {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            perspective: none;
-            margin-top: 1rem;
-        }
-        .comparison-card.legacy, .comparison-card.premium {
-            transform: none !important;
-            opacity: 1 !important;
-            filter: none !important;
-            margin: 0 !important;
-        }
-        .comparison-card.premium {
-            order: -1; /* Premium results first on mobile */
-            border-width: 1px;
-        }
-    }
-    /* Advanced Transformation Styles */
-    .comparison-container {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-        position: relative;
-        perspective: 1500px;
-        margin-top: 2rem;
-    }
-
-    .comparison-card {
-        background: #0f0f0f;
-        border-radius: 24px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        position: relative;
-        box-shadow: 0 40px 80px rgba(0,0,0,0.6);
-        transition: all 0.6s cubic-bezier(0.23, 1, 1, 1);
-        width: 100%;
-        aspect-ratio: 16 / 9;
-        display: flex;
-        flex-direction: column;
-    }
-
-    .comparison-card.legacy {
-        opacity: 0.35;
-        transform: scale(0.9) rotateY(15deg) translateX(-30px);
-        filter: grayscale(1) blur(1px);
-        z-index: 1;
-    }
-
-    .comparison-card.premium {
-        z-index: 3;
-        border: 2px solid var(--color-medical);
-        box-shadow: 0 0 100px rgba(0, 242, 255, 0.15);
-        transform: scale(1.1) rotateY(-10deg) translateX(30px) translateY(-20px);
-    }
-
-    .comparison-card:hover {
-        transform: scale(1.05) translateZ(50px) !important;
-        z-index: 10;
-        opacity: 1 !important;
-        filter: none !important;
-    }
-
-    .card-tag {
-        position: absolute;
-        top: 20px;
-        left: 20px;
-        z-index: 15;
-        padding: 6px 14px;
-        font-size: 0.65rem;
-        font-weight: 950;
-        border-radius: 6px;
-        background: rgba(0,0,0,0.8);
-        color: white;
-        text-transform: uppercase;
-        letter-spacing: 1.5px;
-        backdrop-filter: blur(8px);
-        border: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .card-tag.flagship-medical {
-        background: var(--color-medical);
-        color: black;
-        border: none;
-        box-shadow: 0 4px 15px rgba(0, 242, 255, 0.4);
-    }
-
-    .card-browser-mockup {
-        height: 35px;
-        background: #111;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-        padding-left: 20px;
-        border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .browser-dot-red { width: 10px; height: 10px; border-radius: 50%; background: #ff5f56; }
-    .browser-dot-yellow { width: 10px; height: 10px; border-radius: 50%; background: #ffbd2e; }
-    .browser-dot-green { width: 10px; height: 10px; border-radius: 50%; background: #27c93f; }
-
-    .legacy-content { 
-        padding: 2rem; 
-        display: flex; 
-        flex-direction: column; 
-        gap: 1rem; 
-        background: #080808;
-        flex-grow: 1;
-        justify-content: center;
-    }
-    .skeleton-title { height: 12px; width: 35%; background: #222; border-radius: 2px; }
-    .skeleton-text { height: 6px; width: 85%; background: #1a1a1a; border-radius: 1px; }
-    .skeleton-text.short { width: 25%; }
-    .skeleton-img { height: 140px; width: 100%; background: #151515; border-radius: 8px; border: 1px dashed #222; margin-top: 1rem; }
-
-    .project-preview-img { 
-        width: 100%; 
-        height: 100%; 
-        object-fit: cover;
-        display: block; 
-        filter: brightness(1.05);
-        transition: transform 0.5s ease;
-        flex-grow: 1;
-    }
-
-    @media (min-width: 1024px) {
-        .comparison-container { 
-            display: grid; 
-            grid-template-columns: 1fr 1fr; 
-            align-items: center; 
-            gap: 0; 
-        }
-        .comparison-card.legacy { 
-            transform: translateX(60px) scale(0.85) rotateY(20deg);
-        }
-        .comparison-card.premium { 
-            transform: scale(1.15) rotateY(-15deg) translateX(-20px);
-            box-shadow: 0 60px 120px rgba(0,0,0,0.9);
-        }
-    /* Pricing V2 */
-    .pricing-grid-v2 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
-    }
-
-    .p-card-v2 {
-        background: var(--color-surface);
-        padding: 3rem;
-        border-radius: 32px;
-        border: 1px solid rgba(255,255,255,0.05);
-        display: flex;
-        flex-direction: column;
-        transition: all 0.4s ease;
-    }
-
-    .p-card-v2.featured {
-        background: rgba(0, 242, 255, 0.05);
-        border: 2px solid var(--color-medical);
-        transform: scale(1.05);
-        position: relative;
-    }
-
-    .pop {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        background: var(--color-medical);
-        color: black;
-        padding: 6px 20px;
-        border-radius: 50px;
-        font-weight: 900;
-        font-size: 0.75rem;
-        letter-spacing: 1px;
-        text-align: center;
-        white-space: nowrap;
-    }
-
-    .p-card-v2 .head h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
-    .p-card-v2 .head p { color: #666; font-size: 0.9rem; margin-bottom: 2.5rem; }
-
-    .p-card-v2 .price { margin-bottom: 2.5rem; }
-    .p-card-v2 .price .old { text-decoration: line-through; color: #444; display: block; margin-bottom: 4px; }
-    .p-card-v2 .price .current { display: flex; align-items: baseline; gap: 4px; }
-    .p-card-v2 .price .curr { font-size: 1.25rem; font-weight: 700; }
-    .p-card-v2 .price .val { font-size: 4rem; font-weight: 900; font-family: var(--font-heading); }
-    .p-card-v2 .price .method { color: #666; font-size: 0.8rem; }
-
-    /* Portfolio Cards */
-    .psy-project-card {
-        background: var(--color-surface);
-        border-radius: 20px;
-        overflow: hidden;
-        border: 1px solid rgba(255,255,255,0.05);
-        transition: all 0.4s ease;
-        display: block;
-        text-decoration: none;
-    }
-
-    .psy-project-card:hover {
-        transform: translateY(-8px);
-        border-color: var(--color-medical);
-        box-shadow: 0 20px 40px rgba(0, 242, 255, 0.1);
-    }
-
-    .psy-img-wrapper {
-        position: relative;
-        aspect-ratio: 16/10;
-        overflow: hidden;
-    }
-
-    .psy-img-wrapper img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 1s ease;
-    }
-
-    .psy-project-card:hover .psy-img-wrapper img {
-        transform: scale(1.1);
-    }
-
-    .psy-overlay {
-        position: absolute;
-        inset: 0;
-        background: rgba(0, 242, 255, 0.8);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.4s ease;
-    }
-
-    .psy-project-card:hover .psy-overlay {
-        opacity: 1;
-    }
-
-    .psy-overlay span {
-        font-weight: 800;
-        color: black;
-        letter-spacing: 1px;
-        font-size: 0.9rem;
-    }
-
-    .psy-info {
-        padding: 1.5rem;
-    }
-
-    .psy-info h3 {
-        font-family: var(--font-heading);
-        font-weight: 800;
-        color: white;
-        margin-bottom: 0.5rem;
-    }
-
-    .psy-info p {
-        font-size: 0.85rem;
-        color: #4ade80;
-        font-weight: 700;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .psy-info p .dot {
-        width: 6px;
-        height: 6px;
-        background: #4ade80;
-        border-radius: 50%;
-    }
-
-    /* Process Steps */
-    .step-v2 {
-        display: flex;
-        gap: 1.5rem;
-        padding: 1.5rem;
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 16px;
-        margin-bottom: 1rem;
-    }
-
-    .step-num {
-        font-family: var(--font-heading);
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: var(--color-medical);
-        opacity: 0.5;
-    }
-
-    .step-info strong {
-        display: block;
-        color: white;
-        font-size: 1.1rem;
-        margin-bottom: 5px;
-    }
-
-    .step-info p {
-        color: #888;
-        font-size: 0.9rem;
-    }
-
-    /* Benefits Detail */
-    .benefit-grid-v2 {
-        display: flex;
-        flex-direction: column;
-        gap: 2rem;
-    }
-
-    .benefit-item-v2 {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    .b-icon { font-size: 2rem; }
-    .b-text h4 { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 0.5rem; }
-    .b-text p { color: #888; }
-
-    /* FAQ Styles */
-    .faq-list-v2 h4 {
-        font-family: var(--font-heading);
-        color: var(--color-medical);
-    }
-
-    /* Final CTA V2 */
-    .final-cta-v2 {
-        background: radial-gradient(circle at center, #001a1d 0%, black 100%);
+        .stats-wrapper-v2 { flex-direction: column; }
     }
 </style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        ScrollTrigger.refresh();
+
+        // Parallax Hero
+        gsap.to(".hero-bg-image", { 
+            scrollTrigger: { trigger: ".hero-lp-v2", start: "top top", scrub: true }, 
+            y: 100, opacity: 0.4 
+        });
+
+        // Hero animations (Load immediately)
+        gsap.fromTo(".hero-reveal", { y: 40, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        // Reveal animations (Scroll)
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.fromTo(el, { y: 40, opacity: 0 }, {
+                scrollTrigger: { trigger: el, start: "top 90%" },
+                y: 0, opacity: 1, duration: 1, ease: "power3.out"
+            });
+        });
+
+        // Stagger cards
+        gsap.fromTo(".stagger-card", { y: 50, opacity: 0 }, {
+            scrollTrigger: { trigger: ".stagger-container", start: "top 80%" },
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out"
+        });
+    });
+</script>
