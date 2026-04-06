@@ -1,7 +1,7 @@
 ---
 title: "Landing Page vs Site Institucional: qual o melhor para converter leads?"
 description: "Entenda a diferença estratégica entre Landing Pages e Sites Institucionais e saiba qual usar para maximizar suas conversões e autoridade."
-pubDate: 2026-02-06T18:00:00-03:00
+pubDate: 2026-02-06T12:30:00-03:00
 heroImage: "/assets/blog/landing-page-vs-site-institucional-qual-o-melhor-para-converter-leads-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["Conversão", "Desenvolvimento Web"]

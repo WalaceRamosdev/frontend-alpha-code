@@ -1,7 +1,7 @@
 ---
 title: "Melhor plataforma para criar site profissional"
 description: "Guia completo sobre melhor plataforma para criar site profissional focado em resultados e SEO para 2026."
-pubDate: 2026-04-13T19:30:00-03:00
+pubDate: 2026-04-13T12:30:00-03:00
 heroImage: "https://images.unsplash.com/photo-1537432376769-00f5c2f4c8d3?auto=format&fit=crop&q=80&w=2000"
 categories: ["Comparações de Plataformas"]
 tags: ["criação de sites", "comparações de plataformas", "marketing digital"]

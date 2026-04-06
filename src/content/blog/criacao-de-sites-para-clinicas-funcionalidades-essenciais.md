@@ -1,7 +1,7 @@
 ---
 title: "Criação de sites para clínicas: funcionalidades essenciais"
 description: "Guia completo sobre criação de sites para clínicas: funcionalidades essenciais focado em resultados e SEO para 2026."
-pubDate: 2026-03-22T18:20:00-03:00
+pubDate: 2026-03-22T12:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-clinicas-funcionalidades-essenciais-sitesalphacode.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "nichos profissionais", "marketing digital"]

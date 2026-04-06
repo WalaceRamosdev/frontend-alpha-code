@@ -1,7 +1,7 @@
 ---
 title: "Criação de sites para advogados: a estrutura ideal para 2026"
 description: "Descubra a estrutura de site que gera autoridade e novos clientes para advogados em 2026, respeitando as normas da OAB e focando em SEO."
-pubDate: 2026-03-18T19:30:00-03:00
+pubDate: 2026-03-18T12:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-advogados-structure-ideal-sitesalphacode.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "marketing jurídico", "SEO jurídico", "OAB"]

@@ -1,7 +1,7 @@
 ---
 title: "Como um site aumenta o faturamento de negócios físicos"
 description: "Guia completo sobre como um site aumenta o faturamento de negócios físicos focado em resultados e SEO para 2026."
-pubDate: 2026-03-27T19:30:00-03:00
+pubDate: 2026-03-27T12:30:00-03:00
 heroImage: "/assets/blog/como-um-site-aumenta-o-faturamento-de-negocios-fisicos-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]

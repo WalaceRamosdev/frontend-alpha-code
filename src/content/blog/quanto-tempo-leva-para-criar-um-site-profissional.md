@@ -1,7 +1,7 @@
 ---
 title: "Quanto Tempo Leva Para Criar um Site Profissional? (Prazos Reais em 2026)"
 description: "Descubra os prazos reais para o desenvolvimento de sites em 2026. Entenda as etapas técnicas, o impacto do Astro.js e por que a qualidade exige tempo estratégico."
-pubDate: 2026-03-29T18:30:00-03:00
+pubDate: 2026-03-29T12:30:00-03:00
 heroImage: "/assets/blog/quanto-tempo-leva-para-criar-um-site-profissional-sitesalphacode.webp"
 categories: ["Processo de Criação", "Estratégia Digital"]
 tags: ["criação de sites", "prazos 2026", "Astro.js", "SEO técnico"]

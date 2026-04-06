@@ -1,7 +1,7 @@
 ---
 title: "O que toda empresa precisa ter em um site profissional em 2026"
 description: "Checklist definitivo: descubra os elementos obrigatórios que transformam uma página comum em um site de elite focado em conversão."
-pubDate: 2026-03-06T19:30:00-03:00
+pubDate: 2026-03-06T12:30:00-03:00
 heroImage: "/assets/blog/o-que-toda-empresa-precisa-ter-em-um-site-profissional-sitesalphacode.webp"
 categories: ["Checklist e Guias"]
 tags: ["criação de sites", "checklist", "estratégia digital"]

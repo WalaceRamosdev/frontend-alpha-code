@@ -1,7 +1,7 @@
 ---
 title: "Sites para psicólogos: como atrair pacientes online"
 description: "Descubra como um site profissional pode ser o motor de crescimento do seu consultório de psicologia em 2026. Guia sobre SEO, ética e conversão."
-pubDate: 2026-03-20T18:30:00-03:00
+pubDate: 2026-03-20T12:30:00-03:00
 heroImage: "/assets/blog/sites-para-psicologos-como-atrair-pacientes-online-sitesalphacode.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "sites para psicólogos", "marketing para psicólogos", "SEO local"]

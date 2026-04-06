@@ -1,7 +1,7 @@
 ---
 title: "10 erros que fazem um site não gerar clientes em 2026"
 description: "Seu site recebe visitas mas ninguém te chama no WhatsApp? Descubra os erros fatais de design, copy e performance que estão fazendo você perder dinheiro."
-pubDate: 2026-02-27T19:30:00-03:00
+pubDate: 2026-02-27T12:30:00-03:00
 heroImage: "/assets/blog/10-erros-que-fazem-um-site-nao-gerar-clientes-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]

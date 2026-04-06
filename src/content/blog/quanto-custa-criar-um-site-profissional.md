@@ -1,7 +1,7 @@
 ---
 title: "Quanto custa criar um site profissional em 2026? (Preços e Modelos)"
 description: "Entenda os custos envolvidos na criação de um site profissional. Do domínio à manutenção, saiba quanto investir para ter um site que realmente traz retorno."
-pubDate: 2026-02-09T18:00:00-03:00
+pubDate: 2026-02-09T12:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-criar-um-site-profissional-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["Negócios", "Planejamento"]

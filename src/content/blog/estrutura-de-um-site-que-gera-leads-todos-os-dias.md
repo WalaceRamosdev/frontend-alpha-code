@@ -1,7 +1,7 @@
 ---
 title: "Estrutura de um site que gera leads todos os dias"
 description: "Guia completo sobre estrutura de um site que gera leads todos os dias focado em resultados e SEO para 2026."
-pubDate: 2026-04-01T19:30:00-03:00
+pubDate: 2026-04-01T12:30:00-03:00
 heroImage: "/assets/blog/estrutura-de-um-site-que-gera-leads-todos-os-dias-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]

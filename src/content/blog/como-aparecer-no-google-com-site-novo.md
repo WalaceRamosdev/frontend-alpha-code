@@ -1,7 +1,7 @@
 ---
 title: "Como aparecer no Google com site novo"
 description: "Guia completo sobre como aparecer no google com site novo focado em resultados e SEO para 2026."
-pubDate: 2026-05-01T19:30:00-03:00
+pubDate: 2026-05-01T12:30:00-03:00
 heroImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=2000"
 categories: ["SEO e Tráfego"]
 tags: ["criação de sites", "seo e tráfego", "marketing digital"]

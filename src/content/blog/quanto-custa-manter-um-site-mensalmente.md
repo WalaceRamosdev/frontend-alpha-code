@@ -1,7 +1,7 @@
 ---
 title: "Quanto custa manter um site mensalmente em 2026?"
 description: "Pagar apenas pela criação não é tudo. Saiba quais são os custos fixos reais de hospedagem, domínio e manutenção para manter seu site no ar e seguro."
-pubDate: 2026-02-23T19:30:00-03:00
+pubDate: 2026-02-23T12:30:00-03:00
 heroImage: "/assets/blog/quanto-custa-manter-um-site-mensalmente-sitesalphacode.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]

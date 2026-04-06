@@ -1,7 +1,7 @@
 ---
 title: "Tendências de design que aumentam conversão"
 description: "Guia completo sobre tendências de design que aumentam conversão focado em resultados e SEO para 2026."
-pubDate: 2026-04-27T19:30:00-03:00
+pubDate: 2026-04-27T12:30:00-03:00
 heroImage: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2000"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]

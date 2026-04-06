@@ -1,7 +1,7 @@
 ---
 title: "Criação de Sites Profissionais: O Guia Definitivo para sua Empresa"
 description: "Descubra como a criação de um site profissional pode transformar sua autoridade digital, atrair leads qualificados e colocar seu negócio no topo do Google."
-pubDate: 2026-02-13T12:47:00-03:00
+pubDate: 2026-02-13T12:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-profissionais-para-empresas-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["SEO", "Estratégia", "Performance"]

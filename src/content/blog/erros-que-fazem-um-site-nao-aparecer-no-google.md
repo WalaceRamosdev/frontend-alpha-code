@@ -1,7 +1,7 @@
 ---
 title: "7 Erros Mortais que Fazem seu Site não Aparecer no Google"
 description: "Evite esses erros comuns na criação de sites que destroem sua visibilidade orgânica. Aprenda como otimizar seu site corretamente para o buscador."
-pubDate: 2026-02-11T18:00:00-03:00
+pubDate: 2026-02-11T12:30:00-03:00
 heroImage: "/assets/blog/erros-que-fazem-um-site-nao-aparecer-no-google-sitesalphacode.webp"
 author: "Walace Ramos"
 categories: ["SEO", "Marketing Digital"]

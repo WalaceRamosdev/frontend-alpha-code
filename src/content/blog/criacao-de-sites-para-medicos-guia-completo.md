@@ -1,7 +1,7 @@
 ---
 title: "Criação de sites para médicos: guia completo para 2026"
 description: "Descubra como um site profissional de alto desempenho pode atrair pacientes qualificados, construir autoridade e escalar seu consultório em 2026."
-pubDate: 2026-03-16T19:30:00-03:00
+pubDate: 2026-03-16T12:30:00-03:00
 heroImage: "/assets/blog/criacao-de-sites-para-medicos-guia-completo-sitesalphacode.webp"
 categories: ["Nichos Profissionais"]
 tags: ["criação de sites", "médicos", "marketing médico", "SEO"]

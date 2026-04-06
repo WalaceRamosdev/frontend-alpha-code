@@ -1,7 +1,7 @@
 ---
 title: "WordPress ou site personalizado: comparação completa"
 description: "Guia completo sobre wordpress ou site personalizado: comparação completa focado em resultados e SEO para 2026."
-pubDate: 2026-04-15T19:30:00-03:00
+pubDate: 2026-04-15T12:30:00-03:00
 heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=2000"
 categories: ["Comparações de Plataformas"]
 tags: ["criação de sites", "comparações de plataformas", "marketing digital"]

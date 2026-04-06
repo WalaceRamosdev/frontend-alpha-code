@@ -1,7 +1,7 @@
 ---
 title: "Como aparecer no Google Maps: Guia de SEO Local para profissionais da saúde"
 description: "Saiba como posicionar seu consultório ou clínica no topo do Google Maps e atrair pacientes da sua região de forma gratuita e eficiente."
-pubDate: 2026-01-31
+pubDate: 2026-01-31T12:30:00-03:00
 heroImage: "/assets/blog/como-aparecer-no-google-maps-saude-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["SEO Local", "Tráfego Orgânico"]
