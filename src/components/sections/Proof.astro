@@ -1,21 +1,41 @@
 ---
 // src/components/sections/Proof.astro
 ---
-<section class="bg-black py-12 border-y border-white/5">
+<section class="bg-black py-16 border-y border-white/5 relative overflow-hidden">
+    <!-- Subtle glow -->
+    <div class="absolute top-0 left-1/4 w-1/2 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"></div>
+    
     <div class="container">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-            <div class="proof-item">
-                <span class="text-4xl md:text-5xl font-black text-primary block mb-2 font-outfit">+200</span>
-                <p class="text-gray-400 uppercase tracking-widest text-sm font-bold">Projetos de Elite Entregues</p>
+        <!-- Numbers Row -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12 text-center mb-16">
+            <div class="proof-item group">
+                <span class="text-5xl md:text-6xl font-black text-primary block mb-3 font-outfit transition-transform group-hover:scale-110 duration-500">+200</span>
+                <p class="text-gray-400 uppercase tracking-widest text-[10px] font-black opacity-70">Projetos de Elite Entregues</p>
             </div>
-            <div class="proof-item">
-                <span class="text-4xl md:text-5xl font-black text-primary block mb-2 font-outfit">+150</span>
-                <p class="text-gray-400 uppercase tracking-widest text-sm font-bold">Empresas e Profissionais</p>
+            <div class="proof-item group">
+                <span class="text-5xl md:text-6xl font-black text-primary block mb-3 font-outfit transition-transform group-hover:scale-110 duration-500">+150</span>
+                <p class="text-gray-400 uppercase tracking-widest text-[10px] font-black opacity-70">Empresas e Profissionais</p>
             </div>
-            <div class="proof-item">
-                <span class="text-4xl md:text-5xl font-black text-white block mb-2 font-outfit">100%</span>
-                <p class="text-gray-400 uppercase tracking-widest text-sm font-bold">Índice de Satisfação</p>
+            <div class="proof-item group">
+                <span class="text-5xl md:text-6xl font-black text-white block mb-3 font-outfit transition-transform group-hover:scale-110 duration-500">100%</span>
+                <p class="text-gray-400 uppercase tracking-widest text-[10px] font-black opacity-70">Índice de Satisfação Real</p>
             </div>
+        </div>
+
+        <!-- Trust Logos -->
+        <div class="pt-8 border-t border-white/5 flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-40 grayscale transition-all hover:grayscale-0 hover:opacity-100 duration-1000">
+             <div class="flex items-center gap-2 text-white font-black text-xs tracking-tighter">
+                <span class="p-1 bg-white text-black text-[8px] rounded">G</span> GOOGLE PARTNER
+             </div>
+             <div class="flex items-center gap-2 text-white font-black text-xs tracking-tighter">
+                <span class="text-primary text-lg">▲</span> ASTRO TECH
+             </div>
+             <div class="flex items-center gap-2 text-white font-black text-xs tracking-tighter">
+                <span class="text-green-500 text-lg">★</span> TRUSTPILOT 4.9/5
+             </div>
+             <div class="flex items-center gap-2 text-white font-black text-xs tracking-tighter uppercase">
+                24h Suporte
+             </div>
         </div>
     </div>
 </section>

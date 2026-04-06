@@ -5,33 +5,27 @@ import Card from "../ui/Card.astro";
 const steps = [
     {
         number: "01",
-        title: "Briefing & Estratégia",
-        desc: "Mergulhamos no seu mercado para definir a arquitetura de vendas ideal.",
+        title: "Diagnóstico Estratégico",
+        desc: "Analisamos seu mercado e concorrentes para definir a estrutura que mais gera pedidos para o seu nicho.",
         icon: "🎯",
     },
     {
         number: "02",
-        title: "Design de Elite",
-        desc: "Interface exclusiva focada em autoridade e experiência premium.",
+        title: "Design & Copywriting",
+        desc: "Criamos um visual premium aliado a textos persuasivos que guiam o visitante até o botão de compra.",
         icon: "🎨",
     },
     {
         number: "03",
-        title: "Desenvolvimento Alpha",
-        desc: "Código ultra-rápido (Astro.js) otimizado para SEO e conversão.",
+        title: "Desenvolvimento & SEO",
+        desc: "Seu site nasce com tecnologia de ponta (Astro Tech) e otimização total para as primeiras páginas do Google.",
         icon: "💻",
     },
     {
         number: "04",
-        title: "Testes & Performance",
-        desc: "Validação em múltiplos dispositivos e nota máxima no PageSpeed.",
+        title: "Lançamento & Escala",
+        desc: "Sua máquina de vendas vai ao ar com monitoramento total e suporte para você focar apenas em atender novos clientes.",
         icon: "🚀",
-    },
-    {
-        number: "05",
-        title: "Lançamento & Suporte",
-        desc: "Seu ativo digital online e pronto para escalar seus resultados.",
-        icon: "🛡️",
     },
 ];
 ---
@@ -46,7 +40,7 @@ const steps = [
     }
     @media (min-width: 1024px) {
         .process-grid-elite {
-            grid-template-columns: repeat(5, 1fr);
+            grid-template-columns: repeat(4, 1fr);
             gap: 1.5rem;
         }
     }

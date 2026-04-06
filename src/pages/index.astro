@@ -2,24 +2,23 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Hero from "../components/sections/Hero.astro";
 import Proof from "../components/sections/Proof.astro";
-import Portfolio from "../components/sections/Portfolio.astro";
-import Features from "../components/sections/Features.astro";
 import Process from "../components/sections/Process.astro";
-import Testimonials from "../components/sections/Testimonials.astro";
+import Audience from "../components/sections/Audience.astro";
+import Features from "../components/sections/Features.astro";
 import Pricing from "../components/sections/Pricing.astro";
-import Faq from "../components/sections/Faq.astro";
 import CTA from "../components/sections/CTA.astro";
+import Faq from "../components/sections/Faq.astro";
 import SEOContent from "../components/sections/SEOContent.astro";
 
-const title = "Criação de Sites Profissionais de Elite | Alpha Code";
-const description = "Transformamos seu negócio em uma autoridade digital. Criação de sites de alta performance (Astro.js) com foco em conversão e SEO. Orçamento em 24h.";
+const title = "Criação de Sites Profissionais que Geram Clientes | Alpha Code";
+const description = "Transformamos seu site em uma máquina de gerar clientes. Criação de sites profissionais para empresas com foco em conversão imediata e SEO de Elite.";
 
 const keywords = [
-  "criação de sites",
-  "sites profissionais",
-  "landing page",
-  "site para médicos",
-  "site para advogados",
+  "criação de sites profissionais",
+  "criação de sites para empresas",
+  "site que gera clientes",
+  "marketing digital",
+  "landing page de alta conversão",
   "alpha code",
 ];
 
@@ -27,34 +26,31 @@ export const prerender = false;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
-  <!-- 1. ATENÇÃO: Hero de Alto Impacto -->
+  <!-- 1. HERO: Headline de Impacto + CTA Forte -->
   <Hero />
 
-  <!-- 2. INTERESSE: Autoridade e Números Reais -->
+  <!-- 2. PROVA/AUTORIDADE: Números que trazem confiança -->
   <Proof />
 
-  <!-- 3. DESEJO: Portfólio de Elite (3 Projetos Fortes) -->
-  <Portfolio />
-
-  <!-- 4. DIFERENCIAIS: Por que somos a escolha lógica -->
-  <Features />
-
-  <!-- 5. CLAREZA: Processo Profissional em 5 Etapas -->
+  <!-- 3. COMO FUNCIONA: O caminho claro para o resultado -->
   <Process />
 
-  <!-- 6. PROVA SOCIAL: Depoimentos de Clientes Reais -->
-  <Testimonials />
+  <!-- 4. PARA QUEM É: Segmentação e identificação -->
+  <Audience />
 
-  <!-- 7. DECISÃO: Planos e Oferta Estratégica -->
+  <!-- 5. BENEFÍCIOS: Diferenciais que matam a concorrência -->
+  <Features />
+
+  <!-- 6. OFERTA: Planos estratégicos para cada fase -->
   <Pricing />
 
-  <!-- 8. OBJEÇÃO: FAQ para quebrar barreiras -->
-  <Faq />
-  
-  <!-- 9. AÇÃO: CTA Final Inescapável -->
+  <!-- 7. CTA REPETIDO: Captura após a oferta -->
   <CTA />
 
-  <!-- SEO Técnico (Escondido por padrão para UX) -->
+  <!-- 8. FAQ: Quebrando objeções e ajudando no SEO -->
+  <Faq />
+  
+  <!-- SEO Técnico e Conteúdo Profundo -->
   <div class="opacity-80">
     <SEOContent />
   </div>
