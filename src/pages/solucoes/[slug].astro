@@ -20,10 +20,13 @@ import SiteRoiCalculator from "../../components/ui/SiteRoiCalculator.astro";
 import { niches } from "../../data/niches";
 
 export function getStaticPaths() {
-    return niches.map((niche) => ({
-        params: { slug: niche.slug },
-        props: { niche },
-    }));
+    const customPages = ['advogados', 'arquitetos', 'contadores', 'medicos', 'dentistas', 'psicologos', 'clinica-premium', 'pizzaria-premium', 'lanchonete-premium'];
+    return niches
+        .filter((niche) => !customPages.includes(niche.slug))
+        .map((niche) => ({
+            params: { slug: niche.slug },
+            props: { niche },
+        }));
 }
 
 const { niche } = Astro.props;
