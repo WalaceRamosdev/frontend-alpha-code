@@ -43,9 +43,10 @@ const slug = "dentistas";
 ---
 
 <BaseLayout
-    title="Marketing para Dentistas e Clínicas Odontológicas | Alpha Code"
-    description="Lote sua agenda de implantes e estética dental. Sites premium para dentistas focados em autoridade e captação de pacientes particulares."
+    title="Site para Dentistas: Atraia mais Pacientes e Lote sua Agenda"
+    description="Para quem busca excelência em implantes, estética e ortodontia de alto padrão. Tenha um site para dentistas imponente e focado em agendamentos."
     showHeader={true}
+    showFooter={true}
     showSocialProof={true}
 >
     <NicheMeta slug="dentistas" slot="head" />
@@ -112,6 +113,7 @@ const slug = "dentistas";
     </script>
 
     <div class="niche-page dental-theme">
+        <!-- HERO V2 -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
                 <img src="/assets/banners/saude-hero.png" alt="Clínica Odontológica Moderna" class="hero-bg-image" />
@@ -124,15 +126,24 @@ const slug = "dentistas";
                         <span class="dot dental"></span> ESTRATÉGIA DIGITAL PARA DENTISTAS DE ELITE
                     </div>
                     <h1 class="hero-title-v2 reveal-up">
-                        O Sorriso do seu Paciente <br/> Começa no seu <span class="text-gradient-dental">Novo Site</span>.
+                        O Sorriso do seu Paciente <br/> Começa em um <span class="text-gradient-dental">Posicionamento de Elite.</span>
                     </h1>
-                    <p class="hero-sub-v2 reveal-up">
-                        Para quem busca excelência em implantes, estética e ortodontia de alto padrão. Tenha um site que converte cliques em agendamentos qualificados.
+                    <p class="hero-sub-v2 reveal-up text-balance">
+                        Não dependa apenas de indicações. Tenha um <strong>site para dentistas</strong> imponente, 
+                        totalmente otimizado para transformar buscas no Google em cadeiras cheias e pacientes particulares.
                     </p>
                     <div class="hero-actions-v2 reveal-up">
-                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button-dental">LOTAR MINHA AGENDA DE ESTÉTICA</Button>
+                        <Button
+                            href="https://wa.me/5521999064502?text=Olá! Sou dentista e desejo um site que atraia mais pacientes particulares para minha clínica."
+                            target="_blank"
+                            variant="primary"
+                            size="lg"
+                            class="glow-btn-dental uppercase font-black"
+                        >
+                            QUERO MAIS PACIENTES AGORA
+                        </Button>
                         <div class="hero-trust">
-                            <i class="fas fa-check-circle"></i> Foco em ROI e Captação de Pacientes Particulares
+                            <i class="fas fa-check-circle"></i> Foco em Implantes, Estética e Ortodontia de Alto Padrão
                         </div>
                     </div>
                 </div>
@@ -165,70 +176,138 @@ const slug = "dentistas";
         <section class="problem-v2 py-24">
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Por que sua cadeira <span class="text-dental">não para cheia?</span></h2>
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Sua clínica está preparada para o <span class="text-dental">paciente digital?</span></h2>
+                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg text-balance">
+                        Muitos dentistas de excelência ainda sofrem com agendas instáveis por falta de um posicionamento digital profissional.
+                    </p>
                 </div>
-                <div class="grid md:grid-cols-3 gap-8 stagger-container">
-                    <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-tooth text-dental"></i></div>
-                        <h3>Dependência de Convênios</h3>
-                        <p>Você trabalha muito atendendo planos, mas o lucro real nas consultas particulares é baixo.</p>
-                    </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
                     <div class="problem-card-v2 stagger-card">
                         <div class="icon-circle shadow-dental-sm"><i class="fas fa-calendar-times text-dental"></i></div>
-                        <h3>Cadeira Vazia</h3>
-                        <p>Seus horários nobres estão vagos porque você não é encontrado por quem busca estética dental.</p>
+                        <h3>Agenda com Horários Vagos</h3>
+                        <p>A instabilidade nos agendamentos prejudica o planejamento financeiro e o crescimento da clínica.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-frown text-dental"></i></div>
-                        <h3>Visual Amador</h3>
-                        <p>Seu site atual não reflete a tecnologia e o cuidado de ponta do seu consultório.</p>
+                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-eye-slash text-dental"></i></div>
+                        <h3>Pouca Visibilidade Online</h3>
+                        <p>O paciente busca "dentista perto de mim" no Google e encontra seu concorrente, mas não encontra você.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-share-alt text-dental"></i></div>
+                        <h3>Dependência de Redes Sociais</h3>
+                        <p>Ficar refém de algoritmos de redes sociais é perigoso. Você precisa de um terreno próprio que converta.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-dental-sm"><i class="fas fa-user-plus text-dental"></i></div>
+                        <h3>Dificuldade em Atrair Particulares</h3>
+                        <p>A dependência de convênios que pagam pouco asfixia o lucro. É hora de focar em pacientes de alto valor.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Transformation -->
-        <section class="transformation-v2 py-24 bg-dark-accent">
+        <!-- Solution & Benefits -->
+        <section class="benefits-v2 py-24 bg-[#0a0a0a]">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="content-side reveal-up">
-                        <span class="tag-v2 dental">DENTISTRY 4.0</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Sua Clínica com <br/> <span class="text-dental">Zero Atrito</span>.</h2>
-                        <ul class="check-list mt-8">
-                            <li><i class="fas fa-check"></i> Sites que abrem em menos de 1 segundo</li>
-                            <li><i class="fas fa-check"></i> Design focado em autoridade clínica</li>
-                            <li><i class="fas fa-check"></i> SEO para dominar as buscas locais</li>
-                        </ul>
-                    </div>
-                    <div class="image-side reveal-up">
-                        <div class="comparison-container">
-                            <div class="comparison-card legacy">
-                                <div class="card-tag">ANTES (GENÉRICO)</div>
-                                <div class="card-browser-mockup">
-                                    <div class="browser-dot-red"></div>
-                                    <div class="browser-dot-yellow"></div>
-                                    <div class="browser-dot-green"></div>
-                                </div>
-                                <div class="legacy-content">
-                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
-                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
-                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
+                    <div class="reveal-up">
+                        <h2 class="text-4xl font-black mb-8">Um <span class="text-dental">site para dentistas</span> que trabalha 24h para sua clínica.</h2>
+                        <div class="benefit-grid-v2">
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">🎯</div>
+                                <div class="b-text">
+                                    <h4>Autoridade Clínica</h4>
+                                    <p>O paciente começa a confiar no seu trabalho antes mesmo de entrar no consultório através de um design premium.</p>
                                 </div>
                             </div>
-                            
-                            <div class="comparison-card premium">
-                                <div class="card-tag flagship-dental">DEPOIS (ALPHA CODE)</div>
-                                <div class="card-browser-mockup">
-                                    <div class="browser-dot-red"></div>
-                                    <div class="browser-dot-yellow"></div>
-                                    <div class="browser-dot-green"></div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">📊</div>
+                                <div class="b-text">
+                                    <h4>Agendamento Facilitado</h4>
+                                    <p>Integração direta com WhatsApp e sistemas de agendamento online para reduzir o atrito do paciente.</p>
                                 </div>
-                                <img src="/assets/imagens-de-paginas/ctim.svg" alt="Projeto Real Odonto" class="project-preview-img" />
+                            </div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">📈</div>
+                                <div class="b-text">
+                                    <h4>SEO Local Dominante</h4>
+                                    <p>Apareça para quem está buscando por dentistas na sua região exata no momento da necessidade.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    <div class="reveal-up bg-dark-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-2xl font-bold mb-6">Como transformamos sua agenda:</h3>
+                        <div class="process-steps">
+                            <div class="step-v2">
+                                <span class="step-num">01</span>
+                                <div class="step-info">
+                                    <strong>Análise de Mercado</strong>
+                                    <p>Estudamos sua região e concorrentes para encontrar brechas de crescimento.</p>
+                                </div>
+                            </div>
+                            <div class="step-v2">
+                                <span class="step-num">02</span>
+                                <div class="step-info">
+                                    <strong>Criação Estratégica</strong>
+                                    <p>Desenvolvemos seu site com foco total em estética dental e conversão.</p>
+                                </div>
+                            </div>
+                            <div class="step-v2">
+                                <span class="step-num">03</span>
+                                <div class="step-info">
+                                    <strong>Crescimento Escalonado</strong>
+                                    <p>Implementamos técnicas de SEO que aumentam sua visibilidade dia após dia.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <Button
+                            href="https://wa.me/5521999064502?text=Gostaria de agendar uma análise da presença digital da minha clínica odontológica."
+                            variant="primary"
+                            class="w-full mt-8 glow-btn-dental"
+                        >
+                            AGENDAR ANÁLISE ESTRATÉGICA
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intensive SEO Content Section (800+ words) -->
+        <section class="seo-deep-content py-24">
+            <div class="container">
+                <div class="max-w-4xl mx-auto prose prose-invert prose-emerald">
+                    <h2 class="text-3xl md:text-5xl font-black mb-8 text-white">O impacto de um <span class="text-dental">site para dentistas</span> moderno no faturamento da clínica</h2>
+                    
+                    <p class="text-lg leading-relaxed text-gray-300 mb-6">
+                        Para o dentista contemporâneo, a primeira impressão do paciente não acontece mais na sala de espera, mas na tela do smartphone. O desenvolvimento de um <strong>site para dentistas</strong> de alto impacto tornou-se o diferencial entre clínicas que lutam por convênios e aquelas que dominam o mercado de procedimentos particulares. Quando um paciente busca por procedimentos de alto valor, como lentes de contato dental, implantes ou ortodontia invisível, ele busca segurança e autoridade. Se o seu site não transmite isso de forma imediata, você está perdendo o paciente para a concorrência.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">SEO para Dentistas: Como dominar o Google Local</h3>
+                    <p class="text-gray-400 mb-6">
+                        Estar presente no Google é vital, mas estar posicionado de forma estratégica é o que gera lucro. O SEO (Search Engine Optimization) aplicado a um <strong>site para dentistas</strong> permite que sua clínica apareça nos resultados orgânicos exatamente quando o paciente tem uma dor ou um desejo estético. Através da tecnologia Astro.js, garantimos que seu site carregue instantaneamente, o que é um dos principais fatores de ranqueamento do Google. Além disso, estruturamos os conteúdos focando na sua geocalização, garantindo que você seja a autoridade odontológica número um da sua cidade e bairro.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Conversão Odontológica: Transformando Cliques em Consultas</h3>
+                    <p class="text-gray-400 mb-6">
+                        Muitas agências focam apenas em design, mas na Alpha Code, focamos em conversão. Um <strong>site para dentistas</strong> eficiente precisa ter chamadas para ação (CTAs) estrategicamente posicionadas. Facilitamos o contato via WhatsApp e integramos formulários inteligentes que qualificam o lead antes mesmo de ele falar com sua secretária. Isso reduz o trabalho manual e aumenta a eficiência da sua recepção, permitindo que o foco seja o fechamento de orçamentos de alto ticket.
+                    </p>
+
+                    <div class="highlight-box-seo dental my-12 p-8 border-l-4 border-dental bg-white/5 rounded-r-xl">
+                        <h4 class="text-white font-bold text-xl mb-4">A Estética Odontológica Digital</h4>
+                        <p class="text-gray-300 italic">"Na odontologia moderna, sua vitrine digital deve ser tão impecável quanto o sorriso que você entrega aos seus pacientes. Sites amadores atraem pacientes que buscam apenas preço; sites de elite atraem pacientes que valorizam a sua arte e tecnologia."</p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Abandonando a Dependência de Convênios</h3>
+                    <p class="text-gray-400 mb-6">
+                        Sabemos que as taxas pagas pelos planos de saúde odontológicos muitas vezes não cobrem sequer o custo dos materiais premium utilizados. A única forma de se libertar dessa dependência é construindo uma marca forte e independente. Um <strong>site para dentistas</strong> profissional permite que você comunique o valor diferenciado do seu atendimento particular, focando em biossegurança, tecnologia de ponta e resultados estéticos superiores, atraindo um público que está disposto a investir na própria saúde e beleza.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Conclusão: Tecnologia a favor do seu Consultório</h3>
+                    <p class="text-gray-400 mb-6">
+                        O investimento em um <strong>site para dentistas</strong> é o ativo digital mais importante que você pode construir para sua carreira. Enquanto posts em redes sociais desaparecem em horas, seu site continua atraindo pacientes no Google dia e noite, ano após ano. É a fundação sólida necessária para transformar seu consultório em uma clínica referência e lucrativa.
+                    </p>
                 </div>
             </div>
         </section>
@@ -238,14 +317,14 @@ const slug = "dentistas";
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
                     <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
-                    <p class="reveal-up text-gray-400 mt-4">Menos do que o valor de uma única aplicação de lentes ou implante para transformar sua carreira.</p>
+                    <p class="reveal-up text-gray-400 mt-4">Menos do que o valor de um único implante para transformar o faturamento da sua clínica.</p>
                 </div>
                 
                 <div class="pricing-grid-v2">
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>ESSENCIAL</h3>
-                            <p>Presença digital odontológica ágil</p>
+                            <h3>DENTISTA ESSENCIAL</h3>
+                            <p>Presença digital odontológica eficiente</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 397</span>
@@ -255,14 +334,14 @@ const slug = "dentistas";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CHECKOUT SEGURO</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">QUERO MAIS PACIENTES</Button>
                     </div>
 
                     <div class="p-card-v2 featured reveal-up">
                         <div class="pop">LOTE SUA AGENDA</div>
                         <div class="head">
-                            <h3>Sorriso Autoridade</h3>
-                            <p>Foco em implantes e estética dental</p>
+                            <h3>SORRISO AUTORIDADE</h3>
+                            <p>Foco em implantes, estética e blog</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 697</span>
@@ -272,13 +351,13 @@ const slug = "dentistas";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-dental">QUERO CRESCER</Button>
+                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-dental">DOMINAR O MERCADO</Button>
                     </div>
 
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>ELITE DENTAL</h3>
-                            <p>Dominação de mercado e alta conversão</p>
+                            <h3>ELITE ODONTOLÓGICA</h3>
+                            <p>Dominação de mercado e alta escala</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 1.297</span>
@@ -288,17 +367,43 @@ const slug = "dentistas";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">FALAR COM ESPECIALISTA</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">FALAR COM CONSULTOR</Button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Final CTA -->
-        <section class="final-cta-v2 py-32 text-center relative overflow-hidden">
-            <div class="container relative z-10">
-                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">O Futuro da sua <br/> <span class="text-dental font-outfit">Odontologia</span></h2>
-                <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-dental uppercase font-black">Falar com especialista agora</Button>
+        <section class="final-cta-v2 py-32 relative overflow-hidden">
+            <div class="container relative z-10 text-center">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8 text-balance">Digitalize o seu <br/> <span class="text-dental font-outfit">Sucesso Odontológico.</span></h2>
+                <div class="reveal-up max-w-2xl mx-auto mb-12">
+                    <p class="text-xl text-gray-300">
+                        O futuro da odontologia é digital. Pare de perder pacientes para quem já se posicionou corretamente no Google. Vamos lotar sua cadeira hoje?
+                    </p>
+                </div>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502?text=Desejo falar com um especialista sobre o site da minha clínica dental." variant="primary" size="lg" class="glow-btn-dental uppercase font-black">Falar no WhatsApp</Button>
+                    <Button href="https://wa.me/5521999064502?text=Gostaria de agendar uma análise automática da minha presença digital dental." variant="outline" size="lg">Agendar Análise</Button>
+                </div>
+            </div>
+            <!-- FAQ Section for Dental SEO -->
+            <div class="container mt-32 max-w-4xl mx-auto text-left">
+                <h3 class="text-3xl font-black mb-12 text-center">Dúvidas Frequentes sobre <br/><span class="text-dental">Marketing para Dentistas</span></h3>
+                <div class="faq-list-v2">
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-dental mb-3">O site ajuda a atrair pacientes para implantes e estética?</h4>
+                        <p class="text-gray-400">Sim. Criamos seções específicas focadas em procedimentos de alto valor, utilizando gatilhos de autoridade e resultados que motivam o agendamento dessas especialidades.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-dental mb-3">Como funciona a integração com agendamento online?</h4>
+                        <p class="text-gray-400">Podemos integrar seu site com sistemas como Doctoralia, Simples Dental ou qualquer sistema que possua link de marcação, além do botão direto para WhatsApp da sua recepção.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-dental mb-3">O site é otimizado para o Google da minha cidade?</h4>
+                        <p class="text-gray-400">Sim. Utilizamos técnicas de SEO Local (Google Meu Negócio e palavras-chave regionais) para garantir que sua clínica apareça para as pessoas certas na sua região.</p>
+                    </div>
+                </div>
             </div>
             <div class="glow-dental-1"></div>
         </section>
@@ -366,6 +471,201 @@ const slug = "dentistas";
             border-width: 1px;
         }
     }
+
+    .pricing-grid-v2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .p-card-v2 {
+        background: var(--color-surface);
+        padding: 3rem;
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.05);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    .p-card-v2.featured {
+        background: rgba(74, 222, 128, 0.05);
+        border: 2px solid var(--color-dental);
+        transform: scale(1.05);
+        position: relative;
+    }
+
+    .pop {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--color-dental);
+        color: black;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 900;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .p-card-v2 .head h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .p-card-v2 .head p { color: #666; font-size: 0.9rem; margin-bottom: 2.5rem; }
+
+    .p-card-v2 .price { margin-bottom: 2.5rem; }
+    .p-card-v2 .price .old { text-decoration: line-through; color: #444; display: block; margin-bottom: 4px; }
+    .p-card-v2 .price .current { display: flex; align-items: baseline; gap: 4px; }
+    .p-card-v2 .price .curr { font-size: 1.25rem; font-weight: 700; }
+    .p-card-v2 .price .val { font-size: 4rem; font-weight: 900; font-family: var(--font-heading); }
+    .p-card-v2 .price .method { color: #666; font-size: 0.8rem; }
+
+    .psy-project-card {
+        background: var(--color-surface);
+        border-radius: 20px;
+        overflow: hidden;
+        border: 1px solid rgba(255,255,255,0.05);
+        transition: all 0.4s ease;
+        display: block;
+        text-decoration: none;
+    }
+
+    .psy-project-card:hover {
+        transform: translateY(-8px);
+        border-color: var(--color-dental);
+        box-shadow: 0 20px 40px rgba(74, 222, 128, 0.1);
+    }
+
+    .psy-img-wrapper {
+        position: relative;
+        aspect-ratio: 16/10;
+        overflow: hidden;
+    }
+
+    .psy-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 1s ease;
+    }
+
+    .psy-project-card:hover .psy-img-wrapper img {
+        transform: scale(1.1);
+    }
+
+    .psy-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(74, 222, 128, 0.8);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    .psy-project-card:hover .psy-overlay {
+        opacity: 1;
+    }
+
+    .psy-overlay span {
+        font-weight: 800;
+        color: black;
+        letter-spacing: 1px;
+        font-size: 0.9rem;
+    }
+
+    .psy-info {
+        padding: 1.5rem;
+    }
+
+    .psy-info h3 {
+        font-family: var(--font-heading);
+        font-weight: 800;
+        color: white;
+        margin-bottom: 0.5rem;
+    }
+
+    .psy-info p {
+        font-size: 0.85rem;
+        color: #4ade80;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .psy-info p .dot {
+        width: 6px;
+        height: 6px;
+        background: #4ade80;
+        border-radius: 50%;
+    }
+
+    .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .step-v2 {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+    }
+
+    .step-num {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--color-dental);
+        opacity: 0.5;
+    }
+
+    .step-info strong {
+        display: block;
+        color: white;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .step-info p {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    /* SEO Content Styles */
+    .seo-deep-content {
+        line-height: 1.8;
+    }
+
+    .prose h2, .prose h3, .prose h4 {
+        font-family: var(--font-heading);
+    }
+    
+    .faq-list-v2 h4 {
+        font-family: var(--font-heading);
+        color: var(--color-dental);
+    }
+
+    .benefit-grid-v2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .benefit-item-v2 {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .b-icon { font-size: 2rem; }
+    .b-text h4 { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 0.5rem; }
+    .b-text p { color: #888; }
 
     /* Advanced Transformation Styles */
     .comparison-container {
