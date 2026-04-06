@@ -42,5 +42,7 @@ Psicólogos não precisam "vender" mais. Precisam ser encontrados com clareza e 
 
 ---
 ### Quer um site profissional, ético e pensado para psicólogos?
-A **Alpha Code** cria sites rápidos, claros e rigorosamente alinhados às normas do CFP.
-**[Solicite uma análise gratuita do seu projeto e fale com um especialista.](https://wa.me/5521999064502)**
+A **Alpha Code** cria sites rápidos, claros e rigorosamente alinhados às normas do CFP. 
+> 👉 Descubra detalhes de como a nossa **[Criação de Sites para Psicólogos](/solucoes/psicologos)** transforma seu consultório em uma máquina de agendamentos.
+
+**[Solicite uma análise gratuita do seu projeto direto no WhatsApp!](https://wa.me/5521999064502)**
