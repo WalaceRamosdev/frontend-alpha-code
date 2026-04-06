@@ -3,113 +3,56 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
 
-
 const painPoints = [
     {
-        icon: "📉",
-        title: "Perda de Clientes para o Digital",
-        desc: "Escritórios de contabilidade online estão crescendo porque oferecem uma experiência digital que você ainda não tem.",
-    },
-    {
         icon: "🏢",
-        title: "Imagem Burocrática",
-        desc: "Seu site atual (ou a falta de um) transmite uma imagem de empresa antiga e pouco tecnológica.",
+        title: "Dificuldade em Captar Empresas",
+        desc: "Empresários modernos buscam parceiros contábeis que demonstrem tecnologia e eficiência logo no primeiro contato digital.",
     },
     {
         icon: "⚖️",
-        title: "Dificuldade em Leads B2B",
-        desc: "Empresas modernas buscam parceiros contábeis que falem a língua da tecnologia e eficiência.",
+        title: "Alta Concorrência Online",
+        desc: "Contabilidades online 'low cost' crescem porque oferecem uma experiência digital que sua estrutura tradicional ainda não tem.",
+    },
+    {
+        icon: "📱",
+        title: "Invisibilidade Digital",
+        desc: "Seu escritório é invisível para o empresário que busca uma nova assessoria contábil no Google todos os meses.",
     },
 ];
 
 const benefits = [
     {
         icon: "🛡️",
-        title: "Autoridade e Confiança Corporativa",
-        desc: "Um posicionamento digital que transmite a segurança necessária para gerir o patrimônio do seu cliente.",
+        title: "Autoridade e Confiança",
+        desc: "Um posicionamento digital que transmite a segurança absoluta necessária para gerir o patrimônio do seu cliente.",
     },
     {
-        icon: "⚙️",
-        title: "Eficiência no Atendimento",
-        desc: "Centralize documentos e facilite o contato inicial através de formulários e botões inteligentes.",
+        icon: "🚀",
+        title: "Atração B2B Qualificada",
+        desc: "Estratégias de conversão focadas em atrair empresas com faturamentos que valorizam seu honorário recorrente.",
     },
     {
         icon: "📊",
         title: "Visibilidade Estratégica",
-        desc: "Seja encontrado por empresários que buscam uma contoria contábil de excelência no Google.",
+        desc: "Seja a referência número 1 em contoria contábil no Google, dominando as buscas locais e nacionais.",
     },
 ];
+
+const slug = "contadores";
 ---
 
 <BaseLayout
-    title="Marketing Contábil e Sites para Contadores | Alpha Code"
-    description="Digitalize seu escritório de contabilidade. Sites modernos, eficientes e focados em prospecção de clientes B2B qualificados."
+    title="Site para Contadores: Estratégias de Captação B2B e SEO"
+    description="Digitalize seu escritório de contabilidade. Tenha um site para contadores moderno, estrategicamente focado em prospecção de clientes empresariais qualificados."
     showHeader={true}
+    showFooter={true}
     showSocialProof={true}
 >
     <NicheMeta slug="contadores" slot="head" />
 
-    <!-- animations script same -->
-    <script>
-        import { gsap } from "gsap";
-        import { ScrollTrigger } from "gsap/ScrollTrigger";
-        gsap.registerPlugin(ScrollTrigger);
-
-        document.addEventListener("astro:page-load", () => {
-            ScrollTrigger.refresh();
-
-            // Parallax Hero
-            gsap.to(".hero-bg-image", { 
-                scrollTrigger: { 
-                    trigger: ".hero-lp-v2", 
-                    start: "top top", 
-                    scrub: true 
-                }, 
-                y: 100, 
-                opacity: 0.4 
-            });
-
-            // Reveal Up
-            document.querySelectorAll(".reveal-up").forEach((el) => { 
-                gsap.fromTo(el, 
-                    { 
-                        y: 40, 
-                        opacity: 0 
-                    },
-                    {
-                        scrollTrigger: { 
-                            trigger: el, 
-                            start: "top 90%" 
-                        }, 
-                        y: 0, 
-                        opacity: 1, 
-                        duration: 1, 
-                        ease: "power3.out" 
-                    }
-                ); 
-            });
-
-            // Card stagger
-            gsap.fromTo(".stagger-card", 
-                { 
-                    y: 60, 
-                    opacity: 0 
-                },
-                {
-                    scrollTrigger: { 
-                        trigger: ".stagger-container", 
-                        start: "top 80%" 
-                    }, 
-                    y: 0, 
-                    opacity: 1, 
-                    duration: 0.8, 
-                    stagger: 0.15 
-                }
-            );
-        });
-    </script>
-
     <div class="niche-page accounting-theme">
+        <!-- HERO V2 -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
                 <img src="/assets/banners/contadores-hero.png" alt="Escritório de Contabilidade Moderno" class="hero-bg-image" />
@@ -122,13 +65,22 @@ const benefits = [
                         <span class="dot accounting"></span> ESTRATÉGIA DIGITAL PARA ESCRITÓRIOS DE CONTABILIDADE
                     </div>
                     <h1 class="hero-title-v2 reveal-up">
-                        Sua Contabilidade na <br/> <span class="text-gradient-accounting">Era da Eficiência</span>.
+                        Seu Escritório Merece um <br/> <span class="text-gradient-accounting">Posicionamento de Elite</span>.
                     </h1>
-                    <p class="hero-sub-v2 reveal-up">
-                        Não deixe seu escritório ficar para trás. Tenha uma presença digital que transmite segurança absoluta e atrai empresas que buscam uma parceria contábil moderna.
+                    <p class="hero-sub-v2 reveal-up text-balance">
+                        Não deixe sua contabilidade ficar invisível. Tenha um <strong>site para contadores</strong> focado em 
+                        prospecção de clientes empresariais e autoridade absoluta no mercado B2B.
                     </p>
                     <div class="hero-actions-v2 reveal-up">
-                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button-accounting uppercase">Digitalizar meu Escritório</Button>
+                        <Button 
+                            href="https://wa.me/5521999064502?text=Olá! Sou contador e preciso de um site estrategicamente focado em atrair novos clientes empresariais." 
+                            target="_blank"
+                            variant="primary" 
+                            size="lg" 
+                            class="glow-btn-accounting uppercase font-black"
+                        >
+                            QUERO MAIS CLIENTES AGORA
+                        </Button>
                         <div class="hero-trust">
                             <i class="fas fa-shield-alt"></i> Foco em Segurança, Credibilidade e Resultados B2B
                         </div>
@@ -147,59 +99,176 @@ const benefits = [
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">+1k</span>
-                        <span class="stat-txt">Empresas Impactadas</span>
+                        <span class="stat-num">+200</span>
+                        <span class="stat-txt">Sites Contábeis Entregues</span>
                     </div>
                     <div class="stat-divider"></div>
                     <div class="stat-item-v2">
-                        <span class="stat-num">A+</span>
-                        <span class="stat-txt">Autoridade Digital</span>
+                        <span class="stat-num">B2B</span>
+                        <span class="stat-txt">Foco Comercial Alpha</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- Problems -->
+        <!-- Problem Awareness -->
         <section class="problem-v2 py-24">
-            <div class="container text-center">
-                <h2 class="reveal-up text-4xl md:text-5xl font-black mb-16">O mercado contábil <span class="text-accounting">mudou</span>. E você?</h2>
-                <div class="grid md:grid-cols-3 gap-8 stagger-container">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">O mercado contábil <span class="text-accounting">mudou drasticamente</span>.</h2>
+                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg text-balance">
+                        Depender apenas de indicações é um risco para a saúde do seu escritório. No mundo digital, quem não é visto, é substituído por contabilidades online.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-chart-line-down text-accounting"></i></div>
-                        <h3>Perda para o Digital</h3>
-                        <p>Contabilidades online crescem porque oferecem uma experiência digital que seu escritório ainda não tem.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-hand-holding-usd text-accounting"></i></div>
+                        <h3>Dificuldade em Captar Empresas</h3>
+                        <p>Empresários buscam solução rápida e tecnológica. Se seu site é antigo, eles assumem que seu serviço também é.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-building text-accounting"></i></div>
-                        <h3>Imagem Burocrática</h3>
-                        <p>Seu site atual transmite uma imagem de empresa estagnada, o que afasta novos empresários modernos.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-balance-scale text-accounting"></i></div>
+                        <h3>Concorrência Desleal</h3>
+                        <p>Plataformas digitais automatizadas estão "roubando" seus leads oferecendo uma experiência visual superior.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-user-tie text-accounting"></i></div>
-                        <h3>Dificuldade em Leads B2B</h3>
-                        <p>Empresas buscam parceiros contábeis que demonstrem tecnologia e eficiência logo no primeiro contato.</p>
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-eye-slash text-accounting"></i></div>
+                        <h3>Invisibilidade Online</h3>
+                        <p>Dificuldade em ser encontrado por quem busca ativamente trocar de contador no Google todos os meses.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-accounting-sm"><i class="fas fa-users-slash text-accounting"></i></div>
+                        <h3>Referência Limitada</h3>
+                        <p>O "boca a boca" é lento. Para escalar, você precisa de um motor de vendas que funcione 24 horas por dia.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Transformation -->
+        <!-- Solution & Benefits -->
+        <section class="benefits-v2 py-24 bg-[#0a0a0a]">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <h2 class="text-4xl font-black mb-8">Um <span class="text-accounting">site para contadores</span> focado em prospecção ativa.</h2>
+                        <div class="benefit-grid-v2">
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">🏢</div>
+                                <div class="b-text">
+                                    <h4>Foco Total em Clientes Empresariais</h4>
+                                    <p>Design e copy desenvolvidos para falar diretamente com donos de empresas e tomadores de decisão.</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">🛡️</div>
+                                <div class="b-text">
+                                    <h4>Blindagem de Crédito e Confiança</h4>
+                                    <p>Layout que transmite seriedade, segurança e conformidade - os três pilares que um empresário busca.</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">📊</div>
+                                <div class="b-text">
+                                    <h4>Dashboards de Conversão</h4>
+                                    <p>Monitoramos cada clique para garantir que sua prospecção digital seja o investimento mais rentável do escritório.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal-up bg-dark-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-2xl font-bold mb-6">Fluxo de Escala Contábil:</h3>
+                        <div class="process-steps">
+                            <div class="step-v2">
+                                <span class="step-num">01</span>
+                                <div class="step-info">
+                                    <strong>Briefing de Negócio</strong>
+                                    <p>Identificamos seu nicho de atuação (indústria, comércio, serviços) para alvo certeiro.</p>
+                                </div>
+                            </div>
+                            <div class="step-v2">
+                                <span class="step-num">02</span>
+                                <div class="step-info">
+                                    <strong>Implementação Técnica</strong>
+                                    <p>Criação do site com tecnologias que o Google ama (Astro.js) para máxima performance.</p>
+                                </div>
+                            </div>
+                            <div class="step-v2">
+                                <span class="step-num">03</span>
+                                <div class="step-info">
+                                    <strong>Geração de Leads B2B</strong>
+                                    <p>Seu escritório pronto para receber contatos qualificados diretamente no WhatsApp.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <Button
+                            href="https://wa.me/5521999064502?text=Gostaria de uma análise da presença digital do meu escritório contábil."
+                            variant="primary"
+                            class="w-full mt-8 glow-btn-accounting uppercase font-black"
+                        >
+                            SOLICITAR ANÁLISE DE MERCADO
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intensive SEO Content Section (800+ words) -->
+        <section class="seo-deep-content py-24">
+            <div class="container">
+                <div class="max-w-4xl mx-auto prose prose-invert prose-blue">
+                    <h2 class="text-3xl md:text-5xl font-black mb-8 text-white">Por que o seu escritório precisa de um <span class="text-accounting">site para contadores</span> focado em SEO?</h2>
+                    
+                    <p class="text-lg leading-relaxed text-gray-300 mb-6">
+                        A contabilidade é um dos mercados mais competitivos do Brasil. Hoje, o empresário não busca mais o contador apenas no prédio vizinho; ele busca a solução no Google. Ter um <strong>site para contadores</strong> não é mais uma opção estética, é uma necessidade vital de sobrevivência comercial. Escritórios estagnados no analógico estão perdendo carteira para as grandes contabilidades digitais que investem pesado em tráfego e visibilidade. Para competir, você precisa de uma vitrine digital que não apenas exista, mas que converta visitantes em novos contratos recorrentes.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">SEO Contábil: Dominando as Buscas por Assessoria Empresarial</h3>
+                    <p class="text-gray-400 mb-6">
+                        O SEO (Search Engine Optimization) para o ramo contábil é a arte de ser visto como a autoridade máxima em sua região ou nicho de atuação. Quando um empresário digita "melhor contabilidade para médicos" ou "site para contadores com foco em lucro real", sua empresa precisa estar lá. Através de uma estrutura técnica de alta performance, garantimos que seu site carregue instantaneamente e responda perfeitamente em dispositivos móveis, fatores cruciais para que o algoritmo do Google priorize seu escritório sobre a concorrência.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Marketing para Contadores: Deixando de ser Burocrático para ser Estratégico</h3>
+                    <p class="text-gray-400 mb-6">
+                        Muitos sites contábeis cometem o erro de focar apenas no aspecto burocrático (balanços, impostos, conformidade). No entanto, o empresário moderno busca um <strong>parceiro estratégico</strong>. Na Alpha Code, reescrevemos a narrativa do seu site para focar no crescimento do cliente, na redução de custos e na inteligência tributária. Um <strong>site para contadores</strong> de elite deve vender tranquilidade, economia e escala para o empresário.
+                    </p>
+
+                    <div class="highlight-box-seo blue my-12 p-8 border-l-4 border-accounting bg-white/5 rounded-r-xl">
+                        <h4 class="text-white font-bold text-xl mb-4">A Contabilidade do Futuro é Digital</h4>
+                        <p class="text-gray-300 italic">"A tecnologia não substitui o contador, mas o contador que utiliza tecnologia e estratégias digitais de ponta certamente substituirá aquele que ficou preso no passado. Seu site é o motor desse novo momento do seu escritório."</p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Geração de Leads B2B: O Fim do Ócio Comercial</h3>
+                    <p class="text-gray-400 mb-6">
+                        A grande dor da maioria dos sócios de escritórios é a oscilação comercial. Meses com muitas entradas seguidos de períodos de seca. Um <strong>site para contadores</strong> bem otimizado cria um fluxo previsível de oportunidades. Ao integrar formulários de qualificação e botões estratégicos de WhatsApp, transformamos curiosos em leads quentes. O foco da nossa estrutura é garantir que você receba contatos de empresas que realmente possuem o perfil ideal de cliente para o seu escritório, evitando perda de tempo com solicitações irrelevantes.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Autoridade Digital: Construindo o seu Ativo de Marca</h3>
+                    <p class="text-gray-400 mb-6">
+                        Diferente das redes sociais, onde o conteúdo é efêmero e o algoritmo muda as regras a todo momento, o seu <strong>site para contadores</strong> é um ativo proprietário. Cada conteúdo publicado, cada página otimizada e cada link conquistado constrói uma barreira competitiva ao redor da sua marca. A longo prazo, um site com SEO forte gera leads com custo zero de publicidade, tornando-se a principal vantagem competitiva do seu negócio contábil.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Transformation Section -->
         <section class="transformation-v2 py-24 bg-dark-accent">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
                     <div class="content-side reveal-up">
-                        <span class="tag-v2 accounting">CREDIBILIDADE 2.0</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">De Burocrático <br/> Para <span class="text-accounting">Inovador</span>.</h2>
+                        <span class="tag-v2 accounting">CREDIBILIDADE TOTAL</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">De Burocrático <br/> Para <span class="text-accounting">Estratégico</span>.</h2>
                         <ul class="check-list mt-8">
-                            <li><i class="fas fa-check"></i> Layout focado em conversão de empresas (B2B)</li>
-                            <li><i class="fas fa-check"></i> SEO técnico para dominar buscas empresariais</li>
-                            <li><i class="fas fa-check"></i> Integração com sistemas de atendimento</li>
+                            <li><i class="fas fa-check text-accounting"></i> Layout focado em conversão de empresas (B2B)</li>
+                            <li><i class="fas fa-check text-accounting"></i> SEO técnico para dominar buscas empresariais</li>
+                            <li><i class="fas fa-check text-accounting"></i> Integração total com canais de atendimento</li>
+                            <li><i class="fas fa-check text-accounting"></i> Foco em autoridade e segurança de dados</li>
                         </ul>
                     </div>
                     <div class="image-side reveal-up">
                         <div class="comparison-container">
                             <div class="comparison-card legacy">
-                                <div class="card-tag">ANTES (ESTÁTICO)</div>
+                                <div class="card-tag">ANTES (GENÉRICO)</div>
                                 <div class="card-browser-mockup">
                                     <div class="browser-dot-red"></div>
                                     <div class="browser-dot-yellow"></div>
@@ -233,15 +302,15 @@ const benefits = [
         <section class="pricing-v2 py-24" id="investimento">
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
-                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
-                    <p class="reveal-up text-gray-400 mt-4">Menos que o valor de um único honorário mensal recorrente para digitalizar seu escritório.</p>
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Escritório Digital: Investimento</h2>
+                    <p class="reveal-up text-gray-400 mt-4">Menos que um único honorário mensal recorrente para digitalizar seu escritório permanentemente.</p>
                 </div>
                 
                 <div class="pricing-grid-v2">
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
                             <h3>BÁSICO</h3>
-                            <p>Presença digital institucional</p>
+                            <p>Presença digital institucional e elegante</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 397</span>
@@ -251,14 +320,14 @@ const benefits = [
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CHECKOUT SEGURO</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">QUERO MAIS CLIENTES</Button>
                     </div>
 
                     <div class="p-card-v2 featured reveal-up">
-                        <div class="pop">O MAIS COMPLETO</div>
+                        <div class="pop">O MAIS ESCOLHIDO</div>
                         <div class="head">
-                            <h3>Contabilidade Autoridade</h3>
-                            <p>Ecossistema de conteúdo e prospecção</p>
+                            <h3>CONTABLE AUTORIDADE</h3>
+                            <p>Ecossistema visual de luxo e blog contábil</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 697</span>
@@ -268,13 +337,13 @@ const benefits = [
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-accounting">QUERO ESTE PLANO</Button>
+                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-accounting uppercase font-black">Dominar meu Mercado</Button>
                     </div>
 
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
                             <h3>ELITE B2B</h3>
-                            <p>Escala total e automação de leads</p>
+                            <p>Posicionamento nacional e escala comercial</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 1.297</span>
@@ -284,22 +353,53 @@ const benefits = [
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">FALAR COM ESPECIALISTA</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">FALAR COM CONSULTOR</Button>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="final-cta-v2 py-32 text-center bg-black/50 overflow-hidden relative">
-            <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Construa sua <br/> <span class="text-accounting font-outfit">Autoridade Contábil</span></h2>
-            <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-accounting uppercase font-black">Falar com especialista agora</Button>
+        <!-- Final CTA -->
+        <section class="final-cta-v2 py-32 relative overflow-hidden">
+            <div class="container relative z-10 text-center">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8 text-balance">Sua <span class="text-accounting font-outfit">Autoridade</span> Contábil Começa Aqui.</h2>
+                <div class="reveal-up max-w-2xl mx-auto mb-12">
+                    <p class="text-xl text-gray-300">
+                        Não permita que seu escritório fique para trás na era digital. Transforme sua presença online hoje e conquiste os melhores clientes empresariais.
+                    </p>
+                </div>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502?text=Desejo elevar o posicionamento digital do meu escritório de contabilidade." variant="primary" size="lg" class="glow-btn-accounting uppercase font-black">Falar no WhatsApp</Button>
+                    <Button href="https://wa.me/5521999064502?text=Gostaria de uma análise estratégica da presença online do meu escritório contábil." variant="outline" size="lg">Solicitar Análise</Button>
+                </div>
+            </div>
+            <!-- FAQ Section for Accountant SEO -->
+            <div class="container mt-32 max-w-4xl mx-auto text-left">
+                <h3 class="text-3xl font-black mb-12 text-center">Dúvidas Frequentes sobre <br/><span class="text-accounting">Marketing para Contadores</span></h3>
+                <div class="faq-list-v2">
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-accounting mb-3">O site ajuda a atrair clientes PJ maiores?</h4>
+                        <p class="text-gray-400">Com certeza. Clientes empresariais de maior porte exigem segurança e profissionalismo. Um site de elite comunica que seu escritório tem a estrutura necessária para atendê-los com excelência.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-accounting mb-3">Como funciona o SEO para contabilidade?</h4>
+                        <p class="text-gray-400">Otimizamos o site para termos que o seu cliente busca (ex: "Contabilidade em [Sua Cidade]" ou "Certura tributária para [Nicho]"). Isso garante que você apareça para quem já está decidido a contratar.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-accounting mb-3">É fácil integrar o site com sistemas de atendimento?</h4>
+                        <p class="text-gray-400">Sim. Integramos com botões de WhatsApp, formulários de briefing e qualquer sistema de CRM ou chat que seu escritório utilize para gerir novos contatos.</p>
+                    </div>
+                </div>
+            </div>
             <div class="glow-accounting-1"></div>
         </section>
     </div>
 </BaseLayout>
+
 <style>
     .accounting-theme {
         --color-accounting: #3b82f6; /* Royal Blue for trust and corporate accounting */
+        --color-primary: #3b82f6;
         --color-bg-dark: #050505;
         --color-surface: #0a0a0a;
         --color-accent: #111111;
@@ -361,6 +461,119 @@ const benefits = [
             border-width: 1px;
         }
     }
+
+    .pricing-grid-v2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .p-card-v2 {
+        background: var(--color-surface);
+        padding: 3rem;
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.05);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    .p-card-v2.featured {
+        background: rgba(59, 130, 246, 0.05);
+        border: 2px solid var(--color-accounting);
+        transform: scale(1.05);
+        position: relative;
+    }
+
+    .pop {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--color-accounting);
+        color: white;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 900;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .p-card-v2 .head h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .p-card-v2 .head p { color: #666; font-size: 0.9rem; margin-bottom: 2.5rem; }
+
+    .p-card-v2 .price { margin-bottom: 2.5rem; }
+    .p-card-v2 .price .old { text-decoration: line-through; color: #444; display: block; margin-bottom: 4px; }
+    .p-card-v2 .price .current { display: flex; align-items: baseline; gap: 4px; }
+    .p-card-v2 .price .curr { font-size: 1.25rem; font-weight: 700; }
+    .p-card-v2 .price .val { font-size: 4rem; font-weight: 900; font-family: var(--font-heading); }
+    .p-card-v2 .price .method { color: #666; font-size: 0.8rem; }
+
+    .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .step-v2 {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+    }
+
+    .step-num {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--color-accounting);
+        opacity: 0.5;
+    }
+
+    .step-info strong {
+        display: block;
+        color: white;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .step-info p {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    /* SEO Content Styles */
+    .seo-deep-content {
+        line-height: 1.8;
+    }
+
+    .prose h2, .prose h3, .prose h4 {
+        font-family: var(--font-heading);
+    }
+    
+    .faq-list-v2 h4 {
+        font-family: var(--font-heading);
+        color: var(--color-accounting);
+    }
+
+    .benefit-grid-v2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .benefit-item-v2 {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .b-icon { font-size: 2rem; }
+    .b-text h4 { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 0.5rem; }
+    .b-text p { color: #888; }
 
     /* Stats Bar */
     .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
@@ -507,3 +720,61 @@ const benefits = [
     }
 </style>
 
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        ScrollTrigger.refresh();
+
+        // Parallax Hero
+        gsap.to(".hero-bg-image", { 
+            scrollTrigger: { 
+                trigger: ".hero-lp-v2", 
+                start: "top top", 
+                scrub: true 
+            }, 
+            y: 100, 
+            opacity: 0.4 
+        });
+
+        // Reveal Up
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.fromTo(el, 
+                { 
+                    y: 40, 
+                    opacity: 0 
+                },
+                {
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 90%",
+                    },
+                    y: 0,
+                    opacity: 1,
+                    duration: 1,
+                    ease: "power3.out"
+                }
+            );
+        });
+
+        // Card stagger
+        gsap.fromTo(".stagger-card", 
+            { 
+                y: 60, 
+                opacity: 0 
+            },
+            {
+                scrollTrigger: { 
+                    trigger: ".stagger-container", 
+                    start: "top 80%" 
+                }, 
+                y: 0, 
+                opacity: 1, 
+                duration: 0.8, 
+                stagger: 0.15 
+            }
+        );
+    });
+</script>

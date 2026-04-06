@@ -5,13 +5,13 @@ import NicheMeta from "../../components/seo/NicheMeta.astro";
 
 const painPoints = [
     {
-        icon: "📐",
+        icon: "📏",
         title: "Projetos sem Valorização",
         desc: "Seu site atual é uma galeria confusa que não faz jus aos detalhes e ao luxo dos seus projetos.",
     },
     {
         icon: "🏛️",
-        title: "Invisibilidade em Projetos de Luxo",
+        title: "Invisibilidade Premium",
         desc: "Clientes de alto padrão não te encontram ou, quando encontram, não sentem confiança no seu site atual.",
     },
     {
@@ -44,14 +44,13 @@ const slug = "arquitetos";
 
 <BaseLayout
     title="Site para Arquitetos: Portfólios de Luxo e Captação de Projetos"
-    description="Exiba sua arquitetura com o luxo que ela merece. Tenha um site para arquitetos sofisticado, focado em autoridade e atração de clientes de alto padrão."
+    description="Exiba sua arquitetura com o luxo que ele merece. Tenha um site para arquitetos sofisticado, focado em autoridade e atração de clientes de alto padrão."
     showHeader={true}
     showFooter={true}
     showSocialProof={true}
 >
     <NicheMeta slug="arquitetos" slot="head" />
 
-    
     <div class="niche-page arch-theme">
         <!-- HERO V2 -->
         <section class="hero-lp-v2">
@@ -251,19 +250,67 @@ const slug = "arquitetos";
             </div>
         </section>
 
+        <!-- Transformation Section -->
+         <section class="transformation-v2 py-24 bg-dark-accent">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="content-side reveal-up">
+                        <span class="tag-v2 arch">ESTÉTICA & FUNÇÃO</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Uma experiência <br/> visual <span class="text-arch">Sem Fronteiras</span>.</h2>
+                        <div class="point-item success-arch mt-8">
+                            <div class="point-icon"><i class="fas fa-check-circle"></i></div>
+                            <div class="point-text">
+                                <strong>Curadoria Premium:</strong>
+                                Organização estratégica de projetos para elevar o valor percebido da sua assinatura.
+                            </div>
+                        </div>
+                    </div>
+                    <div class="image-side reveal-up">
+                        <div class="comparison-container">
+                            <div class="comparison-card legacy">
+                                <div class="card-tag">ANTES (GENÉRICO)</div>
+                                <div class="card-browser-mockup">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                </div>
+                                <div class="legacy-content">
+                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
+                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
+                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
+                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
+                                </div>
+                            </div>
+                            
+                            <div class="comparison-card premium">
+                                <div class="card-tag flagship-arch">DEPOIS (ALPHA CODE)</div>
+                                <div class="card-browser-mockup">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                </div>
+                                <img src="/assets/imagens-de-paginas/arquiteto.svg" alt="Projeto Real Arquitetura" class="project-preview-img" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- Pricing Section -->
         <section class="pricing-v2 py-24" id="investimento">
             <div class="container">
                 <div class="section-header-v2 text-center mb-16">
                     <h2 class="reveal-up text-4xl md:text-5xl font-black">Investimento Estratégico</h2>
-                    <p class="reveal-up text-gray-400 mt-4">Menos que o valor de um único projeto de interiores para transformar seu posicionamento de mercado.</p>
+                    <p class="reveal-up text-gray-400 mt-4">Elevando o valor da sua assinatura por uma fração do preço de um único projeto de interiores.</p>
                 </div>
                 
                 <div class="pricing-grid-v2">
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>BÁSICO</h3>
-                            <p>Portfólio minimalista e elegante</p>
+                            <h3>ARQUITETO ESSENCIAL</h3>
+                            <p>Portfólio minimalista e impactante</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 397</span>
@@ -273,14 +320,14 @@ const slug = "arquitetos";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">CHECKOUT SEGURO</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">QUERO MAIS PROJETOS</Button>
                     </div>
 
                     <div class="p-card-v2 featured reveal-up">
-                        <div class="pop">O FAVORITO</div>
+                        <div class="pop">O MAIS ESCOLHIDO</div>
                         <div class="head">
-                            <h3>Studio Autoridade</h3>
-                            <p>Galeria imersiva e blog de design</p>
+                            <h3>STUDIO AUTORIDADE</h3>
+                            <p>Ecossistema visual de luxo e blog de design</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 697</span>
@@ -290,13 +337,13 @@ const slug = "arquitetos";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-arch">QUERO ESTE PLANO</Button>
+                        <Button href="https://wa.me/5521999064502" variant="primary" class="w-full glow-btn-arch">DOMINAR O MERCADO</Button>
                     </div>
 
                     <div class="p-card-v2 reveal-up">
                         <div class="head">
-                            <h3>ELITE DESIGN</h3>
-                            <p>Posicionamento de luxo e escala total</p>
+                            <h3>ELITE DESIGNER</h3>
+                            <p>Posicionamento de luxo e dominação nacional</p>
                         </div>
                         <div class="price">
                             <span class="old font-outfit">R$ 1.297</span>
@@ -306,7 +353,7 @@ const slug = "arquitetos";
                             </div>
                             <span class="method">À vista no PIX</span>
                         </div>
-                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">VER DETALHES</Button>
+                        <Button href="https://wa.me/5521999064502" variant="outline" class="w-full">FALAR COM CONSULTOR</Button>
                     </div>
                 </div>
             </div>
@@ -348,9 +395,11 @@ const slug = "arquitetos";
         </section>
     </div>
 </BaseLayout>
+
 <style>
     .arch-theme {
         --color-arch: #BF953F; /* Elegant Gold/Brass for architects */
+        --color-primary: #BF953F;
         --color-bg-dark: #050505;
         --color-surface: #0a0a0a;
         --color-accent: #111111;
@@ -543,7 +592,7 @@ const slug = "arquitetos";
     .bg-dark-accent { background-color: #080808; }
     .tag-v2 { font-weight: 900; font-size: 0.8rem; letter-spacing: 3px; text-transform: uppercase; display: block; margin-bottom: 1rem; }
     .point-item { display: flex; gap: 1rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 16px; border: 1px solid rgba(255, 255, 255, 0.05); }
-    .point-icon { font-size: 1.25rem; color: var(--color-primary); }
+    .point-icon { font-size: 1.25rem; color: var(--color-arch); }
     .point-text { font-size: 1rem; color: #999; line-height: 1.5; text-align: left; }
     .point-text strong { display: block; color: white; margin-bottom: 4px; }
 
