@@ -2,7 +2,7 @@
 title: "A Estratégia de Ouro: Como Ter o Melhor Site para o Seu Nicho Profissional em 2026"
 description: "Descubra como estruturar uma presença digital de elite que domina seu mercado. Sites genéricos não funcionam mais; o segredo está no hiper-nicho e na alta conversão."
 pubDate: 2026-04-06T12:30:00-03:00
-heroImage: "/assets/banners/advogados-hero.png"
+heroImage: "/assets/blog/como-ter-o-melhor-site-para-o-seu-nicho-profissional-sitesalphacode.webp"
 author: "Equipe Alpha Code"
 categories: ["Nichos Estratégicos", "Conversão e Vendas"]
 tags: ["site profissional", "alta conversão", "autoridade", "arquitetura digital"]
