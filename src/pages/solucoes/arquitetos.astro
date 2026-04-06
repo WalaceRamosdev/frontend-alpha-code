@@ -43,15 +43,17 @@ const slug = "arquitetos";
 ---
 
 <BaseLayout
-    title="Marketing para Arquitetos e Designers de Interiores | Alpha Code"
-    description="Exiba seu portfólio com o luxo que ele merece. Sites para arquitetos focados em impacto visual e atração de clientes premium."
+    title="Site para Arquitetos: Portfólios de Luxo e Captação de Projetos"
+    description="Exiba sua arquitetura com o luxo que ela merece. Tenha um site para arquitetos sofisticado, focado em autoridade e atração de clientes de alto padrão."
     showHeader={true}
+    showFooter={true}
     showSocialProof={true}
 >
     <NicheMeta slug="arquitetos" slot="head" />
 
     
     <div class="niche-page arch-theme">
+        <!-- HERO V2 -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
                 <img src="/assets/banners/arquitetos-hero.png" alt="Studio de Arquitetura Moderno" class="hero-bg-image" />
@@ -63,13 +65,25 @@ const slug = "arquitetos";
                         <span class="dot arch"></span> DESIGN DIGITAL PARA ARQUITETOS VISIONÁRIOS
                     </div>
                     <h1 class="hero-title-v2 reveal-up">
-                        Sua Obra de Arte <br/> em uma <span class="text-gradient-arch">Galeria Digital</span>.
+                        Sua Arquitetura Merece um <br/> <span class="text-gradient-arch">Palco à Altura</span> do seu Talento.
                     </h1>
-                    <p class="hero-sub-v2 reveal-up">
-                        O primeiro projeto que seu cliente contrata é o seu site. Tenha uma presença digital sofisticada, minimalista e focada em valorizar cada detalhe da sua arquitetura.
+                    <p class="hero-sub-v2 reveal-up text-balance">
+                        O primeiro projeto que seu cliente contrata é o seu site. Tenha um <strong>site para arquitetos</strong> sofisticado, 
+                        minimalista e projetado para converter visitantes em projetos de alto padrão.
                     </p>
                     <div class="hero-actions-v2 reveal-up">
-                        <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button-arch">PROJETAR MEU SITE PREMIUM</Button>
+                        <Button
+                            href="https://wa.me/5521999064502?text=Olá! Sou arquiteto(a) e desejo elevar meu posicionamento digital para atrair projetos de alto valor."
+                            target="_blank"
+                            variant="primary"
+                            size="lg"
+                            class="glow-btn-arch uppercase font-black"
+                        >
+                            QUERO MAIS PROJETOS AGORA
+                        </Button>
+                        <div class="hero-trust">
+                            <i class="fas fa-check-circle"></i> Foco em Branding, Portfólio de Luxo e Projetos Premium
+                        </div>
                     </div>
                 </div>
             </div>
@@ -97,74 +111,142 @@ const slug = "arquitetos";
             </div>
         </div>
 
-        <!-- Problems -->
+        <!-- Problem Awareness -->
         <section class="problem-v2 py-24">
-            <div class="container text-center">
-                <h2 class="reveal-up text-4xl md:text-5xl font-black mb-16">Seu portfólio merece <span class="text-arch">mais que um template</span>.</h2>
-                <div class="grid md:grid-cols-3 gap-8 stagger-container">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Seu talento está sendo <span class="text-arch">ofuscado digitalmente?</span></h2>
+                    <p class="reveal-up text-gray-400 max-w-2xl mx-auto text-lg text-balance">
+                        Muitos arquitetos geniais perdem grandes oportunidades por apresentarem um posicionamento digital que não condiz com a qualidade técnica de seus projetos.
+                    </p>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-drafting-compass text-arch"></i></div>
-                        <h3>Projetos sem Valorização</h3>
-                        <p>Seu site atual é uma galeria confusa que não faz jus aos detalhes e ao luxo das suas obras.</p>
+                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-search-dollar text-arch"></i></div>
+                        <h3>Dificuldade em Captar Clientes</h3>
+                        <p>A dependência exclusiva de indicações limita seu crescimento e te deixa vulnerável às oscilações do mercado.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-eye-slash text-arch"></i></div>
-                        <h3>Invisibilidade Premium</h3>
-                        <p>Clientes de alto padrão não te encontram ou, quando encontram, não sentem confiança no seu site atual.</p>
+                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-level-down-alt text-arch"></i></div>
+                        <h3>Desvalorização Profissional</h3>
+                        <p>Quando o site não transborda autoridade, o cliente tende a questionar seus honorários e barganhar o valor da sua arte.</p>
                     </div>
                     <div class="problem-card-v2 stagger-card">
-                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-tachometer-alt text-arch"></i></div>
-                        <h3>Lentidão Visual</h3>
-                        <p>Dificuldade em carregar imagens pesadas faz o cliente desistir antes mesmo de ver seu portfólio.</p>
+                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-ghost text-arch"></i></div>
+                        <h3>Pouca Presença Digital</h3>
+                        <p>Sua marca é invisível para quem busca por arquitetura de alto padrão no Google, o maior buscador do mundo.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-arch-sm"><i class="fas fa-users-slash text-arch"></i></div>
+                        <h3>Dependência de Indicação</h3>
+                        <p>O "boca a boca" é excelente, mas um posicionamento ativo te permite escolher os projetos que deseja realizar.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- Transformation -->
-        <section class="transformation-v2 py-24 bg-dark-accent">
+        <!-- Solution & Benefits -->
+        <section class="benefits-v2 py-24 bg-[#0a0a0a]">
             <div class="container">
                 <div class="grid lg:grid-cols-2 gap-16 items-center">
-                    <div class="content-side reveal-up">
-                        <span class="tag-v2 arch">ESTÉTICA & FUNÇÃO</span>
-                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Uma experiência <br/> visual <span class="text-arch">Sem Fronteiras</span>.</h2>
-                        <div class="point-item success-arch mt-8">
-                            <div class="point-icon"><i class="fas fa-check-circle"></i></div>
-                            <div class="point-text">
-                                <strong>Curadoria Premium:</strong>
-                                Organização estratégica de projetos para elevar o valor percebido da sua assinatura.
+                    <div class="reveal-up">
+                        <h2 class="text-4xl font-black mb-8">Um <span class="text-arch">site para arquitetos</span> que materializa sua autoridade.</h2>
+                        <div class="benefit-grid-v2">
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">✨</div>
+                                <div class="b-text">
+                                    <h4>Curadoria Visual Imersiva</h4>
+                                    <p>Transformamos seu portfólio em uma galeria digital de luxo, destacando cada detalhe técnico e estético.</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">🌍</div>
+                                <div class="b-text">
+                                    <h4>Design de Nível Internacional</h4>
+                                    <p>Sites que seguem as tendências minimalistas e sofisticadas da arquitetura contemporânea global.</p>
+                                </div>
+                            </div>
+                            <div class="benefit-item-v2">
+                                <div class="b-icon">⚡</div>
+                                <div class="b-text">
+                                    <h4>Performance Ultra-Rápida</h4>
+                                    <p>Suas imagens em 4K carregam instantaneamente, garantindo uma experiência fluida em qualquer dispositivo.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="image-side reveal-up">
-                        <div class="comparison-container">
-                            <div class="comparison-card legacy">
-                                <div class="card-tag">ANTES (GENÉRICO)</div>
-                                <div class="card-browser-mockup">
-                                    <div class="browser-dot-red"></div>
-                                    <div class="browser-dot-yellow"></div>
-                                    <div class="browser-dot-green"></div>
-                                </div>
-                                <div class="legacy-content">
-                                    <div class="skeleton-title" style="width: 70%; background: #222; height: 10px;"></div>
-                                    <div class="skeleton-text" style="width: 95%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-text" style="width: 90%; background: #1a1a1a; height: 6px;"></div>
-                                    <div class="skeleton-img" style="display: flex; align-items: center; justify-content: center; background: #111; border: 1px dashed #333; color: #222; font-size: 0.7rem; font-weight: 800;">IMAGE_NOT_FOUND.JPG</div>
-                                    <div style="width: 80px; height: 25px; background: #222; border: 1px solid #333; margin-top: 10px;"></div>
+                    <div class="reveal-up bg-dark-card p-8 rounded-3xl border border-white/5">
+                        <h3 class="text-2xl font-bold mb-6">O caminho para o topo:</h3>
+                        <div class="process-steps">
+                            <div class="step-v2">
+                                <span class="step-num">01</span>
+                                <div class="step-info">
+                                    <strong>Briefing Estratégico</strong>
+                                    <p>Entendemos sua linguagem arquitetônica e os objetivos do seu studio.</p>
                                 </div>
                             </div>
-                            
-                            <div class="comparison-card premium">
-                                <div class="card-tag flagship-arch">DEPOIS (ALPHA CODE)</div>
-                                <div class="card-browser-mockup">
-                                    <div class="browser-dot-red"></div>
-                                    <div class="browser-dot-yellow"></div>
-                                    <div class="browser-dot-green"></div>
+                            <div class="step-v2">
+                                <span class="step-num">02</span>
+                                <div class="step-info">
+                                    <strong>Execução de Alto Padrão</strong>
+                                    <p>Projeto focado em UX, otimização de imagens e gatilhos de valorização.</p>
                                 </div>
-                                <img src="/assets/imagens-de-paginas/arquiteto.svg" alt="Projeto Real Arquitetura" class="project-preview-img" />
+                            </div>
+                            <div class="step-v2">
+                                <span class="step-num">03</span>
+                                <div class="step-info">
+                                    <strong>Dominação Digital</strong>
+                                    <p>SEO intensivo para que seu nome seja a referência absoluta em projetos premium.</p>
+                                </div>
                             </div>
                         </div>
+                        <Button
+                            href="https://wa.me/5521999064502?text=Gostaria de solicitar uma análise de posicionamento para o meu studio de arquitetura."
+                            variant="primary"
+                            class="w-full mt-8 glow-btn-arch"
+                        >
+                            SOLICITAR ANÁLISE DE POSICIONAMENTO
+                        </Button>
                     </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Intensive SEO Content Section (800+ words) -->
+        <section class="seo-deep-content py-24">
+            <div class="container">
+                <div class="max-w-4xl mx-auto prose prose-invert prose-gold">
+                    <h2 class="text-3xl md:text-5xl font-black mb-8 text-white">Por que o seu Studio precisa de um <span class="text-arch">site para arquitetos</span> estrategicamente projetado?</h2>
+                    
+                    <p class="text-lg leading-relaxed text-gray-300 mb-6">
+                        No mercado de arquitetura e design de interiores, a estética não é apenas um detalhe; é o produto final. No entanto, muitos profissionais falham ao ignorar que a jornada do cliente começa muito antes de uma visita ao studio ou ao canteiro de obras. Um <strong>site para arquitetos</strong> funciona como o seu cartão de visitas digital de luxo. Se o seu site não transmite sofisticação, organização e inovação técnica, o cliente de alto padrão assumirá que seu serviço também carece dessas qualidades. Investir em um posicionamento digital de elite é o passo fundamental para elevar seus honorários e atrair projetos que realmente te desafiem e te valorizem.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">SEO para Arquitetos: Captando Projetos de Valor no Google</h3>
+                    <p class="text-gray-400 mb-6">
+                        Aparecer no Google não é sobre quantidade, mas sobre qualidade. Através de estratégias avançadas de SEO (Search Engine Optimization), garantimos que seu <strong>site para arquitetos</strong> seja encontrado por quem busca ativamente por soluções arquitetônicas sofisticadas. Seja para projetos residenciais de luxo, design comercial ou arquitetura corporativa, sua vitrine digital precisa estar nas primeiras páginas. O uso da tecnologia Astro.js pela Alpha Code permite que imagens pesadas de portfólio não prejudiquem a velocidade do site, garantindo que o algoritmo do Google te posicione no topo e que o usuário tenha uma experiência impecável.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Portfólio Imersivo: Conte a História da sua Arquitetura</h3>
+                    <p class="text-gray-400 mb-6">
+                        Um portfólio estático já não é suficiente. Um <strong>site para arquitetos</strong> moderno deve proporcionar uma experiência imersiva. Através de curadoria visual estratégica, exploramos a tridimensionalidade, o jogo de luzes e a escolha de materiais dos seus projetos. O objetivo é criar uma conexão emocional com o potencial cliente, fazendo-o visualizar-se no ambiente que você projetou. Sites amadores apenas mostram fotos; sites de elite contam histórias de transformação através do design.
+                    </p>
+
+                    <div class="highlight-box-seo gold my-12 p-8 border-l-4 border-arch bg-white/5 rounded-r-xl">
+                        <h4 class="text-white font-bold text-xl mb-4">A Forma Segue a Estratégia</h4>
+                        <p class="text-gray-300 italic">"Na arquitetura, cada traço tem um propósito. No seu marketing digital, cada pixel deve ter um objetivo: valorizar sua assinatura e converter o desejo do cliente em um contrato fechado. Não aceite designs que não acompanham a grandeza dos seus projetos."</p>
+                    </div>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Vencendo a Guerra de Preços com Autoridade</h3>
+                    <p class="text-gray-400 mb-6">
+                        A maior dor do arquiteto moderno é ser comparado por preço. Quando sua única vitrine é uma rede social, você disputa atenção com milhares de outros perfis e se torna "mais um". Um <strong>site para arquitetos</strong> proprietário estabelece um nível de autoridade que interrompe o processo de comparação rasa. Ao apresentar cases de sucesso detalhados, depoimentos de clientes satisfeitos e uma marca bem estruturada, você deixa de ser uma opção barata para se tornar a escolha óbvia e desejada pelo cliente premium.
+                    </p>
+
+                    <h3 class="text-2xl font-bold mt-12 mb-4 text-white">Conclusão: Sua Marca, Seu Legado Arquitetônico</h3>
+                    <p class="text-gray-400 mb-6">
+                        Projetar o próprio sucesso exige coragem para investir nos canais certos. O <strong>site para arquitetos</strong> é o alicerce da sua marca a longo prazo. Enquanto plataformas de terceiros mudam as regras o tempo todo, o seu site é o seu território - onde você dita o ritmo, controla a experiência do usuário e constrói o seu legado no mercado da construção e design.
+                    </p>
                 </div>
             </div>
         </section>
@@ -230,9 +312,38 @@ const slug = "arquitetos";
             </div>
         </section>
 
-        <section class="final-cta-v2 py-32 text-center bg-black/50 overflow-hidden relative">
-            <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Onde o <span class="text-arch">Design</span> <br/> Encontra a <span class="text-arch">Estratégia</span></h2>
-            <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-btn-arch uppercase font-black">ELEVAR MEU POSICIONAMENTO</Button>
+        <!-- Final CTA -->
+        <section class="final-cta-v2 py-32 relative overflow-hidden">
+            <div class="container relative z-10 text-center">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8 text-balance">Onde o <span class="text-arch font-outfit">Design</span> <br/> Encontra a <span class="text-arch font-outfit">Estratégia.</span></h2>
+                <div class="reveal-up max-w-2xl mx-auto mb-12">
+                    <p class="text-xl text-gray-300">
+                        Não permita que projetos medíocres roubem a atenção que sua assinatura merece. Garanta hoje seu posicionamento premium no mercado.
+                    </p>
+                </div>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502?text=Desejo elevar o posicionamento digital do meu studio de arquitetura." variant="primary" size="lg" class="glow-btn-arch uppercase font-black">Falar no WhatsApp</Button>
+                    <Button href="https://wa.me/5521999064502?text=Gostaria de uma análise estratégica do meu site de arquitetura atual." variant="outline" size="lg">Solicitar Análise</Button>
+                </div>
+            </div>
+            <!-- FAQ Section for Architect SEO -->
+            <div class="container mt-32 max-w-4xl mx-auto text-left">
+                <h3 class="text-3xl font-black mb-12 text-center">Dúvidas Frequentes sobre <br/><span class="text-arch">Marketing para Arquitetos</span></h3>
+                <div class="faq-list-v2">
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-arch mb-3">O site ajuda a valorizar meus honorários?</h4>
+                        <p class="text-gray-400">Sim. Um site de alto padrão cria uma percepção de valor imediata. Quando o cliente entra em uma "galeria de luxo" digital, ele para de barganhar preço e começa a valorizar sua assinatura.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-arch mb-3">Como as fotos pesadas de projetos afetam o site?</h4>
+                        <p class="text-gray-400">Utilizamos tecnologias de compressão e carregamento inteligente (Next-gen images + Astro.js) que permitem exibir fotos em ultra-resolução sem deixar o site lento, o que é fundamental para o SEO.</p>
+                    </div>
+                    <div class="faq-item reveal-up border-b border-white/10 py-6">
+                        <h4 class="text-xl font-bold text-arch mb-3">Posso atualizar meu portfólio sozinho?</h4>
+                        <p class="text-gray-400">Entregamos o site pronto e otimizado, e oferecemos opções de painéis administrativos ou suporte contínuo para que seus novos projetos estejam sempre em destaque.</p>
+                    </div>
+                </div>
+            </div>
             <div class="glow-arch-1"></div>
         </section>
     </div>
@@ -301,6 +412,119 @@ const slug = "arquitetos";
             border-width: 1px;
         }
     }
+
+    .pricing-grid-v2 {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .p-card-v2 {
+        background: var(--color-surface);
+        padding: 3rem;
+        border-radius: 32px;
+        border: 1px solid rgba(255,255,255,0.05);
+        display: flex;
+        flex-direction: column;
+        transition: all 0.4s ease;
+    }
+
+    .p-card-v2.featured {
+        background: rgba(191, 149, 63, 0.05);
+        border: 2px solid var(--color-arch);
+        transform: scale(1.05);
+        position: relative;
+    }
+
+    .pop {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: var(--color-arch);
+        color: black;
+        padding: 6px 20px;
+        border-radius: 50px;
+        font-weight: 900;
+        font-size: 0.75rem;
+        letter-spacing: 1px;
+        text-align: center;
+        white-space: nowrap;
+    }
+
+    .p-card-v2 .head h3 { font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin-bottom: 0.5rem; }
+    .p-card-v2 .head p { color: #666; font-size: 0.9rem; margin-bottom: 2.5rem; }
+
+    .p-card-v2 .price { margin-bottom: 2.5rem; }
+    .p-card-v2 .price .old { text-decoration: line-through; color: #444; display: block; margin-bottom: 4px; }
+    .p-card-v2 .price .current { display: flex; align-items: baseline; gap: 4px; }
+    .p-card-v2 .price .curr { font-size: 1.25rem; font-weight: 700; }
+    .p-card-v2 .price .val { font-size: 4rem; font-weight: 900; font-family: var(--font-heading); }
+    .p-card-v2 .price .method { color: #666; font-size: 0.8rem; }
+
+    .process-steps {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .step-v2 {
+        display: flex;
+        gap: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 16px;
+    }
+
+    .step-num {
+        font-family: var(--font-heading);
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: var(--color-arch);
+        opacity: 0.5;
+    }
+
+    .step-info strong {
+        display: block;
+        color: white;
+        font-size: 1.1rem;
+        margin-bottom: 5px;
+    }
+
+    .step-info p {
+        color: #888;
+        font-size: 0.9rem;
+    }
+
+    /* SEO Content Styles */
+    .seo-deep-content {
+        line-height: 1.8;
+    }
+
+    .prose h2, .prose h3, .prose h4 {
+        font-family: var(--font-heading);
+    }
+    
+    .faq-list-v2 h4 {
+        font-family: var(--font-heading);
+        color: var(--color-arch);
+    }
+
+    .benefit-grid-v2 {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .benefit-item-v2 {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .b-icon { font-size: 2rem; }
+    .b-text h4 { font-size: 1.25rem; font-weight: 800; color: white; margin-bottom: 0.5rem; }
+    .b-text p { color: #888; }
 
     /* Stats Bar */
     .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
