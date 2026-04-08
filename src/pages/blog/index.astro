@@ -5,18 +5,25 @@ import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
 import LeadMagnet from "../../components/ui/LeadMagnet.astro";
 
+import { getSession } from "auth-astro/server";
+
 export const prerender = false;
 
+const session = await getSession(Astro.request);
 const now = new Date();
-const posts = await getCollection(
-    "blog",
-    ({ data }: CollectionEntry<"blog">) => {
-        return data.draft !== true && data.pubDate <= now;
-    },
-);
+
+const posts = await getCollection("blog");
+
+// Filter logic:
+// 1. If logged in: see everything (helps editing)
+// 2. If not logged in: only see released posts (pubDate <= now)
+const filteredPosts = posts.filter(({ data }) => {
+    if (session) return true;
+    return data.draft !== true && data.pubDate <= now;
+});
 
 // Sort posts by date descending
-const sortedPosts: CollectionEntry<"blog">[] = posts.sort(
+const sortedPosts: CollectionEntry<"blog">[] = filteredPosts.sort(
     (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
         b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );

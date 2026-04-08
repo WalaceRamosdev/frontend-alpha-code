@@ -2,14 +2,28 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
+import { getSession } from "auth-astro/server";
+
 export const prerender = false;
 
 const { slug } = Astro.params;
+const session = await getSession(Astro.request);
+const now = new Date();
+
 const posts = await getCollection("blog");
 const post = posts.find((p) => p.slug === slug);
 
 if (!post) {
     return Astro.redirect("/404");
+}
+
+// Access control:
+// 1. If logged in: grant access
+// 2. If not logged in: check if published and not a draft
+if (!session) {
+    if (post.data.draft === true || post.data.pubDate > now) {
+        return Astro.redirect("/404"); // Or /login if you prefer
+    }
 }
 
 const { Content } = await post.render();
