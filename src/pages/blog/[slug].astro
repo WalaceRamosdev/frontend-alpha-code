@@ -2,7 +2,7 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
-import { getSession } from "auth-astro/server";
+import { getSession } from "../../lib/auth";
 
 export const prerender = false;
 
