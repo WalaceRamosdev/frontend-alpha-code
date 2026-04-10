@@ -127,6 +127,7 @@ export default function CustomPaymentForm() {
                                 onChange={handleChange}
                                 required
                                 placeholder="R$ 0,00"
+                                inputMode="decimal"
                             />
                         </div>
 
@@ -324,16 +325,34 @@ export default function CustomPaymentForm() {
                     from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
-                @media (max-width: 600px) {
+                @media (max-width: 768px) {
                     .admin-card {
-                        padding: 1.5rem;
+                        padding: 1.25rem;
+                        border-radius: 12px;
                     }
                     .form-grid {
                         grid-template-columns: 1fr;
-                        gap: 1rem;
+                        gap: 1.25rem;
                     }
                     .card-header h3 {
                         font-size: 1.25rem;
+                    }
+                    .card-header p {
+                        font-size: 0.85rem;
+                    }
+                    .link-box {
+                        flex-direction: column;
+                    }
+                    .link-box input {
+                        width: 100%;
+                        font-size: 0.75rem;
+                    }
+                    .copy-btn {
+                        width: 100%;
+                        height: 45px;
+                    }
+                    .field label {
+                        font-size: 0.7rem;
                     }
                 }
             ` }} />

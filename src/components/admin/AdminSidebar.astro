@@ -138,8 +138,10 @@ const { activePage, isAdmin = false } = Astro.props;
         flex-shrink: 0;
     }
 
-    .sidebar:hover {
-        width: 240px;
+    @media (hover: hover) {
+        .sidebar:hover {
+            width: 240px;
+        }
     }
 
     .sidebar-logo {
@@ -195,25 +197,30 @@ const { activePage, isAdmin = false } = Astro.props;
         transform: translateX(-10px);
     }
 
-    .sidebar:hover .nav-label {
-        opacity: 1;
-        max-width: 150px;
-        margin-left: 10px;
-        transform: translateX(0);
+    @media (hover: hover) {
+        .sidebar:hover .nav-label {
+            opacity: 1;
+            max-width: 150px;
+            margin-left: 10px;
+            transform: translateX(0);
+        }
+
+        .sidebar:hover .nav-item {
+            justify-content: flex-start; /* Left align on expand */
+        }
     }
 
-    .sidebar:hover .nav-item {
-        justify-content: flex-start; /* Left align on expand */
-    }
-
-    .nav-item:hover,
     .nav-item.active {
         background: rgba(231, 76, 60, 0.1);
         color: #e74c3c;
+        border-left: 3px solid #e74c3c;
     }
 
-    .nav-item.active {
-        border-left: 3px solid #e74c3c;
+    @media (hover: hover) {
+        .nav-item:hover {
+            background: rgba(231, 76, 60, 0.1);
+            color: #e74c3c;
+        }
     }
 
     .back-to-site {
@@ -222,15 +229,18 @@ const { activePage, isAdmin = false } = Astro.props;
         border: 1px solid rgba(255, 255, 255, 0.05);
     }
 
-    .back-to-site:hover {
-        background: rgba(255, 255, 255, 0.08) !important;
-        border-color: rgba(255, 255, 255, 0.2);
+    @media (hover: hover) {
+        .back-to-site:hover {
+            background: rgba(255, 255, 255, 0.08) !important;
+            border-color: rgba(255, 255, 255, 0.2);
+        }
     }
 
     @media (max-width: 768px) {
         .sidebar {
             width: 100% !important;
             height: 75px;
+            min-height: auto;
             position: fixed;
             bottom: 0;
             top: auto;
@@ -268,6 +278,7 @@ const { activePage, isAdmin = false } = Astro.props;
             justify-content: center;
             border-left: none !important;
             background: transparent !important;
+            transition: none !important;
         }
         .nav-item.active {
             color: #e74c3c;
