@@ -1,0 +1,122 @@
+---
+import Layout from "../../../layouts/BaseLayout.astro";
+import AdminSidebar from "../../../components/admin/AdminSidebar.astro";
+import CustomPaymentForm from "../../../components/admin/CustomPaymentForm.jsx";
+import { getSession } from "../../../lib/auth";
+
+let session = null;
+try {
+    session = await getSession(Astro.request);
+} catch (e) {
+    console.error("Admin Auth Error:", e);
+}
+
+if (!session || session.user?.role !== "ADMIN") {
+    return Astro.redirect("/login");
+}
+
+const isAdmin = session.user?.role === "ADMIN";
+export const prerender = false;
+---
+
+<Layout
+    title="Gerar Link de Pagamento | Alpha Code Admin"
+    showWhatsApp={false}
+    showHeader={false}
+    showFooter={false}
+>
+    <div class="dashboard-container">
+        <AdminSidebar activePage="financial" isAdmin={isAdmin} />
+
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="user-welcome">
+                    <h1>Área Financeira</h1>
+                    <p>Gere links de cobrança personalizados para seus clientes.</p>
+                </div>
+                <div class="header-actions">
+                    <a href="/admin" class="back-link">
+                        <i class="fas fa-arrow-left"></i> Voltar ao Dashboard
+                    </a>
+                </div>
+            </header>
+
+            <div class="content-body">
+                <CustomPaymentForm client:load />
+            </div>
+        </main>
+    </div>
+</Layout>
+
+<style>
+    :root {
+        --color-primary: #8a1c26;
+        --glass-border: rgba(255, 255, 255, 0.06);
+    }
+
+    .dashboard-container {
+        display: flex;
+        min-height: 100vh;
+        background: #050505;
+        color: #fff;
+    }
+
+    .main-content {
+        flex: 1;
+        padding: 3rem;
+        overflow-x: hidden;
+    }
+
+    @media (max-width: 768px) {
+        .main-content {
+            padding: 1.5rem;
+            padding-bottom: 80px;
+        }
+    }
+
+    .dashboard-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        margin-bottom: 3rem;
+        flex-wrap: wrap;
+        gap: 1.5rem;
+    }
+
+    .user-welcome h1 {
+        font-size: clamp(1.8rem, 4vw, 2.5rem);
+        margin-bottom: 0.4rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #fff 0%, #888 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .user-welcome p {
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 1rem;
+    }
+
+    .back-link {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: rgba(255, 255, 255, 0.6);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 600;
+        padding: 10px 18px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        transition: 0.3s;
+    }
+
+    .back-link:hover {
+        color: #fff;
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .content-body {
+        width: 100%;
+    }
+</style>

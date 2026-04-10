@@ -53,6 +53,17 @@ const { activePage, isAdmin = false } = Astro.props;
                         </span>
                         <span class="nav-label">Contratos</span>
                     </a>
+
+                    <a
+                        href="/admin/financial/custom-payment"
+                        class={`nav-item ${activePage === "financial" ? "active" : ""}`}
+                        title="Links de Pagamento"
+                    >
+                        <span class="nav-icon">
+                            <i class="fas fa-credit-card" />
+                        </span>
+                        <span class="nav-label">Pagamentos</span>
+                    </a>
                 </>
             ) : (
                 <>

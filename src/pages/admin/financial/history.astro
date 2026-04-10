@@ -48,9 +48,11 @@ const formatCurrency = (val: number) =>
 
         <div class="dashboard-wrapper">
             <div class="container dashboard-container">
-                <div class="header-actions mb-4">
-                    <a href="/dashboard" class="back-link">← Voltar ao Painel</a
-                    >
+                <div class="header-actions mb-4" style="display: flex; justify-content: space-between; align-items: center;">
+                    <a href="/dashboard" class="back-link">← Voltar ao Painel</a>
+                    <a href="/admin/financial/custom-payment" class="btn-generate-link">
+                        <i class="fas fa-credit-card"></i> Gerar Link de Pagamento
+                    </a>
                 </div>
 
                 <div class="financial-header">
@@ -808,5 +810,25 @@ const formatCurrency = (val: number) =>
     }
     .text-sm {
         font-size: 0.85rem;
+    }
+    .btn-generate-link {
+        background: var(--color-primary);
+        color: #fff;
+        text-decoration: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-size: 0.85rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: 0.3s;
+        box-shadow: 0 4px 15px rgba(138, 28, 38, 0.2);
+    }
+
+    .btn-generate-link:hover {
+        background: #a52030;
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(138, 28, 38, 0.4);
     }
 </style>
