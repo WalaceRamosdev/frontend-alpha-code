@@ -324,6 +324,18 @@ export default function CustomPaymentForm() {
                     from { opacity: 0; transform: translateY(10px); }
                     to { opacity: 1; transform: translateY(0); }
                 }
+                @media (max-width: 600px) {
+                    .admin-card {
+                        padding: 1.5rem;
+                    }
+                    .form-grid {
+                        grid-template-columns: 1fr;
+                        gap: 1rem;
+                    }
+                    .card-header h3 {
+                        font-size: 1.25rem;
+                    }
+                }
             ` }} />
         </div>
     );
