@@ -1,6 +1,6 @@
 ---
 title: "Link Profissional vs Linktree: Por que profissionais da saúde precisam de uma Bio Premium"
-description: "Descubra por que usar o Linktree pode estar prejudicando sua conversão no Instagram e por que um Link Profissional personalizado é a melhor escolha para médi..."
+description: "Descubra por que usar o Linktree pode estar prejudicando sua conversão no Instagram e por que um Link Profissional personalizado é a melhor escolha para médicos e clínicas."
 pubDate: 2026-01-31T12:30:00-03:00
 heroImage: "/assets/blog/link-profissional-vs-linktree-sitesalphacode.webp"
 author: "Equipe Alpha Code"

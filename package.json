@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "npx prisma generate && npx astro build",
+    "build": "prisma generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
     "optimize-images": "node scripts/optimize-blog-images.js"
