@@ -1,6 +1,6 @@
 ---
 title: "Site institucional ou página de vendas: Qual o melhor para o seu negócio em 2026?"
-description: "Entenda a diferença estratégica entre um site institucional e uma página de vendas (Landing Page) e descubra qual deles vai acelerar os resultados da sua emp..."
+description: "Entenda a diferença estratégica entre um site institucional e uma página de vendas (Landing Page) e descubra qual deles vai acelerar os resultados da sua empresa."
 pubDate: 2026-04-08T12:30:00-03:00
 heroImage: "/assets/blog/site-institucional-ou-pagina-de-vendas-sitesalphacode.webp"
 author: "Equipe Alpha Code"
