@@ -86,7 +86,7 @@ export async function generateStandardContract(data: ContractData): Promise<Buff
 
     // Footer Page 1
     page1.drawText(`EMISSÃO: ${data.order.date}`, { x: 70, y: 80, size: 9, font: helvetica, color: subTextColor });
-    page1.drawText('ALPHA CODE SOLUTIONS | © 2026 ALPHA CODE CORP', { x: 70, y: 65, size: 9, font: helveticaBold, color: subTextColor });
+    page1.drawText('ALPHA CODE SOLUTIONS | © 2025 ALPHA CODE CORP', { x: 70, y: 65, size: 9, font: helveticaBold, color: subTextColor });
 
     // ---------------- PAGE 2: ACQUISITION DETAILS ----------------
     const page2 = pdfDoc.addPage([595.28, 841.89]);
