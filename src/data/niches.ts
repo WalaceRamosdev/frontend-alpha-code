@@ -284,5 +284,37 @@ export const niches: NicheContent[] = [
             formula2: "Seus projetos merecem um site digno. Design de elite e velocidade extrema para arquitetura. Solicite um diagnóstico gratuito!",
             formula3: "Arquiteto, transforme seu portfólio em desejo. Sites de alto padrão que convertem bom gosto em novos projetos. Confira!"
         }
+    },
+    {
+        slug: "energia-solar",
+        name: "Energia Solar",
+        title: "Site para Empresa de Energia Solar | Alta Conversão e SEO Nacional",
+        heroTitle: "Sua empresa de energia solar merece um site que vende enquanto você instala.",
+        heroDesc: "Sites profissionais para instaladores de painéis solares. Apareça no topo do Google, gere orçamentos todos os dias e conquiste mais clientes em qualquer estado do Brasil.",
+        badge: "Marketing Digital para Energia Solar",
+        keywords: ["site para empresa de energia solar", "marketing energia solar", "instalação painéis solares", "site empresa fotovoltaica", "seo energia solar"],
+        detailedContent: `
+            <p>O mercado de <strong>energia solar no Brasil</strong> cresce acima de 30% ao ano. Mas enquanto a demanda explode, a maioria das empresas instaladoras ainda depende de indicações e não aparece no Google. Isso é dinheiro deixado na mesa todos os dias.</p>
+            <p>Um <strong>site profissional para empresa de energia solar</strong> funciona como um vendedor digital de alta performance: atrai clientes que já estão buscando por instalação fotovoltaica na sua região, apresenta seus projetos realizados, educa sobre o retorno do investimento e converte contato em orçamento.</p>
+            <p>Com a Alpha Code, sua empresa de energia solar terá presença digital de <strong>nível corporativo</strong>, com carregamento ultrarrápido, SEO técnico avançado e design que transmite a seriedade e a inovação que o mercado energético exige.</p>
+        `,
+        benefits: [
+            "SEO Nacional e Local: Apareça para quem busca instalação solar em todo o Brasil.",
+            "Gerador de Orçamentos: Formulários e CTAs estratégicos que transformam visitas em pedidos.",
+            "Portfólio de Projetos: Exiba instalações realizadas e gere confiança instantaneamente.",
+            "Calculadora de Economia: Ferramenta interativa que mostra a economia ao cliente antes mesmo do orçamento."
+        ],
+        faq: [
+            { question: "O site vai me trazer clientes de outros estados?", answer: "Sim! Desenvolvemos a estrutura com SEO voltado para alcance nacional, criando páginas específicas para cada estado ou região de atuação da sua empresa." },
+            { question: "Posso mostrar meus projetos e instalações?", answer: "Com certeza. Criamos uma seção de portfólio profissional com antes e depois, dados técnicos e depoimentos de clientes para gerar máxima confiança." },
+            { question: "O site explica o retorno do investimento?", answer: "Sim! Incluímos seções estratégicas que educam o cliente sobre economia na conta de luz, payback e benefícios fiscais, reduzindo objeções de venda." },
+            { question: "Funciona bem no celular?", answer: "100%. A maioria das buscas por energia solar é feita via smartphone. Nosso design é mobile-first, garantindo a melhor experiência em qualquer dispositivo." }
+        ],
+        ctaText: "QUERO GERAR MAIS ORÇAMENTOS",
+        metaFormulas: {
+            formula1: "Site profissional para empresa de energia solar. Atraia mais clientes, gere orçamentos e apareça no Google em todo o Brasil. +1.400 projetos entregues. Orçamento em 24h!",
+            formula2: "Site para instaladora de painéis solares com SEO nacional, alta performance e design de autoridade. Transforme cliques em orçamentos. Solicite diagnóstico gratuito!",
+            formula3: "Empresa de energia solar fotovoltaica? Construa sua autoridade digital e gere pedidos de orçamento todos os dias. Especialistas em marketing para o setor solar. Fale conosco!"
+        }
     }
 ];

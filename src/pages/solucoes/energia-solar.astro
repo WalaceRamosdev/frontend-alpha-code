@@ -1,0 +1,678 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/ui/Button.astro";
+import NicheMeta from "../../components/seo/NicheMeta.astro";
+
+const slug = "energia-solar";
+
+const faq = [
+    {
+        q: "O site vai me trazer clientes de outros estados do Brasil?",
+        a: "Sim! Desenvolvemos a arquitetura de conteúdo com SEO estratégico voltado para alcance nacional, incluindo páginas específicas para cada estado ou região prioritária de atuação da sua empresa instaladora."
+    },
+    {
+        q: "Posso exibir meus projetos e instalações já realizadas?",
+        a: "Com certeza. Incluímos uma seção de portfólio profissional com fotos antes e depois, dados técnicos do sistema instalado e depoimentos de clientes reais para gerar máxima credibilidade e confiança."
+    },
+    {
+        q: "O site explica o retorno sobre o investimento (payback) para o cliente?",
+        a: "Sim! Criamos seções estratégicas que educam o cliente sobre economia na conta de luz, tempo de retorno do investimento e benefícios fiscais disponíveis, eliminando objeções antes mesmo do orçamento."
+    },
+    {
+        q: "Funciona bem no celular e em dispositivos móveis?",
+        a: "100%. Mais de 80% das buscas por instalação de energia solar são feitas via smartphone. Nosso design é mobile-first, garantindo a melhor experiência possível em qualquer tela."
+    },
+    {
+        q: "Quanto tempo leva para o site ficar pronto?",
+        a: "O prazo médio para um site para empresa de energia solar de alto padrão é de 15 a 25 dias úteis após o briefing e aprovação do design."
+    },
+    {
+        q: "O site aparece no Google para cidades específicas?",
+        a: "Sim! Aplicamos SEO local e regional avançado para que sua empresa apareça nas buscas das cidades e estados onde você atende, além de palavras-chave nacionais de alto volume."
+    }
+];
+
+const estados = [
+    "São Paulo", "Minas Gerais", "Rio de Janeiro", "Bahia", "Goiás",
+    "Paraná", "Santa Catarina", "Rio Grande do Sul", "Pernambuco", "Ceará",
+    "Espírito Santo", "Mato Grosso", "Mato Grosso do Sul", "Pará", "Maranhão"
+];
+---
+
+<BaseLayout
+    title="Site para Empresa de Energia Solar | Instalação de Painéis Fotovoltaicos | Alpha Code"
+    description="Site profissional para empresa de energia solar e instalação de painéis fotovoltaicos. SEO nacional, alta performance e design que gera orçamentos todos os dias. Orçamento em 24h!"
+    showHeader={true}
+    showFooter={true}
+    showSocialProof={true}
+>
+    <NicheMeta slug="energia-solar" slot="head" />
+
+    <!-- JSON-LD para SEO de nicho -->
+    <script type="application/ld+json" slot="scripts" set:html={JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Criação de Sites para Empresas de Energia Solar",
+        "provider": {
+            "@type": "Organization",
+            "name": "Alpha Code",
+            "url": "https://www.sitesalphacode.com.br"
+        },
+        "description": "Sites profissionais para instaladoras de painéis solares fotovoltaicos. SEO nacional, alta performance e design focado em geração de orçamentos.",
+        "areaServed": "BR",
+        "serviceType": "Web Design e Desenvolvimento",
+        "keywords": "site para empresa de energia solar, marketing energia solar, instalação painéis solares, site empresa fotovoltaica"
+    })} />
+
+    <div class="niche-page solar-theme">
+
+        <!-- HERO -->
+        <section class="hero-lp-v2">
+            <div class="hero-bg-container">
+                <div class="hero-bg-solar"></div>
+                <div class="solar-rays"></div>
+                <div class="hero-overlay"></div>
+            </div>
+
+            <div class="container relative z-10">
+                <div class="hero-content-v2">
+                    <div class="hero-badge-v2 hero-reveal">
+                        <span class="dot"></span> MARKETING DIGITAL PARA ENERGIA SOLAR
+                    </div>
+                    <h1 class="hero-title-v2 hero-reveal">
+                        Sua empresa de energia solar merece um site que <span class="text-gradient">vende enquanto você instala</span>
+                    </h1>
+                    <p class="hero-sub-v2 hero-reveal">
+                        Sites de alta performance para instaladoras de painéis fotovoltaicos. Apareça no topo do Google em todo o Brasil, gere orçamentos 24h por dia e escale suas vendas sem depender só de indicações.
+                    </p>
+                    <div class="hero-actions-v2 hero-reveal">
+                        <div class="flex flex-wrap gap-4">
+                            <Button href="https://wa.me/5521999064502?text=Quero um site profissional para minha empresa de energia solar e gerar mais orçamentos." variant="primary" size="lg" class="glow-button px-8">⚡ QUERO GERAR MAIS ORÇAMENTOS</Button>
+                            <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-8">FALAR NO WHATSAPP</Button>
+                        </div>
+                    </div>
+                    <div class="hero-trust hero-reveal">
+                        <span class="trust-item">✓ SEO Nacional</span>
+                        <span class="trust-sep">·</span>
+                        <span class="trust-item">✓ Portfólio de Projetos</span>
+                        <span class="trust-sep">·</span>
+                        <span class="trust-item">✓ Alta Performance</span>
+                        <span class="trust-sep">·</span>
+                        <span class="trust-item">✓ Gerador de Orçamentos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar-v2">
+            <div class="container">
+                <div class="stats-wrapper-v2">
+                    <div class="stat-item-v2">
+                        <span class="stat-num">+30%</span>
+                        <span class="stat-txt">Crescimento Anual do Setor</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">+200%</span>
+                        <span class="stat-txt">Aumento de Leads</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">1seg</span>
+                        <span class="stat-txt">Tempo de Carregamento</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">100</span>
+                        <span class="stat-txt">PageSpeed Score</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Problem Section -->
+        <section class="problem-v2 py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Sua empresa instala painéis excelentes...<br/> <span class="text-primary italic">mas seus concorrentes aparecem no Google antes de você?</span></h2>
+                    <p class="reveal-up text-xl text-gray-400 max-w-3xl mx-auto">Com o mercado de energia solar em explosão, quem não é encontrado online perde contratos para empresas com menor capacidade técnica, mas com presença digital superior.</p>
+                </div>
+
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-search text-primary"></i></div>
+                        <h3>Invisível no Google</h3>
+                        <p>Clientes buscam "instalação painéis solares + cidade" e encontram seus concorrentes, não você.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-handshake text-primary"></i></div>
+                        <h3>Dependência de Indicações</h3>
+                        <p>Sem site profissional, você depende 100% de indicações e não tem como escalar o volume de orçamentos.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-trophy text-primary"></i></div>
+                        <h3>Falta de Autoridade</h3>
+                        <p>Clientes comparam empresas online. Um site amador passa a mensagem errada sobre a qualidade da sua instalação.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle"><i class="fas fa-map-marker-alt text-primary"></i></div>
+                        <h3>Alcance Limitado</h3>
+                        <p>Sem presença digital, você só atende quem já te conhece. Perde todo o potencial de regiões vizinhas e outros estados.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-16 reveal-up">
+                    <div class="highlight-truth p-8 bg-white/5 border border-white/10 rounded-3xl inline-block max-w-3xl">
+                        <p class="text-2xl font-bold">☀️ A realidade do setor solar é clara: <br/> <span class="text-primary font-black uppercase tracking-tighter text-3xl">quem não aparece no Google, não fecha o contrato.</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="solution-v2 py-24 bg-dark-accent">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <span class="tag-v2">A SOLUÇÃO ALPHA CODE</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Criamos um <span class="text-primary">site estratégico para sua instaladora</span> que gera orçamentos todos os dias.</h2>
+                        <p class="text-xl text-gray-400 mb-8 font-medium">Sua empresa passa a:</p>
+                        <ul class="solution-list space-y-6">
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🔍</span> Aparecer no Google para clientes em todo o Brasil
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">📋</span> Receber pedidos de orçamento 24h por dia, 7 dias por semana
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🏆</span> Transmitir autoridade e qualidade técnica antes da visita
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">📈</span> Escalar vendas sem depender apenas de indicações
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🗺️</span> Expandir para novos estados e regiões de atuação
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="image-side reveal-up">
+                        <div class="solar-mockup-container">
+                            <div class="solar-mockup-card">
+                                <div class="mockup-header">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                    <div class="mockup-url">sitesalphacode.com.br</div>
+                                </div>
+                                <div class="mockup-body">
+                                    <div class="mockup-hero-bar">
+                                        <div class="mockup-badge">☀️ ENERGIA SOLAR PREMIUM</div>
+                                        <div class="mockup-title-line wide"></div>
+                                        <div class="mockup-title-line medium"></div>
+                                        <div class="mockup-sub-line"></div>
+                                        <div class="mockup-sub-line short"></div>
+                                        <div class="mockup-cta-row">
+                                            <div class="mockup-btn primary">ORÇAMENTO GRÁTIS</div>
+                                            <div class="mockup-btn outline">WHATSAPP</div>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-stats-row">
+                                        <div class="mockup-stat">
+                                            <span class="mstat-num">500+</span>
+                                            <span class="mstat-lbl">Projetos</span>
+                                        </div>
+                                        <div class="mockup-stat">
+                                            <span class="mstat-num">15 anos</span>
+                                            <span class="mstat-lbl">Experiência</span>
+                                        </div>
+                                        <div class="mockup-stat">
+                                            <span class="mstat-num">100%</span>
+                                            <span class="mstat-lbl">Garantia</span>
+                                        </div>
+                                    </div>
+                                    <div class="mockup-cards-row">
+                                        <div class="mockup-proj-card">
+                                            <div class="mcard-img"></div>
+                                            <div class="mcard-txt">
+                                                <div class="mcard-line"></div>
+                                                <div class="mcard-line short"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mockup-proj-card">
+                                            <div class="mcard-img alt"></div>
+                                            <div class="mcard-txt">
+                                                <div class="mcard-line"></div>
+                                                <div class="mcard-line short"></div>
+                                            </div>
+                                        </div>
+                                        <div class="mockup-proj-card">
+                                            <div class="mcard-img alt2"></div>
+                                            <div class="mcard-txt">
+                                                <div class="mcard-line"></div>
+                                                <div class="mcard-line short"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mockup-glow"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section class="benefits-v2 py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <span class="tag-v2 inline-block mb-6">O QUE SEU SITE TERÁ</span>
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Tudo que uma instaladora solar precisa <br/>para dominar o mercado digital</h2>
+                </div>
+                <div class="features-grid">
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">🔍</div>
+                        <h4>SEO Nacional e Local</h4>
+                        <p>Palavras-chave com alto volume de busca para todo o Brasil, mais otimização por estado, cidade e região de atuação.</p>
+                    </div>
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">📸</div>
+                        <h4>Portfólio de Instalações</h4>
+                        <p>Galeria profissional com fotos dos seus projetos, tipo do sistema, potência instalada e depoimentos dos clientes.</p>
+                    </div>
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">💰</div>
+                        <h4>Seção de Economia</h4>
+                        <p>Conteúdo estratégico que apresenta o retorno do investimento, payback e redução na conta de luz para convencer antes do orçamento.</p>
+                    </div>
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">📝</div>
+                        <h4>Formulário de Orçamento</h4>
+                        <p>Formulário inteligente integrado ao WhatsApp e e-mail, com captura de dados essenciais para pré-qualificação do lead.</p>
+                    </div>
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">🗺️</div>
+                        <h4>Páginas por Estado</h4>
+                        <p>Criação de landing pages específicas por estado e cidade para dominar a busca local em cada região que você atende.</p>
+                    </div>
+                    <div class="feature-card reveal-up">
+                        <div class="feature-icon">⚡</div>
+                        <h4>Velocidade Extrema</h4>
+                        <p>Score 100 no Google PageSpeed. Sites de energia solar que carregam em menos de 1 segundo em qualquer dispositivo.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="process-v2 py-24 bg-[#0a0a0a]">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <span class="tag-v2 inline-block mb-6">O PROCESSO</span>
+                    <h2 class="reveal-up text-4xl font-black">Da conversa ao site que vende: <br/>em até 25 dias úteis</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-8 stagger-container">
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">1</div>
+                        <h4>Briefing Estratégico</h4>
+                        <p>Entendemos sua empresa, seus diferenciais, área de atuação e metas de crescimento.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">2</div>
+                        <h4>Pesquisa de Palavras-chave</h4>
+                        <p>Mapeamos os termos de maior volume para energia solar em cada estado que você atende.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">3</div>
+                        <h4>Desenvolvimento Premium</h4>
+                        <p>Design de alto padrão, código limpo e SEO técnico integralmente implementado na estrutura.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">4</div>
+                        <h4>Go-Live & Resultados</h4>
+                        <p>Seu site entra ao ar e começa a trabalhar por você 24h por dia, gerando orçamentos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- National Coverage -->
+        <section class="coverage-section py-24">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <span class="tag-v2">SEO NACIONAL</span>
+                        <h2 class="text-4xl font-black mb-8">Dominamos as buscas por energia solar em <span class="text-primary">todo o Brasil</span></h2>
+                        <p class="text-xl text-gray-400 mb-8">Criamos páginas de alta performance otimizadas para cada estado, garantindo que sua empresa apareça para clientes onde quer que eles estejam:</p>
+                        <div class="estado-grid">
+                            {estados.map((estado) => (
+                                <div class="estado-tag">{estado}</div>
+                            ))}
+                            <div class="estado-tag more">+12 estados</div>
+                        </div>
+                    </div>
+                    <div class="reveal-up bg-white/5 p-12 rounded-3xl border border-primary/20">
+                        <h3 class="text-3xl font-black mb-6">🔥 Por que sites de energia solar exigem SEO nacional?</h3>
+                        <p class="text-lg text-gray-300 mb-8">Empresas instaladoras de médio e grande porte atendem múltiplos estados. Sem uma estratégia de SEO nacional, você deixa de ser encontrado em mercados imensos que já estão prontos para comprar.</p>
+                        <div class="flex flex-col gap-4">
+                            <span class="badge-v3">🌎 CLIENTES EM QUALQUER ESTADO</span>
+                            <span class="badge-v3">📊 DOMINÂNCIA NAS BUSCAS LOCAIS</span>
+                            <span class="badge-v3">💼 CONTRATOS CORPORATIVOS E INDUSTRIAIS</span>
+                        </div>
+                        <Button href="https://wa.me/5521999064502?text=Quero um site para minha empresa de energia solar com SEO nacional e gerar mais orçamentos." variant="primary" class="w-full mt-10 glow-button py-6 text-xl">⚡ QUERO DOMINAR O BRASIL</Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Market Types -->
+        <section class="market-types py-24 bg-[#050505]">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <span class="tag-v2 inline-block mb-6">SEGMENTOS ATENDIDOS</span>
+                    <h2 class="reveal-up text-4xl font-black">Criamos sites para todos os segmentos do mercado solar</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 stagger-container">
+                    <div class="market-card stagger-card">
+                        <div class="market-icon">🏠</div>
+                        <h3>Residencial</h3>
+                        <p>Sites focados em famílias que querem reduzir a conta de luz e conquistar independência energética. Copy com foco em economia e retorno rápido.</p>
+                        <ul class="market-list">
+                            <li>✓ Página de economia estimada</li>
+                            <li>✓ Simulador de payback</li>
+                            <li>✓ Depoimentos de famílias</li>
+                        </ul>
+                    </div>
+                    <div class="market-card stagger-card featured">
+                        <div class="market-badge">MAIS SOLICITADO</div>
+                        <div class="market-icon">🏢</div>
+                        <h3>Comercial e Industrial</h3>
+                        <p>Sites para atrair empresas, indústrias e comércios que buscam redução fiscal e controle do custo energético em larga escala.</p>
+                        <ul class="market-list">
+                            <li>✓ ROI e análise de viabilidade</li>
+                            <li>✓ Projetos de médio/grande porte</li>
+                            <li>✓ Formulário B2B qualificado</li>
+                        </ul>
+                    </div>
+                    <div class="market-card stagger-card">
+                        <div class="market-icon">🌾</div>
+                        <h3>Rural e Agronegócio</h3>
+                        <p>Sites específicos para atender propriedades rurais, fazendas e cooperativas que buscam energia solar para irrigação e operações agrícolas.</p>
+                        <ul class="market-list">
+                            <li>✓ SEO rural e agro</li>
+                            <li>✓ Projetos off-grid e on-grid</li>
+                            <li>✓ Financiamento via PRONAF</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq-v2 py-24 bg-black/50">
+            <div class="container max-w-4xl">
+                <h3 class="text-3xl font-black mb-12 text-center text-primary">Perguntas Frequentes</h3>
+                <div class="faq-grid space-y-6">
+                    {faq.map((f) => (
+                        <div class="faq-item-v3 reveal-up">
+                            <h4 class="text-xl font-bold mb-3">{f.q}</h4>
+                            <p class="text-gray-400 leading-relaxed">{f.a}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="final-cta py-32 text-center relative overflow-hidden">
+            <div class="container relative z-10">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">Sua instaladora solar <br/> <span class="text-primary font-outfit">começa a vender online.</span></h2>
+                <p class="reveal-up text-xl text-gray-400 max-w-2xl mx-auto mb-12">Cada dia sem um site profissional é um orçamento que seu concorrente está fechando. Comece agora.</p>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502?text=Quero um site para minha empresa de energia solar e gerar mais orçamentos!" variant="primary" size="lg" class="glow-button px-10">⚡ QUERO MEU SITE AGORA</Button>
+                    <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-10">SOLICITAR ANÁLISE GRATUITA</Button>
+                </div>
+            </div>
+            <div class="glow-blur-solar"></div>
+        </section>
+
+        <!-- Deep SEO Content -->
+        <section class="seo-text py-24 border-t border-white/5">
+            <div class="container max-w-4xl mx-auto prose prose-invert">
+                <h2 class="text-3xl font-black text-white">Referência em <span class="text-primary">site para empresa de energia solar</span> no Brasil</h2>
+                <p>Investir em um <strong>site profissional para empresa de energia solar</strong> é a estratégia mais inteligente que uma instaladora fotovoltaica pode fazer em 2026. O mercado de <strong>energia solar no Brasil</strong> cresce acima de 30% ao ano, e a grande maioria dos clientes inicia sua busca por uma <strong>empresa de instalação de painéis solares</strong> diretamente no Google. Sem uma presença digital sólida, sua empresa perde esses contratos para concorrentes com menor capacidade técnica, mas com melhor posicionamento online.</p>
+                <p>Na Alpha Code, desenvolvemos <strong>sites para instaladoras de painéis fotovoltaicos</strong> com foco em geração de orçamentos, autoridade digital e <strong>SEO nacional para energia solar</strong>. Nossa tecnologia Astro.js garante o carregamento mais rápido do mercado — essencial para o <strong>ranqueamento no Google</strong> e para a experiência do cliente que acessa pelo celular.</p>
+                <p>Trabalhamos com todos os segmentos do mercado solar: <strong>residencial, comercial, industrial e rural</strong>. Cada site é desenvolvido com arquitetura de conteúdo específica para o tipo de cliente que sua empresa deseja atrair, com páginas dedicadas por estado e cidade para maximizar o alcance geográfico.</p>
+                <p>Um bom <strong>site para empresa de painéis solares fotovoltaicos</strong> deve conter: portfólio de projetos realizados com dados técnicos, seção educativa sobre economia e retorno do investimento, formulário de orçamento otimizado para conversão, depoimentos de clientes reais e estrutura de SEO que compete em buscas como "instalação de energia solar em [cidade]" e "empresa de energia solar + estado".</p>
+
+                <!-- Internal Linking -->
+                <div class="mt-12 pt-8 border-t border-white/10 not-prose">
+                    <h3 class="text-xl font-bold text-white mb-4">Leia no nosso Blog:</h3>
+                    <ul class="flex flex-col gap-2 text-gray-400 font-medium mb-8">
+                        <li><a href="/blog/como-aparecer-no-google-com-site-novo" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Como aparecer no Google com um site novo</a></li>
+                        <li><a href="/blog/o-que-diferencia-um-site-amador-de-um-profissional" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> O que diferencia um site amador de um profissional</a></li>
+                        <li><a href="/blog/roi-de-um-site-profissional-para-empresas" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> ROI de um site profissional para empresas</a></li>
+                        <li><a href="/blog/estrutura-de-um-site-que-gera-leads-todos-os-dias" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Estrutura de um site que gera leads todos os dias</a></li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white mb-4">Conheça outras Soluções Alpha Code:</h3>
+                    <ul class="flex flex-wrap gap-4 text-sm text-gray-500 font-medium">
+                        <li><a href="/solucoes/advogados" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Advogados</a></li>
+                        <li><a href="/solucoes/medicos" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Médicos</a></li>
+                        <li><a href="/solucoes/dentistas" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Dentistas</a></li>
+                        <li><a href="/solucoes/contadores" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Contadores</a></li>
+                        <li><a href="/solucoes/arquitetos" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Arquitetos</a></li>
+                        <li><a href="/solucoes/energia-solar" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2 bg-white/5 text-white">Sites para Energia Solar ✓</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</BaseLayout>
+
+<style>
+    /* ===== SOLAR THEME ===== */
+    .solar-theme {
+        --color-primary: #f59e0b;
+        --color-primary-dark: #d97706;
+        --color-primary-glow: rgba(245, 158, 11, 0.3);
+        --color-bg-dark: #050505;
+        --color-surface: #0a0a0a;
+        --font-main: 'Plus Jakarta Sans', sans-serif;
+        --font-heading: 'Outfit', sans-serif;
+    }
+
+    .niche-page { font-family: var(--font-main); background: var(--color-bg-dark); color: white; overflow-x: hidden; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ===== HERO ===== */
+    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background: black; overflow: hidden; }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg-solar {
+        position: absolute; inset: 0;
+        background: 
+            radial-gradient(ellipse 80% 60% at 80% 20%, rgba(245, 158, 11, 0.15) 0%, transparent 60%),
+            radial-gradient(ellipse 40% 40% at 90% 10%, rgba(251, 191, 36, 0.08) 0%, transparent 50%),
+            linear-gradient(180deg, #000 0%, #0a0500 100%);
+    }
+    .solar-rays {
+        position: absolute;
+        top: -10%;
+        right: -5%;
+        width: 700px;
+        height: 700px;
+        background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(245,158,11,0.04) 10deg, transparent 30deg, rgba(245,158,11,0.03) 45deg, transparent 70deg, rgba(245,158,11,0.04) 85deg, transparent 120deg, rgba(245,158,11,0.03) 140deg, transparent 180deg, rgba(245,158,11,0.04) 195deg, transparent 230deg, rgba(245,158,11,0.03) 260deg, transparent 300deg, rgba(245,158,11,0.04) 320deg, transparent 360deg);
+        animation: spin-slow 60s linear infinite;
+        filter: blur(2px);
+    }
+    @keyframes spin-slow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-overlay { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.3) 100%); }
+    .hero-content-v2 { max-width: 900px; position: relative; z-index: 10; }
+    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.25); border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: #fbbf24; }
+    .hero-badge-v2 .dot { width: 8px; height: 8px; background: #f59e0b; border-radius: 50%; box-shadow: 0 0 12px #f59e0b; animation: pulse-dot 2s infinite; }
+    @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 7vw, 5.5rem); line-height: 1.0; font-weight: 900; letter-spacing: -0.04em; margin-bottom: 2rem; }
+    .text-gradient { background: linear-gradient(135deg, #fbbf24, #f59e0b, #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-v2 { font-size: 1.25rem; color: #b0b0b0; line-height: 1.7; margin-bottom: 3rem; max-width: 750px; }
+    .hero-trust { display: flex; flex-wrap: wrap; align-items: center; gap: 16px; margin-top: 2.5rem; }
+    .trust-item { font-size: 0.85rem; color: #888; font-weight: 600; }
+    .trust-sep { color: #333; }
+
+    /* ===== STATS BAR ===== */
+    .stats-bar-v2 { background: #0a0a0a; border-top: 1px solid rgba(255,255,255,0.05); border-bottom: 1px solid rgba(255,255,255,0.05); padding: 2.5rem 0; position: relative; z-index: 10; }
+    .stats-wrapper-v2 { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .stat-item-v2 { display: flex; flex-direction: column; align-items: center; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 900; color: #f59e0b; }
+    .stat-txt { font-size: 0.75rem; color: #555; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; margin-top: 4px; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.07); }
+
+    /* ===== PROBLEM CARDS ===== */
+    .problem-card-v2 { background: #0c0c0c; padding: 2.5rem 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; }
+    .problem-card-v2:hover { border-color: var(--color-primary); transform: translateY(-10px); box-shadow: 0 20px 50px rgba(245,158,11,0.05); }
+    .icon-circle { width: 64px; height: 64px; background: rgba(245,158,11,0.06); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin-bottom: 1.5rem; border: 1px solid rgba(245,158,11,0.12); }
+    .problem-card-v2 h3 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.75rem; color: #eee; }
+    .problem-card-v2 p { color: #888; line-height: 1.6; font-size: 0.95rem; }
+    .highlight-truth { box-shadow: 0 0 80px rgba(245,158,11,0.05); }
+
+    /* ===== SOLUTION / SOLAR MOCKUP ===== */
+    .bg-dark-accent { background: #080808; }
+    .tag-v2 { display: inline-block; font-size: 0.7rem; font-weight: 900; letter-spacing: 3px; text-transform: uppercase; color: #f59e0b; border: 1px solid rgba(245,158,11,0.2); border-radius: 50px; padding: 6px 16px; margin-bottom: 1.5rem; background: rgba(245,158,11,0.05); }
+    .solution-list .check-icon { width: 36px; height: 36px; background: rgba(245,158,11,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; border: 1px solid rgba(245,158,11,0.2); }
+
+    /* Solar Mockup */
+    .solar-mockup-container { position: relative; }
+    .solar-mockup-card { background: #111; border-radius: 20px; border: 1px solid rgba(245,158,11,0.2); box-shadow: 0 30px 80px rgba(0,0,0,0.8), 0 0 60px rgba(245,158,11,0.08); overflow: hidden; transform: perspective(1000px) rotateY(-8deg) rotateX(4deg); transition: 0.6s ease; }
+    .solar-mockup-card:hover { transform: none; }
+    .mockup-header { height: 36px; background: #1a1a1a; display: flex; align-items: center; gap: 8px; padding: 0 16px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+    .mockup-url { font-size: 0.65rem; color: #444; margin-left: 8px; font-family: monospace; }
+    .mockup-body { padding: 24px; }
+    .mockup-hero-bar { background: linear-gradient(135deg, #0f0900, #1a1000); border-radius: 12px; padding: 24px; margin-bottom: 16px; border: 1px solid rgba(245,158,11,0.1); }
+    .mockup-badge { display: inline-block; font-size: 0.55rem; font-weight: 900; letter-spacing: 2px; color: #f59e0b; background: rgba(245,158,11,0.1); border-radius: 20px; padding: 3px 10px; margin-bottom: 12px; border: 1px solid rgba(245,158,11,0.2); }
+    .mockup-title-line { height: 14px; background: linear-gradient(90deg, #fff 0%, rgba(255,255,255,0.6) 100%); border-radius: 4px; margin-bottom: 8px; }
+    .mockup-title-line.wide { width: 90%; }
+    .mockup-title-line.medium { width: 65%; opacity: 0.7; }
+    .mockup-sub-line { height: 8px; background: rgba(255,255,255,0.2); border-radius: 4px; margin-bottom: 6px; width: 80%; }
+    .mockup-sub-line.short { width: 55%; }
+    .mockup-cta-row { display: flex; gap: 8px; margin-top: 16px; }
+    .mockup-btn { padding: 8px 14px; border-radius: 8px; font-size: 0.6rem; font-weight: 900; letter-spacing: 0.5px; }
+    .mockup-btn.primary { background: #f59e0b; color: #000; }
+    .mockup-btn.outline { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fff; }
+    .mockup-stats-row { display: flex; gap: 8px; margin-bottom: 16px; }
+    .mockup-stat { flex: 1; background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.1); border-radius: 10px; padding: 12px; text-align: center; }
+    .mstat-num { display: block; font-size: 0.85rem; font-weight: 900; color: #f59e0b; }
+    .mstat-lbl { display: block; font-size: 0.55rem; color: #666; margin-top: 2px; }
+    .mockup-cards-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .mockup-proj-card { background: #1a1a1a; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.04); }
+    .mcard-img { height: 60px; background: linear-gradient(135deg, #1a1000, #2a1a00); }
+    .mcard-img.alt { background: linear-gradient(135deg, #0a0a1a, #1a1a2a); }
+    .mcard-img.alt2 { background: linear-gradient(135deg, #0a1a0a, #1a2a1a); }
+    .mcard-txt { padding: 8px; }
+    .mcard-line { height: 6px; background: rgba(255,255,255,0.15); border-radius: 3px; margin-bottom: 4px; }
+    .mcard-line.short { width: 60%; opacity: 0.7; }
+    .mockup-glow { position: absolute; bottom: -20%; right: -10%; width: 300px; height: 300px; background: radial-gradient(circle, rgba(245,158,11,0.12) 0%, transparent 70%); filter: blur(60px); pointer-events: none; }
+
+    /* ===== FEATURES GRID ===== */
+    .features-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 2rem; }
+    .feature-card { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 2.5rem; transition: 0.4s; }
+    .feature-card:hover { border-color: rgba(245,158,11,0.3); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(245,158,11,0.05); }
+    .feature-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+    .feature-card h4 { font-size: 1.3rem; font-weight: 800; color: #fff; margin-bottom: 0.75rem; }
+    .feature-card p { color: #888; line-height: 1.6; font-size: 0.95rem; }
+
+    /* ===== PROCESS ===== */
+    .process-step-v3 .step-icon { width: 64px; height: 64px; background: rgba(245,158,11,0.08); border: 1px solid rgba(245,158,11,0.2); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin: 0 auto 2rem; color: #f59e0b; }
+    .process-step-v3 h4 { font-size: 1.3rem; font-weight: 800; margin-bottom: 0.75rem; }
+    .process-step-v3 p { color: #777; line-height: 1.6; font-size: 0.95rem; }
+
+    /* ===== COVERAGE ===== */
+    .estado-grid { display: flex; flex-wrap: wrap; gap: 8px; }
+    .estado-tag { padding: 6px 14px; background: rgba(245,158,11,0.06); border: 1px solid rgba(245,158,11,0.15); border-radius: 50px; font-size: 0.8rem; font-weight: 600; color: #ccc; transition: 0.3s; }
+    .estado-tag:hover { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .estado-tag.more { background: rgba(245,158,11,0.12); color: #f59e0b; font-weight: 800; }
+    .badge-v3 { padding: 12px 20px; background: rgba(245,158,11,0.06); border-radius: 12px; border: 1px solid rgba(245,158,11,0.12); font-weight: 800; color: #fbbf24; font-size: 0.9rem; }
+
+    /* ===== MARKET TYPES ===== */
+    .market-card { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); border-radius: 28px; padding: 2.5rem; position: relative; transition: 0.4s; overflow: hidden; }
+    .market-card:hover { border-color: rgba(245,158,11,0.25); transform: translateY(-8px); }
+    .market-card.featured { border-color: rgba(245,158,11,0.3); background: linear-gradient(135deg, #0d0900, #120c00); box-shadow: 0 20px 60px rgba(245,158,11,0.08); }
+    .market-badge { position: absolute; top: 20px; right: 20px; background: #f59e0b; color: #000; font-size: 0.65rem; font-weight: 900; letter-spacing: 1px; padding: 4px 12px; border-radius: 4px; text-transform: uppercase; }
+    .market-icon { font-size: 2.5rem; margin-bottom: 1.25rem; }
+    .market-card h3 { font-size: 1.6rem; font-weight: 800; margin-bottom: 0.75rem; color: #fff; }
+    .market-card p { color: #888; line-height: 1.6; margin-bottom: 1.5rem; font-size: 0.95rem; }
+    .market-list { list-style: none; padding: 0; display: flex; flex-direction: column; gap: 8px; }
+    .market-list li { font-size: 0.9rem; color: #aaa; font-weight: 600; }
+
+    /* ===== FAQ ===== */
+    .faq-item-v3 { padding: 2rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; transition: 0.3s; }
+    .faq-item-v3:hover { border-color: rgba(245,158,11,0.2); }
+
+    /* ===== FINAL CTA ===== */
+    .glow-blur-solar { position: absolute; bottom: 10%; right: 5%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(245,158,11,0.08) 0%, transparent 70%); filter: blur(120px); z-index: 0; pointer-events: none; }
+    .glow-button { background: #f59e0b !important; color: #000 !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(245,158,11,0.4); transition: 0.3s; }
+    .glow-button:hover { box-shadow: 0 15px 60px rgba(245,158,11,0.6); transform: translateY(-2px); }
+
+    /* ===== SEO / PROSE ===== */
+    .prose p { color: #aaa; line-height: 1.8; margin-bottom: 1.5rem; }
+    .prose strong { color: #fff; }
+    .text-primary { color: #fbbf24; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+        .hero-title-v2 { font-size: 2.5rem; }
+        .hero-actions-v2 .flex { flex-direction: column; width: 100%; }
+        .stat-divider { display: none; }
+        .stats-wrapper-v2 { flex-direction: column; align-items: center; }
+        .solar-mockup-card { transform: none; }
+        .features-grid { grid-template-columns: 1fr; }
+        .hero-trust { justify-content: center; }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        ScrollTrigger.refresh();
+
+        // Hero animations
+        gsap.fromTo(".hero-reveal", { y: 40, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        // Scroll reveal
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.fromTo(el, { y: 40, opacity: 0 }, {
+                scrollTrigger: { trigger: el, start: "top 90%" },
+                y: 0, opacity: 1, duration: 1, ease: "power3.out"
+            });
+        });
+
+        // Stagger cards
+        gsap.fromTo(".stagger-card", { y: 50, opacity: 0 }, {
+            scrollTrigger: { trigger: ".stagger-container", start: "top 80%" },
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.12, ease: "power2.out"
+        });
+
+        // Solar mockup float
+        gsap.to(".solar-mockup-card", {
+            y: -10,
+            duration: 3,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        // Estado tags cascade
+        gsap.fromTo(".estado-tag", { opacity: 0, scale: 0.8 }, {
+            scrollTrigger: { trigger: ".estado-grid", start: "top 85%" },
+            opacity: 1, scale: 1, duration: 0.4, stagger: 0.04, ease: "back.out(1.4)"
+        });
+    });
+</script>
