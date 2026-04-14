@@ -1,0 +1,852 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { niches } from "../../data/niches";
+
+// Organizando por categorias reais para o dropdown
+const categories = [
+    { id: 'saude', label: 'Saúde', icon: '🩺' },
+    { id: 'juridico', label: 'Jurídico', icon: '⚖️' },
+    { id: 'negocios', label: 'Negócios', icon: '📊' },
+    { id: 'tecnico', label: 'Técnico', icon: '⚡' }
+];
+
+// Mapeamento de quais slugs pertencem a quais categorias
+const nicheCategoryMap: Record<string, string> = {
+    'psicologos': 'saude',
+    'medicos': 'saude',
+    'dentistas': 'saude',
+    'advogados': 'juridico',
+    'contadores': 'negocios',
+    'arquitetos': 'negocios',
+    'energia-solar': 'tecnico',
+    'manutencao': 'tecnico'
+};
+
+const seo = {
+    title: "Soluções por Nicho | Alpha Code",
+    description: "Explore nossas soluções especializadas para cada setor. Sites de alta conversão para médicos, advogados, arquitetos e muito mais.",
+};
+---
+
+<BaseLayout seo={seo}>
+    <main class="solutions-hub">
+        <!-- Hero Section -->
+        <section class="hub-hero">
+            <div class="container">
+                <div class="hero-badge">CATÁLOGO DE PERFORMANCE</div>
+                <h1>Soluções Sob Medida para <br/> <span class="text-gradient" id="word-rotator">Seu Negócio</span></h1>
+                <p class="hero-subtitle">
+                    Escolha seu nicho e veja como transformamos sua presença digital em uma máquina de vendas com tecnologia de ponta.
+                </p>
+            </div>
+        </section>
+
+        <!-- Main Hub Interface -->
+        <section class="hub-interface">
+            <div class="container">
+                <div class="hub-layout">
+                    
+                    <!-- Left Column: Cards & Filtering -->
+                    <div class="hub-content">
+                        <!-- Filters -->
+                        <div class="filter-wrapper sticky-filter">
+                            <div class="filter-bar">
+                                <button class="filter-btn active" data-category="all">
+                                    <span class="dot"></span> Todos
+                                </button>
+                                {categories.map(cat => (
+                                    <button class="filter-btn" data-category={cat.id}>
+                                        <span class="icon">{cat.icon}</span> {cat.label}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
+
+                        <!-- Categorized Sections -->
+                        <div class="categorized-hub" id="categorized-hub">
+                            {categories.map(cat => (
+                                <section class="category-section" data-section={cat.id}>
+                                    <div class="category-header">
+                                        <span class="category-icon">{cat.icon}</span>
+                                        <h2 class="category-title">{cat.label}</h2>
+                                        <span class="category-arrow">▼</span>
+                                    </div>
+                                    
+                                    <div class="category-content">
+                                        <div class="niche-grid">
+                                            {niches.filter(n => nicheCategoryMap[n.slug] === cat.id).map(niche => (
+                                                <div 
+                                                    class="niche-card" 
+                                                    data-slug={niche.slug}
+                                                >
+                                                    <div class="card-bg"></div>
+                                                    <div class="card-content">
+                                                        <h3>{niche.title}</h3>
+                                                        <p>{niche.description.substring(0, 80)}...</p>
+                                                        <div class="card-footer">
+                                                            <span class="cta-text">Ver detalhes ➔</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </section>
+                            ))}
+
+                            <!-- Custom/Special Section -->
+                            <section class="category-section active-section">
+                                <div class="category-header">
+                                    <span class="category-icon">✦</span>
+                                    <h2 class="category-title">Projetos Customizados</h2>
+                                    <span class="category-arrow">▼</span>
+                                </div>
+                                <div class="category-content">
+                                    <div class="niche-grid">
+                                        <a href="https://wa.me/5521999064502" target="_blank" class="niche-card custom-request">
+                                            <div class="card-content">
+                                                <h3>Outros Nichos</h3>
+                                                <p>Não encontrou seu setor? Desenvolvemos estratégias sob medida para qualquer negócio.</p>
+                                                <span class="cta-text">Consultar Especialista ➔</span>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </section>
+                        </div>
+                    </div>
+
+                    <!-- Right Column: Sticky Preview Panel -->
+                    <div class="hub-sidebar">
+                        <div class="sticky-panel-container">
+                            <div class="preview-panel" id="preview-panel">
+                                <!-- Default Message State -->
+                                <div class="panel-empty-state" id="panel-idle">
+                                    <div class="icon-pulse">✨</div>
+                                    <h4>Passe o mouse em um nicho</h4>
+                                    <p>Veja os dados de performance e o design planejado para sua área.</p>
+                                </div>
+
+                                <!-- Dynamic Content Container -->
+                                <div class="panel-content hidden" id="panel-active">
+                                    <div class="browser-mockup">
+                                        <div class="browser-header">
+                                            <div class="dots"><span></span><span></span><span></span></div>
+                                            <div class="address-bar">alphacode.com.br/view</div>
+                                        </div>
+                                        <div class="browser-body">
+                                            <img src="/assets/mockups/generic-site.png" id="preview-img" alt="Site Preview" onerror="this.src='https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=500'"/>
+                                            <div class="body-overlay"></div>
+                                        </div>
+                                    </div>
+
+                                    <div class="panel-info">
+                                        <h2 id="panel-title">Nicho Selecionado</h2>
+                                        <div class="metric-grid">
+                                            <div class="metric-item">
+                                                <span class="metric-val" id="metric-conversion">+400%</span>
+                                                <span class="metric-lab">Conversão</span>
+                                            </div>
+                                            <div class="metric-item">
+                                                <span class="metric-val">100</span>
+                                                <span class="metric-lab">PageSpeed</span>
+                                            </div>
+                                            <div class="metric-item">
+                                                <span class="metric-val">&lt; 1s</span>
+                                                <span class="metric-lab">Carregamento</span>
+                                            </div>
+                                        </div>
+
+                                        <div class="benefit-list">
+                                            <h4>Recursos Inclusos:</h4>
+                                            <ul id="panel-benefits">
+                                                <!-- Populated by JS -->
+                                            </ul>
+                                        </div>
+
+                                        <a href="#" id="preview-link" class="btn btn-primary btn-block">
+                                            QUERO MAIS RESULTADOS ➔
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="sidebar-footer">
+                                <p>🔒 Garantia de performance em contrato</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+    </main>
+</BaseLayout>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Dados para o preview (Injetados via script por ser interativo)
+    const nichesData = {
+        'psicologos': {
+            title: 'Psicólogos & Terapeutas',
+            benefits: ['Agenda Online Sync', 'Blog de Autoridade', 'Ficha Técnica Profissional', 'Botão Emergencial'],
+            link: '/solucoes/psicologos'
+        },
+        'medicos': {
+            title: 'Médicos & Clínicas',
+            benefits: ['Agendamento Inteligente', 'SEO Local de Alta Demanda', 'Painel de Convênios', 'Galerias de Estrutura'],
+            link: '/solucoes/medicos'
+        },
+        'dentistas': {
+            title: 'Dentistas & Odonto',
+            benefits: ['Vitrine de Sorrisos', 'Tabela de Procedimentos', 'Suporte WhatsApp 24h', 'Sistema de Reviews'],
+            link: '/solucoes/dentistas'
+        },
+        'advogados': {
+            title: 'Advogados & Jurídico',
+            benefits: ['Landing Pages Educativas', 'Captação Compliance OAB', 'Área de Atuação Dinâmica', 'Blog jurídico'],
+            link: '/solucoes/advogados'
+        },
+        'arquitetos': {
+            title: 'Arquitetos & Interiores',
+            benefits: ['Portfólio Imersivo', 'Galeria High-Res', 'Gestão de Projetos', 'Formulário de Briefing'],
+            link: '/solucoes/arquitetos'
+        },
+        'contadores': {
+            title: 'Contadores & BPO',
+            benefits: ['Central de Downloads', 'Simuladores de Impostos', 'Calendário Fiscal', 'Atendimento Humanizado'],
+            link: '/solucoes/contadores'
+        },
+        'energia-solar': {
+            title: 'Empresas de Energia Solar',
+            benefits: ['Simulador de Economia', 'Mapa de Instalações', 'Área de Grandes Clientes', 'Formulário Solar Lead'],
+            link: '/solucoes/energia-solar'
+        },
+        'manutencao': {
+            title: 'Manutenção Predial',
+            benefits: ['Catálogo de Serviços', 'Solicitação de Orçamento', 'Área de Cobertura', 'Equipe & Segurança'],
+            link: '/manutencao'
+        }
+    };
+
+    const initHub = () => {
+        const cards = document.querySelectorAll('.niche-card:not(.custom-request)');
+        const idlePanel = document.getElementById('panel-idle');
+        const activePanel = document.getElementById('panel-active');
+        const pTitle = document.getElementById('panel-title');
+        const pBenefits = document.getElementById('panel-benefits');
+        const pLink = document.getElementById('preview-link') as HTMLAnchorElement;
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const sections = document.querySelectorAll('.category-section');
+        const categoryHeaders = document.querySelectorAll('.category-header');
+
+        // Rotator Hero
+        const words = ["Seu Negócio", "Sua Clínica", "Seu Escritório", "Sua Empresa"];
+        let wordIdx = 0;
+        const wordEl = document.getElementById('word-rotator');
+        
+        setInterval(() => {
+            if(!wordEl) return;
+            gsap.to(wordEl, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
+                wordIdx = (wordIdx + 1) % words.length;
+                wordEl.innerText = words[wordIdx];
+                gsap.fromTo(wordEl, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 });
+            }});
+        }, 3500);
+
+        // Accordion Toggle Logic
+        categoryHeaders.forEach(header => {
+            header.addEventListener('click', () => {
+                const parent = header.parentElement;
+                const wasActive = parent?.classList.contains('active-section');
+                
+                // Opcional: Fechar outros ao abrir um
+                // sections.forEach(s => s.classList.remove('active-section'));
+                
+                if (wasActive) {
+                    parent?.classList.remove('active-section');
+                } else {
+                    parent?.classList.add('active-section');
+                }
+            });
+        });
+
+        // Click Card Logic (Update Preview)
+        cards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation(); // Evitar disparar o accordion se houver clique interno
+                const slug = card.getAttribute('data-slug');
+                const data = nichesData[slug as keyof typeof nichesData];
+                
+                cards.forEach(c => c.classList.remove('active-niche'));
+                card.classList.add('active-niche');
+
+                if(data) {
+                    idlePanel?.classList.add('hidden');
+                    activePanel?.classList.remove('hidden');
+                    
+                    if(pTitle) pTitle.innerText = data.title;
+                    if(pLink) pLink.href = data.link;
+                    
+                    if(pBenefits) {
+                        pBenefits.innerHTML = data.benefits.map(b => `<li><span class="check">✓</span> ${b}</li>`).join('');
+                    }
+
+                    gsap.fromTo(activePanel, 
+                        { opacity: 0, x: 20 }, 
+                        { opacity: 1, x: 0, duration: 0.4, ease: "power2.out" }
+                    );
+                }
+            });
+        });
+
+        // Filtering Logic (Open target category)
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const cat = btn.getAttribute('data-category');
+                
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                if (cat === 'all') {
+                    sections.forEach(sec => {
+                        (sec as HTMLElement).style.display = 'block';
+                        gsap.to(sec, { opacity: 1, duration: 0.3 });
+                    });
+                } else {
+                    sections.forEach(sec => {
+                        const secCat = sec.getAttribute('data-section');
+                        if (secCat === cat) {
+                            (sec as HTMLElement).style.display = 'block';
+                            sec.classList.add('active-section'); // Auto-abrir ao filtrar
+                            gsap.to(sec, { opacity: 1, duration: 0.3 });
+                            sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        } else if (secCat) {
+                            (sec as HTMLElement).style.display = 'none';
+                            sec.classList.remove('active-section');
+                        }
+                    });
+                }
+            });
+        });
+    };
+
+        // Scroll Reveal for cards
+        gsap.from(".niche-card", {
+            scrollTrigger: {
+                trigger: ".niche-grid",
+                start: "top 80%",
+            },
+            opacity: 0,
+            y: 30,
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out"
+        });
+    };
+
+    document.addEventListener('astro:page-load', initHub);
+</script>
+
+<style>
+    .solutions-hub {
+        background: #050505;
+        color: white;
+        padding-top: 100px;
+        min-height: 100vh;
+    }
+
+    .container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 2rem;
+    }
+
+    /* Hero */
+    .hub-hero {
+        padding: 60px 0;
+        text-align: center;
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(138, 28, 38, 0.1);
+        border: 1px solid rgba(138, 28, 38, 0.3);
+        color: var(--color-primary);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+    }
+
+    .hub-hero h1 {
+        font-size: clamp(2.5rem, 5vw, 4rem);
+        font-weight: 900;
+        line-height: 1.1;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.25rem;
+        color: #888;
+        max-width: 700px;
+        margin: 0 auto;
+    }
+
+    /* Layout */
+    .hub-layout {
+        display: grid;
+        grid-template-columns: 1fr 450px;
+        gap: 3rem;
+        margin-top: 4rem;
+        padding-bottom: 100px;
+    }
+
+    @media (max-width: 1024px) {
+        .hub-layout {
+            grid-template-columns: 1fr;
+        }
+        .hub-sidebar {
+            display: none; /* Escondido em mobile por enquanto ou movido pra baixo */
+        }
+    }
+
+    /* Filters */
+    .sticky-filter {
+        position: sticky;
+        top: 80px;
+        z-index: 100;
+        backdrop-filter: blur(10px);
+        padding: 10px 0;
+        margin-bottom: 2rem;
+    }
+
+    .filter-bar {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        background: rgba(20, 20, 20, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 6px;
+        border-radius: 100px;
+        width: fit-content;
+    }
+
+    .filter-btn {
+        background: transparent;
+        border: none;
+        color: #666;
+        padding: 10px 24px;
+        border-radius: 100px;
+        cursor: pointer;
+        font-weight: 600;
+        font-size: 0.9rem;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        transition: all 0.3s ease;
+    }
+
+    .filter-btn:hover {
+        color: white;
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .filter-btn.active {
+        background: white;
+        color: black;
+    }
+
+    .filter-btn .dot {
+        width: 6px;
+        height: 6px;
+        background: currentColor;
+        border-radius: 50%;
+    }
+
+    /* Category Sections */
+    .category-section {
+        margin-bottom: 1.5rem;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        overflow: hidden;
+        transition: all 0.4s ease;
+    }
+
+    .category-section.active-section {
+        background: rgba(255, 255, 255, 0.04);
+        border-color: rgba(255, 255, 255, 0.1);
+        margin-bottom: 3rem;
+    }
+
+    .category-header {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        padding: 1.5rem 2rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+    .category-header:hover {
+        background: rgba(255, 255, 255, 0.03);
+    }
+
+    .category-icon {
+        font-size: 1.25rem;
+        background: rgba(255, 255, 255, 0.05);
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .category-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        color: #888;
+        white-space: nowrap;
+        transition: all 0.3s ease;
+    }
+
+    .active-section .category-title {
+        color: #fff;
+    }
+
+    .category-arrow {
+        margin-left: auto;
+        font-size: 0.8rem;
+        color: #444;
+        transition: transform 0.3s ease;
+    }
+
+    .active-section .category-arrow {
+        transform: rotate(180deg);
+        color: var(--color-primary);
+    }
+
+    .category-content {
+        max-height: 0;
+        opacity: 0;
+        visibility: hidden;
+        overflow: hidden;
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        padding: 0 2rem;
+    }
+
+    .active-section .category-content {
+        max-height: 2000px;
+        opacity: 1;
+        visibility: visible;
+        padding-bottom: 2rem;
+    }
+
+    /* Niche Cards within accordion */
+    .niche-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+        padding-top: 1rem;
+    }
+
+    .niche-card {
+        background: #0a0a0a;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        height: 240px;
+        padding: 2.5rem;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .niche-card:hover, .niche-card.active-niche {
+        transform: translateY(-8px);
+        border-color: var(--color-primary);
+        box-shadow: 0 20px 40px rgba(138, 28, 38, 0.15);
+        background: #0f0f0f;
+    }
+
+    .card-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, transparent 40%, rgba(0,0,0,0.8) 100%);
+        z-index: 1;
+    }
+
+    .card-content {
+        position: relative;
+        z-index: 2;
+    }
+
+    .category-tag {
+        font-size: 0.65rem;
+        font-weight: 900;
+        color: var(--color-primary);
+        letter-spacing: 1.5px;
+        margin-bottom: 0.75rem;
+        display: block;
+    }
+
+    .niche-card h3 {
+        font-size: 1.5rem;
+        font-weight: 800;
+        margin-bottom: 0.5rem;
+    }
+
+    .niche-card p {
+        font-size: 0.9rem;
+        color: #666;
+        line-height: 1.4;
+        transition: all 0.3s ease;
+    }
+
+    .card-footer {
+        margin-top: 1.5rem;
+        opacity: 0;
+        transform: translateX(-10px);
+        transition: all 0.3s ease;
+    }
+
+    .niche-card:hover .card-footer {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .cta-text {
+        font-weight: 700;
+        font-size: 0.85rem;
+        color: var(--color-primary);
+    }
+
+    /* Custom Card */
+    .custom-request {
+        background: linear-gradient(135deg, #0a0a0a 0%, #151515 100%);
+        border: 1px dashed rgba(255, 255, 255, 0.1);
+        justify-content: center;
+        text-align: center;
+    }
+
+    .btn-whatsapp-small {
+        display: inline-block;
+        margin-top: 1.5rem;
+        background: rgba(37, 211, 102, 0.1);
+        border: 1px solid rgba(37, 211, 102, 0.3);
+        color: #25d366;
+        padding: 10px 20px;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-decoration: none;
+    }
+
+    /* Sidebar & Sticky Panel */
+    .hub-sidebar {
+        position: relative;
+    }
+
+    .sticky-panel-container {
+        position: sticky;
+        top: 120px;
+    }
+
+    .preview-panel {
+        background: #0e0e0e;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 32px;
+        padding: 2.5rem;
+        min-height: 600px;
+        display: flex;
+        flex-direction: column;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    .panel-empty-state {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #444;
+    }
+
+    .icon-pulse {
+        font-size: 3rem;
+        margin-bottom: 1.5rem;
+        animation: pulse 2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.5; }
+        50% { transform: scale(1.1); opacity: 1; }
+    }
+
+    /* Browser Mockup inside Panel */
+    .browser-mockup {
+        background: #161616;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        margin-bottom: 2rem;
+    }
+
+    .browser-header {
+        background: #222;
+        padding: 10px 15px;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .browser-header .dots {
+        display: flex;
+        gap: 5px;
+    }
+
+    .browser-header .dots span {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: #444;
+    }
+
+    .address-bar {
+        background: #0a0a0a;
+        flex: 1;
+        font-size: 0.65rem;
+        color: #555;
+        padding: 4px 12px;
+        border-radius: 4px;
+        text-align: center;
+    }
+
+    .browser-body {
+        height: 200px;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .browser-body img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .body-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, rgba(14, 14, 14, 0.8));
+    }
+
+    /* Panel Info */
+    .panel-info h2 {
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-bottom: 2rem;
+    }
+
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .metric-item {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 15px 10px;
+        border-radius: 16px;
+        text-align: center;
+    }
+
+    .metric-val {
+        display: block;
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: var(--color-primary);
+        margin-bottom: 4px;
+    }
+
+    .metric-lab {
+        font-size: 0.65rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: #555;
+    }
+
+    .benefit-list h4 {
+        font-size: 0.8rem;
+        color: #666;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 1rem;
+    }
+
+    .benefit-list ul {
+        list-style: none;
+        padding: 0;
+        margin-bottom: 2.5rem;
+    }
+
+    .benefit-list li {
+        font-size: 0.95rem;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #aaa;
+    }
+
+    .check {
+        color: var(--color-primary);
+        font-weight: 900;
+    }
+
+    .btn-block {
+        width: 100%;
+        justify-content: center;
+        padding: 1.25rem !important;
+        font-size: 0.9rem !important;
+    }
+
+    .sidebar-footer {
+        margin-top: 2rem;
+        text-align: center;
+        color: #444;
+        font-size: 0.8rem;
+    }
+
+    .hidden {
+        display: none !important;
+    }
+
+    .text-gradient {
+        background: linear-gradient(90deg, #fff 0%, var(--color-primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+</style>

@@ -66,6 +66,13 @@ const estados = [
 
     <div class="niche-page solar-theme">
 
+        <!-- Breadcrumb / Back Navigation -->
+        <div class="container relative z-20 pt-32 pb-4">
+            <a href="/solucoes" class="hub-breadcrumb">
+                <span class="icon">⇠</span> Voltar para Todas as Soluções
+            </a>
+        </div>
+
         <!-- HERO -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
@@ -486,6 +493,36 @@ const estados = [
 
     .niche-page { font-family: var(--font-main); background: var(--color-bg-dark); color: white; overflow-x: hidden; }
     .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* ===== BREADCRUMB ===== */
+    .hub-breadcrumb {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        color: #666;
+        text-decoration: none;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        transition: all 0.3s ease;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+    }
+
+    .hub-breadcrumb:hover {
+        color: var(--color-primary);
+        background: rgba(245, 158, 11, 0.05);
+        border-color: rgba(245, 158, 11, 0.2);
+        transform: translateX(-4px);
+    }
+
+    .hub-breadcrumb .icon {
+        font-size: 1.2rem;
+        line-height: 1;
+    }
 
     /* ===== HERO ===== */
     .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background: black; overflow: hidden; }
