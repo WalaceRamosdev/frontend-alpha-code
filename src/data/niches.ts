@@ -199,93 +199,6 @@ export const niches: NicheContent[] = [
         }
     },
     {
-        slug: "medicos",
-        name: "Médicos",
-        title: "Criação de Sites para Médicos e Clínicas | Alpha Code",
-        heroTitle: "Sua <span class='text-primary'>Clínica</span> na primeira página do Google",
-        heroDesc: "Desenvolvemos sites médicos de alta performance que transmitem autoridade, confiança e facilitam o agendamento de consultas 24h por dia.",
-        badge: "Sites Médicos em conformidade com o CFM",
-        keywords: ["site para médicos", "marketing médico", "site para clínicas", "seo médico"],
-        detailedContent: `
-            <p>No mercado da saúde, a confiança é o ativo mais valioso. Seu site precisa refletir o <strong>profissionalismo e o acolhimento</strong> que o paciente encontrará no seu consultório.</p>
-            <p>Desenvolvemos plataformas que seguem rigorosamente as normas de ética do CFM, com foco em agendamento simplificado e SEO local. Garantimos que sua expertise seja a primeira resposta quando alguém buscar por sua especialidade na sua região.</p>
-        `,
-        benefits: [
-            "Agendamento Online Integrado: Reduza a carga da sua recepção.",
-            "SEO para Especialistas: Seja a referência na sua cidade e área de atuação.",
-            "Design Ético e Premium: Website elegante que respeita as normas da medicina.",
-            "Blog de Saúde: Eduque seus pacientes e gere autoridade orgânica."
-        ],
-        faq: [
-            { question: "O site respeita as normas do CFM?", answer: "Sim, todos os nossos sites médicos são construídos seguindo as diretrizes de publicidade médica do Conselho Federal de Medicina." },
-            { question: "Vocês cuidam dos textos?", answer: "Sim, temos especialistas que podem criar conteúdos educativos baseados na sua área de atuação." }
-        ],
-        ctaText: "QUERO MINHA CLÍNICA NO TOPO",
-        metaFormulas: {
-            formula1: "Criação de sites para Médicos e Clínicas. Design ético, SEO Local para especialistas e agendamento integrado. Transmita autoridade. Orçamento em 24h!",
-            formula2: "Destaque seu consultório no Google com um site médico de elite. Alta performance e foco total na jornada do paciente. Solicite um diagnóstico!",
-            formula3: "Médico, seja referência na sua região. Sites profissionais para clínicas e consultórios respeitando as normas do CFM. Confira nossos cases!"
-        }
-    },
-    {
-        slug: "advogados",
-        name: "Advogados",
-        title: "Criação de Sites para Advogados e Escritórios | Alpha Code",
-        heroTitle: "Posicione seu <span class='text-primary'>Escritório</span> como Autoridade Jurídica",
-        heroDesc: "Sites jurídicos estratégicos que respeitam o Provimento da OAB e focam na captação de clientes qualificados através de SEO jurídico avançado.",
-        badge: "Sites Jurídicos Éticos e de Alta Performance",
-        keywords: ["site para advogados", "marketing jurídico", "seo jurídico", "site escritório advocacia"],
-        detailedContent: `
-            <p>No direito, a credibilidade é construída através do conhecimento e do posicionamento. Sua sede digital deve ser tão <strong>imponente e profissional</strong> quanto seu escritório físico.</p>
-            <p>Criamos sites que servem como ferramentas de educação e captação ética, totalmente alinhados com o Provimento 205/2021 da OAB. Nossa tecnologia garante que seus artigos jurídicos alcancem o topo das buscas, convertendo interessados em clientes.</p>
-        `,
-        benefits: [
-            "Conformidade com a OAB: Marketing jurídico ético e informativo.",
-            "SEO Jurídico Avançado: Destaque suas áreas de atuação nas buscas específicas.",
-            "Design de Autoridade: Transmita seriedade, competência e tradição.",
-            "Blog de Conteúdo: Posicione-se como especialista através de artigos informativos."
-        ],
-        faq: [
-            { question: "Posso captar clientes pelo site?", answer: "Sim, o marketing jurídico informativo é permitido e extremamente eficaz para atrair leads qualificados." },
-            { question: "O site é seguro para dados sensíveis?", answer: "Sim, utilizamos criptografia e as melhores práticas de segurança digital." }
-        ],
-        ctaText: "QUERO MEU ESCRITÓRIO NO TOPO",
-        metaFormulas: {
-            formula1: "Criação de sites para Advogados e Escritórios. Posicionamento de autoridade, respeito à OAB e SEO jurídico estratégico. Orçamento em 24h!",
-            formula2: "Destaque seu escritório de advocacia no Google. Sites éticos, imponentes e focados em resultados. Solicite seu orçamento hoje!",
-            formula3: "Advogado, sua sede digital precisa ser elite. Especialistas em sites jurídicos que convertem autoridade em contratos. Fale conosco!"
-        }
-    },
-    {
-        slug: "arquitetos",
-        name: "Arquitetos",
-        title: "Criação de Sites para Arquitetos e Designers | Alpha Code",
-        heroTitle: "Transforme seus <span class='text-primary'>Projetos</span> em Contratos de Alto Padrão",
-        heroDesc: "Portfólios de arquitetura imersivos com alta qualidade visual e carregamento ultrarrápido para encantar clientes que buscam exclusividade.",
-        badge: "Design de Elite para Arquitetura",
-        keywords: ["site para arquitetos", "portfólio arquitetura", "design de interiores", "site arquitetura premium"],
-        detailedContent: `
-            <p>Arquitetura é sobre estética, funcionalidade e experiência. Seu site deve ser a <strong>tradução digital do seu bom gosto</strong> e rigor técnico.</p>
-            <p>Focamos em galerias imersivas que exibem seus projetos em alta definição sem comprometer a velocidade de carregamento. Otimizamos sua presença para o público que busca arquitetura de luxo e design de interiores, transformando visitantes em novos orçamentos.</p>
-        `,
-        benefits: [
-            "Experiência Visual Imersiva: Suas fotos são as estrelas da página.",
-            "Performance LCP: Carregamento instantâneo de portfólios pesados.",
-            "SEO para Alto Padrão: Atraia clientes que valorizam design e exclusividade.",
-            "Blog de Estilo: Compartilhe suas tendências e gere desejo em potenciais clientes."
-        ],
-        faq: [
-            { question: "As fotos carregam rápido?", answer: "Sim, usamos tecnologia de ponta para carregar imagens pesadas instantaneamente sem perder a nitidez." },
-            { question: "Posso mudar as fotos sozinho?", answer: "Sim, você terá acesso a um sistema simples para atualizar seu portfólio sempre que terminar uma obra." }
-        ],
-        ctaText: "QUERO UM PORTFÓLIO DE IMPACTO",
-        metaFormulas: {
-            formula1: "Criação de sites para Arquitetos e Designers de Interiores. Portfólios imersivos, alta performance e SEO para público de elite. Orçamento em 24h!",
-            formula2: "Seus projetos merecem um site digno. Design de elite e velocidade extrema para arquitetura. Solicite um diagnóstico gratuito!",
-            formula3: "Arquiteto, transforme seu portfólio em desejo. Sites de alto padrão que convertem bom gosto em novos projetos. Confira!"
-        }
-    },
-    {
         slug: "energia-solar",
         name: "Energia Solar",
         title: "Site para Empresa de Energia Solar | Alta Conversão e SEO Nacional",
@@ -315,6 +228,42 @@ export const niches: NicheContent[] = [
             formula1: "Site profissional para empresa de energia solar. Atraia mais clientes, gere orçamentos e apareça no Google em todo o Brasil. +1.400 projetos entregues. Orçamento em 24h!",
             formula2: "Site para instaladora de painéis solares com SEO nacional, alta performance e design de autoridade. Transforme cliques em orçamentos. Solicite diagnóstico gratuito!",
             formula3: "Empresa de energia solar fotovoltaica? Construa sua autoridade digital e gere pedidos de orçamento todos os dias. Especialistas em marketing para o setor solar. Fale conosco!"
+        }
+    },
+    {
+        slug: "dentistas",
+        name: "Dentistas",
+        title: "Criação de Sites para Dentistas e Clínicas Odontológicas",
+        heroTitle: "Sua Clínica Odontológica com a Vitrine que Merece.",
+        heroDesc: "Desenvolvemos sites para dentistas focados em estética e confiança. Mostre seus casos de sucesso, facilite o agendamento e destaque sua especialidade com um design limpo e profissional.",
+        badge: "Marketing Odontológico Premium",
+        keywords: ["site para dentista", "marketing odontológico", "site consultório odonto"],
+        detailedContent: "<p>Sites para dentistas devem focar na <strong>transformação do sorriso</strong> e na biossegurança.</p>",
+        benefits: ["Agendamento via WhatsApp", "Galeria de Antes e Depois", "SEO Local para Bairros", "Página de Especialidades"],
+        faq: [{ question: "O site é responsivo?", answer: "Sim, perfeito para celulares." }],
+        ctaText: "QUERO MINHA AGENDA LOTADA",
+        metaFormulas: {
+            formula1: "Site para Dentistas com foco em conversão e estética. Atraia mais pacientes particulares hoje!",
+            formula2: "Sua clínica odontológica no topo do Google. Design premium e SEO local. Confira!",
+            formula3: "Otimize sua captação de pacientes com um site odontológico de elite. Saiba mais!"
+        }
+    },
+    {
+        slug: "manutencao",
+        name: "Manutenção",
+        title: "Criação de Sites para Empresas de Manutenção e Reformas",
+        heroTitle: "Sua Empresa de Manutenção com Imagem de Grande Engenharia.",
+        heroDesc: "Sites para prestadores de serviço que desejam transmitir profissionalismo e segurança. Destaque sua equipe, portfólio de obras e facilite a solicitação de orçamentos rápidos.",
+        badge: "Sites para Prestadores de Serviço",
+        keywords: ["site para manutenção", "site de reformas", "marketing para empreiteiras"],
+        detailedContent: "<p>A confiança é base para serviços de <strong>manutenção e reformas</strong>.</p>",
+        benefits: ["Solicitação de Orçamento PDF", "Portfólio de Obras Realizadas", "SEO para Serviços Específicos", "Área de Atendimento por Região"],
+        faq: [{ question: "Como recebo os orçamentos?", answer: "Direto no seu WhatsApp ou E-mail." }],
+        ctaText: "QUERO MAIS OBRAS",
+        metaFormulas: {
+            formula1: "Site para empresas de manutenção e reformas. Transmita segurança e gere orçamentos!",
+            formula2: "Sua empreiteira ou empresa de serviços no Google. SEO local forte. Peça seu site!",
+            formula3: "Venda mais serviços de manutenção with um site profissional da Alpha Code."
         }
     }
 ];
