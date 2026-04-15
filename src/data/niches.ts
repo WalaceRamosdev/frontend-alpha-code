@@ -142,7 +142,7 @@ export const niches: NicheContent[] = [
     {
         slug: "psicologos",
         name: "Psicólogos",
-        title: "Criação de Sites para Psicólogos - Atue com Ética e Autoridade",
+        title: "Psicólogos - Atuem com Ética e Autoridade",
         heroTitle: "Todos os dias, Psicólogos perdem pacientes por não serem encontrados no Google. Vamos mudar isso.",
         heroDesc: "Sites profissionais que transmitem acolhimento, autoridade e segurança. Conquiste mais pacientes particulares sem depender apenas de redes sociais ou indicações.",
         badge: "Estratégia Digital Ética",
@@ -201,7 +201,7 @@ export const niches: NicheContent[] = [
     {
         slug: "energia-solar",
         name: "Energia Solar",
-        title: "Site para Empresa de Energia Solar | Alta Conversão e SEO Nacional",
+        title: "Energia Solar | Alta Conversão e SEO Nacional",
         heroTitle: "Sua empresa de energia solar merece um site que vende enquanto você instala.",
         heroDesc: "Sites profissionais para instaladores de painéis solares. Apareça no topo do Google, gere orçamentos todos os dias e conquiste mais clientes em qualquer estado do Brasil.",
         badge: "Marketing Digital para Energia Solar",
