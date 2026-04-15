@@ -386,6 +386,12 @@ const seo = {
         padding: 0 2rem;
     }
 
+    @media (max-width: 768px) {
+        .container {
+            padding: 0 1.25rem;
+        }
+    }
+
     /* Hero */
     .hub-hero {
         padding: 60px 0;
@@ -449,14 +455,20 @@ const seo = {
 
     .filter-bar {
         display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
+        gap: 8px;
+        flex-wrap: nowrap;
+        overflow-x: auto;
         background: rgba(20, 20, 20, 0.5);
         border: 1px solid rgba(255, 255, 255, 0.05);
         padding: 6px;
         border-radius: 100px;
-        width: fit-content;
+        width: 100%;
+        max-width: 100%;
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
+
+    .filter-bar::-webkit-scrollbar { display: none; }
 
     .filter-btn {
         background: transparent;
@@ -581,6 +593,27 @@ const seo = {
         padding-top: 1rem;
     }
 
+    @media (max-width: 768px) {
+        .niche-grid {
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+        
+        .category-header {
+            padding: 1.25rem 1rem;
+            gap: 1rem;
+        }
+
+        .category-title {
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        .category-content {
+            padding: 0 1rem;
+        }
+    }
+
     .niche-card {
         background: #0a0a0a;
         border: 1px solid rgba(255, 255, 255, 0.05);
@@ -630,9 +663,22 @@ const seo = {
     }
 
     .niche-card h3 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
         font-weight: 800;
         margin-bottom: 0.5rem;
+    }
+
+    @media (max-width: 768px) {
+        .niche-card {
+            height: auto;
+            padding: 2rem 1.5rem;
+        }
+        .niche-card h3 {
+            font-size: 1.15rem;
+        }
+        .niche-card p {
+            font-size: 0.85rem;
+        }
     }
 
     .niche-card p {
@@ -917,6 +963,25 @@ const seo = {
         box-shadow: 0 50px 100px rgba(0,0,0,0.8);
     }
 
+    @media (max-width: 768px) {
+        .niche-modal {
+            padding: 0;
+        }
+        .modal-container {
+            max-height: 100%;
+            height: 100%;
+            border-radius: 0;
+        }
+        .close-btn {
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0,0,0,0.5);
+        }
+        .hub-sidebar {
+            display: none;
+        }
+    }
+
     .close-btn {
         position: absolute;
         top: 2rem;
@@ -976,14 +1041,30 @@ const seo = {
         -webkit-text-fill-color: transparent;
     }
 
-    @media (max-width: 992px) {
+    @media (max-width: 768px) {
         .modal-body {
             grid-template-columns: 1fr;
-            padding: 3rem 2rem;
-            gap: 2rem;
+            padding: 4rem 1.5rem 2rem;
+            gap: 1.5rem;
         }
         .modal-info h2 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .metric-grid {
+            gap: 10px;
+        }
+        .metric-val {
+            font-size: 1.1rem;
+        }
+        .metric-lab {
+            font-size: 0.65rem;
+        }
+        .benefit-list h4 {
+            font-size: 0.9rem;
+        }
+        .benefit-list li {
+            font-size: 0.85rem;
         }
     }
 
