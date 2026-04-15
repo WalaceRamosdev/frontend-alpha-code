@@ -1777,17 +1777,23 @@ import { niches } from "../../data/niches";
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.75rem;
-            font-weight: 900;
-            color: #555;
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: #fff;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            padding: 15px 12px 8px;
+            letter-spacing: 1px;
+            padding: 16px 14px;
+            margin: 10px 6px 4px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
             cursor: pointer;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
-        .mobile-category-label:hover {
+        .mobile-category-label:hover, .mobile-category-label.active {
+            background: rgba(138, 28, 38, 0.1);
+            border-color: rgba(138, 28, 38, 0.4);
             color: var(--color-primary);
         }
 
