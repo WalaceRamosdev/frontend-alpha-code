@@ -362,10 +362,8 @@ const seo = {
         setTimeout(() => {
             const firstCard = document.querySelector('.niche-card') as HTMLElement;
             if (firstCard) {
-                // Find parent and open it
                 const parentSection = firstCard.closest('.category-section');
                 parentSection?.classList.add('active-section');
-                firstCard.click();
             }
         }, 100);
 
