@@ -2,7 +2,7 @@
 title: "ROI de um site profissional para empresas"
 description: "Site é custo ou investimento? Entenda como calcular o Retorno sobre Investimento (ROI) de um site de alta performance para o seu negócio."
 pubDate: 2026-04-24T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/roi-de-um-site-profissional-para-empresas-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
 draft: false

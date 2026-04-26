@@ -2,7 +2,7 @@
 title: "Como avaliar orçamento de desenvolvimento web"
 description: "Não compare maçãs com laranjas. Aprenda a avaliar tecnicamente um orçamento de criação de sites para evitar dor de cabeça com serviços amadores."
 pubDate: 2026-04-22T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-avaliar-orcamento-de-desenvolvimento-web-sitesalphacode.webp"
 categories: ["Custos e Investimento"]
 tags: ["criação de sites", "custos e investimento", "marketing digital"]
 draft: false

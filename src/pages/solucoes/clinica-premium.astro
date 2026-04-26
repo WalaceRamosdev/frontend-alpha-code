@@ -1,6 +1,10 @@
 ---
 import Layout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
+import { getSession } from "../../lib/auth";
+
+const session = await getSession(Astro.request);
+const isLoggedIn = !!session;
 ---
 
 <Layout
@@ -33,9 +37,15 @@ import Button from "../../components/ui/Button.astro";
                     >
                         CONSULTAR PROJETO
                     </Button>
-                    <span class="price-tag">
-                        De <span style="text-decoration: line-through;">R$ 2.997</span> por apenas <strong>R$ 1.997</strong>
-                    </span>
+                    {isLoggedIn ? (
+                        <span class="price-tag">
+                            De <span style="text-decoration: line-through;">R$ 2.997</span> por apenas <strong>R$ 1.997</strong>
+                        </span>
+                    ) : (
+                        <span class="price-tag">
+                            Valores sob consulta para membros
+                        </span>
+                    )}
                 </div>
             </div>
             <div class="hero-image fade-in">

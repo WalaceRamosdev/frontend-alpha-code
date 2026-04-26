@@ -24,12 +24,25 @@ const isLoggedIn = !!session;
                 <div class="price-header">
                     <h3>LANDING PAGE</h3>
                     <span class="plan-subtitle-tag">Foco em Vendas</span>
+                    {isLoggedIn ? (
                         <div class="final-price-wrapper">
                             <small class="currency">R$</small> 697
                         </div>
-                        <div class="price-microtext">
-                            🚀 Estrutura profissional de alta conversão.
+                    ) : (
+                        <div class="quote-trigger-wrapper">
+                            <Button 
+                                href="/login" 
+                                variant="outline" 
+                                size="sm" 
+                                class="w-full"
+                            >
+                                Ver Preços →
+                            </Button>
                         </div>
+                    )}
+                    <div class="price-microtext">
+                        🚀 Estrutura profissional de alta conversão.
+                    </div>
                 </div>
 
                 <div class="plan-benefits">
@@ -67,9 +80,22 @@ const isLoggedIn = !!session;
                     <h3>SITE INSTITUCIONAL</h3>
                     <span class="plan-subtitle-tag">Autoridade Digital</span>
                     <div class="price text-primary price-highlight">
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 1.297
-                        </div>
+                        {isLoggedIn ? (
+                            <div class="final-price-wrapper">
+                                <small class="currency">R$</small> 1.297
+                            </div>
+                        ) : (
+                            <div class="quote-trigger-wrapper">
+                                <Button 
+                                    href="/login" 
+                                    variant="primary" 
+                                    size="sm" 
+                                    class="w-full"
+                                >
+                                    Solicitar Orçamento
+                                </Button>
+                            </div>
+                        )}
                         <div class="price-microtext">
                             ⭐ A escolha ideal para empresas em crescimento.
                         </div>
@@ -117,9 +143,22 @@ const isLoggedIn = !!session;
                         Máquina de vendas e autoridade digital definitiva.
                     </p>
                     <div class="price price-highlight">
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 1.997
-                        </div>
+                        {isLoggedIn ? (
+                            <div class="final-price-wrapper">
+                                <small class="currency">R$</small> 1.997
+                            </div>
+                        ) : (
+                            <div class="quote-trigger-wrapper">
+                                <Button 
+                                    href="/login" 
+                                    variant="outline" 
+                                    size="sm" 
+                                    class="w-full"
+                                >
+                                    Ver Condições VIP
+                                </Button>
+                            </div>
+                        )}
                         <div class="price-microtext">
                             💎 Máxima performance e autoridade digital.
                         </div>
@@ -164,7 +203,11 @@ const isLoggedIn = !!session;
             <a href="/sistemas-personalizados" class="niche-note-link">
                 <p class="niche-note">
                     📍 Restaurantes, Clínicas e Lanchonetes:{" "}
-                    <strong>A partir de R$ 1.997</strong> (Sistemas de Elite).
+                    {isLoggedIn ? (
+                        <strong>A partir de R$ 1.997</strong>
+                    ) : (
+                        <strong>Consultar Sistemas de Elite</strong>
+                    )}
                 </p>
             </a>
         </div>

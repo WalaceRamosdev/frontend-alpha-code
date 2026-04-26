@@ -110,9 +110,15 @@ export const prerender = false;
                     <h3>Presença Inicial</h3>
                     <span class="plan-subtitle">Padrão Alpha Bronze</span>
                     <div class="price price-highlight">
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 697
-                        </div>
+                        {isLoggedIn ? (
+                            <div class="final-price-wrapper">
+                                <small class="currency">R$</small> 697
+                            </div>
+                        ) : (
+                            <div class="quote-trigger-wrapper">
+                                <a href="/login" class="btn-quote">Ver Preço</a>
+                            </div>
+                        )}
                         <div class="price-microtext">
                             🚀 Presença digital com agilidade e performance.
                         </div>
@@ -311,9 +317,15 @@ export const prerender = false;
                     <h3>Estrutura de Conversão</h3>
                     <span class="plan-subtitle">Padrão Alpha Prata</span>
                     <div class="price text-primary price-highlight">
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 1.297
-                        </div>
+                        {isLoggedIn ? (
+                            <div class="final-price-wrapper">
+                                <small class="currency">R$</small> 1.297
+                            </div>
+                        ) : (
+                            <div class="quote-trigger-wrapper">
+                                <a href="/login" class="btn-quote primary">Solicitar Orçamento</a>
+                            </div>
+                        )}
                         <div class="price-microtext">
                             ⭐ Estrutura completa focada em resultados.
                         </div>
@@ -541,9 +553,15 @@ export const prerender = false;
                         deseja liderar seu nicho.
                     </p>
                     <div class="price price-highlight">
-                        <div class="final-price-wrapper">
-                            <small class="currency">R$</small> 1.997
-                        </div>
+                        {isLoggedIn ? (
+                            <div class="final-price-wrapper">
+                                <small class="currency">R$</small> 1.997
+                            </div>
+                        ) : (
+                            <div class="quote-trigger-wrapper">
+                                <a href="/login" class="btn-quote">Ver Oferta VIP</a>
+                            </div>
+                        )}
                         <div class="price-microtext">
                             💎 O auge da tecnologia e exclusividade.
                         </div>
@@ -808,7 +826,13 @@ export const prerender = false;
                 </div>
             </div>
             <div class="solo-action">
-                <div class="solo-price">Apenas <strong>R$ 97</strong>/ano</div>
+                <div class="solo-price">
+                    {isLoggedIn ? (
+                        <>Apenas <strong>R$ 97</strong>/ano</>
+                    ) : (
+                        <>Registro sob demanda</>
+                    )}
+                </div>
                 <Button href="/pedido?plan=dominio" variant="primary" class="btn-glow">REGISTRAR AGORA</Button>
             </div>
         </div>

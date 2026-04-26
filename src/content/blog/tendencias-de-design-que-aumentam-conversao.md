@@ -2,7 +2,7 @@
 title: "Tendências de design que aumentam conversão"
 description: "O design do seu site está espantando clientes ou gerando leads? Descubra as tendências de design de 2026 focadas em conversão e UX de alta performance."
 pubDate: 2026-04-27T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1561070791-2526d30994b5?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/tendencias-de-design-que-aumentam-conversao-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
 draft: false

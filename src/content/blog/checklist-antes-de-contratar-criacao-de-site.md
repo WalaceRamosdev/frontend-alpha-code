@@ -2,7 +2,7 @@
 title: "Checklist antes de contratar criação de site"
 description: "Não perca dinheiro com amadores. Veja o checklist definitivo para avaliar profissionais e contratar a criação do seu site com total segurança."
 pubDate: 2026-04-20T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/checklist-antes-de-contratar-criacao-de-site-sitesalphacode.webp"
 categories: ["Processo de Criação"]
 tags: ["criação de sites", "processo de criação", "marketing digital"]
 draft: false
