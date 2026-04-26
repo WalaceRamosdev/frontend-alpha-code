@@ -1,7 +1,9 @@
+---
 import Layout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import { getSession } from "../../lib/auth";
 
+export const prerender = false;
 const session = await getSession(Astro.request);
 const isLoggedIn = !!session;
 ---
