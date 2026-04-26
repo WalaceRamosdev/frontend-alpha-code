@@ -11,12 +11,12 @@ const niche = niches.find((n) => n.slug === slug);
 
 if (!niche) return null;
 
-// Select formula based on simple pseudo-random logic or just index
-// For SEO consistency, we usually want one per page, but we can rotate
-// Let's just use formula 1 as default, or we could pass it.
-// The user suggested "Meta descriptions variadas", so maybe rotate by month/day or just use different ones on different niche landing variations.
-// However, for a single page, we need ONE description.
-// I'll default to formula 2 (Benefit + Speed + CTA) as it's very effective.
+// Selecione a fórmula com base em lógica pseudoaleatória simples ou apenas indexe
+// Para consistência de SEO, geralmente queremos uma por página, mas podemos alternar
+// Vamos usar a fórmula 1 como padrão, ou podemos passá-la adiante.
+// O usuário sugeriu "Meta descrições variadas", então talvez possamos alternar por mês/dia ou usar diferentes descrições em diferentes variações de nicho.
+// No entanto, para uma única página, precisamos de APENAS UMA descrição.
+// Vou usar a fórmula 2 (Benefício + Velocidade + CTA) como padrão, pois é muito eficaz.
 
 const description = niche.metaFormulas.formula2;
 const title = `${niche.title} | Alpha Code`;

@@ -24,13 +24,13 @@ Todo site, independente do tamanho, possui custos fixos anuais que você deve co
 
 ## Faixas de Investimento por Tipo de Projeto
 
-### 1. Landing Pages (A partir de R$ 295,00)
+### 1. Landing Pages (A partir de R$ 697,00)
 Ideais para campanhas de anúncios (Google Ads / Meta Ads) de um único serviço. É uma página focada 100% em conversão. Na Alpha Code, oferecemos tecnologia de ponta com um custo extremamente acessível para quem está começando.
 
-### 2. Sites Institucionais Premium (A partir de R$ 449,00)
+### 2. Sites Institucionais Premium (A partir de R$ 1.297,00)
 Um site completo com várias páginas (Home, Sobre, Serviços, Blog, Contato). É o modelo ideal para empresas que buscam autoridade e querem ranquear organicamente no Google. Na Alpha Code, entregamos o "padrão ouro" do mercado por uma fração do preço de agências tradicionais.
 
-### 3. Sistemas de Elite e E-commerce (A partir de R$ 710,00)
+### 3. Sistemas de Elite e E-commerce (A partir de R$ 1.997,00)
 Lojas virtuais e sistemas para clínicas ou restaurantes com funcionalidades avançadas. O valor escala conforme a complexidade, mas mantemos política de preços justos para viabilizar seu negócio.
 
 ## Por que sites "baratos" saem caro?
