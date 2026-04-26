@@ -2,7 +2,7 @@
 title: "Como aparecer no Google com site novo"
 description: "Acabou de lançar o site? Entenda o passo a passo de indexação e as ações imediatas para aparecer no Google sem depender eternamente de anúncios."
 pubDate: 2026-05-01T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-aparecer-no-google-com-site-novo-sitesalphacode.webp"
 categories: ["SEO e Tráfego"]
 tags: ["criação de sites", "seo e tráfego", "marketing digital"]
 draft: false

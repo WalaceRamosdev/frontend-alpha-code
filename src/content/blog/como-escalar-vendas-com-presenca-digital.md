@@ -2,7 +2,7 @@
 title: "Como escalar vendas com presença digital"
 description: "Sua empresa estagnou? Descubra o método testado para escalar suas vendas utilizando uma presença digital de elite e funis de conversão automáticos."
 pubDate: 2026-05-06T12:30:00-03:00
-heroImage: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&q=80&w=2000"
+heroImage: "/assets/blog/como-escalar-vendas-com-presenca-digital-sitesalphacode.webp"
 categories: ["Conversão e Vendas"]
 tags: ["criação de sites", "conversão e vendas", "marketing digital"]
 draft: false
