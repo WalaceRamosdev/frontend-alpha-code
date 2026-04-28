@@ -1,0 +1,267 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/ui/Button.astro";
+
+const estado = "Mato Grosso do Sul";
+const sigla = "MS";
+const cidades = [
+    { name: "Campo Grande", icon: "🏙️" },
+    { name: "Dourados", icon: "🚜" },
+    { name: "Três Lagoas", icon: "🏭" },
+    { name: "Ponta Porã", icon: "🤝" },
+    { name: "Corumbá", icon: "⛴️" }
+];
+---
+
+<BaseLayout
+    title={`Site para Energia Solar no ${sigla} | Especialista em Agronegócio | Alpha Code`}
+    description={`Liderança em marketing e sites para instaladoras de energia solar em ${estado}. Foco em agronegócio, fazendas e usinas fotovoltaicas em MS.`}
+>
+    <div class="solar-ms-page">
+        <!-- HERO PREMIUM -->
+        <section class="hero-ms">
+            <div class="hero-overlay"></div>
+            <div class="container relative z-10">
+                <div class="hero-content">
+                    <div class="badge-v2">#1 EM ENERGIA SOLAR NO MS</div>
+                    <h1 class="text-6xl md:text-8xl font-black mb-8 leading-tight">
+                        Energia Solar no <br/><span class="text-gradient">Coração do Agro</span>
+                    </h1>
+                    <p class="text-xl md:text-2xl text-gray-300 max-w-3xl mb-12 leading-relaxed">
+                        Sites de elite para instaladoras que buscam dominar o mercado do Mato Grosso do Sul. Tecnologia que conecta sua empresa aos maiores produtores rurais do estado.
+                    </p>
+                    <div class="flex flex-wrap gap-6">
+                        <Button href="https://wa.me/5521999064502?text=Quero um site focado no mercado solar de MS." variant="primary" size="lg" class="glow-button">
+                            ⚡ SOLICITAR PROJETO NO MS
+                        </Button>
+                        <Button href="/solucoes/energia-solar" variant="outline" size="lg">
+                            VER SOLUÇÃO COMPLETA
+                        </Button>
+                    </div>
+                </div>
+            </div>
+            <div class="scroll-indicator">
+                <div class="mouse"></div>
+                <p>Role para explorar</p>
+            </div>
+        </section>
+
+        <!-- STATS SECTION -->
+        <section class="stats-grid-ms py-24 bg-darker">
+            <div class="container">
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-12">
+                    <div class="stat-card">
+                        <span class="stat-num">300+</span>
+                        <span class="stat-label">Dias de Sol/Ano em MS</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">#1</span>
+                        <span class="stat-label">Crescimento no Agro</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">100%</span>
+                        <span class="stat-label">SEO Local Campo Grande</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-num">24h</span>
+                        <span class="stat-label">Geração de Leads</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- AGRO SOLUTIONS -->
+        <section class="agro-focus py-32">
+            <div class="container">
+                <div class="section-header text-center mb-20">
+                    <span class="tag">AGRONEGÓCIO & TECNOLOGIA</span>
+                    <h2 class="text-5xl font-black mt-4">Soluções que falam a língua do <span class="text-primary">Produtor Rural</span></h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="feature-box">
+                        <div class="icon">🚜</div>
+                        <h3>Usinas de Solo</h3>
+                        <p>Sites otimizados para atrair investidores de grandes usinas fotovoltaicas em áreas rurais.</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="icon">💧</div>
+                        <h3>Irrigação Solar</h3>
+                        <p>Destaque sua tecnologia de bombeamento solar e reduza o custo fixo da lavoura do seu cliente.</p>
+                    </div>
+                    <div class="feature-box">
+                        <div class="icon">🐄</div>
+                        <h3>Pecuária Sustentável</h3>
+                        <p>Leve energia limpa para confinamentos e leiterias com sites que transmitem confiança absoluta.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CIDADES GRID -->
+        <section class="cidades-ms py-24 bg-white/5 border-y border-white/5">
+            <div class="container">
+                <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-8">
+                    <div class="max-w-2xl">
+                        <h2 class="text-4xl font-black">Dominância nas principais <br/> cidades de <span class="text-primary">Mato Grosso do Sul</span></h2>
+                    </div>
+                    <p class="text-gray-400">Expandimos sua visibilidade onde os contratos acontecem.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6">
+                    {cidades.map(cidade => (
+                        <div class="city-card">
+                            <span class="city-icon">{cidade.icon}</span>
+                            <h4>{cidade.name}</h4>
+                            <p>SEO Local Ativo</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- FINAL CTA -->
+        <section class="final-cta-ms py-32 text-center">
+            <div class="container">
+                <div class="cta-inner">
+                    <h2 class="text-5xl font-black mb-8">Sua instaladora solar em MS <br/> <span class="text-primary">merece o melhor site do Brasil.</span></h2>
+                    <p class="text-xl text-gray-400 mb-12 max-w-2xl mx-auto">Não deixe que sua empresa seja apenas mais uma. Torne-se a autoridade máxima em energia solar no Centro-Oeste.</p>
+                    <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button px-12">
+                        COMEÇAR AGORA NO MS
+                    </Button>
+                </div>
+            </div>
+        </section>
+    </div>
+</BaseLayout>
+
+<style>
+    .solar-ms-page {
+        --color-primary: #f59e0b;
+        --color-primary-rgb: 245, 158, 11;
+        background: #050505;
+        color: #fff;
+        font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+    .text-primary { color: var(--color-primary); }
+    .text-gradient {
+        background: linear-gradient(135deg, #fff 0%, var(--color-primary) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* HERO */
+    .hero-ms {
+        min-height: 90vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        background-image: url('/assets/solar_energy_ms_agro_hero.png');
+        background-size: cover;
+        background-position: center;
+    }
+    .hero-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(to right, #000 30%, rgba(0,0,0,0.4) 100%);
+    }
+
+    .badge-v2 {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(var(--color-primary-rgb), 0.1);
+        border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--color-primary);
+        margin-bottom: 2rem;
+    }
+
+    .glow-button {
+        background: var(--color-primary) !important;
+        color: #000 !important;
+        font-weight: 900 !important;
+        box-shadow: 0 10px 30px rgba(var(--color-primary-rgb), 0.3);
+    }
+
+    /* STATS */
+    .stat-card {
+        text-align: center;
+        padding: 2rem;
+        background: rgba(255,255,255,0.02);
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 20px;
+    }
+    .stat-num {
+        display: block;
+        font-size: 3rem;
+        font-weight: 900;
+        color: var(--color-primary);
+        margin-bottom: 0.5rem;
+    }
+    .stat-label {
+        font-size: 0.8rem;
+        color: #666;
+        text-transform: uppercase;
+        font-weight: 700;
+        letter-spacing: 1px;
+    }
+
+    /* FEATURE BOX */
+    .feature-box {
+        padding: 3rem;
+        background: #0c0c0c;
+        border: 1px solid rgba(255,255,255,0.05);
+        border-radius: 30px;
+        transition: 0.3s;
+    }
+    .feature-box:hover {
+        transform: translateY(-10px);
+        border-color: var(--color-primary);
+    }
+    .feature-box .icon { font-size: 3rem; margin-bottom: 1.5rem; }
+    .feature-box h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; }
+    .feature-box p { color: #888; line-height: 1.6; }
+
+    /* CITY CARDS */
+    .city-card {
+        padding: 2rem;
+        background: rgba(255,255,255,0.03);
+        border-radius: 20px;
+        text-align: center;
+        transition: 0.3s;
+        border: 1px solid transparent;
+    }
+    .city-card:hover {
+        background: rgba(var(--color-primary-rgb), 0.05);
+        border-color: rgba(var(--color-primary-rgb), 0.2);
+    }
+    .city-icon { font-size: 2rem; display: block; margin-bottom: 1rem; }
+    .city-card h4 { font-weight: 800; font-size: 1.1rem; }
+    .city-card p { font-size: 0.75rem; color: #444; text-transform: uppercase; margin-top: 0.5rem; font-weight: 700; }
+
+    .tag { font-size: 0.7rem; font-weight: 900; color: var(--color-primary); letter-spacing: 3px; }
+
+    .scroll-indicator {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        opacity: 0.5;
+    }
+    .mouse {
+        width: 25px;
+        height: 40px;
+        border: 2px solid #fff;
+        border-radius: 20px;
+        margin: 0 auto 10px;
+    }
+
+    @media (max-width: 768px) {
+        .hero-ms h1 { font-size: 3.5rem; }
+    }
+</style>

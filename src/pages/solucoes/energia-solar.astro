@@ -40,29 +40,54 @@ const estados = [
 ---
 
 <BaseLayout
-    title="Site para Empresa de Energia Solar | Instalação de Painéis Fotovoltaicos | Alpha Code"
-    description="Site profissional para empresa de energia solar e instalação de painéis fotovoltaicos. SEO nacional, alta performance e design que gera orçamentos todos os dias. Orçamento em 24h!"
+    title="Criação de Sites para Empresas de Energia Solar MS e PA | Alpha Code"
+    description="Atraia mais orçamentos de energia solar em Mato Grosso do Sul e Pará. Sites de alta performance para instaladoras com SEO local, foco em agronegócio e logística."
     showHeader={true}
     showFooter={true}
     showSocialProof={true}
 >
-    <NicheMeta slug="energia-solar" slot="head" />
-
     <!-- JSON-LD para SEO de nicho -->
-    <script type="application/ld+json" slot="scripts" set:html={JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "Service",
-        "name": "Criação de Sites para Empresas de Energia Solar",
-        "provider": {
-            "@type": "Organization",
-            "name": "Alpha Code",
-            "url": "https://www.sitesalphacode.com.br"
+    <script type="application/ld+json" slot="scripts" set:html={JSON.stringify([
+        {
+            "@context": "https://schema.org",
+            "@type": "ProfessionalService",
+            "name": "Alpha Code - Criação de Sites para Energia Solar",
+            "image": "https://www.sitesalphacode.com.br/assets/clinica_system_tech_mockup.png",
+            "@id": "https://www.sitesalphacode.com.br/solucoes/energia-solar",
+            "url": "https://www.sitesalphacode.com.br/solucoes/energia-solar",
+            "telephone": "+5521999064502",
+            "address": {
+                "@type": "PostalAddress",
+                "streetAddress": "Centro",
+                "addressLocality": "Campo Grande",
+                "addressRegion": "MS",
+                "postalCode": "79000-000",
+                "addressCountry": "BR"
+            },
+            "geo": {
+                "@type": "GeoCoordinates",
+                "latitude": -20.4697,
+                "longitude": -54.6201
+            },
+            "areaServed": [
+                {"@type": "State", "name": "Mato Grosso do Sul"},
+                {"@type": "State", "name": "Pará"}
+            ],
+            "description": "Especialistas em marketing digital e criação de sites para empresas de energia solar no MS e PA. Foco em agronegócio e setor comercial."
         },
-        "description": "Sites profissionais para instaladoras de painéis solares fotovoltaicos. SEO nacional, alta performance e design focado em geração de orçamentos.",
-        "areaServed": "BR",
-        "serviceType": "Web Design e Desenvolvimento",
-        "keywords": "site para empresa de energia solar, marketing energia solar, instalação painéis solares, site empresa fotovoltaica"
-    })} />
+        {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": faq.map(item => ({
+                "@type": "Question",
+                "name": item.q,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.a
+                }
+            }))
+        }
+    ])} />
 
     <div class="niche-page solar-theme">
 
@@ -81,10 +106,10 @@ const estados = [
                         <span class="dot"></span> MARKETING DIGITAL PARA ENERGIA SOLAR
                     </div>
                     <h1 class="hero-title-v2 hero-reveal">
-                        Sua empresa de energia solar merece um site que <span class="text-gradient">vende enquanto você instala</span>
+                        Sites para Empresas de <br/><span class="text-gradient">Energia Solar no MS e PA</span>
                     </h1>
                     <p class="hero-sub-v2 hero-reveal">
-                        Sites de alta performance para instaladoras de painéis fotovoltaicos. Apareça no topo do Google em todo o Brasil, gere orçamentos 24h por dia e escale suas vendas sem depender só de indicações.
+                        Especialistas em gerar leads qualificados para instaladoras fotovoltaicas com foco no agronegócio do Mato Grosso do Sul e setor comercial do Pará. SEO local de alta performance para dominar o Google em 2026.
                     </p>
                     <div class="hero-actions-v2 hero-reveal">
                         <div class="flex flex-wrap gap-4">
@@ -398,13 +423,36 @@ const estados = [
                     </div>
                     <div class="market-card stagger-card">
                         <div class="market-icon">🌾</div>
-                        <h3>Rural e Agronegócio</h3>
-                        <p>Sites específicos para atender propriedades rurais, fazendas e cooperativas que buscam energia solar para irrigação e operações agrícolas.</p>
+                        <h3>Rural e Agronegócio (Foco MS)</h3>
+                        <p>Especialistas em propriedades rurais no Mato Grosso do Sul. Sites para fazendas e cooperativas que buscam energia solar para irrigação e pecuária.</p>
                         <ul class="market-list">
-                            <li>✓ SEO rural e agro</li>
-                            <li>✓ Projetos off-grid e on-grid</li>
-                            <li>✓ Financiamento via PRONAF</li>
+                            <li>✓ SEO focado em Campo Grande e interior de MS</li>
+                            <li>✓ Projetos off-grid para áreas remotas</li>
+                            <li>✓ Integração com linhas de crédito rural</li>
                         </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Regional Section -->
+        <section class="regional-focus py-24 bg-dark-accent">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <span class="tag-v2">FOCO REGIONAL</span>
+                    <h2>Liderança em Energia Solar no <span class="text-primary">MS e Pará</span></h2>
+                    <p>Entendemos as particularidades climáticas e de mercado das regiões Centro-Oeste e Norte.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12">
+                    <div class="regional-card p-10 bg-white/5 border border-white/10 rounded-3xl">
+                        <h3 class="text-2xl font-bold mb-4">Mato Grosso do Sul (MS)</h3>
+                        <p class="text-gray-400 mb-6">Foco total no <strong>Agronegócio</strong>. Criamos sites que conectam sua instaladora com produtores rurais de Campo Grande, Dourados e Três Lagoas.</p>
+                        <div class="text-primary font-bold text-sm">#1 em Marketing Solar no MS</div>
+                    </div>
+                    <div class="regional-card p-10 bg-white/5 border border-white/10 rounded-3xl">
+                        <h3 class="text-2xl font-bold mb-4">Pará (PA)</h3>
+                        <p class="text-gray-400 mb-6">Foco em <strong>Logística e Comércio</strong>. Sites otimizados para atrair empresas em Belém, Ananindeua e Santarém que buscam eficiência energética.</p>
+                        <div class="text-primary font-bold text-sm">Especialistas em SEO Local no Pará</div>
                     </div>
                 </div>
             </div>
