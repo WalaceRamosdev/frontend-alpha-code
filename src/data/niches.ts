@@ -142,9 +142,9 @@ export const niches: NicheContent[] = [
     {
         slug: "psicologos",
         name: "Psicólogos",
-        title: "Psicólogos - Atuem com Ética e Autoridade",
-        heroTitle: "Todos os dias, Psicólogos perdem pacientes por não serem encontrados no Google. Vamos mudar isso.",
-        heroDesc: "Sites profissionais que transmitem acolhimento, autoridade e segurança. Conquiste mais pacientes particulares sem depender apenas de redes sociais ou indicações.",
+        title: "Marketing Ético para Psicólogos: Autoridade e Presença Digital",
+        heroTitle: "Sua competência clínica merece um posicionamento digital à altura. Com ética e acolhimento.",
+        heroDesc: "Desenvolvemos sites para psicólogos que transmitem confiança e segurança, respeitando rigorosamente as normas do CFP enquanto constroem sua autoridade digital.",
         badge: "Estratégia Digital Ética",
         keywords: ["site para psicólogo", "marketing para psicólogos", "agenda lotada psicologia", "site profissional saúde mental"],
         detailedContent: `
@@ -164,9 +164,9 @@ export const niches: NicheContent[] = [
         ],
         ctaText: "QUERO MEU ORÇAMENTO EM 24H",
         metaFormulas: {
-            formula1: "Atraia mais pacientes com um site profissional para Psicólogo. Design acolhedor, blog para artigos e agendamento online. +1.400 sites entregues. Orçamento em 24h!",
-            formula2: "Site para Psicólogo com carregamento ultrarrápido (Astro.js), SEO otimizado e integração com WhatsApp. Destaque-se no Google. Solicite um diagnóstico gratuito!",
-            formula3: "Psicólogo, você é encontrado no Google? Criamos sites que geram autoridade, atraem pacientes e convertem. +20 anos de experiência. Fale conosco!"
+            formula1: "Posicione-se com autoridade clínica através de um site profissional para Psicólogos. Design acolhedor, ético e otimizado para o Google. Orçamento em 24h!",
+            formula2: "Marketing Ético para Psicólogos: Site profissional com tecnologia Astro.js e SEO focado em saúde mental. Construa sua presença digital com segurança.",
+            formula3: "Seu consultório de psicologia é referência no Google? Criamos sites que geram autoridade ética e conectam você com quem precisa. Fale conosco!"
         }
     },
     {
