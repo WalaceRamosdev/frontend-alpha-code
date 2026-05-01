@@ -33,13 +33,22 @@ const faq = [
     showSocialProof={true}
 >
     <NicheMeta slug="psicologos" slot="head" />
+    <link rel="preload" as="image" href="/assets/banners/psicologia-hero.png" slot="head" fetchpriority="high" />
 
     <div class="niche-page psychology-theme">
         
         <!-- HERO -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
-                <img src="/assets/banners/psicologia-hero.png" alt="Consultório de Psicologia Profissional" class="hero-bg-image" />
+                <img 
+                    src="/assets/banners/psicologia-hero.png" 
+                    alt="Consultório de Psicologia Profissional" 
+                    class="hero-bg-image" 
+                    loading="eager"
+                    fetchpriority="high"
+                    width="1920"
+                    height="1080"
+                />
                 <div class="hero-overlay"></div>
             </div>
             
@@ -155,7 +164,14 @@ const faq = [
                                     <div class="browser-dot-yellow"></div>
                                     <div class="browser-dot-green"></div>
                                 </div>
-                                <img src="/assets/imagens-de-paginas/nayanneJustiniano.svg" alt="Exemplo site psicologia" class="project-preview-img" />
+                                <img 
+                                    src="/assets/imagens-de-paginas/nayanneJustiniano.svg" 
+                                    alt="Exemplo site psicologia" 
+                                    class="project-preview-img" 
+                                    loading="lazy"
+                                    width="600"
+                                    height="400"
+                                />
                             </div>
                         </div>
                     </div>
@@ -407,32 +423,59 @@ const faq = [
     import { ScrollTrigger } from "gsap/ScrollTrigger";
     gsap.registerPlugin(ScrollTrigger);
 
-    document.addEventListener('astro:page-load', () => {
+    // Use requestAnimationFrame for smoother start and less blocking
+    const initAnimations = () => {
         ScrollTrigger.refresh();
 
         // Parallax Hero
         gsap.to(".hero-bg-image", { 
-            scrollTrigger: { trigger: ".hero-lp-v2", start: "top top", scrub: true }, 
-            y: 100, opacity: 0.4 
+            scrollTrigger: { 
+                trigger: ".hero-lp-v2", 
+                start: "top top", 
+                scrub: true,
+                invalidateOnRefresh: true
+            }, 
+            y: 100, 
+            opacity: 0.4 
         });
 
         // Hero animations (Load immediately)
-        gsap.fromTo(".hero-reveal", { y: 40, opacity: 0 }, {
-            y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        gsap.fromTo(".hero-reveal", { y: 30, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.1
         });
 
-        // Reveal animations (Scroll)
-        document.querySelectorAll(".reveal-up").forEach((el) => {
-            gsap.fromTo(el, { y: 40, opacity: 0 }, {
-                scrollTrigger: { trigger: el, start: "top 90%" },
-                y: 0, opacity: 1, duration: 1, ease: "power3.out"
+        // Reveal animations (Scroll) - Use batch or more efficient triggers
+        const revealElements = document.querySelectorAll(".reveal-up");
+        revealElements.forEach((el) => {
+            gsap.fromTo(el, { y: 30, opacity: 0 }, {
+                scrollTrigger: { 
+                    trigger: el, 
+                    start: "top 92%",
+                    toggleActions: "play none none none"
+                },
+                y: 0, opacity: 1, duration: 0.8, ease: "power3.out"
             });
         });
 
         // Stagger cards
-        gsap.fromTo(".stagger-card", { y: 50, opacity: 0 }, {
-            scrollTrigger: { trigger: ".stagger-container", start: "top 80%" },
-            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out"
+        gsap.fromTo(".stagger-card", { y: 40, opacity: 0 }, {
+            scrollTrigger: { 
+                trigger: ".stagger-container", 
+                start: "top 85%" 
+            },
+            y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power2.out"
         });
+    };
+
+    document.addEventListener('astro:page-load', () => {
+        // Delay slightly to allow browser to handle FCP first
+        if (window.innerWidth > 768) {
+            requestAnimationFrame(() => {
+                setTimeout(initAnimations, 50);
+            });
+        } else {
+            // Simpler/No animations for mobile to boost performance
+            gsap.set(".hero-reveal, .reveal-up, .stagger-card", { opacity: 1, y: 0 });
+        }
     });
 </script>

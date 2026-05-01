@@ -1,5 +1,6 @@
 ---
 import { getSession } from "../../lib/auth";
+import { niches } from "../../data/niches";
 
 const { request } = Astro;
 let session = null;
@@ -16,7 +17,19 @@ try {
 const currentPath = Astro.url.pathname;
 const isDashboard = currentPath === "/dashboard" || currentPath === "/perfil";
 const isAdmin = session?.user?.role === "ADMIN";
-import { niches } from "../../data/niches";
+
+// Agrupamento dinâmico para o menu
+const categories = [
+    { name: "Saúde", icon: "🩺", items: ["psicologos", "medicos", "dentistas"] },
+    { name: "Jurídico", icon: "⚖️", items: ["advogados"] },
+    { name: "Negócios", icon: "📊", items: ["contadores", "arquitetos"] },
+    { name: "Técnico", icon: "⚡", items: ["energia-solar", "manutencao"] }
+];
+
+const groupedNiches = categories.map(cat => ({
+    label: `${cat.icon} ${cat.name}`,
+    niches: cat.items.map(slug => niches.find(n => n.slug === slug)).filter(Boolean)
+}));
 ---
 
 <header id="main-header">
@@ -61,41 +74,16 @@ import { niches } from "../../data/niches";
                         </button>
                         <div class="desktop-dropdown-menu dropdown-accordion">
                             <div class="dropdown-accordion-content">
-                                <!-- Category: Saúde -->
-                                <div class="dropdown-acc-item">
-                                    <button class="acc-trigger">🩺 Saúde <span class="acc-chevron">▼</span></button>
-                                    <ul class="acc-list">
-                                        <li><a href="/solucoes/psicologos">Psicólogos</a></li>
-                                        <li><a href="/solucoes/medicos">Médicos</a></li>
-                                        <li><a href="/solucoes/dentistas">Dentistas</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <!-- Category: Jurídico -->
-                                <div class="dropdown-acc-item">
-                                    <button class="acc-trigger">⚖️ Jurídico <span class="acc-chevron">▼</span></button>
-                                    <ul class="acc-list">
-                                        <li><a href="/solucoes/advogados">Advogados</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <!-- Category: Negócios -->
-                                <div class="dropdown-acc-item">
-                                    <button class="acc-trigger">📊 Negócios <span class="acc-chevron">▼</span></button>
-                                    <ul class="acc-list">
-                                        <li><a href="/solucoes/contadores">Contadores</a></li>
-                                        <li><a href="/solucoes/arquitetos">Arquitetos</a></li>
-                                    </ul>
-                                </div>
-                                
-                                <!-- Category: Técnico -->
-                                <div class="dropdown-acc-item">
-                                    <button class="acc-trigger">⚡ Técnico <span class="acc-chevron">▼</span></button>
-                                    <ul class="acc-list">
-                                        <li><a href="/solucoes/energia-solar">Energia Solar</a></li>
-                                        <li><a href="/manutencao">Manutenção</a></li>
-                                    </ul>
-                                </div>
+                                {groupedNiches.map(cat => (
+                                    <div class="dropdown-acc-item">
+                                        <button class="acc-trigger">{cat.label} <span class="acc-chevron">▼</span></button>
+                                        <ul class="acc-list">
+                                            {cat.niches.map(niche => (
+                                                <li><a href={`/solucoes/${niche.slug}`}>{niche.name}</a></li>
+                                            ))}
+                                        </ul>
+                                    </div>
+                                ))}
 
                                 <!-- Featured Hub Link -->
                                 <div class="dropdown-acc-footer">
@@ -351,37 +339,16 @@ import { niches } from "../../data/niches";
                                 </svg>
                             </button>
                             <ul class="mobile-dropdown-menu">
-                                <li class="mobile-category-wrapper">
-                                    <div class="mobile-category-label">🩺 Saúde</div>
-                                    <ul class="mobile-sub-menu">
-                                        <li><a href="/solucoes/psicologos"><span class="bullet"></span>Psicólogos</a></li>
-                                        <li><a href="/solucoes/medicos"><span class="bullet"></span>Médicos</a></li>
-                                        <li><a href="/solucoes/dentistas"><span class="bullet"></span>Dentistas</a></li>
-                                    </ul>
-                                </li>
-                                
-                                <li class="mobile-category-wrapper">
-                                    <div class="mobile-category-label">⚖️ Jurídico</div>
-                                    <ul class="mobile-sub-menu">
-                                        <li><a href="/solucoes/advogados"><span class="bullet"></span>Advogados</a></li>
-                                    </ul>
-                                </li>
-                                
-                                <li class="mobile-category-wrapper">
-                                    <div class="mobile-category-label">📊 Negócios</div>
-                                    <ul class="mobile-sub-menu">
-                                        <li><a href="/solucoes/contadores"><span class="bullet"></span>Contadores</a></li>
-                                        <li><a href="/solucoes/arquitetos"><span class="bullet"></span>Arquitetos</a></li>
-                                    </ul>
-                                </li>
-                                
-                                <li class="mobile-category-wrapper">
-                                    <div class="mobile-category-label">⚡ Técnico</div>
-                                    <ul class="mobile-sub-menu">
-                                        <li><a href="/solucoes/energia-solar"><span class="bullet"></span>Energia Solar</a></li>
-                                        <li><a href="/manutencao"><span class="bullet"></span>Manutenção</a></li>
-                                    </ul>
-                                </li>
+                                {groupedNiches.map(cat => (
+                                    <li class="mobile-category-wrapper">
+                                        <div class="mobile-category-label">{cat.label}</div>
+                                        <ul class="mobile-sub-menu">
+                                            {cat.niches.map(niche => (
+                                                <li><a href={`/solucoes/${niche.slug}`}><span class="bullet"></span>{niche.name}</a></li>
+                                            ))}
+                                        </ul>
+                                    </li>
+                                ))}
                                 
                                 <li style="margin-top: 15px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 10px;">
                                     <a href="/solucoes" style="color: var(--color-primary, #e53e3e); font-weight: 800;">
