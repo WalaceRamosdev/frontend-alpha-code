@@ -93,10 +93,11 @@ const seo = createSEOMeta({
 <html lang="pt-BR">
     <head>
         <meta charset="UTF-8" />
+        <slot name="head" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <!-- Google Tag Manager -->
-        <script is:inline>
+        <script type="text/partytown">
             document.documentElement.classList.add("js-enabled");
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
@@ -124,12 +125,11 @@ const seo = createSEOMeta({
         </script>
         <!-- End Google Tag Manager -->
 
-        <!-- Google tag (gtag.js) -->
         <script
-            async
+            type="text/partytown"
             src="https://www.googletagmanager.com/gtag/js?id=AW-17948194634"
         ></script>
-        <script is:inline>
+        <script type="text/partytown">
             window.dataLayer = window.dataLayer || [];
             function gtag() {
                 dataLayer.push(arguments);
@@ -257,7 +257,6 @@ const seo = createSEOMeta({
         {!noIndex && <meta name="robots" content={seo.robots} />}
 
         <ViewTransitions />
-        <slot name="head" />
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
