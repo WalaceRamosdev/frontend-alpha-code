@@ -1,5 +1,6 @@
 ---
 import { getSession } from "../../lib/auth";
+import type { NicheContent } from "../../data/niches";
 import { niches } from "../../data/niches";
 
 const { request } = Astro;
@@ -28,7 +29,7 @@ const categories = [
 
 const groupedNiches = categories.map(cat => ({
     label: `${cat.icon} ${cat.name}`,
-    niches: cat.items.map(slug => niches.find(n => n.slug === slug)).filter(Boolean)
+    niches: cat.items.map(slug => niches.find(n => n.slug === slug)).filter((n): n is NicheContent => !!n)
 }));
 ---
 
