@@ -96,22 +96,19 @@ const seo = createSEOMeta({
         <slot name="head" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+        <script is:inline>document.documentElement.classList.add("js-enabled");</script>
         <!-- Google Tag Manager -->
         <script type="text/partytown">
-            document.documentElement.classList.add("js-enabled");
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
-                w[l].push({
-                    "gtm.start": new Date().getTime(),
-                    event: "gtm.js",
-                });
+                w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
                 var f = d.getElementsByTagName(s)[0],
                     j = d.createElement(s),
                     dl = l != "dataLayer" ? "&l=" + l : "";
                 j.async = true;
                 j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                 f.parentNode.insertBefore(j, f);
-            })(window, document, "script", "dataLayer", "GTM-T98FLHVM");
+            })(window, document, "script", "dataLayer", "GTM-P839T8F");
 
             // Re-trigger GTM on page transitions (ViewTransitions)
             document.addEventListener('astro:page-load', () => {
