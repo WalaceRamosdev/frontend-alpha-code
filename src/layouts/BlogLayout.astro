@@ -386,7 +386,8 @@ const articleSchema = {
     }
 
     .category-badge {
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         padding: 6px 16px;
         background: rgba(255, 255, 255, 0.05);
         border: 1px solid rgba(255, 255, 255, 0.1);
@@ -396,7 +397,7 @@ const articleSchema = {
         text-transform: uppercase;
         letter-spacing: 2px;
         color: #fff;
-        margin-bottom: 20px;
+        line-height: 1;
     }
 
     .post-meta-top {
@@ -404,9 +405,10 @@ const articleSchema = {
         align-items: center;
         justify-content: center;
         gap: 12px;
-        margin-bottom: 24px;
+        margin-bottom: 32px;
         color: #666;
         font-size: 0.9rem;
+        line-height: 1;
     }
 
     .dot {
