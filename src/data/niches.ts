@@ -265,5 +265,36 @@ export const niches: NicheContent[] = [
             formula2: "Sua empreiteira ou empresa de serviços no Google. SEO local forte. Peça seu site!",
             formula3: "Venda mais serviços de manutenção with um site profissional da Alpha Code."
         }
+    },
+    {
+        slug: "afiliados",
+        name: "Afiliados",
+        title: "Estrutura Própria para Afiliados Shopee, Mercado Livre e Amazon",
+        heroTitle: "Pare de ser refém do algoritmo. Construa sua Estrutura Própria.",
+        heroDesc: "Desenvolvemos o ecossistema definitivo para afiliados de elite. Fuja dos bloqueios, domine o Pixel e escale suas vendas com sites ultra-rápidos e focados em alta conversão.",
+        badge: "Performance Máxima para Afiliados",
+        keywords: ["estrutura própria para afiliados", "site para afiliados shopee", "marketing de afiliados", "página de pre-sell", "advertorial para afiliados"],
+        detailedContent: `
+            <p>No mercado de afiliados, a diferença entre quem ganha 'renda extra' e quem fatura <strong>múltiplos 5 e 6 dígitos</strong> é a estrutura. Depender apenas de redes sociais é construir um castelo em terreno alugado.</p>
+            <p>Nossa <strong>estrutura própria para afiliados</strong> é baseada em Astro.js, garantindo que seu cliente nunca saia da página por lentidão. Integramos <strong>Pixel do Facebook, API de Conversão e Google Analytics</strong> para que você tenha o controle real dos seus dados e possa fazer retargeting de forma profissional.</p>
+            <p>Seja com <strong>Link Hubs, Advertoriais ou Páginas de Pre-sell</strong>, entregamos a engenharia necessária para você se posicionar no Top 1% do mercado.</p>
+        `,
+        benefits: [
+            "Velocidade Insana: Carregamento em menos de 0.8s para não perder nenhum clique.",
+            "Controle Total de Dados: Pixel e API de Conversão configurados para escala real.",
+            "Fim dos Bloqueios: Links hospedados no seu próprio domínio, com autoridade e segurança.",
+            "Design de Autoridade: Passe a confiança necessária para vender produtos físicos de alto ticket."
+        ],
+        faq: [
+            { question: "O site ajuda a evitar bloqueios?", answer: "Sim. Ao usar seu próprio domínio e uma estrutura profissional, você evita ser marcado como spam por agregadores de links gratuitos." },
+            { question: "Vocês configuram o Pixel e a API?", answer: "Sim, entregamos o setup técnico pronto para que você possa focar apenas em rodar o tráfego e vender." },
+            { question: "Consigo criar páginas para vários produtos?", answer: "Com certeza. Nossa estrutura é modular, permitindo que você escale para dezenas de produtos vencedores rapidamente." }
+        ],
+        ctaText: "QUERO MINHA ESTRUTURA PRÓPRIA",
+        metaFormulas: {
+            formula1: "Escala real para afiliados Shopee e Mercado Livre. Tenha sua estrutura própria com Astro.js e Pixel integrado. Orçamento em 24h!",
+            formula2: "Pare de perder dinheiro com sites lentos. Criamos sua estrutura de afiliado ultra-rápida e focada em conversão. Saiba mais!",
+            formula3: "Domine o mercado de afiliados com profissionalismo. Estruturas próprias, advertoriais e pré-sells de alta performance. Fale conosco!"
+        }
     }
 ];

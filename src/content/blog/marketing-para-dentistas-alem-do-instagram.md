@@ -1,6 +1,6 @@
 ---
 title: "Marketing para Dentistas: Por que o Instagram não é suficiente para fechar Implantes e Lentes"
-description: "Muitas clínicas odontológicas investem pesado em redes sociais, mas falham na conversão final. Descubra por que um site de autoridade é o fechamento indispensável para tratamentos de alto ticket."
+description: "Muitas clínicas odontológicas investem pesado em redes sociais, mas falham na conversão final. Descubra por que um site de autoridade é o fechamento indispen..."
 pubDate: 2026-05-11T12:30:00-03:00
 heroImage: "/assets/blog/marketing-odontologia-premium.webp"
 categories: ["Conversão e Vendas"]

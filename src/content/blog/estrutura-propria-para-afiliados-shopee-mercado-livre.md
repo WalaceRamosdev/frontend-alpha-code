@@ -1,6 +1,6 @@
 ---
 title: "Estrutura Própria para Afiliados: O Diferencial entre Amadores e o Top 1% do Mercado"
-description: "Descubra por que depender apenas de redes sociais é um risco fatal para afiliados Shopee e Mercado Livre. Conheça a estratégia de estrutura própria que escala ganhos e protege seu negócio."
+description: "Descubra por que depender apenas de redes sociais é um risco fatal para afiliados Shopee e Mercado Livre. Conheça a estratégia de estrutura própria que escal..."
 pubDate: 2026-05-06T12:30:00-03:00
 heroImage: "/assets/blog/estrutura-propria-para-afiliados-shopee-mercado-livre-sitesalphacode.webp"
 categories: ["Estratégia Digital"]

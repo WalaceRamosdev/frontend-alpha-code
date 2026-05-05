@@ -1,6 +1,6 @@
 ---
 title: "Sites Rápidos, Vendas Lentas: Por que a Performance sem Copywriting é um Erro Caro"
-description: "Não adianta ter o site mais rápido do mundo se ele não fala a língua do seu cliente. Entenda como o equilíbrio entre tecnologia e estratégia de vendas é o segredo do faturamento."
+description: "Não adianta ter o site mais rápido do mundo se ele não fala a língua do seu cliente. Entenda como o equilíbrio entre tecnologia e estratégia de vendas é o se..."
 pubDate: 2026-05-13T12:30:00-03:00
 heroImage: "/assets/blog/performance-vs-copywriting.webp"
 categories: ["Estratégia Digital"]

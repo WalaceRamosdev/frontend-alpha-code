@@ -1,0 +1,16 @@
+<svg width="600" height="400" viewBox="0 0 600 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+<rect width="600" height="400" fill="#0A0A0A"/>
+<rect x="50" y="50" width="500" height="300" rx="20" fill="#111111" stroke="#007BFF" stroke-width="2"/>
+<rect x="70" y="70" width="460" height="40" rx="8" fill="#1A1A1A"/>
+<circle cx="90" cy="90" r="6" fill="#FF5F56"/>
+<circle cx="110" cy="90" r="6" fill="#FFBD2E"/>
+<circle cx="130" cy="90" r="6" fill="#27C93F"/>
+<rect x="70" y="130" width="140" height="180" rx="12" fill="#1A1A1A"/>
+<rect x="230" y="130" width="140" height="180" rx="12" fill="#1A1A1A"/>
+<rect x="390" y="130" width="140" height="180" rx="12" fill="#1A1A1A"/>
+<rect x="85" y="270" width="110" height="25" rx="6" fill="#007BFF" opacity="0.8"/>
+<rect x="245" y="270" width="110" height="25" rx="6" fill="#007BFF" opacity="0.8"/>
+<rect x="405" y="270" width="110" height="25" rx="6" fill="#007BFF" opacity="0.8"/>
+<path d="M300 200L320 220L300 240" stroke="#007BFF" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+<text x="300" y="370" text-anchor="middle" fill="#555" font-family="Arial" font-size="12">Alpha Code Affiliate Engine</text>
+</svg>

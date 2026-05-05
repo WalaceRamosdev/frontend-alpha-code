@@ -25,3 +25,7 @@ pnpm-debug.log*
 .idea/
 
 /src/generated/prisma
+
+# Alpha Code Backups & Inputs
+seo-backup-*
+blog-imagens-input/
