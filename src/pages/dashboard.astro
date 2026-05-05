@@ -169,20 +169,20 @@ export const prerender = false;
                         <div class="header-avatar">
                             {
                                 isAdmin ? (
-                                    <img
+                                    <img loading="lazy"
                                         src="/assets/logo3d.svg"
                                         alt="Alpha Code Admin"
                                         id="header-avatar-img"
                                     />
                                 ) : session.user?.image ? (
-                                    <img
+                                    <img loading="lazy"
                                         src={session.user.image}
                                         alt="Profile"
                                         id="header-avatar-img"
                                         onerror="this.onerror=null;this.src='/assets/logo3d.svg';this.style.objectFit='contain';this.style.padding='4px';"
                                     />
                                 ) : (
-                                    <img
+                                    <img loading="lazy"
                                         src="/assets/logo3d.svg"
                                         alt="Alpha Code"
                                         style="width: 32px; height: 32px; object-fit: contain;"
