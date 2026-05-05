@@ -318,8 +318,8 @@ const {
             )
             .fromTo(
                 ".hero-title-lcp",
-                { y: isMobile ? 5 : 30, opacity: isMobile ? 0.9 : 0 },
-                { y: 0, opacity: 1, duration: isMobile ? 0.4 : 1 },
+                { y: 0, opacity: 1 }, // Start visible to help LCP
+                { y: 0, opacity: 1, duration: 0.1 },
                 "-=0.6",
             )
             .fromTo(

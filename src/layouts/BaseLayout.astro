@@ -97,8 +97,22 @@ const seo = createSEOMeta({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
-        <!-- Google Tag Manager -->
+        <!-- Integrated Google Tagging (Partytown) -->
         <script type="text/partytown">
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag("js", new Date());
+
+            // Tracking IDs & Internal Traffic Logic
+            const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
+                          localStorage.getItem("alpha_admin_mode") === "true";
+            const trafficType = isAdmin ? "internal" : "external";
+
+            // Config GA4 & Google Ads
+            gtag("config", "G-Z1TRD8DK7P", { 'traffic_type': trafficType }); 
+            gtag("config", "AW-17948194634");
+
+            // Google Tag Manager
             (function (w, d, s, l, i) {
                 w[l] = w[l] || [];
                 w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -110,49 +124,12 @@ const seo = createSEOMeta({
                 f.parentNode.insertBefore(j, f);
             })(window, document, "script", "dataLayer", "GTM-P839T8F");
 
-            // Re-trigger GTM on page transitions (ViewTransitions)
+            // Event listener for page changes (Astro ViewTransitions)
             document.addEventListener('astro:page-load', () => {
-                window.dataLayer = window.dataLayer || [];
+                gtag('event', 'page_view', { 'traffic_type': trafficType });
                 window.dataLayer.push({
                     'event': 'virt_page_view',
-                    'page_path': window.location.pathname,
-                    'page_title': document.title
-                });
-            });
-        </script>
-        <!-- End Google Tag Manager -->
-
-        <script
-            type="text/partytown"
-            src="https://www.googletagmanager.com/gtag/js?id=AW-17948194634"
-        ></script>
-        <script type="text/partytown">
-            window.dataLayer = window.dataLayer || [];
-            function gtag() {
-                dataLayer.push(arguments);
-            }
-            gtag("js", new Date());
-
-            // IDs de Rastreamento
-            const urlParams = new URLSearchParams(window.location.search);
-            const isAdmin = urlParams.get("admin") === "true" || localStorage.getItem("alpha_admin_mode") === "true";
-            
-            if (urlParams.get("admin") === "true") {
-                localStorage.setItem("alpha_admin_mode", "true");
-                console.log("Admin mode enabled - traffic will be marked as internal");
-            }
-
-            const trafficType = isAdmin ? "internal" : "external";
-
-            gtag("config", "AW-17948194634");
-            gtag("config", "G-Z1TRD8DK7P", {
-                'traffic_type': trafficType
-            }); 
-
-            // Re-trigger Page View on transitions
-            document.addEventListener('astro:page-load', () => {
-                gtag('event', 'page_view', {
-                    'traffic_type': trafficType
+                    'page_path': window.location.pathname
                 });
             });
         </script>
@@ -259,7 +236,7 @@ const seo = createSEOMeta({
         <!-- Google Tag Manager (noscript) -->
         <noscript
             ><iframe
-                src="https://www.googletagmanager.com/ns.html?id=GTM-T98FLHVM"
+                src="https://www.googletagmanager.com/ns.html?id=GTM-P839T8F"
                 height="0"
                 width="0"
                 style="display:none;visibility:hidden"></iframe></noscript

@@ -9,6 +9,14 @@ import Pricing from "../components/sections/Pricing.astro";
 import CTA from "../components/sections/CTA.astro";
 import Faq from "../components/sections/Faq.astro";
 import SEOContent from "../components/sections/SEOContent.astro";
+import { getImage } from "astro:assets";
+import HeroMobileImg from "../assets/projects/psicologa-mobile.webp";
+
+const optimizedHeroMobile = await getImage({
+  src: HeroMobileImg,
+  width: 400,
+  format: 'webp'
+});
 
 const title = "Criação de Sites Profissionais que Geram Clientes | Alpha Code";
 const description = "Transformamos seu site em uma máquina de gerar clientes. Criação de sites profissionais para empresas com foco em conversão imediata e SEO de Elite.";
@@ -26,6 +34,13 @@ export const prerender = false;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
+  <link 
+    rel="preload" 
+    as="image" 
+    href={optimizedHeroMobile.src} 
+    slot="head" 
+    fetchpriority="high" 
+  />
   <!-- 1. HERO: Headline de Impacto + CTA Forte -->
   <Hero />
 
