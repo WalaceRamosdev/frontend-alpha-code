@@ -5,6 +5,7 @@ import path from 'path';
 // Caminhos dos arquivos gerados pelo Antigravity
 const srcImage1 = 'C:/Users/HP/.gemini/antigravity/brain/b8638b1e-8ae6-4f8e-a104-0df6a2729e52/achadinhos_shopee_amazon_affiliate_premium_1778511003374.png';
 const srcImage2 = 'C:/Users/HP/.gemini/antigravity/brain/b8638b1e-8ae6-4f8e-a104-0df6a2729e52/solar_energy_google_maps_seo_1778510748071.png';
+const srcImage3 = 'C:/Users/HP/.gemini/antigravity/brain/b8638b1e-8ae6-4f8e-a104-0df6a2729e52/solar_energy_trust_crisis_premium_1778511436959.png';
 
 const inputDir = './blog-imagens-input';
 const outputDir = './public/assets/blog';
@@ -12,6 +13,7 @@ const outputDir = './public/assets/blog';
 // Destinos das imagens originais PNG na pasta de input
 const destImage1 = path.join(inputDir, 'como-criar-site-de-achadinhos-shopee-amazon-que-vende-sitesalphacode.png');
 const destImage2 = path.join(inputDir, 'como-empresas-de-energia-solar-dominam-o-google-local-sitesalphacode.png');
+const destImage3 = path.join(inputDir, 'energia-solar-premium.png');
 
 async function main() {
     console.log('🚀 Iniciando processo de integração e otimização das capas...');
@@ -24,39 +26,37 @@ async function main() {
         fs.mkdirSync(outputDir, { recursive: true });
     }
 
-    // 1. Copiar as imagens geradas para a pasta de input e artifacts
+    // Copiar as imagens geradas para a pasta de input e artifacts
     const artifactsDir = 'C:/Users/HP/.gemini/antigravity/brain/b8638b1e-8ae6-4f8e-a104-0df6a2729e52/artifacts';
     if (!fs.existsSync(artifactsDir)) {
         fs.mkdirSync(artifactsDir, { recursive: true });
     }
 
-    const artDest1 = path.join(artifactsDir, 'achadinhos_shopee_amazon_affiliate_premium_1778511003374.png');
-    const artDest2 = path.join(artifactsDir, 'solar_energy_google_maps_seo_1778510748071.png');
+    const copies = [
+        { src: srcImage1, dest: destImage1, art: path.join(artifactsDir, 'achadinhos_shopee_amazon_affiliate_premium_1778511003374.png'), label: 'Capa Afiliados' },
+        { src: srcImage2, dest: destImage2, art: path.join(artifactsDir, 'solar_energy_google_maps_seo_1778510748071.png'), label: 'Capa Solar Google' },
+        { src: srcImage3, dest: destImage3, art: path.join(artifactsDir, 'solar_energy_trust_crisis_premium_1778511436959.png'), label: 'Capa Confiança Solar' }
+    ];
 
-    try {
-        if (fs.existsSync(srcImage1)) {
-            fs.copyFileSync(srcImage1, destImage1);
-            fs.copyFileSync(srcImage1, artDest1);
-            console.log(`✅ Imagem 1 copiada com sucesso para ${destImage1} e artifacts`);
-        } else {
-            console.error(`⚠️ Imagem 1 não encontrada em: ${srcImage1}`);
+    for (const item of copies) {
+        try {
+            if (fs.existsSync(item.src)) {
+                fs.copyFileSync(item.src, item.dest);
+                fs.copyFileSync(item.src, item.art);
+                console.log(`✅ ${item.label} copiada com sucesso para o input e artifacts`);
+            } else {
+                console.error(`⚠️ ${item.label} original não encontrada em: ${item.src}`);
+            }
+        } catch (err) {
+            console.error(`❌ Erro ao copiar ${item.label}:`, err);
         }
-
-        if (fs.existsSync(srcImage2)) {
-            fs.copyFileSync(srcImage2, destImage2);
-            fs.copyFileSync(srcImage2, artDest2);
-            console.log(`✅ Imagem 2 copiada com sucesso para ${destImage2} e artifacts`);
-        } else {
-            console.error(`⚠️ Imagem 2 não encontrada em: ${srcImage2}`);
-        }
-    } catch (err) {
-        console.error('❌ Erro ao copiar as imagens geradas:', err);
     }
 
-    // 2. Otimizar e converter para WebP na pasta final do blog
+    // Otimizar e converter para WebP na pasta final do blog
     const filesToConvert = [
         { input: destImage1, output: path.join(outputDir, 'como-criar-site-de-achadinhos-shopee-amazon-que-vende-sitesalphacode.webp') },
-        { input: destImage2, output: path.join(outputDir, 'como-empresas-de-energia-solar-dominam-o-google-local-sitesalphacode.webp') }
+        { input: destImage2, output: path.join(outputDir, 'como-empresas-de-energia-solar-dominam-o-google-local-sitesalphacode.webp') },
+        { input: destImage3, output: path.join(outputDir, 'energia-solar-premium.webp') }
     ];
 
     for (const item of filesToConvert) {
