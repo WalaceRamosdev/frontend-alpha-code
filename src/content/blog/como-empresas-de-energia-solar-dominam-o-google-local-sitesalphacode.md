@@ -1,7 +1,7 @@
 ---
 title: "Como Empresas de Energia Solar Podem Dominar o Google Local e Multiplicar Seus Orçamentos"
 description: "Descubra como o SEO local combinado com um site de alta performance pode colocar sua instaladora de energia solar fotovoltaica no topo das buscas do Google, atraindo leads industriais e residenciais qualificados."
-pubDate: 2026-05-13T12:30:00-03:00
+pubDate: 2026-05-18T12:30:00-03:00
 heroImage: "/assets/blog/como-empresas-de-energia-solar-dominam-o-google-local-sitesalphacode.webp"
 categories: ["SEO e Ranquemento"]
 tags: ["energia solar", "SEO local", "marketing digital", "geração de leads", "B2B"]
