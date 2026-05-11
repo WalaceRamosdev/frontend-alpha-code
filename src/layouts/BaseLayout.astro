@@ -97,8 +97,11 @@ const seo = createSEOMeta({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
-        <!-- Integrated Google Tagging (Partytown) -->
-        <script type="text/partytown">
+        <!-- Google Tag (gtag.js) -->
+        <script is:inline async src="https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P"></script>
+
+        <!-- Integrated Google Tagging & GTM -->
+        <script is:inline>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag("js", new Date());
@@ -126,7 +129,11 @@ const seo = createSEOMeta({
 
             // Event listener for page changes (Astro ViewTransitions)
             document.addEventListener('astro:page-load', () => {
-                gtag('event', 'page_view', { 'traffic_type': trafficType });
+                const currentAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
+                                    localStorage.getItem("alpha_admin_mode") === "true";
+                const currentTrafficType = currentAdmin ? "internal" : "external";
+
+                gtag('event', 'page_view', { 'traffic_type': currentTrafficType });
                 window.dataLayer.push({
                     'event': 'virt_page_view',
                     'page_path': window.location.pathname
