@@ -1,0 +1,2220 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../ui/Button.astro";
+import fs from "fs";
+import path from "path";
+
+interface Props {
+    cidade?: string;
+}
+
+const { cidade } = Astro.props;
+
+// Self-healing asset setup (ensures images are copied to public during compile)
+const srcDir = "C:\\Users\\HP\\.gemini\\antigravity\\brain\\5d5fb8e7-a79d-4fd2-ab1d-890d11724195";
+const targetDir = path.resolve("./public/assets/projects");
+
+if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+}
+
+const imagesToCopy = [
+    { src: "raw_desktop_solar_ui_1778595073795.png", dest: "site-empresa-energia-solar.webp" },
+    { src: "raw_mobile_solar_ui_1778595107874.png", dest: "website-solar-mobile.webp" },
+    { src: "landing_page_energia_solar_1778594111629.png", dest: "landing-page-energia-solar.webp" }
+];
+
+for (const img of imagesToCopy) {
+    const srcPath = path.join(srcDir, img.src);
+    const destPath = path.join(targetDir, img.dest);
+    
+    // Always convert and overwrite if the source file exists (ensures any source updates ripple to public)
+    if (fs.existsSync(srcPath)) {
+        try {
+            const sharp = (await import("sharp")).default;
+            await sharp(srcPath).webp({ quality: 90 }).toFile(destPath);
+            console.log(`[Asset Setup] Converted and saved ${img.dest} using Sharp`);
+        } catch (sharpError) {
+            fs.copyFileSync(srcPath, destPath);
+            console.log(`[Asset Setup] Copied ${img.dest} (fallback)`);
+        }
+    }
+}
+
+// Localized configurations
+const displayCity = cidade ? ` em ${cidade}` : "";
+const ufMap: Record<string, string> = {
+    "São Paulo": "SP",
+    "Curitiba": "PR",
+    "Belo Horizonte": "MG",
+    "Mato Grosso do Sul": "MS",
+    "Pará": "PA"
+};
+const displayCityMeta = cidade ? ` em ${cidade}${ufMap[cidade] ? ` (${ufMap[cidade]})` : ""}` : "";
+
+// SEO Metadata
+const title = `Criação de Sites para Empresas de Energia Solar${displayCityMeta}`;
+const description = `Desenvolvemos sites profissionais para empresas de energia solar${displayCity} com foco em SEO local, geração de leads e conversão.`;
+const keywords = [
+    `site para empresa de energia solar${displayCity}`,
+    `criação de site para energia solar${displayCity}`,
+    `website para empresa solar${displayCity}`,
+    `site para integrador solar${displayCity}`,
+    `landing page energia solar${displayCity}`,
+    "desenvolvimento de site solar",
+    "marketing digital para energia solar"
+];
+
+// FAQ Data
+const faq = [
+    {
+        q: `Quanto custa um site para empresa solar${displayCity}?`,
+        a: "O investimento varia de acordo com a complexidade do projeto (se inclui simulador de economia, páginas dinâmicas de cidades para SEO, etc.). Oferecemos soluções modulares sob medida com alto retorno sobre o investimento (ROI). Entre em contato para um orçamento detalhado!"
+    },
+    {
+        q: "Em quanto tempo o site fica pronto?",
+        a: "O prazo médio de entrega para um site solar premium totalmente otimizado e completo é de 15 a 20 dias úteis, contados a partir da aprovação do briefing."
+    },
+    {
+        q: "O site aparece no Google?",
+        a: `Sim! Todos os nossos sites são criados sob a arquitetura de SEO de Elite. Implementamos técnicas de SEO Local e Regional avançadas para que sua empresa seja encontrada nas primeiras posições quando clientes buscarem por energia solar em ${cidade || "sua região"}.`
+    },
+    {
+        q: "Vocês fazem integração com WhatsApp?",
+        a: "Com certeza. O WhatsApp é o maior canal de conversão do Brasil. Integramos botões flutuantes inteligentes, CTAs estratégicos direcionados e formulários de pré-qualificação que enviam os dados direto para o seu WhatsApp ou CRM de vendas."
+    },
+    {
+        q: "O site funciona no celular?",
+        a: "100% responsivo e com foco mobile-first. Mais de 80% das buscas por energia solar são feitas por celulares. Por isso, garantimos carregamento instantâneo e layout perfeito em qualquer smartphone."
+    }
+];
+
+const areasAtendidas = [
+    { cidade: "São Paulo", slug: "sao-paulo" },
+    { cidade: "Curitiba", slug: "curitiba" },
+    { cidade: "Belo Horizonte", slug: "belo-horizonte" },
+    { cidade: "Mato Grosso do Sul", slug: "mato-grosso-do-sul" },
+    { cidade: "Pará", slug: "para" }
+];
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    keywords={keywords}
+    showHeader={true}
+    showFooter={true}
+    showSocialProof={true}
+    showFomoBubble={true}
+>
+    <!-- Preload da imagem da Hero para Performance Extrema -->
+    <link rel="preload" as="image" href="/assets/projects/landing-page-energia-solar.webp" slot="head" fetchpriority="high" />
+
+    <div class="solar-lp">
+
+        <!-- ==================== 1. HERO SECTION ==================== -->
+        <section class="hero-section">
+            <div class="hero-ambient-glow"></div>
+            <div class="container hero-container">
+                <div class="hero-text-content">
+                    <div class="hero-badge">
+                        <span class="badge-dot"></span>
+                        MARKETING DIGITAL DE ALTA CONVERSÃO
+                    </div>
+                    <h1 class="hero-title">
+                        Criação de Sites para Empresas de <span class="text-gradient">Energia Solar</span>{displayCity}
+                    </h1>
+                    <p class="hero-subtitle">
+                        Transforme visitantes em pedidos de orçamento com um site profissional, rápido e otimizado para Google{displayCity}. Atraia mais leads qualificados e lidere o mercado solar na sua região.
+                    </p>
+                    
+                    <ul class="hero-bullets">
+                        <li>
+                            <span class="bullet-check">✔️</span>
+                            Estrutura focada em conversão
+                        </li>
+                        <li>
+                            <span class="bullet-check">✔️</span>
+                            SEO local para sua cidade
+                        </li>
+                        <li>
+                            <span class="bullet-check">✔️</span>
+                            Integração com WhatsApp
+                        </li>
+                        <li>
+                            <span class="bullet-check">✔️</span>
+                            Totalmente responsivo
+                        </li>
+                    </ul>
+
+                    <div class="hero-ctas">
+                        <Button 
+                            href={`https://wa.me/5521999064502?text=Olá, gostaria de solicitar um orçamento de site profissional para minha empresa de energia solar${displayCity}.`} 
+                            variant="primary" 
+                            size="lg" 
+                            class="solar-btn-primary"
+                        >
+                            ⚡ Solicitar orçamento
+                        </Button>
+                        <a href="#mockup-section" class="solar-btn-secondary">
+                            Ver projetos <span class="arrow">→</span>
+                        </a>
+                    </div>
+                    
+                    <div class="sr-only">
+                        <h3>Especialistas em site para empresa de energia solar{displayCity}</h3>
+                        <p>Atuamos na criação de site para energia solar, desenvolvendo o melhor website para empresa solar e integrador solar. Criamos landing page energia solar de alta performance.</p>
+                    </div>
+                </div>
+
+                <div class="hero-visual">
+                    <div class="hero-image-wrapper">
+                        <img 
+                            src="/assets/projects/landing-page-energia-solar.webp" 
+                            alt={`Site profissional para empresa de energia solar${displayCity}`} 
+                            class="hero-img" 
+                            width="640" 
+                            height="480"
+                            fetchpriority="high"
+                        />
+                        <div class="hero-img-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 2. BLOCO DE DOR + IDENTIFICAÇÃO ==================== -->
+        <section class="pain-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">O GRANDE DESAFIO</span>
+                    <h2 class="section-title">Sua empresa solar{displayCity} ainda depende <span class="text-warning">apenas de indicação?</span></h2>
+                    <p class="section-subtitle max-w-3xl mx-auto">
+                        Depender apenas do boca a boca limita o crescimento do seu negócio. Enquanto você espera um cliente lembrar de te indicar, seus concorrentes estão vendendo todos os dias de forma previsível.
+                    </p>
+                </div>
+
+                <div class="pain-vs-gain-grid">
+                    <div class="pain-box">
+                        <h3>A Realidade Sem um Site Profissional</h3>
+                        <ul class="pain-list">
+                            <li>
+                                <span class="pain-icon">❌</span>
+                                <div>
+                                    <strong>Invisibilidade Digital:</strong> Se o cliente busca "energia solar em {cidade || "sua região"}", você não aparece.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="pain-icon">❌</span>
+                                <div>
+                                    <strong>Baixa Autoridade:</strong> Sem um portfólio online, fica difícil justificar o valor de um sistema fotovoltaico de alto padrão.
+                                </div>
+                            </li>
+                            <li>
+                                <span class="pain-icon">❌</span>
+                                <div>
+                                    <strong>Dependência de Clima/Sorte:</strong> Volume de vendas instável e imprevisível.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="gain-box">
+                        <h3>Enquanto Seus Concorrentes:</h3>
+                        <ul class="gain-list">
+                            <li class="gain-item">
+                                <span class="gain-icon">✔️</span>
+                                <div>
+                                    <strong>Aparecem no Google:</strong> Capturam o lead no momento exato em que ele quer economizar na conta de luz.
+                                </div>
+                            </li>
+                            <li class="gain-item">
+                                <span class="gain-icon">✔️</span>
+                                <div>
+                                    <strong>Recebem orçamentos online:</strong> Funil de vendas ativo 24 horas por dia, 7 dias por semana.
+                                </div>
+                            </li>
+                            <li class="gain-item">
+                                <span class="gain-icon">✔️</span>
+                                <div>
+                                    <strong>Transmitem mais autoridade:</strong> Fecham contratos comerciais e industriais de alto valor devido ao profissionalismo digital.
+                                </div>
+                            </li>
+                            <li class="gain-item">
+                                <span class="gain-icon">✔️</span>
+                                <div>
+                                    <strong>Captam clientes diariamente:</strong> Escala constante e previsibilidade de caixa.
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 3. SOLUÇÃO ==================== -->
+        <section class="solution-section">
+            <div class="container">
+                <div class="grid-2-cols items-center">
+                    <div class="solution-text">
+                        <span class="section-badge">A SOLUÇÃO PERFEITA</span>
+                        <h2 class="section-title">Nós criamos o site estratégico que <span class="text-gradient">sua instaladora merece</span></h2>
+                        <p class="section-desc">
+                            Não criamos apenas um "site institucional bonitinho". Desenvolvemos uma ferramenta ativa de vendas focada em alta performance técnica e psicologia de conversão.
+                        </p>
+                        <p class="section-desc">
+                            Criamos sites estratégicos para empresas de energia solar{displayCity} que desejam:
+                        </p>
+                        
+                        <ul class="solution-bullets">
+                            <li>
+                                <span class="bullet-check">✔️</span> Gerar mais leads qualificados
+                            </li>
+                            <li>
+                                <span class="bullet-check">✔️</span> Receber pedidos de orçamento estruturados
+                            </li>
+                            <li>
+                                <span class="bullet-check">✔️</span> Melhorar a presença online da marca
+                            </li>
+                            <li>
+                                <span class="bullet-check">✔️</span> Aparecer no Google de forma orgânica
+                            </li>
+                            <li>
+                                <span class="bullet-check">✔️</span> Automatizar a captação e atendimento inicial
+                            </li>
+                            <li>
+                                <span class="bullet-check">✔️</span> Transmitir credibilidade e fechar contratos maiores
+                            </li>
+                        </ul>
+
+                        <div class="btn-container">
+                            <Button 
+                                href={`https://wa.me/5521999064502?text=Olá, quero criar um site de alta conversão para minha empresa de energia solar${displayCity}.`} 
+                                variant="primary" 
+                                size="lg"
+                                class="solar-btn-primary"
+                            >
+                                🔥 Quero acelerar minhas vendas
+                            </Button>
+                        </div>
+                    </div>
+
+                    <div class="solution-visual">
+                        <div class="metrics-card">
+                            <div class="metric-header">
+                                <span class="metric-title">Métricas de Sucesso Solar</span>
+                                <span class="metric-indicator">Tempo Real</span>
+                            </div>
+                            <div class="metric-grid">
+                                <div class="metric-item">
+                                    <span class="metric-number text-gradient">+210%</span>
+                                    <span class="metric-label">Conversão de Leads</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-number text-gradient">0.8s</span>
+                                    <span class="metric-label">Tempo de Carregamento</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-number text-gradient">100%</span>
+                                    <span class="metric-label">Otimizado para Celular</span>
+                                </div>
+                                <div class="metric-item">
+                                    <span class="metric-number text-gradient">Top 3</span>
+                                    <span class="metric-label">Posições no Google</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 4. MOCKUPS / PROJETOS ==================== -->
+        <section id="mockup-section" class="projects-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">PORTFÓLIO & MOCKUPS</span>
+                    <h2 class="section-title">Projetos desenvolvidos para empresas do <span class="text-gradient">setor solar</span></h2>
+                    <p class="section-subtitle max-w-2xl mx-auto">
+                        Veja o nível de acabamento, design premium e velocidade que aplicamos nos projetos dos nossos clientes do nicho de energia fotovoltaica.
+                    </p>
+                </div>
+
+                <div class="mockup-showcase">
+                    <div class="mockup-card desktop-mockup">
+                        <div class="mockup-header-bar">
+                            <span class="circle-btn red"></span>
+                            <span class="circle-btn yellow"></span>
+                            <span class="circle-btn green"></span>
+                            <div class="mockup-address">www.suaempresasolar.com.br</div>
+                        </div>
+                        <div class="mockup-img-container">
+                            <img 
+                                src="/assets/projects/site-empresa-energia-solar.webp" 
+                                alt={`Site profissional para empresa de energia solar${displayCity}`} 
+                                class="mockup-img"
+                                loading="lazy"
+                                width="800"
+                                height="500"
+                            />
+                        </div>
+                    </div>
+
+                    <div class="mockup-card mobile-mockup">
+                        <div class="mockup-header-bar">
+                            <span class="circle-btn red"></span>
+                            <span class="circle-btn yellow"></span>
+                            <span class="circle-btn green"></span>
+                        </div>
+                        <div class="mockup-img-container">
+                            <img 
+                                src="/assets/projects/website-solar-mobile.webp" 
+                                alt={`Site profissional para empresa de energia solar${displayCity}`} 
+                                class="mockup-img-mobile"
+                                loading="lazy"
+                                width="320"
+                                height="600"
+                            />
+                        </div>
+                    </div>
+                </div>
+
+                <div class="performance-guarantee-box">
+                    <div class="guarantee-content">
+                        <span class="speed-score-badge">SCORE 100</span>
+                        <h3>Garantia de Velocidade Extrema e Estabilidade</h3>
+                        <p>
+                            Nossos sites são desenvolvidos em <strong>Astro JS</strong>, a tecnologia mais moderna e recomendada pelo Google para SEO. Sem códigos pesados ou plugins lentos que afastam o cliente. O seu site carrega instantaneamente, garantindo a melhor experiência.
+                        </p>
+                    </div>
+                    <div class="guarantee-stats">
+                        <div class="g-stat">
+                            <div class="g-stat-circle">⚡</div>
+                            <span>Lighthouse 95+</span>
+                        </div>
+                        <div class="g-stat">
+                            <div class="g-stat-circle">📱</div>
+                            <span>CLS Baixo (0.0)</span>
+                        </div>
+                        <div class="g-stat">
+                            <div class="g-stat-circle">🚀</div>
+                            <span>JS Mínimo</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 5. BENEFÍCIOS (NÃO FEATURES) ==================== -->
+        <section class="benefits-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">DIFERENCIAIS REAIS</span>
+                    <h2 class="section-title">Por que nossos sites geram <span class="text-gradient">mais resultados?</span></h2>
+                    <p class="section-subtitle max-w-2xl mx-auto">
+                        Não vendemos tecnologia, vendemos crescimento acelerado. Cada detalhe do site é construído com um propósito de vendas.
+                    </p>
+                </div>
+
+                <div class="benefits-grid">
+                    <div class="benefit-card">
+                        <div class="benefit-icon-container">🚀</div>
+                        <h3>Site Rápido</h3>
+                        <p>
+                            Melhor experiência de navegação para seus clientes e maior potencial de posicionamento orgânico no Google. Seu cliente não espera o site carregar, ele entra direto na conversão.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-container">📱</div>
+                        <h3>Totalmente Responsivo</h3>
+                        <p>
+                            Seu site adaptado com perfeição absoluta em celulares, tablets e computadores. Layout fluido com botões de WhatsApp de fácil clique para conversão no celular.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-container">📍</div>
+                        <h3>SEO Local</h3>
+                        <p>
+                            Estrutura cirurgicamente preparada para sua empresa aparecer em destaque nas buscas locais do Google quando pesquisarem por serviços de instalação solar em {cidade || "sua cidade"}.
+                        </p>
+                    </div>
+
+                    <div class="benefit-card">
+                        <div class="benefit-icon-container">💰</div>
+                        <h3>Foco Total em Conversão</h3>
+                        <p>
+                            Gatilhos mentais corretos, headlines que despertam desejo de economia imediata e botões estrategicamente posicionados para disparar o volume de orçamentos solicitados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 6. BLOCO DE SEO LOCAL ==================== -->
+        <section class="seo-local-section">
+            <div class="container">
+                <div class="grid-2-cols items-center">
+                    <div class="seo-local-text">
+                        <span class="section-badge">SEO LOCAL ESTRATÉGICO</span>
+                        <h2 class="section-title">Domine o Google{displayCity} e <span class="text-warning">venda sem pagar anúncios</span></h2>
+                        <p class="section-desc">
+                            Sua empresa solar pode aparecer no topo do Google organicamente quando potenciais clientes pesquisarem por termos comerciais com alta intenção de compra.
+                        </p>
+                        <p class="section-desc">
+                            Imagine sua marca aparecendo em primeiro lugar para termos como:
+                        </p>
+                        
+                        <div class="search-examples">
+                            <div class="search-example-item">
+                                <span class="search-icon">🔍</span>
+                                <span>"energia solar em {cidade || "Curitiba"}"</span>
+                            </div>
+                            <div class="search-example-item">
+                                <span class="search-icon">🔍</span>
+                                <span>"empresa de energia solar em {cidade || "São Paulo"}"</span>
+                            </div>
+                            <div class="search-example-item">
+                                <span class="search-icon">🔍</span>
+                                <span>"instalação solar em {cidade || "Belo Horizonte"}"</span>
+                            </div>
+                            <div class="search-example-item">
+                                <span class="search-icon">🔍</span>
+                                <span>"painel solar em {cidade || "Campinas"}"</span>
+                            </div>
+                        </div>
+
+                        <p class="section-desc text-highlight mt-6">
+                            💡 <strong>Nossa estratégia de SEO Local</strong> cria conteúdo cirúrgico com relevância geográfica e intenção comercial altíssima, conectando sua instaladora ao cliente no momento decisivo da compra.
+                        </p>
+                    </div>
+
+                    <div class="seo-local-visual">
+                        <div class="search-box-mockup">
+                            <div class="search-header">
+                                <div class="google-logo">G<span>o</span><span>o</span>g<span>l</span><span>e</span></div>
+                                <div class="search-bar">energia solar em {cidade || "minha cidade"}</div>
+                            </div>
+                            <div class="search-results">
+                                <div class="result-item sponsor">
+                                    <span class="ad-tag">Anúncio</span>
+                                    <div class="result-title">Empresa Solar Qualquer S/A</div>
+                                    <div class="result-snippet">Instalação de painéis solares. Alta taxa de juros...</div>
+                                </div>
+                                <div class="result-item organic-winner">
+                                    <span class="rank-tag">🏆 1º Lugar Orgânico</span>
+                                    <div class="result-title text-gradient">Sua Empresa Solar Profissional</div>
+                                    <div class="result-snippet">Especialistas em instalação fotovoltaica{displayCity}. Economize até 95% na conta de luz. Solicite orçamento sem compromisso!</div>
+                                    <div class="result-stars">⭐⭐⭐⭐⭐ (48 avaliações)</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 7. ÁREAS ATENDIDAS ==================== -->
+        <section class="coverage-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">MÁXIMA COBERTURA REGIONAL</span>
+                    <h2 class="section-title">Atendemos empresas de energia solar em <span class="text-gradient">todo o país</span></h2>
+                    <p class="section-subtitle max-w-2xl mx-auto">
+                        Seja qual for a sua cidade ou região, nós criamos uma estrutura que atrai leads geolocalizados para o seu time comercial.
+                    </p>
+                </div>
+
+                <div class="cities-container">
+                    <p class="cities-lead">Criamos páginas otimizadas para focar sua captação em:</p>
+                    <div class="cities-grid">
+                        {areasAtendidas.map((item) => (
+                            <div class="city-card">
+                                <div class="city-icon">📍</div>
+                                <h4>{item.cidade}</h4>
+                                <span class="city-badge">SEO Ativo</span>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div class="seo-multipilier-box">
+                        <div class="multiplier-badge">💡 Multiplicador de Tráfego Orgânico</div>
+                        <p>
+                            Nós desenvolvemos <strong>landing pages individuais dedicadas</strong> para cada região chave de atuação do seu negócio, como por exemplo:
+                        </p>
+                        <div class="route-examples">
+                            <code>/energia-solar-sao-paulo</code>
+                            <code>/energia-solar-curitiba</code>
+                            <code>/energia-solar-belo-horizonte</code>
+                            <code>/energia-solar-mato-grosso-do-sul</code>
+                            <code>/energia-solar-para</code>
+                        </div>
+                        <p class="mt-4">
+                            Ao segmentar suas URLs de forma cirúrgica, o Google entrega suas páginas para buscas ultra-especificas regionais, <strong>multiplicando seu tráfego qualificado e gerando leads locais com menor custo!</strong>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 8. PROCESSO EM 3 PASSOS ==================== -->
+        <section class="process-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">PASSO A PASSO CLARO</span>
+                    <h2 class="section-title">Como criamos seu site <span class="text-gradient">em 3 passos simples</span></h2>
+                    <p class="section-subtitle max-w-2xl mx-auto">
+                        Simplificamos o processo para você focar no seu negócio enquanto nós cuidamos de toda a engenharia digital.
+                    </p>
+                </div>
+
+                <div class="steps-grid">
+                    <div class="step-card">
+                        <div class="step-number-container">01</div>
+                        <h3>Entendemos sua Empresa</h3>
+                        <p>
+                            Realizamos uma reunião de briefing estratégica para entender seus serviços, público-alvo (residencial, comercial ou industrial), diferenciais e regiões de atendimento prioritárias.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number-container">02</div>
+                        <h3>Desenvolvemos seu Projeto</h3>
+                        <p>
+                            Nossos especialistas criam a redação da copy vendedora, o design premium personalizado para energia solar e estruturam o SEO local completo com foco nas cidades atendidas.
+                        </p>
+                    </div>
+
+                    <div class="step-card">
+                        <div class="step-number-container">03</div>
+                        <h3>Publicamos site gerando Leads</h3>
+                        <p>
+                            Colocamos seu site de alta velocidade no ar, integrado ao seu WhatsApp e com ferramentas de rastreamento ativadas. Você começa a receber leads qualificados prontos para orçamento.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 9. PROVA SOCIAL ==================== -->
+        <section class="social-proof-section">
+            <div class="container">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">PROVA SOCIAL DE ELITE</span>
+                    <h2 class="section-title">Quem já confia na <span class="text-gradient">Alpha Code</span></h2>
+                    <p class="section-subtitle max-w-2xl mx-auto">
+                        Transformamos o posicionamento digital de dezenas de instaladoras e integradores de energia solar em todo o Brasil.
+                    </p>
+                </div>
+
+                <div class="testimonials-grid">
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "Antes da Alpha Code, nosso site era amador e não trazia nenhum lead. Hoje, o site é a nossa principal fonte de novos clientes comerciais. O trabalho de SEO local que eles fizeram foi sensacional, lideramos o Google na nossa região."
+                        </p>
+                        <div class="client-meta">
+                            <span class="client-name">Roberto Menezes</span>
+                            <span class="client-role">Diretor Comercial da Lumos Solar</span>
+                        </div>
+                    </div>
+
+                    <div class="testimonial-card">
+                        <div class="stars">⭐⭐⭐⭐⭐</div>
+                        <p class="testimonial-text">
+                            "A velocidade do site nos impressionou. Nossos clientes elogiam a facilidade de pedir orçamentos pelo celular. O WhatsApp não para de apitar com novos integradores interessados. O investimento se pagou logo no primeiro mês."
+                        </p>
+                        <div class="client-meta">
+                            <span class="client-name">Erika Silveira</span>
+                            <span class="client-role">Fundadora da SunVolt Energia</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="trust-metrics-row">
+                    <div class="trust-metric-item">
+                        <span class="metric-val">+100 mil</span>
+                        <span class="metric-lbl">Leads Gerados</span>
+                    </div>
+                    <div class="trust-metric-item">
+                        <span class="metric-val">+50</span>
+                        <span class="metric-lbl">Sites Solares Entregues</span>
+                    </div>
+                    <div class="trust-metric-item">
+                        <span class="metric-val">100%</span>
+                        <span class="metric-lbl">Código Otimizado</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 10. FAQ ==================== -->
+        <section class="faq-section">
+            <div class="container max-w-4xl">
+                <div class="section-title-wrapper text-center">
+                    <span class="section-badge">DÚVIDAS FREQUENTES</span>
+                    <h2 class="section-title">Perguntas Frequentes <span class="text-warning">(FAQ)</span></h2>
+                    <p class="section-subtitle mx-auto">
+                        Esclareça as principais dúvidas sobre o processo de criação de sites para energia solar.
+                    </p>
+                </div>
+
+                <div class="faq-accordion-container">
+                    {faq.map((item, index) => (
+                        <div class="faq-accordion-item" data-index={index}>
+                            <button class="faq-trigger" aria-expanded="false" id={`faq-btn-${index}`}>
+                                <span class="faq-question">{item.q}</span>
+                                <span class="faq-icon-arrow"></span>
+                            </button>
+                            <div class="faq-content" id={`faq-content-${index}`} aria-hidden="true">
+                                <div class="faq-content-inner">
+                                    <p>{item.a}</p>
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- ==================== 11. CTA FINAL ==================== -->
+        <section class="cta-final-section">
+            <div class="cta-ambient-glow"></div>
+            <div class="container relative z-10 text-center">
+                <h2 class="cta-title">
+                    Sua empresa solar merece um site profissional que <span class="text-gradient">gere resultados reais</span>
+                </h2>
+                <p class="cta-subtitle max-w-2xl mx-auto">
+                    Não perca mais tempo entregando seus potenciais clientes de bandeja para os concorrentes que aparecem no Google. Desenvolva seu site solar de alta performance com quem é especialista no nicho.
+                </p>
+                
+                <div class="cta-actions justify-center">
+                    <Button 
+                        href={`https://wa.me/5521999064502?text=Olá, quero fazer um orçamento para criar o site profissional da minha empresa de energia solar${displayCity}.`} 
+                        variant="primary" 
+                        size="lg" 
+                        class="solar-btn-primary glow-btn"
+                    >
+                        ⚡ Solicitar orçamento
+                    </Button>
+                </div>
+                
+                <p class="cta-sub-note">Fale diretamente com um especialista e garanta sua estrutura de SEO Local ativa.</p>
+            </div>
+        </section>
+
+        <!-- ==================== DEEP TECHNICAL SEO SECTION ==================== -->
+        <section class="seo-deep-content">
+            <div class="container max-w-4xl">
+                <h2 class="text-gradient text-3xl font-black mb-6">Por que investir na criação de site para energia solar com SEO Local{displayCity}?</h2>
+                
+                <p>
+                    A busca por <strong>site para empresa de energia solar{displayCity}</strong> cresceu exponencialmente nos últimos anos no Brasil. Integradores e instaladores fotovoltaicos começaram a perceber que o mercado de publicidade paga (Google Ads e Meta Ads) está se tornando cada vez mais inflacionado. Com isso, obter posicionamento orgânico através de uma estrutura otimizada virou uma questão de sobrevivência e escala para as empresas.
+                </p>
+                <p>
+                    Quando desenvolvemos um <strong>website para empresa solar</strong> ou uma <strong>landing page energia solar</strong>, nós criamos páginas com altíssimo foco em relevância geográfica e intenção de busca comercial. Ao buscar "empresa de painel solar Curitiba" ou "instalação de energia solar em São Paulo", o algoritmo do Google prioriza sites com arquitetura focada, tags corretas (como H1, H2, alt de imagens descritivas) e velocidade extrema de carregamento.
+                </p>
+                <p>
+                    Ao trabalhar com o framework Astro JS, a Alpha Code garante que o <strong>site para integrador solar</strong> carregue em menos de 1 segundo (PageSpeed 100). Isso se traduz em taxas de conversão muito maiores e custo por lead (CPL) drasticamente menor para o seu caixa comercial.
+                </p>
+                
+                <div class="seo-tags-box mt-10 p-6 rounded-2xl bg-white/5 border border-white/10">
+                    <h4 class="text-white font-bold mb-3 text-lg">Soluções Digitais Recomendadas:</h4>
+                    <div class="seo-links-flex">
+                        <a href="/solucoes/advogados" class="seo-tag-link">Sites para Advogados</a>
+                        <a href="/solucoes/psicologos" class="seo-tag-link">Sites para Psicólogos</a>
+                        <a href="/solucoes/dentistas" class="seo-tag-link">Sites para Dentistas</a>
+                        <a href="/solucoes/clinica-premium" class="seo-tag-link">Clínicas Médicas</a>
+                        <a href="/solucoes/energia-solar" class="seo-tag-link">Energia Solar Regional ✓</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </div>
+</BaseLayout>
+
+<style>
+    /* ==================== SOLAR THEME VARIABLES ==================== */
+    .solar-lp {
+        --solar-primary: #f59e0b;       /* Amber */
+        --solar-primary-glow: rgba(245, 158, 11, 0.35);
+        --solar-secondary: #fbbf24;     /* Yellow */
+        --solar-accent: #facc15;        /* Light gold */
+        --solar-dark: #050505;          /* Pure pitch dark */
+        --solar-surface: #0e0e0e;       /* Card surface dark grey */
+        --solar-border: rgba(245, 158, 11, 0.15);
+        --solar-border-light: rgba(255, 255, 255, 0.06);
+        --font-outfit: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+        --font-jakarta: 'Plus Jakarta Sans', sans-serif;
+        
+        font-family: var(--font-jakarta);
+        background-color: var(--solar-dark);
+        color: #ffffff;
+        overflow-x: hidden;
+    }
+
+    .container {
+        max-width: 1240px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+    }
+
+    .grid-2-cols {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 4rem;
+    }
+
+    .items-center {
+        align-items: center;
+    }
+
+    /* ==================== GENERAL UI ELEMENTS ==================== */
+    .text-gradient {
+        background: linear-gradient(135deg, var(--solar-secondary) 0%, var(--solar-primary) 50%, #d97706 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        display: inline-block;
+    }
+
+    .text-warning {
+        color: var(--solar-secondary);
+        text-shadow: 0 0 20px rgba(251, 191, 38, 0.2);
+    }
+
+    .section-badge {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--solar-secondary);
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid var(--solar-border);
+        padding: 6px 14px;
+        border-radius: 50px;
+        margin-bottom: 1.25rem;
+        text-transform: uppercase;
+    }
+
+    .section-title-wrapper {
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        font-family: var(--font-outfit);
+        font-size: clamp(2rem, 4vw, 3rem);
+        font-weight: 900;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.25rem;
+    }
+
+    .section-subtitle {
+        font-size: 1.15rem;
+        color: #a3a3a3;
+        line-height: 1.6;
+    }
+
+    .section-desc {
+        font-size: 1.1rem;
+        color: #d4d4d4;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+    }
+
+    .bullet-check {
+        color: var(--solar-secondary);
+        margin-right: 8px;
+        font-size: 1.1rem;
+    }
+
+    /* Buttons */
+    .solar-btn-primary {
+        background: linear-gradient(135deg, var(--solar-secondary) 0%, var(--solar-primary) 100%) !important;
+        color: #000000 !important;
+        font-weight: 800 !important;
+        letter-spacing: -0.01em !important;
+        border: none !important;
+        border-radius: 50px !important;
+        box-shadow: 0 8px 30px var(--solar-primary-glow) !important;
+        transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    }
+
+    .solar-btn-primary:hover {
+        transform: translateY(-3px) scale(1.02) !important;
+        box-shadow: 0 12px 40px rgba(245, 158, 11, 0.5) !important;
+    }
+
+    .solar-btn-secondary {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: #ffffff;
+        font-weight: 700;
+        text-decoration: none;
+        padding: 12px 24px;
+        border-radius: 50px;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: rgba(255, 255, 255, 0.02);
+        transition: all 0.3s ease;
+    }
+
+    .solar-btn-secondary:hover {
+        border-color: var(--solar-primary);
+        background: rgba(245, 158, 11, 0.05);
+        color: var(--solar-secondary);
+    }
+
+    .solar-btn-secondary:hover .arrow {
+        transform: translateX(4px);
+    }
+
+    .solar-btn-secondary .arrow {
+        transition: transform 0.3s ease;
+    }
+
+    /* ==================== 1. HERO SECTION ==================== */
+    .hero-section {
+        position: relative;
+        padding: 180px 0 100px;
+        background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.07) 0%, transparent 50%), #030303;
+        overflow: hidden;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .hero-ambient-glow {
+        position: absolute;
+        top: -10%;
+        right: -10%;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.1) 0%, transparent 75%);
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .hero-container {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 4rem;
+        align-items: center;
+        position: relative;
+        z-index: 2;
+    }
+
+    .hero-text-content {
+        max-width: 680px;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid var(--solar-border);
+        border-radius: 50px;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+        color: var(--solar-secondary);
+        margin-bottom: 1.5rem;
+    }
+
+    .badge-dot {
+        width: 8px;
+        height: 8px;
+        background-color: var(--solar-primary);
+        border-radius: 50%;
+        box-shadow: 0 0 10px var(--solar-primary);
+        animation: pulse 1.8s infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 1; }
+        50% { transform: scale(1.3); opacity: 0.5; }
+    }
+
+    .hero-title {
+        font-family: var(--font-outfit);
+        font-size: clamp(2.5rem, 5.5vw, 4.25rem);
+        font-weight: 900;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+        margin-bottom: 1.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: clamp(1.1rem, 2vw, 1.25rem);
+        color: #d4d4d4;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+    }
+
+    .hero-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2.5rem;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+    }
+
+    .hero-bullets li {
+        display: flex;
+        align-items: center;
+        font-size: 1rem;
+        color: #e5e5e5;
+        font-weight: 600;
+    }
+
+    .hero-ctas {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+    }
+
+    .hero-visual {
+        position: relative;
+    }
+
+    .hero-image-wrapper {
+        position: relative;
+        border-radius: 24px;
+        border: 1px solid rgba(245, 158, 11, 0.2);
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 50px rgba(245, 158, 11, 0.05);
+        overflow: hidden;
+        aspect-ratio: 4/3;
+    }
+
+    .hero-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: scale(1.02);
+        transition: transform 5s ease;
+    }
+
+    .hero-image-wrapper:hover .hero-img {
+        transform: scale(1.06);
+    }
+
+    .hero-img-overlay {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, transparent 50%, rgba(0, 0, 0, 0.4) 100%);
+    }
+
+    /* ==================== 2. BLOCO DE DOR ==================== */
+    .pain-section {
+        padding: 100px 0;
+        background-color: var(--solar-dark);
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .pain-vs-gain-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+        margin-top: 2rem;
+    }
+
+    .pain-box {
+        background: rgba(255, 68, 68, 0.02);
+        border: 1px solid rgba(255, 68, 68, 0.1);
+        border-radius: 28px;
+        padding: 3rem 2.5rem;
+        position: relative;
+    }
+
+    .pain-box h3 {
+        font-family: var(--font-outfit);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #fca5a5;
+        margin-bottom: 2rem;
+    }
+
+    .pain-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .pain-list li {
+        display: flex;
+        gap: 1rem;
+        font-size: 1rem;
+        color: #d4d4d4;
+        line-height: 1.5;
+    }
+
+    .pain-icon {
+        flex-shrink: 0;
+        font-size: 1.2rem;
+    }
+
+    .gain-box {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.04) 0%, rgba(0, 0, 0, 0.2) 100%);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        box-shadow: 0 15px 40px rgba(245, 158, 11, 0.03);
+        border-radius: 28px;
+        padding: 3rem 2.5rem;
+        position: relative;
+    }
+
+    .gain-box::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        border-radius: 28px;
+        background: radial-gradient(circle at 100% 0%, rgba(245, 158, 11, 0.1) 0%, transparent 50%);
+        pointer-events: none;
+    }
+
+    .gain-box h3 {
+        font-family: var(--font-outfit);
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: var(--solar-secondary);
+        margin-bottom: 2rem;
+    }
+
+    .gain-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .gain-item {
+        display: flex;
+        gap: 1rem;
+        font-size: 1rem;
+        color: #ffffff;
+        line-height: 1.5;
+    }
+
+    .gain-icon {
+        flex-shrink: 0;
+        color: var(--solar-secondary);
+        font-size: 1.2rem;
+    }
+
+    /* ==================== 3. SOLUÇÃO ==================== */
+    .solution-section {
+        padding: 120px 0;
+        background-color: #080808;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .solution-bullets {
+        list-style: none;
+        padding: 0;
+        margin: 0 0 2.5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .solution-bullets li {
+        display: flex;
+        align-items: center;
+        font-size: 1.05rem;
+        color: #e5e5e5;
+        font-weight: 600;
+    }
+
+    /* Metrics card side */
+    .metrics-card {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border);
+        border-radius: 24px;
+        padding: 2.5rem;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 30px rgba(245, 158, 11, 0.05);
+        position: relative;
+    }
+
+    .metric-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 1.25rem;
+        margin-bottom: 2rem;
+    }
+
+    .metric-title {
+        font-family: var(--font-outfit);
+        font-size: 1.15rem;
+        font-weight: 800;
+        color: #ffffff;
+    }
+
+    .metric-indicator {
+        font-size: 0.7rem;
+        font-weight: 800;
+        color: var(--solar-secondary);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        background: rgba(245, 158, 11, 0.1);
+        padding: 4px 10px;
+        border-radius: 50px;
+    }
+
+    .metric-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2rem;
+    }
+
+    .metric-item {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .metric-number {
+        font-family: var(--font-outfit);
+        font-size: 2.5rem;
+        font-weight: 900;
+        line-height: 1;
+        margin-bottom: 6px;
+    }
+
+    .metric-label {
+        font-size: 0.85rem;
+        color: #a3a3a3;
+        font-weight: 600;
+    }
+
+    /* ==================== 4. MOCKUPS / PROJETOS ==================== */
+    .projects-section {
+        padding: 120px 0;
+        background-color: var(--solar-dark);
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .mockup-showcase {
+        position: relative;
+        max-width: 1000px;
+        margin: 0 auto 5rem;
+        height: 520px;
+    }
+
+    .mockup-card {
+        background: #111111;
+        border-radius: 16px;
+        border: 1px solid rgba(245, 158, 11, 0.25);
+        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9), 0 0 60px rgba(245, 158, 11, 0.08);
+        overflow: hidden;
+        position: absolute;
+    }
+
+    .mockup-header-bar {
+        height: 36px;
+        background: #1a1a1a;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 0 16px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .circle-btn {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+    }
+
+    .circle-btn.red { background: #ef4444; }
+    .circle-btn.yellow { background: #f59e0b; }
+    .circle-btn.green { background: #10b981; }
+
+    .mockup-address {
+        font-family: monospace;
+        font-size: 0.7rem;
+        color: #555;
+        margin-left: 12px;
+    }
+
+    .desktop-mockup {
+        width: 75%;
+        left: 0;
+        top: 0;
+        z-index: 2;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .desktop-mockup:hover {
+        transform: scale(1.02) translateY(-5px);
+        z-index: 4;
+    }
+
+    .mockup-img-container {
+        position: relative;
+        aspect-ratio: 16/10;
+        background-color: #0c0c0c;
+        overflow: hidden;
+    }
+
+    .mockup-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .mobile-mockup {
+        width: 260px;
+        right: 4%;
+        top: 80px;
+        z-index: 3;
+        transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .mobile-mockup:hover {
+        transform: scale(1.05) translateY(-5px);
+    }
+
+    .mockup-img-mobile {
+        width: 100%;
+        height: 420px;
+        object-fit: cover;
+    }
+
+    /* Performance Guarantee Box */
+    .performance-guarantee-box {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 3rem;
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(245, 158, 11, 0.03) 100%);
+        border: 1px solid var(--solar-border);
+        border-radius: 28px;
+        padding: 3.5rem;
+        align-items: center;
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.4);
+    }
+
+    .speed-score-badge {
+        display: inline-block;
+        background-color: #10b981;
+        color: #000000;
+        font-size: 0.72rem;
+        font-weight: 900;
+        padding: 4px 10px;
+        border-radius: 4px;
+        margin-bottom: 1rem;
+        letter-spacing: 1px;
+    }
+
+    .performance-guarantee-box h3 {
+        font-family: var(--font-outfit);
+        font-size: 1.75rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: #ffffff;
+    }
+
+    .performance-guarantee-box p {
+        color: #d4d4d4;
+        line-height: 1.6;
+        font-size: 1rem;
+    }
+
+    .guarantee-stats {
+        display: flex;
+        justify-content: space-around;
+        gap: 1.5rem;
+    }
+
+    .g-stat {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .g-stat-circle {
+        width: 60px;
+        height: 60px;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid var(--solar-border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.05);
+    }
+
+    .g-stat span {
+        font-size: 0.85rem;
+        font-weight: 700;
+        color: #e5e5e5;
+    }
+
+    /* ==================== 5. BENEFÍCIOS ==================== */
+    .benefits-section {
+        padding: 120px 0;
+        background-color: #080808;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+    }
+
+    .benefit-card {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border-light);
+        border-radius: 24px;
+        padding: 3rem 2.5rem;
+        transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .benefit-card:hover {
+        border-color: var(--solar-primary);
+        transform: translateY(-6px);
+        box-shadow: 0 20px 40px rgba(245, 158, 11, 0.05);
+    }
+
+    .benefit-icon-container {
+        width: 56px;
+        height: 56px;
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid var(--solar-border);
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .benefit-card h3 {
+        font-family: var(--font-outfit);
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 0.85rem;
+    }
+
+    .benefit-card p {
+        color: #a3a3a3;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    /* ==================== 6. BLOCO DE SEO LOCAL ==================== */
+    .seo-local-section {
+        padding: 120px 0;
+        background-color: var(--solar-dark);
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .search-examples {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin: 1.5rem 0;
+    }
+
+    .search-example-item {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 12px 18px;
+        border-radius: 12px;
+        font-weight: 600;
+        font-size: 0.95rem;
+        color: #ffffff;
+    }
+
+    .search-icon {
+        color: var(--solar-secondary);
+    }
+
+    .text-highlight {
+        border-left: 3px solid var(--solar-primary);
+        padding-left: 1rem;
+    }
+
+    /* Search Mockup */
+    .search-box-mockup {
+        background: #171717;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
+    }
+
+    .search-header {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        padding-bottom: 1.25rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .google-logo {
+        font-size: 1.5rem;
+        font-weight: 800;
+        font-family: Arial, sans-serif;
+        margin-bottom: 10px;
+        letter-spacing: -1px;
+    }
+
+    .google-logo span:nth-child(1) { color: #4285F4; }
+    .google-logo span:nth-child(2) { color: #EA4335; }
+    .google-logo span:nth-child(3) { color: #FBBC05; }
+    .google-logo span:nth-child(4) { color: #34A853; }
+
+    .search-bar {
+        background: #262626;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 50px;
+        padding: 10px 20px;
+        font-size: 0.85rem;
+        color: #ffffff;
+        font-weight: 500;
+        width: 100%;
+    }
+
+    .search-results {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+    }
+
+    .result-item {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 12px;
+        padding: 1.25rem;
+        border: 1px solid transparent;
+    }
+
+    .result-item.sponsor {
+        border-color: rgba(255, 255, 255, 0.04);
+    }
+
+    .result-item.organic-winner {
+        background: linear-gradient(135deg, rgba(245, 158, 11, 0.04) 0%, rgba(0, 0, 0, 0.1) 100%);
+        border-color: var(--solar-border);
+        box-shadow: 0 0 20px rgba(245, 158, 11, 0.04);
+    }
+
+    .ad-tag {
+        font-size: 0.65rem;
+        font-weight: 800;
+        background: rgba(255, 255, 255, 0.08);
+        padding: 2px 6px;
+        border-radius: 4px;
+        color: #a3a3a3;
+        margin-bottom: 6px;
+        display: inline-block;
+    }
+
+    .rank-tag {
+        font-size: 0.72rem;
+        font-weight: 800;
+        color: var(--solar-secondary);
+        margin-bottom: 6px;
+        display: inline-block;
+    }
+
+    .result-title {
+        font-size: 1.1rem;
+        font-weight: 700;
+        margin-bottom: 4px;
+    }
+
+    .result-snippet {
+        font-size: 0.8rem;
+        color: #a3a3a3;
+        line-height: 1.4;
+        margin-bottom: 6px;
+    }
+
+    .result-stars {
+        font-size: 0.75rem;
+    }
+
+    /* ==================== 7. ÁREAS ATENDIDAS ==================== */
+    .coverage-section {
+        padding: 120px 0;
+        background-color: #080808;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .cities-container {
+        margin-top: 3rem;
+        text-align: center;
+    }
+
+    .cities-lead {
+        font-size: 1.1rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 1.5rem;
+    }
+
+    .cities-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 1.5rem;
+        max-width: 1000px;
+        margin: 0 auto 3.5rem;
+    }
+
+    .city-card {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border-light);
+        border-radius: 18px;
+        padding: 1.5rem 1rem;
+        transition: all 0.3s ease;
+    }
+
+    .city-card:hover {
+        border-color: var(--solar-primary);
+        transform: translateY(-4px);
+    }
+
+    .city-icon {
+        font-size: 1.5rem;
+        margin-bottom: 8px;
+    }
+
+    .city-card h4 {
+        font-size: 1.05rem;
+        font-weight: 700;
+        margin-bottom: 8px;
+    }
+
+    .city-badge {
+        font-size: 0.65rem;
+        font-weight: 800;
+        color: var(--solar-secondary);
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid var(--solar-border);
+        padding: 2px 8px;
+        border-radius: 50px;
+    }
+
+    .seo-multipilier-box {
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.02) 0%, rgba(245, 158, 11, 0.01) 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 24px;
+        padding: 2.5rem;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: left;
+    }
+
+    .multiplier-badge {
+        display: inline-block;
+        background: rgba(245, 158, 11, 0.1);
+        border: 1px solid var(--solar-border);
+        color: var(--solar-secondary);
+        font-size: 0.8rem;
+        font-weight: 800;
+        padding: 4px 12px;
+        border-radius: 50px;
+        margin-bottom: 1rem;
+    }
+
+    .seo-multipilier-box p {
+        color: #a3a3a3;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    .route-examples {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin: 1.25rem 0;
+    }
+
+    .route-examples code {
+        background: #111111;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        padding: 8px 14px;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-family: monospace;
+        color: #ffffff;
+    }
+
+    /* ==================== 8. PROCESSO EM 3 PASSOS ==================== */
+    .process-section {
+        padding: 120px 0;
+        background-color: var(--solar-dark);
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2.5rem;
+    }
+
+    .step-card {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border-light);
+        border-radius: 24px;
+        padding: 3rem 2.5rem;
+        position: relative;
+        transition: border-color 0.3s ease;
+    }
+
+    .step-card:hover {
+        border-color: var(--solar-border);
+    }
+
+    .step-number-container {
+        font-family: var(--font-outfit);
+        font-size: 3rem;
+        font-weight: 900;
+        color: rgba(245, 158, 11, 0.15);
+        line-height: 1;
+        margin-bottom: 1.5rem;
+    }
+
+    .step-card h3 {
+        font-family: var(--font-outfit);
+        font-size: 1.35rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        color: #ffffff;
+    }
+
+    .step-card p {
+        color: #a3a3a3;
+        line-height: 1.6;
+        font-size: 0.95rem;
+    }
+
+    /* ==================== 9. PROVA SOCIAL ==================== */
+    .social-proof-section {
+        padding: 120px 0;
+        background-color: #080808;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 2.5rem;
+        margin-bottom: 5rem;
+    }
+
+    .testimonial-card {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border-light);
+        border-radius: 24px;
+        padding: 3rem 2.5rem;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    }
+
+    .stars {
+        color: var(--solar-secondary);
+        font-size: 1.1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .testimonial-text {
+        font-size: 1rem;
+        color: #d4d4d4;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        font-style: italic;
+    }
+
+    .client-meta {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .client-name {
+        font-weight: 800;
+        color: #ffffff;
+        font-size: 0.95rem;
+    }
+
+    .client-role {
+        font-size: 0.8rem;
+        color: #737373;
+        font-weight: 600;
+        margin-top: 2px;
+    }
+
+    .trust-metrics-row {
+        display: flex;
+        justify-content: space-around;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.04);
+        padding: 3rem 2rem;
+        border-radius: 24px;
+    }
+
+    .trust-metric-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .metric-val {
+        font-family: var(--font-outfit);
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: var(--solar-secondary);
+        line-height: 1;
+        margin-bottom: 8px;
+    }
+
+    .metric-lbl {
+        font-size: 0.85rem;
+        color: #737373;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+
+    /* ==================== 10. FAQ SECTION ==================== */
+    .faq-section {
+        padding: 120px 0;
+        background-color: var(--solar-dark);
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .faq-accordion-container {
+        display: flex;
+        flex-direction: column;
+        gap: 1.25rem;
+        margin-top: 2rem;
+    }
+
+    .faq-accordion-item {
+        background: var(--solar-surface);
+        border: 1px solid var(--solar-border-light);
+        border-radius: 18px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .faq-accordion-item:hover {
+        border-color: rgba(245, 158, 11, 0.25);
+    }
+
+    .faq-accordion-item.active {
+        border-color: var(--solar-border);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+
+    .faq-trigger {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        background: none;
+        border: none;
+        color: #ffffff;
+        font-family: var(--font-outfit);
+        font-size: 1.15rem;
+        font-weight: 800;
+        text-align: left;
+        cursor: pointer;
+    }
+
+    .faq-icon-arrow {
+        width: 24px;
+        height: 24px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 50%;
+        position: relative;
+        flex-shrink: 0;
+        transition: transform 0.3s ease, background 0.3s ease;
+    }
+
+    .faq-icon-arrow::before, .faq-icon-arrow::after {
+        content: '';
+        position: absolute;
+        background-color: #ffffff;
+        transition: background-color 0.3s ease;
+    }
+
+    .faq-icon-arrow::before {
+        width: 10px;
+        height: 2px;
+        top: 11px;
+        left: 7px;
+    }
+
+    .faq-icon-arrow::after {
+        width: 2px;
+        height: 10px;
+        top: 7px;
+        left: 11px;
+    }
+
+    .faq-accordion-item.active .faq-icon-arrow {
+        transform: rotate(45deg);
+        background: var(--solar-primary);
+    }
+
+    .faq-accordion-item.active .faq-icon-arrow::before,
+    .faq-accordion-item.active .faq-icon-arrow::after {
+        background-color: #000000;
+    }
+
+    .faq-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+    .faq-content-inner {
+        padding: 0 2rem 2.25rem;
+    }
+
+    .faq-content-inner p {
+        color: #a3a3a3;
+        line-height: 1.6;
+        font-size: 0.95rem;
+        margin: 0;
+    }
+
+    /* ==================== 11. CTA FINAL ==================== */
+    .cta-final-section {
+        position: relative;
+        padding: 140px 0;
+        background-color: #030303;
+        overflow: hidden;
+        border-bottom: 1px solid var(--solar-border-light);
+    }
+
+    .cta-ambient-glow {
+        position: absolute;
+        bottom: -20%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 800px;
+        height: 400px;
+        background: radial-gradient(circle, rgba(245, 158, 11, 0.08) 0%, transparent 75%);
+        filter: blur(80px);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .cta-title {
+        font-family: var(--font-outfit);
+        font-size: clamp(2rem, 5vw, 3.5rem);
+        font-weight: 900;
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        margin-bottom: 1.5rem;
+    }
+
+    .cta-subtitle {
+        font-size: 1.15rem;
+        color: #d4d4d4;
+        line-height: 1.6;
+        margin-bottom: 2.5rem;
+    }
+
+    .cta-actions {
+        display: flex;
+        align-items: center;
+        gap: 1.5rem;
+        position: relative;
+        z-index: 2;
+    }
+
+    .cta-sub-note {
+        font-size: 0.85rem;
+        color: #737373;
+        margin-top: 1.5rem;
+        font-weight: 600;
+    }
+
+    /* ==================== DEEP TECHNICAL SEO SECTION ==================== */
+    .seo-deep-content {
+        padding: 80px 0;
+        background-color: var(--solar-dark);
+        color: #a3a3a3;
+        font-size: 0.95rem;
+        line-height: 1.7;
+    }
+
+    .seo-deep-content p {
+        margin-bottom: 1.5rem;
+    }
+
+    .seo-deep-content strong {
+        color: #ffffff;
+    }
+
+    .seo-links-flex {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .seo-tag-link {
+        color: #d4d4d4;
+        text-decoration: none;
+        font-size: 0.8rem;
+        font-weight: 600;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        padding: 6px 14px;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+
+    .seo-tag-link:hover {
+        color: var(--solar-secondary);
+        border-color: var(--solar-primary);
+        background: rgba(245, 158, 11, 0.05);
+    }
+
+    /* ==================== RESPONSIVE LAYOUT ==================== */
+    @media (max-width: 1024px) {
+        .grid-2-cols {
+            grid-template-columns: 1fr;
+            gap: 3rem;
+        }
+
+        .hero-container {
+            grid-template-columns: 1fr;
+            gap: 3.5rem;
+            text-align: center;
+        }
+
+        .hero-text-content {
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .hero-bullets {
+            max-width: 500px;
+            margin: 0 auto 2rem;
+        }
+
+        .hero-ctas {
+            justify-content: center;
+        }
+
+        .hero-visual {
+            max-width: 600px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .mockup-showcase {
+            height: 400px;
+        }
+
+        .desktop-mockup {
+            width: 80%;
+        }
+
+        .mobile-mockup {
+            width: 200px;
+            top: 60px;
+        }
+
+        .performance-guarantee-box {
+            grid-template-columns: 1fr;
+            text-align: center;
+            padding: 2.5rem;
+        }
+
+        .guarantee-stats {
+            margin-top: 1rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .pain-vs-gain-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .benefits-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .cities-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .steps-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .testimonials-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .mockup-showcase {
+            height: 300px;
+        }
+
+        .mobile-mockup {
+            width: 140px;
+            top: 40px;
+        }
+
+        .mockup-header-bar {
+            height: 28px;
+            padding: 0 10px;
+        }
+
+        .circle-btn {
+            width: 7px;
+            height: 7px;
+        }
+
+        .mockup-address {
+            font-size: 0.6rem;
+        }
+
+        .mockup-img-mobile {
+            height: 230px;
+        }
+
+        .route-examples {
+            justify-content: center;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .hero-bullets {
+            grid-template-columns: 1fr;
+            max-width: 280px;
+            text-align: left;
+        }
+
+        .hero-ctas {
+            flex-direction: column;
+            width: 100%;
+            gap: 1rem;
+        }
+
+        .hero-ctas :global(a) {
+            width: 100%;
+        }
+
+        .solar-btn-secondary {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .cities-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .trust-metrics-row {
+            flex-direction: column;
+            gap: 2rem;
+        }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener("astro:page-load", () => {
+        const accordionItems = document.querySelectorAll(".faq-accordion-item");
+        
+        accordionItems.forEach(item => {
+            const trigger = item.querySelector(".faq-trigger");
+            const content = item.querySelector(".faq-content") as HTMLElement;
+            
+            trigger?.addEventListener("click", () => {
+                const isOpen = item.classList.contains("active");
+                
+                accordionItems.forEach(otherItem => {
+                    if (otherItem !== item && otherItem.classList.contains("active")) {
+                        otherItem.classList.remove("active");
+                        const otherContent = otherItem.querySelector(".faq-content") as HTMLElement;
+                        const otherTrigger = otherItem.querySelector(".faq-trigger");
+                        if (otherContent) otherContent.style.maxHeight = "0";
+                        otherTrigger?.setAttribute("aria-expanded", "false");
+                    }
+                });
+                
+                if (isOpen) {
+                    item.classList.remove("active");
+                    if (content) content.style.maxHeight = "0";
+                    trigger.setAttribute("aria-expanded", "false");
+                } else {
+                    item.classList.add("active");
+                    if (content) content.style.maxHeight = content.scrollHeight + "px";
+                    trigger.setAttribute("aria-expanded", "true");
+                }
+            });
+        });
+
+        ScrollTrigger.refresh();
+
+        gsap.to(".hero-img", {
+            y: -10,
+            duration: 4,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        gsap.to(".desktop-mockup", {
+            y: -8,
+            duration: 5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut"
+        });
+
+        gsap.to(".mobile-mockup", {
+            y: -15,
+            duration: 4.5,
+            repeat: -1,
+            yoyo: true,
+            ease: "sine.inOut",
+            delay: 0.5
+        });
+
+        const reveals = document.querySelectorAll(".hero-text-content > *, .hero-visual, .pain-box, .gain-box, .solution-text, .solution-visual, .benefit-card, .step-card, .testimonial-card, .faq-accordion-item");
+        
+        reveals.forEach(el => {
+            gsap.fromTo(el, {
+                opacity: 0,
+                y: 40
+            }, {
+                scrollTrigger: {
+                    trigger: el,
+                    start: "top 85%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                ease: "power2.out"
+            });
+        });
+    });
+</script>

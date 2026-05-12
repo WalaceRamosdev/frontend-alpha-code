@@ -1,0 +1,64 @@
+---
+import fs from "fs";
+import path from "path";
+
+// Disable prerendering so it executes server-side on every single page load
+export const prerender = false;
+
+const srcDir = "C:\\Users\\HP\\.gemini\\antigravity\\brain\\5d5fb8e7-a79d-4fd2-ab1d-890d11724195";
+const targetDir = path.resolve("./public/assets/projects");
+
+if (!fs.existsSync(targetDir)) {
+    fs.mkdirSync(targetDir, { recursive: true });
+}
+
+const imagesToCopy = [
+    { src: "raw_desktop_solar_ui_1778595073795.png", dest: "site-empresa-energia-solar.webp" },
+    { src: "raw_mobile_solar_ui_1778595107874.png", dest: "website-solar-mobile.webp" },
+    { src: "landing_page_energia_solar_1778594111629.png", dest: "landing-page-energia-solar.webp" }
+];
+
+const results: string[] = [];
+
+for (const img of imagesToCopy) {
+    const srcPath = path.join(srcDir, img.src);
+    const destPath = path.join(targetDir, img.dest);
+    
+    if (fs.existsSync(srcPath)) {
+        try {
+            // Delete old file if exists to force a fresh overwrite
+            if (fs.existsSync(destPath)) {
+                fs.unlinkSync(destPath);
+            }
+            const sharp = (await import("sharp")).default;
+            await sharp(srcPath).webp({ quality: 90 }).toFile(destPath);
+            results.push(`SUCCESS: Converted and wrote ${img.dest} from ${img.src}`);
+        } catch (error: any) {
+            fs.copyFileSync(srcPath, destPath);
+            results.push(`FALLBACK: Copied raw file to ${img.dest} (Error: ${error.message})`);
+        }
+    } else {
+        results.push(`ERROR: Source file not found at ${srcPath}`);
+    }
+}
+---
+
+<html>
+<head>
+    <title>Image Assets Compiler</title>
+    <style>
+        body { background: #0a0a0a; color: #fff; font-family: monospace; padding: 40px; }
+        h1 { color: #f59e0b; }
+        ul { background: #111; padding: 20px; border-radius: 8px; border: 1px solid #333; }
+        li { margin: 10px 0; font-size: 14px; }
+    </style>
+</head>
+<body>
+    <h1>⚡ Image Assets Compiler</h1>
+    <p>Running dynamic server-side Sharp conversion...</p>
+    <ul>
+        {results.map(r => <li>{r}</li>)}
+    </ul>
+    <p><a href="/website-empresa-energia-solar" style="color: #fbbf24;">← Voltar para a Landing Page</a></p>
+</body>
+</html>
