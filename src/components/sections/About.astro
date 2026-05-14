@@ -177,33 +177,66 @@ import Button from "../ui/Button.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const section = document.getElementById("about");
+    function ensureAboutVisible() {
+        const aboutEls = document.querySelectorAll("#about .fade-up-about, #about .fade-in-about");
+        aboutEls.forEach((el) => {
+            (el as HTMLElement).style.opacity = "1";
+            (el as HTMLElement).style.transform = "none";
+        });
+    }
 
-    if (section) {
+    function initAboutAnimation() {
+        const section = document.getElementById("about");
+        if (!section) return;
+
+        // Safety timeout
+        const safetyTimer = setTimeout(ensureAboutVisible, 3000);
+
         const tl = gsap.timeline({
             scrollTrigger: {
                 trigger: section,
-                start: "top 75%",
+                start: "top 90%",
+                once: true,
+                onRefresh: (self) => {
+                    if (self.progress > 0) {
+                        ensureAboutVisible();
+                        self.kill();
+                    }
+                }
             },
+            onComplete: () => clearTimeout(safetyTimer)
         });
 
-        tl.from(section.querySelectorAll(".fade-up-about"), {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.2,
-            ease: "power2.out",
-        }).from(
-            section.querySelectorAll(".fade-in-about"),
+        tl.fromTo(
+            section.querySelectorAll(".fade-up-about"),
+            { y: 30, opacity: 0 },
             {
-                y: 30, // Changed from x to y to avoid horizontal shift issues
-                opacity: 0,
+                y: 0,
+                opacity: 1,
+                duration: 0.8,
+                stagger: 0.1,
+                ease: "power2.out",
+                immediateRender: false
+            }
+        ).fromTo(
+            section.querySelectorAll(".fade-in-about"),
+            { y: 20, opacity: 0 },
+            {
+                y: 0,
+                opacity: 1,
                 duration: 1,
                 ease: "power2.out",
+                immediateRender: false
             },
-            "-=0.6",
+            "-=0.4",
         );
     }
+
+    // Run on initial load and after ViewTransitions navigation
+    document.addEventListener("astro:page-load", () => {
+        initAboutAnimation();
+        setTimeout(() => ScrollTrigger.refresh(), 100);
+    });
 </script>
 
 <style>

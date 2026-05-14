@@ -37,21 +37,41 @@ import Button from "../ui/Button.astro";
 
     gsap.registerPlugin(ScrollTrigger);
 
-    const section = document.getElementById("contact");
-
-    if (section) {
-        gsap.from(section.querySelectorAll(".fade-up-contact"), {
-            scrollTrigger: {
-                trigger: section,
-                start: "top 80%",
-            },
-            y: 50,
-            scale: 0.95,
-            opacity: 0,
-            duration: 1,
-            ease: "power3.out",
+    function ensureContactVisible() {
+        const contactEls = document.querySelectorAll("#contact .fade-up-contact");
+        contactEls.forEach((el) => {
+            (el as HTMLElement).style.opacity = "1";
+            (el as HTMLElement).style.transform = "none";
         });
     }
+
+    function initContactAnimation() {
+        const section = document.getElementById("contact");
+        if (!section) return;
+
+        const safetyTimer = setTimeout(ensureContactVisible, 3000);
+
+        gsap.fromTo(
+            section.querySelectorAll(".fade-up-contact"),
+            { y: 50, scale: 0.95, opacity: 0 },
+            {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 85%",
+                    once: true,
+                },
+                y: 0,
+                scale: 1,
+                opacity: 1,
+                duration: 1,
+                ease: "power3.out",
+                immediateRender: false,
+                onComplete: () => clearTimeout(safetyTimer)
+            }
+        );
+    }
+
+    document.addEventListener("astro:page-load", initContactAnimation);
 </script>
 
 <style>
