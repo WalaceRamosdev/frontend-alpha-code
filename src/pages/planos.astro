@@ -754,6 +754,12 @@ export const prerender = false;
             </Card>
         </div>
 
+        <div class="text-center mt-5 mb-5 fade-up">
+            <p class="subscription-teaser">
+                Prefere não investir alto agora? <a href="/sites-por-assinatura" class="text-gradient">Conheça nosso Plano por Assinatura →</a>
+            </p>
+        </div>
+
         <!-- 💎 EXCLUSIVIDADE & ESCASSEZ REINFORCEMENT -->
         <div class="scarcity-footer fade-up">
             <p>
@@ -2489,6 +2495,20 @@ export const prerender = false;
         .systems-division-grid {
             grid-template-columns: 1fr;
         }
+    }
+
+    .subscription-teaser {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--color-text-secondary);
+    }
+    .subscription-teaser a {
+        text-decoration: none;
+        border-bottom: 2px solid transparent;
+        transition: 0.3s;
+    }
+    .subscription-teaser a:hover {
+        border-bottom-color: var(--color-primary);
     }
 </style>
 

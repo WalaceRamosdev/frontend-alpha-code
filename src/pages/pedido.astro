@@ -17,6 +17,10 @@ const STORE_PLANS = ["artigos", "speed", "redesign", "ads"];
 const isStorePlan = STORE_PLANS.includes(planParam ?? "");
 
 const headlineMap: Record<string, { headline: string; subheadline: string }> = {
+    assinatura: {
+        headline: "Seu site por assinatura",
+        subheadline: "Quase lá! Preencha os dados abaixo para iniciar sua Assinatura Alpha Infinity.",
+    },
     simples: {
         headline: "Vamos criar seu site!",
         subheadline:

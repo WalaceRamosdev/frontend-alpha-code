@@ -1,0 +1,535 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+import Card from "../components/ui/Card.astro";
+import { getSession } from "../lib/auth";
+
+const session = await getSession(Astro.request);
+const isLoggedIn = !!session;
+
+const title = "Sites por Assinatura | Alpha Infinity";
+const description = "Tenha um site de elite sempre atualizado por uma mensalidade que cabe no seu bolso. Sem alto investimento inicial.";
+
+export const prerender = false;
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    canonicalUrl={`${Astro.site}sites-por-assinatura`}
+    showWhatsApp={true}
+>
+    <!-- HERO DIDÁTICO -->
+    <section class="sub-hero">
+        <div class="container text-center">
+            <div class="badge-new fade-up">NOVA ERA DIGITAL</div>
+            <h1 class="fade-up delay-1">
+                Seu Site de Elite <span class="text-gradient">Sempre Vivo</span>
+            </h1>
+            <p class="hero-text fade-up delay-2">
+                Esqueça os altos investimentos iniciais e sites abandonados. 
+                Bem-vindo ao modelo onde seu site evolui junto com o seu negócio.
+            </p>
+            <div class="hero-actions fade-up delay-3">
+                <Button href="#como-funciona" variant="primary" size="lg">COMO FUNCIONA?</Button>
+                <Button href="#precos" variant="outline" size="lg">VER PLANO</Button>
+            </div>
+        </div>
+    </section>
+
+    <!-- O PROBLEMA VS A SOLUÇÃO -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header text-center fade-up">
+                <h2>O fim do <span class="text-primary">"Site Estático"</span></h2>
+                <p>Compare o modelo tradicional com a Assinatura Alpha Infinity</p>
+            </div>
+
+            <div class="comparison-grid fade-up">
+                <!-- Modelo Tradicional -->
+                <div class="comp-card old-way">
+                    <div class="comp-header">
+                        <h3>Modelo Tradicional</h3>
+                        <p class="comp-price">Alto investimento inicial</p>
+                    </div>
+                    <ul class="comp-list">
+                        <li><span class="icon">❌</span> Pagamento único de R$ 2.000+</li>
+                        <li><span class="icon">❌</span> Site fica obsoleto em 1 ano</li>
+                        <li><span class="icon">❌</span> Você paga extra por cada alteração</li>
+                        <li><span class="icon">❌</span> Você cuida da hospedagem e domínio</li>
+                        <li><span class="icon">❌</span> Risco de segurança por falta de atualização</li>
+                    </ul>
+                </div>
+
+                <!-- Alpha Infinity -->
+                <div class="comp-card alpha-way">
+                    <div class="badge-popular">RECOMENDADO</div>
+                    <div class="comp-header">
+                        <h3>Alpha Infinity</h3>
+                        <p class="comp-price">Apenas mensalidade</p>
+                    </div>
+                    <ul class="comp-list">
+                        <li><span class="icon">✅</span> 1º mês R$ 147 e seguintes apenas R$ 97</li>
+                        <li><span class="icon">✅</span> Sem taxa de adesão extra</li>
+                        <li><span class="icon">✅</span> Alterações de texto e fotos inclusas</li>
+                        <li><span class="icon">✅</span> Hospedagem e Domínio inclusos</li>
+                        <li><span class="icon">✅</span> Segurança monitorada 24/7</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COMO FUNCIONA - DIDÁTICO -->
+    <section id="como-funciona" class="how-it-works-visual">
+        <div class="container">
+            <h2 class="text-center fade-up">Simples como uma <span class="text-gradient">assinatura de TV</span></h2>
+            
+            <div class="steps-grid">
+                <div class="step-item fade-up">
+                    <div class="step-icon">01</div>
+                    <h4>Escolha e Assine</h4>
+                    <p>Você escolhe o plano, paga o setup inicial e a primeira mensalidade. Sem burocracia.</p>
+                </div>
+                <div class="step-item fade-up delay-1">
+                    <div class="step-icon">02</div>
+                    <h4>Briefing Ágil</h4>
+                    <p>Nossa equipe coleta suas informações e cria seu site de elite em tempo recorde.</p>
+                </div>
+                <div class="step-item fade-up delay-2">
+                    <div class="step-icon">03</div>
+                    <h4>Site no Ar & Evolução</h4>
+                    <p>Seu site vai ao ar. Precisa mudar algo? É só pedir. Nós mantemos tudo perfeito.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TUDO INCLUSO -->
+    <section class="all-inclusive-section">
+        <div class="container glass-premium">
+            <div class="inclusive-header text-center">
+                <h3>O que sua assinatura <span class="text-primary">garante</span>:</h3>
+            </div>
+            <div class="benefits-grid">
+                <div class="b-item">
+                    <span class="b-icon">🚀</span>
+                    <div>
+                        <h4>Hospedagem Premium</h4>
+                        <p>Servidores de alta velocidade para seu site nunca travar.</p>
+                    </div>
+                </div>
+                <div class="b-item">
+                    <span class="b-icon">🌐</span>
+                    <div>
+                        <h4>Domínio Próprio</h4>
+                        <p>Nós registramos e renovamos seu .com.br anualmente.</p>
+                    </div>
+                </div>
+                <div class="b-item">
+                    <span class="b-icon">✍️</span>
+                    <div>
+                        <h4>Manutenção Inclusa</h4>
+                        <p>Mudou de telefone? Quer trocar uma foto? Nós fazemos para você.</p>
+                    </div>
+                </div>
+                <div class="b-item">
+                    <span class="b-icon">🛡️</span>
+                    <div>
+                        <h4>Segurança Ativa</h4>
+                        <p>Certificado SSL e backups diários para sua tranquilidade.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PREÇOS -->
+    <section id="precos" class="pricing-sub">
+        <div class="container text-center">
+            <h2 class="fade-up">Investimento <span class="text-gradient">Alpha Infinity</span></h2>
+            
+            <div class="pricing-card-standalone fade-up">
+                <div class="p-header">
+                    <h3>Plano Assinatura Único</h3>
+                    <p>Toda a tecnologia Alpha Code ao seu alcance</p>
+                </div>
+                
+                <div class="p-main">
+                    <div class="p-price promo-dynamic">
+                        {isLoggedIn ? (
+                            <div class="price-stack">
+                                <div class="first-month">
+                                    <span class="label">1º MÊS</span>
+                                    <span class="currency">R$</span>
+                                    <span class="amount">147</span>
+                                </div>
+                                <div class="next-months">
+                                    <span class="label">PRÓXIMOS MESES</span>
+                                    <span class="currency">R$</span>
+                                    <span class="amount highlighted">97</span>
+                                    <span class="period">/mês</span>
+                                </div>
+                            </div>
+                        ) : (
+                            <a href="/login" class="btn-unlock">Ver Valor Especial</a>
+                        )}
+                    </div>
+                    <p class="setup-note">✨ Oferta de Lançamento: Taxa de setup reduzida inclusa no 1º mês.</p>
+                </div>
+
+                <div class="p-features">
+                    <ul>
+                        <li>Design Institucional de Elite</li>
+                        <li>Otimização para Celular (Mobile-First)</li>
+                        <li>Botão WhatsApp Estratégico</li>
+                        <li>SEO Estrutural para o Google</li>
+                        <li>Suporte via WhatsApp</li>
+                    </ul>
+                </div>
+
+                <div class="p-action">
+                    <Button href="/pedido?plan=assinatura" variant="primary" class="btn-glow w-full">QUERO MINHA ASSINATURA</Button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ ESPECÍFICO -->
+    <section class="faq-sub">
+        <div class="container">
+            <h2 class="text-center">Perguntas <span class="text-primary">Frequentes</span></h2>
+            <div class="faq-list">
+                <details>
+                    <summary>O site é meu ou da Alpha Code?</summary>
+                    <p>O site é um serviço por assinatura. Enquanto você assina, ele é seu para usar e lucrar. Se desejar cancelar, o serviço é interrompido. É como o Netflix: você tem acesso a todo o conteúdo enquanto assina.</p>
+                </details>
+                <details>
+                    <summary>Tem fidelidade?</summary>
+                    <p>Pedimos uma carência mínima de 6 meses para cobrir os custos de desenvolvimento inicial. Após isso, você pode cancelar quando desejar sem multas.</p>
+                </details>
+                <details>
+                    <summary>E se eu quiser comprar o site depois?</summary>
+                    <p>Sim! Temos uma opção de "compra de licença" para clientes que desejam migrar da assinatura para o modelo de propriedade única.</p>
+                </details>
+                <details>
+                    <summary>O que acontece se eu parar de pagar?</summary>
+                    <p>O site e os serviços associados (hospedagem, domínio, e-mails) serão suspensos. Mas não se preocupe, avisamos com antecedência.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+
+    <section class="final-cta text-center">
+        <div class="container">
+            <h2>Pronto para escalar sem gastar uma fortuna?</h2>
+            <Button href="/pedido?plan=assinatura" variant="primary" size="lg">INICIAR AGORA</Button>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .sub-hero {
+        padding: 160px 0 80px;
+        background: radial-gradient(circle at top right, rgba(138, 28, 38, 0.1), transparent);
+    }
+
+    .badge-new {
+        display: inline-block;
+        padding: 6px 16px;
+        background: rgba(138, 28, 38, 0.2);
+        color: var(--color-primary);
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        margin-bottom: 20px;
+        border: 1px solid rgba(138, 28, 38, 0.3);
+    }
+
+    .hero-text {
+        font-size: 1.25rem;
+        color: var(--color-text-secondary);
+        max-width: 700px;
+        margin: 0 auto 40px;
+        line-height: 1.6;
+    }
+
+    .hero-actions {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+
+    .comparison-section {
+        padding: 100px 0;
+    }
+
+    .comparison-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .comp-card {
+        padding: 40px;
+        border-radius: 24px;
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: transform 0.3s ease;
+    }
+
+    .alpha-way {
+        border-color: var(--color-primary);
+        background: linear-gradient(135deg, rgba(138, 28, 38, 0.05) 0%, rgba(0,0,0,0) 100%);
+        position: relative;
+    }
+
+    .badge-popular {
+        position: absolute;
+        top: -15px;
+        right: 30px;
+        background: var(--color-primary);
+        color: white;
+        padding: 5px 15px;
+        border-radius: 50px;
+        font-size: 0.75rem;
+        font-weight: 800;
+    }
+
+    .comp-header h3 {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+
+    .comp-price {
+        color: var(--color-text-muted);
+        font-weight: 600;
+        margin-bottom: 30px;
+    }
+
+    .comp-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .comp-list li {
+        display: flex;
+        gap: 15px;
+        font-size: 1rem;
+        color: var(--color-text-secondary);
+    }
+
+    .how-it-works-visual {
+        padding: 100px 0;
+        background: rgba(255, 255, 255, 0.01);
+    }
+
+    .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 40px;
+        margin-top: 60px;
+    }
+
+    .step-item {
+        text-align: center;
+    }
+
+    .step-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--color-primary);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+        font-size: 1.5rem;
+        font-weight: 800;
+        box-shadow: 0 0 20px rgba(138, 28, 38, 0.4);
+    }
+
+    .all-inclusive-section {
+        padding: 80px 0;
+    }
+
+    .glass-premium {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(10px);
+        padding: 60px;
+        border-radius: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .benefits-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 40px;
+        margin-top: 50px;
+    }
+
+    .b-item {
+        display: flex;
+        gap: 20px;
+        align-items: flex-start;
+    }
+
+    .b-icon {
+        font-size: 2.5rem;
+    }
+
+    .b-item h4 {
+        font-size: 1.2rem;
+        margin-bottom: 8px;
+    }
+
+    .b-item p {
+        color: var(--color-text-muted);
+        font-size: 0.95rem;
+    }
+
+    .pricing-sub {
+        padding: 100px 0;
+    }
+
+    .pricing-card-standalone {
+        max-width: 500px;
+        margin: 60px auto 0;
+        background: #0a0a0a;
+        padding: 50px;
+        border-radius: 32px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
+    }
+
+    .p-price {
+        margin: 30px 0 10px;
+    }
+
+    .price-stack {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .first-month {
+        font-size: 1.5rem;
+        color: var(--color-text-muted);
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+        padding: 5px 15px;
+        background: rgba(255, 255, 255, 0.03);
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    .first-month .amount {
+        font-size: 2.2rem;
+        font-weight: 700;
+        color: var(--color-text-secondary);
+    }
+
+    .next-months {
+        display: flex;
+        align-items: baseline;
+        gap: 8px;
+    }
+
+    .next-months .amount.highlighted {
+        font-size: 5rem;
+        font-weight: 900;
+        color: #fff;
+        text-shadow: 0 0 30px rgba(138, 28, 38, 0.3);
+    }
+
+    .label {
+        font-size: 0.7rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        color: var(--color-primary);
+        opacity: 0.8;
+    }
+
+    .currency { font-size: 1.5rem; color: var(--color-text-muted); }
+    .period { font-size: 1.2rem; color: var(--color-text-muted); }
+
+    .setup-note {
+        color: var(--color-primary);
+        font-weight: 700;
+        font-size: 0.9rem;
+    }
+
+    .p-features {
+        margin: 40px 0;
+        text-align: left;
+    }
+
+    .p-features ul {
+        list-style: none;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .p-features li::before {
+        content: "✓";
+        color: var(--color-primary);
+        margin-right: 10px;
+        font-weight: 900;
+    }
+
+    .faq-sub {
+        padding: 100px 0;
+    }
+
+    .faq-list {
+        max-width: 800px;
+        margin: 50px auto 0;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    details {
+        background: rgba(255, 255, 255, 0.02);
+        padding: 20px 30px;
+        border-radius: 16px;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    summary {
+        font-weight: 700;
+        cursor: pointer;
+        font-size: 1.1rem;
+    }
+
+    .final-cta {
+        padding: 120px 0;
+        background: linear-gradient(to top, rgba(138, 28, 38, 0.1), transparent);
+    }
+
+    .final-cta h2 {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+    }
+
+    @media (max-width: 768px) {
+        .comparison-grid, .steps-grid, .benefits-grid {
+            grid-template-columns: 1fr;
+        }
+        .hero-actions {
+            flex-direction: column;
+        }
+    }
+</style>
