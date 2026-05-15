@@ -1,14 +1,13 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Button from "../components/ui/Button.astro";
-import Card from "../components/ui/Card.astro";
 import { getSession } from "../lib/auth";
 
 const session = await getSession(Astro.request);
 const isLoggedIn = !!session;
 
-const title = "Sites por Assinatura | Alpha Infinity";
-const description = "Tenha um site de elite sempre atualizado por uma mensalidade que cabe no seu bolso. Sem alto investimento inicial.";
+const title = "Sites Profissionais por Assinatura | Alpha Infinity";
+const description = "Seu site de elite no ar em 48h por apenas R$ 97/mês. Hospedagem, domínio e manutenção inclusos. Sem fidelidade.";
 
 export const prerender = false;
 ---
@@ -19,517 +18,376 @@ export const prerender = false;
     canonicalUrl={`${Astro.site}sites-por-assinatura`}
     showWhatsApp={true}
 >
-    <!-- HERO DIDÁTICO -->
-    <section class="sub-hero">
-        <div class="container text-center">
-            <div class="badge-new fade-up">NOVA ERA DIGITAL</div>
-            <h1 class="fade-up delay-1">
-                Seu Site de Elite <span class="text-gradient">Sempre Vivo</span>
-            </h1>
-            <p class="hero-text fade-up delay-2">
-                Esqueça os altos investimentos iniciais e sites abandonados. 
-                Bem-vindo ao modelo onde seu site evolui junto com o seu negócio.
-            </p>
-            <div class="hero-actions fade-up delay-3">
-                <Button href="#como-funciona" variant="primary" size="lg">COMO FUNCIONA?</Button>
-                <Button href="#precos" variant="outline" size="lg">VER PLANO</Button>
-            </div>
-        </div>
-    </section>
+    <!-- Schema Markup JSON-LD -->
+    <script type="application/ld+json" slot="head">
+    {
+      "@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Sites por Assinatura Alpha Infinity",
+      "description": "Criação e manutenção de sites profissionais para profissionais liberais no modelo de assinatura.",
+      "provider": {
+        "@type": "Organization",
+        "name": "Alpha Code",
+        "url": "https://www.sitesalphacode.com.br"
+      },
+      "areaServed": "Brazil",
+      "hasOfferCatalog": {
+        "@type": "OfferCatalog",
+        "name": "Planos de Assinatura",
+        "itemListElement": [
+          {
+            "@type": "Offer",
+            "itemOffered": {
+              "@type": "Service",
+              "name": "Plano Alpha Infinity"
+            },
+            "price": "97.00",
+            "priceCurrency": "BRL"
+          }
+        ]
+      },
+      "mainEntityOfPage": {
+        "@type": "FAQPage",
+        "mainEntity": [{
+          "@type": "Question",
+          "name": "O site é meu?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "O site é um serviço por assinatura. Enquanto você assina, ele é seu para usar e lucrar. Existe a opção de compra da licença definitiva se desejar migrar."
+          }
+        }, {
+          "@type": "Question",
+          "name": "Tem fidelidade?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Não há fidelidade após o período inicial de setup. Você pode cancelar quando desejar."
+          }
+        }]
+      }
+    }
+    </script>
 
-    <!-- O PROBLEMA VS A SOLUÇÃO -->
-    <section class="comparison-section">
-        <div class="container">
-            <div class="section-header text-center fade-up">
-                <h2>O fim do <span class="text-primary">"Site Estático"</span></h2>
-                <p>Compare o modelo tradicional com a Assinatura Alpha Infinity</p>
-            </div>
-
-            <div class="comparison-grid fade-up">
-                <!-- Modelo Tradicional -->
-                <div class="comp-card old-way">
-                    <div class="comp-header">
-                        <h3>Modelo Tradicional</h3>
-                        <p class="comp-price">Alto investimento inicial</p>
+    <main class="brand-theme overflow-x-hidden">
+        
+        <!-- HERO SECTION (Dobra 1) -->
+        <section class="relative pt-32 pb-20 md:pt-48 md:pb-32 hero-gradient overflow-hidden">
+            <div class="max-w-7xl mx-auto px-6 relative z-10">
+                <div class="grid lg:grid-cols-2 gap-12 items-center">
+                    <div class="fade-up">
+                        <div class="inline-flex items-center gap-2 bg-primary/10 border border-primary/20 px-4 py-1.5 rounded-full text-primary text-xs font-bold mb-6 tracking-wider uppercase">
+                            <span class="relative flex h-2 w-2">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-2 w-2 bg-primary"></span>
+                            </span>
+                            Implementação Recorde em 48 Horas
+                        </div>
+                        <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mb-6">
+                            Sites Profissionais no Ar em 48h: <span class="text-gradient underline decoration-primary/30">Sem Custos</span> de Desenvolvimento.
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-400 mb-8 max-w-xl leading-relaxed">
+                            Por que pagar R$ 3.000 a um freelancer se você pode ter uma estrutura completa por <strong class="text-white">R$ 97/mês</strong>? Hospedagem, Domínio e Manutenção inclusos. <strong class="text-white">Cancele quando quiser.</strong>
+                        </p>
+                        <div class="flex flex-col items-start gap-4 mb-10">
+                            <Button href="#precos" variant="primary" size="lg" class="cta-primary-high-contrast text-xl px-12 py-6 shadow-2xl shadow-primary/40 transform hover:scale-105 transition-all">
+                                QUERO MEU SITE EM 48H
+                            </Button>
+                            <p class="text-sm text-slate-500 font-medium ml-2">
+                                🔒 Sem fidelidade. Teste por 7 dias.
+                            </p>
+                        </div>
                     </div>
-                    <ul class="comp-list">
-                        <li><span class="icon">❌</span> Pagamento único de R$ 2.000+</li>
-                        <li><span class="icon">❌</span> Site fica obsoleto em 1 ano</li>
-                        <li><span class="icon">❌</span> Você paga extra por cada alteração</li>
-                        <li><span class="icon">❌</span> Você cuida da hospedagem e domínio</li>
-                        <li><span class="icon">❌</span> Risco de segurança por falta de atualização</li>
-                    </ul>
-                </div>
-
-                <!-- Alpha Infinity -->
-                <div class="comp-card alpha-way">
-                    <div class="badge-popular">RECOMENDADO</div>
-                    <div class="comp-header">
-                        <h3>Alpha Infinity</h3>
-                        <p class="comp-price">Apenas mensalidade</p>
-                    </div>
-                    <ul class="comp-list">
-                        <li><span class="icon">✅</span> 1º mês R$ 147 e seguintes apenas R$ 97</li>
-                        <li><span class="icon">✅</span> Sem taxa de adesão extra</li>
-                        <li><span class="icon">✅</span> Alterações de texto e fotos inclusas</li>
-                        <li><span class="icon">✅</span> Hospedagem e Domínio inclusos</li>
-                        <li><span class="icon">✅</span> Segurança monitorada 24/7</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- COMO FUNCIONA - DIDÁTICO -->
-    <section id="como-funciona" class="how-it-works-visual">
-        <div class="container">
-            <h2 class="text-center fade-up">Simples como uma <span class="text-gradient">assinatura de TV</span></h2>
-            
-            <div class="steps-grid">
-                <div class="step-item fade-up">
-                    <div class="step-icon">01</div>
-                    <h4>Escolha e Assine</h4>
-                    <p>Você escolhe o plano, paga o setup inicial e a primeira mensalidade. Sem burocracia.</p>
-                </div>
-                <div class="step-item fade-up delay-1">
-                    <div class="step-icon">02</div>
-                    <h4>Briefing Ágil</h4>
-                    <p>Nossa equipe coleta suas informações e cria seu site de elite em tempo recorde.</p>
-                </div>
-                <div class="step-item fade-up delay-2">
-                    <div class="step-icon">03</div>
-                    <h4>Site no Ar & Evolução</h4>
-                    <p>Seu site vai ao ar. Precisa mudar algo? É só pedir. Nós mantemos tudo perfeito.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- TUDO INCLUSO -->
-    <section class="all-inclusive-section">
-        <div class="container glass-premium">
-            <div class="inclusive-header text-center">
-                <h3>O que sua assinatura <span class="text-primary">garante</span>:</h3>
-            </div>
-            <div class="benefits-grid">
-                <div class="b-item">
-                    <span class="b-icon">🚀</span>
-                    <div>
-                        <h4>Hospedagem Premium</h4>
-                        <p>Servidores de alta velocidade para seu site nunca travar.</p>
-                    </div>
-                </div>
-                <div class="b-item">
-                    <span class="b-icon">🌐</span>
-                    <div>
-                        <h4>Domínio Próprio</h4>
-                        <p>Nós registramos e renovamos seu .com.br anualmente.</p>
-                    </div>
-                </div>
-                <div class="b-item">
-                    <span class="b-icon">✍️</span>
-                    <div>
-                        <h4>Manutenção Inclusa</h4>
-                        <p>Mudou de telefone? Quer trocar uma foto? Nós fazemos para você.</p>
-                    </div>
-                </div>
-                <div class="b-item">
-                    <span class="b-icon">🛡️</span>
-                    <div>
-                        <h4>Segurança Ativa</h4>
-                        <p>Certificado SSL e backups diários para sua tranquilidade.</p>
+                    <div class="relative lg:block hidden animate-float">
+                        <div class="glass p-4 rounded-3xl border-white/10 shadow-2xl">
+                            <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=800&q=80" alt="Interface de Site Profissional" class="rounded-2xl shadow-inner w-full object-cover aspect-video" loading="eager">
+                        </div>
+                        <div class="absolute -top-10 -right-10 w-32 h-32 bg-primary/20 rounded-full blur-3xl"></div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- PREÇOS -->
-    <section id="precos" class="pricing-sub">
-        <div class="container text-center">
-            <h2 class="fade-up">Investimento <span class="text-gradient">Alpha Infinity</span></h2>
-            
-            <div class="pricing-card-standalone fade-up">
-                <div class="p-header">
-                    <h3>Plano Assinatura Único</h3>
-                    <p>Toda a tecnologia Alpha Code ao seu alcance</p>
+        <!-- COMO FUNCIONA (Dobra 2) -->
+        <section id="como-funciona" class="py-24 bg-surface border-t border-white/5">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 fade-up">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Do Zero ao Lucro em 3 Etapas Simples</h2>
+                    <p class="text-slate-400 max-w-2xl mx-auto text-lg md:text-xl">Nossa metodologia elimina a complexidade técnica para você focar no que importa: vender.</p>
                 </div>
-                
-                <div class="p-main">
-                    <div class="p-price promo-dynamic">
-                        {isLoggedIn ? (
-                            <div class="price-stack">
-                                <div class="first-month">
-                                    <span class="label">1º MÊS</span>
-                                    <span class="currency">R$</span>
-                                    <span class="amount">147</span>
+                <div class="grid md:grid-cols-3 gap-12">
+                    <!-- Step 1 -->
+                    <div class="text-center group fade-up">
+                        <div class="w-16 h-16 bg-white/5 text-primary rounded-2xl flex items-center justify-center text-3xl mb-8 mx-auto group-hover:bg-primary group-hover:text-white transition-all shadow-glow">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4">1. Escolha Seu Modelo</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Selecione o layout ideal para sua área (Advocacia, Saúde, Varejo). Nada de começarmos do zero.</p>
+                    </div>
+                    <!-- Step 2 -->
+                    <div class="text-center group fade-up delay-1">
+                        <div class="w-16 h-16 bg-white/5 text-primary rounded-2xl flex items-center justify-center text-3xl mb-8 mx-auto group-hover:bg-primary group-hover:text-white transition-all shadow-glow">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4">2. Nossa Equipe Personaliza</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Envie seu logo e cores. Em 24 horas, entregamos seu site pronto, otimizado para o Google e para vendas.</p>
+                    </div>
+                    <!-- Step 3 -->
+                    <div class="text-center group fade-up delay-2">
+                        <div class="w-16 h-16 bg-white/5 text-primary rounded-2xl flex items-center justify-center text-3xl mb-8 mx-auto group-hover:bg-primary group-hover:text-white transition-all shadow-glow">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h4 class="text-xl font-bold mb-4">3. Você Começa a Vender</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Site no ar com botão de WhatsApp, formulário de captura e links para suas redes sociais.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROVA SOCIAL REAL (Dobra 3) -->
+        <section class="py-24 bg-body">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 fade-up">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Quem Usa, Aprova e Vende Mais</h2>
+                </div>
+                <div class="max-w-4xl mx-auto">
+                    <!-- Case Study Principal -->
+                    <div class="bg-card p-8 md:p-12 rounded-3xl border border-white/5 flex flex-col md:flex-row gap-10 items-center fade-up">
+                        <div class="flex-shrink-0 relative group">
+                            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=300&q=80" class="w-40 h-40 rounded-full object-cover border-4 border-primary/20 shadow-2xl relative z-10" alt="Dr. Ricardo Mendes">
+                            <div class="absolute -inset-4 bg-primary blur-2xl opacity-10 group-hover:opacity-30 transition-opacity"></div>
+                        </div>
+                        <div>
+                            <div class="text-primary font-black uppercase tracking-widest text-xs mb-4">Depoimento de Sucesso</div>
+                            <p class="text-white text-lg md:text-xl italic mb-6 leading-relaxed">
+                                "Eu ia gastar R$ 4.000 em um site que demoraria meses. Com a AlphaCode, em 2 dias minha clínica estava no ar. No primeiro mês, os agendamentos online subiram 30%."
+                            </p>
+                            <div class="flex items-center justify-between gap-4 flex-wrap">
+                                <div>
+                                    <h5 class="font-bold text-xl text-white">Dr. Ricardo Mendes</h5>
+                                    <p class="text-slate-500 text-sm">Clínica Viver Bem, Curitiba</p>
                                 </div>
-                                <div class="next-months">
-                                    <span class="label">PRÓXIMOS MESES</span>
-                                    <span class="currency">R$</span>
-                                    <span class="amount highlighted">97</span>
-                                    <span class="period">/mês</span>
+                                <div class="bg-primary/10 border border-primary/20 px-4 py-2 rounded-xl">
+                                    <div class="text-primary font-black text-xl">+30%</div>
+                                    <div class="text-[10px] uppercase text-slate-400 font-bold">Agendamentos no 1º Mês</div>
                                 </div>
                             </div>
-                        ) : (
-                            <a href="/login" class="btn-unlock">Ver Valor Especial</a>
-                        )}
+                        </div>
                     </div>
-                    <p class="setup-note">✨ Oferta de Lançamento: Taxa de setup reduzida inclusa no 1º mês.</p>
-                </div>
-
-                <div class="p-features">
-                    <ul>
-                        <li>Design Institucional de Elite</li>
-                        <li>Otimização para Celular (Mobile-First)</li>
-                        <li>Botão WhatsApp Estratégico</li>
-                        <li>SEO Estrutural para o Google</li>
-                        <li>Suporte via WhatsApp</li>
-                    </ul>
-                </div>
-
-                <div class="p-action">
-                    <Button href="/pedido?plan=assinatura" variant="primary" class="btn-glow w-full">QUERO MINHA ASSINATURA</Button>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- FAQ ESPECÍFICO -->
-    <section class="faq-sub">
-        <div class="container">
-            <h2 class="text-center">Perguntas <span class="text-primary">Frequentes</span></h2>
-            <div class="faq-list">
-                <details>
-                    <summary>O site é meu ou da Alpha Code?</summary>
-                    <p>O site é um serviço por assinatura. Enquanto você assina, ele é seu para usar e lucrar. Se desejar cancelar, o serviço é interrompido. É como o Netflix: você tem acesso a todo o conteúdo enquanto assina.</p>
-                </details>
-                <details>
-                    <summary>Tem fidelidade?</summary>
-                    <p>Pedimos uma carência mínima de 6 meses para cobrir os custos de desenvolvimento inicial. Após isso, você pode cancelar quando desejar sem multas.</p>
-                </details>
-                <details>
-                    <summary>E se eu quiser comprar o site depois?</summary>
-                    <p>Sim! Temos uma opção de "compra de licença" para clientes que desejam migrar da assinatura para o modelo de propriedade única.</p>
-                </details>
-                <details>
-                    <summary>O que acontece se eu parar de pagar?</summary>
-                    <p>O site e os serviços associados (hospedagem, domínio, e-mails) serão suspensos. Mas não se preocupe, avisamos com antecedência.</p>
-                </details>
+        <!-- AUTORIDADE REAL (Dobra 4) -->
+        <section class="py-24 glass">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 fade-up">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4">Segurança e Suporte de Nível Enterprise</h2>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/50 transition-colors group">
+                        <div class="text-primary mb-6 group-hover:scale-110 transition-transform"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg></div>
+                        <h4 class="text-xl font-bold mb-4 text-white">Suporte Humano 24/7</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Fale com um especialista, não com um robô. Resolvemos qualquer dúvida em minutos.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/50 transition-colors group">
+                        <div class="text-primary mb-6 group-hover:scale-110 transition-transform"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg></div>
+                        <h4 class="text-xl font-bold mb-4 text-white">Servidores de Alta Velocidade</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Seu site carrega em menos de 2 segundos, evitando que o cliente desista e vá para o concorrente.</p>
+                    </div>
+                    <div class="p-8 rounded-2xl bg-white/5 border border-white/5 hover:border-primary/50 transition-colors group">
+                        <div class="text-primary mb-6 group-hover:scale-110 transition-transform"><svg class="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg></div>
+                        <h4 class="text-xl font-bold mb-4 text-white">Segurança Blindada</h4>
+                        <p class="text-slate-400 text-lg leading-relaxed">Certificado SSL incluso e backups diários. Seus dados e de seus clientes protegidos.</p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <section class="final-cta text-center">
-        <div class="container">
-            <h2>Pronto para escalar sem gastar uma fortuna?</h2>
-            <Button href="/pedido?plan=assinatura" variant="primary" size="lg">INICIAR AGORA</Button>
-        </div>
-    </section>
+        <!-- SEÇÃO DE PREÇO (Dobra 5) -->
+        <section id="precos" class="py-24 bg-surface">
+            <div class="max-w-7xl mx-auto px-6">
+                <div class="text-center mb-16 fade-up">
+                    <h2 class="font-display text-3xl md:text-5xl font-bold mb-4 text-gradient">Invista no Crescimento, Não em Burocracia</h2>
+                </div>
+                <div class="max-w-lg mx-auto">
+                    <div class="relative p-10 md:p-14 rounded-[40px] border-2 border-primary bg-card shadow-2xl shadow-primary/20 fade-up">
+                        <div class="absolute -top-6 left-1/2 -translate-x-1/2 bg-primary text-white px-6 py-2 rounded-full text-xs font-black tracking-widest uppercase shadow-lg shadow-primary/30">OFERTA IRRESISTÍVEL</div>
+                        
+                        <h3 class="text-3xl font-display font-black mb-8 text-center">Plano Alpha Infinity</h3>
+                        
+                        <div class="text-center mb-10">
+                            <div class="flex items-center justify-center gap-2">
+                                <span class="text-slate-500 text-2xl font-bold">R$</span>
+                                <span class="text-7xl font-display font-black text-white">97,00</span>
+                                <span class="text-slate-500 text-xl font-bold">/mês</span>
+                            </div>
+                            <p class="text-primary font-bold mt-2 uppercase text-xs tracking-widest">Sem taxas ocultas</p>
+                        </div>
+
+                        <ul class="space-y-5 mb-12">
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Site Profissional Personalizado
+                            </li>
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Hospedagem Ilimitada
+                            </li>
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Domínio Grátis no 1º Ano
+                            </li>
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Certificado de Segurança (SSL)
+                            </li>
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Atualizações Ilimitadas
+                            </li>
+                            <li class="flex items-center gap-4 text-lg text-slate-200">
+                                <div class="bg-primary/20 text-primary p-1 rounded-full"><svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"></path></svg></div>
+                                Otimização para Google (SEO Básico)
+                            </li>
+                        </ul>
+                        
+                        <Button href="/pedido?plan=assinatura" variant="primary" size="lg" class="cta-primary-high-contrast w-full text-2xl py-8 shadow-3xl shadow-primary/50 transform active:scale-95 transition-all mb-6">
+                            ASSINAR AGORA E COMEÇAR
+                        </Button>
+                        <p class="text-sm text-center text-slate-400 font-bold bg-white/5 p-4 rounded-xl">
+                            Risco Zero: 7 dias de garantia ou seu dinheiro de volta.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL (Rodapé de conversão) -->
+        <section class="py-24 relative overflow-hidden bg-body border-t border-white/5">
+            <div class="max-w-4xl mx-auto px-6 text-center relative z-10 fade-up">
+                <h2 class="font-display text-4xl md:text-5xl font-bold mb-6 text-gradient">Sua clínica ou escritório no ar em 48 horas.</h2>
+                <p class="text-xl text-slate-400 mb-10 leading-relaxed">
+                    Clique abaixo e garanta sua vaga para implementação nesta semana. 
+                </p>
+                <div class="flex flex-col items-center gap-6">
+                    <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="cta-primary-high-contrast px-12 py-6 text-2xl font-black shadow-2xl shadow-primary/40">
+                        QUERO MEU SITE EM 48H
+                    </Button>
+                    <div class="flex items-center gap-6 text-slate-500 text-xs uppercase tracking-widest font-black">
+                        <span class="flex items-center gap-1">✓ Pagamento Seguro</span>
+                        <span class="flex items-center gap-1">✓ Suporte via WhatsApp</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
 </BaseLayout>
 
 <style>
-    .sub-hero {
-        padding: 160px 0 80px;
-        background: radial-gradient(circle at top right, rgba(138, 28, 38, 0.1), transparent);
+    /* Design Tokens Mapping */
+    :root {
+        --primary: var(--color-primary, #8a1c26);
+        --primary-glow: var(--color-primary-glow, rgba(138, 28, 38, 0.4));
+        --body: var(--color-bg-body, #020202);
+        --surface: var(--color-bg-surface, #0a0a0a);
+        --card: var(--color-bg-card, #111111);
     }
 
-    .badge-new {
-        display: inline-block;
-        padding: 6px 16px;
-        background: rgba(138, 28, 38, 0.2);
-        color: var(--color-primary);
-        border-radius: 50px;
-        font-size: 0.8rem;
-        font-weight: 800;
-        letter-spacing: 2px;
-        margin-bottom: 20px;
-        border: 1px solid rgba(138, 28, 38, 0.3);
+    .brand-theme {
+        background-color: var(--body);
+        color: var(--color-text-main, #FFFFFF);
+        font-family: var(--font-main, 'Plus Jakarta Sans', sans-serif);
     }
 
-    .hero-text {
-        font-size: 1.25rem;
-        color: var(--color-text-secondary);
-        max-width: 700px;
-        margin: 0 auto 40px;
+    /* High Contrast CTA Styling */
+    .cta-primary-high-contrast {
+        background: linear-gradient(135deg, #EAB308 0%, #F59E0B 100%) !important;
+        color: #000 !important;
+        font-weight: 900 !important;
+        border: none !important;
+    }
+    .cta-primary-high-contrast:hover {
+        background: linear-gradient(135deg, #F59E0B 0%, #D97706 100%) !important;
+        transform: translateY(-2px) scale(1.05);
+    }
+
+    .hero-gradient {
+        background: radial-gradient(circle at top right, rgba(138, 28, 38, 0.1), transparent), 
+                    radial-gradient(circle at bottom left, var(--body), var(--surface));
+    }
+
+    .glass {
+        background: var(--color-bg-glass, rgba(20, 20, 20, 0.7));
+        backdrop-filter: var(--glass-blur, blur(12px));
+        border: var(--glass-border, 1px solid rgba(255, 255, 255, 0.08));
+    }
+
+    .text-gradient {
+        background: var(--gradient-primary, linear-gradient(135deg, #8a1c26 0%, #b32d3a 100%));
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .animate-float {
+        animation: float 6s var(--transition-bounce, ease-in-out) infinite;
+    }
+
+    @keyframes float {
+        0%, 100% { transform: translateY(0px) rotate(0deg); }
+        50% { transform: translateY(-20px) rotate(1deg); }
+    }
+
+    /* Scroll Animations */
+    .fade-up {
+        opacity: 0;
+        transform: translateY(30px);
+        animation: fadeUp 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+    }
+
+    .delay-1 { animation-delay: 0.2s; }
+    .delay-2 { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Base Styling Overrides */
+    h1, h2, h3, h4, .font-display {
+        font-family: var(--font-heading, 'Outfit', sans-serif);
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+    }
+
+    p, li {
+        font-size: 1.125rem; /* 18px equivalent */
         line-height: 1.6;
     }
 
-    .hero-actions {
-        display: flex;
-        justify-content: center;
-        gap: 20px;
-    }
-
-    .comparison-section {
-        padding: 100px 0;
-    }
-
-    .comparison-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-        margin-top: 60px;
-    }
-
-    .comp-card {
-        padding: 40px;
-        border-radius: 24px;
-        background: rgba(255, 255, 255, 0.02);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: transform 0.3s ease;
-    }
-
-    .alpha-way {
-        border-color: var(--color-primary);
-        background: linear-gradient(135deg, rgba(138, 28, 38, 0.05) 0%, rgba(0,0,0,0) 100%);
-        position: relative;
-    }
-
-    .badge-popular {
-        position: absolute;
-        top: -15px;
-        right: 30px;
-        background: var(--color-primary);
-        color: white;
-        padding: 5px 15px;
-        border-radius: 50px;
-        font-size: 0.75rem;
-        font-weight: 800;
-    }
-
-    .comp-header h3 {
-        font-size: 1.8rem;
-        margin-bottom: 10px;
-    }
-
-    .comp-price {
-        color: var(--color-text-muted);
-        font-weight: 600;
-        margin-bottom: 30px;
-    }
-
-    .comp-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-    }
-
-    .comp-list li {
-        display: flex;
-        gap: 15px;
-        font-size: 1rem;
-        color: var(--color-text-secondary);
-    }
-
-    .how-it-works-visual {
-        padding: 100px 0;
-        background: rgba(255, 255, 255, 0.01);
-    }
-
-    .steps-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 40px;
-        margin-top: 60px;
-    }
-
-    .step-item {
-        text-align: center;
-    }
-
-    .step-icon {
-        width: 60px;
-        height: 60px;
-        background: var(--color-primary);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 20px;
-        font-size: 1.5rem;
-        font-weight: 800;
-        box-shadow: 0 0 20px rgba(138, 28, 38, 0.4);
-    }
-
-    .all-inclusive-section {
-        padding: 80px 0;
-    }
-
-    .glass-premium {
-        background: rgba(255, 255, 255, 0.03);
-        backdrop-filter: blur(10px);
-        padding: 60px;
-        border-radius: 32px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .benefits-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 40px;
-        margin-top: 50px;
-    }
-
-    .b-item {
-        display: flex;
-        gap: 20px;
-        align-items: flex-start;
-    }
-
-    .b-icon {
-        font-size: 2.5rem;
-    }
-
-    .b-item h4 {
-        font-size: 1.2rem;
-        margin-bottom: 8px;
-    }
-
-    .b-item p {
-        color: var(--color-text-muted);
-        font-size: 0.95rem;
-    }
-
-    .pricing-sub {
-        padding: 100px 0;
-    }
-
-    .pricing-card-standalone {
-        max-width: 500px;
-        margin: 60px auto 0;
-        background: #0a0a0a;
-        padding: 50px;
-        border-radius: 32px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        box-shadow: 0 30px 60px rgba(0,0,0,0.5);
-    }
-
-    .p-price {
-        margin: 30px 0 10px;
-    }
-
-    .price-stack {
-        display: flex;
-        flex-direction: column;
-        gap: 15px;
-        align-items: center;
-    }
-
-    .first-month {
-        font-size: 1.5rem;
-        color: var(--color-text-muted);
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-        padding: 5px 15px;
-        background: rgba(255, 255, 255, 0.03);
-        border-radius: 12px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    .first-month .amount {
-        font-size: 2.2rem;
-        font-weight: 700;
-        color: var(--color-text-secondary);
-    }
-
-    .next-months {
-        display: flex;
-        align-items: baseline;
-        gap: 8px;
-    }
-
-    .next-months .amount.highlighted {
-        font-size: 5rem;
-        font-weight: 900;
-        color: #fff;
-        text-shadow: 0 0 30px rgba(138, 28, 38, 0.3);
-    }
-
-    .label {
-        font-size: 0.7rem;
-        font-weight: 800;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--color-primary);
-        opacity: 0.8;
-    }
-
-    .currency { font-size: 1.5rem; color: var(--color-text-muted); }
-    .period { font-size: 1.2rem; color: var(--color-text-muted); }
-
-    .setup-note {
-        color: var(--color-primary);
-        font-weight: 700;
-        font-size: 0.9rem;
-    }
-
-    .p-features {
-        margin: 40px 0;
-        text-align: left;
-    }
-
-    .p-features ul {
-        list-style: none;
-        padding: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-    }
-
-    .p-features li::before {
-        content: "✓";
-        color: var(--color-primary);
-        margin-right: 10px;
-        font-weight: 900;
-    }
-
-    .faq-sub {
-        padding: 100px 0;
-    }
-
-    .faq-list {
-        max-width: 800px;
-        margin: 50px auto 0;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-    }
-
-    details {
-        background: rgba(255, 255, 255, 0.02);
-        padding: 20px 30px;
-        border-radius: 16px;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-    }
-
-    summary {
-        font-weight: 700;
-        cursor: pointer;
-        font-size: 1.1rem;
-    }
-
-    .final-cta {
-        padding: 120px 0;
-        background: linear-gradient(to top, rgba(138, 28, 38, 0.1), transparent);
-    }
-
-    .final-cta h2 {
-        font-size: 2.5rem;
-        margin-bottom: 40px;
-    }
-
     @media (max-width: 768px) {
-        .comparison-grid, .steps-grid, .benefits-grid {
-            grid-template-columns: 1fr;
+        p, li {
+            font-size: 1.25rem; /* 20px equivalent for mobile readability */
         }
-        .hero-actions {
-            flex-direction: column;
+        .max-w-7xl {
+            padding-left: 20px !important;
+            padding-right: 20px !important;
+        }
+    }
+
+    .bg-surface { background-color: var(--surface); }
+    .bg-body { background-color: var(--body); }
+    .bg-card { background-color: var(--card); }
+    .text-primary { color: var(--primary); }
+
+    /* Accessibility */
+    @media (prefers-reduced-motion: reduce) {
+        .animate-float, .fade-up {
+            animation: none;
+            opacity: 1;
+            transform: none;
         }
     }
 </style>
