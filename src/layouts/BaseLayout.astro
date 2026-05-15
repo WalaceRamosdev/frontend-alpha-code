@@ -97,35 +97,29 @@ const seo = createSEOMeta({
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
-        <!-- Integrated Google Tagging & GTM (Optimized / Lazy Loaded) -->
+        <!-- Google Tag Manager & Analytics (Integrated with Astro ViewTransitions) -->
         <script is:inline>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
+            
+            // Initial Config
+            gtag("js", new Date());
 
-            let analyticsInitialized = false;
-
-            function initAnalytics() {
-                if (analyticsInitialized) return;
-                analyticsInitialized = true;
-
-                // Load Google Tag (gtag.js)
-                const gTagScript = document.createElement("script");
-                gTagScript.async = true;
-                gTagScript.src = "https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P";
-                document.head.appendChild(gTagScript);
-
-                gtag("js", new Date());
-
-                // Tracking IDs & Internal Traffic Logic
+            const initGA = () => {
                 const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
                               localStorage.getItem("alpha_admin_mode") === "true";
                 const trafficType = isAdmin ? "internal" : "external";
 
-                // Config GA4 & Google Ads
-                gtag("config", "G-Z1TRD8DK7P", { 'traffic_type': trafficType }); 
+                // GA4 Config (Send page_view automatically)
+                gtag("config", "G-Z1TRD8DK7P", { 
+                    'traffic_type': trafficType,
+                    'page_path': window.location.pathname 
+                }); 
+                
+                // Google Ads
                 gtag("config", "AW-17948194634");
 
-                // Google Tag Manager
+                // GTM Initialization
                 (function (w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -136,49 +130,29 @@ const seo = createSEOMeta({
                     j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                     f.parentNode.insertBefore(j, f);
                 })(window, document, "script", "dataLayer", "GTM-P839T8F");
-            }
+            };
 
-            // Lazy loading on first user interaction
-            const interactionEvents = ["touchstart", "scroll", "mousemove", "click", "keydown"];
-            
-            function triggerAnalytics() {
-                initAnalytics();
-                interactionEvents.forEach(event => {
-                    window.removeEventListener(event, triggerAnalytics, { passive: true });
-                });
-            }
-
-            interactionEvents.forEach(event => {
-                window.addEventListener(event, triggerAnalytics, { passive: true });
-            });
-
-            // Fallback for bots/crawlers or idle page loads after 3.5 seconds
-            if (window.requestIdleCallback) {
-                window.requestIdleCallback(() => {
-                    setTimeout(initAnalytics, 3500);
-                });
-            } else {
-                setTimeout(initAnalytics, 3500);
-            }
-
-            // Event listener for page changes (Astro ViewTransitions)
+            // Run on every page load (Initial + ViewTransitions)
             document.addEventListener('astro:page-load', () => {
-                if (!analyticsInitialized) {
-                    // If navigating and not initialized, initialize immediately
-                    initAnalytics();
-                } else {
-                    const currentAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
-                                        localStorage.getItem("alpha_admin_mode") === "true";
-                    const currentTrafficType = currentAdmin ? "internal" : "external";
-
-                    gtag('event', 'page_view', { 'traffic_type': currentTrafficType });
-                    window.dataLayer.push({
-                        'event': 'virt_page_view',
-                        'page_path': window.location.pathname
+                // For SPAs/ViewTransitions, we need to send a new config command
+                // so GA4 captures the URL change correctly.
+                if (window.gtag) {
+                    const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
+                                  localStorage.getItem("alpha_admin_mode") === "true";
+                    
+                    gtag('config', 'G-Z1TRD8DK7P', {
+                        'page_path': window.location.pathname,
+                        'traffic_type': isAdmin ? 'internal' : 'external'
                     });
                 }
             });
+
+            // Initial trigger
+            initGA();
         </script>
+        
+        <!-- Script de suporte para GA4 (Externo) -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P"></script>ipt>
         
 
 
