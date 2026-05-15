@@ -7,8 +7,7 @@
     "build": "prisma generate && astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "optimize-images": "node scripts/optimize-all-images.js",
-    "cleanup-images": "node scripts/cleanup-images.js"
+    "optimize-images": "node scripts/optimize-all-images.js"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.6",
