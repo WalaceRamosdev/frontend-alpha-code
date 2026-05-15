@@ -83,7 +83,7 @@ export const prerender = false;
                     </div>
                     <div class="relative lg:block hidden">
                         <div class="glass-solar p-4 rounded-3xl border-white/10 shadow-2xl relative z-10">
-                            <img src="https://images.unsplash.com/photo-1509391366360-fe5bb65831bb?auto=format&fit=crop&w=800&q=80" alt="Sistemas Solares Híbridos 2026" class="rounded-2xl w-full object-cover aspect-video shadow-glow-amber">
+                            <img src="/assets/hybrid-solar-2026.webp" alt="Sistemas Solares Híbridos 2026 - Alpha Infinity" class="rounded-2xl w-full object-cover aspect-video shadow-glow-amber">
                             <!-- Overlay de status -->
                             <div class="absolute bottom-10 left-10 right-10 bg-black/80 backdrop-blur-md p-6 rounded-2xl border border-amber-500/30 flex justify-between items-center animate-pulse">
                                 <div class="flex items-center gap-3">
@@ -274,8 +274,12 @@ export const prerender = false;
     .min-height-screen { min-height: 100vh; }
 
     .hero-solar-bg {
-        background: radial-gradient(circle at 70% 30%, rgba(245, 158, 11, 0.1), transparent), 
-                    linear-gradient(to bottom, #000, #0a0a0a);
+        background: 
+            linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 100%),
+            url('/assets/abstract-solar-bg.webp');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
     }
 
     .glass-solar {
