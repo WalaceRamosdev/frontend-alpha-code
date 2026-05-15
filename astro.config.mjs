@@ -30,6 +30,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
+      sourcemap: true,
       rollupOptions: {
         output: {
           manualChunks(id) {

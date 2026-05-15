@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
+import { Image } from 'astro:assets';
+import heroImage from '../../assets/hybrid-solar-2026.png';
+import abstractBg from '../../assets/abstract-solar-bg.png';
 
 const title = "Energia Solar 2026 | Sistemas Híbridos e Antiapagão | Alpha Infinity";
 const description = "Proteja sua empresa contra apagões e restrições de rede em 2026. Sistemas híbridos de alta performance com instalação rápida e autonomia total.";
@@ -83,7 +86,15 @@ export const prerender = false;
                     </div>
                     <div class="relative lg:block hidden">
                         <div class="glass-solar p-4 rounded-3xl border-white/10 shadow-2xl relative z-10">
-                            <img src="/assets/hybrid-solar-2026.webp" alt="Sistemas Solares Híbridos 2026 - Alpha Infinity" class="rounded-2xl w-full object-cover aspect-video shadow-glow-amber">
+                            <Image 
+                                src={heroImage} 
+                                alt="Sistemas Solares Híbridos 2026 - Alpha Infinity" 
+                                width={800}
+                                height={450}
+                                loading="eager"
+                                fetchpriority="high"
+                                class="rounded-2xl w-full h-auto shadow-glow-amber"
+                            />
                             <!-- Overlay de status -->
                             <div class="absolute bottom-10 left-10 right-10 bg-black/80 backdrop-blur-md p-6 rounded-2xl border border-amber-500/30 flex justify-between items-center animate-pulse">
                                 <div class="flex items-center gap-3">

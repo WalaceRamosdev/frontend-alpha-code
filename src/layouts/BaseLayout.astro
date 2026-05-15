@@ -95,6 +95,9 @@ const seo = createSEOMeta({
         <meta charset="UTF-8" />
         <slot name="head" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        
+        <!-- LCP Critical Preload -->
+        <link rel="preload" as="image" href="/assets/hybrid-solar-2026.webp" fetchpriority="high" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
         <!-- Google Tag Manager & Analytics (Integrated with Astro ViewTransitions) -->
