@@ -6,6 +6,7 @@ import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import SocialProof from "../components/ui/SocialProof.astro";
 import PromoModal from "../components/ui/PromoModal.astro";
 import PremiumWhatsapp from "../components/ui/PremiumWhatsapp.astro";
+import { ViewTransitions } from "astro:transitions";
 import FomoBubble from "../components/ui/FomoBubble.astro";
 import "../styles/variables.css";
 import "../styles/utilities.css";
@@ -75,7 +76,7 @@ const seo = createSEOMeta({
 ---
 
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" transition:animate="none">
     <head>
         <meta charset="UTF-8" />
         <slot name="head" />
@@ -142,8 +143,8 @@ const seo = createSEOMeta({
                 setTimeout(initGTM, 1500);
             }
 
-            // Reenvia page_view em navegação nativa (bfcache + reload SPA-like)
-            window.addEventListener("pageshow", () => {
+            // Reenvia page_view em ViewTransitions (SPA navigation)
+            document.addEventListener("astro:page-load", () => {
                 if (window.gtag) {
                     const a = new URLSearchParams(window.location.search).get("admin") === "true" ||
                               localStorage.getItem("alpha_admin_mode") === "true";
@@ -258,6 +259,10 @@ const seo = createSEOMeta({
                 font-family: "Font Awesome 6 Brands";
                 font-weight: 400;
             }
+            /* Subset inline dos 104 ícones Font Awesome usados no projeto (~4KB).
+               Garante que cada classe .fa-XXX tenha o glifo Unicode correto
+               sem precisar carregar os 75KB do CSS externo do Cloudflare. */
+            .fa-arrow-left:before{content:"\f060"}.fa-arrow-right:before{content:"\f061"}.fa-arrow-trend-down:before{content:"\e097"}.fa-award:before{content:"\f559"}.fa-balance-scale:before{content:"\f24e"}.fa-ban:before{content:"\f05e"}.fa-bolt:before{content:"\f0e7"}.fa-boxes-packing:before{content:"\e4c7"}.fa-briefcase:before{content:"\f0b1"}.fa-building-user:before{content:"\e4da"}.fa-bullhorn:before{content:"\f0a1"}.fa-calendar-times:before{content:"\f273"}.fa-camera:before{content:"\f030"}.fa-chart-line:before{content:"\f201"}.fa-check:before{content:"\f00c"}.fa-check-circle:before{content:"\f058"}.fa-chevron-down:before{content:"\f078"}.fa-chevron-right:before{content:"\f054"}.fa-chevron-up:before{content:"\f077"}.fa-city:before{content:"\f64f"}.fa-clock-rotate-left:before{content:"\f1da"}.fa-comments:before{content:"\f086"}.fa-compress-arrows-alt:before{content:"\f78c"}.fa-copy:before{content:"\f0c5"}.fa-credit-card:before{content:"\f09d"}.fa-crown:before{content:"\f521"}.fa-dollar-sign:before{content:"\24"}.fa-download:before{content:"\f019"}.fa-exclamation-triangle:before{content:"\f071"}.fa-external-link-alt:before{content:"\f35d"}.fa-eye-slash:before{content:"\f070"}.fa-file-contract:before{content:"\f56c"}.fa-file-invoice-dollar:before{content:"\f571"}.fa-file-pdf:before{content:"\f1c1"}.fa-file-signature:before{content:"\f573"}.fa-gauge-high:before{content:"\f625"}.fa-gavel:before{content:"\f0e3"}.fa-gears:before{content:"\f085"}.fa-gem:before{content:"\f3a5"}.fa-gift:before{content:"\f06b"}.fa-globe:before{content:"\f0ac"}.fa-globe-americas:before{content:"\f57d"}.fa-hand-holding-dollar:before{content:"\f4c0"}.fa-hand-holding-usd:before{content:"\f4c0"}.fa-handshake:before{content:"\f2b5"}.fa-handshake-slash:before{content:"\e060"}.fa-headset:before{content:"\f590"}.fa-hospital-user:before{content:"\f80d"}.fa-hotel:before{content:"\f594"}.fa-hourglass-half:before{content:"\f252"}.fa-house-damage:before{content:"\f6f1"}.fa-house-user:before{content:"\e1b0"}.fa-images:before{content:"\f302"}.fa-info-circle:before{content:"\f05a"}.fa-instagram:before{content:"\f16d"}.fa-key:before{content:"\f084"}.fa-laptop-house:before{content:"\e066"}.fa-layer-group:before{content:"\f5fd"}.fa-linkedin:before{content:"\f08c"}.fa-list-check:before{content:"\f0ae"}.fa-location-dot:before{content:"\f3c5"}.fa-lock:before{content:"\f023"}.fa-magic:before{content:"\f0d0"}.fa-map-location-dot:before{content:"\f5a0"}.fa-mobile-alt:before{content:"\f3cd"}.fa-money-bill-trend-up:before{content:"\e529"}.fa-mouse-pointer:before{content:"\f245"}.fa-notes-medical:before{content:"\f481"}.fa-paper-plane:before{content:"\f1d8"}.fa-pen:before{content:"\f304"}.fa-pen-nib:before{content:"\f5ad"}.fa-pen-to-square:before{content:"\f044"}.fa-play:before{content:"\f04b"}.fa-quote-left:before{content:"\f10d"}.fa-rectangle-ad:before{content:"\f641"}.fa-right-from-bracket:before{content:"\f2f5"}.fa-rocket:before{content:"\f135"}.fa-screwdriver-wrench:before{content:"\f7d9"}.fa-search:before{content:"\f002"}.fa-search-dollar:before{content:"\f688"}.fa-server:before{content:"\f233"}.fa-shield-alt:before{content:"\f3ed"}.fa-shield-halved:before{content:"\f3ed"}.fa-shopping-bag:before{content:"\f290"}.fa-star:before{content:"\f005"}.fa-stethoscope:before{content:"\f0f1"}.fa-store:before{content:"\f54e"}.fa-tags:before{content:"\f02c"}.fa-times:before{content:"\f00d"}.fa-tools:before{content:"\f7d9"}.fa-tooth:before{content:"\f5c9"}.fa-trash:before{content:"\f1f8"}.fa-trash-can:before{content:"\f2ed"}.fa-user:before{content:"\f007"}.fa-user-circle:before{content:"\f2bd"}.fa-user-md:before{content:"\f0f0"}.fa-user-plus:before{content:"\f234"}.fa-users:before{content:"\f0c0"}.fa-user-slash:before{content:"\f506"}.fa-users-slash:before{content:"\e073"}.fa-user-tie:before{content:"\f508"}.fa-utensils:before{content:"\f2e7"}.fa-wallet:before{content:"\f555"}.fa-wrench:before{content:"\f0ad"}
         </style>
         <noscript>
             <link
@@ -288,12 +293,38 @@ const seo = createSEOMeta({
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}
 
-        <!-- ViewTransitions desabilitado em favor de navegação tradicional
-             para reduzir 195KB do ClientRouter que causava reflows forçados.
-             O scroll-to-top é feito por CSS (scroll-behavior:smooth) + history API. -->
+        <!-- ViewTransitions com transition:animate=none para evitar reflows.
+             Mantém SPA navigation (essencial para o admin/dashboard que depende
+             de astro:page-load para inicializar scripts) sem as animações
+             custosas que causavam layout thrashing. -->
+        <ViewTransitions />
         <script is:inline>
-            // Prefetch on hover/touch — só carrega a página quando o usuário
-            // demonstra intenção (não download especulativo padrão).
+            // 1) Polyfill: dispara astro:page-load em navegação nativa (back/forward)
+            //    e em bfcache para que componentes que dependem do evento
+            //    continuem funcionando em qualquer cenário.
+            (function () {
+                const firePageLoad = () => {
+                    if (window.__astroPageLoadFired) return;
+                    window.__astroPageLoadFired = true;
+                    document.dispatchEvent(new Event("astro:page-load"));
+                };
+                // Carrega na primeira visita
+                if (document.readyState === "complete" || document.readyState === "interactive") {
+                    setTimeout(firePageLoad, 0);
+                } else {
+                    document.addEventListener("DOMContentLoaded", firePageLoad, { once: true });
+                }
+                // Em back/forward e bfcache
+                window.addEventListener("pageshow", (e) => {
+                    if (e.persisted) {
+                        window.__astroPageLoadFired = false;
+                        setTimeout(firePageLoad, 0);
+                    }
+                });
+            })();
+
+            // 2) Prefetch on hover/touch — só carrega a página quando o usuário
+            //    demonstra intenção (substitui o download especulativo padrão).
             (function () {
                 if (window.__prefetchConfigured) return;
                 window.__prefetchConfigured = true;
@@ -329,7 +360,7 @@ const seo = createSEOMeta({
             })();
         </script>
     </head>
-    <body>
+    <body transition:animate="none">
         <!-- Google Tag Manager (noscript) -->
         <noscript
             ><iframe
@@ -375,14 +406,14 @@ const seo = createSEOMeta({
 
             // GSAP é importado de forma lazy (code-split) pelos componentes que usam.
             // Aqui só fazemos um refresh global se GSAP já estiver carregado.
-            window.addEventListener("pageshow", () => {
+            document.addEventListener("astro:page-load", () => {
                 if (window.gsap && window.ScrollTrigger) {
                     window.ScrollTrigger.refresh();
                 }
             });
 
-            // Cleanup on page hide
-            window.addEventListener("pagehide", () => {
+            // Cleanup on view transition
+            document.addEventListener("astro:before-preparation", () => {
                 if (window.ScrollTrigger) {
                     window.ScrollTrigger.getAll().forEach((t: { kill: () => void }) => t.kill());
                 }

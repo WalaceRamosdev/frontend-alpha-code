@@ -3868,9 +3868,20 @@ export const prerender = false;
 </Layout>
 
 <!-- Chart.js Libraries -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js" is:inline defer></script>
 <script is:inline>
-    document.addEventListener("astro:page-load", () => {
+    // Aguarda Chart.js ser carregado (polling tolerante a race condition com
+    // astro:page-load disparado antes do script externo terminar de baixar).
+    const waitForChart = () => new Promise((resolve) => {
+        const check = () => {
+            if (typeof window.Chart !== "undefined") return resolve();
+            setTimeout(check, 50);
+        };
+        check();
+    });
+
+    document.addEventListener("astro:page-load", async () => {
+        await waitForChart();
         const ctx = document.getElementById("financialChart");
         if (!ctx) return;
 
