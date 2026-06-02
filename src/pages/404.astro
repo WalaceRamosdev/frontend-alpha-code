@@ -1,0 +1,164 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+    title="Página Não Encontrada | Alpha Code"
+    description="A página que você procura não existe ou foi movida. Conheça nossos serviços de criação de sites profissionais."
+    noIndex={true}
+>
+    <section class="error-page">
+        <div class="container">
+            <div class="error-content">
+                <div class="error-code">404</div>
+                <h1 class="error-title">Página não encontrada</h1>
+                <p class="error-text">
+                    A página que você procura não existe, foi movida ou está temporariamente indisponível. Mas não se preocupe — temos caminhos que podem te interessar.
+                </p>
+
+                <div class="error-actions">
+                    <a href="/" class="btn btn-primary">Voltar para a Home</a>
+                    <a href="/blog" class="btn btn-secondary">Ler o Blog</a>
+                    <a href="/cidades/nova-iguacu/" class="btn btn-secondary">Sites em Nova Iguaçu</a>
+                </div>
+
+                <div class="error-suggestions">
+                    <h2>Ou veja nossos serviços mais procurados</h2>
+                    <div class="suggestion-grid">
+                        <a href="/solucoes/advogados" class="suggestion-card">
+                            <span class="icon">⚖️</span>
+                            <span class="title">Sites para Advogados</span>
+                        </a>
+                        <a href="/solucoes/medicos" class="suggestion-card">
+                            <span class="icon">🏥</span>
+                            <span class="title">Sites para Médicos</span>
+                        </a>
+                        <a href="/solucoes/energia-solar" class="suggestion-card">
+                            <span class="icon">☀️</span>
+                            <span class="title">Sites de Energia Solar</span>
+                        </a>
+                        <a href="/solucoes/psicologos" class="suggestion-card">
+                            <span class="icon">🧠</span>
+                            <span class="title">Sites para Psicólogos</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .error-page {
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        background: radial-gradient(circle at 30% 20%, rgba(212, 40, 56, 0.15) 0%, transparent 60%), #050505;
+        padding: 140px 0 80px;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+        text-align: center;
+    }
+    .error-code {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(8rem, 20vw, 14rem);
+        font-weight: 800;
+        line-height: 1;
+        background: linear-gradient(135deg, #d42838 0%, #ff6b35 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 16px;
+    }
+    .error-title {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.8rem);
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+    .error-text {
+        color: #aaa;
+        font-size: 1.1rem;
+        line-height: 1.7;
+        max-width: 600px;
+        margin: 0 auto 40px;
+    }
+    .error-actions {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 60px;
+    }
+    .btn {
+        display: inline-block;
+        padding: 14px 28px;
+        border-radius: 100px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 0.95rem;
+    }
+    .btn-primary {
+        background: #d42838;
+        color: #fff;
+    }
+    .btn-primary:hover {
+        background: #ff3a4a;
+        transform: translateY(-2px);
+    }
+    .btn-secondary {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+    }
+    .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.1);
+    }
+    .error-suggestions h2 {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 24px;
+        font-weight: 600;
+    }
+    .suggestion-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 16px;
+    }
+    .suggestion-card {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        padding: 24px 16px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s;
+    }
+    .suggestion-card:hover {
+        background: rgba(212, 40, 56, 0.1);
+        border-color: #d42838;
+        transform: translateY(-4px);
+    }
+    .suggestion-card .icon {
+        font-size: 2rem;
+    }
+    .suggestion-card .title {
+        font-size: 0.95rem;
+        font-weight: 600;
+    }
+    @media (max-width: 600px) {
+        .error-actions { flex-direction: column; align-items: stretch; }
+        .btn { width: 100%; }
+    }
+</style>

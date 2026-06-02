@@ -1,8 +1,7 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../ui/Button.astro";
-import fs from "fs";
-import path from "path";
+import SchemaMarkup from "../seo/SchemaMarkup.astro";
 
 interface Props {
     cidade?: string;
@@ -10,38 +9,6 @@ interface Props {
 
 const { cidade } = Astro.props;
 
-// Self-healing asset setup (ensures images are copied to public during compile)
-const srcDir = "C:\\Users\\HP\\.gemini\\antigravity\\brain\\5d5fb8e7-a79d-4fd2-ab1d-890d11724195";
-const targetDir = path.resolve("./public/assets/projects");
-
-if (!fs.existsSync(targetDir)) {
-    fs.mkdirSync(targetDir, { recursive: true });
-}
-
-const imagesToCopy = [
-    { src: "site-empresa-energia-solar.webp", dest: "site-empresa-energia-solar.webp" },
-    { src: "website-solar-mobile.webp", dest: "website-solar-mobile.webp" },
-    { src: "landing-page-energia-solar.webp", dest: "landing-page-energia-solar.webp" }
-];
-
-for (const img of imagesToCopy) {
-    const srcPath = path.join(srcDir, img.src);
-    const destPath = path.join(targetDir, img.dest);
-    
-    // Always convert and overwrite if the source file exists (ensures any source updates ripple to public)
-    if (fs.existsSync(srcPath)) {
-        try {
-            const sharp = (await import("sharp")).default;
-            await sharp(srcPath).webp({ quality: 90 }).toFile(destPath);
-            console.log(`[Asset Setup] Converted and saved ${img.dest} using Sharp`);
-        } catch (sharpError) {
-            fs.copyFileSync(srcPath, destPath);
-            console.log(`[Asset Setup] Copied ${img.dest} (fallback)`);
-        }
-    }
-}
-
-// Localized configurations
 const displayCity = cidade ? ` em ${cidade}` : "";
 const ufMap: Record<string, string> = {
     "São Paulo": "SP",
@@ -51,6 +18,7 @@ const ufMap: Record<string, string> = {
     "Pará": "PA"
 };
 const displayCityMeta = cidade ? ` em ${cidade}${ufMap[cidade] ? ` (${ufMap[cidade]})` : ""}` : "";
+const uf = cidade && ufMap[cidade] ? ufMap[cidade] : "";
 
 // SEO Metadata
 const title = `Criação de Sites para Empresas de Energia Solar${displayCityMeta}`;
@@ -106,7 +74,22 @@ const areasAtendidas = [
     showFooter={true}
     showSocialProof={true}
     showFomoBubble={true}
+    schemaType="Service"
+    schemaName={`Sites para Empresas de Energia Solar${displayCityMeta}`}
+    schemaDescription={description}
+    faqItems={faq.map((f) => ({ question: f.q, answer: f.a }))}
 >
+    <SchemaMarkup
+        type="Service"
+        name={`Criação de Sites para Energia Solar${displayCityMeta}`}
+        description={description}
+        serviceType="Marketing Digital para Energia Solar"
+        faqItems={faq.map((f) => ({ question: f.q, answer: f.a }))}
+        offers={{
+            priceCurrency: "BRL",
+            availability: "https://schema.org/InStock",
+        }}
+    />
     <!-- Preload da imagem da Hero para Performance Extrema -->
     <link rel="preload" as="image" href="/assets/projects/landing-page-energia-solar.webp" slot="head" fetchpriority="high" />
 

@@ -5,7 +5,14 @@
     "**/*"
   ],
   "exclude": [
-    "dist"
+    "dist",
+    "node_modules",
+    "header_old.astro",
+    "header_vold.astro",
+    "ajuda-download.html",
+    "subscription-lp.html",
+    "scratch",
+    "public"
   ],
   "compilerOptions": {
     "jsx": "react-jsx",

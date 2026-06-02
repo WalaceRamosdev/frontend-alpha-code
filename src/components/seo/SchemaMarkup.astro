@@ -6,7 +6,8 @@ interface Props {
         | "ProfessionalService"
         | "Article"
         | "Service"
-        | "LocalBusiness";
+        | "LocalBusiness"
+        | "BreadcrumbList";
     name?: string;
     description?: string;
     url?: string;
@@ -14,7 +15,31 @@ interface Props {
     sameAs?: string[];
     priceRange?: string;
     providerName?: string;
+    telephone?: string;
+    addressLocality?: string;
+    addressRegion?: string;
+    addressCountry?: string;
+    streetAddress?: string;
+    postalCode?: string;
+    latitude?: number;
+    longitude?: number;
     faqItems?: { question: string; answer: string }[];
+    breadcrumbs?: { name: string; url: string }[];
+    aggregateRating?: {
+        ratingValue: number;
+        reviewCount: number;
+        bestRating?: number;
+    };
+    openingHours?: string[][];
+    serviceType?: string;
+    areaServed?: string[];
+    offers?: {
+        price?: number;
+        priceCurrency?: string;
+        url?: string;
+        availability?: string;
+        validFrom?: string;
+    };
 }
 
 const {
@@ -22,57 +47,63 @@ const {
     name = "Alpha Code",
     description = "Criação de sites profissionais para empresas que querem aparecer no Google e gerar clientes. Especialistas em alta performance e SEO.",
     url = "https://www.sitesalphacode.com.br",
-    image = "https://www.sitesalphacode.com.br/assets/logo.svg",
+    image = "https://www.sitesalphacode.com.br/assets/og-image-3d.webp",
     sameAs = [
         "https://www.instagram.com/alphacodesites/",
         "https://www.linkedin.com/company/alphacode",
+        "https://www.youtube.com/@alphacode",
+        "https://www.facebook.com/alphacode",
+        "https://www.behance.net/alphacode",
     ],
     priceRange = "$$",
     providerName = "Alpha Code",
+    telephone = "+5521999064502",
+    addressLocality = "Rio de Janeiro",
+    addressRegion = "RJ",
+    addressCountry = "BR",
+    streetAddress,
+    postalCode,
+    latitude,
+    longitude,
     faqItems = [],
+    breadcrumbs = [],
+    aggregateRating,
+    openingHours = [
+        ["Monday", "09:00", "18:00"],
+        ["Tuesday", "09:00", "18:00"],
+        ["Wednesday", "09:00", "18:00"],
+        ["Thursday", "09:00", "18:00"],
+        ["Friday", "09:00", "18:00"],
+    ],
+    serviceType,
+    areaServed,
+    offers,
 } = Astro.props;
 
-let schema = {};
+const baseAddress: Record<string, string> = {
+    "@type": "PostalAddress",
+    addressLocality,
+    addressRegion,
+    addressCountry,
+};
+if (streetAddress) baseAddress.streetAddress = streetAddress;
+if (postalCode) baseAddress.postalCode = postalCode;
 
-if (type === "Service") {
-    schema = {
-        "@context": "https://schema.org",
-        "@type": "Service",
-        serviceType: name,
-        provider: {
-            "@type": "LocalBusiness",
-            name: providerName,
-            image: image,
-            url: url,
-            address: {
-                "@type": "PostalAddress",
-                addressLocality: "Rio de Janeiro",
-                addressRegion: "RJ",
-                addressCountry: "BR",
-            },
-        },
-        description: description,
-        areaServed: "BR",
-        hasOfferCatalog: {
-            "@type": "OfferCatalog",
-            name: "Serviços Digitais",
-            itemListElement: [
-                {
-                    "@type": "Offer",
-                    itemOffered: {
-                        "@type": "Service",
-                        name: name,
-                    },
-                },
-            ],
-        },
-    };
-} else if (
-    type === "ProfessionalService" ||
-    type === "Organization" ||
-    type === "LocalBusiness"
-) {
-    schema = {
+const baseGeo: Record<string, any> | null =
+    latitude !== undefined && longitude !== undefined
+        ? { "@type": "GeoCoordinates", latitude, longitude }
+        : null;
+
+// 1) Organization / ProfessionalService / LocalBusiness
+const organizationSchemas: string[] = [
+    "Organization",
+    "ProfessionalService",
+    "LocalBusiness",
+];
+
+let orgSchema: any = null;
+if (organizationSchemas.includes(type)) {
+    orgSchema = {
         "@context": "https://schema.org",
         "@type":
             type === "Organization"
@@ -80,78 +111,123 @@ if (type === "Service") {
                 : type === "LocalBusiness"
                   ? "LocalBusiness"
                   : "ProfessionalService",
-        name: name,
-        url: url,
+        "@id": `${url}#organization`,
+        name,
+        alternateName: "Alpha Code",
+        url,
         logo: image,
-        image: image,
-        description: description,
-        address: {
-            "@type": "PostalAddress",
-            addressLocality: "Rio de Janeiro",
-            addressRegion: "RJ",
-            addressCountry: "BR",
-        },
-        areaServed: [
-            "Brasília - DF",
-            "Rio de Janeiro - RJ",
-            "São Paulo - SP",
-            "Brasil",
+        image,
+        description,
+        telephone,
+        email: "contato@sitesalphacode.com.br",
+        address: baseAddress,
+        ...(baseGeo ? { geo: baseGeo } : {}),
+        priceRange,
+        sameAs,
+        areaServed: areaServed ?? [
+            { "@type": "Country", name: "Brasil" },
+            { "@type": "AdministrativeArea", name: "Rio de Janeiro" },
+            { "@type": "AdministrativeArea", name: "São Paulo" },
+            { "@type": "AdministrativeArea", name: "Brasília" },
         ],
-        telephone: "+5521999064502",
-        priceRange: priceRange,
-        openingHoursSpecification: [
-            {
-                "@type": "OpeningHoursSpecification",
-                dayOfWeek: [
-                    "Monday",
-                    "Tuesday",
-                    "Wednesday",
-                    "Thursday",
-                    "Friday",
-                ],
-                opens: "09:00",
-                closes: "18:00",
+        openingHoursSpecification: openingHours.map(([day, opens, closes]) => ({
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: day,
+            opens,
+            closes,
+        })),
+        ...(aggregateRating && {
+            aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: aggregateRating.ratingValue,
+                reviewCount: aggregateRating.reviewCount,
+                bestRating: aggregateRating.bestRating ?? 5,
+                worstRating: 1,
             },
-        ],
-        review: [
-            {
-                "@type": "Review",
-                reviewRating: {
-                    "@type": "Rating",
-                    ratingValue: "5",
-                    bestRating: "5",
-                },
-                author: {
-                    "@type": "Person",
-                    name: "Marcos Silva",
-                },
-            },
-        ],
-        sameAs: sameAs,
+        }),
     };
-} else if (type === "Article") {
-    schema = {
+}
+
+// 2) WebSite (com SearchAction opcional na home)
+let websiteSchema: any = null;
+if (type === "WebSite") {
+    websiteSchema = {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": `${url}#website`,
+        name,
+        url,
+        inLanguage: "pt-BR",
+        publisher: { "@id": `${url}#organization` },
+        potentialAction: {
+            "@type": "SearchAction",
+            target: {
+                "@type": "EntryPoint",
+                urlTemplate: `${url}/busca?q={search_term_string}`,
+            },
+            "query-input": "required name=search_term_string",
+        },
+    };
+}
+
+// 3) Service (com Offers)
+let serviceSchema: any = null;
+if (type === "Service") {
+    serviceSchema = {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "@id": `${url}#service-${slugify(name)}`,
+        name,
+        serviceType: serviceType ?? name,
+        description,
+        provider: { "@id": `${url}#organization` },
+        areaServed: areaServed ?? { "@type": "Country", name: "Brasil" },
+        ...(offers && {
+            offers: {
+                "@type": "Offer",
+                price: offers.price,
+                priceCurrency: offers.priceCurrency ?? "BRL",
+                url: offers.url ?? url,
+                availability: offers.availability ?? "https://schema.org/InStock",
+                validFrom: offers.validFrom,
+            },
+        }),
+    };
+}
+
+// 4) Article
+let articleSchema: any = null;
+if (type === "Article") {
+    articleSchema = {
         "@context": "https://schema.org",
         "@type": "Article",
+        "@id": `${url}#article-${slugify(name)}`,
         headline: name,
-        description: description,
-        image: image,
+        description,
+        image,
         author: {
-            "@type": "Person",
-            name: "Walace Ramos",
+            "@type": "Organization",
+            name: providerName,
+            url: "https://www.sitesalphacode.com.br",
         },
         publisher: {
             "@type": "Organization",
             name: "Alpha Code",
             logo: {
                 "@type": "ImageObject",
-                url: "https://www.sitesalphacode.com.br/assets/logo.svg",
+                url: "https://www.sitesalphacode.com.br/assets/og-image-3d.webp",
             },
         },
         datePublished: new Date().toISOString(),
+        inLanguage: "pt-BR",
+        mainEntityOfPage: { "@type": "WebPage", "@id": url },
     };
-} else if (faqItems && faqItems.length > 0) {
-    schema = {
+}
+
+// 5) FAQPage (renderiza SEMPRE que houver FAQ, independente do type principal)
+let faqSchema: any = null;
+if (faqItems && faqItems.length > 0) {
+    faqSchema = {
         "@context": "https://schema.org",
         "@type": "FAQPage",
         mainEntity: faqItems.map((item) => ({
@@ -164,6 +240,48 @@ if (type === "Service") {
         })),
     };
 }
+
+// 6) BreadcrumbList
+let breadcrumbSchema: any = null;
+if (breadcrumbs && breadcrumbs.length > 0) {
+    breadcrumbSchema = {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: breadcrumbs.map((b, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: b.name,
+            item: b.url,
+        })),
+    };
+}
+
+const schemas: any[] = [
+    websiteSchema,
+    orgSchema,
+    serviceSchema,
+    articleSchema,
+    faqSchema,
+    breadcrumbSchema,
+].filter(Boolean);
+
+function slugify(s: string) {
+    return s
+        .toString()
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase()
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "");
+}
 ---
 
-<script type="application/ld+json" set:html={JSON.stringify(schema)} />
+{
+    schemas.map((s) => (
+        <script
+            type="application/ld+json"
+            is:inline
+            set:html={JSON.stringify(s)}
+        />
+    ))
+}

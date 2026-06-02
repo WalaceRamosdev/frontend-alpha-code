@@ -7,11 +7,100 @@ import { getSession } from "../lib/auth";
 const session = await getSession(Astro.request);
 const isLoggedIn = !!session;
 
-const title = "Planos e Preços | Alpha Code";
+const title = "Planos e Preços de Criação de Sites Profissionais | Alpha Code";
 const description =
-    "Confira os detalhes completos dos nossos planos de criação de sites.";
+    "Confira os planos e preços da Alpha Code para criação de sites profissionais. Planos Bronze, Prata e Ouro a partir de R$ 697. SEO local, performance e conversão.";
 const url = new URL(Astro.request.url);
 const isNewSignup = url.searchParams.get("signup") === "true";
+
+// JSON-LD: ServiceCatalog com 3 Offers (rich results com preço)
+const plansSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    serviceType: "Criação de Sites Profissionais",
+    provider: {
+        "@type": "Organization",
+        name: "Alpha Code",
+        url: "https://www.sitesalphacode.com.br",
+    },
+    areaServed: {
+        "@type": "Country",
+        name: "Brasil",
+    },
+    hasOfferCatalog: {
+        "@type": "OfferCatalog",
+        name: "Planos de Criação de Sites Alpha Code",
+        itemListElement: [
+            {
+                "@type": "OfferCatalog",
+                name: "Plano Alpha Bronze - Presença Inicial",
+                itemListElement: {
+                    "@type": "Offer",
+                    name: "Plano Alpha Bronze",
+                    description:
+                        "Presença digital profissional para validar sua marca online com agilidade e performance.",
+                    price: "697",
+                    priceCurrency: "BRL",
+                    priceValidUntil: "2026-12-31",
+                    availability: "https://schema.org/InStock",
+                    url: "https://www.sitesalphacode.com.br/planos",
+                    itemOffered: {
+                        "@type": "Service",
+                        name: "Site Institucional - Plano Bronze",
+                        serviceType: "Criação de Site Institucional",
+                    },
+                },
+            },
+            {
+                "@type": "OfferCatalog",
+                name: "Plano Alpha Prata - Estrutura de Conversão",
+                itemListElement: {
+                    "@type": "Offer",
+                    name: "Plano Alpha Prata",
+                    description:
+                        "Site de alta conversão com SEO avançado, design premium e foco total em gerar clientes pelo Google.",
+                    price: "1297",
+                    priceCurrency: "BRL",
+                    priceValidUntil: "2026-12-31",
+                    availability: "https://schema.org/InStock",
+                    url: "https://www.sitesalphacode.com.br/planos",
+                    itemOffered: {
+                        "@type": "Service",
+                        name: "Site de Alta Conversão - Plano Prata",
+                        serviceType: "Criação de Site Otimizado para Conversão",
+                    },
+                },
+            },
+            {
+                "@type": "OfferCatalog",
+                name: "Plano Alpha Ouro - Autoridade de Mercado",
+                itemListElement: {
+                    "@type": "Offer",
+                    name: "Plano Alpha Ouro",
+                    description:
+                        "O nível máximo de autoridade, tecnologia e design para empresas que querem dominar seu nicho.",
+                    price: "1997",
+                    priceCurrency: "BRL",
+                    priceValidUntil: "2026-12-31",
+                    availability: "https://schema.org/InStock",
+                    url: "https://www.sitesalphacode.com.br/planos",
+                    itemOffered: {
+                        "@type": "Service",
+                        name: "Site Premium de Autoridade - Plano Ouro",
+                        serviceType: "Criação de Site Premium de Alta Performance",
+                    },
+                },
+            },
+        ],
+    },
+    aggregateRating: {
+        "@type": "AggregateRating",
+        ratingValue: "4.9",
+        reviewCount: "47",
+        bestRating: "5",
+        worstRating: "1",
+    },
+};
 
 export const prerender = false;
 ---
@@ -23,6 +112,13 @@ export const prerender = false;
     showWhatsApp={true}
     showFomoBubble={true}
 >
+    <!-- Offer Catalog Schema (rich results de preço) -->
+    <script
+        type="application/ld+json"
+        is:inline
+        slot="schema"
+        set:html={JSON.stringify(plansSchema)}
+    />
     <section class="plans-hero">
         <div class="container text-center">
             {

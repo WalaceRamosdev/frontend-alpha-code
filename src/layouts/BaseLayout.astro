@@ -40,7 +40,7 @@ interface Props {
 const {
     title,
     description,
-    canonicalUrl = Astro.url.href,
+    canonicalUrl,
     ogImage = "/assets/og-image-3d.webp",
     keywords = [],
     noIndex = false,
@@ -55,37 +55,21 @@ const {
     faqItems = [],
 } = Astro.props;
 
-const serveLocations = [
-    "Brasília - DF",
-    "Rio de Janeiro - RJ",
-    "Moema - SP",
-    "Jardins - SP",
-    "Brooklin - SP",
-    "Bela Vista - SP",
-    "Centro - RJ",
-    "Itaim Bibi - SP",
-    "Leblon - RJ",
-    "Tijuca - RJ",
-    "Ipanema - RJ",
-    "Santo Amaro - SP",
-    "Botafogo - RJ",
-    "Vila Mariana - SP",
-    "Vila Olímpia - SP",
-    "Cerqueira César - SP",
-    "Copacabana - RJ",
-    "Zona Sul de São Paulo",
-];
+// Canonical: sempre derivado do pathname, sem query string e sem hash
+const finalCanonicalUrl = canonicalUrl
+    ? canonicalUrl
+    : new URL(Astro.url.pathname, Astro.site || Astro.url).href;
 
-const absoluteOgImage = typeof ogImage === 'string' && ogImage.startsWith('http') 
-    ? ogImage 
+const absoluteOgImage = typeof ogImage === 'string' && ogImage.startsWith('http')
+    ? ogImage
     : new URL(ogImage || "/assets/og-image-3d.webp", Astro.site || Astro.url).href;
 
 const seo = createSEOMeta({
-    title, // Removing the pipe here since utility already adds it
+    title,
     description,
-    canonicalUrl,
+    canonicalUrl: finalCanonicalUrl,
     ogImage: absoluteOgImage,
-    keywords: [...keywords, ...serveLocations],
+    keywords,
 });
 ---
 
@@ -161,7 +145,14 @@ const seo = createSEOMeta({
 
         <link rel="icon" type="image/svg+xml" href="/assets/logo3d.svg" />
         <meta name="generator" content={Astro.generator} />
-        {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+        <!-- RSS Feed -->
+        <link
+            rel="alternate"
+            type="application/rss+xml"
+            title="Alpha Insights | Blog da Alpha Code"
+            href="/rss.xml"
+        />
 
         <!-- SEO -->
         <title>{seo.title}</title>
@@ -244,6 +235,9 @@ const seo = createSEOMeta({
             description={schemaDescription || description}
             faqItems={faqItems}
         />
+
+        <!-- Slot para schemas adicionais injetados pela página (ex: planos) -->
+        <slot name="schema" />
 
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}

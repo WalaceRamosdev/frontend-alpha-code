@@ -1,7 +1,31 @@
 User-agent: *
-Allow: /
 Disallow: /dashboard
 Disallow: /admin
 Disallow: /perfil
+Disallow: /login
+Disallow: /cadastro
+Disallow: /obrigado
+Disallow: /pedido
+Disallow: /parceiro-alpha
+Disallow: /faturas
+Disallow: /loja
+Disallow: /manutencao
+Disallow: /compilar-images
+Disallow: /api/
+Disallow: /upgrade
+Disallow: /oferta-exclusiva
+Disallow: /*?ref=*
+Disallow: /*?admin=true
+Disallow: /*?utm_*
+Allow: /
 
+# Google específico - permite rastreamento de assets
+User-agent: Googlebot
+Allow: /
+
+User-agent: Googlebot-Image
+Allow: /
+
+# Sitemaps
 Sitemap: https://www.sitesalphacode.com.br/sitemap-index.xml
+Sitemap: https://www.sitesalphacode.com.br/sitemap-posts.xml

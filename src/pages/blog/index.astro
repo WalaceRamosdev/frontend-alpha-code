@@ -1,32 +1,21 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
 import LeadMagnet from "../../components/ui/LeadMagnet.astro";
 
-import { getSession } from "../../lib/auth";
+export const prerender = true;
 
-export const prerender = false;
-
-const session = await getSession(Astro.request);
 const now = new Date();
 
-const posts = await getCollection("blog");
+const allPosts = await getCollection("blog");
 
-// Filter logic:
-// 1. If logged in: see everything (helps editing)
-// 2. If not logged in: only see released posts (pubDate <= now)
-const filteredPosts = posts.filter(({ data }) => {
-    if (session) return true;
-    return data.draft !== true && data.pubDate <= now;
-});
-
-// Sort posts by date descending
-const sortedPosts: CollectionEntry<"blog">[] = filteredPosts.sort(
-    (a: CollectionEntry<"blog">, b: CollectionEntry<"blog">) =>
-        b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const posts = allPosts
+    .filter(({ data }) => data.draft !== true && data.pubDate <= now)
+    .sort(
+        (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+    );
 ---
 
 <BaseLayout
@@ -55,7 +44,7 @@ const sortedPosts: CollectionEntry<"blog">[] = filteredPosts.sort(
 
             <!-- Featured Post Highlight (If any) -->
             {
-                sortedPosts.length > 0 && (
+                posts.length > 0 && (
                     <div class="featured-indicator">
                         <span class="pulse" />
                         Novos artigos disponíveis abaixo
@@ -69,7 +58,7 @@ const sortedPosts: CollectionEntry<"blog">[] = filteredPosts.sort(
         <div class="container">
             <div class="blog-grid">
                 {
-                    sortedPosts.map((post) => (
+                    posts.map((post) => (
                         <PostCard
                             title={post.data.title}
                             description={post.data.description}
@@ -87,7 +76,7 @@ const sortedPosts: CollectionEntry<"blog">[] = filteredPosts.sort(
             </div>
 
             {
-                sortedPosts.length === 0 && (
+                posts.length === 0 && (
                     <div class="no-posts-container">
                         <div class="no-posts-card">
                             <svg

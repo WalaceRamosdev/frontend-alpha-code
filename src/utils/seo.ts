@@ -9,7 +9,15 @@ export interface SEOProps {
     modifiedTime?: string;
     type?: string;
     noIndex?: boolean;
+    /**
+     * Se true, não adiciona " | Alpha Code" ao title.
+     * Use quando a página já termina com "Alpha Code" (ex.: "Criação de Sites ... | Sites Profissionais Alpha Code")
+     * para evitar "Title | Alpha Code | Alpha Code" duplicado e truncado no Google.
+     */
+    skipSuffix?: boolean;
 }
+
+const SUFFIX = " | Alpha Code";
 
 export const createSEOMeta = ({
     title,
@@ -21,33 +29,46 @@ export const createSEOMeta = ({
     publishedTime,
     modifiedTime,
     type = 'website',
-    noIndex = false
-}: SEOProps) => ({
-    // Meta básicos
-    title: `${title} | Alpha Code`,
-    description,
-    canonical: canonicalUrl,
+    noIndex = false,
+    skipSuffix = false
+}: SEOProps) => {
+    // Detecta sufixo " | Alpha Code" já presente para evitar duplicação
+    const hasSuffix = title.endsWith(SUFFIX);
+    const finalTitle = skipSuffix || hasSuffix ? title : `${title}${SUFFIX}`;
 
-    // Open Graph
-    'og:title': title,
-    'og:description': description,
-    'og:type': type,
-    'og:url': canonicalUrl,
-    'og:image': ogImage,
-    'og:locale': 'pt_BR',
+    return {
+        // Meta básicos
+        title: finalTitle,
+        description,
+        canonical: canonicalUrl,
 
-    // Twitter Cards
-    'twitter:card': 'summary_large_image',
-    'twitter:creator': '@alphacode',
+        // Open Graph
+        'og:title': title,
+        'og:description': description,
+        'og:type': type,
+        'og:url': canonicalUrl,
+        'og:image': ogImage,
+        'og:locale': 'pt_BR',
+        'og:site_name': 'Alpha Code',
 
-    // Article específico
-    ...(publishedTime && { 'article:published_time': publishedTime }),
-    ...(modifiedTime && { 'article:modified_time': modifiedTime }),
-    ...(author && { 'article:author': author }),
+        // Twitter Cards
+        'twitter:card': 'summary_large_image',
+        'twitter:creator': '@alphacode',
+        'twitter:title': title,
+        'twitter:description': description,
+        'twitter:image': ogImage,
 
-    // Keywords (moderado)
-    keywords: keywords.join(', '),
+        // Article específico
+        ...(publishedTime && { 'article:published_time': publishedTime }),
+        ...(modifiedTime && { 'article:modified_time': modifiedTime }),
+        ...(author && { 'article:author': author }),
 
-    // Robots
-    robots: noIndex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'
-});
+        // Keywords (moderado)
+        keywords: keywords.join(', '),
+
+        // Robots
+        robots: noIndex
+            ? 'noindex, nofollow'
+            : 'index, follow, max-image-preview:large, max-snippet:-1'
+    };
+};

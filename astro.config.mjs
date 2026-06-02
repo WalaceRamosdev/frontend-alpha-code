@@ -15,17 +15,27 @@ export default defineConfig({
   output: 'server',
   adapter: vercel(),
   integrations: [
-    react(), 
-    sitemap(), 
-    auth(), 
+    react(),
+    sitemap({
+      // Excluir páginas que não devem ser indexadas: áreas privadas, transacionais
+      // e URLs legadas redirecionadas (criacao-de-sites-*)
+      filter: (page) =>
+        !/\/(dashboard|admin|perfil|login|cadastro|obrigado|pedido|parceiro-alpha|faturas|loja|manutencao|compile-images|api|upgrade|oferta-exclusiva|criacao-de-sites-)/.test(
+          page,
+        ),
+      changefreq: 'weekly',
+      priority: 0.7,
+      lastmod: new Date(),
+    }),
+    auth(),
     partytown({
       config: {
-        forward: ['dataLayer.push']
-      }
-    })
+        forward: ['dataLayer.push'],
+      },
+    }),
   ],
   build: {
-    inlineStylesheets: 'always'
+    inlineStylesheets: 'always',
   },
   vite: {
     plugins: [tailwindcss()],
@@ -40,9 +50,9 @@ export default defineConfig({
             if (id.includes('node_modules')) {
               return 'vendor';
             }
-          }
-        }
-      }
-    }
-  }
+          },
+        },
+      },
+    },
+  },
 });

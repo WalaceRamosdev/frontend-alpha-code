@@ -1,31 +1,21 @@
 ---
-import { getCollection, type CollectionEntry } from "astro:content";
+import { getCollection } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
-import { getSession } from "../../lib/auth";
+export const prerender = true;
 
-export const prerender = false;
-
-const { slug } = Astro.params;
-const session = await getSession(Astro.request);
-const now = new Date();
-
-const posts = await getCollection("blog");
-const post = posts.find((p) => p.slug === slug);
-
-if (!post) {
-    return Astro.redirect("/404");
+export async function getStaticPaths() {
+    const now = new Date();
+    const posts = await getCollection("blog", ({ data }) =>
+        data.draft !== true && data.pubDate <= now,
+    );
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
 }
 
-// Access control:
-// 1. If logged in: grant access
-// 2. If not logged in: check if published and not a draft
-if (!session) {
-    if (post.data.draft === true || post.data.pubDate > now) {
-        return Astro.redirect("/404"); // Or /login if you prefer
-    }
-}
-
+const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
