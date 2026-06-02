@@ -212,11 +212,10 @@ const searchActionSchema = {
         document.head.appendChild(css);
 
         // JS
-        // @ts-ignore — módulo gerado em runtime pelo Pagefind no build
-        // @ts-expect-error — módulo gerado em runtime pelo Pagefind no build
-        await import(
-            /* @vite-ignore */ /* @ts-ignore */ "/pagefind/pagefind-ui.js"
-        );
+        // Pagefind é gerado em runtime (após `astro build`) por `pagefind --site dist/client`.
+        // Usamos string dinâmica para evitar análise estática do TS e do Vite.
+        const pagefindUrl = window.location.origin + "/pagefind/pagefind-ui.js";
+        await import(/* @vite-ignore */ pagefindUrl);
 
         // @ts-ignore
         new PagefindUI({
