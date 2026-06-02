@@ -212,14 +212,18 @@ const searchActionSchema = {
         document.head.appendChild(css);
 
         // JS
-        await import("/pagefind/pagefind-ui.js");
+        // @ts-ignore — módulo gerado em runtime pelo Pagefind no build
+        // @ts-expect-error — módulo gerado em runtime pelo Pagefind no build
+        await import(
+            /* @vite-ignore */ /* @ts-ignore */ "/pagefind/pagefind-ui.js"
+        );
 
         // @ts-ignore
         new PagefindUI({
             element: "#search",
             showSubResults: true,
             showImages: false,
-            processTerm: (term) => term,
+            processTerm: (term: string) => term,
             resetStyles: false,
             autofocus: true,
         });

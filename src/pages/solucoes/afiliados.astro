@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
+import RelatedContent from "../../components/seo/RelatedContent.astro";
 
 const slug = "afiliados";
 
@@ -245,6 +246,13 @@ const faq = [
                 <p>Nossa tecnologia baseada em <strong>Astro.js</strong> garante que suas páginas de pré-sell e advertoriais carreguem instantaneamente, maximizando a retenção de cliques e o ROI dos seus anúncios. Além disso, implementamos o <strong>Pixel do Facebook e a API de Conversão</strong>, permitindo que você faça retargeting agressivo e reduza o custo por venda.</p>
             </div>
         </section>
+        <RelatedContent
+            type="niche"
+            niche="afiliados"
+            title="Continue explorando soluções para afiliados"
+            limit={6}
+        />
+
 
     </div>
 </BaseLayout>

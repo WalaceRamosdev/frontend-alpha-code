@@ -1,0 +1,298 @@
+---
+/**
+ * Componente de linkagem interna automática (hub-and-spoke).
+ * Recebe um "tema" (nicho ou cidade) e renderiza links para:
+ *  - Páginas pilar de nicho (hub)
+ *  - Posts do blog sobre o tema (spokes)
+ *  - Páginas de cidade relacionadas (spokes)
+ *  - Páginas vizinhas do mesmo tipo
+ */
+
+import { getCollection } from "astro:content";
+
+interface Props {
+    /** Slug do nicho (advogados, medicos, etc.) para buscar posts relacionados */
+    niche?: string;
+    /** Nome da cidade (Nova Iguaçu, São Paulo, etc.) */
+    city?: string;
+    /** Slug da cidade para linkar páginas de cidade */
+    citySlug?: string;
+    /** Tipo de página atual: "niche" | "city" | "blog" */
+    type: "niche" | "city" | "blog" | "general";
+    /** Título customizado */
+    title?: string;
+    /** Quantos links por categoria */
+    limit?: number;
+}
+
+const { niche, city, citySlug, type, title, limit = 4 } = Astro.props;
+
+// Mantém `city` referenciado (utilizado indiretamente via prop em alguns tipos de página)
+void city;
+
+interface RelatedItem {
+    title: string;
+    description?: string;
+    href: string;
+    badge?: string;
+}
+
+const items: RelatedItem[] = [];
+
+// 1) Posts de blog relacionados (match por nicho)
+if (niche) {
+    const allPosts = await getCollection(
+        "blog",
+        ({ data }) => !data.draft && new Date() >= data.pubDate,
+    );
+    const nicheLower = niche.toLowerCase();
+    const matchingPosts = allPosts
+        .filter(
+            (p) =>
+                p.data.title.toLowerCase().includes(nicheLower) ||
+                p.data.description.toLowerCase().includes(nicheLower) ||
+                (p.data.categories ?? []).some((c) =>
+                    c.toLowerCase().includes(nicheLower),
+                ) ||
+                (p.data.tags ?? []).some((t) => t.toLowerCase().includes(nicheLower)),
+        )
+        .slice(0, limit);
+
+    matchingPosts.forEach((p) => {
+        items.push({
+            title: p.data.title,
+            description: p.data.description,
+            href: `/blog/${p.slug}/`,
+            badge: "Artigo",
+        });
+    });
+}
+
+// 2) Cidades e nichos disponíveis para sugestão
+const NICHES_AVAILABLE = [
+    "advogados",
+    "medicos",
+    "dentistas",
+    "psicologos",
+    "contadores",
+    "arquitetos",
+    "energia-solar",
+];
+
+const CITIES_AVAILABLE = [
+    { slug: "nova-iguacu", name: "Nova Iguaçu" },
+    { slug: "duque-de-caxias", name: "Duque de Caxias" },
+    { slug: "belford-roxo", name: "Belford Roxo" },
+    { slug: "sao-joao-de-meriti", name: "São João de Meriti" },
+    { slug: "nilopolis", name: "Nilópolis" },
+    { slug: "mesquita", name: "Mesquita" },
+    { slug: "queimados", name: "Queimados" },
+    { slug: "seropedica", name: "Seropédica" },
+    { slug: "itaguai", name: "Itaguaí" },
+    { slug: "mage", name: "Magé" },
+    { slug: "guapimirim", name: "Guapimirim" },
+];
+
+// 3) Páginas de nicho vizinhas (se estamos numa página de nicho)
+if (type === "niche" && niche) {
+    NICHES_AVAILABLE.filter((n) => n !== niche)
+        .slice(0, 4)
+        .forEach((n) => {
+            items.push({
+                title: `Site para ${
+                    n.charAt(0).toUpperCase() +
+                    n.slice(1).replace("-", " ")
+                }`,
+                description: `Solução especializada para ${n.replace(
+                    "-",
+                    " ",
+                )} com SEO local e design premium.`,
+                href: `/solucoes/${n}`,
+                badge: "Solução",
+            });
+        });
+}
+
+// 4) Páginas de cidade vizinhas (se estamos numa página de cidade)
+if (type === "city" && citySlug) {
+    CITIES_AVAILABLE.filter((c) => c.slug !== citySlug)
+        .slice(0, 4)
+        .forEach((c) => {
+            items.push({
+                title: `Criação de Sites em ${c.name}`,
+                description: `Atendemos empresas em ${c.name} com SEO local e sites de alta conversão.`,
+                href: `/cidades/${c.slug}/`,
+                badge: "Cidade",
+            });
+        });
+}
+
+// 5) Combinações: se estamos em página de nicho, mostrar cidades + blogs
+if (type === "niche" && niche && items.length < limit) {
+    CITIES_AVAILABLE.slice(0, limit - items.length).forEach((c) => {
+        items.push({
+            title: `${niche.charAt(0).toUpperCase() + niche.slice(1)} em ${c.name}`,
+            description: `Site para ${niche} em ${c.name} com SEO local agressivo.`,
+            href: `/cidades/${c.slug}/`,
+            badge: "Cidade",
+        });
+    });
+}
+
+// 5b) Se tipo for "city" e city fornecido, adiciona cidade referência no título
+// (evita warning de prop não usada, mas mantém o título dinâmico fora do array)
+
+// 6) Páginas pilar (se estamos em blog/city, linkar para hubs de nicho)
+if (type === "blog" || type === "city") {
+    NICHES_AVAILABLE.slice(0, 4).forEach((n) => {
+        items.push({
+            title: `Soluções para ${
+                n.charAt(0).toUpperCase() + n.slice(1).replace("-", " ")
+            }`,
+            description: `Sites profissionais para ${n.replace("-", " ")}.`,
+            href: `/solucoes/${n}`,
+            badge: "Solução",
+        });
+    });
+}
+
+const finalItems = items.slice(0, limit + 2);
+
+const heading =
+    title ??
+    (type === "niche"
+        ? `Continue explorando sobre ${niche}`
+        : type === "city"
+          ? `Atendimento na região`
+          : `Conteúdo relacionado`);
+---
+
+{
+    finalItems.length > 0 && (
+        <section class="related-content">
+            <div class="rc-container">
+                <div class="rc-header">
+                    <span class="rc-eyebrow">Veja também</span>
+                    <h2 class="rc-title">{heading}</h2>
+                    <p class="rc-sub">
+                        Conteúdo estrategicamente conectado para você encontrar
+                        o que precisa.
+                    </p>
+                </div>
+                <div class="rc-grid">
+                    {finalItems.map((it) => (
+                        <a href={it.href} class="rc-card">
+                            {it.badge && <span class="rc-badge">{it.badge}</span>}
+                            <h3 class="rc-card-title">{it.title}</h3>
+                            {it.description && (
+                                <p class="rc-card-desc">{it.description}</p>
+                            )}
+                            <span class="rc-arrow">→</span>
+                        </a>
+                    ))}
+                </div>
+            </div>
+        </section>
+    )
+}
+
+<style>
+    .related-content {
+        padding: 80px 0;
+        background: linear-gradient(180deg, transparent 0%, rgba(255, 255, 255, 0.02) 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .rc-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .rc-header {
+        text-align: center;
+        margin-bottom: 48px;
+    }
+    .rc-eyebrow {
+        display: inline-block;
+        padding: 6px 14px;
+        background: rgba(212, 40, 56, 0.1);
+        border: 1px solid rgba(212, 40, 56, 0.3);
+        border-radius: 100px;
+        color: #d42838;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 16px;
+    }
+    .rc-title {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.8rem, 4vw, 2.4rem);
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 12px;
+    }
+    .rc-sub {
+        color: #888;
+        font-size: 1rem;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    .rc-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 16px;
+    }
+    .rc-card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        padding: 24px;
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 16px;
+        color: #fff;
+        text-decoration: none;
+        transition: all 0.3s;
+        overflow: hidden;
+    }
+    .rc-card:hover {
+        background: rgba(212, 40, 56, 0.05);
+        border-color: rgba(212, 40, 56, 0.3);
+        transform: translateY(-4px);
+    }
+    .rc-badge {
+        display: inline-block;
+        padding: 3px 10px;
+        background: rgba(212, 40, 56, 0.15);
+        color: #d42838;
+        font-size: 0.7rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 100px;
+        align-self: flex-start;
+    }
+    .rc-card-title {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.1rem;
+        font-weight: 700;
+        line-height: 1.3;
+        color: #fff;
+    }
+    .rc-card-desc {
+        color: #aaa;
+        font-size: 0.9rem;
+        line-height: 1.5;
+    }
+    .rc-arrow {
+        color: #d42838;
+        font-size: 1.4rem;
+        margin-top: auto;
+        align-self: flex-end;
+        transition: transform 0.3s;
+    }
+    .rc-card:hover .rc-arrow {
+        transform: translateX(4px);
+    }
+</style>

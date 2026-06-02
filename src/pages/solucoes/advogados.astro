@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
+import RelatedContent from "../../components/seo/RelatedContent.astro";
 
 const slug = "advogados";
 
@@ -311,11 +312,18 @@ const faq = [
                         <li><a href="/solucoes/dentistas" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Dentistas</a></li>
                         <li><a href="/solucoes/psicologos" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Psicólogos</a></li>
                         <li><a href="/solucoes/arquitetos" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Arquitetos</a></li>
-                        <li><a href="/solucoes/contadores" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Contadores</a></li>
+                         <li><a href="/solucoes/contadores" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Contadores</a></li>
                     </ul>
                 </div>
             </div>
         </section>
+
+        <RelatedContent
+            type="niche"
+            niche="advogados"
+            title="Continue explorando o universo jurídico"
+            limit={6}
+        />
 
     </div>
 </BaseLayout>

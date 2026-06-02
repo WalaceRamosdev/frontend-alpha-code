@@ -84,29 +84,26 @@ const seo = createSEOMeta({
         <link rel="preload" as="image" href="/assets/hybrid-solar-2026.webp" fetchpriority="high" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
-        <!-- Google Tag Manager & Analytics (Integrated with Astro ViewTransitions) -->
+
+        <!-- Google Tag Manager & Analytics (DEFERRED via requestIdleCallback)
+             GTM, GA4 e Google Ads são adiados para depois do First Paint
+             para não impactar o LCP/Core Web Vitals -->
         <script is:inline>
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
-            
-            // Initial Config
             gtag("js", new Date());
 
-            const initGA = () => {
-                const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
-                              localStorage.getItem("alpha_admin_mode") === "true";
-                const trafficType = isAdmin ? "internal" : "external";
+            // Pre-carrega config imediatamente (não bloqueia, só enfileira)
+            const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" ||
+                          localStorage.getItem("alpha_admin_mode") === "true";
+            const trafficType = isAdmin ? "internal" : "external";
+            gtag("config", "G-Z1TRD8DK7P", { traffic_type: trafficType, page_path: window.location.pathname });
+            gtag("config", "AW-17948194634");
 
-                // GA4 Config (Send page_view automatically)
-                gtag("config", "G-Z1TRD8DK7P", { 
-                    'traffic_type': trafficType,
-                    'page_path': window.location.pathname 
-                }); 
-                
-                // Google Ads
-                gtag("config", "AW-17948194634");
-
-                // GTM Initialization
+            // Adia o carregamento de GTM/gtag.js para depois do idle
+            const initGTM = () => {
+                if (window.__gtmLoaded) return;
+                window.__gtmLoaded = true;
                 (function (w, d, s, l, i) {
                     w[l] = w[l] || [];
                     w[l].push({ "gtm.start": new Date().getTime(), event: "gtm.js" });
@@ -117,29 +114,33 @@ const seo = createSEOMeta({
                     j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
                     f.parentNode.insertBefore(j, f);
                 })(window, document, "script", "dataLayer", "GTM-P839T8F");
+
+                // GA4 lib (gtag.js)
+                var s = document.createElement("script");
+                s.async = true;
+                s.src = "https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P";
+                document.head.appendChild(s);
             };
 
-            // Run on every page load (Initial + ViewTransitions)
-            document.addEventListener('astro:page-load', () => {
-                // For SPAs/ViewTransitions, we need to send a new config command
-                // so GA4 captures the URL change correctly.
+            // Usa requestIdleCallback se disponível, senão setTimeout 1.5s
+            if ("requestIdleCallback" in window) {
+                requestIdleCallback(initGTM, { timeout: 2500 });
+            } else {
+                setTimeout(initGTM, 1500);
+            }
+
+            // Reenvia page_view em ViewTransitions
+            document.addEventListener("astro:page-load", () => {
                 if (window.gtag) {
-                    const isAdmin = new URLSearchParams(window.location.search).get("admin") === "true" || 
-                                  localStorage.getItem("alpha_admin_mode") === "true";
-                    
-                    gtag('config', 'G-Z1TRD8DK7P', {
-                        'page_path': window.location.pathname,
-                        'traffic_type': isAdmin ? 'internal' : 'external'
+                    const a = new URLSearchParams(window.location.search).get("admin") === "true" ||
+                              localStorage.getItem("alpha_admin_mode") === "true";
+                    gtag("event", "page_view", {
+                        page_path: window.location.pathname,
+                        traffic_type: a ? "internal" : "external",
                     });
                 }
             });
-
-            // Initial trigger
-            initGA();
         </script>
-        
-        <!-- Script de suporte para GA4 (Externo) -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z1TRD8DK7P"></script>
         
 
 
@@ -288,25 +289,20 @@ const seo = createSEOMeta({
                 console.log("Referral code captured:", ref);
             }
 
-            import { gsap } from "gsap";
-            import { ScrollTrigger } from "gsap/ScrollTrigger";
-            
-            gsap.registerPlugin(ScrollTrigger);
-
+            // GSAP é importado de forma lazy (code-split) pelos componentes que usam.
+            // Aqui só fazemos um refresh global se GSAP já estiver carregado.
             document.addEventListener("astro:page-load", () => {
-                // Ensure correct calculation of page height on navigation
-                ScrollTrigger.refresh();
-                
-                // Cleanup to prevent memory leaks and zombie triggers
-                // during ViewTransitions
-                document.addEventListener("astro:before-preparation", () => {
-                   ScrollTrigger.getAll().forEach(t => t.kill());
-                }, { once: true });
+                if (window.gsap && window.ScrollTrigger) {
+                    window.ScrollTrigger.refresh();
+                }
             });
 
-            // Globally disable markers
-            ScrollTrigger.config({ limitCallbacks: true });
-            ScrollTrigger.defaults({ markers: false });
+            // Cleanup on view transition
+            document.addEventListener("astro:before-preparation", () => {
+                if (window.ScrollTrigger) {
+                    window.ScrollTrigger.getAll().forEach((t: { kill: () => void }) => t.kill());
+                }
+            });
 
             // Global ShowToast function
             (window as any).showToast = function (
@@ -327,12 +323,58 @@ const seo = createSEOMeta({
 
                 container.appendChild(toast);
 
-                // Auto remove
                 setTimeout(() => {
                     toast.classList.add("fade-out");
                     setTimeout(() => toast.remove(), 500);
                 }, 3000);
             };
+        </script>
+
+        <!-- GSAP lazy loader (code-split, só carrega quando o usuário rolar a página) -->
+        <script>
+            (function () {
+                if (window.__gsapLoaded) return;
+                const loadGsap = () => {
+                    if (window.__gsapLoading) return;
+                    window.__gsapLoading = true;
+                    Promise.all([
+                        import("gsap"),
+                        import("gsap/ScrollTrigger"),
+                    ]).then(([gsapMod, stMod]) => {
+                        const gsap =
+                            gsapMod.default || gsapMod.gsap;
+                        const ScrollTrigger =
+                            stMod.ScrollTrigger || stMod.default;
+                        gsap.registerPlugin(ScrollTrigger);
+                        ScrollTrigger.config({ limitCallbacks: true });
+                        ScrollTrigger.defaults({ markers: false });
+                        window.gsap = gsap;
+                        window.ScrollTrigger = ScrollTrigger;
+                        window.__gsapLoaded = true;
+                        // Dispara evento para componentes registrarem animações
+                        window.dispatchEvent(
+                            new CustomEvent("gsap:ready", { detail: { gsap, ScrollTrigger } }),
+                        );
+                    });
+                };
+
+                // Carrega GSAP só quando o usuário rolar ou após 3s
+                const onScroll = () => {
+                    loadGsap();
+                    window.removeEventListener("scroll", onScroll);
+                };
+                window.addEventListener("scroll", onScroll, { passive: true, once: true });
+                if ("requestIdleCallback" in window) {
+                    requestIdleCallback(() => {
+                        if (!window.__gsapLoaded) {
+                            // ainda não rolou, mas adia para idle
+                        }
+                    }, { timeout: 3000 });
+                }
+                setTimeout(() => {
+                    if (!window.__gsapLoaded) loadGsap();
+                }, 4000);
+            })();
         </script>
     </body>
 </html>

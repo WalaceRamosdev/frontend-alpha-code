@@ -26,6 +26,9 @@ export default defineConfig({
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),
+      // Páginas long-tail bairro×nicho×cidade devem ter prioridade 0.6
+      // (são internas, segmentadas, não são páginas principais)
+      entryLimit: 45000,
     }),
     auth(),
     partytown({
@@ -35,13 +38,16 @@ export default defineConfig({
     }),
   ],
   build: {
-    inlineStylesheets: 'always',
+    inlineStylesheets: 'auto',
   },
   vite: {
     plugins: [tailwindcss()],
     build: {
       sourcemap: true,
       rollupOptions: {
+        // Pagefind é gerado em runtime (após o build) via `pagefind --site dist/client`.
+        // Não deve ser resolvido estaticamente pelo Rollup.
+        external: [/^\/pagefind\//],
         output: {
           manualChunks(id) {
             if (id.includes('gsap')) {

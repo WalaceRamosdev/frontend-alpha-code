@@ -8,6 +8,7 @@ import PostCard from "../components/PostCard.astro";
 import BlogHeader from "../components/blog/BlogHeader.astro";
 import ShareButtons from "../components/blog/ShareButtons.astro";
 import AuthorBio from "../components/blog/AuthorBio.astro";
+import RelatedContent from "../components/seo/RelatedContent.astro";
 
 interface Props {
     title: string;
@@ -225,7 +226,7 @@ const articleSchema = {
                                         heroImage={post.data.heroImage}
                                         slug={post.slug}
                                         author={post.data.author}
-                                    />
+                                     />
                                 ),
                             )}
                         </div>
@@ -233,6 +234,12 @@ const articleSchema = {
                 </section>
             )
         }
+
+        <RelatedContent
+            type="blog"
+            title="Explore mais soluções da Alpha Code"
+            limit={4}
+        />
     </article>
 </BaseLayout>
 

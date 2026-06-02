@@ -3,6 +3,7 @@ import { getAllCities, type CityContent } from "../../data/cities";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import SchemaMarkup from "../../components/seo/SchemaMarkup.astro";
+import RelatedContent from "../../components/seo/RelatedContent.astro";
 
 export const prerender = true;
 
@@ -348,6 +349,15 @@ const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/${city.slug}/`;
                 </div>
             </div>
         </section>
+
+        <!-- Hub-and-Spoke: linkagem interna automática -->
+        <RelatedContent
+            type="city"
+            city={city.name}
+            citySlug={city.slug}
+            title={`Mais conteúdos e cidades próximas de ${city.name}`}
+            limit={6}
+        />
     </article>
 </BaseLayout>
 

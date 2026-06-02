@@ -1,0 +1,494 @@
+---
+import { getAllCities, type CityContent } from "../../../../data/cities";
+import {
+    NEIGHBORHOODS,
+    getAllNeighborhoods,
+    type NeighborhoodEntry,
+} from "../../../../data/neighborhoods";
+import { niches, type NicheContent } from "../../../../data/niches";
+import BaseLayout from "../../../../layouts/BaseLayout.astro";
+import Button from "../../../../components/ui/Button.astro";
+import SchemaMarkup from "../../../../components/seo/SchemaMarkup.astro";
+import RelatedContent from "../../../../components/seo/RelatedContent.astro";
+
+export const prerender = true;
+
+interface Params {
+    nicho: string;
+    bairro: string;
+    cidade: string;
+}
+
+export async function getStaticPaths() {
+    const paths: Array<{
+        params: Params;
+        props: {
+            niche: NicheContent;
+            city: CityContent;
+            neighborhood: NeighborhoodEntry;
+        };
+    }> = [];
+
+    const cities = getAllCities();
+
+    // Para evitar explosão combinatorial (~150 nichos × 1500 combinações), limitamos
+    // a 6 nichos principais × 12 cidades × bairros existentes
+    const mainNiches = niches.filter((n) =>
+        [
+            "advogados",
+            "medicos",
+            "dentistas",
+            "psicologos",
+            "contadores",
+            "arquitetos",
+        ].includes(n.slug),
+    );
+
+    for (const n of mainNiches) {
+        for (const c of cities) {
+            const neighborhoods = NEIGHBORHOODS[c.slug] ?? [];
+            for (const nh of neighborhoods) {
+                paths.push({
+                    params: {
+                        nicho: n.slug,
+                        bairro: nh.slug,
+                        cidade: c.slug,
+                    },
+                    props: { niche: n, city: c, neighborhood: nh },
+                });
+            }
+        }
+    }
+
+    return paths;
+}
+
+const { niche, city, neighborhood } = Astro.props as {
+    niche: NicheContent;
+    city: CityContent;
+    neighborhood: NeighborhoodEntry;
+};
+
+const pageTitle = `${niche.name} no bairro ${neighborhood.name}, ${city.name} | Alpha Code`;
+const pageDescription = `Criação de site profissional para ${niche.name.toLowerCase()} no bairro ${neighborhood.name} (${city.name}). SEO local, design premium e alta conversão. Atenda clientes da região com presença digital forte.`;
+const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/`;
+---
+
+<BaseLayout
+    title={pageTitle}
+    description={pageDescription}
+    canonicalUrl={canonical}
+>
+    <SchemaMarkup
+        type="Service"
+        name={`${niche.name} - ${neighborhood.name}, ${city.name}`}
+        description={pageDescription}
+        serviceType={niche.name}
+        areaServed={[neighborhood.name, city.name]}
+        url={`https://www.sitesalphacode.com.br${canonical}`}
+    />
+
+    <article class="atendimento-page">
+        <!-- HERO -->
+        <section class="hero-atend">
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-text">
+                        <span class="kicker">
+                            Atendimento Local · {neighborhood.name}
+                        </span>
+                        <h1 class="hero-title">
+                            {niche.name} em <span class="hl"
+                                >{neighborhood.name}, {city.name}</span
+                            >
+                        </h1>
+                        <p class="hero-sub">
+                            Site profissional para {niche.name.toLowerCase()} que atende
+                            o bairro {neighborhood.name}. SEO local agressivo para aparecer
+                            no Google quando clientes da região procuram pelo seu serviço.
+                        </p>
+                        <div class="hero-actions">
+                            <Button
+                                href="https://wa.me/5521999064502"
+                                variant="primary"
+                                size="lg"
+                            >
+                                SOLICITAR PROPOSTA PERSONALIZADA
+                            </Button>
+                            <Button
+                                href="/cidades/{city.slug}/"
+                                variant="secondary"
+                                size="lg"
+                            >
+                                Ver atendimento em {city.name}
+                            </Button>
+                        </div>
+                    </div>
+                    <div class="hero-card">
+                        <div class="card-label">Você está em:</div>
+                        <div class="loc-line">
+                            <span class="loc-label">Bairro</span>
+                            <span class="loc-value">{neighborhood.name}</span>
+                        </div>
+                        <div class="loc-line">
+                            <span class="loc-label">Cidade</span>
+                            <span class="loc-value">{city.name}</span>
+                        </div>
+                        <div class="loc-line">
+                            <span class="loc-label">CEP</span>
+                            <span class="loc-value">{neighborhood.cepExample}</span>
+                        </div>
+                        <div class="loc-line">
+                            <span class="loc-label">Tipo</span>
+                            <span class="loc-value">{neighborhood.type}</span>
+                        </div>
+                        <div class="loc-line">
+                            <span class="loc-label">Referência</span>
+                            <span class="loc-value">{neighborhood.landmark}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTEÚDO ÚNICO -->
+        <section class="content-section">
+            <div class="container">
+                <div class="content-grid">
+                    <div class="content-main">
+                        <h2>
+                            Por que {niche.name.toLowerCase()} no {neighborhood.name}
+                            precisam de site profissional?
+                        </h2>
+                        <p>
+                            {neighborhood.description} Clientes de {neighborhood.name}
+                            e arredores buscam por {niche.name.toLowerCase()} no Google
+                            todos os dias — e se você não aparece nas primeiras posições,
+                            seus concorrentes estão faturando no seu lugar.
+                        </p>
+                        <p>
+                            Um site otimizado para SEO local posiciona seu negócio exatamente
+                            quando alguém pesquisa por "{niche.name.toLowerCase()} em {
+                                neighborhood.name
+                            }", "{niche.name.toLowerCase()} perto de {neighborhood.landmark}"
+                            ou termos similares. Cada visita qualificada pode se converter
+                            em um cliente de alto valor.
+                        </p>
+
+                        <h3>
+                            O que entregamos para {niche.name.toLowerCase()} em {
+                                neighborhood.name
+                            }
+                        </h3>
+                        <ul class="check-list">
+                            <li>
+                                <strong>Design premium:</strong> site moderno que gera credibilidade
+                                e converte visitantes em clientes.
+                            </li>
+                            <li>
+                                <strong>SEO local agressivo:</strong> otimização para aparecer
+                                no Google Maps e nas buscas de "{niche.name.toLowerCase()} em {
+                                    neighborhood.name
+                                }".
+                            </li>
+                            <li>
+                                <strong>Velocidade máxima:</strong> carregamento em &lt; 1s em
+                                qualquer dispositivo — Google prioriza sites rápidos.
+                            </li>
+                            <li>
+                                <strong>WhatsApp integrado:</strong> botão flutuante para
+                                facilitar o contato direto de {neighborhood.name} e {city.name}.
+                            </li>
+                            <li>
+                                <strong>Blog com SEO:</strong> conteúdos otimizados para
+                                ranquear palavras-chave locais e posicionar sua marca.
+                            </li>
+                        </ul>
+
+                        <h3>Casos reais em {city.name}</h3>
+                        <p>
+                            Atendemos clientes em toda {city.name} e bairros adjacentes.
+                            O bairro {neighborhood.name} tem particularidades — {neighborhood.landmark.toLowerCase()}
+                            é um ponto de referência importante e impacta diretamente
+                            nas buscas locais.
+                        </p>
+                    </div>
+
+                    <aside class="content-aside">
+                        <div class="aside-card">
+                            <h4>Dados locais</h4>
+                            <p>
+                                <strong>Bairro:</strong> {neighborhood.name}<br />
+                                <strong>Cidade:</strong> {city.name}<br />
+                                <strong>Estado:</strong> Rio de Janeiro<br />
+                                <strong>CEP base:</strong> {neighborhood.cepExample}
+                            </p>
+                        </div>
+                        <div class="aside-card">
+                            <h4>Por que Alpha Code?</h4>
+                            <p>
+                                +5 anos criando sites que ranqueiam no Google para nichos
+                                específicos. Atendemos clientes em toda a Baixada Fluminense
+                                e capital.
+                            </p>
+                        </div>
+                        <div class="aside-card cta-card">
+                            <h4>Pronto para começar?</h4>
+                            <Button
+                                href="https://wa.me/5521999064502"
+                                variant="primary"
+                                size="md"
+                            >
+                                Falar agora
+                            </Button>
+                        </div>
+                    </aside>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>
+                        Seu concorrente em {neighborhood.name} já tem site. E você?
+                    </h2>
+                    <p>
+                        Não perca mais clientes. Garanta sua presença digital em {
+                            neighborhood.name
+                        } com um site feito para converter.
+                    </p>
+                    <Button
+                        href="https://wa.me/5521999064502"
+                        variant="primary"
+                        size="lg"
+                    >
+                        QUERO MINHA PROPOSTA PERSONALIZADA
+                    </Button>
+                </div>
+            </div>
+        </section>
+
+        <RelatedContent
+            type="city"
+            city={city.name}
+            citySlug={city.slug}
+            niche={niche.slug}
+            title={`Veja também: ${niche.name} em outras regiões`}
+            limit={6}
+        />
+    </article>
+</BaseLayout>
+
+<style>
+    .atendimento-page {
+        background: #050505;
+        color: #e5e5e5;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+
+    /* HERO */
+    .hero-atend {
+        padding: 80px 0 60px;
+        background:
+            radial-gradient(ellipse at top, rgba(212, 40, 56, 0.08) 0%, transparent 60%),
+            #050505;
+    }
+    .hero-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 48px;
+        align-items: center;
+    }
+    .kicker {
+        display: inline-block;
+        padding: 6px 14px;
+        background: rgba(212, 40, 56, 0.1);
+        border: 1px solid rgba(212, 40, 56, 0.3);
+        border-radius: 100px;
+        color: #d42838;
+        font-size: 0.8rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+    }
+    .hero-title {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(2.2rem, 5vw, 3.4rem);
+        font-weight: 800;
+        line-height: 1.1;
+        color: #fff;
+        margin-bottom: 20px;
+    }
+    .hl {
+        background: linear-gradient(90deg, #d42838, #ff4d5e);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .hero-sub {
+        font-size: 1.1rem;
+        line-height: 1.6;
+        color: #aaa;
+        margin-bottom: 32px;
+    }
+    .hero-actions {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+    }
+    .hero-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        padding: 28px;
+        backdrop-filter: blur(20px);
+    }
+    .card-label {
+        color: #888;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        margin-bottom: 20px;
+        font-weight: 700;
+    }
+    .loc-line {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .loc-line:last-child {
+        border-bottom: none;
+    }
+    .loc-label {
+        color: #888;
+        font-size: 0.9rem;
+    }
+    .loc-value {
+        color: #fff;
+        font-weight: 600;
+        text-align: right;
+        max-width: 60%;
+    }
+
+    /* CONTEÚDO */
+    .content-section {
+        padding: 80px 0;
+    }
+    .content-grid {
+        display: grid;
+        grid-template-columns: 1.6fr 1fr;
+        gap: 48px;
+    }
+    .content-main h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.9rem;
+        color: #fff;
+        margin: 0 0 20px;
+        line-height: 1.2;
+    }
+    .content-main h3 {
+        font-family: "Outfit", sans-serif;
+        font-size: 1.4rem;
+        color: #fff;
+        margin: 32px 0 16px;
+    }
+    .content-main p {
+        color: #bbb;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin-bottom: 16px;
+    }
+    .check-list {
+        list-style: none;
+        padding: 0;
+    }
+    .check-list li {
+        position: relative;
+        padding-left: 32px;
+        margin-bottom: 12px;
+        color: #bbb;
+        line-height: 1.6;
+    }
+    .check-list li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #d42838;
+        font-weight: 900;
+        font-size: 1.2rem;
+    }
+    .content-aside {
+        position: sticky;
+        top: 24px;
+        align-self: start;
+    }
+    .aside-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 16px;
+        padding: 24px;
+        margin-bottom: 16px;
+    }
+    .aside-card h4 {
+        font-family: "Outfit", sans-serif;
+        color: #fff;
+        font-size: 1.1rem;
+        margin: 0 0 12px;
+    }
+    .aside-card p {
+        color: #aaa;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin: 0;
+    }
+    .cta-card {
+        background: linear-gradient(135deg, rgba(212, 40, 56, 0.15), rgba(212, 40, 56, 0.05));
+        border-color: rgba(212, 40, 56, 0.3);
+        text-align: center;
+    }
+
+    /* CTA FINAL */
+    .cta-section {
+        padding: 60px 0 100px;
+        text-align: center;
+    }
+    .cta-content {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 60px 40px;
+        background:
+            radial-gradient(ellipse at center, rgba(212, 40, 56, 0.12) 0%, transparent 70%),
+            rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(212, 40, 56, 0.2);
+        border-radius: 24px;
+    }
+    .cta-content h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(1.6rem, 4vw, 2.2rem);
+        color: #fff;
+        margin: 0 0 16px;
+    }
+    .cta-content p {
+        color: #aaa;
+        font-size: 1.05rem;
+        margin-bottom: 28px;
+    }
+
+    @media (max-width: 900px) {
+        .hero-grid,
+        .content-grid {
+            grid-template-columns: 1fr;
+        }
+        .content-aside {
+            position: static;
+        }
+    }
+</style>

@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
+import RelatedContent from "../../components/seo/RelatedContent.astro";
 
 const slug = "psicologos";
 
@@ -332,6 +333,13 @@ const faq = [
                 </div>
             </div>
         </section>
+        <RelatedContent
+            type="niche"
+            niche="psicologos"
+            title="Continue explorando soluções para psicologos"
+            limit={6}
+        />
+
 
     </div>
 </BaseLayout>
