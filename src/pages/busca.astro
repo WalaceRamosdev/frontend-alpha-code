@@ -1,0 +1,243 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
+
+export const prerender = true;
+
+// JSON-LD: WebSite com SearchAction (ativa sitelinks searchbox do Google)
+const searchActionSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.sitesalphacode.com.br/#website",
+    name: "Alpha Code",
+    url: "https://www.sitesalphacode.com.br",
+    inLanguage: "pt-BR",
+    publisher: {
+        "@type": "Organization",
+        name: "Alpha Code",
+        url: "https://www.sitesalphacode.com.br",
+    },
+    potentialAction: {
+        "@type": "SearchAction",
+        target: {
+            "@type": "EntryPoint",
+            urlTemplate:
+                "https://www.sitesalphacode.com.br/busca?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+    },
+};
+---
+
+<BaseLayout
+    title="Buscar no Site | Alpha Code"
+    description="Pesquise por artigos, soluções, cidades atendidas e serviços da Alpha Code. Encontre rapidamente o que precisa."
+    noIndex={false}
+>
+    <SchemaMarkup type="WebSite" name="Alpha Code" />
+
+    <!-- SearchAction schema no head para rich result do Google -->
+    <script
+        type="application/ld+json"
+        is:inline
+        slot="schema"
+        set:html={JSON.stringify(searchActionSchema)}
+    />
+
+    <section class="search-page">
+        <div class="container">
+            <div class="search-header">
+                <span class="search-eyebrow">Busca</span>
+                <h1>Encontre o que precisa</h1>
+                <p>
+                    Pesquise por artigos do blog, soluções, cidades atendidas,
+                    planos e muito mais.
+                </p>
+            </div>
+
+            <div id="search"></div>
+
+            <noscript>
+                <p class="no-js-msg">
+                    A busca requer JavaScript habilitado.
+                </p>
+            </noscript>
+        </div>
+    </section>
+</BaseLayout>
+
+<style>
+    .search-page {
+        min-height: 70vh;
+        padding: 160px 0 80px;
+        background: radial-gradient(
+                circle at 30% 20%,
+                rgba(212, 40, 56, 0.1) 0%,
+                transparent 60%
+            ),
+            #050505;
+    }
+    .container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .search-header {
+        text-align: center;
+        margin-bottom: 60px;
+    }
+    .search-eyebrow {
+        display: inline-block;
+        padding: 6px 14px;
+        background: rgba(212, 40, 56, 0.1);
+        border: 1px solid rgba(212, 40, 56, 0.3);
+        border-radius: 100px;
+        color: #d42838;
+        font-size: 0.85rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        margin-bottom: 24px;
+    }
+    h1 {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(2.5rem, 5vw, 3.5rem);
+        color: #fff;
+        font-weight: 800;
+        margin-bottom: 16px;
+    }
+    .search-header p {
+        color: #aaa;
+        font-size: 1.1rem;
+    }
+    .no-js-msg {
+        color: #888;
+        text-align: center;
+        padding: 40px;
+    }
+</style>
+
+<style is:global>
+    /* Pagefind UI overrides para casar com o tema dark */
+    .pagefind-ui__form {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 16px !important;
+        padding: 8px !important;
+    }
+    .pagefind-ui__search-input {
+        background: transparent !important;
+        color: #fff !important;
+        font-size: 1.1rem !important;
+        padding: 12px 16px !important;
+        font-family:
+            "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, sans-serif !important;
+    }
+    .pagefind-ui__search-input::placeholder {
+        color: #666 !important;
+    }
+    .pagefind-ui__search-clear {
+        background: rgba(212, 40, 56, 0.2) !important;
+        color: #fff !important;
+        border-radius: 100px !important;
+        padding: 6px 14px !important;
+        font-weight: 600 !important;
+    }
+    .pagefind-ui__search-clear:hover {
+        background: rgba(212, 40, 56, 0.4) !important;
+    }
+    .pagefind-ui__results-area {
+        margin-top: 32px !important;
+    }
+    .pagefind-ui__results {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 16px !important;
+    }
+    .pagefind-ui__result {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 16px !important;
+        padding: 24px !important;
+        transition: all 0.3s !important;
+    }
+    .pagefind-ui__result:hover {
+        background: rgba(212, 40, 56, 0.05) !important;
+        border-color: rgba(212, 40, 56, 0.3) !important;
+    }
+    .pagefind-ui__result-title a {
+        color: #fff !important;
+        font-family: "Outfit", sans-serif !important;
+        font-size: 1.3rem !important;
+        font-weight: 700 !important;
+        text-decoration: none !important;
+    }
+    .pagefind-ui__result-title a:hover {
+        color: #d42838 !important;
+    }
+    .pagefind-ui__result-excerpt {
+        color: #aaa !important;
+        line-height: 1.6 !important;
+        margin-top: 8px !important;
+    }
+    .pagefind-ui__result-link {
+        color: #d42838 !important;
+        font-weight: 600 !important;
+        font-size: 0.9rem !important;
+        text-decoration: none !important;
+    }
+    .pagefind-ui__filter-name {
+        color: #ccc !important;
+    }
+    .pagefind-ui__message {
+        color: #888 !important;
+        text-align: center !important;
+        padding: 40px !important;
+    }
+    .pagefind-ui__result-excerpt mark {
+        background: rgba(212, 40, 56, 0.3) !important;
+        color: #fff !important;
+        padding: 2px 4px !important;
+        border-radius: 4px !important;
+    }
+</style>
+
+<script>
+    // Pagefind UI: carrega dinamicamente e inicializa
+    async function initSearch() {
+        // CSS
+        const css = document.createElement("link");
+        css.rel = "stylesheet";
+        css.href = "/pagefind/pagefind-ui.css";
+        document.head.appendChild(css);
+
+        // JS
+        await import("/pagefind/pagefind-ui.js");
+
+        // @ts-ignore
+        new PagefindUI({
+            element: "#search",
+            showSubResults: true,
+            showImages: false,
+            processTerm: (term) => term,
+            resetStyles: false,
+            autofocus: true,
+        });
+
+        // Auto-preencher com query string
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get("q");
+        if (q) {
+            setTimeout(() => {
+                const input = document.querySelector(
+                    ".pagefind-ui__search-input",
+                ) as HTMLInputElement;
+                if (input) {
+                    input.value = q;
+                    input.dispatchEvent(new Event("input", { bubbles: true }));
+                }
+            }, 200);
+        }
+    }
+    initSearch();
+</script>

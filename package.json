@@ -4,7 +4,7 @@
   "version": "0.0.1",
   "scripts": {
     "dev": "astro dev",
-    "build": "prisma generate && astro build",
+    "build": "prisma generate && astro build && pagefind --site dist/client",
     "preview": "astro preview",
     "astro": "astro",
     "optimize-images": "node scripts/optimize-all-images.js",
@@ -45,6 +45,7 @@
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",
     "knip": "^5.85.0",
+    "pagefind": "^1.5.2",
     "tailwindcss": "^4.2.1"
   }
 }

@@ -9,6 +9,7 @@ import Pricing from "../components/sections/Pricing.astro";
 import CTA from "../components/sections/CTA.astro";
 import Faq from "../components/sections/Faq.astro";
 import SEOContent from "../components/sections/SEOContent.astro";
+import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import { getImage } from "astro:assets";
 import HeroMobileImg from "../assets/projects/psicologa-mobile.webp";
 
@@ -30,11 +31,46 @@ const keywords = [
   "alpha code",
 ];
 
+// SearchAction schema (ativa sitelinks searchbox do Google)
+const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": "https://www.sitesalphacode.com.br/#website",
+    name: "Alpha Code",
+    alternateName: "Sites Alpha Code",
+    url: "https://www.sitesalphacode.com.br",
+    inLanguage: "pt-BR",
+    publisher: {
+        "@type": "Organization",
+        name: "Alpha Code",
+        url: "https://www.sitesalphacode.com.br",
+    },
+    potentialAction: {
+        "@type": "SearchAction",
+        target: {
+            "@type": "EntryPoint",
+            urlTemplate:
+                "https://www.sitesalphacode.com.br/busca?q={search_term_string}",
+        },
+        "query-input": "required name=search_term_string",
+    },
+};
+
 export const prerender = false;
 ---
 
 <BaseLayout title={title} description={description} keywords={keywords}>
-  <link 
+  <SchemaMarkup type="WebSite" name="Alpha Code" />
+
+  <!-- WebSite + SearchAction schema (sitelinks searchbox) -->
+  <script
+      type="application/ld+json"
+      is:inline
+      slot="schema"
+      set:html={JSON.stringify(websiteSchema)}
+  />
+
+  <link
     rel="preload" 
     as="image" 
     href={optimizedHeroMobile.src} 
