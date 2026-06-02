@@ -44,6 +44,10 @@ export default defineConfig({
     plugins: [tailwindcss()],
     build: {
       sourcemap: true,
+      // Desabilita o polyfill automático de module preload (evita JS extra no head)
+      modulePreload: {
+        polyfill: false,
+      },
       rollupOptions: {
         // Pagefind é gerado em runtime (após o build) via `pagefind --site dist/client`.
         // Não deve ser resolvido estaticamente pelo Rollup.

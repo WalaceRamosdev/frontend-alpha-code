@@ -2,7 +2,7 @@
 title: "Google Meu Negócio em 2026: A Atualização Que Decidiu Quem Aparece no Google Maps"
 description: "O Google Meu Negócio mudou radicalmente em 2026. Descubra as novas regras de ranqueamento local, o que o algoritmo prioriza agora e como fazer seu negócio dominar o Maps da sua cidade."
 pubDate: 2026-06-03T10:30:00-03:00
-heroImage: "/assets/blog/google-meu-negocio-2026-sitesalphacode.webp"
+heroImage: "/assets/blog/google-meu-negocio-sites-alpha-code.webp"
 categories: ["SEO Local", "Estratégia"]
 tags: ["google meu negócio", "seo local", "google maps", "marketing digital"]
 draft: false

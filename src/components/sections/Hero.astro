@@ -160,10 +160,11 @@ const {
                                 <Image
                                     src={psicologaDesktop}
                                     alt="Site Psicóloga Desktop"
-                                    widths={[400, 800, 1200]}
+                                    widths={[400, 800]}
                                     sizes="(max-width: 968px) 100vw, 800px"
                                     loading="eager"
                                     fetchpriority="high"
+                                    decoding="async"
                                 />
                             </div>
                             <div class="mobile-frame mobile-left">
@@ -173,7 +174,8 @@ const {
                                     widths={[200, 400]}
                                     sizes="(max-width: 968px) 30vw, 200px"
                                     loading="eager"
-                                    fetchpriority="high"
+                                    fetchpriority="auto"
+                                    decoding="async"
                                 />
                             </div>
                         </div>
@@ -188,9 +190,11 @@ const {
                                 <Image
                                     src={advocaciaDesktop}
                                     alt="Site Advocacia Desktop"
-                                    widths={[400, 800, 1200]}
+                                    widths={[400, 800]}
                                     sizes="(max-width: 968px) 100vw, 800px"
                                     loading="lazy"
+                                    decoding="async"
+                                    fetchpriority="low"
                                 />
                             </div>
                             <div class="mobile-frame">
@@ -214,9 +218,11 @@ const {
                                 <Image
                                     src={professorDesktop}
                                     alt="Site Professor Desktop"
-                                    widths={[400, 800, 1200]}
+                                    widths={[400, 800]}
                                     sizes="(max-width: 968px) 100vw, 800px"
                                     loading="lazy"
+                                    decoding="async"
+                                    fetchpriority="low"
                                 />
                             </div>
                             <div class="mobile-frame mobile-left">
@@ -240,9 +246,11 @@ const {
                                 <Image
                                     src={nexusDesktop}
                                     alt="Site Nexus Contabilidade Desktop"
-                                    widths={[400, 800, 1200]}
+                                    widths={[400, 800]}
                                     sizes="(max-width: 968px) 100vw, 800px"
                                     loading="lazy"
+                                    decoding="async"
+                                    fetchpriority="low"
                                 />
                             </div>
                             <div class="mobile-frame">

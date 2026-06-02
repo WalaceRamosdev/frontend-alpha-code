@@ -6,7 +6,6 @@ import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
 import SocialProof from "../components/ui/SocialProof.astro";
 import PromoModal from "../components/ui/PromoModal.astro";
 import PremiumWhatsapp from "../components/ui/PremiumWhatsapp.astro";
-import { ViewTransitions } from "astro:transitions";
 import FomoBubble from "../components/ui/FomoBubble.astro";
 import "../styles/variables.css";
 import "../styles/utilities.css";
@@ -25,6 +24,8 @@ interface Props {
     showFooter?: boolean;
     showSocialProof?: boolean;
     showFomoBubble?: boolean;
+    /** Imagem LCP crítica da página (opcional — tem fallback) */
+    lcpImage?: string;
     schemaType?:
         | "Organization"
         | "WebSite"
@@ -80,8 +81,20 @@ const seo = createSEOMeta({
         <slot name="head" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        <!-- LCP Critical Preload -->
-        <link rel="preload" as="image" href="/assets/hybrid-solar-2026.webp" fetchpriority="high" />
+        <!-- LCP Critical Preload: definido por página via prop lcpImage; fallback para hero mobile -->
+        <link
+            rel="preload"
+            as="image"
+            href={Astro.props.lcpImage || "/assets/projects/psicologa-mobile.webp"}
+            fetchpriority="high"
+        />
+        <!-- Preconnect Cloudflare CDN (Font Awesome) — economiza ~20ms no LCP -->
+        <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
+        <!-- Preconnect Unsplash (avatares do hero) -->
+        <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+        <!-- Preconnect GTM/GA4 -->
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletag.com" />
 
         <script is:inline>document.documentElement.classList.add("js-enabled");</script>
 
@@ -129,8 +142,8 @@ const seo = createSEOMeta({
                 setTimeout(initGTM, 1500);
             }
 
-            // Reenvia page_view em ViewTransitions
-            document.addEventListener("astro:page-load", () => {
+            // Reenvia page_view em navegação nativa (bfcache + reload SPA-like)
+            window.addEventListener("pageshow", () => {
                 if (window.gtag) {
                     const a = new URLSearchParams(window.location.search).get("admin") === "true" ||
                               localStorage.getItem("alpha_admin_mode") === "true";
@@ -192,29 +205,61 @@ const seo = createSEOMeta({
             media="print"
             onload="this.media='all'"
         />
-        <!-- Font Awesome -->
-        <link
-            rel="stylesheet"
-            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            media="print"
-            onload="this.media='all'"
-        />
+        <!-- Font Awesome self-hosted via @font-face com font-display:swap -->
         <style is:global>
-            /* Optimization: Font-display swap for Font Awesome to avoid "invisible text" during load */
+            /* Substitui o CSS externo do Cloudflare (que tem font-display:block)
+               e serve apenas os arquivos woff2 com swap. ~75% menor. */
             @font-face {
                 font-family: "Font Awesome 6 Free";
+                src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-solid-900.woff2")
+                        format("woff2");
+                font-weight: 900;
+                font-style: normal;
                 font-display: swap;
             }
             @font-face {
                 font-family: "Font Awesome 6 Brands";
+                src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-brands-400.woff2")
+                        format("woff2");
+                font-weight: 400;
+                font-style: normal;
                 font-display: swap;
+            }
+            @font-face {
+                font-family: "Font Awesome 6 Free";
+                src: url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/webfonts/fa-regular-400.woff2")
+                        format("woff2");
+                font-weight: 400;
+                font-style: normal;
+                font-display: swap;
+            }
+            .fa,
+            .fas,
+            .far,
+            .fab {
+                -moz-osx-font-smoothing: grayscale;
+                -webkit-font-smoothing: antialiased;
+                display: inline-block;
+                font-style: normal;
+                font-variant: normal;
+                text-rendering: auto;
+                line-height: 1;
+            }
+            .fa,
+            .fas {
+                font-family: "Font Awesome 6 Free";
+                font-weight: 900;
+            }
+            .far {
+                font-family: "Font Awesome 6 Free";
+                font-weight: 400;
+            }
+            .fab {
+                font-family: "Font Awesome 6 Brands";
+                font-weight: 400;
             }
         </style>
         <noscript>
-            <link
-                rel="stylesheet"
-                href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-            />
             <link
                 href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
                 rel="stylesheet"
@@ -243,7 +288,46 @@ const seo = createSEOMeta({
         {noIndex && <meta name="robots" content="noindex, nofollow" />}
         {!noIndex && <meta name="robots" content={seo.robots} />}
 
-        <ViewTransitions />
+        <!-- ViewTransitions desabilitado em favor de navegação tradicional
+             para reduzir 195KB do ClientRouter que causava reflows forçados.
+             O scroll-to-top é feito por CSS (scroll-behavior:smooth) + history API. -->
+        <script is:inline>
+            // Prefetch on hover/touch — só carrega a página quando o usuário
+            // demonstra intenção (não download especulativo padrão).
+            (function () {
+                if (window.__prefetchConfigured) return;
+                window.__prefetchConfigured = true;
+                const prefetch = (url) => {
+                    if (!url) return;
+                    try {
+                        const u = new URL(url, location.href);
+                        if (u.origin !== location.origin) return;
+                        if (u.pathname === location.pathname) return;
+                        const link = document.createElement("link");
+                        link.rel = "prefetch";
+                        link.href = u.pathname;
+                        link.as = "document";
+                        document.head.appendChild(link);
+                    } catch (_) {}
+                };
+                document.addEventListener(
+                    "mouseover",
+                    (e) => {
+                        const a = e.target.closest && e.target.closest("a[href]");
+                        if (a && a.href) prefetch(a.getAttribute("href"));
+                    },
+                    { passive: true },
+                );
+                document.addEventListener(
+                    "touchstart",
+                    (e) => {
+                        const a = e.target.closest && e.target.closest("a[href]");
+                        if (a && a.href) prefetch(a.getAttribute("href"));
+                    },
+                    { passive: true },
+                );
+            })();
+        </script>
     </head>
     <body>
         <!-- Google Tag Manager (noscript) -->
@@ -291,14 +375,14 @@ const seo = createSEOMeta({
 
             // GSAP é importado de forma lazy (code-split) pelos componentes que usam.
             // Aqui só fazemos um refresh global se GSAP já estiver carregado.
-            document.addEventListener("astro:page-load", () => {
+            window.addEventListener("pageshow", () => {
                 if (window.gsap && window.ScrollTrigger) {
                     window.ScrollTrigger.refresh();
                 }
             });
 
-            // Cleanup on view transition
-            document.addEventListener("astro:before-preparation", () => {
+            // Cleanup on page hide
+            window.addEventListener("pagehide", () => {
                 if (window.ScrollTrigger) {
                     window.ScrollTrigger.getAll().forEach((t: { kill: () => void }) => t.kill());
                 }
@@ -337,43 +421,47 @@ const seo = createSEOMeta({
                 const loadGsap = () => {
                     if (window.__gsapLoading) return;
                     window.__gsapLoading = true;
-                    Promise.all([
-                        import("gsap"),
-                        import("gsap/ScrollTrigger"),
-                    ]).then(([gsapMod, stMod]) => {
-                        const gsap =
-                            gsapMod.default || gsapMod.gsap;
-                        const ScrollTrigger =
-                            stMod.ScrollTrigger || stMod.default;
-                        gsap.registerPlugin(ScrollTrigger);
-                        ScrollTrigger.config({ limitCallbacks: true });
-                        ScrollTrigger.defaults({ markers: false });
-                        window.gsap = gsap;
-                        window.ScrollTrigger = ScrollTrigger;
-                        window.__gsapLoaded = true;
-                        // Dispara evento para componentes registrarem animações
-                        window.dispatchEvent(
-                            new CustomEvent("gsap:ready", { detail: { gsap, ScrollTrigger } }),
-                        );
-                    });
+                    // Import dinâmico: o Vite adiciona modulepreload no <head>,
+                    // mas usamos requestIdleCallback para que o fetch só aconteça
+                    // APÓS o LCP, evitando disputa no caminho crítico.
+                    const start = () =>
+                        Promise.all([
+                            import("gsap"),
+                            import("gsap/ScrollTrigger"),
+                        ]).then(([gsapMod, stMod]) => {
+                            const gsap =
+                                gsapMod.default || gsapMod.gsap;
+                            const ScrollTrigger =
+                                stMod.ScrollTrigger || stMod.default;
+                            gsap.registerPlugin(ScrollTrigger);
+                            ScrollTrigger.config({ limitCallbacks: true });
+                            ScrollTrigger.defaults({ markers: false });
+                            window.gsap = gsap;
+                            window.ScrollTrigger = ScrollTrigger;
+                            window.__gsapLoaded = true;
+                            window.dispatchEvent(
+                                new CustomEvent("gsap:ready", { detail: { gsap, ScrollTrigger } }),
+                            );
+                        });
+                    if ("requestIdleCallback" in window) {
+                        requestIdleCallback(start, { timeout: 1500 });
+                    } else {
+                        setTimeout(start, 1500);
+                    }
                 };
-
-                // Carrega GSAP só quando o usuário rolar ou após 3s
-                const onScroll = () => {
+                // Carrega GSAP só quando o usuário rolar, tocar ou após 6s (fallback)
+                const trigger = () => {
                     loadGsap();
-                    window.removeEventListener("scroll", onScroll);
+                    window.removeEventListener("scroll", trigger);
+                    window.removeEventListener("pointerdown", trigger);
+                    window.removeEventListener("keydown", trigger);
                 };
-                window.addEventListener("scroll", onScroll, { passive: true, once: true });
-                if ("requestIdleCallback" in window) {
-                    requestIdleCallback(() => {
-                        if (!window.__gsapLoaded) {
-                            // ainda não rolou, mas adia para idle
-                        }
-                    }, { timeout: 3000 });
-                }
+                window.addEventListener("scroll", trigger, { passive: true, once: true });
+                window.addEventListener("pointerdown", trigger, { passive: true, once: true });
+                window.addEventListener("keydown", trigger, { passive: true, once: true });
                 setTimeout(() => {
-                    if (!window.__gsapLoaded) loadGsap();
-                }, 4000);
+                    if (!window.__gsapLoaded && !window.__gsapLoading) loadGsap();
+                }, 6000);
             })();
         </script>
     </body>
