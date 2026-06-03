@@ -186,43 +186,45 @@ const isLoggedIn = !!session;
             </div>
         </section>
 
-        <!-- SEO Local Schema -->
+        <!-- Structured Data -->
         <script type="application/ld+json">
         [
           {
             "@context": "https://schema.org",
-            "@type": "Dentist",
-            "name": "Nome da Sua Clínica",
-            "description": "Especialistas em marketing odontológico e SEO para dentistas. Clínica premium com foco em implantes, estética e ortodontia invisível.",
-            "image": "/assets/clinica_system_tech_mockup.png",
+            "@type": "Organization",
+            "@id": "https://www.sitesalphacode.com.br#organization",
+            "name": "Alpha Code",
+            "alternateName": "Alpha Code Sites Profissionais",
+            "url": "https://www.sitesalphacode.com.br",
+            "logo": "https://www.sitesalphacode.com.br/assets/og-image-3d.webp",
+            "description": "Especialistas em criação de sites para clínicas odontológicas e SEO para dentistas no Rio de Janeiro.",
+            "telephone": "+5521999064502",
+            "email": "contato@sitesalphacode.com.br",
             "address": {
               "@type": "PostalAddress",
-              "streetAddress": "Centro",
               "addressLocality": "Rio de Janeiro",
               "addressRegion": "RJ",
-              "postalCode": "20000-000",
               "addressCountry": "BR"
             },
-            "geo": {
-              "@type": "GeoCoordinates",
-              "latitude": -22.906847,
-              "longitude": -43.172896
-            },
-            "url": "https://seusite.com.br",
-            "telephone": "+5511999999999",
-            "openingHoursSpecification": [
-              {
-                "@type": "OpeningHoursSpecification",
-                "dayOfWeek": [
-                  "Monday",
-                  "Tuesday",
-                  "Wednesday",
-                  "Thursday",
-                  "Friday"
-                ],
-                "opens": "09:00",
-                "closes": "18:00"
-              }
+            "sameAs": [
+              "https://www.instagram.com/alphacodesites/",
+              "https://www.linkedin.com/company/alphacode",
+              "https://www.youtube.com/@alphacode"
+            ]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "Service",
+            "@id": "https://www.sitesalphacode.com.br/solucoes/clinica-premium#service",
+            "name": "Criação de Sites Premium para Clínicas Odontológicas",
+            "serviceType": "Marketing Odontológico",
+            "description": "Sites de alto padrão para clínicas odontológicas com SEO local, agendamento 24h e design de luxo.",
+            "provider": { "@id": "https://www.sitesalphacode.com.br#organization" },
+            "areaServed": [
+              { "@type": "City", "name": "Rio de Janeiro" },
+              { "@type": "City", "name": "Nova Iguaçu" },
+              { "@type": "City", "name": "Duque de Caxias" },
+              { "@type": "State", "name": "Rio de Janeiro" }
             ]
           },
           {
@@ -243,6 +245,14 @@ const isLoggedIn = !!session;
                 "acceptedAnswer": {
                   "@type": "Answer",
                   "text": "O design de luxo transmite autoridade imediata, permitindo que você justifique valores de consulta particular mais altos e atraia um público qualificado."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "O sistema de agendamento é integrado?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Sim, facilitamos a jornada do paciente para que ele agende a consulta diretamente pelo site ou WhatsApp em segundos."
                 }
               }
             ]

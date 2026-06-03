@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
+import SchemaMarkup from "../../components/seo/SchemaMarkup.astro";
 import RelatedContent from "../../components/seo/RelatedContent.astro";
 
 const slug = "dentistas";
@@ -34,6 +35,22 @@ const faq = [
     showSocialProof={true}
 >
     <NicheMeta slug="dentistas" slot="head" />
+    <SchemaMarkup
+        type="Organization"
+        slot="head"
+        name="Alpha Code"
+        description="Especialistas em criação de sites para dentistas e clínicas odontológicas no RJ. Marketing odontológico, SEO local e alta conversão."
+        url="https://www.sitesalphacode.com.br/solucoes/dentistas"
+        image="https://www.sitesalphacode.com.br/assets/og-image-3d.webp"
+        streetAddress="Centro"
+        addressLocality="Rio de Janeiro"
+        addressRegion="RJ"
+        postalCode="20000-000"
+        latitude={-22.906847}
+        longitude={-43.172896}
+        aggregateRating={{ ratingValue: 4.9, reviewCount: 180 }}
+        faqItems={faq.map((f) => ({ question: f.q, answer: f.a }))}
+    />
 
     <div class="niche-page dentistry-theme">
         
@@ -156,7 +173,7 @@ const faq = [
                                     <div class="browser-dot-yellow"></div>
                                     <div class="browser-dot-green"></div>
                                 </div>
-                                <img loading="lazy" src="/assets/imagens-de-paginas/nexusContabilidade.svg" alt="Exemplo site dentista" class="project-preview-img" style="filter: hue-rotate(90deg);" />
+                                <img loading="lazy" src="/assets/imagens-de-paginas/nexusContabilidade.svg" alt="Site profissional para clínica odontológica" class="project-preview-img" />
                             </div>
                         </div>
                     </div>
@@ -262,6 +279,51 @@ const faq = [
             </div>
         </section>
 
+        <!-- Social Proof -->
+        <section class="testimonials-v2 py-24 bg-[#0a0a0a]">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">O Que Nossos Clientes Dizem</h2>
+                    <p class="reveal-up text-lg text-gray-400 mt-4 max-w-2xl mx-auto">+180 dentistas já transformaram a captação de pacientes com um site profissional.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-8 stagger-container">
+                    <div class="testimonial-card stagger-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Meu site ficou lindo e profissional. Desde que ficou pronto, minha agenda não para. O retorno do investimento foi imediato com apenas um paciente de implante que veio pelo Google."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">DR</div>
+                            <div>
+                                <strong>Dr. Roberto Alves</strong>
+                                <span>Implantes & Estética - Nova Iguaçu</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card stagger-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"A Alpha Code entendeu exatamente o que eu precisava. O site respeita as normas do CRO e ainda aparece no Google para as buscas certas. Pacientes novos toda semana."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">MC</div>
+                            <div>
+                                <strong>Dra. Mariana Costa</strong>
+                                <span>Ortodontia & Invisalign - Duque de Caxias</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card stagger-card">
+                        <div class="testimonial-stars">★★★★★</div>
+                        <p class="testimonial-text">"Antes do site, eu dependia 100% de indicação. Agora recebo mensagens toda semana de pacientes que me encontraram pelo Google. Melhor investimento que fiz na minha clínica."</p>
+                        <div class="testimonial-author">
+                            <div class="testimonial-avatar">FP</div>
+                            <div>
+                                <strong>Dr. Felipe Pacheco</strong>
+                                <span>Clínico Geral - São João de Meriti</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
         <!-- FAQ -->
         <section class="faq-v2 py-24 bg-black/50">
             <div class="container max-w-4xl">
@@ -300,9 +362,10 @@ const faq = [
                 <div class="mt-12 pt-8 border-t border-white/10 not-prose">
                     <h3 class="text-xl font-bold text-white mb-4">Leia no nosso Blog:</h3>
                     <ul class="flex flex-col gap-2 text-gray-400 font-medium mb-8">
-                        <li><a href="/blog/psicologos-perdem-pacientes-por-falta-de-site" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Guia completo: Por que psicólogos perdem pacientes?</a></li>
-                        <li><a href="/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Como o SEO Local traz mais pacientes</a></li>
-                        <li><a href="/blog/landing-page-vs-site-institucional-qual-o-melhor-para-converter-leads" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Landing Page vs Site Institucional</a></li>
+                        <li><a href="/blog/marketing-para-dentistas-alem-do-instagram" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Marketing para Dentistas: Por que o Instagram não é suficiente</a></li>
+                        <li><a href="/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Como o SEO Local coloca seu consultório na frente</a></li>
+                        <li><a href="/blog/criacao-de-sites-para-clinicas-funcionalidades-essenciais" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Funcionalidades essenciais para clínicas</a></li>
+                        <li><a href="/blog/google-meu-negocio-2026-como-dominar-maps" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Google Meu Negócio em 2026 para dentistas</a></li>
                     </ul>
 
                     <h3 class="text-xl font-bold text-white mb-4">Conheça outras Soluções Alpha Code:</h3>
@@ -398,6 +461,16 @@ const faq = [
 
     .faq-item-v3 { padding: 2rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; }
     .highlight-truth { box-shadow: 0 0 60px rgba(16, 185, 129, 0.05); }
+
+    /* Testimonials */
+    .testimonial-card { background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; padding: 2.5rem; transition: 0.4s; }
+    .testimonial-card:hover { border-color: var(--color-primary); transform: translateY(-8px); }
+    .testimonial-stars { font-size: 1.2rem; color: #f59e0b; margin-bottom: 1.5rem; letter-spacing: 4px; }
+    .testimonial-text { color: #b0b0b0; line-height: 1.7; font-size: 0.95rem; margin-bottom: 2rem; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+    .testimonial-avatar { width: 48px; height: 48px; background: var(--color-primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 0.9rem; color: white; flex-shrink: 0; }
+    .testimonial-author strong { display: block; font-size: 1rem; color: #eee; }
+    .testimonial-author span { display: block; font-size: 0.8rem; color: #666; margin-top: 2px; }
 
     @media (max-width: 768px) {
         .hero-title-v2 { font-size: 2.8rem; }

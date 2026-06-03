@@ -237,15 +237,32 @@ export const niches: NicheContent[] = [
         heroTitle: "Sua Clínica Odontológica com a Vitrine que Merece.",
         heroDesc: "Desenvolvemos sites para dentistas focados em estética e confiança. Mostre seus casos de sucesso, facilite o agendamento e destaque sua especialidade com um design limpo e profissional.",
         badge: "Marketing Odontológico Premium",
-        keywords: ["site para dentista", "marketing odontológico", "site consultório odonto"],
-        detailedContent: "<p>Sites para dentistas devem focar na <strong>transformação do sorriso</strong> e na biossegurança.</p>",
-        benefits: ["Agendamento via WhatsApp", "Galeria de Antes e Depois", "SEO Local para Bairros", "Página de Especialidades"],
-        faq: [{ question: "O site é responsivo?", answer: "Sim, perfeito para celulares." }],
+        keywords: ["site para dentista", "marketing odontológico", "site consultório odonto", "criação de sites para clínicas odontológicas", "SEO para dentistas", "implantes dentários site", "lentes de contato dental", "dentista perto de mim"],
+        detailedContent: `
+            <p>No mercado odontológico atual, a <strong>presença digital</strong> deixou de ser diferencial e se tornou obrigatória. Um site para dentistas de alto padrão precisa ir além de um cartão de visitas online: ele precisa <strong>atrair pacientes qualificados</strong>, transmitir autoridade clínica e facilitar o agendamento de tratamentos de alto valor como <strong>implantes, lentes de contato dental e Invisalign</strong>.</p>
+            <p>Nossa metodologia para <strong>criação de sites para dentistas</strong> foca em três pilares: <strong>estética premium</strong> que valoriza o antes e depois dos seus casos, <strong>SEO odontológico local</strong> para aparecer nas buscas da sua região, e <strong>conversão por WhatsApp</strong> para que nenhum lead se perca. Respeitamos rigorosamente as normas do CRO, garantindo uma comunicação ética e informativa.</p>
+            <p>Com tecnologia Astro.js, entregamos sites que carregam em menos de 1 segundo — fator essencial considerando que mais de 80% das buscas por tratamentos odontológicos são feitas pelo celular. Seja para clínicas de <strong>implantes, ortodontia, estética avançada ou odontopediatria</strong>, criamos a plataforma digital ideal para captar pacientes particulares na sua região.</p>
+        `,
+        benefits: [
+            "Agendamento via WhatsApp: Botão estratégico para conversão imediata de leads.",
+            "Galeria de Antes e Depois: Vitrine dos seus melhores casos clínicos.",
+            "SEO Local para Bairros: Apareça no Google para 'dentista perto de mim'.",
+            "Página de Especialidades: Destaque separado para implantes, lentes, Invisalign e mais.",
+            "Site 100% Ético CRO: Comunicação informativa sem promessas de cura.",
+            "Carregamento Ultra-Rápido: Performance que converte e segura o visitante."
+        ],
+        faq: [
+            { question: "O site respeita as normas do CRO?", answer: "Sim, todos os nossos sites para dentistas seguem rigorosamente as diretrizes do Conselho Federal de Odontologia, com comunicação ética e informativa." },
+            { question: "Como vou atrair pacientes pelo site?", answer: "Utilizamos SEO odontológico avançado para que sua clínica apareça no Google quando pacientes buscam por tratamentos como implantes, lentes de contato, clareamento ou 'dentista perto de mim'." },
+            { question: "O site ajuda a vender tratamentos de alto valor?", answer: "Com certeza. Estruturamos páginas específicas para implantes, lentes e Invisalign com foco em desejo visual, prova social e agendamento direto." },
+            { question: "Funciona bem no celular?", answer: "Sim, 100% mobile-first. Mais de 80% das buscas por dentistas são feitas pelo smartphone, e nosso design é otimizado para essa realidade." },
+            { question: "Consigo mostrar meus casos clínicos?", answer: "Sim, criamos uma galeria de antes e depois com proteção de identidade dos pacientes, ideal para demonstrar resultados e gerar confiança." }
+        ],
         ctaText: "QUERO MINHA AGENDA LOTADA",
         metaFormulas: {
-            formula1: "Site para Dentistas com foco em conversão e estética. Atraia mais pacientes particulares hoje!",
-            formula2: "Sua clínica odontológica no topo do Google. Design premium e SEO local. Confira!",
-            formula3: "Otimize sua captação de pacientes com um site odontológico de elite. Saiba mais!"
+            formula1: "Site profissional para Dentistas com foco em conversão e estética. Atraia mais pacientes particulares com SEO odontológico e design premium. +180 dentistas atendidos. Orçamento em 24h!",
+            formula2: "Sua clínica odontológica no topo do Google. Design premium, SEO local e agendamento via WhatsApp. Criação de sites para dentistas que convertem. Confira!",
+            formula3: "Otimize sua captação de pacientes com um site odontológico de elite. Implantes, lentes e Invisalign com alta conversão. Fale com a Alpha Code agora!"
         }
     },
     {

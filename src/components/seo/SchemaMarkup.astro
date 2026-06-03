@@ -7,6 +7,8 @@ interface Props {
         | "Article"
         | "Service"
         | "LocalBusiness"
+        | "Dentist"
+        | "MedicalBusiness"
         | "BreadcrumbList";
     name?: string;
     description?: string;
@@ -150,6 +152,47 @@ if (organizationSchemas.includes(type)) {
     };
 }
 
+// 1.5) Dentist / MedicalBusiness
+let dentistSchema: any = null;
+if (type === "Dentist" || type === "MedicalBusiness") {
+    dentistSchema = {
+        "@context": "https://schema.org",
+        "@type": type,
+        "@id": `${url}#organization`,
+        name,
+        alternateName: "Alpha Code",
+        url,
+        logo: image,
+        image,
+        description,
+        telephone,
+        email: "contato@sitesalphacode.com.br",
+        address: baseAddress,
+        ...(baseGeo ? { geo: baseGeo } : {}),
+        priceRange,
+        sameAs,
+        areaServed: areaServed ?? [
+            { "@type": "Country", name: "Brasil" },
+            { "@type": "AdministrativeArea", name: "Rio de Janeiro" },
+        ],
+        openingHoursSpecification: openingHours.map(([day, opens, closes]) => ({
+            "@type": "OpeningHoursSpecification",
+            dayOfWeek: day,
+            opens,
+            closes,
+        })),
+        ...(aggregateRating && {
+            aggregateRating: {
+                "@type": "AggregateRating",
+                ratingValue: aggregateRating.ratingValue,
+                reviewCount: aggregateRating.reviewCount,
+                bestRating: aggregateRating.bestRating ?? 5,
+                worstRating: 1,
+            },
+        }),
+    };
+}
+
 // 2) WebSite (com SearchAction opcional na home)
 let websiteSchema: any = null;
 if (type === "WebSite") {
@@ -261,6 +304,7 @@ if (breadcrumbs && breadcrumbs.length > 0) {
 const schemas: any[] = [
     websiteSchema,
     orgSchema,
+    dentistSchema,
     serviceSchema,
     articleSchema,
     faqSchema,
