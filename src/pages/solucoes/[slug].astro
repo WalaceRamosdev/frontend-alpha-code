@@ -14,7 +14,6 @@ import Contact from "../../components/sections/Contact.astro";
 import DynamicContent from "../../components/sections/DynamicContent.astro";
 import SocialProofGrid from "../../components/sections/SocialProofGrid.astro";
 import FaqAccordion from "../../components/ui/FaqAccordion.astro";
-import NicheMeta from "../../components/seo/NicheMeta.astro";
 import CTAButton from "../../components/ui/CTAButton.astro";
 import SiteRoiCalculator from "../../components/ui/SiteRoiCalculator.astro";
 import { niches } from "../../data/niches";
@@ -44,7 +43,6 @@ export const prerender = true;
     noIndex={false}
     keywords={niche.keywords}
 >
-    <NicheMeta slug={niche.slug} slot="head" />
 
     <Hero
         title={niche.heroTitle}

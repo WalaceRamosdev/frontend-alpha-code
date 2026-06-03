@@ -24,6 +24,7 @@ interface Props {
     latitude?: number;
     longitude?: number;
     faqItems?: { question: string; answer: string }[];
+    datePublished?: string;
     breadcrumbs?: { name: string; url: string }[];
     aggregateRating?: {
         ratingValue: number;
@@ -65,6 +66,7 @@ const {
     postalCode,
     latitude,
     longitude,
+    datePublished,
     faqItems = [],
     breadcrumbs = [],
     aggregateRating,
@@ -218,7 +220,7 @@ if (type === "Article") {
                 url: "https://www.sitesalphacode.com.br/assets/og-image-3d.webp",
             },
         },
-        datePublished: new Date().toISOString(),
+        datePublished: datePublished || new Date().toISOString(),
         inLanguage: "pt-BR",
         mainEntityOfPage: { "@type": "WebPage", "@id": url },
     };

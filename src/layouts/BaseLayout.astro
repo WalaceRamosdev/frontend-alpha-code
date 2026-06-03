@@ -401,7 +401,6 @@ const seo = createSEOMeta({
             const ref = urlParams.get("ref");
             if (ref) {
                 localStorage.setItem("alpha_ref_code", ref);
-                console.log("Referral code captured:", ref);
             }
 
             // GSAP é importado de forma lazy (code-split) pelos componentes que usam.

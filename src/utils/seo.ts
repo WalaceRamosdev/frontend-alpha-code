@@ -43,7 +43,7 @@ export const createSEOMeta = ({
         canonical: canonicalUrl,
 
         // Open Graph
-        'og:title': title,
+        'og:title': finalTitle,
         'og:description': description,
         'og:type': type,
         'og:url': canonicalUrl,
@@ -54,7 +54,7 @@ export const createSEOMeta = ({
         // Twitter Cards
         'twitter:card': 'summary_large_image',
         'twitter:creator': '@alphacode',
-        'twitter:title': title,
+        'twitter:title': finalTitle,
         'twitter:description': description,
         'twitter:image': ogImage,
 

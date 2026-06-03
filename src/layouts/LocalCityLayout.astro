@@ -33,18 +33,11 @@ const {
     showHeader={true}
     showFooter={true}
 >
-    <!-- GSAP Scripts for Animation -->
-    <script>
-        import { gsap } from "gsap";
-        import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-        gsap.registerPlugin(ScrollTrigger);
-
-        document.addEventListener("astro:page-load", () => {
-            // Kill all previous triggers to avoid conflicts with ViewTransitions
+    <!-- GSAP Scripts for Animation (usa GSAP do lazy loader do BaseLayout para nao duplicar bundle) -->
+    <script is:inline>
+        function initGSAPAnimations(gsap, ScrollTrigger) {
             ScrollTrigger.getAll().forEach(t => t.kill());
 
-            // Hero Animations
             const tl = gsap.timeline();
             tl.from(".hero-badge", {
                 y: -15,
@@ -52,29 +45,28 @@ const {
                 duration: 1,
                 ease: "power3.out",
             })
-                .from(
-                    ".hero-title",
-                    { y: 40, opacity: 0, duration: 1, ease: "power4.out" },
-                    "-=0.7",
-                )
-                .from(
-                    ".hero-sub",
-                    { y: 25, opacity: 0, duration: 0.8, ease: "power3.out" },
-                    "-=0.5",
-                )
-                .from(
-                    ".hero-cta",
-                    {
-                        scale: 0.9,
-                        opacity: 0,
-                        duration: 0.7,
-                        ease: "back.out(1.7)",
-                    },
-                    "-=0.2",
-                );
+            .from(
+                ".hero-title",
+                { y: 40, opacity: 0, duration: 1, ease: "power4.out" },
+                "-=0.7",
+            )
+            .from(
+                ".hero-sub",
+                { y: 25, opacity: 0, duration: 0.8, ease: "power3.out" },
+                "-=0.5",
+            )
+            .from(
+                ".hero-cta",
+                {
+                    scale: 0.9,
+                    opacity: 0,
+                    duration: 0.7,
+                    ease: "back.out(1.7)",
+                },
+                "-=0.2",
+            );
 
-            // Generic Fade Up Animations with autoAlpha to prevent being invisible if scroll position is skipped
-            gsap.utils.toArray(".anim-fade-up").forEach((elem: any) => {
+            gsap.utils.toArray(".anim-fade-up").forEach((elem) => {
                 gsap.fromTo(elem, 
                     { y: 40, opacity: 0 },
                     {
@@ -92,7 +84,6 @@ const {
                 );
             });
 
-             // Staggered Animations for cards
             const gridContainers = [
                 ".problems-grid",
                 ".features-modern-grid",
@@ -107,7 +98,7 @@ const {
                         {
                             scrollTrigger: {
                                 trigger: container,
-                                start: "top bottom-=100", // Start sooner
+                                start: "top bottom-=100",
                                 toggleActions: "play none none none"
                             },
                             y: 0,
@@ -121,17 +112,24 @@ const {
                 }
             });
             
-            // Final refresh to ensure triggers are correct
             setTimeout(() => {
                 ScrollTrigger.refresh();
             }, 100);
+        }
+
+        document.addEventListener("astro:page-load", () => {
+            if (window.gsap && window.ScrollTrigger) {
+                initGSAPAnimations(window.gsap, window.ScrollTrigger);
+            } else {
+                window.addEventListener("gsap:ready", (e) => {
+                    initGSAPAnimations(e.detail.gsap, e.detail.ScrollTrigger);
+                }, { once: true });
+            }
         });
-        
-        // SEO Toggle Script
+
         function setupSEOToggle() {
             const btn = document.getElementById('toggle-local-seo');
             const content = document.getElementById('local-seo-content');
-
             if (btn && content) {
                 btn.addEventListener('click', () => {
                     const isActive = content.classList.contains('active');
@@ -149,16 +147,15 @@ const {
             }
         }
 
-        // Portfolio Showcase Logic
         function setupPortfolioShowcase() {
             const mockups = document.querySelectorAll('.showcase-item');
             const dots = document.querySelectorAll('.showcase-dot');
             let current = 0;
-            let timer: any = null;
+            let timer = null;
 
             if (dots.length === 0) return;
 
-            function show(index: number) {
+            function show(index) {
                 mockups.forEach((m, i) => {
                     if (i === index) {
                         m.classList.remove('project-hidden');
@@ -186,7 +183,7 @@ const {
                 dot.addEventListener('click', () => {
                     current = index;
                     show(current);
-                    startAutoCycle(); // Reset timer on click
+                    startAutoCycle();
                 });
             });
 
