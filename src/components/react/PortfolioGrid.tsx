@@ -10,6 +10,14 @@ const projects = [
         link: 'https://www.nayannejustiniano.com.br/'
     },
     {
+        name: 'Renan Piveta',
+        niche: 'Odontologia',
+        category: 'saude',
+        result: 'Agendamentos direto pelo site',
+        image: '/assets/imagens-de-paginas/dentista.webp',
+        link: 'https://renan-piveta-dentista.vercel.app/'
+    },
+    {
         name: 'Dra. Erika Spinola',
         niche: 'Psicologia',
         category: 'saude',
@@ -122,6 +130,14 @@ const projects = [
         link: 'https://cafeteria-premium.vercel.app/'
     },
     {
+        name: 'Alessandro Silva',
+        niche: 'Psicologia',
+        category: 'saude',
+        result: 'Presença digital de confiança',
+        image: '/assets/imagens-de-paginas/alessandroSilva.svg',
+        link: 'https://alessandro-silva-psi.vercel.app/'
+    },
+    {
         name: 'ARQ.',
         niche: 'Arquitetura',
         category: 'institucional',
@@ -144,14 +160,6 @@ const projects = [
         result: 'Captação de alunos otimizada',
         image: '/assets/imagens-de-paginas/profJoao.svg',
         link: 'https://landing-page-professor.vercel.app/'
-    },
-    {
-        name: 'Clínica Odontológica',
-        niche: 'Odontologia',
-        category: 'saude',
-        result: 'Agendamentos direto pelo site',
-        image: '/assets/imagens-de-paginas/dentista.webp',
-        link: 'https://vercel.com/walace-ramos-projects'
     }
 ];
 
@@ -231,11 +239,11 @@ export default function PortfolioGrid() {
                             textDecoration: 'none'
                         }}
                     >
-                        <div className="project-thumbnail" style={{ position: 'relative', aspectRatio: '16/9', overflow: 'hidden' }}>
+                        <div className="project-thumbnail" style={{ position: 'relative', overflow: 'hidden' }}>
                             <img
                                 src={project.image}
                                 alt={project.name}
-                                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                                style={{ width: '100%', height: 'auto', display: 'block' }}
                             />
                             <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(0,0,0,0.8), transparent)' }}></div>
                             <div style={{ position: 'absolute', bottom: '16px', left: '20px' }}>
