@@ -2,20 +2,18 @@
 import { getCollection } from "astro:content";
 import BlogLayout from "../../layouts/BlogLayout.astro";
 
-export const prerender = true;
+export const prerender = false;
 
-export async function getStaticPaths() {
-    const now = new Date();
-    const posts = await getCollection("blog", ({ data }) =>
-        data.draft !== true && data.pubDate <= now,
-    );
-    return posts.map((post) => ({
-        params: { slug: post.slug },
-        props: { post },
-    }));
+const { slug } = Astro.params;
+const now = new Date();
+
+const posts = await getCollection("blog");
+const post = posts.find((p) => p.slug === slug);
+
+if (!post || post.data.draft === true || post.data.pubDate > now) {
+    return Astro.redirect("/404");
 }
 
-const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
