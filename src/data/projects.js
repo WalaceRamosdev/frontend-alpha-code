@@ -150,5 +150,12 @@ export const projectsData = [
         alt: 'Landing page para nutricionista focada em planos alimentares e captação de pacientes',
         link: 'https://nutricao-pied.vercel.app/'
     },
-
+    {
+        name: 'Clínica Odontológica',
+        type: 'Odontologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/dentista.webp',
+        alt: 'Site profissional para clínica odontológica com design premium e foco em conversão de pacientes',
+        link: 'https://vercel.com/walace-ramos-projects'
+    },
 ];

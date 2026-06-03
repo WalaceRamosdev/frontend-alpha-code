@@ -144,6 +144,14 @@ const projects = [
         result: 'Captação de alunos otimizada',
         image: '/assets/imagens-de-paginas/profJoao.svg',
         link: 'https://landing-page-professor.vercel.app/'
+    },
+    {
+        name: 'Clínica Odontológica',
+        niche: 'Odontologia',
+        category: 'saude',
+        result: 'Agendamentos direto pelo site',
+        image: '/assets/imagens-de-paginas/dentista.webp',
+        link: 'https://vercel.com/walace-ramos-projects'
     }
 ];
 
