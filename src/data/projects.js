@@ -151,7 +151,7 @@ export const projectsData = [
         link: 'https://nutricao-pied.vercel.app/'
     },
     {
-        name: 'Clínica Odontológica',
+        name: 'Renan Piveta',
         type: 'Odontologia',
         category: 'saude',
         image: '/assets/imagens-de-paginas/dentista.webp',
