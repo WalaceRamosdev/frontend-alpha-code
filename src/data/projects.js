@@ -8,12 +8,12 @@ export const projectsData = [
         link: 'https://www.nayannejustiniano.com.br/'
     },
     {
-        name: 'Erika Spinola',
-        type: 'Psicologia',
+        name: 'Renan Piveta',
+        type: 'Odontologia',
         category: 'saude',
-        image: '/assets/imagens-de-paginas/erikaSpinola.svg',
-        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
-        link: 'https://www.erikaspinola.com.br'
+        image: '/assets/imagens-de-paginas/dentista.webp',
+        alt: 'Site profissional para clínica odontológica com design premium e foco em conversão de pacientes',
+        link: 'https://renan-piveta-dentista.vercel.app/'
     },
     {
         name: 'Ana Bottesi',
@@ -22,6 +22,14 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/anaBottesi.svg',
         alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
         link: 'https://www.anabottesi.com.br'
+    },
+    {
+        name: 'Erika Spinola',
+        type: 'Psicologia',
+        category: 'saude',
+        image: '/assets/imagens-de-paginas/erikaSpinola.svg',
+        alt: 'Site para psicóloga desenvolvido com foco em agendamento de consultas e autoridade clínica',
+        link: 'https://www.erikaspinola.com.br'
     },
     {
         name: 'Alzimara Nunes',
@@ -149,13 +157,5 @@ export const projectsData = [
         image: '/assets/imagens-de-paginas/anaRibeiroNutri.svg',
         alt: 'Landing page para nutricionista focada em planos alimentares e captação de pacientes',
         link: 'https://nutricao-pied.vercel.app/'
-    },
-    {
-        name: 'Renan Piveta',
-        type: 'Odontologia',
-        category: 'saude',
-        image: '/assets/imagens-de-paginas/dentista.webp',
-        alt: 'Site profissional para clínica odontológica com design premium e foco em conversão de pacientes',
-        link: 'https://vercel.com/walace-ramos-projects'
     },
 ];
