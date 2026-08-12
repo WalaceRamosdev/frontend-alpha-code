@@ -1,0 +1,65 @@
+---
+/**
+ * ClientCredit — Backlink automático no rodapé de sites de clientes.
+ * Uso: importar este componente no layout dos sites entregues.
+ * Gera link para sitesalphacode.com.br com anchor text otimizado para SEO.
+ * 
+ * SEO Benefits:
+ * - Backlink de domínio autoridade
+ * - Anchor text "Criação de Sites Profissionais" (keyword principal)
+ * - Link.follow com rel="noopener noreferrer"
+ */
+---
+
+<footer class="client-credit">
+    <div class="container">
+        <p>
+            Desenvolvido com tecnologia
+            <a
+                href="https://www.sitesalphacode.com.br"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="credit-link"
+                title="Alpha Code - Criação de Sites Profissionais"
+            >
+                Alpha Code | Criação de Sites Profissionais
+            </a>
+        </p>
+    </div>
+</footer>
+
+<!-- Schema.org Organization para o site cliente (opcional) -->
+<script type="application/ld+json" is:inline>
+{
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "Site Desenvolvido pela Alpha Code",
+    "url": "https://www.sitesalphacode.com.br",
+    "publisher": {
+        "@type": "Organization",
+        "name": "Alpha Code",
+        "url": "https://www.sitesalphacode.com.br",
+        "logo": "https://www.sitesalphacode.com.br/assets/logo-3d.webp"
+    }
+}
+</script>
+
+<style>
+    .client-credit {
+        padding: 16px 0;
+        text-align: center;
+        font-size: 0.8rem;
+        color: #888;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .credit-link {
+        color: #d42838;
+        text-decoration: none;
+        font-weight: 700;
+        transition: color 0.2s;
+    }
+    .credit-link:hover {
+        color: #ff4a5e;
+        text-decoration: underline;
+    }
+</style>

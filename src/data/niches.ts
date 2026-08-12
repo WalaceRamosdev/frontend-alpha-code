@@ -313,5 +313,175 @@ export const niches: NicheContent[] = [
             formula2: "Pare de perder dinheiro com sites lentos. Criamos sua estrutura de afiliado ultra-rápida e focada em conversão. Saiba mais!",
             formula3: "Domine o mercado de afiliados com profissionalismo. Estruturas próprias, advertoriais e pré-sells de alta performance. Fale conosco!"
         }
+    },
+    {
+        slug: "imobiliarias",
+        name: "Imobiliárias",
+        title: "Criação de Sites para Imobiliárias e Incorporadoras",
+        heroTitle: "Seus Imóveis Vendidos Antes Mesmo da Visita Presencial.",
+        heroDesc: "Sites para imobiliárias e incorporadoras que transformam a busca por imóveis em uma experiência imersiva. Mostre seus empreendimentos com tours virtuais, facilite o contato com corretores e conquiste mais vendas com SEO local dominante.",
+        badge: "Marketing Imobiliário Digital",
+        keywords: ["site para imobiliária", "site incorporadora", "marketing imobiliário", "site imobiliário", "SEO imobiliário"],
+        detailedContent: `
+            <p>No mercado imobiliário, a <strong>primeira visita virtual</strong> decide o sucesso de uma venda. Enquanto compradores pesquisam no Google por imóveis na sua região, muitas imobiliárias ainda dependem apenas de portais de anúncios e indicações. Um <strong>site profissional para imobiliária</strong> muda completamente esse cenário.</p>
+            <p>Desenvolvemos sites que funcionam como <strong>vitrines digitais imersivas</strong>. Com galerias de fotos em alta resolução, tours virtuais integrados e filtros de busca por bairro, preço e tipo de imóvel, seu cliente encontra o apartamento ideal antes mesmo de ligar para o corretor.</p>
+            <p>Nossa metodologia foca em <strong>SEO local imobiliário</strong>, garantindo que seu site apareça quando alguém busca por 'imobiliária perto de mim' ou 'comprar apartamento em [bairro]'. Integramos WhatsApp e formulários inteligentes para que nenhum lead se perca.</p>
+        `,
+        benefits: [
+            "Galeria de Imóveis: Filtros por preço, bairro, área e tipo para facilitar a busca do comprador.",
+            "Tours Virtuais: Integração com Google Street View e vídeos 360° dos empreendimentos.",
+            "SEO Local Dominante: Apareça nas buscas por imóveis na sua região exata.",
+            "WhatsApp Integrado: Botão estratégico para contato direto com o corretor responsável.",
+            "Captação de Leads: Formulários inteligentes que qualificam o comprador antes do contato.",
+            "Página de Empreendimentos: Vitrines exclusivas para cada lançamento ou condomínio."
+        ],
+        faq: [
+            { question: "O site mostra os imóveis disponíveis em tempo real?", answer: "Sim, podemos integrar com seus sistemas de gestão de imóveis (CRM) para atualizar automaticamente as disponibilidades e preços." },
+            { question: "Funciona para incorporadoras e lançamentos?", answer: "Com certeza. Criamos páginas específicas para cada empreendimento com plantas, simulações e tabela de preços." },
+            { question: "O site aparece no Google quando alguém busca por imóveis?", answer: "Sim, implementamos SEO local focado em buscas imobiliárias, incluindo termos como 'comprar apartamento', 'imobiliária perto de mim' e bairros específicos." },
+            { question: "Consigo atualizar as fotos e preços dos imóveis?", answer: "Sim, entregamos um painel administrativo intuitivo para você gerenciar todo o catálogo de imóveis sem depender de ninguém." }
+        ],
+        ctaText: "QUERO VENDER MAIS IMÓVEIS",
+        metaFormulas: {
+            formula1: "Site profissional para Imobiliárias com tours virtuais, galeria de imóveis e SEO local. Atraia mais compradores e feche mais vendas. Orçamento em 24h!",
+            formula2: "Sua imobiliária no topo do Google. Sites imersivos com filtros de busca, WhatsApp integrado e captação de leads. Criação de sites para imobiliárias. Confira!",
+            formula3: "Pare de depender apenas de portais de anúncios. Tenha seu próprio site imobiliário com SEO dominante e conversão por WhatsApp. Fale conosco!"
+        }
+    },
+    {
+        slug: "estetica",
+        name: "Estética",
+        title: "Sites para Clínicas de Estética e Beauty Profissional",
+        heroTitle: "Seu Salão com a Vitrine que Encanta e Converte.",
+        heroDesc: "Sites para clínicas de estética e profissionais de beleza que valorizam o visual premium. Mostre seus resultados com galeria antes e depois, facilite o agendamento e destaque sua autoridade com um design sofisticado.",
+        badge: "Marketing de Beleza Digital",
+        keywords: ["site clínica estética", "marketing estética", "site salão beleza", "site estética profissional", "SEO estética"],
+        detailedContent: `
+            <p>No mercado da <strong>estética e beleza</strong>, a imagem é tudo. Seu site é a primeira impressão que uma cliente potencial terá sobre o nível de qualidade do seu trabalho. Um site amador transmite amadorismo no atendimento.</p>
+            <p>Criamos <strong>sites para clínicas de estética</strong> focados em <strong>experiência visual premium</strong>. Galerias de antes e depois com proteção de identidade, agendamento online simplificado e depoimentos de clientes reais que geram prova social imediata.</p>
+            <p>Nossa abordagem combina <strong>design sofisticado</strong> com <strong>SEO local</strong> para que suas clientes encontrem sua clínica quando buscam por procedimentos como botox, preenchimento, limpeza de pele ou design de sobrancelhas na sua região.</p>
+        `,
+        benefits: [
+            "Galeria Antes e Depois: Vitrine dos seus melhores resultados com design elegante.",
+            "Agendamento Online: Botão estratégico para que a cliente reserve horário pelo WhatsApp.",
+            "SEO Local para Beleza: Apareça quando buscarem por 'clínica de estética perto de mim'.",
+            "Design Premium: Estética sofisticada que transmite exclusividade e qualidade.",
+            "Depoimentos Integrados: Prova social de clientes reais aumentando a confiança.",
+            "Páginas de Procedimentos: Destaque separado para cada serviço que você oferece."
+        ],
+        faq: [
+            { question: "O site transmite a sofisticação que minha clínica tem?", answer: "Sim, criamos design premium com paleta de cores e tipografia que valorizam a identidade visual do seu espaço." },
+            { question: "Consigo mostrar os procedimentos que faço?", answer: "Com certeza. Criamos páginas detalhadas para cada procedimento com fotos, descrições e valores." },
+            { question: "A cliente consegue agendar pelo site?", answer: "Sim, integramos botão de WhatsApp e formulário de agendamento para facilitar o processo de reserva." },
+            { question: "O site aparece nas buscas locais?", answer: "Sim, implementamos SEO focado em termos como 'estética perto de mim', 'clínica de beleza [bairro]' e procedimentos específicos." }
+        ],
+        ctaText: "QUERO MAIS CLIENTES PARA MEU SALÃO",
+        metaFormulas: {
+            formula1: "Site profissional para Clínicas de Estética com galeria antes e depois, agendamento online e SEO local. Transmite sofisticação e converte. Orçamento em 24h!",
+            formula2: "Sua clínica de estética merece um site de elite. Design premium, depoimentos reais e agendamento via WhatsApp. Atraia mais clientes. Peça seu orçamento!",
+            formula3: "Pare de perder clientes por falta de presença digital. Site para estética com SEO local e conversão por WhatsApp. +1.400 sites entregues. Fale conosco!"
+        }
+    },
+    {
+        slug: "escolas",
+        name: "Escolas",
+        title: "Sites para Escolas, Colégios e Cursos",
+        heroTitle: "Sua Escola com a Presença Digital que os Pais Confiam.",
+        heroDesc: "Sites para escolas, colégios e instituições de ensino que transmitem credibilidade e facilitam a comunicação com pais e alunos. Mostre sua metodologia, facilite matrículas e destaque os diferenciais da sua instituição.",
+        badge: "Marketing Educacional Digital",
+        keywords: ["site escola", "site colégio", "marketing escolar", "site instituição de ensino", "SEO escolar"],
+        detailedContent: `
+            <p>Para pais que buscam a <strong>melhor escola</strong> para seus filhos, a primeira pesquisa começa no Google. Uma instituição de ensino sem presença digital perde espaço para concorrentes que investem em marketing educacional.</p>
+            <p>Desenvolvemos <strong>sites para escolas</strong> que transmitem <strong>confiança e credibilidade</strong>. Com páginas dedicadas a metodologia, corpo docente, infraestrutura e depoimentos de pais, seu site se torna a vitrine que convence na hora da decisão.</p>
+            <p>Implementamos <strong>SEO educacional local</strong> para que sua escola apareça quando pais buscam por 'escola perto de mim', 'colégio em [bairro]' ou 'melhor escola da região'. Integramos formulários de matrícula e comunicação via WhatsApp.</p>
+        `,
+        benefits: [
+            "Página de Metodologia: Espaço dedicado para mostrar os diferenciais do ensino.",
+            "Depoimentos de Pais: Prova social que gera confiança na decisão de matrícula.",
+            "Formulário de Matrícula: Processo online simplificado para novas inscrições.",
+            "SEO Local Educacional: Apareça nas buscas por escolas na sua região.",
+            "Galeria de Infraestrutura: Mostre as salas, quadras e espaços da escola.",
+            "Comunicação via WhatsApp: Canal direto para dúvidas de pais e responsáveis."
+        ],
+        faq: [
+            { question: "O site transmite a credibilidade que os pais esperam?", answer: "Sim, criamos design profissional com foco em confiança, usando depoimentos reais e informações detalhadas sobre a metodologia." },
+            { question: "Posso atualizar as informações de matrícula?", answer: "Sim, entregamos um painel administrativo para você atualizar vagas, valores e prazos sempre que necessário." },
+            { question: "O site aparece quando pais buscam por escolas?", answer: "Sim, implementamos SEO local educacional focado em termos como 'escola perto de mim', 'colégio [cidade]' e 'melhor escola da região'." },
+            { question: "Consigo receber solicitações de matrícula pelo site?", answer: "Com certeza. Criamos formulários inteligentes que coletam informações do aluno e enviam notificação via WhatsApp e e-mail." }
+        ],
+        ctaText: "QUERO MAIS MATRÍCULAS",
+        metaFormulas: {
+            formula1: "Site profissional para Escolas e Colégios com foco em credibilidade e matrículas. SEO local educacional e design que transmite confiança. Orçamento em 24h!",
+            formula2: "Sua escola merece uma presença digital de elite. Site educacional com depoimentos, galeria de infraestrutura e formulário de matrícula. Peça seu orçamento!",
+            formula3: "Pais pesquisam no Google antes de escolher a escola. Apareça com um site profissional que transmite credibilidade e facilita matrículas. Fale conosco!"
+        }
+    },
+    {
+        slug: "restaurantes",
+        name: "Restaurantes",
+        title: "Sites para Restaurantes, Lanchonetes e Delivery",
+        heroTitle: "Seu Cardápio Digital que Fome e Encanta.",
+        heroDesc: "Sites para restaurantes e lanchonetes que combinam apetite visual com funcionalidade. Mostre seu cardápio, facilite pedidos via WhatsApp e destaque sua culinária com um design que água a boca.",
+        badge: "Marketing Gastronômico Digital",
+        keywords: ["site restaurante", "site delivery", "cardápio digital", "site lanchonete", "SEO restaurante"],
+        detailedContent: `
+            <p>No mercado gastronômico, a <strong>primeira fome começa no visual</strong>. Antes mesmo de provar seu prato, o cliente decide pelo site ou Instagram. Um <strong>site profissional para restaurante</strong> transforma essa decisão em pedido.</p>
+            <p>Criamos sites que funcionam como <strong>cardápios digitais imersivos</strong>. Fotos de alta qualidade dos pratos, organização por categorias, preços atualizados e botão de pedido direto pelo WhatsApp. Tudo para que o cliente sinta fome apenas de olhar.</p>
+            <p>Nossa abordagem foca em <strong>SEO local gastronômico</strong>, garantindo que seu restaurante apareça quando alguém busca por 'restaurante perto de mim', 'comida [tipo] em [bairro]' ou 'delivery na região'. Integramos com iFood, Rappi e outros agregadores.</p>
+        `,
+        benefits: [
+            "Cardápio Digital: Fotos dos pratos com descrições, preços e categorias organizadas.",
+            "Pedido via WhatsApp: Botão estratégico para facilitar encomendas e reservas.",
+            "SEO Local Gastronômico: Apareça nas buscas por restaurantes na sua região.",
+            "Galeria de Ambiente: Mostre a decoração e o clima do seu restaurante.",
+            "Integração com Delivery: Links para iFood, Rappi e outros canais de venda.",
+            "Horário e Localização: Mapa integrado e horário de funcionamento em destaque."
+        ],
+        faq: [
+            { question: "O site mostra o cardápio completo?", answer: "Sim, criamos páginas detalhadas com fotos de cada prato, descrições apetitosas e preços atualizados." },
+            { question: "Posso atualizar o cardápio sozinho?", answer: "Com certeza. Entregamos um painel administrativo intuitivo para você adicionar, remover e alterar pratos e preços." },
+            { question: "O site aparece quando alguém busca por restaurante?", answer: "Sim, implementamos SEO local gastronômico focado em termos como 'restaurante perto de mim', 'delivery [bairro]' e tipo de comida." },
+            { question: "Consigo receber pedidos pelo site?", answer: "Sim, integramos botão de WhatsApp para pedidos diretos e também links para plataformas de delivery como iFood e Rappi." }
+        ],
+        ctaText: "QUERO MAIS PEDIDOS",
+        metaFormulas: {
+            formula1: "Site profissional para Restaurantes com cardápio digital, fotos de pratos e pedido via WhatsApp. Atraia mais clientes e aumente suas vendas. Orçamento em 24h!",
+            formula2: "Seu restaurante no topo do Google. Site gastronômico com design apetitoso, SEO local e integração com delivery. Peça seu orçamento agora!",
+            formula3: "Pare de depender apenas do iFood. Tenha seu próprio site de restaurante com pedidos diretos e SEO dominante. +1.400 sites entregues. Fale conosco!"
+        }
+    },
+    {
+        slug: "pet",
+        name: "Pet",
+        title: "Sites para Pet Shops, Veterinárias e Clínicas Veterinárias",
+        heroTitle: "Seu Negócio Pet com a Presença Digital que os Tutores Confiam.",
+        heroDesc: "Sites para pet shops e clínicas veterinárias que transmitem cuidado e profissionalismo. Mostre seus serviços, facilite agendamentos e destaque sua autoridade no mercado pet com um design acolhedor.",
+        badge: "Marketing Pet Digital",
+        keywords: ["site pet shop", "site veterinária", "marketing pet", "site clínica veterinária", "SEO pet"],
+        detailedContent: `
+            <p>O mercado <strong>pet no Brasil</strong> cresce acima de 15% ao ano, e os tutores cada vez mais pesquisam no Google antes de escolher onde levar seus pets. Uma <strong>pet shop ou clínica veterinária</strong> sem presença digital está perdendo clientes todos os dias.</p>
+            <p>Desenvolvemos <strong>sites para o mercado pet</strong> focados em <strong>confiança e cuidado</strong>. Com galeria de animais atendidos, depoimentos de tutores, catálogo de serviços e agendamento online, seu site se torna a referência na região.</p>
+            <p>Nossa metodologia foca em <strong>SEO local pet</strong>, garantindo que seu negócio apareça quando tutores buscam por 'pet shop perto de mim', 'veterinária 24 horas' ou 'clínica veterinária [bairro]'. Integramos WhatsApp para agendamentos e emergências.</p>
+        `,
+        benefits: [
+            "Catálogo de Serviços: Páginas detalhadas para banho, tosa, consultas, vacinas e cirurgias.",
+            "Agendamento Online: Botão estratégico para tutores reservarem horários pelo WhatsApp.",
+            "Galeria de Animais: Mostre os pets atendidos e gere prova social.",
+            "SEO Local Pet: Apareça nas buscas por serviços pet na sua região.",
+            "Emergência Veterinária: Botão destaque para atendimentos de urgência 24h.",
+            "Depoimentos de Tutores: Prova social que gera confiança nos serviços."
+        ],
+        faq: [
+            { question: "O site transmite o cuidado que os tutores esperam?", answer: "Sim, criamos design acolhedor com paleta de cores e imagens que transmitem carinho e profissionalismo." },
+            { question: "Consigo mostrar todos os serviços que ofereço?", answer: "Com certeza. Criamos páginas detalhadas para cada serviço com descrições, valores e fotos." },
+            { question: "O tutor consegue agendar pelo site?", answer: "Sim, integramos botão de WhatsApp e formulário de agendamento para facilitar a marcação de consultas e banho-tosa." },
+            { question: "O site aparece quando alguém busca por pet shop?", answer: "Sim, implementamos SEO local pet focado em termos como 'pet shop perto de mim', 'veterinária [bairro]' e serviços específicos." }
+        ],
+        ctaText: "QUERO MAIS CLIENTES PET",
+        metaFormulas: {
+            formula1: "Site profissional para Pet Shops e Veterinárias com catálogo de serviços, agendamento online e SEO local. Atraia mais tutores e seus pets. Orçamento em 24h!",
+            formula2: "Sua pet shop ou clínica veterinária no topo do Google. Site pet com design acolhedor, galeria de animais e pedido via WhatsApp. Peça seu orçamento!",
+            formula3: "O mercado pet está em crescimento. Tenha um site profissional que converte tutores em clientes fiéis. SEO local e agendamento integrado. Fale conosco!"
+        }
     }
 ];

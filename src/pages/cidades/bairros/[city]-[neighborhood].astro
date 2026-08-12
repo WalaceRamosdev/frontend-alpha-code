@@ -1,0 +1,717 @@
+---
+import { getAllCities, type CityContent } from "../../../data/cities";
+import { NEIGHBORHOODS, type NeighborhoodEntry } from "../../../data/neighborhoods";
+import BaseLayout from "../../../layouts/BaseLayout.astro";
+import Button from "../../../components/ui/Button.astro";
+import SchemaMarkup from "../../../components/seo/SchemaMarkup.astro";
+import RelatedContent from "../../../components/seo/RelatedContent.astro";
+
+export const prerender = true;
+
+export function getStaticPaths() {
+    const paths: { params: { city: string; neighborhood: string }; props: { city: CityContent; neighborhood: NeighborhoodEntry } }[] = [];
+
+    for (const [citySlug, neighborhoods] of Object.entries(NEIGHBORHOODS)) {
+        const city = getAllCities().find((c) => c.slug === citySlug);
+        if (!city) continue;
+
+        for (const neighborhood of neighborhoods) {
+            paths.push({
+                params: { city: citySlug, neighborhood: neighborhood.slug },
+                props: { city, neighborhood },
+            });
+        }
+    }
+
+    return paths;
+}
+
+interface Props {
+    city: CityContent;
+    neighborhood: NeighborhoodEntry;
+}
+
+const { city, neighborhood } = Astro.props;
+
+const cityName = city.name;
+const neighborhoodName = neighborhood.name;
+const neighborhoodDescription = neighborhood.description;
+const neighborhoodType = neighborhood.type;
+const cepExample = neighborhood.cepExample;
+const landmark = neighborhood.landmark;
+
+const seoTitle = `Criação de Sites em ${neighborhoodName}, ${cityName} | Alpha Code`;
+const seoDescription = `Empresa de criação de sites profissionais em ${neighborhoodName}, ${cityName}. SEO local, design premium e conversão por WhatsApp. Atendemos ${neighborhoodName} e região.`;
+
+const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/${city.slug}/${neighborhood.slug}/`;
+
+const breadcrumbs = [
+    { name: "Início", url: "https://www.sitesalphacode.com.br/" },
+    { name: `Cidades`, url: "https://www.sitesalphacode.com.br/cidades/" },
+    { name: cityName, url: `https://www.sitesalphacode.com.br/cidades/${city.slug}/` },
+    { name: neighborhoodName, url: canonicalUrl },
+];
+
+const painPoints = [
+    {
+        icon: "📉",
+        title: "Falta de Credibilidade",
+        desc: `Um negócio em ${neighborhoodName} sem site profissional transmite menos confiança que a concorrência.`,
+    },
+    {
+        icon: "📱",
+        title: "Ausência de Presença Digital",
+        desc: "Redes sociais são terreno alugado. Um site próprio é o único ativo digital que você controla.",
+    },
+    {
+        icon: "😶",
+        title: "Falta de Autoridade Local",
+        desc: `Para ser reconhecido como referência em ${neighborhoodName}, você precisa aparecer no topo do Google.`,
+    },
+];
+
+const benefits = [
+    {
+        icon: "🚀",
+        title: "SEO Local Agressivo",
+        desc: "Técnicas avançadas de SEO para colocar o seu negócio na frente de quem já quer comprar na sua região.",
+    },
+    {
+        icon: "💬",
+        title: "Conversão via WhatsApp",
+        desc: "Botões estratégicos de ação direcionados para o WhatsApp do seu atendimento.",
+    },
+    {
+        icon: "💎",
+        title: "Apresentação Premium",
+        desc: "Espaço para mostrar seus diferenciais, atuando como um filtro de qualidade para clientes.",
+    },
+];
+
+const features = [
+    {
+        icon: "🎨",
+        title: "Design Moderno e Profissional",
+        desc: "Causamos uma primeira impressão perfeita com visual harmônico que transmite confiança.",
+    },
+    {
+        icon: "⚡",
+        title: "Site Rápido e Otimizado",
+        desc: "Desenvolvemos com código limpo para carregamento instantâneo.",
+    },
+    {
+        icon: "📱",
+        title: "Versão Mobile Premium",
+        desc: "Mais de 85% das pesquisas locais são feitas pelo celular.",
+    },
+    {
+        icon: "🔍",
+        title: "Estrutura para SEO Local",
+        desc: "Boas práticas, meta tags completas e schema LocalBusiness.",
+    },
+];
+
+const targetAudiences = [
+    {
+        title: "Psicólogos e terapeutas",
+        benefit: `Atraia pacientes que buscam sua abordagem terapêutica em ${neighborhoodName}.`,
+    },
+    {
+        title: "Médicos e dentistas",
+        benefit: "Mostre suas especialidades e estrutura para pacientes da região.",
+    },
+    {
+        title: "Advogados",
+        benefit: `Apareça no Google quando alguém precisar do seu escritório em ${neighborhoodName}.`,
+    },
+    {
+        title: "Contadores",
+        benefit: "Demonstre credibilidade e atraia empresas que buscam regularização.",
+    },
+];
+---
+
+<BaseLayout
+    title={seoTitle}
+    description={seoDescription}
+    canonicalUrl={canonicalUrl}
+    showHeader={true}
+    showFooter={true}
+    showSocialProof={true}
+>
+    <SchemaMarkup
+        type="LocalBusiness"
+        name={`Alpha Code ${neighborhoodName}`}
+        description={seoDescription}
+        addressLocality={cityName}
+        addressRegion={city.state}
+        addressCountry="BR"
+        breadcrumbs={breadcrumbs}
+    />
+
+    <article class="neighborhood-landing-wrapper">
+        <!-- HERO -->
+        <section class="hero-neighborhood">
+            <div class="hero-bg-visuals">
+                <div class="orb-main"></div>
+                <div class="orb-secondary"></div>
+                <div class="grid-mesh"></div>
+            </div>
+
+            <div class="container relative z-10">
+                <nav class="breadcrumbs" aria-label="Breadcrumb">
+                    <a href="/">Início</a>
+                    <span class="separator">›</span>
+                    <a href={`/cidades/${city.slug}/`}>{cityName}</a>
+                    <span class="separator">›</span>
+                    <span aria-current="page">{neighborhoodName}</span>
+                </nav>
+
+                <div class="hero-content-box">
+                    <span class="hero-badge">Alpha Code {neighborhoodName}</span>
+                    <h1 class="hero-title">
+                        Criação de Sites em <br />
+                        <span class="text-gradient">{neighborhoodName}</span> — {cityName}
+                    </h1>
+                    <p class="hero-sub">
+                        Empresa de criação de sites profissionais em {neighborhoodName}, {cityName}. 
+                        SEO local agressivo, design premium e conversão por WhatsApp. 
+                        Atendemos {neighborhoodName} e toda a região de {city.region}.
+                    </p>
+                    <div class="hero-cta">
+                        <Button
+                            href={`https://wa.me/5521999064502?text=Quero%20um%20site%20profissional%20em%20${encodeURIComponent(neighborhoodName)}%2C%20${encodeURIComponent(cityName)}.`}
+                            target="_blank"
+                            variant="primary"
+                            size="lg"
+                            class="glow-effect"
+                        >
+                            FALAR COM UM ESPECIALISTA
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROBLEMAS -->
+        <section class="concise-problems">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Seu negócio em {neighborhoodName} <br /><span class="highlight">não pode ser invisível</span></h2>
+                    <p>O mercado mudou. Se você não é encontrado quando o cliente pesquisa no Google, você simplesmente não existe para ele.</p>
+                </div>
+                <div class="problems-grid">
+                    {painPoints.map((p) => (
+                        <div class="problem-card-modern">
+                            <div class="card-icon">{p.icon}</div>
+                            <h3>{p.title}</h3>
+                            <p>{p.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- BENEFÍCIOS -->
+        <section class="visual-benefits">
+            <div class="container">
+                <div class="benefits-content">
+                    <h2>Por que somos a <br /><span class="text-gradient">escolha lógica em {neighborhoodName}?</span></h2>
+                    <div class="benefits-stack">
+                        {benefits.map((b) => (
+                            <div class="benefit-row">
+                                <div class="benefit-row-icon">{b.icon}</div>
+                                <div class="benefit-row-text">
+                                    <h3>{b.title}</h3>
+                                    <p>{b.desc}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FEATURES -->
+        <section class="features-modern">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>O que o seu <span class="highlight">Site Alpha</span> terá:</h2>
+                </div>
+                <div class="features-modern-grid">
+                    {features.map((f) => (
+                        <div class="feature-item-modern">
+                            <div class="feature-header">
+                                <span class="feature-icon-box">{f.icon}</span>
+                                <h3>{f.title}</h3>
+                            </div>
+                            <p>{f.desc}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- PÚBLICO-ALVO -->
+        <section class="audiences-section">
+            <div class="container">
+                <div class="section-header text-center">
+                    <h2>Soluções para todos os negócios em {neighborhoodName}</h2>
+                </div>
+                <div class="audiences-grid">
+                    {targetAudiences.map((aud) => (
+                        <div class="audience-card-modern">
+                            <h3>{aud.title}</h3>
+                            <p>{aud.benefit}</p>
+                            <div class="card-arrow">→</div>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTEÚDO SEO -->
+        <section class="long-content">
+            <div class="container text-content">
+                <div class="seo-prose">
+                    <h3>Criação de Sites Profissionais em {neighborhoodName}, {cityName}</h3>
+                    <p>
+                        {neighborhoodName} é um bairro {neighborhoodType.toLowerCase()} de {cityName}, com {neighborhoodDescription.toLowerCase()} 
+                        Se você é profissional ou empresário em {neighborhoodName} e busca uma presença digital que transmite autoridade e gera clientes, 
+                        a Alpha Code é a parceira ideal.
+                    </p>
+                    
+                    <h3>Por que sua empresa precisa de um site em {neighborhoodName}?</h3>
+                    <p>
+                        Quando alguém pesquisa no Google por serviços em {neighborhoodName} — como "advogado em {neighborhoodName}", 
+                        "dentista {neighborhoodName}" ou "clínica {neighborhoodName}" — o Google entrega resultados locais. 
+                        Se sua empresa não aparece, você está perdendo clientes para concorrentes que investiram em presença digital.
+                    </p>
+                    
+                    <h3>Nossa metodologia para negócios em {neighborhoodName}</h3>
+                    <p>
+                        Desenvolvemos sites com tecnologia de ponta (Astro.js), garantindo carregamento em menos de 1 segundo. 
+                        Implementamos SEO local com schema <code>LocalBusiness</code> apontando para {neighborhoodName}, 
+                        otimização para Core Web Vitals e integração direta com WhatsApp para converter visitantes em clientes.
+                    </p>
+                    
+                    <h3>Resultados reais para negócios locais</h3>
+                    <p>
+                        Nossos clientes em bairros como {neighborhoodName} relatam aumento de 150% a 300% nos contatos qualificados 
+                        após 90 dias do site no ar. O investimento se paga em menos de 2 meses na maioria dos casos.
+                    </p>
+                </div>
+
+                <!-- FAQ local -->
+                <div class="faq-local">
+                    <h2>Perguntas Frequentes sobre sites em {neighborhoodName}</h2>
+                    <div class="faq-list">
+                        <details class="faq-item-local">
+                            <summary>Quanto custa criar um site em {neighborhoodName}?</summary>
+                            <p>O valor depende do escopo do projeto. Trabalhamos com planos a partir de R$ 697 para sites institucionais. 
+                            Fale conosco para um orçamento personalizado.</p>
+                        </details>
+                        <details class="faq-item-local">
+                            <summary>O site aparece no Google para buscas em {neighborhoodName}?</summary>
+                            <p>Sim, implementamos SEO local focado em termos como "{neighborhoodName}", "{cityName}" e nichos específicos. 
+                            Seu site aparecerá quando potenciais clientes buscarem por seus serviços na região.</p>
+                        </details>
+                        <details class="faq-item-local">
+                            <summary>Quanto tempo leva para o site ficar pronto?</summary>
+                            <p>O prazo médio é de 15 a 25 dias úteis, dependendo da complexidade do projeto.</p>
+                        </details>
+                        <details class="faq-item-local">
+                            <summary>Posso atualizar o site sozinho?</summary>
+                            <p>Sim, entregamos um painel administrativo intuitivo para você gerenciar conteúdo, fotos e informações.</p>
+                        </details>
+                    </div>
+                </div>
+
+                <!-- Cidades relacionadas -->
+                <div class="related-cities">
+                    <h3>Bairros próximos que também atendemos</h3>
+                    <div class="cities-grid">
+                        {NEIGHBORHOODS[city.slug]
+                            ?.filter((n) => n.slug !== neighborhood.slug)
+                            .slice(0, 6)
+                            .map((n) => (
+                                <a href={`/cidades/${city.slug}/${n.slug}/`} class="city-link">
+                                    {n.name}
+                                </a>
+                            ))}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA FINAL -->
+        <section class="final-cta-section">
+            <div class="container">
+                <div class="final-cta-content text-center">
+                    <h2>Pronto para dominar o digital em {neighborhoodName}?</h2>
+                    <p>Agende uma conversa estratégica e descubra como podemos elevar sua marca.</p>
+                    <div class="actions" style="margin-top: 32px;">
+                        <Button
+                            href="https://wa.me/5521999064502"
+                            variant="primary"
+                            size="lg"
+                            class="glow-effect pulse-anim"
+                        >
+                            FALAR COM UM ESPECIALISTA AGORA
+                        </Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <RelatedContent
+            type="neighborhood"
+            city={cityName}
+            citySlug={city.slug}
+            title={`Mais conteúdos sobre ${neighborhoodName} e região`}
+            limit={6}
+        />
+    </article>
+</BaseLayout>
+
+<style>
+    .neighborhood-landing-wrapper {
+        background-color: #050505;
+        color: #e0e0e0;
+        font-family: "Plus Jakarta Sans", sans-serif;
+    }
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    .relative { position: relative; }
+    .z-10 { z-index: 10; }
+    .text-center { text-align: center; }
+
+    .breadcrumbs {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 0.85rem;
+        color: #888;
+        margin-bottom: 24px;
+        text-align: left;
+    }
+    .breadcrumbs a {
+        color: var(--color-primary, #d42838);
+        text-decoration: none;
+    }
+    .breadcrumbs a:hover { text-decoration: underline; }
+    .breadcrumbs .separator { opacity: 0.5; }
+
+    .highlight {
+        color: var(--color-primary, #d42838);
+        font-weight: 800;
+    }
+    .text-gradient {
+        background: linear-gradient(135deg, #fff 0%, #d42838 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 800;
+    }
+    section { padding: 80px 0; }
+
+    /* HERO */
+    .hero-neighborhood {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        position: relative;
+        overflow: hidden;
+        padding: 160px 0 80px;
+        text-align: center;
+    }
+    .hero-bg-visuals {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+    }
+    .orb-main {
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        background: radial-gradient(circle, rgba(212, 40, 56, 0.3) 0%, transparent 75%);
+        top: -200px;
+        right: -200px;
+        filter: blur(120px);
+        animation: float 20s infinite alternate ease-in-out;
+    }
+    .orb-secondary {
+        position: absolute;
+        width: 600px;
+        height: 600px;
+        background: radial-gradient(circle, rgba(212, 175, 55, 0.1) 0%, transparent 75%);
+        bottom: -150px;
+        left: -150px;
+        filter: blur(100px);
+    }
+    .grid-mesh {
+        position: absolute;
+        inset: 0;
+        background-image:
+            linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        background-size: 50px 50px;
+        mask-image: radial-gradient(circle at center, black 40%, transparent 90%);
+    }
+    @keyframes float {
+        0% { transform: translate(0, 0); }
+        100% { transform: translate(-30px, 40px); }
+    }
+    .hero-badge {
+        display: inline-block;
+        padding: 8px 20px;
+        background: rgba(212, 40, 56, 0.1);
+        border: 1px solid rgba(212, 40, 56, 0.3);
+        border-radius: 100px;
+        color: #d42838;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+        letter-spacing: 1px;
+    }
+    .hero-title {
+        font-family: "Outfit", sans-serif;
+        font-size: clamp(2.5rem, 6vw, 4.5rem);
+        line-height: 1.1;
+        font-weight: 800;
+        color: white;
+        margin-bottom: 32px;
+    }
+    .hero-sub {
+        font-size: 1.15rem;
+        color: #a0a0a0;
+        max-width: 800px;
+        margin: 0 auto 32px;
+        line-height: 1.7;
+    }
+
+    /* SECTION HEADERS */
+    .section-header { margin-bottom: 60px; }
+    .section-header h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 16px;
+    }
+    .section-header p {
+        font-size: 1.1rem;
+        color: #888;
+        max-width: 700px;
+    }
+    .text-center .section-header p { margin: 0 auto; }
+
+    /* PROBLEMS */
+    .problems-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+    .problem-card-modern {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 40px 30px;
+        border-radius: 24px;
+        transition: all 0.3s;
+    }
+    .problem-card-modern:hover {
+        background: rgba(255, 255, 255, 0.05);
+        transform: translateY(-6px);
+    }
+    .card-icon { font-size: 2.5rem; margin-bottom: 16px; }
+    .problem-card-modern h3 {
+        color: #fff;
+        font-size: 1.3rem;
+        margin-bottom: 12px;
+        font-weight: 800;
+    }
+    .problem-card-modern p { color: #aaa; line-height: 1.6; }
+
+    /* BENEFITS */
+    .benefits-content h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        color: white;
+        line-height: 1.2;
+        margin-bottom: 32px;
+    }
+    .benefits-stack { display: flex; flex-direction: column; gap: 24px; }
+    .benefit-row { display: flex; gap: 16px; align-items: flex-start; }
+    .benefit-row-icon { font-size: 2rem; }
+    .benefit-row-text h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 6px;
+    }
+    .benefit-row-text p { color: #aaa; line-height: 1.6; }
+
+    /* FEATURES */
+    .features-modern-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+    .feature-item-modern {
+        background: rgba(255, 255, 255, 0.02);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        padding: 30px;
+        border-radius: 20px;
+    }
+    .feature-header {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-bottom: 12px;
+    }
+    .feature-icon-box { font-size: 1.8rem; }
+    .feature-item-modern h3 {
+        color: #fff;
+        font-size: 1.1rem;
+        font-weight: 700;
+    }
+    .feature-item-modern p { color: #aaa; line-height: 1.6; font-size: 0.95rem; }
+
+    /* AUDIENCES */
+    .audiences-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 20px;
+    }
+    .audience-card-modern {
+        background: #111;
+        padding: 24px;
+        border-radius: 16px;
+        border-left: 3px solid #d42838;
+    }
+    .audience-card-modern h3 {
+        color: #fff;
+        margin-bottom: 10px;
+        font-size: 1.15rem;
+    }
+    .audience-card-modern p { color: #aaa; line-height: 1.5; }
+    .card-arrow { color: #d42838; margin-top: 12px; font-size: 1.4rem; }
+
+    /* LONG CONTENT */
+    .long-content { padding: 60px 0; }
+    .text-content { max-width: 900px; margin: 0 auto; }
+    .seo-prose { color: #ccc; line-height: 1.8; font-size: 1.05rem; }
+    .seo-prose :global(p) { margin-bottom: 1.5rem; }
+    .seo-prose :global(h3) {
+        color: #fff;
+        font-size: 1.5rem;
+        margin: 2rem 0 1rem;
+        font-weight: 700;
+    }
+    .seo-prose :global(ul) { margin: 1rem 0 1.5rem; padding-left: 24px; }
+    .seo-prose :global(li) { margin-bottom: 8px; }
+    .seo-prose :global(strong) { color: #fff; }
+    .seo-prose :global(code) {
+        background: #1a1a1a;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-size: 0.9em;
+    }
+
+    /* FAQ */
+    .faq-local { margin-top: 60px; }
+    .faq-local h2 {
+        color: #fff;
+        font-size: 1.8rem;
+        margin-bottom: 24px;
+    }
+    .faq-list { display: flex; flex-direction: column; gap: 12px; }
+    .faq-item-local {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        padding: 16px 20px;
+    }
+    .faq-item-local summary {
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+        list-style: none;
+        position: relative;
+        padding-right: 30px;
+    }
+    .faq-item-local summary::after {
+        content: "+";
+        position: absolute;
+        right: 0;
+        color: #d42838;
+        font-weight: 700;
+        font-size: 1.4rem;
+    }
+    .faq-item-local[open] summary::after { content: "−"; }
+    .faq-item-local p { color: #aaa; line-height: 1.7; margin-top: 12px; }
+
+    /* CIDADES RELACIONADAS */
+    .related-cities {
+        margin-top: 60px;
+        padding-top: 40px;
+        border-top: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    .related-cities h3 {
+        color: #fff;
+        font-size: 1.2rem;
+        margin-bottom: 20px;
+    }
+    .cities-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .city-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 100px;
+        color: #ccc;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+    .city-link:hover {
+        background: rgba(212, 40, 56, 0.1);
+        border-color: #d42838;
+        color: #fff;
+    }
+
+    /* CTA FINAL */
+    .final-cta-section {
+        background: radial-gradient(circle at center, #1a0505 0%, #050505 70%);
+    }
+    .final-cta-content h2 {
+        font-family: "Outfit", sans-serif;
+        font-size: 2.4rem;
+        color: #fff;
+        margin-bottom: 16px;
+    }
+    .final-cta-content p {
+        color: #aaa;
+        font-size: 1.1rem;
+    }
+
+    @media (max-width: 1024px) {
+        .features-modern-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 768px) {
+        section { padding: 60px 0; }
+        .problems-grid { grid-template-columns: 1fr; }
+        .features-modern-grid { grid-template-columns: 1fr; }
+        .section-header h2,
+        .benefits-content h2,
+        .final-cta-content h2 { font-size: 1.8rem; }
+    }
+</style>

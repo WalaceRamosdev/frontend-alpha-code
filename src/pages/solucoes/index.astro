@@ -7,6 +7,7 @@ const categories = [
     { id: 'saude', label: 'Saúde', icon: '🩺' },
     { id: 'juridico', label: 'Jurídico', icon: '⚖️' },
     { id: 'negocios', label: 'Negócios', icon: '📊' },
+    { id: 'servicos', label: 'Serviços', icon: '🔧' },
     { id: 'tecnico', label: 'Técnico', icon: '⚡' }
 ];
 
@@ -15,12 +16,18 @@ const nicheCategoryMap: Record<string, string> = {
     'psicologos': 'saude',
     'medicos': 'saude',
     'dentistas': 'saude',
+    'estetica': 'saude',
     'advogados': 'juridico',
     'contadores': 'negocios',
     'arquitetos': 'negocios',
+    'imobiliarias': 'negocios',
+    'restaurantes': 'servicos',
+    'pet': 'servicos',
+    'escolas': 'servicos',
+    'fotografos': 'servicos',
+    'manutencao': 'servicos',
     'afiliados': 'negocios',
-    'energia-solar': 'tecnico',
-    'manutencao': 'tecnico'
+    'energia-solar': 'tecnico'
 };
 
 const seo = {

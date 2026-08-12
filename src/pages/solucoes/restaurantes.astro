@@ -1,0 +1,438 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Button from "../../components/ui/Button.astro";
+import NicheMeta from "../../components/seo/NicheMeta.astro";
+import RelatedContent from "../../components/seo/RelatedContent.astro";
+
+const slug = "restaurantes";
+
+const faq = [
+    {
+        q: "O site pode mostrar o cardápio atualizado?",
+        a: "Sim, entregamos um painel administrativo para você atualizar pratos, preços e promoções a qualquer momento sem precisar de um programador."
+    },
+    {
+        q: "Funciona para delivery e reservas?",
+        a: "Sim, criamos integrações com WhatsApp para reservas e formulários inteligentes para pedidos. Também podemos integrar com iFood, Rappi e outros apps."
+    },
+    {
+        q: "O site aparece quando alguém busca por restaurantes na região?",
+        a: "Sim, implementamos SEO local gastronômico focado em termos como 'restaurante perto de mim', 'onde comer em [cidade]' e 'melhor [culinária] da região'."
+    },
+    {
+        q: "Consigo mostrar fotos dos pratos profissionalmente?",
+        a: "Com certeza. Criamos galerias otimizadas com fotos de alta qualidade que valorizam cada prato e transmitem a experiência gastronômica completa."
+    },
+    {
+        q: "O site funciona bem no celular dos clientes?",
+        a: "Sim, mais de 70% dos pedidos e reservas são feitos pelo celular. Nosso design é mobile-first para garantir a melhor experiência."
+    }
+];
+---
+
+<BaseLayout
+    title="Site para Restaurantes: Atraia Mais Clientes e Reservas"
+    description="Site profissional para restaurantes, lanchonetes e delivery. Cardápio digital, reservas pelo WhatsApp, SEO local gastronômico e design que transmite a experiência do seu restaurante."
+    showHeader={true}
+    showFooter={true}
+    showSocialProof={true}
+>
+    <NicheMeta slug="restaurantes" slot="head" />
+
+    <div class="niche-page food-theme">
+        
+        <!-- HERO -->
+        <section class="hero-lp-v2">
+            <div class="hero-bg-container">
+                <img src="/assets/banners/restaurantes-hero.webp" alt="Restaurante Premium" class="hero-bg-image" />
+                <div class="hero-overlay"></div>
+            </div>
+            
+            <div class="container relative z-10">
+                <div class="hero-content-v2">
+                    <div class="hero-badge-v2 hero-reveal">
+                        <span class="dot"></span> MARKETING GASTRONÔMICO DIGITAL
+                    </div>
+                    <h1 class="hero-title-v2 hero-reveal">
+                        Seu restaurante com <span class="text-gradient">clientes reservando todo dia</span>
+                    </h1>
+                    <p class="hero-sub-v2 hero-reveal">
+                        Mostre seus pratos, facilite reservas e atraia clientes que buscam a melhor experiência gastronômica da região com um site que transmite sofisticação.
+                    </p>
+                    <div class="hero-actions-v2 hero-reveal">
+                        <div class="flex flex-wrap gap-4">
+                            <Button href="https://wa.me/5521999064502?text=Quero mais reservas com um site profissional para meu restaurante." variant="primary" size="lg" class="glow-button px-8">👉 QUERO MAIS RESERVAS</Button>
+                            <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-8">FALAR NO WHATSAPP</Button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Stats Bar -->
+        <div class="stats-bar-v2">
+            <div class="container">
+                <div class="stats-wrapper-v2">
+                    <div class="stat-item-v2">
+                        <span class="stat-num">+45</span>
+                        <span class="stat-txt">Restaurantes Atendidos</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">+120%</span>
+                        <span class="stat-txt">Mais Reservas</span>
+                    </div>
+                    <div class="stat-divider"></div>
+                    <div class="stat-item-v2">
+                        <span class="stat-num">100%</span>
+                        <span class="stat-txt">Foco em Experiência</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Problem Section -->
+        <section class="problem-v2 py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black mb-6">Clientes pesquisam no Google <br/> <span class="text-primary italic">antes de escolher onde comer</span></h2>
+                </div>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 stagger-container">
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-legal-sm"><i class="fas fa-utensils text-primary"></i></div>
+                        <h3>Cardápio desatualizado</h3>
+                        <p>Um cardápio impresso ou PDF desatualizado transmite descuido e faz clientes desistirem de pedir.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-legal-sm"><i class="fas fa-phone-slash text-primary"></i></div>
+                        <h3>Reservas por telefone</h3>
+                        <p>Perder clientes porque o telefone não atende ou a ligação cai é mais comum do que parece.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-legal-sm"><i class="fas fa-camera text-primary"></i></div>
+                        <h3>Fotos sem apelo</h3>
+                        <p>Fotos amadoras de celular não valorizam os pratos e não transmitem a experiência gastronômica.</p>
+                    </div>
+                    <div class="problem-card-v2 stagger-card">
+                        <div class="icon-circle shadow-legal-sm"><i class="fas fa-map-marker-alt text-primary"></i></div>
+                        <h3>Invisibilidade local</h3>
+                        <p>Concorrentes aparecem nas buscas por 'restaurante perto de mim' e seu restaurante não aparece.</p>
+                    </div>
+                </div>
+                <div class="text-center mt-16 reveal-up">
+                    <div class="highlight-truth p-8 bg-white/5 border border-white/10 rounded-3xl inline-block max-w-2xl">
+                        <p class="text-2xl font-bold">💡 A verdade gastronômica: <br/> <span class="text-primary font-black uppercase tracking-tighter text-3xl">72% dos clientes pesquisam no Google antes de reservar.</span></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Solution Section -->
+        <section class="solution-v2 py-24 bg-dark-accent">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <span class="tag-v2">ESTRATÉGIA GASTRONÔMICA</span>
+                        <h2 class="text-4xl md:text-5xl font-black mb-8 leading-tight">Nós criamos um <span class="text-primary">site estratégico para restaurantes</span> que gera reservas desde o primeiro clique.</h2>
+                        <p class="text-xl text-gray-400 mb-8 font-medium">Seu restaurante passa a:</p>
+                        <ul class="solution-list space-y-6">
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">🍽️</span> Aparecer no Google para quem busca restaurantes
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">📱</span> Facilitar reservas com WhatsApp integrado
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">📸</span> Mostrar pratos com fotos profissionais
+                            </li>
+                            <li class="flex items-center gap-4 text-lg">
+                                <span class="check-icon">⭐</span> Converter clientes com cardápio digital interativo
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="image-side reveal-up">
+                        <div class="comparison-container">
+                            <div class="comparison-card premium">
+                                <div class="card-tag flagship">PADRÃO ELITE GASTRONÔMICA</div>
+                                <div class="card-browser-mockup">
+                                    <div class="browser-dot-red"></div>
+                                    <div class="browser-dot-yellow"></div>
+                                    <div class="browser-dot-green"></div>
+                                </div>
+                                <img loading="lazy" src="/assets/imagens-de-paginas/restauranteSite.svg" alt="Exemplo site restaurante" class="project-preview-img" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits-v2 py-24">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl md:text-5xl font-black">Reservas Reais para seu Restaurante</h2>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Reservas automatizadas via WhatsApp integrado</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Cardápio digital interativo com fotos profissionais</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>SEO local gastronômico que domina as buscas na região</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Galeria de ambiente que transmite a experiência</h4>
+                    </div>
+                    <div class="benefit-card-v3 reveal-up">
+                        <div class="check-circle">✔</div>
+                        <h4>Integração com apps de delivery (iFood, Rappi)</h4>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="process-v2 py-24 bg-[#0a0a0a]">
+            <div class="container">
+                <div class="section-header-v2 text-center mb-16">
+                    <h2 class="reveal-up text-4xl font-black">A Jornada Digital Gastronômica</h2>
+                </div>
+                <div class="grid md:grid-cols-4 gap-8 stagger-container">
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">1</div>
+                        <h4>Entendemos seu conceito</h4>
+                        <p>Analisamos sua culinária, público e proposta para criar uma estratégia personalizada.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">2</div>
+                        <h4>Criamos a experiência</h4>
+                        <p>Design sofisticado com foco em fotos de pratos, reserva fácil e cardápio interativo.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">3</div>
+                        <h4>Otimizamos para o Google</h4>
+                        <p>SEO gastronômico local para que seu restaurante apareça nas buscas por dining na região.</p>
+                    </div>
+                    <div class="process-step-v3 stagger-card text-center">
+                        <div class="step-icon">4</div>
+                        <h4>Reservas acontecem</h4>
+                        <p>WhatsApp integrado, cardápio digital e prova social que converte visitas em reservas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Difference Section -->
+        <section class="differences py-24">
+            <div class="container">
+                <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal-up">
+                        <h2 class="text-4xl font-black mb-8">Não criamos sites gastronômicos genéricos.</h2>
+                        <p class="text-xl text-gray-400 mb-8">Criamos experiências pensadas para restaurantes, com foco em:</p>
+                        <ul class="diff-list space-y-4">
+                            <li class="flex items-center gap-3">
+                                <div class="dot-law"></div> Design que transmite a atmosfera do restaurante
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-law"></div> Fotos profissionais de pratos que aguçam o apetite
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-law"></div> Cardápio digital que facilita a escolha
+                            </li>
+                            <li class="flex items-center gap-3">
+                                <div class="dot-law"></div> Reserva instantânea pelo WhatsApp
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="reveal-up bg-white/5 p-12 rounded-3xl border border-primary/20">
+                        <h3 class="text-3xl font-black mb-6">🔥 O digital funciona para restaurantes?</h3>
+                        <p class="text-lg text-gray-300 mb-8">Sim — porque os clientes pesquisam tudo antes de reservar. Seu site deve:</p>
+                        <div class="flex flex-col gap-4">
+                            <span class="badge-v3">👉 ATRAIR QUEM BUSCA A MELHOR EXPERIÊNCIA</span>
+                            <span class="badge-v3">👉 FACILITAR A RESERVA EM SEGUNDOS</span>
+                            <span class="badge-v3">👉 MOSTRAR OS PRATOS COM FOTOS PROFISSIONAIS</span>
+                        </div>
+                        <Button href="https://wa.me/5521999064502?text=Quero mais reservas com um site gastronômico de elite." variant="primary" class="w-full mt-10 glow-button py-6 text-xl">🚀 QUERO MAIS RESERVAS AGORA</Button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="faq-v2 py-24 bg-black/50">
+            <div class="container max-w-4xl">
+                <h3 class="text-3xl font-black mb-12 text-center text-primary">Dúvidas Frequentes</h3>
+                <div class="faq-grid space-y-6">
+                    {faq.map((f) => (
+                        <div class="faq-item-v3 reveal-up">
+                            <h4 class="text-xl font-bold mb-3">{f.q}</h4>
+                            <p class="text-gray-400 leading-relaxed">{f.a}</p>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="final-cta py-32 text-center relative overflow-hidden">
+            <div class="container relative z-10">
+                <h2 class="reveal-up text-5xl md:text-7xl font-black mb-8">O próximo cliente <br/> <span class="text-primary font-outfit">pode reservar agora.</span></h2>
+                <div class="reveal-up flex flex-wrap justify-center gap-6">
+                    <Button href="https://wa.me/5521999064502" variant="primary" size="lg" class="glow-button px-10">👉 QUERO MAIS RESERVAS</Button>
+                    <Button href="https://wa.me/5521999064502" variant="outline" size="lg" class="px-10">DIAGNÓSTICO GRATUITO</Button>
+                </div>
+            </div>
+            <div class="glow-blur-law"></div>
+        </section>
+
+        <!-- Deep SEO Content -->
+        <section class="seo-text py-24 border-t border-white/5">
+            <div class="container max-w-4xl mx-auto prose prose-invert prose-indigo">
+                <h2 class="text-3xl font-black text-white">Liderança em <span class="text-primary">site para restaurantes</span></h2>
+                <p>O mercado gastronômico está cada vez mais competitivo. Ter um <strong>site para restaurantes</strong> é essencial para quem deseja atrair clientes que buscam a melhor experiência gastronômica da região. Através de um design sofisticado e focado em experiência, garantimos a <strong>criação de sites para restaurantes</strong> que projetam a qualidade e os diferenciais do seu estabelecimento. Nossa consultoria em <strong>marketing gastronômico</strong> foca em SEO Local, garantindo que seu restaurante seja encontrado por clientes que buscam 'restaurante perto de mim', 'onde comer em [cidade]' e 'melhor [culinária] da região'.</p>
+                <p>Nossos projetos incluem cardápio digital interativo, galeria de fotos profissionais, formulários de reserva inteligentes e integração direta com WhatsApp e apps de delivery. Utilizamos a infraestrutura Astro.js para entregar sites extremamente rápidos, garantindo que cada visita seja uma experiência que converte em reservas.</p>
+                
+                <!-- Internal Linking -->
+                <div class="mt-12 pt-8 border-t border-white/10 not-prose">
+                    <h3 class="text-xl font-bold text-white mb-4">Leia no nosso Blog:</h3>
+                    <ul class="flex flex-col gap-2 text-gray-400 font-medium mb-8">
+                        <li><a href="/blog/como-um-site-aumenta-o-faturamento-de-negocios-fisicos" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> Como um site aumenta o faturamento</a></li>
+                        <li><a href="/blog/roi-de-um-site-profissional-para-empresas" class="hover:text-primary transition-colors flex items-center gap-2"><span class="text-primary">→</span> ROI de um site profissional</a></li>
+                    </ul>
+
+                    <h3 class="text-xl font-bold text-white mb-4">Conheça outras Soluções Alpha Code:</h3>
+                    <ul class="flex flex-wrap gap-4 text-sm text-gray-500 font-medium">
+                        <li><a href="/solucoes/restaurantes" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2 bg-white/5 text-white">Sites para Restaurantes</a></li>
+                        <li><a href="/solucoes/imobiliarias" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Imobiliárias</a></li>
+                        <li><a href="/solucoes/pet" class="hover:text-white transition-colors border border-white/10 rounded-full px-4 py-2">Sites para Pet Shops</a></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <RelatedContent
+            type="niche"
+            niche="restaurantes"
+            title="Continue explorando o universo gastronômico"
+            limit={6}
+        />
+
+    </div>
+</BaseLayout>
+
+<style>
+    .food-theme {
+        --color-primary: #ff6b35;
+        --color-bg-dark: #050505;
+        --color-surface: #0a0a0a;
+        --color-accent: #111111;
+        --font-main: 'Plus Jakarta Sans', sans-serif;
+        --font-heading: 'Outfit', sans-serif;
+    }
+    .niche-page { font-family: var(--font-main); background: var(--color-bg-dark); color: white; overflow-x: hidden; }
+    .container { max-width: 1300px; margin: 0 auto; padding: 0 1.5rem; }
+
+    .hero-lp-v2 { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 100px 0; background: black; }
+    .hero-bg-container { position: absolute; inset: 0; z-index: 0; }
+    .hero-bg-image { width: 100%; height: 110%; object-fit: cover; opacity: 0.5; filter: saturate(0.7) brightness(0.6); }
+    .hero-overlay { position: absolute; inset: 0; background: radial-gradient(circle at 70% 30%, transparent 0%, rgba(0,0,0,0.8) 70%, black 100%); }
+    .hero-content-v2 { max-width: 900px; }
+    .hero-badge-v2 { display: inline-flex; align-items: center; gap: 10px; padding: 8px 18px; background: rgba(255, 107, 53, 0.1); border: 1px solid rgba(255, 107, 53, 0.2); border-radius: 50px; font-size: 0.75rem; font-weight: 800; letter-spacing: 2px; margin-bottom: 2.5rem; color: #ffb399; }
+    .hero-badge-v2 .dot { width: 8px; height: 8px; background: #ff6b35; border-radius: 50%; box-shadow: 0 0 10px #ff6b35; }
+    .hero-title-v2 { font-family: var(--font-heading); font-size: clamp(2.5rem, 8vw, 5.5rem); line-height: 1.0; font-weight: 800; letter-spacing: -0.05em; margin-bottom: 2rem; }
+    .text-gradient { background: linear-gradient(135deg, #ffb399, #ff6b35); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+    .hero-sub-v2 { font-size: 1.3rem; color: #b0b0b0; line-height: 1.6; margin-bottom: 3.5rem; max-width: 750px; font-weight: 500; }
+    
+    .stats-bar-v2 { background: var(--color-surface); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(255, 255, 255, 0.05); padding: 2.5rem 0; margin-top: -40px; position: relative; z-index: 10; }
+    .stats-wrapper-v2 { display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem; }
+    .stat-item-v2 { display: flex; flex-direction: column; align-items: center; }
+    .stat-num { font-family: var(--font-heading); font-size: 2.5rem; font-weight: 800; color: white; }
+    .stat-txt { font-size: 0.8rem; color: #666; text-transform: uppercase; font-weight: 800; letter-spacing: 1.5px; }
+    .stat-divider { width: 1px; height: 40px; background: rgba(255,255,255,0.1); }
+
+    .problem-card-v2 { background: #0c0c0c; padding: 3rem 2rem; border-radius: 24px; border: 1px solid rgba(255,255,255,0.05); transition: 0.4s; }
+    .problem-card-v2:hover { border-color: var(--color-primary); transform: translateY(-10px); }
+    .icon-circle { width: 70px; height: 70px; background: rgba(255, 255, 255, 0.05); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 2rem; margin-bottom: 2rem; border: 1px solid rgba(255,255,255,0.1); }
+    .problem-card-v2 h3 { font-size: 1.5rem; font-weight: 800; margin-bottom: 1rem; color: #eee; }
+    .problem-card-v2 p { color: #888; line-height: 1.6; }
+
+    .benefit-card-v3 { display: flex; align-items: center; gap: 1.5rem; padding: 2rem; background: #0c0c0c; border-radius: 16px; border: 1px solid rgba(255,255,255,0.05); }
+    .check-circle { width: 30px; height: 30px; background: #222; border: 1px solid var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: bold; flex-shrink: 0; }
+    .benefit-card-v3 h4 { font-size: 1.25rem; font-weight: 800; }
+
+    .process-step-v3 .step-icon { width: 60px; height: 60px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: var(--font-heading); font-size: 1.5rem; font-weight: 900; margin: 0 auto 2rem; color: #fff; }
+    .process-step-v3 h4 { font-size: 1.4rem; font-weight: 800; margin-bottom: 1rem; }
+    .process-step-v3 p { color: #777; line-height: 1.6; }
+
+    .badge-v3 { padding: 12px 20px; background: rgba(255, 255, 255, 0.05); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); font-weight: 800; color: #dfdfdf; font-size: 0.9rem; }
+    .dot-law { width: 8px; height: 8px; background: var(--color-primary); border-radius: 50%; }
+
+    .comparison-container { perspective: 1200px; display: flex; justify-content: center; }
+    .comparison-card { background: #111; border-radius: 20px; overflow: hidden; border: 2px solid #333; box-shadow: 0 30px 60px rgba(0,0,0,0.8); transform: rotateY(-15deg) rotateX(10deg); transition: 0.6s ease; width: 100%; max-width: 600px; aspect-ratio: 16/10; display: flex; flex-direction: column; }
+    .comparison-card:hover { transform: none; border-color: var(--color-primary); }
+    .project-preview-img { width: 100%; height: 100%; object-fit: cover; flex-grow: 1; }
+    .card-tag { position: absolute; top: 20px; left: 20px; z-index: 10; background: #fff; color: #000; padding: 6px 12px; font-size: 0.7rem; font-weight: 900; border-radius: 4px; text-transform: uppercase; letter-spacing: 1px; }
+
+    .glow-blur-law { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 700px; height: 700px; background: radial-gradient(circle, rgba(255, 107, 53, 0.03) 0%, transparent 70%); filter: blur(100px); z-index: 0; pointer-events: none; }
+
+    .card-browser-mockup { height: 35px; background: #1a1a1a; display: flex; align-items: center; gap: 8px; padding-left: 20px; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .browser-dot-red { width: 8px; height: 8px; border-radius: 50%; background: #ff5f56; }
+    .browser-dot-yellow { width: 8px; height: 8px; border-radius: 50%; background: #ffbd2e; }
+    .browser-dot-green { width: 8px; height: 8px; border-radius: 50%; background: #27c93f; }
+
+    .text-primary { color: var(--color-primary); }
+    .glow-button { background: var(--color-primary) !important; color: #000 !important; font-weight: 900 !important; box-shadow: 0 10px 40px rgba(255, 107, 53, 0.3); transition: 0.3s; }
+    .glow-button:hover { box-shadow: 0 15px 50px rgba(255, 107, 53, 0.5); transform: translateY(-2px); }
+
+    .faq-item-v3 { padding: 2rem; background: #0c0c0c; border: 1px solid rgba(255,255,255,0.05); border-radius: 20px; }
+    .highlight-truth { box-shadow: 0 0 60px rgba(255, 107, 53, 0.02); }
+
+    @media (max-width: 768px) {
+        .hero-title-v2 { font-size: 2.8rem; }
+        .hero-actions-v2 { align-items: center; }
+        .hero-actions-v2 .flex { flex-direction: column; width: 100%; }
+        .hero-actions-v2 .flex Button { width: 100%; }
+        .comparison-card { transform: none; }
+        .stat-divider { display: none; }
+        .stats-wrapper-v2 { flex-direction: column; }
+    }
+</style>
+
+<script>
+    import { gsap } from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    gsap.registerPlugin(ScrollTrigger);
+
+    document.addEventListener('astro:page-load', () => {
+        ScrollTrigger.refresh();
+
+        gsap.to(".hero-bg-image", { 
+            scrollTrigger: { trigger: ".hero-lp-v2", start: "top top", scrub: true }, 
+            y: 100, opacity: 0.4 
+        });
+
+        gsap.fromTo(".hero-reveal", { y: 40, opacity: 0 }, {
+            y: 0, opacity: 1, duration: 1, stagger: 0.15, ease: "power3.out", delay: 0.2
+        });
+
+        document.querySelectorAll(".reveal-up").forEach((el) => {
+            gsap.fromTo(el, { y: 40, opacity: 0 }, {
+                scrollTrigger: { trigger: el, start: "top 90%" },
+                y: 0, opacity: 1, duration: 1, ease: "power3.out"
+            });
+        });
+
+        gsap.fromTo(".stagger-card", { y: 50, opacity: 0 }, {
+            scrollTrigger: { trigger: ".stagger-container", start: "top 80%" },
+            y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power2.out"
+        });
+    });
+</script>

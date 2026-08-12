@@ -1,0 +1,377 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Button from "../components/ui/Button.astro";
+import SchemaMarkup from "../components/seo/SchemaMarkup.astro";
+
+const title = "Diagnóstico Gratuito de Site | Alpha Code";
+const description =
+    "Receba um diagnóstico profissional do seu site atual. Análise de SEO, performance, conversão e oportunidades de melhoria. Gratuito e sem compromisso.";
+---
+
+<BaseLayout
+    title={title}
+    description={description}
+    showWhatsApp={false}
+    showSocialProof={false}
+>
+    <SchemaMarkup
+        type="ProfessionalService"
+        name="Diagnóstico Gratuito de Site - Alpha Code"
+        description={description}
+    />
+
+    <div class="diagnosis-page">
+        <!-- HERO -->
+        <section class="hero-diag">
+            <div class="hero-bg-effects">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+            </div>
+            <div class="container relative z-10">
+                <div class="hero-content">
+                    <span class="badge-accent">🔍 Diagnóstico Profissional</span>
+                    <h1 class="hero-title">
+                        Seu site está <span class="text-gradient">perdendo clientes</span> e você não sabe?
+                    </h1>
+                    <p class="hero-sub">
+                        Receba uma análise completa do seu site atual — SEO, velocidade, conversão e oportunidades — em até 24 horas. <strong>100% gratuito e sem compromisso.</strong>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- O QUE INCLUI -->
+        <section class="features-section">
+            <div class="container">
+                <h2 class="section-title">O que o diagnóstico analisa</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🚀</div>
+                        <h3>Performance & Velocidade</h3>
+                        <p>Verificamos o tempo de carregamento, Core Web Vitals e pontos de melhoria que impactam diretamente seu ranking no Google.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔍</div>
+                        <h3>SEO Técnico</h3>
+                        <p>Analisamos meta tags, schema markup, estrutura de URLs, sitemap e fatores técnicos que determinam se você aparece no Google.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>Conversão & WhatsApp</h3>
+                        <p>Avaliamos se seu site está realmente convertendo visitantes em contatos, e como melhorar a taxa de conversão.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Experiência Mobile</h3>
+                        <p>Mais de 85% das buscas são feitas pelo celular. Testamos a experiência mobile do seu site em múltiplos dispositivos.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Concorrência Local</h3>
+                        <p>Comparamos seu site com os concorrentes diretos na sua região e identificamos oportunidades de ultrapassá-los.</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📋</div>
+                        <h3>Plano de Ação</h3>
+                        <p>Você recebe um relatório PDF com prioridades claras — o que fazer primeiro, o que pode esperar, e quanto investir.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMULÁRIO -->
+        <section class="form-section" id="formulari">
+            <div class="container">
+                <div class="form-wrapper">
+                    <div class="form-info">
+                        <h2>Preencha e receba seu diagnóstico em até 24h</h2>
+                        <p>Informe os dados do seu site e entraremos em contato com o relatório completo.</p>
+                        <div class="trust-badges">
+                            <div class="badge-item">✓ 100% Gratuito</div>
+                            <div class="badge-item">✓ Sem compromisso</div>
+                            <div class="badge-item">✓ Entrega em 24h</div>
+                            <div class="badge-item">✓ +300 diagnósticos realizados</div>
+                        </div>
+                    </div>
+                    <form id="diagnosis-form" class="diag-form">
+                        <div class="form-group">
+                            <label for="name">Seu nome *</label>
+                            <input type="text" id="name" name="name" required placeholder="Ex: Dr. João Silva" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-mail *</label>
+                            <input type="email" id="email" name="email" required placeholder="seu@email.com" />
+                        </div>
+                        <div class="form-group">
+                            <label for="whatsapp">WhatsApp *</label>
+                            <input type="tel" id="whatsapp" name="whatsapp" required placeholder="(21) 99999-9999" />
+                        </div>
+                        <div class="form-group">
+                            <label for="website">URL do site atual</label>
+                            <input type="url" id="website" name="website" placeholder="https://seusite.com.br" />
+                        </div>
+                        <div class="form-group">
+                            <label for="niche">Seu nicho de atuação</label>
+                            <select id="niche" name="niche">
+                                <option value="">Selecione...</option>
+                                <option value="advogados">Advogados / Advocacia</option>
+                                <option value="medicos">Médicos / Clínicas</option>
+                                <option value="dentistas">Dentistas / Odontologia</option>
+                                <option value="psicologos">Psicólogos / Terapeutas</option>
+                                <option value="contadores">Contadores / Contabilidade</option>
+                                <option value="arquitetos">Arquitetos / Design</option>
+                                <option value="energia-solar">Energia Solar</option>
+                                <option value="imobiliarias">Imobiliárias</option>
+                                <option value="estetica">Estética / Beauty</option>
+                                <option value="restaurantes">Restaurantes / Delivery</option>
+                                <option value="pet">Pet Shops / Veterinárias</option>
+                                <option value="outro">Outro</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Descreva brevemente seu objetivo</label>
+                            <textarea id="message" name="message" rows="3" placeholder="Ex: Quero aparecer no Google para 'dentista na Barra da Tijuca'"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit" id="submit-btn">
+                            <span class="btn-text">🔍 RECEBER DIAGNÓSTICO GRATUITO</span>
+                            <span class="btn-loading" style="display:none;">Enviando...</span>
+                        </button>
+                        <p class="form-disclaimer">
+                            Ao enviar, você concorda com nossos <a href="/privacidade">Políticas de Privacidade</a>. Seus dados são seguros.
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- DEPOIMENTOS RÁPIDOS -->
+        <section class="social-section">
+            <div class="container">
+                <h2 class="section-title">O que dizem quem já recebeu</h2>
+                <div class="testimonials-row">
+                    <div class="testimonial-mini">
+                        <p>"O diagnóstico mostrou exatamente por que meu site não aparecia no Google. Em 3 meses após as correções, passei a receber 10 contatos por semana."</p>
+                        <span class="t-name">Dra. Priscila Almeida — Psicóloga, RJ</span>
+                    </div>
+                    <div class="testimonial-mini">
+                        <p>"Super profissional. O relatório veio com prints, prioridades e até comparativo com concorrentes. Decidi contratar na hora."</p>
+                        <span class="t-name">Dr. Ricardo Medeiros — Advogado, PR</span>
+                    </div>
+                    <div class="testimonial-mini">
+                        <p>"Não sabia que meu site demorava 8 segundos para carregar. A Alpha Code resolveu tudo e hoje ele abre em menos de 1 segundo."</p>
+                        <span class="t-name">Carlos Eduardo — Contador, RS</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <style>
+        .diagnosis-page { background: #050505; color: #e0e0e0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .relative { position: relative; }
+        .z-10 { z-index: 10; }
+
+        /* HERO */
+        .hero-diag {
+            min-height: 70vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 140px 0 80px;
+            text-align: center;
+        }
+        .hero-bg-effects { position: absolute; inset: 0; z-index: 1; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(120px); }
+        .orb-1 { width: 600px; height: 600px; background: radial-gradient(circle, rgba(212,40,56,0.25) 0%, transparent 70%); top: -200px; right: -100px; }
+        .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(212,175,55,0.1) 0%, transparent 70%); bottom: -100px; left: -100px; }
+        .hero-content { max-width: 800px; margin: 0 auto; }
+        .badge-accent {
+            display: inline-block;
+            padding: 8px 20px;
+            background: rgba(212,40,56,0.1);
+            border: 1px solid rgba(212,40,56,0.3);
+            border-radius: 100px;
+            color: #d42838;
+            font-size: 0.9rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 24px;
+        }
+        .hero-title {
+            font-family: "Outfit", sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            line-height: 1.15;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 24px;
+        }
+        .text-gradient {
+            background: linear-gradient(135deg, #fff 0%, #d42838 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-sub { font-size: 1.15rem; color: #a0a0a0; line-height: 1.7; max-width: 700px; margin: 0 auto; }
+
+        /* FEATURES */
+        .features-section { padding: 80px 0; }
+        .section-title {
+            font-family: "Outfit", sans-serif;
+            font-size: 2rem;
+            font-weight: 800;
+            color: white;
+            text-align: center;
+            margin-bottom: 48px;
+        }
+        .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .feature-card {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 20px;
+            padding: 32px;
+            transition: all 0.3s;
+        }
+        .feature-card:hover { background: rgba(255,255,255,0.06); transform: translateY(-4px); }
+        .feature-icon { font-size: 2rem; margin-bottom: 16px; }
+        .feature-card h3 { color: #fff; font-size: 1.15rem; margin-bottom: 10px; font-weight: 700; }
+        .feature-card p { color: #999; line-height: 1.6; font-size: 0.95rem; }
+
+        /* FORM */
+        .form-section { padding: 80px 0; }
+        .form-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .form-info h2 {
+            font-family: "Outfit", sans-serif;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: white;
+            margin-bottom: 16px;
+        }
+        .form-info p { color: #999; line-height: 1.6; margin-bottom: 24px; }
+        .trust-badges { display: flex; flex-direction: column; gap: 12px; }
+        .badge-item { color: #10b981; font-weight: 600; font-size: 0.95rem; }
+
+        .diag-form { display: flex; flex-direction: column; gap: 20px; }
+        .form-group { display: flex; flex-direction: column; gap: 6px; }
+        .form-group label { color: #ccc; font-weight: 600; font-size: 0.9rem; }
+        .form-group input, .form-group select, .form-group textarea {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 14px 16px;
+            color: #fff;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+            outline: none;
+            border-color: #d42838;
+        }
+        .form-group select { cursor: pointer; }
+        .form-group select option { background: #111; color: #fff; }
+        .btn-submit {
+            background: linear-gradient(135deg, #d42838, #a01020);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            padding: 16px 24px;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .btn-submit:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(212,40,56,0.4); }
+        .form-disclaimer { color: #666; font-size: 0.8rem; text-align: center; }
+        .form-disclaimer a { color: #d42838; }
+
+        /* SOCIAL PROOF */
+        .social-section { padding: 80px 0; border-top: 1px solid rgba(255,255,255,0.05); }
+        .testimonials-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+        .testimonial-mini {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .testimonial-mini p { color: #ccc; line-height: 1.6; font-size: 0.95rem; margin-bottom: 12px; font-style: italic; }
+        .t-name { color: #888; font-size: 0.85rem; font-weight: 600; }
+
+        @media (max-width: 768px) {
+            .features-grid, .testimonials-row { grid-template-columns: 1fr; }
+            .form-wrapper { grid-template-columns: 1fr; }
+            .hero-diag { min-height: auto; padding: 120px 0 60px; }
+        }
+    </style>
+
+    <script is:inline>
+        document.addEventListener("astro:page-load", () => {
+            const form = document.getElementById("diagnosis-form");
+            if (!form || form.dataset.bound) return;
+            form.dataset.bound = "true";
+
+            form.addEventListener("submit", async (e) => {
+                e.preventDefault();
+                const btn = document.getElementById("submit-btn");
+                const btnText = btn.querySelector(".btn-text");
+                const btnLoading = btn.querySelector(".btn-loading");
+
+                btnText.style.display = "none";
+                btnLoading.style.display = "inline";
+                btn.disabled = true;
+
+                const data = {
+                    name: form.querySelector("#name").value,
+                    email: form.querySelector("#email").value,
+                    whatsapp: form.querySelector("#whatsapp").value,
+                    website: form.querySelector("#website").value,
+                    niche: form.querySelector("#niche").value,
+                    message: form.querySelector("#message").value,
+                };
+
+                try {
+                    const res = await fetch("/api/leads/create", {
+                        method: "POST",
+                        headers: { "Content-Type": "application/json" },
+                        body: JSON.stringify({
+                            name: data.name,
+                            whatsapp: data.whatsapp,
+                            email: data.email,
+                            plan: "Diagnóstico Gratuito",
+                            details: `Site: ${data.website || 'Não informado'} | Nicho: ${data.niche} | Objetivo: ${data.message}`,
+                        }),
+                    });
+
+                    const result = await res.json();
+
+                    if (result.success) {
+                        const waMsg = encodeURIComponent(
+                            `Olá! Vim pelo diagnóstico gratuito do site.\n\n` +
+                            `Nome: ${data.name}\n` +
+                            `Site: ${data.website || 'Não informado'}\n` +
+                            `Nicho: ${data.niche}\n` +
+                            `Objetivo: ${data.message}`
+                        );
+                        window.location.href = `https://wa.me/5521999064502?text=${waMsg}`;
+                    } else {
+                        throw new Error(result.message || "Erro ao enviar");
+                    }
+                } catch (err) {
+                    alert("Erro ao enviar formulário. Tente novamente ou fale conosco no WhatsApp.");
+                    btnText.style.display = "inline";
+                    btnLoading.style.display = "none";
+                    btn.disabled = false;
+                }
+            });
+        });
+    </script>
+</BaseLayout>

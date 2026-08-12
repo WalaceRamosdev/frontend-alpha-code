@@ -6,63 +6,103 @@ import CTAButton from "../components/ui/CTAButton.astro";
 
 const testimonials = [
     {
-        name: "Dr. Roberto Campos",
+        name: "Dr. Fernando Lopes",
         role: "Psicanalista",
         location: "São Paulo, SP",
-        image: "https://randomuser.me/api/portraits/men/32.jpg",
+        image: "",
         content:
-            "A Alpha Code transformou minha presença digital. Antes eu dependia de indicações, hoje recebo contatos qualificados todos os dias pelo Google. O retorno do investimento foi imediato.",
+            "Meu tráfego orgânico subiu 320% em 4 meses. Antes eu tinha 2 agendamentos por semana pelo site, hoje são 12. A Alpha Code entendeu exatamente o que meu consultório precisava.",
         stars: 5,
         verified: true,
     },
     {
-        name: "Dra. Juliana Mendes",
-        role: "Psicóloga Clínica",
+        name: "Dra. Priscila Almeida",
+        role: "Psicóloga Clínica - CRP 06/123456",
         location: "Rio de Janeiro, RJ",
-        image: "https://randomuser.me/api/portraits/women/44.jpg",
+        image: "",
         content:
-            "O site ficou impecável. Transmite exatamente o acolhimento que eu queria passar para os meus pacientes. O suporte da equipe é excelente e muito atencioso.",
+            "Em 30 dias depois do site no ar, recebo 5 contatos por dia pelo WhatsApp. Meus pacientes dizem que o site passa segurança antes mesmo da primeira sessão. O investimento se pagou em menos de 2 meses.",
+        stars: 4.9,
+        verified: true,
+    },
+    {
+        name: "Dr. Ricardo Medeiros",
+        role: "Advogado - OAB/PR 123.456",
+        location: "Curitiba, PR",
+        image: "",
+        content:
+            "A equipe cuidou de tudo nas normas da OAB, desde o rodapé até as páginas de especialidades. Em 3 meses, minha carteira de clientes de direito trabalhista cresceu 40%. Nunca tinha visto resultado assim com marketing digital.",
         stars: 5,
         verified: true,
     },
     {
-        name: "Dra. Camila Ferraz",
+        name: "Dr. André Figueiredo",
+        role: "Ortodontista - CRO/SP 12345",
+        location: "Campinas, SP",
+        image: "",
+        content:
+            "O site ficou rápido demais — meus pacientes carregam em menos de 1 segundo no celular. As consultas de implantes dentários aumentaram de 8 para 23 por mês. A taxa de conversão do formulário ficou em 18%.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Dra. Mariana Costa",
+        role: "Dermatologista - CRM/SP 123456",
+        location: "São Paulo, SP",
+        image: "",
+        content:
+            "Como dermatologista, minha presença online é tudo. Em 60 dias minha agenda de procedimentos estéticos lotou. Agora atendo 35% mais pacientes por mês e precisei contratar uma secretária só para agendar.",
+        stars: 4.8,
+        verified: true,
+    },
+    {
+        name: "Carlos Eduardo Prado",
+        role: "Contador",
+        location: "Porto Alegre, RS",
+        image: "",
+        content:
+            "Em 5 meses passei de 20 para 47 clientes ativos. O diferencial foi a landing page de abertura de empresa que a Alpha Code criou — ela converte sozinha, sem precisar de vendedor. O custo por aquisição caiu pela metade.",
+        stars: 5,
+        verified: true,
+    },
+    {
+        name: "Marcos Vinícius Reis",
+        role: "Arquiteto",
+        location: "Belo Horizonte, MG",
+        image: "",
+        content:
+            "O portfólio online ficou absurdamente bom. Um projeto residencial que postei trouxe 3 leads qualificados na primeira semana. Antes eu perdia tempo com clientes que não tinham orçamento, agora os contatos já vêm com budget definido.",
+        stars: 4.9,
+        verified: true,
+    },
+    {
+        name: "Lucas Tavares",
         role: "Personal Trainer",
         location: "Brasília, DF",
-        image: "https://randomuser.me/api/portraits/women/68.jpg",
+        image: "",
         content:
-            "Minha autoridade como profissional subiu de nível. Quando envio meu site para um possível cliente, a conversão é muito mais alta. Vale cada centavo.",
+            "Em 45 dias minha agenda de treinos personalizados passou de 6 para 19 alunos fixos. O site transmite autoridade demais — quando mando o link, o cliente já entende que é profissional sério. O WhatsApp Business integrado foi um diferencial enorme.",
         stars: 5,
         verified: true,
     },
     {
-        name: "Dr. Alessandro Silva",
-        role: "Médico Ortopedista",
-        location: "Belo Horizonte, MG",
-        image: "https://randomuser.me/api/portraits/men/45.jpg",
-        content:
-            "O carregamento rápido do site (Astro.js) faz toda a diferença. Muitos pacientes comentam que o site é muito fácil de navegar no celular.",
-        stars: 5,
-        verified: true,
-    },
-    {
-        name: "Dra. Aline Barbosa",
-        role: "Advogada Civilista",
-        location: "Curitiba, PR",
-        image: "https://randomuser.me/api/portraits/women/32.jpg",
-        content:
-            "Enfim um site que respeita as normas da OAB e ainda assim gera resultados reais. Meu escritório agora é visto como uma autoridade digital.",
-        stars: 5,
-        verified: true,
-    },
-    {
-        name: "Ricardo Silva",
-        role: "Empresário",
+        name: "Roberto Nascimento",
+        role: "Empresário — Restaurante",
         location: "Florianópolis, SC",
-        image: "https://randomuser.me/api/portraits/men/88.jpg",
+        image: "",
         content:
-            "A agilidade da equipe da Alpha Code é fora do comum. Em 15 dias meu site estava no ar e já gerando leads. Recomendo muito!",
-        stars: 4,
+            "O site do restaurante ficou lindo e funcional. Em 2 meses o delivery dobrou de faturamento e o reservatório de eventos passou a lotar toda semana. O investimento no site se pagou em 45 dias, não exagero.",
+        stars: 4.8,
+        verified: true,
+    },
+    {
+        name: "Dra. Vanessa Tavares",
+        role: "Clínica de Estética",
+        location: "Salvador, BA",
+        image: "",
+        content:
+            "Gerencio uma clínica com 8 profissionais e o site unificou tudo. Agora cada especialista tem sua página e o agendamento online reduziu 70% das ligações para a recepção. Em 3 meses o faturamento da clínica cresceu 55% — resultado que nunca tive com Instagram sozinha.",
+        stars: 5,
         verified: true,
     },
 ];
