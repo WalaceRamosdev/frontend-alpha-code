@@ -17,8 +17,8 @@ interface Props {
     city?: string;
     /** Slug da cidade para linkar páginas de cidade */
     citySlug?: string;
-    /** Tipo de página atual: "niche" | "city" | "blog" */
-    type: "niche" | "city" | "blog" | "general";
+    /** Tipo de página atual: "niche" | "city" | "blog" | "neighborhood" | "general" */
+    type: "niche" | "city" | "blog" | "neighborhood" | "general";
     /** Título customizado */
     title?: string;
     /** Quantos links por categoria */
@@ -168,7 +168,31 @@ if (type === "niche" && niche && items.length < limit) {
 // 5b) Se tipo for "city" e city fornecido, adiciona cidade referência no título
 // (evita warning de prop não usada, mas mantém o título dinâmico fora do array)
 
-// 6) Páginas pilar (se estamos em blog/city, linkar para hubs de nicho)
+// 6) Para páginas de bairro, mostrar cidades vizinhas e nichos
+if (type === "neighborhood" && citySlug) {
+    CITIES_AVAILABLE.filter((c) => c.slug !== citySlug)
+        .slice(0, 3)
+        .forEach((c) => {
+            items.push({
+                title: `Criação de Sites em ${c.name}`,
+                description: `Atendemos empresas em ${c.name} com SEO local.`,
+                href: `/cidades/${c.slug}/`,
+                badge: "Cidade",
+            });
+        });
+    NICHES_AVAILABLE.slice(0, 2).forEach((n) => {
+        items.push({
+            title: `Site para ${
+                n.charAt(0).toUpperCase() + n.slice(1).replace("-", " ")
+            }`,
+            description: `Solução especializada para ${n.replace("-", " ")}.`,
+            href: `/solucoes/${n}`,
+            badge: "Solução",
+        });
+    });
+}
+
+// 7) Páginas pilar (se estamos em blog/city, linkar para hubs de nicho)
 if (type === "blog" || type === "city") {
     NICHES_AVAILABLE.slice(0, 4).forEach((n) => {
         items.push({

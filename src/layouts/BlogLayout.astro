@@ -95,6 +95,32 @@ const articleSchema = {
         "@id": url,
     },
 };
+
+// BreadcrumbList Schema
+const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+        {
+            "@type": "ListItem",
+            position: 1,
+            name: "Home",
+            item: Astro.site,
+        },
+        {
+            "@type": "ListItem",
+            position: 2,
+            name: "Blog",
+            item: `${Astro.site}blog/`,
+        },
+        {
+            "@type": "ListItem",
+            position: 3,
+            name: title,
+            item: url,
+        },
+    ],
+};
 ---
 
 <BaseLayout
@@ -110,6 +136,16 @@ const articleSchema = {
         set:html={JSON.stringify(articleSchema)}
         slot="scripts"
     />
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(breadcrumbSchema)}
+        slot="scripts"
+    />
+
+    <!-- Article Meta Tags -->
+    <meta property="article:published_time" content={pubDate.toISOString()} slot="head" />
+    <meta property="article:author" content={author} slot="head" />
+    <meta property="article:section" content="Blog" slot="head" />
 
     <!-- Reading Progress Bar -->
     <div class="progress-container">
