@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../ui/Button.astro";
 import SchemaMarkup from "../seo/SchemaMarkup.astro";
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
 interface Props {
     cidade?: string;
@@ -21,8 +22,8 @@ const displayCityMeta = cidade ? ` em ${cidade}${ufMap[cidade] ? ` (${ufMap[cida
 const uf = cidade && ufMap[cidade] ? ufMap[cidade] : "";
 
 // SEO Metadata
-const title = `Criação de Sites para Empresas de Energia Solar${displayCityMeta}`;
-const description = `Desenvolvemos sites profissionais para empresas de energia solar${displayCity} com foco em SEO local, geração de leads e conversão.`;
+const title = buildSEOTitle(`Criação de Sites para Empresas de Energia Solar${displayCityMeta}`);
+const description = buildSEODescription(`Desenvolvemos sites profissionais para empresas de energia solar${displayCity} com foco em SEO local, geração de leads e conversão.`);
 const keywords = [
     `site para empresa de energia solar${displayCity}`,
     `criação de site para energia solar${displayCity}`,

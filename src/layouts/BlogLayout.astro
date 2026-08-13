@@ -9,6 +9,8 @@ import BlogHeader from "../components/blog/BlogHeader.astro";
 import ShareButtons from "../components/blog/ShareButtons.astro";
 import AuthorBio from "../components/blog/AuthorBio.astro";
 import RelatedContent from "../components/seo/RelatedContent.astro";
+import { buildSEOTitle, buildSEODescription } from "../utils/seo";
+import { detectNiche, normalizeNicheText, NICHE_KEYWORDS } from "../utils/nicheDetect";
 
 interface Props {
     title: string;
@@ -20,6 +22,8 @@ interface Props {
     content: string;
     slug: string;
     ctaType?: "topo" | "meio" | "fundo";
+    categories?: string[];
+    tags?: string[];
 }
 
 import fs from "node:fs";
@@ -35,6 +39,8 @@ const {
     content,
     slug,
     ctaType = "fundo",
+    categories = [],
+    tags = [],
 } = Astro.props;
 
 // Automatic Image Validation - Supports external URLs
@@ -71,10 +77,46 @@ const allPosts = await getCollection(
     "blog",
     ({ data }: CollectionEntry<"blog">) => !data.draft && data.pubDate <= now,
 );
-const relatedPosts = allPosts
-    .filter((p: CollectionEntry<"blog">) => p.slug !== slug)
-    .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
-    .slice(0, 2);
+
+// Detecta o nicho do artigo atual para linkagem interna temática
+// Título tem prioridade; tags/categorias/descrição como reforço
+const articleNiche = detectNiche(title, `${description} ${categories.join(" ")} ${tags.join(" ")}`);
+const nicheKeywords = articleNiche ? NICHE_KEYWORDS[articleNiche] : null;
+
+// "Continue sua leitura": prioriza posts do mesmo nicho; completa com os mais recentes
+const relatedPosts = (() => {
+    const others = allPosts.filter(
+        (p: CollectionEntry<"blog">) => p.slug !== slug,
+    );
+    if (!nicheKeywords) {
+        return others
+            .sort(
+                (a, b) =>
+                    b.data.pubDate.getTime() - a.data.pubDate.getTime(),
+            )
+            .slice(0, 2);
+    }
+    const sameNiche = others.filter((p) => {
+        const postText = [
+            p.data.title,
+            p.data.description,
+            ...(p.data.categories ?? []),
+            ...(p.data.tags ?? []),
+        ].join(" ");
+        return nicheKeywords!.some((kw) =>
+            normalizeNicheText(postText).includes(kw),
+        );
+    });
+    const same = sameNiche
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+        .slice(0, 2);
+    if (same.length >= 2) return same;
+    const fill = others
+        .filter((p) => !same.includes(p))
+        .sort((a, b) => b.data.pubDate.getTime() - a.data.pubDate.getTime())
+        .slice(0, 2 - same.length);
+    return [...same, ...fill];
+})();
 
 const url = `${Astro.site}blog/${slug}/`;
 
@@ -134,8 +176,8 @@ const breadcrumbSchema = {
 ---
 
 <BaseLayout
-    title={`${title} | Alpha Code Blog`}
-    description={description}
+    title={buildSEOTitle(title, { suffix: " | Alpha Code Blog" })}
+    description={buildSEODescription(description)}
     ogImage={finalHeroImage}
     showHeader={true}
     showWhatsApp={true}
@@ -289,7 +331,13 @@ const breadcrumbSchema = {
 
         <RelatedContent
             type="blog"
-            title="Explore mais soluções da Alpha Code"
+            niche={articleNiche ?? undefined}
+            currentSlug={slug}
+            title={
+                articleNiche
+                    ? undefined
+                    : "Explore mais soluções da Alpha Code"
+            }
             limit={4}
         />
     </article>

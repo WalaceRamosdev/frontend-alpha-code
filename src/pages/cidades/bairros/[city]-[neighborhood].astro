@@ -5,6 +5,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Button from "../../../components/ui/Button.astro";
 import SchemaMarkup from "../../../components/seo/SchemaMarkup.astro";
 import RelatedContent from "../../../components/seo/RelatedContent.astro";
+import { buildSEOTitle, buildSEODescription } from "../../../utils/seo";
 
 export const prerender = true;
 
@@ -40,8 +41,8 @@ const neighborhoodType = neighborhood.type;
 const cepExample = neighborhood.cepExample;
 const landmark = neighborhood.landmark;
 
-const seoTitle = `Criação de Sites em ${neighborhoodName}, ${cityName} | Alpha Code`;
-const seoDescription = `Empresa de criação de sites profissionais em ${neighborhoodName}, ${cityName}. SEO local, design premium e conversão por WhatsApp. Atendemos ${neighborhoodName} e região.`;
+const seoTitle = buildSEOTitle(`Criação de Sites em ${neighborhoodName}, ${cityName}`);
+const seoDescription = buildSEODescription(`Empresa de criação de sites profissionais em ${neighborhoodName}, ${cityName}. SEO local, design premium e conversão por WhatsApp. Atendemos ${neighborhoodName} e região.`);
 
 const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/bairros/${city.slug}-${neighborhood.slug}/`;
 

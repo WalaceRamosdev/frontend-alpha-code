@@ -8,6 +8,7 @@ import FAQ from "../../components/sections/Faq.astro";
 import Contact from "../../components/sections/Contact.astro";
 import DynamicContent from "../../components/sections/DynamicContent.astro";
 import { locations } from "../../data/locations";
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
 export function getStaticPaths() {
     return locations.map((loc) => ({
@@ -22,8 +23,8 @@ export const prerender = true;
 ---
 
 <BaseLayout
-    title={loc.title}
-    description={loc.description}
+    title={buildSEOTitle(loc.title)}
+    description={buildSEODescription(loc.description)}
     keywords={[
         `sites ${loc.neighborhood}`,
         `criação de sites ${loc.city}`,

@@ -3,6 +3,7 @@ import ServiceLayout from "../../layouts/ServiceLayout.astro";
 import SchemaMarkup from "../seo/SchemaMarkup.astro";
 import ServiceSegments from "../sections/ServiceSegments.astro";
 import { type ServiceContent, getRelatedServices } from "../../data/services";
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
 interface Props {
     service: ServiceContent;
@@ -13,8 +14,8 @@ const relatedServices = getRelatedServices(service.slug);
 ---
 
 <ServiceLayout
-    title={service.metaTitle}
-    description={service.metaDescription}
+    title={buildSEOTitle(service.metaTitle)}
+    description={buildSEODescription(service.metaDescription)}
     keywords={service.keywords}
 >
     <SchemaMarkup

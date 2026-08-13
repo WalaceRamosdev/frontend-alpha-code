@@ -5,6 +5,7 @@ import BaseLayout from "../../../layouts/BaseLayout.astro";
 import Button from "../../../components/ui/Button.astro";
 import SchemaMarkup from "../../../components/seo/SchemaMarkup.astro";
 import RelatedContent from "../../../components/seo/RelatedContent.astro";
+import { buildSEOTitle, buildSEODescription } from "../../../utils/seo";
 
 export const prerender = true;
 
@@ -53,8 +54,12 @@ const cityName = city.name;
 const nicheSlug = niche.slug;
 const citySlug = city.slug;
 
-const seoTitle = `Site para ${nicheName} em ${cityName} | Sites Profissionais e SEO Local`;
-const seoDescription = `Criamos sites profissionais para ${nicheName.toLowerCase()} em ${cityName}. SEO local agressivo, design que converte e integração com WhatsApp. Apareça no Google e atraia mais clientes.`;
+const seoTitle = buildSEOTitle(`Site para ${nicheName} em ${cityName}`, {
+    suffix: " | Sites Profissionais e SEO Local",
+});
+const seoDescription = buildSEODescription(
+    `Criamos sites profissionais para ${nicheName.toLowerCase()} em ${cityName}. SEO local agressivo, design que converte e integração com WhatsApp. Apareça no Google e atraia mais clientes.`,
+);
 
 const canonicalUrl = `https://www.sitesalphacode.com.br/solucoes/${nicheSlug}/${citySlug}/`;
 

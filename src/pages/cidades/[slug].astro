@@ -4,6 +4,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import SchemaMarkup from "../../components/seo/SchemaMarkup.astro";
 import RelatedContent from "../../components/seo/RelatedContent.astro";
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
 export const prerender = true;
 
@@ -118,8 +119,8 @@ const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/${city.slug}/`;
 ---
 
 <BaseLayout
-    title={city.seoTitle}
-    description={city.seoDescription}
+    title={buildSEOTitle(city.seoTitle)}
+    description={buildSEODescription(city.seoDescription)}
     canonicalUrl={canonicalUrl}
     keywords={city.localKeywords}
     schemaType={city.schemaType}

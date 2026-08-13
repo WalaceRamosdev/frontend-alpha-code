@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
+import { buildSEOTitle, buildSEODescription } from "../utils/seo";
 import Hero from "../components/sections/Hero.astro";
 import Proof from "../components/sections/Proof.astro";
 import Process from "../components/sections/Process.astro";
@@ -19,8 +20,8 @@ const optimizedHeroMobile = await getImage({
   format: 'webp'
 });
 
-const title = "Criação de Sites Profissionais que Geram Clientes | Alpha Code";
-const description = "Transformamos seu site em uma máquina de gerar clientes. Criação de sites profissionais para empresas com foco em conversão imediata e SEO de Elite.";
+const title = buildSEOTitle("Criação de Sites Profissionais que Geram Clientes");
+const description = buildSEODescription("Transformamos seu site em uma máquina de gerar clientes. Criação de sites profissionais para empresas com foco em conversão imediata e SEO de Elite.");
 
 const keywords = [
   "criação de sites profissionais",

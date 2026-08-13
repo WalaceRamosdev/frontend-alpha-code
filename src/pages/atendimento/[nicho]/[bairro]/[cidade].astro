@@ -10,6 +10,7 @@ import BaseLayout from "../../../../layouts/BaseLayout.astro";
 import Button from "../../../../components/ui/Button.astro";
 import SchemaMarkup from "../../../../components/seo/SchemaMarkup.astro";
 import RelatedContent from "../../../../components/seo/RelatedContent.astro";
+import { buildSEOTitle, buildSEODescription } from "../../../../utils/seo";
 
 export const prerender = true;
 
@@ -69,8 +70,12 @@ const { niche, city, neighborhood } = Astro.props as {
     neighborhood: NeighborhoodEntry;
 };
 
-const pageTitle = `${niche.name} no bairro ${neighborhood.name}, ${city.name} | Alpha Code`;
-const pageDescription = `Criação de site profissional para ${niche.name.toLowerCase()} no bairro ${neighborhood.name} (${city.name}). SEO local, design premium e alta conversão. Atenda clientes da região com presença digital forte.`;
+const pageTitle = buildSEOTitle(
+    `${niche.name} no bairro ${neighborhood.name}, ${city.name}`,
+);
+const pageDescription = buildSEODescription(
+    `Criação de site profissional para ${niche.name.toLowerCase()} em ${neighborhood.name}, ${city.name}. SEO local, design premium e alta conversão.`,
+);
 const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/`;
 ---
 

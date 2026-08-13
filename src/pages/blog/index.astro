@@ -6,6 +6,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
 import LeadMagnet from "../../components/ui/LeadMagnet.astro";
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
 const now = new Date();
 
@@ -33,8 +34,8 @@ const collectionPageSchema = {
 ---
 
 <BaseLayout
-    title="Blog de SEO Local, Marketing Digital e Criação de Sites | Alpha Code"
-    description="Estratégias de presença digital, SEO local e conversão para profissionais e empresas que buscam o topo do Google."
+    title={buildSEOTitle("Blog de SEO Local, Marketing Digital e Criação de Sites")}
+    description={buildSEODescription("Estratégias de presença digital, SEO local e conversão para profissionais e empresas que buscam o topo do Google.")}
     showHeader={false}
 >
     <!-- CollectionPage Schema -->

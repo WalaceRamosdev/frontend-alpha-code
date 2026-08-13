@@ -4,9 +4,12 @@ import Button from "../../components/ui/Button.astro";
 import { Image } from 'astro:assets';
 import heroImage from '../../assets/hybrid-solar-2026.png';
 import abstractBg from '../../assets/abstract-solar-bg.png';
+import { buildSEOTitle, buildSEODescription } from "../../utils/seo";
 
-const title = "Energia Solar 2026 | Sistemas Híbridos e Antiapagão | Alpha Infinity";
-const description = "Proteja sua empresa contra apagões e restrições de rede em 2026. Sistemas híbridos de alta performance com instalação rápida e autonomia total.";
+const title = buildSEOTitle("Energia Solar 2026 | Sistemas Híbridos e Antiapagão", {
+    suffix: " | Alpha Infinity",
+});
+const description = buildSEODescription("Proteja sua empresa contra apagões e restrições de rede em 2026. Sistemas híbridos de alta performance com instalação rápida e autonomia total.");
 
 // Dados do cenário 2026 para o FAQ
 const faq = [

@@ -28,6 +28,8 @@ const { Content } = await post.render();
     content={post.body}
     slug={post.slug}
     ctaType={post.data.ctaType}
+    categories={post.data.categories ?? []}
+    tags={post.data.tags ?? []}
 >
     <Content />
 </BlogLayout>

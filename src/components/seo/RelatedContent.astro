@@ -9,6 +9,7 @@
  */
 
 import { getCollection } from "astro:content";
+import { normalizeNicheText, NICHE_KEYWORDS, nicheName } from "../../utils/nicheDetect";
 
 interface Props {
     /** Slug do nicho (advogados, medicos, etc.) para buscar posts relacionados */
@@ -17,6 +18,8 @@ interface Props {
     city?: string;
     /** Slug da cidade para linkar páginas de cidade */
     citySlug?: string;
+    /** Slug do post atual (para evitar autolinks) */
+    currentSlug?: string;
     /** Tipo de página atual: "niche" | "city" | "blog" | "neighborhood" | "general" */
     type: "niche" | "city" | "blog" | "neighborhood" | "general";
     /** Título customizado */
@@ -25,7 +28,7 @@ interface Props {
     limit?: number;
 }
 
-const { niche, city, citySlug, type, title, limit = 4 } = Astro.props;
+const { niche, city, citySlug, type, title, limit = 4, currentSlug } = Astro.props;
 
 // Mantém `city` referenciado (utilizado indiretamente via prop em alguns tipos de página)
 void city;
@@ -39,23 +42,26 @@ interface RelatedItem {
 
 const items: RelatedItem[] = [];
 
-// 1) Posts de blog relacionados (match por nicho)
+// 1) Posts de blog relacionados (match por palavras-chave do nicho)
 if (niche) {
     const allPosts = await getCollection(
         "blog",
         ({ data }) => !data.draft && new Date() >= data.pubDate,
     );
-    const nicheLower = niche.toLowerCase();
+    const keywords = NICHE_KEYWORDS[niche] ?? [niche.toLowerCase()];
     const matchingPosts = allPosts
-        .filter(
-            (p) =>
-                p.data.title.toLowerCase().includes(nicheLower) ||
-                p.data.description.toLowerCase().includes(nicheLower) ||
-                (p.data.categories ?? []).some((c) =>
-                    c.toLowerCase().includes(nicheLower),
-                ) ||
-                (p.data.tags ?? []).some((t) => t.toLowerCase().includes(nicheLower)),
-        )
+        .filter((p) => p.slug !== currentSlug)
+        .filter((p) => {
+            const postText = [
+                p.data.title,
+                p.data.description,
+                ...(p.data.categories ?? []),
+                ...(p.data.tags ?? []),
+            ].join(" ");
+            return keywords.some((kw) =>
+                normalizeNicheText(postText).includes(kw),
+            );
+        })
         .slice(0, limit);
 
     matchingPosts.forEach((p) => {
@@ -192,13 +198,13 @@ if (type === "neighborhood" && citySlug) {
     });
 }
 
-// 7) Páginas pilar (se estamos em blog/city, linkar para hubs de nicho)
+// 7) Páginas pilar: em blog/city, linkar para hubs de nicho.
+// Se um nicho for fornecido (detectado no artigo), prioriza o hub dele.
 if (type === "blog" || type === "city") {
-    NICHES_AVAILABLE.slice(0, 4).forEach((n) => {
+    const hubSlugs = niche ? [niche, ...NICHES_AVAILABLE.filter((n) => n !== niche).slice(0, 3)] : NICHES_AVAILABLE.slice(0, 4);
+    hubSlugs.forEach((n) => {
         items.push({
-            title: `Soluções para ${
-                n.charAt(0).toUpperCase() + n.slice(1).replace("-", " ")
-            }`,
+            title: `Soluções para ${nicheName(n)}`,
             description: `Sites profissionais para ${n.replace("-", " ")}.`,
             href: `/solucoes/${n}/`,
             badge: "Solução",
@@ -211,10 +217,12 @@ const finalItems = items.slice(0, limit + 2);
 const heading =
     title ??
     (type === "niche"
-        ? `Continue explorando sobre ${niche}`
+        ? `Continue explorando sobre ${nicheName(niche ?? "")}`
         : type === "city"
           ? `Atendimento na região`
-          : `Conteúdo relacionado`);
+          : niche
+            ? `Continue explorando sobre ${nicheName(niche)}`
+            : `Conteúdo relacionado`);
 ---
 
 {
