@@ -6,6 +6,9 @@ heroImage: "/assets/blog/case-imobiliaria-urbanik.webp"
 author: "Alpha Code"
 categories: ["Cases de Sucesso", "Marketing Imobiliário", "SEO Local"]
 tags: ["imobiliária", "site profissional", "seo local", "tours virtuais", "whatsapp"]
+caseClient: "Imobiliária Urbanik"
+caseRating: 5
+caseReview: "Case real: 3x mais contatos qualificados, top 3 no Google e custo por aquisição -65%."
 ---
 
 ## O Desafio da Urbanik
@@ -66,7 +69,7 @@ Após um diagnóstico gratuito, a Alpha Code desenvolveu uma estratégia complet
 ## Próximos Passos
 
 A Urbanik está planejando expandir sua atuação para Campos dos Goytacazes e Macaé, usando a mesma metodologia da Alpha Code para dominar as buscas imobiliárias nessas cidades.
-
 ---
 
 **Quer resultados como a Urbanik?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para minha imobiliária) e descubra como podemosposicionar sua imobiliária no topo do Google.
+

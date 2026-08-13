@@ -30,6 +30,9 @@ const { Content } = await post.render();
     ctaType={post.data.ctaType}
     categories={post.data.categories ?? []}
     tags={post.data.tags ?? []}
+    caseClient={post.data.caseClient}
+    caseRating={post.data.caseRating}
+    caseReview={post.data.caseReview}
 >
     <Content />
 </BlogLayout>

@@ -44,13 +44,13 @@ const landmark = neighborhood.landmark;
 const seoTitle = buildSEOTitle(`Criação de Sites em ${neighborhoodName}, ${cityName}`);
 const seoDescription = buildSEODescription(`Empresa de criação de sites profissionais em ${neighborhoodName}, ${cityName}. SEO local, design premium e conversão por WhatsApp. Atendemos ${neighborhoodName} e região.`);
 
-const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/bairros/${city.slug}-${neighborhood.slug}/`;
+const canonicalUrl = `https://www.sitesalphacode.com.br/cidades/${city.slug}/`;
 
 const breadcrumbs = [
     { name: "Início", url: "https://www.sitesalphacode.com.br/" },
     { name: `Cidades`, url: "https://www.sitesalphacode.com.br/cidades/" },
     { name: cityName, url: `https://www.sitesalphacode.com.br/cidades/${city.slug}/` },
-    { name: neighborhoodName, url: canonicalUrl },
+    { name: neighborhoodName, url: `https://www.sitesalphacode.com.br/cidades/bairros/${city.slug}-${neighborhood.slug}/` },
 ];
 
 const painPoints = [
@@ -139,6 +139,7 @@ const targetAudiences = [
     showHeader={true}
     showFooter={true}
     showSocialProof={true}
+    noIndex={true}
 >
     <SchemaMarkup
         type="LocalBusiness"

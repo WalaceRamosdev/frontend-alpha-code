@@ -8,6 +8,10 @@ categories: ["Case de Sucesso", "Psicologia"]
 tags: ["case de sucesso", "site para psicóloga", "SEO", "conversão"]
 ctaType: fundo
 draft: false
+caseClient: "Consultório da Psicóloga Nayanne Justiniano"
+caseRating: 5
+caseReview: "Case real: 15+ contatos qualificados por mês, primeira página no Google e 12% de conversão."
+
 ---
 
 ## O Desafio da Dra. Nayanne

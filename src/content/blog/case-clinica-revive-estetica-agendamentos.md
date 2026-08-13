@@ -6,6 +6,10 @@ heroImage: "/assets/blog/case-clinica-revive-estetica.webp"
 categories: ["Case de Sucesso", "Nichos Profissionais"]
 tags: ["case de sucesso", "clínica de estética", "marketing estética", "seo local", "site para clínica"]
 draft: false
+caseClient: "Clínica de Estética Revive"
+caseRating: 5
+caseReview: "Case real: de 5 para 60 agendamentos mensais em 6 meses com o site de agendamento online."
+
 ctaType: "fundo"
 ---
 

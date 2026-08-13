@@ -8,6 +8,10 @@ categories: ["Case de Sucesso", "Advocacia"]
 tags: ["case de sucesso", "site para advogado", "marketing jurídico", "OAB"]
 ctaType: fundo
 draft: false
+caseClient: "Escritório da Advogada Aline Barbosa"
+caseRating: 5
+caseReview: "Case real: 7 clientes mensais, top 5 no Google e +40% de crescimento em 6 meses com o site jurídico."
+
 ---
 
 ## O Desafio da Dra. Aline Barbosa

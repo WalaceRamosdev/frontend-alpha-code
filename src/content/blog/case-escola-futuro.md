@@ -6,6 +6,9 @@ heroImage: "/assets/blog/case-escola-futuro.webp"
 author: "Alpha Code"
 categories: ["Cases de Sucesso", "Marketing Educacional", "SEO Local"]
 tags: ["escola", "colégio", "site profissional", "seo local", "educação"]
+caseClient: "Colégio Futuro"
+caseRating: 5
+caseReview: "Case real: +150% de solicitações de matrícula, top 5 no Google e receita anual +50%."
 ---
 
 ## O Desafio do Futuro
@@ -73,7 +76,7 @@ O segredo do sucesso do Futuro foi a **prova social**. A Alpha Code criou uma se
 - Depoimentos específicos sobre resultados
 
 Isso gerou confiança imediata nos pais que visitavam o site.
-
 ---
 
 **Quer mais matrículas como o Futuro?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para minha escola) e descubra como podemosposicionar sua escola no topo do Google.
+

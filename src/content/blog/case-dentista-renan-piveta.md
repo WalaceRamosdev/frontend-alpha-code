@@ -8,6 +8,10 @@ categories: ["Case de Sucesso", "Odontologia"]
 tags: ["case de sucesso", "site para dentista", "SEO local", "odontologia"]
 ctaType: fundo
 draft: false
+caseClient: "Clínica Odontológica Renan Piveta"
+caseRating: 5
+caseReview: "Case real: de 8 para 23 consultas por mês (3x), top 3 no Google e 450+ visitas orgânicas mensais."
+
 ---
 
 ## O Desafio do Dr. Renan Piveta

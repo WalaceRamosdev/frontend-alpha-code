@@ -13,6 +13,9 @@ const blog = defineCollection({
         tags: z.array(z.string()).default([]),
         draft: z.boolean().default(false),
         ctaType: z.enum(['topo', 'meio', 'fundo']).default('fundo'),
+        caseClient: z.string().optional(),
+        caseRating: z.number().optional(),
+        caseReview: z.string().optional(),
     }),
 });
 

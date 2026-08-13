@@ -6,6 +6,9 @@ heroImage: "/assets/blog/case-pet-amigo.webp"
 author: "Alpha Code"
 categories: ["Cases de Sucesso", "Marketing Pet", "SEO Local"]
 tags: ["pet shop", "veterinária", "site profissional", "seo local", "agendamento"]
+caseClient: "Pet Shop Amigo"
+caseRating: 5
+caseReview: "Case real: +180% de agendamentos, top 3 no Google e receita mensal +112%."
 ---
 
 ## O Desafio do Amigo
@@ -73,7 +76,7 @@ O segredo do sucesso do Amigo foi a **disponibilidade 24h**. A Alpha Code criou 
 - Contato direto com o veterinário de plantão
 
 Isso gerou confiança imediata nos tutores que precisavam de atendimento de urgência.
-
 ---
 
 **Quer mais agendamentos como o Amigo?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para meu pet shop ou clínica veterinária) e descubra como podemosposicionar seu negócio pet no topo do Google.
+

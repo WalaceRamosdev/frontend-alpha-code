@@ -6,6 +6,9 @@ heroImage: "/assets/blog/case-clinica-revive.webp"
 author: "Alpha Code"
 categories: ["Cases de Sucesso", "Marketing Estética", "SEO Local"]
 tags: ["clínica estética", "site profissional", "seo local", "agendamento online", "beleza"]
+caseClient: "Clínica de Estética Revive"
+caseRating: 5
+caseReview: "Case real: receita de R$ 32 mil para R$ 78 mil por mês (+144%) e agenda 92% preenchida com o novo site."
 ---
 
 ## O Desafio da Revive
@@ -69,7 +72,7 @@ O segredo do sucesso da Revive foi o foco em **SEO local**. A Alpha Code otimizo
 - "estética facial BH"
 
 Isso garantiu que a clínica aparecesse nas buscas locais de pacientes que já estavam prontas para agendar.
-
 ---
 
 **Quer lotar sua agenda como a Revive?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para minha clínica de estética) e descubra como podemosposicionar sua clínica no topo do Google.
+

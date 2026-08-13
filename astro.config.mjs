@@ -17,12 +17,16 @@ export default defineConfig({
   integrations: [
     react(),
     sitemap({
-      // Excluir páginas que não devem ser indexadas: áreas privadas, transacionais
-      // e URLs legadas redirecionadas (criacao-de-sites-*)
+      // Excluir páginas que não devem ser indexadas: áreas privadas, transacionais,
+      // URLs legadas redirecionadas (criacao-de-sites-* da raiz, exceto /local/),
+      // páginas de bairro noindex (cidades/bairros/*) e o redirect itaim-bibi local
       filter: (page) =>
-        !/\/(dashboard|admin|perfil|login|cadastro|obrigado|pedido|parceiro-alpha|faturas|loja|manutencao|compile-images|api|upgrade|oferta-exclusiva|criacao-de-sites-)/.test(
+        !/\/(dashboard|admin|perfil|login|cadastro|obrigado|pedido|parceiro-alpha|faturas|loja|manutencao|compile-images|api|upgrade|oferta-exclusiva)/.test(
           page,
-        ),
+        ) &&
+        !(/\/criacao-de-sites-/.test(page) && !/\/local\/criacao-de-sites-/.test(page)) &&
+        !/\/cidades\/bairros\//.test(page) &&
+        !/\/local\/criacao-de-sites-itaim-bibi-sp/.test(page),
       changefreq: 'weekly',
       priority: 0.7,
       lastmod: new Date(),

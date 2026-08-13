@@ -1,4 +1,11 @@
 {
+    "redirects": [
+        {
+            "source": "/local/criacao-de-sites-itaim-bibi-sp",
+            "destination": "/cidades/itaim-bibi/",
+            "permanent": true
+        }
+    ],
     "headers": [
         {
             "source": "/(assets|fonts|images)/(.+)",

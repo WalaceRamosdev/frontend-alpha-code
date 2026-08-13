@@ -6,6 +6,9 @@ heroImage: "/assets/blog/case-restaurante-sabor.webp"
 author: "Alpha Code"
 categories: ["Cases de Sucesso", "Marketing Gastronômico", "SEO Local"]
 tags: ["restaurante", "cardápio digital", "site profissional", "seo local", "delivery"]
+caseClient: "Restaurante Sabor"
+caseRating: 5
+caseReview: "Case real: pedidos dobraram (+100%), top 3 no Google e margem de lucro +50%."
 ---
 
 ## O Desafio do Sabor
@@ -71,7 +74,7 @@ O segredo do sucesso do Sabor foi a **qualidade visual**. A Alpha Code contratou
 - Detalhes dos ingredientes
 
 Isso fez toda a diferença na experiência do cliente e na taxa de conversão.
-
 ---
 
 **Quer mais pedidos como o Sabor?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para meu restaurante) e descubra como podemosposicionar seu restaurante no topo do Google.
+
