@@ -77,6 +77,119 @@ const pageDescription = buildSEODescription(
     `Criação de site profissional para ${niche.name.toLowerCase()} em ${neighborhood.name}, ${city.name}. SEO local, design premium e alta conversão.`,
 );
 const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/`;
+
+const cityLandmark = city.landmarks[0] ?? neighborhood.landmark;
+function seededHash(seed: string): number {
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+        hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    }
+    return hash;
+}
+const cityFaqHash = seededHash(`${city.slug}-${neighborhood.slug}`);
+const rotatedCityFaq =
+    city.faq.length > 3
+        ? [
+              ...city.faq.slice(cityFaqHash % city.faq.length),
+              ...city.faq.slice(0, cityFaqHash % city.faq.length),
+          ].slice(0, 3)
+        : city.faq.slice(0, 3);
+const faqItems = [
+    ...niche.faq.map((f) => ({
+        question: f.question,
+        answer: f.answer,
+    })),
+    ...rotatedCityFaq.map((f) => ({
+        question: f.question,
+        answer: f.answer,
+    })),
+    {
+        question: `Vocês atendem ${niche.name.toLowerCase()} em ${neighborhood.name}, ${city.name}?`,
+        answer: `Sim. Atendemos ${niche.name.toLowerCase()} em ${neighborhood.name} e em toda ${city.name}. O bairro fica perto de ${cityLandmark}, e o atendimento é 100% remoto, com site entregue otimizado para as buscas locais de "${niche.name.toLowerCase()} em ${neighborhood.name}".`,
+    },
+];
+
+const breadcrumbs = [
+    { name: "Início", url: "https://www.sitesalphacode.com.br/" },
+    {
+        name: `${niche.name}`,
+        url: `https://www.sitesalphacode.com.br/solucoes/${niche.slug}/`,
+    },
+    {
+        name: `${niche.name} em ${city.name}`,
+        url: `https://www.sitesalphacode.com.br/cidades/${city.slug}/`,
+    },
+    {
+        name: `${neighborhood.name}`,
+        url: `https://www.sitesalphacode.com.br${canonical}`,
+    },
+];
+
+const siblingNeighborhoods = (NEIGHBORHOODS[city.slug] ?? []).filter(
+    (n) => n.slug !== neighborhood.slug,
+);
+
+function splitSections(html: string): string[] {
+    const parts = html.split(/<h3>/i);
+    const sections: string[] = [];
+    for (let i = 0; i < parts.length; i++) {
+        const part = parts[i];
+        if (i === 0) {
+            if (part.trim()) sections.push(part);
+            continue;
+        }
+        const end = part.indexOf("</h3>");
+        if (end === -1) continue;
+        sections.push(`<h3>${part}`);
+    }
+    return sections;
+}
+
+function rotateSections(html: string, seed: string, keep: number): string {
+    const sections = splitSections(html);
+    if (sections.length === 0) return html;
+    if (sections.length <= keep) return html;
+    let hash = 0;
+    for (let i = 0; i < seed.length; i++) {
+        hash = (hash * 31 + seed.charCodeAt(i)) >>> 0;
+    }
+    const start = hash % sections.length;
+    const picked: string[] = [];
+    for (let i = 0; i < keep; i++) {
+        picked.push(sections[(start + i) % sections.length]);
+    }
+    return picked.join("");
+}
+
+const cityContent = rotateSections(city.longContent, neighborhood.slug, 2);
+
+function buildLocalParagraphs(): string[] {
+    const n = neighborhood;
+    const c = city;
+    const nicheName = niche.name.toLowerCase();
+    const templates = [
+        `Procurando por "${nicheName} em ${n.name}" no Google, o cliente vê uma lista de opções. Quem tem site profissional com conteúdo local — falando de ${n.name}, de ${n.landmark} e dos serviços oferecidos — ganha a confiança antes mesmo do primeiro contato. É nesse momento que a decisão acontece.`,
+        `${n.name} fica em ${c.name}, região ${c.region.toLowerCase()}. O perfil ${n.type.toLowerCase()} do bairro, com referência em ${n.landmark}, atrai clientes que valorizam atendimento próximo e rápido. Um site localizado para essa busca coloca seu ${nicheName} exatamente onde o cliente já está olhando.`,
+        `Empresas e profissionais de ${n.name} que investem em presença digital costumam vencer a concorrência local: o Google prioriza quem entrega conteúdo relevante sobre o bairro, com dados consistentes de endereço, telefone e horário. Nosso trabalho é transformar o site do seu ${nicheName} na autoridade do bairro.`,
+        `O bairro ${n.name} em ${c.name} tem um comportamento próprio de busca: termos como "${nicheName} ${n.name}", "${nicheName} perto de ${n.landmark}" e "${nicheName} ${c.name} ${n.type.toLowerCase()}" aparecem com frequência. Quem estrutura o site para essas variações locais aparece primeiro.`,
+        `Atendemos ${nicheName} em ${n.name} e em toda ${c.name}, incluindo as regiões próximas a ${c.landmarks.slice(1, 3).join(" e ")}. O site é otimizado para o CEP ${n.cepExample} e arredores, com texto, schema e mapa pensados para o cliente do bairro.`,
+        `Diferente de uma página genérica, a página de ${n.name} é construída com contexto local real: perfil ${n.type.toLowerCase()} do bairro, referência ao ${n.landmark}, CEP ${n.cepExample} e linguagem do cliente de ${c.name}. É isso que converte busca em orçamento.`,
+        `Quem mora em ${n.name} costuma resolver questões de ${nicheName} perto de casa ou do trabalho. Quando o site do profissional aparece entre os primeiros resultados para "${nicheName} em ${n.name}", a proximidade vira vantagem competitiva — e o WhatsApp recebe o contato quente.`,
+        `O Google analisa a relevância local de cada página: menções ao bairro, ao ${n.landmark} e à região de ${c.region} contam pontos. Nossas páginas para ${n.name} são escritas com esse contexto, combinando SEO técnico e texto local para ranquear o seu ${nicheName} na região.`,
+        `Muitos clientes de ${n.name} pesquisam primeiro no celular, na rua, perto de ${n.landmark}. Site rápido, botão de WhatsApp e conteúdo que responde à dúvida do usuário — é a combinação que transforma a busca local em cliente real para o seu ${nicheName}.`,
+        `Atuamos em ${c.name} desde o início da agência e conhecemos o comportamento do público de ${n.name}: busca local, comparação rápida e contato direto. O site que entregamos é feito para vencer essa etapa, com texto, layout e CTA pensados para o bairro.`,
+        `Uma página sobre ${nicheName} em ${n.name} precisa dizer mais do que "atendemos a região". Ela precisa falar a língua do bairro: referências ao ${n.landmark}, ao perfil ${n.type.toLowerCase()} e à rotina de quem vive em ${c.name}. É esse conteúdo que o Google usa para te posicionar.`,
+        `Se um cliente de ${n.name} busca "${nicheName} em ${c.name}" agora, quem aparece? Se você não tem uma página estruturada para o bairro, dificilmente aparece — e o contato vai para a concorrência. Criamos exatamente essa estrutura para ${n.name}, com CEP ${n.cepExample} e contexto local completo.`,
+    ];
+    const hash = seededHash(`${niche.slug}-${n.slug}-${c.slug}`);
+    const picked: string[] = [];
+    for (let i = 0; i < 3; i++) {
+        picked.push(templates[(hash + i * 2) % templates.length]);
+    }
+    return picked;
+}
+
+const localParagraphs = buildLocalParagraphs();
 ---
 
 <BaseLayout
@@ -91,6 +204,8 @@ const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/
         serviceType={niche.name}
         areaServed={[neighborhood.name, city.name]}
         url={`https://www.sitesalphacode.com.br${canonical}`}
+        faqItems={faqItems}
+        breadcrumbs={breadcrumbs}
     />
 
     <article class="atendimento-page">
@@ -179,6 +294,31 @@ const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/
                             ou termos similares. Cada visita qualificada pode se converter
                             em um cliente de alto valor.
                         </p>
+                        <p>
+                            {neighborhood.name} é um bairro de perfil {neighborhood.type.toLowerCase()} em {
+                                city.name
+                            }. Quem mora ou trabalha ali — perto de {neighborhood.landmark} —
+                            costuma dar preferência a profissionais e empresas locais que
+                            transmitem credibilidade. E o primeiro filtro que o cliente
+                            usa é o Google: se você não aparece, o concorrente do bairro
+                            ao lado fecha o negócio.
+                        </p>
+                        {localParagraphs.map((p) => (
+                            <p>{p}</p>
+                        ))}
+                        <p>
+                            As buscas que mais geram clientes em {city.name} são as locais:
+                            {city.localKeywords.slice(0, 3).join(", ")}. Quando o usuário
+                            está perto de {city.landmarks[1] ?? neighborhood.landmark} e
+                            pesquisa por "{niche.name.toLowerCase()} em {neighborhood.name}",
+                            o Google prioriza quem tem site otimizado, ficha no Maps e
+                            conteúdo local relevante. É exatamente essa estrutura que
+                            entregamos.
+                        </p>
+
+                        <div class="niche-content" set:html={niche.detailedContent} />
+
+                        <div class="city-content" set:html={cityContent} />
 
                         <h3>
                             O que entregamos para {niche.name.toLowerCase()} em {
@@ -215,8 +355,43 @@ const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/
                             Atendemos clientes em toda {city.name} e bairros adjacentes.
                             O bairro {neighborhood.name} tem particularidades — {neighborhood.landmark.toLowerCase()}
                             é um ponto de referência importante e impacta diretamente
-                            nas buscas locais.
+                            nas buscas locais. {city.heroIntro}
                         </p>
+
+                        <h3>Perguntas frequentes sobre {niche.name.toLowerCase()} em {neighborhood.name}</h3>
+                        <div class="faq-list">
+                            {faqItems.map((f) => (
+                                <details class="faq-item-local">
+                                    <summary>{f.question}</summary>
+                                    <p>{f.answer}</p>
+                                </details>
+                            ))}
+                        </div>
+
+                        <h3>Benefícios de um site profissional para {niche.name.toLowerCase()}</h3>
+                        <ul class="check-list">
+                            {niche.benefits.map((b) => (
+                                <li>{b}</li>
+                            ))}
+                        </ul>
+
+                        {siblingNeighborhoods.length > 0 && (
+                            <h3>
+                                {niche.name} em outros bairros de {city.name}
+                            </h3>
+                        )}
+                        {siblingNeighborhoods.length > 0 && (
+                            <div class="sibling-grid">
+                                {siblingNeighborhoods.map((n) => (
+                                    <a
+                                        class="sibling-link"
+                                        href={`/atendimento/${niche.slug}/${n.slug}/${city.slug}/`}
+                                    >
+                                        {niche.name} em {n.name}
+                                    </a>
+                                ))}
+                            </div>
+                        )}
                     </div>
 
                     <aside class="content-aside">
@@ -404,6 +579,75 @@ const canonical = `/atendimento/${niche.slug}/${neighborhood.slug}/${city.slug}/
         font-size: 1.4rem;
         color: #fff;
         margin: 32px 0 16px;
+    }
+    .niche-content :global(p),
+    .city-content :global(p) {
+        color: #bbb;
+        line-height: 1.7;
+        font-size: 1.05rem;
+        margin-bottom: 16px;
+    }
+    .niche-content :global(strong),
+    .city-content :global(strong) {
+        color: #fff;
+    }
+    .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-bottom: 16px;
+    }
+    .faq-item-local {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.06);
+        border-radius: 12px;
+        padding: 16px 20px;
+    }
+    .faq-item-local summary {
+        cursor: pointer;
+        color: #fff;
+        font-weight: 600;
+        list-style: none;
+        position: relative;
+        padding-right: 30px;
+    }
+    .faq-item-local summary::after {
+        content: "+";
+        position: absolute;
+        right: 0;
+        color: #d42838;
+        font-weight: 700;
+        font-size: 1.4rem;
+    }
+    .faq-item-local[open] summary::after {
+        content: "−";
+    }
+    .faq-item-local p {
+        color: #aaa;
+        line-height: 1.7;
+        margin-top: 12px;
+    }
+    .sibling-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-bottom: 16px;
+    }
+    .sibling-link {
+        display: inline-block;
+        padding: 8px 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 100px;
+        color: #ccc;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: all 0.2s;
+    }
+    .sibling-link:hover {
+        background: rgba(212, 40, 56, 0.1);
+        border-color: #d42838;
+        color: #fff;
     }
     .content-main p {
         color: #bbb;
