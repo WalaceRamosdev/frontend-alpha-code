@@ -1,11 +1,11 @@
 ---
+export const prerender = true;
+
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import PostCard from "../../components/PostCard.astro";
 import BlogHeader from "../../components/blog/BlogHeader.astro";
 import LeadMagnet from "../../components/ui/LeadMagnet.astro";
-
-export const prerender = false;
 
 const now = new Date();
 
@@ -16,13 +16,33 @@ const posts = allPosts
     .sort(
         (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
     );
+
+const collectionPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Blog Alpha Code - SEO Local e Marketing Digital",
+    description: "Artigos sobre SEO local, criação de sites, marketing digital e presença digital para empresas e profissionais.",
+    url: "https://www.sitesalphacode.com.br/blog/",
+    hasPart: posts.slice(0, 20).map((post) => ({
+        "@type": "Article",
+        headline: post.data.title,
+        url: `https://www.sitesalphacode.com.br/blog/${post.slug}/`,
+        datePublished: post.data.pubDate.toISOString(),
+    })),
+};
 ---
 
 <BaseLayout
-    title="Alpha Insights | O Blog da Alpha Code"
+    title="Blog de SEO Local, Marketing Digital e Criação de Sites | Alpha Code"
     description="Estratégias de presença digital, SEO local e conversão para profissionais e empresas que buscam o topo do Google."
     showHeader={false}
 >
+    <!-- CollectionPage Schema -->
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(collectionPageSchema)}
+        slot="scripts"
+    />
     <!-- Simple Blog Header -->
     <BlogHeader />
 
