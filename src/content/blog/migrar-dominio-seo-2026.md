@@ -27,7 +27,7 @@ Nem toda migração é justificada. Casos legítimos:
 - **Reorganização de marca** (consolidação de subdomínios em domínio principal)
 
 Casos onde **NÃO** vale migrar:
-- "Achei mais bonito" (sem ganho de SEO, branding ou negócio)
+- "Achei mais bonito" (sem ganho de [SEO](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/), branding ou negócio)
 - "Meu concorrente tem o domínio mais bonito" (irrelevante para SEO)
 - "Quero começar do zero" (você não precisa de domínio novo para isso)
 
@@ -41,7 +41,7 @@ Para o Google, **cada domínio é uma entidade separada**. Quando você migra:
 - **O Google Search Console** precisa reconhecer a mudança (não é automática)
 - **A memória de cache** e **backlinks externos** precisam ser atualizados
 
-Sem cuidado, o Google trata o novo domínio como **"site novo"**, com zero autoridade herdada. E leva meses para reconstruir o que o domínio antigo tinha.
+Sem cuidado, o Google trata o novo domínio como **"[site novo](https://www.sitesalphacode.com.br/solucoes/)"**, com zero autoridade herdada. E leva meses para reconstruir o que o domínio antigo tinha.
 
 ## 3. Os 10 Erros Que Destroem SEO na Migração
 

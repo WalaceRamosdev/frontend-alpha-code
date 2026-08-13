@@ -10,7 +10,7 @@ tags: ["clínica estética", "site profissional", "seo local", "agendamento onli
 
 ## O Desafio da Revive
 
-A **Clínica Revive** era uma clínica de estética recém-inaugurada em Belo Horizonte, localizada no bairro Savassi. A proprietária, **Dra. Marina Costa**, tinha 10 anos de experiência em procedimentos estéticos, mas enfrentava um grande desafio:
+A **Clínica Revive** era uma [clínica de estética](https://www.sitesalphacode.com.br/solucoes/estetica/) recém-inaugurada em Belo Horizonte, localizada no bairro Savassi. A proprietária, **Dra. Marina Costa**, tinha 10 anos de experiência em procedimentos estéticos, mas enfrentava um grande desafio:
 
 **Atrair pacientes para uma clínica nova em um mercado extremamente competitivo.**
 
@@ -46,7 +46,7 @@ A Alpha Code desenvolveu uma estratégia focada em **visual premium** e **SEO lo
 
 | Métrica | Antes | Depois | Crescimento |
 |---------|-------|--------|-------------|
-| Agendamentos/mês | 28 | 89 | **+218%** |
+| [Agendamentos](https://www.sitesalphacode.com.br/blog/case-clinica-revive-estetica-agendamentos/)/mês | 28 | 89 | **+218%** |
 | Receita mensal | R$ 32.000 | R$ 78.000 | **+144%** |
 | Posição Google (estética Savassi) | Não aparecia | **Top 5** | - |
 | Preenchimento de agenda | 45% | 92% | **+104%** |

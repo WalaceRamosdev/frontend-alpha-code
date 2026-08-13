@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # A Ilusão das Curtidas vs. O Agendamento Real
 
-Muitos dentistas e gestores de clínicas odontológicas caem na armadilha de acreditar que uma conta no Instagram com milhares de seguidores é sinônimo de agenda cheia de tratamentos premium. No entanto, a realidade do consultório costuma ser diferente: muitos "curiosos" mandando direct, mas poucos pacientes fechando orçamentos de R$ 10k, R$ 20k ou mais.
+Muitos [dentistas](https://www.sitesalphacode.com.br/solucoes/dentistas/) e gestores de clínicas [odontológica](https://www.sitesalphacode.com.br/blog/case-dentista-renan-piveta/)s caem na armadilha de acreditar que uma conta no Instagram com milhares de seguidores é sinônimo de agenda cheia de tratamentos premium. No entanto, a realidade do consultório costuma ser diferente: muitos "curiosos" mandando direct, mas poucos pacientes fechando orçamentos de R$ 10k, R$ 20k ou mais.
 
 O motivo? **Falta de uma base de autoridade sólida.**
 

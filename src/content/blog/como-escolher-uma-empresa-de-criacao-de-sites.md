@@ -11,7 +11,7 @@ ctaType: "meio"
 
 # Como escolher uma empresa de criação de sites
 
-Escolher uma empresa de criação de sites não é apenas uma decisão estética ou operacional. É uma decisão estratégica que impacta diretamente a visibilidade digital, a geração de leads, a credibilidade da marca e o crescimento do negócio.
+Escolher uma [empresa de criação de sites](https://www.sitesalphacode.com.br/solucoes/) não é apenas uma decisão estética ou operacional. É uma decisão estratégica que impacta diretamente a visibilidade digital, a geração de leads, a credibilidade da marca e o crescimento do negócio.
 
 Um site mal planejado pode gerar perda de tráfego, baixa conversão, custos recorrentes desnecessários e até a necessidade de reconstrução completa em pouco tempo.
 
@@ -113,7 +113,7 @@ Muitos projetos baratos se tornam caros por falta de manutenção adequada.
 
 ## 6. Avalie a capacidade estratégica da empresa
 
-Uma empresa de criação de sites não deve apenas programar.
+Uma empresa de [criação de sites](https://www.sitesalphacode.com.br/blog/como-funciona-o-processo-de-criacao-de-um-site/) não deve apenas programar.
 
 Ela deve entender:
 *   Marketing digital

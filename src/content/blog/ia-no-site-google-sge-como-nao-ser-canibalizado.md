@@ -37,7 +37,7 @@ A IA generativa é ótima para **resumir**, mas é medíocre para:
 - **Decisões de alto ticket** (escolha de advogado, médico, arquiteto, investimento)
 - **Queries transacionais locais** ("dentista que atende emergência em Madureira")
 
-Essas categorias representam **mais de 70% do tráfego de sites profissionais** — exatamente o público-alvo da Alpha Code. Logo, o discurso de "SEO morreu por causa da IA" é desonesto e preguiçoso.
+Essas categorias representam **mais de 70% do tráfego de [sites profissionais](https://www.sitesalphacode.com.br/solucoes/)** — exatamente o público-alvo da Alpha Code. Logo, o discurso de "[SEO](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/) morreu por causa da IA" é desonesto e preguiçoso.
 
 ## 3. A Estratégia dos 3 Pilares Para Vencer a SGE
 

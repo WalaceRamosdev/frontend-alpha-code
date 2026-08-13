@@ -10,9 +10,9 @@ tags: ["pet shop", "veterinária", "site profissional", "seo local", "agendament
 
 ## O Desafio do Amigo
 
-O **Pet Shop Amigo** era um pet shop e clínica veterinária em São Paulo, com 12 anos de atuação no bairro de Pinheiros. Apesar da reputação local, a empresa enfrentava um problema crescente:
+O **[Pet Shop](https://www.sitesalphacode.com.br/solucoes/pet/) Amigo** era um pet shop e clínica veterinária em São Paulo, com 12 anos de atuação no bairro de Pinheiros. Apesar da reputação local, a empresa enfrentava um problema crescente:
 
-**Perdendo clientes para pet shops novos com presença digital forte.**
+**Perdendo clientes para pet shops novos com [presença digital](https://www.sitesalphacode.com.br/blog/o-que-toda-empresa-precisa-ter-em-um-site-profissional/) forte.**
 
 > "O mercado pet estava crescendo 15% ao ano, mas nossos agendamentos estavam caindo. Os tutores estavam pesquisando no Google e encontrando concorrentes que investiam em marketing digital."
 

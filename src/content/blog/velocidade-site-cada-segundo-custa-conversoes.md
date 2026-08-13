@@ -11,7 +11,7 @@ ctaType: "meio"
 
 ## O Custo Real da Lentidão
 
-Cada **segundo de atraso** no carregamento do site reduz suas conversões em **7%**. Se seu site gera R$ 10.000 por mês, 3 segundos de atraso significam R$ 2.100 perdidos — todo mês.
+Cada **segundo de atraso** no [carregamento do site](https://www.sitesalphacode.com.br/solucoes/) reduz suas conversões em **7%**. Se seu site gera R$ 10.000 por mês, 3 segundos de atraso significam R$ 2.100 perdidos — todo mês.
 
 Não é exagero. São dados do Google e do Amazon (que perdeu R$ 1.6 bilhão em 2012 por 1 segundo de atraso).
 
@@ -21,7 +21,7 @@ Não é exagero. São dados do Google e do Amazon (que perdeu R$ 1.6 bilhão em 
 **53% dos usuários** abandonam um site que demora mais de 3 segundos para carregar. Não é paciência — é reflexo. O mundo digital treinou as pessoas para esperar respostas instantâneas.
 
 ### 2. SEO (Posicionamento no Google)
-Desde 2021, o Google usa **Core Web Vitals** como fator de ranqueamento. Sites lentos perdem posições — mesmo que o conteúdo seja excelente.
+Desde 2021, o Google usa **[Core Web Vitals](https://www.sitesalphacode.com.br/blog/core-web-vitals-2026-o-que-mudou/)** como fator de ranqueamento. Sites lentos perdem posições — mesmo que o conteúdo seja excelente.
 
 ### 3. Conversões
 Velocidade afeta diretamente:

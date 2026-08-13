@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # O Vilão Silencioso Que 90% dos Sites Não Consegue Identificar
 
-Se o seu site carrega em 5+ segundos no celular, a causa número 1 **não é o JavaScript, não é o CSS, não é o servidor**. São as **imagens**. Estudo do HTTP Archive mostra que imagens representam **51% do peso total** de uma página web média. Em sites mal otimizados, esse número chega a 80%.
+Se o seu site carrega em 5+ segundos no celular, a causa número 1 **não é o JavaScript, não é o CSS, não é o servidor**. São as **imagens**. Estudo do HTTP Archive mostra que imagens representam **51% do peso total** de uma [página](https://www.sitesalphacode.com.br/solucoes/) web média. Em sites mal otimizados, esse número chega a 80%.
 
-O Google usa o **LCP (Largest Contentful Paint)** como métrica de ranqueamento, e o elemento LCP é, em **75% dos sites**, uma imagem — geralmente o hero/banner principal. Se essa imagem demora para carregar, **seu ranqueamento despenca**.
+O Google usa o **[LCP](https://www.sitesalphacode.com.br/blog/velocidade-site-cada-segundo-custa-conversoes/) (Largest Contentful Paint)** como métrica de ranqueamento, e o elemento LCP é, em **75% dos sites**, uma imagem — geralmente o hero/banner principal. Se essa imagem demora para carregar, **seu ranqueamento despenca**.
 
 Neste artigo, vou abrir o arsenal técnico para resolver isso em 1 tarde.
 

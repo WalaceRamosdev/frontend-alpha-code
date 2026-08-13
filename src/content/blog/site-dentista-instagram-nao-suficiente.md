@@ -24,7 +24,7 @@ O algoritmo do Instagram mostra seu conteúdo para **5-15% dos seguidores**. Se 
 No Instagram, você "atira para todos". No Google, o paciente já está procurando exatamente o que você oferece. A diferença é brutal.
 
 ### 3. Confiança Zero
-Um perfil de Instagram não transmite a mesma credibilidade que um site profissional com:
+Um perfil de Instagram não transmite a mesma credibilidade que um [site profissional](https://www.sitesalphacode.com.br/solucoes/dentistas/) com:
 - Informações detalhadas sobre procedimentos
 - Depoimentos de pacientes
 - Fotos de infraestrutura
@@ -105,7 +105,7 @@ Um consultório de implantodontia implementou:
 ## A Fórmula Completa
 
 1. **Site profissional** → Transmite credibilidade
-2. **SEO local** → Atrai pacientes que buscam ativamente
+2. **[SEO local](https://www.sitesalphacode.com.br/blog/case-dentista-renan-piveta/)** → Atrai pacientes que buscam ativamente
 3. **Conteúdo educativo** → Gera autoridade e confiança
 4. **WhatsApp integrado** → Fecha agendamento rápido
 5. **Prova social** → Converte visitantes em pacientes

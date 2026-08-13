@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 ## A Advocacia no Digital: Uma Revolução Silenciosa
 
-Enquanto muitos advogados ainda acham que "cliente vem por indicação", uma parcela crescente já fatura mais de R$ 50 mil por mês com clientes que nunca viram na vida — e que os encontraram no Google.
+Enquanto muitos [advogados](https://www.sitesalphacode.com.br/solucoes/advogados/) ainda acham que "cliente vem por indicação", uma parcela crescente já fatura mais de R$ 50 mil por mês com clientes que nunca viram na vida — e que os encontraram no Google.
 
 A transformação digital da advocacia não é mais tendência. É realidade. E quem não embarcar nessa agora vai ficar para trás.
 
@@ -86,7 +86,7 @@ Formulários inteligentes, WhatsApp automatizado, e-mail marketing para nurturin
 
 ## Estudo de Caso Real
 
-Um escritório de advocacia trabalhista em Nova Iguaçu implementou estratégia completa de marketing digital:
+Um escritório de advocacia trabalhista em Nova Iguaçu implementou estratégia completa de [marketing digital](https://www.sitesalphacode.com.br/blog/marketing-juridico-multicanal-2026/):
 
 - **Antes:** 3-5 contatos por mês, todos por indicação
 - **Depois de 6 meses:** 40+ contatos por mês, 60% via site/Google

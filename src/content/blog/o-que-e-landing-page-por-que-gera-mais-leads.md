@@ -23,8 +23,8 @@ Muitas empresas confundem os dois conceitos. Veja a diferença real:
 |---|---|---|
 | **Objetivo** | Informar, comunicar marca | Converter, gerar lead |
 | **Navegação** | Menu completo, múltiplos links | Sem menu, foco total na CTA |
-| **Conteúdo** | Várias páginas, blog, portfólio | Uma única página, conteúdo direcionado |
-| **Métrica principal** | Tráfego, tempo no site | Taxa de conversão |
+| **Conteúdo** | Várias [páginas](https://www.sitesalphacode.com.br/solucoes/), blog, portfólio | Uma única página, conteúdo direcionado |
+| **Métrica principal** | Tráfego, tempo no site | Taxa de [conversão](https://www.sitesalphacode.com.br/blog/cro-conversion-rate-optimization-2026/) |
 | **Exemplo** | sitesalphacode.com.br | sitesalphacode.com.br/diagnostico-gratuito |
 
 ### Por que a landing page converte mais?

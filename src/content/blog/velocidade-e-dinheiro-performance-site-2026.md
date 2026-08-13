@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # Velocidade é Dinheiro: A Nova Moeda do Digital em 2026
 
-Na internet de 2026, a paciência do usuário não é mais medida em segundos serenos, mas em milissegundos críticos. Se o seu site demora para carregar, o seu cliente não espera: ele volta para o Google e clica no concorrente.
+Na internet de 2026, a paciência do usuário não é mais medida em segundos serenos, mas em milissegundos críticos. Se o [seu site](https://www.sitesalphacode.com.br/solucoes/) demora para carregar, o seu cliente não espera: ele volta para o Google e clica no concorrente.
 
-A performance web deixou de ser um "diferencial técnico" para se tornar o principal pilar de **retenção de clientes** e **rankeamento orgânico**.
+A [performance web](https://www.sitesalphacode.com.br/blog/velocidade-site-cada-segundo-custa-conversoes/) deixou de ser um "diferencial técnico" para se tornar o principal pilar de **retenção de clientes** e **rankeamento orgânico**.
 
 ## O Custo Invisível da Lentidão
 

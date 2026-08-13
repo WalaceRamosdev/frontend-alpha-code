@@ -11,7 +11,7 @@ ctaType: "meio"
 
 ## O Que Mudou no Google Meu Negócio em 2026
 
-O Google não parou de atualizar. Em 2026, o Google Meu Negócio (agora chamado de **Google Business Profile**) passou por mudanças significativas que alteraram quem aparece e quem some do mapa.
+O Google não parou de atualizar. Em 2026, o [Google Meu Negócio](https://www.sitesalphacode.com.br/blog/google-meu-negocio-2026-como-dominar-maps/) (agora chamado de **Google Business Profile**) passou por mudanças significativas que alteraram quem aparece e quem some do mapa.
 
 Se você não se adaptou, provavelmente já sentiu o impacto — menos visualizações, menos cliques, menos ligações.
 
@@ -69,7 +69,7 @@ Com a IA generativa do Google, o site ganhou novo papel:
 
 ### Exemplo Prático
 Um paciente busca "melhor dentista para implante em Duque de Caxias". O Google:
-1. Mostra o Google Maps com os 3 primeiros
+1. Mostra o [Google Maps](https://www.sitesalphacode.com.br/blog/como-aparecer-no-google-maps-guia-definitivo/) com os 3 primeiros
 2. Gera uma resposta com IA mencionando detalhes
 3. O paciente clica no site para ver mais
 

@@ -13,7 +13,7 @@ ctaType: "fundo"
 
 Se você ainda trata o **Google Meu Negócio** (agora chamado oficialmente de *Perfil de Empresas do Google*) como uma simples "fichinha de cadastro" para aparecer no Maps, prepare-se: **você está sendo engolido por concorrentes que entenderam o jogo de 2026**.
 
-Em 2026, o algoritmo do Google Maps não olha apenas para *proximidade, relevância e reputação* — a tríade clássica. Ele adicionou camadas de **sinais comportamentais**, **entidades semânticas** e **autoridade cruzada com o site oficial** que tornam o jogo exponencialmente mais complexo para amadores e absurdamente lucrativo para profissionais.
+Em 2026, o algoritmo do Google Maps não olha apenas para *proximidade, relevância e reputação* — a tríade clássica. Ele adicionou camadas de **sinais comportamentais**, **entidades semânticas** e **autoridade cruzada com o [site oficial](https://www.sitesalphacode.com.br/solucoes/)** que tornam o jogo exponencialmente mais complexo para amadores e absurdamente lucrativo para profissionais.
 
 Neste artigo, vamos abrir a caixa-preta do que mudou e o playbook exato para fazer seu negócio dominar o mapa da sua cidade.
 
@@ -100,7 +100,7 @@ Contratar uma **agência genérica** que "cuida do Google Meu Negócio" como um 
 
 ### A Alpha Code Domina Google Maps em 2026
 
-Na Alpha Code, trabalhamos o **Google Meu Negócio como uma frente integrada de SEO local**, alinhada com o site institucional, Schema.org, blog com conteúdo geo-referenciado e aquisição ativa de avaliações qualificadas. O resultado: clientes que conquistaram o *map pack* da cidade em 90 dias.
+Na Alpha Code, trabalhamos o **Google Meu Negócio como uma frente integrada de [SEO local](https://www.sitesalphacode.com.br/blog/como-aparecer-no-google-maps-guia-definitivo/)**, alinhada com o site institucional, Schema.org, blog com conteúdo geo-referenciado e aquisição ativa de avaliações qualificadas. O resultado: clientes que conquistaram o *map pack* da cidade em 90 dias.
 
 Se o seu negócio depende de clientes locais — advogados, médicos, dentistas, restaurantes, prestadores de serviço — seu Perfil de Empresas precisa de uma estratégia de elite, não de um "post aleatório por mês".
 

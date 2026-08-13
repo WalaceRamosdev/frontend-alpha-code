@@ -30,7 +30,7 @@ CRO é:
 - ✅ **Método científico** de teste e validação
 - ✅ Análise de **dados comportamentais** reais
 - ✅ Melhoria contínua baseada em **hipóteses validadas**
-- ✅ Foco no **funil inteiro** (não só na landing page)
+- ✅ Foco no **funil inteiro** (não só na [landing page](https://www.sitesalphacode.com.br/blog/o-que-e-landing-page-por-que-gera-mais-leads/))
 - ✅ Conhecimento profundo do **usuário real**
 
 ## 2. O Framework CRO-7 da Alpha Code
@@ -43,7 +43,7 @@ A pergunta #1 que todo visitante faz nos primeiros 3 segundos: **"Esse site reso
 **Teste da Avó:** mostre a página para alguém que não conhece seu negócio por 3 segundos. Depois pergunte "o que essa empresa faz?". Se a pessoa errar, **você perdeu 90% da conversão potencial**.
 
 **Otimizações:**
-- Headline clara e específica (não "Bem-vindo", sim "Sites profissionais que aparecem no Google em 60 dias")
+- Headline clara e específica (não "Bem-vindo", sim "[Sites profissionais](https://www.sitesalphacode.com.br/solucoes/) que aparecem no Google em 60 dias")
 - Sub-headline reforça o *para quem* e o *resultado esperado*
 - Imagem/visual do hero reforça a proposta (não é decorativo)
 

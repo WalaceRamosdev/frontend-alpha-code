@@ -13,7 +13,7 @@ ctaType: "fundo"
 
 No campo da psicologia, a confiança é o alicerce de todo o trabalho clínico. No entanto, em 2026, essa confiança começa a ser construída muito antes da primeira sessão (seja ela presencial ou online). Ela começa no momento em que um potencial paciente busca por ajuda no Google e encontra o seu site.
 
-Ter um site profissional não é mais apenas uma questão de estética; é sobre criar um ambiente acolhedor e seguro que funcione como a extensão digital do seu consultório. Neste guia, vamos explorar como estruturar o seu site para atrair e converter visitantes em pacientes de forma ética e eficiente.
+Ter um [site profissional](https://www.sitesalphacode.com.br/solucoes/psicologos/) não é mais apenas uma questão de estética; é sobre criar um ambiente acolhedor e seguro que funcione como a extensão digital do seu consultório. Neste guia, vamos explorar como estruturar o seu site para atrair e converter visitantes em pacientes de forma ética e eficiente.
 
 ## 1. O Conceito de "Clínica Digital"
 
@@ -29,7 +29,7 @@ Para que um site realmente gere resultados, ele precisa conter elementos estrat�
 Psicologia é sobre pessoas. Uma foto profissional e um texto que descreva não apenas o seu currículo, mas a sua **abordagem clínica** (TCC, Psicanálise, Logoterapia, etc.) e sua forma de trabalhar, ajudam a quebrar o gelo inicial.
 
 ### Especialidades e Áreas de Atuação
-Não tente ser "clínico geral" para todos. Se você é especialista em ansiedade, depressão, terapia de casal ou luto, deixe isso claro. Criar páginas separadas para cada especialidade é um dos segredos do **SEO para psicólogos**, pois atrai quem busca por uma solução específica.
+Não tente ser "clínico geral" para todos. Se você é especialista em ansiedade, depressão, terapia de casal ou luto, deixe isso claro. Criar páginas separadas para cada especialidade é um dos segredos do **SEO para [psicólogos](https://www.sitesalphacode.com.br/blog/psicologos-perdem-pacientes-por-falta-de-site/)**, pois atrai quem busca por uma solução específica.
 
 ### Botão de Agendamento/WhatsApp visível
 O processo de busca por terapia muitas vezes vem acompanhado de uma carga emocional alta. Não dificulte o contato. Tenha um botão de WhatsApp flutuante e um formulário de contato simples e intuitivo.

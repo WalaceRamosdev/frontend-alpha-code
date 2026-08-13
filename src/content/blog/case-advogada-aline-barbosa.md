@@ -23,13 +23,13 @@ O site que Aline possuía havia sido criado anos atrás por um conhecido, sem pr
 - **Responsividade comprometida:** O site não funcionava adequadamente em dispositivos móveis
 - **Velocidade lenta:** Imagens não otimizadas e código desnecessário tornavam a experiência frustrante
 
-O pior de tudo: quando potenciais clientes pesquisavam o nome de Aline no Google, encontravam esse site amador que, em vez de gerar confiança, **afastava pessoas qualificadas**. A advogada percebia que estava perdendo clientes para concorrentes com presença digital superior, mesmo sendo mais experiente e bem recomendada.
+O pior de tudo: quando potenciais clientes pesquisavam o nome de Aline no Google, encontravam esse site amador que, em vez de gerar confiança, **afastava pessoas qualificadas**. A advogada percebia que estava perdendo clientes para concorrentes com [presença digital](https://www.sitesalphacode.com.br/solucoes/advogados/) superior, mesmo sendo mais experiente e bem recomendada.
 
 A questão que motivou a mudança foi: **como construir uma presença digital que transmita a mesma autoridade e seriedade que o escritório oferece presencialmente?**
 
 ## A Solução: Site Premium com Conformidade OAB e SEO Jurídico
 
-A Alpha Code entendeu que o projeto de um escritório de advocacia exigia um nível de profissionalismo e conformidade regulatória diferente de outros segmentos. A estratégia foi desenvolver um site que simultaneamente **gerasse autoridade digital e cumprisse rigorosamente as normas da OAB** para marketing jurídico.
+A Alpha Code entendeu que o projeto de um escritório de advocacia exigia um nível de profissionalismo e conformidade regulatória diferente de outros segmentos. A estratégia foi desenvolver um site que simultaneamente **gerasse autoridade digital e cumprisse rigorosamente as normas da OAB** para [marketing jurídico](https://www.sitesalphacode.com.br/blog/site-para-advogados-digitalizacao-advocacia-2026/).
 
 ### Conformidade com as Normas da OAB
 

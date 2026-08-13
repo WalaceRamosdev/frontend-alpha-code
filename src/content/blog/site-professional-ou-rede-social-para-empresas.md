@@ -13,7 +13,7 @@ ctaType: "topo"
 
 "Para que eu preciso de um site se já tenho um Instagram bombando?". Essa é a pergunta que muitos empreendedores fazem — e que muitos deles lamentam quando é tarde demais. 
 
-Em 2026, com o amadurecimento do mercado digital, a resposta ficou clara: as redes sociais são excelentes para atrair atenção, mas o **site profissional é onde a venda e a autoridade se consolidam**. Se você constrói sua presença digital apenas em redes sociais, você está construindo um castelo em terreno alugado.
+Em 2026, com o amadurecimento do mercado digital, a resposta ficou clara: as redes sociais são excelentes para atrair atenção, mas o **[site profissional](https://www.sitesalphacode.com.br/solucoes/) é onde a venda e a autoridade se consolidam**. Se você constrói sua presença digital apenas em redes sociais, você está construindo um castelo em terreno alugado.
 
 ## O Perigo do "Terreno Alugado"
 
@@ -38,7 +38,7 @@ O site é o validador de competência. Ele comunica visualmente que sua empresa 
 
 Enquanto um post no Instagram tem uma "vida útil" de cerca de 24 a 48 horas antes de sumir no esquecimento do feed, um artigo bem escrito no seu site (como este que você lê) pode **gerar leads por anos**.
 
-Através do SEO (Otimização para Motores de Busca), seu site trabalha enquanto você dorme, captando a intenção de compra de pessoas que estão pesquisando exatamente pelo que você oferece. É a diferença entre "caçar" clientes (redes sociais) e "ser encontrado" por quem já quer comprar (site).
+Através do [SEO](https://www.sitesalphacode.com.br/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia/) (Otimização para Motores de Busca), seu site trabalha enquanto você dorme, captando a intenção de compra de pessoas que estão pesquisando exatamente pelo que você oferece. É a diferença entre "caçar" clientes (redes sociais) e "ser encontrado" por quem já quer comprar (site).
 
 ## A Jornada de Compra em 2026
 

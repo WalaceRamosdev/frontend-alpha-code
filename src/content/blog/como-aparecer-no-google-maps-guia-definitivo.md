@@ -78,7 +78,7 @@ Avaliações são o **fator de ranqueamento #1** para negócios locais. Mas não
 
 ## Passo 5: Posts e Atualizações
 
-O Google Meu Negócio permite publicar posts semanais. Use para:
+O [Google Meu Negócio](https://www.sitesalphacode.com.br/blog/google-meu-negocio-2026-como-dominar-maps/) permite publicar posts semanais. Use para:
 
 - **Ofertas e promoções** ("10% de desconto esta semana")
 - **Novidades** ("Agora atendemos aos sábados")
@@ -110,7 +110,7 @@ Isso cria confiança e responde dúvidas antes que o cliente desista.
 Ter um Google Meu Negócio otimizado é essencial, mas não é suficiente. O site completo o ciclo:
 
 1. **Google Maps** → Atrai visitas e ligações
-2. **Site profissional** → Converte visitantes em leads
+2. **[Site profissional](https://www.sitesalphacode.com.br/solucoes/)** → Converte visitantes em leads
 3. **Blog** → Gera autoridade e tráfego orgânico adicional
 4. **WhatsApp** → Fecha o negócio rapidamente
 

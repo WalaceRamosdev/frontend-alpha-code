@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # Landing Page ou Site Completo: qual a melhor escolha para 2026?
 
-Uma das maiores dúvidas de quem está começando a investir em presença digital é: "Devo fazer uma Landing Page ou um Site Institucional completo?". Escolher o formato errado pode significar pagar por algo que você não precisa ou, pior, ter uma ferramenta que não atende aos seus objetivos de vendas.
+Uma das maiores dúvidas de quem está começando a investir em presença digital é: "Devo fazer uma [Landing Page](https://www.sitesalphacode.com.br/blog/o-que-e-landing-page-por-que-gera-mais-leads/) ou um [Site Institucional](https://www.sitesalphacode.com.br/solucoes/) completo?". Escolher o formato errado pode significar pagar por algo que você não precisa ou, pior, ter uma ferramenta que não atende aos seus objetivos de vendas.
 
 Neste artigo, vamos desmistificar as diferenças e te ajudar a tomar a decisão mais lucrativa.
 

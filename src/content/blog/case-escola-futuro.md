@@ -12,9 +12,9 @@ tags: ["escola", "colégio", "site profissional", "seo local", "educação"]
 
 O **Colégio Futuro** era uma instituição de ensino com 20 anos de tradição em Curitiba, oferecendo educação do fundamental ao médio. Apesar da excelência pedagógica, a escola enfrentava um problema crescente:
 
-**Perdendo matrículas para concorrentes com presença digital forte.**
+**Perdendo matrículas para concorrentes com [presença digital](https://www.sitesalphacode.com.br/solucoes/escolas/) forte.**
 
-> "Nossos pais eram tradicionais e vinham por indicação. Mas as novas gerações de pais pesquisavam tudo no Google antes de escolher a escola. E quando pesquisavam, nós não aparecíamos."
+> "Nossos pais eram tradicionais e vinham por indicação. Mas as novas gerações de pais pesquisavam tudo no [Google](https://www.sitesalphacode.com.br/blog/o-que-toda-empresa-precisa-ter-em-um-site-profissional/) antes de escolher a escola. E quando pesquisavam, nós não aparecíamos."
 
 A pesquisa mostrava que 78% dos pais pesquisavam no Google antes de escolher uma escola para seus filhos. Termos como:
 - "melhor escola em Curitiba"

@@ -31,7 +31,7 @@ Para que seu site realmente gere resultados, ele precisa seguir estes pilares:
 A medicina é baseada em confiança. Seu site deve refletir isso com um design limpo, cores harmoniosas (focadas na psicologia da saúde) e tipografia legível. Fotos reais da sua clínica e da sua equipe humanizam o atendimento antes mesmo do primeiro contato.
 
 ### 2. SEO Local: Seja encontrado no momento certo
-O "SEO Local" é o que faz você aparecer no topo quando alguém busca por sua especialidade na sua região. Ter um site otimizado com as palavras-chave certas e integrado ao Google Maps é a estratégia número 1 para atrair pacientes qualificados.
+O "[SEO Local](https://www.sitesalphacode.com.br/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia/)" é o que faz você aparecer no topo quando alguém busca por sua especialidade na sua região. Ter um site otimizado com as palavras-chave certas e integrado ao Google Maps é a estratégia número 1 para atrair pacientes qualificados.
 
 ### 3. Ética e Conformidade (Regras do CFM)
 O marketing médico possui regras rigorosas. Um site profissional garante que você esteja em conformidade com o Código de Ética Médica (CFM), evitando sensacionalismos e prometendo resultados impossíveis, focando sempre no caráter informativo e educativo.
@@ -53,7 +53,7 @@ Não adianta atrair o visitante se ele não entender o que você faz. Invista em
 
 ## Conclusão: O seu próximo passo digital
 
-Um site para médicos não deve ser apenas uma "página na web", mas sim uma extensão da sua clínica no mundo digital. Ele trabalha para você 24 horas por dia, educando pacientes e organizando sua agenda.
+Um [site para médicos](https://www.sitesalphacode.com.br/solucoes/medicos/) não deve ser apenas uma "página na web", mas sim uma extensão da sua clínica no mundo digital. Ele trabalha para você 24 horas por dia, educando pacientes e organizando sua agenda.
 
 **Quer transformar sua presença digital com um site que realmente carrega sua expertise?**
 

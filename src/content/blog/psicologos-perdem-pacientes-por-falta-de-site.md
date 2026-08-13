@@ -10,7 +10,7 @@ ctaType: fundo
 draft: false
 ---
 
-A maioria dos psicólogos não tem problema de competência. Tem problema de visibilidade. Hoje, quando alguém decide procurar ajuda psicológica, o primeiro passo quase nunca é uma indicação direta. É uma pesquisa no Google por um **site profissional para psicólogos**.
+A maioria dos psicólogos não tem problema de competência. Tem problema de visibilidade. Hoje, quando alguém decide procurar ajuda psicológica, o primeiro passo quase nunca é uma indicação direta. É uma pesquisa no Google por um **[site profissional](https://www.sitesalphacode.com.br/solucoes/psicologos/) para psicólogos**.
 
 E se você não tem um site claro, profissional e confiável, simplesmente não entra na lista de escolhas. Este guia existe para resolver essa lacuna e posicionar sua clínica com excelência.
 
@@ -34,7 +34,7 @@ O processo de escolha emocional passa por quatro filtros obrigatórios no site:
 Um site ético para psicólogos deve ser informativo e educativo. Nunca prometa cura ou utilize depoimentos sensacionalistas. A autoridade deve ser construída através de conteúdo de valor e seriedade.
 
 ### SEO para psicólogos: aparecendo para quem precisa de ajuda
-O SEO não é truque, é estrutura. Utilizar palavras-chave como "Psicólogo online" ou "Terapia para ansiedade em [sua cidade]" ajuda o Google a te conectar com Leads qualificados. Isso faz parte da estratégia de [SEO Local que explicamos neste post](/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia).
+O [SEO](https://www.sitesalphacode.com.br/blog/case-psicologa-nayanne-justiniano/) não é truque, é estrutura. Utilizar palavras-chave como "Psicólogo online" ou "Terapia para ansiedade em [sua cidade]" ajuda o Google a te conectar com Leads qualificados. Isso faz parte da estratégia de [SEO Local que explicamos neste post](/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia).
 
 ## Conclusão: Deixe de ser invisível para seus pacientes
 

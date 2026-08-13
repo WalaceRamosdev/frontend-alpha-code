@@ -16,7 +16,7 @@ A Dra. Nayanne Justiniano é uma psicóloga clínica com mais de 10 anos de expe
 
 Seu fluxo de novos pacientes era imprevisível. Em alguns meses, recebia 2 ou 3 indicações. Em outros, quase nenhuma. Não havia um canal previsível e escalável para atrair pessoas que estivessem buscando ativamente por uma psicóloga na região.
 
-Além disso, Nayanne percebia que muitas pessoas que a procuravam já haviam pesquisado no Google antes. Porém, sem um site profissional, elas encontravam concorrentes — muitas vezes com menos experiência, mas com presença digital fortalecida.
+Além disso, Nayanne percebia que muitas pessoas que a procuravam já haviam pesquisado no Google antes. Porém, sem um [site profissional](https://www.sitesalphacode.com.br/solucoes/psicologos/), elas encontravam concorrentes — muitas vezes com menos experiência, mas com presença digital fortalecida.
 
 A pergunta que ficou: **como transformar a expertise da Dra. Nayanne em uma máquina de atração de pacientes?**
 
@@ -28,7 +28,7 @@ A Alpha Code foi contratada para desenvolver um site completo para a Dra. Nayann
 
 O primeiro passo foi pesquisar as palavras-chave que os potenciais pacientes estavam digitando no Google. Termos como *"psicóloga em São Paulo"*, *"psicólogo perto de mim"*, *"terapia online"* e *"atendimento psicológico"* foram mapeados e estrategicamente inseridos nas páginas do site.
 
-A página principal foi otimizada para SEO local, incluindo:
+A página principal foi otimizada para [SEO](https://www.sitesalphacode.com.br/blog/psicologos-perdem-pacientes-por-falta-de-site/) local, incluindo:
 - **Título otimizado** com a localidade e especialidade
 - **Meta descrição persuasiva** que aumenta a taxa de cliques
 - **Schema markup** para profissional de saúde

@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # A Verdade Inconveniente: O Google Vê seu Site pelo Celular
 
-Se você desenha sites olhando o monitor do seu Mac de 32 polegadas, **você está otimizando para o Google de 2015**. Desde julho de 2023, o Google prioriza a **versão mobile** do seu site para indexação e ranqueamento. Isso não é tendência — é regra consolidada em 2026, e ainda tem agência que ignora.
+Se você desenha [sites](https://www.sitesalphacode.com.br/solucoes/) olhando o monitor do seu Mac de 32 polegadas, **você está otimizando para o Google de 2015**. Desde julho de 2023, o Google prioriza a **versão mobile** do seu site para indexação e ranqueamento. Isso não é tendência — é regra consolidada em 2026, e ainda tem agência que ignora.
 
 O cenário é grave: estudos recentes indicam que **60% dos sites brasileiros** têm performance, conteúdo ou estrutura diferentes (e piores) na versão mobile do que na desktop. Esses sites sofrem **penalização silenciosa** — não há notificação, apenas queda gradual de posições que o dono atribui a "Google mudou o algoritmo".
 
@@ -79,7 +79,7 @@ Muitos sites mobile-first **não renderizam o conteúdo** até o JS executar. Se
 **Status em 2026:** só vale para apps complexos (Uber, iFood, WhatsApp). Para a maioria dos negócios, **PWA cobre 90% dos casos a 10% do custo**.
 
 ### SSR Mobile-First (Server-Side Rendering responsivo)
-**Status em 2026:** **o padrão de mercado**. Frameworks como Astro, Next.js 15, SvelteKit renderizam HTML completo no servidor, e o CSS/JS adaptam ao viewport. Performance excelente, SEO perfeito, zero complexidade mobile.
+**Status em 2026:** **o padrão de mercado**. Frameworks como Astro, Next.js 15, SvelteKit renderizam HTML completo no servidor, e o CSS/JS adaptam ao viewport. Performance excelente, [SEO](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/) perfeito, zero complexidade mobile.
 
 A Alpha Code entrega todos os sites em SSR mobile-first. É o padrão da empresa desde 2022.
 

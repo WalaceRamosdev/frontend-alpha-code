@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # O Dinheiro Que Você Deixa na Mesa Por Não Fazer Remarketing Certo
 
-Estudos do setor mostram que **97% dos visitantes do seu site não convertem na primeira visita**. Em e-commerce B2C, esse número pode chegar a 99%. Isso significa que, sem remarketing, você está literalmente **jogando 97% do seu investimento em tráfego no lixo**.
+Estudos do setor mostram que **97% dos visitantes do seu [site](https://www.sitesalphacode.com.br/blog/o-que-e-landing-page-por-que-gera-mais-leads/) não convertem na primeira visita**. Em e-commerce B2C, esse número pode chegar a 99%. Isso significa que, sem remarketing, você está literalmente **jogando 97% do seu investimento em tráfego no lixo**.
 
 A boa notícia: remarketing é uma das alavancas de maior ROI em marketing digital. A má notícia: a maioria das empresas **escolhe só um tipo de remarketing** e ignora o outro, perdendo sinergia.
 
@@ -19,7 +19,7 @@ Vamos abrir as duas abordagens e como combiná-las.
 
 ## 1. O Que É Remarketing (Em 30 Segundos)
 
-Remarketing (ou retargeting) é mostrar **anúncios específicos para pessoas que já interagiram com seu negócio** — visitaram seu site, abriram seu e-mail, assistiram seu vídeo, ou têm perfil demográfico similar ao seu cliente ideal.
+Remarketing (ou retargeting) é mostrar **anúncios específicos para pessoas que já interagiram com seu negócio** — visitaram seu [site](https://www.sitesalphacode.com.br/solucoes/), abriram seu e-mail, assistiram seu vídeo, ou têm perfil demográfico similar ao seu cliente ideal.
 
 A lógica: alguém que **já te conhece** é muito mais fácil de converter do que alguém que está te vendo pela primeira vez. O remarketing "lembra" a sua marca e mantém você **top of mind** até o momento da decisão de compra.
 

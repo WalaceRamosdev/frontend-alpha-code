@@ -55,7 +55,7 @@ const {
         "https://www.instagram.com/alphacodesites/",
         "https://www.linkedin.com/company/alphacode",
         "https://www.youtube.com/@alphacode",
-        "https://www.facebook.com/alphacode",
+        "https://www.facebook.com/alphacodesites",
         "https://www.behance.net/alphacode",
     ],
     priceRange = "$$",
@@ -107,6 +107,7 @@ const organizationSchemas: string[] = [
 
 let orgSchema: any = null;
 if (organizationSchemas.includes(type)) {
+    const isBrand = type === "Organization";
     orgSchema = {
         "@context": "https://schema.org",
         "@type":
@@ -115,7 +116,7 @@ if (organizationSchemas.includes(type)) {
                 : type === "LocalBusiness"
                   ? "LocalBusiness"
                   : "ProfessionalService",
-        "@id": `${url}#organization`,
+        "@id": isBrand ? `${url}#organization` : `${url}#localbusiness`,
         name,
         alternateName: "Alpha Code",
         url,
@@ -128,6 +129,9 @@ if (organizationSchemas.includes(type)) {
         ...(baseGeo ? { geo: baseGeo } : {}),
         priceRange,
         sameAs,
+        ...(!isBrand && {
+            parentOrganization: { "@id": `${url}#organization` },
+        }),
         areaServed: areaServed ?? [
             { "@type": "Country", name: "Brasil" },
             { "@type": "AdministrativeArea", name: "Rio de Janeiro" },
@@ -158,7 +162,7 @@ if (type === "Dentist" || type === "MedicalBusiness") {
     dentistSchema = {
         "@context": "https://schema.org",
         "@type": type,
-        "@id": `${url}#organization`,
+        "@id": `${url}#localbusiness`,
         name,
         alternateName: "Alpha Code",
         url,
@@ -171,6 +175,7 @@ if (type === "Dentist" || type === "MedicalBusiness") {
         ...(baseGeo ? { geo: baseGeo } : {}),
         priceRange,
         sameAs,
+        parentOrganization: { "@id": `${url}#organization` },
         areaServed: areaServed ?? [
             { "@type": "Country", name: "Brasil" },
             { "@type": "AdministrativeArea", name: "Rio de Janeiro" },

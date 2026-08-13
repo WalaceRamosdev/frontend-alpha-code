@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # A Armadilha do "Site Perfeito"
 
-No mundo do desenvolvimento web moderno, fala-se muito sobre métricas: Core Web Vitals, LCP, velocidade de carregamento, 100/100 no PageSpeed. Tudo isso é vital. No entanto, existe um erro comum que muitas agências cometem: entregar um site que voa, mas que não **converte**.
+No mundo do desenvolvimento web moderno, fala-se muito sobre métricas: Core Web Vitals, LCP, velocidade de carregamento, 100/100 no PageSpeed. Tudo isso é vital. No entanto, existe um erro comum que muitas agências cometem: entregar um [site](https://www.sitesalphacode.com.br/solucoes/) que voa, mas que não **converte**.
 
-Ter um site ultra-rápido sem uma estratégia de **Copywriting (Escrita Persuasiva)** é como ter uma Ferrari sem combustível. Ela é linda, tecnicamente superior, mas não sai do lugar.
+Ter um site ultra-rápido sem uma estratégia de **[Copywriting](https://www.sitesalphacode.com.br/blog/landing-page-ou-site-completo-qual-escolher/) (Escrita Persuasiva)** é como ter uma Ferrari sem combustível. Ela é linda, tecnicamente superior, mas não sai do lugar.
 
 ## 1. O Google te traz, mas o Texto te vende
 

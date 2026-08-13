@@ -17,7 +17,7 @@ No entanto, com essa expansão, o mercado também se tornou extremamente competi
 
 Nesse cenário, como se destacar da concorrência? A resposta está em como você é encontrado na internet. Enquanto a maioria das empresas foca em "panfletagem digital" no Instagram, as empresas de energia solar de maior sucesso estão focadas em **dominar o Google Local**. 
 
-Neste artigo, vamos revelar como funciona a jornada de compra do cliente de energia solar e como você pode usar o SEO local combinado com um site de alta performance para se tornar a referência máxima na sua região.
+Neste artigo, vamos revelar como funciona a jornada de compra do cliente de energia solar e como você pode usar o [SEO local](https://www.sitesalphacode.com.br/blog/custo-invisivel-site-amador-energia-solar/) combinado com um site de alta performance para se tornar a referência máxima na sua região.
 
 ---
 
@@ -87,7 +87,7 @@ Se você quer começar a atrair mais orçamentos de energia solar de forma orgâ
 
 A energia solar é uma tecnologia do futuro, e a sua empresa não pode usar táticas de marketing digital do passado. Confiar apenas em indicações limita o seu faturamento e te torna vulnerável às mudanças de mercado.
 
-Ter um **site profissional de alto padrão estruturado para SEO Local** é a estratégia ideal para garantir um fluxo consistente de pedidos de orçamentos industriais e residenciais todos os meses, sem depender exclusivamente de investimentos gigantescos em anúncios pagos.
+Ter um **[site profissional](https://www.sitesalphacode.com.br/solucoes/energia-solar/) de alto padrão estruturado para SEO Local** é a estratégia ideal para garantir um fluxo consistente de pedidos de orçamentos industriais e residenciais todos os meses, sem depender exclusivamente de investimentos gigantescos em anúncios pagos.
 
 Na **Alpha Code**, somos especialistas em criar sites corporativos de alta velocidade e otimização para engenharia e energia solar. Nós entregamos as ferramentas necessárias para sua empresa dominar sua região e converter cliques em contratos de alto padrão.
 

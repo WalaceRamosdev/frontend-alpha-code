@@ -23,7 +23,7 @@ Um site desenvolvido com tecnologia de ponta (como o Astro que utilizamos na Alp
 ## 2. SEO Local: Onde os Grandes Projetos Começam
 
 A maioria dos leads de energia solar começa com uma busca no Google: *"instalação de energia solar em [Cidade]"*. 
-Se o seu site não está otimizado para SEO local, você está deixando dinheiro na mesa para o concorrente. Um site profissional é estruturado para ser encontrado justamente por quem já tem a intenção de compra, reduzindo seu custo por lead (CPL).
+Se o seu site não está otimizado para [SEO local](https://www.sitesalphacode.com.br/blog/como-empresas-de-energia-solar-dominam-o-google-local-sitesalphacode/), você está deixando dinheiro na mesa para o concorrente. Um [site profissional](https://www.sitesalphacode.com.br/solucoes/energia-solar/) é estruturado para ser encontrado justamente por quem já tem a intenção de compra, reduzindo seu custo por lead (CPL).
 
 ## 3. Conversão e Calculadoras de ROI
 

@@ -13,9 +13,9 @@ ctaType: "fundo"
 
 Existe um canal de marketing digital com **ROI de R$ 36 para cada R$ 1 investido** (estudo DMA, atualizado para 2026), **5x mais conversão** que tráfego de redes sociais, e que **não depende de algoritmo de terceiros**. Esse canal é o **e-mail marketing**.
 
-E, ainda assim, **90% dos sites brasileiros** não capturam nem sequer 1% dos visitantes para uma lista de e-mail. O tráfego vai, vem, some — e a empresa continua pagando para trazê-lo de volta indefinidamente.
+E, ainda assim, **90% dos [site](https://www.sitesalphacode.com.br/blog/landing-page-ou-site-completo-qual-escolher/)s brasileiros** não capturam nem sequer 1% dos visitantes para uma lista de e-mail. O tráfego vai, vem, some — e a empresa continua pagando para trazê-lo de volta indefinidamente.
 
-Neste artigo, vou mostrar como a Alpha Code integra site + e-mail marketing em uma **máquina de vendas automatizada** que trabalha 24/7.
+Neste artigo, vou mostrar como a Alpha Code integra [site](https://www.sitesalphacode.com.br/solucoes/) + e-mail marketing em uma **máquina de vendas automatizada** que trabalha 24/7.
 
 ## 1. O Cálculo Que Convenceria Qualquer Cético
 

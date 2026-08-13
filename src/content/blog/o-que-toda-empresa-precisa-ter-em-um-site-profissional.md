@@ -19,10 +19,10 @@ Aqui está o checklist dos itens obrigatórios que sua empresa deve ter hoje.
 Este não é mais um "bônus", é o requisito básico. Se o seu site não carrega em menos de 2 segundos, o cliente vai embora. Na **Alpha Code**, usamos o Astro para garantir que seu site seja o mais rápido do seu nicho.
 
 ## 2. Certificado de Segurança SSL
-Aquele cadeado verde ao lado da URL. Sem ele, o Google avisa o usuário que seu site "não é seguro", matando sua credibilidade instantaneamente.
+Aquele cadeado verde ao lado da URL. Sem ele, o [Google](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/) avisa o usuário que seu site "não é seguro", matando sua credibilidade instantaneamente.
 
 ## 3. CTA (Chamada para Ação) Estratégica
-Botões claros e que convidam à ação. "Solicitar Orçamento", "Agendar Consulta", "Falar no WhatsApp". Eles devem estar visíveis logo no início da página e ao final de cada seção.
+Botões claros e que convidam à ação. "Solicitar Orçamento", "Agendar Consulta", "Falar no WhatsApp". Eles devem estar visíveis logo no início da [página](https://www.sitesalphacode.com.br/solucoes/) e ao final de cada seção.
 
 ## 4. Prova Social e Depoimentos
 As pessoas confiam no que outras pessoas dizem. Se você tem depoimentos de clientes satisfeitos ou logotipos de empresas que já atendeu, eles precisam estar no site.

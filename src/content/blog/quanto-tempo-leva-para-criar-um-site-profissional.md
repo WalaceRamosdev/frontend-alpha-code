@@ -18,7 +18,7 @@ Em 2026, com o Google exigindo métricas de Core Web Vitals (LCP, FID, CLS) quas
 O tempo de desenvolvimento varia de acordo com o nível de autoridade e complexidade que seu negócio exige:
 
 *   **Landing Pages de Conversão (Foco em Ads):** Entre **3 a 7 dias úteis**. É o tempo necessário para criar uma copy hipnótica, um design mobile-first e garantir que o carregamento seja inferior a 1 segundo.
-*   **Site Institucional de Elite (Multi-páginas):** Entre **15 a 25 dias úteis**. Aqui, construímos a estrutura de SEO para todas as suas especialidades, integramos blogs e garantimos que cada página seja uma máquina de vendas independente.
+*   **Site Institucional de Elite (Multi-[páginas](https://www.sitesalphacode.com.br/solucoes/)):** Entre **15 a 25 dias úteis**. Aqui, construímos a estrutura de SEO para todas as suas especialidades, integramos blogs e garantimos que cada página seja uma máquina de vendas independente.
 *   **Projetos de Médio/Longo Prazo (Sistemas e Portais):** **30 a 60 dias**. Projetos que envolvem painéis administrativos complexos ou integrações de APIs profundas.
 
 ## Por Que a Pressa é a Inimiga do Seu SEO?
@@ -27,7 +27,7 @@ Muitas agências prometem entregas "vapt-vupt" usando templates pesados do WordP
 
 1.  **Código Sujo:** Templates prontos carregam milhares de linhas de código desnecessárias, destruindo sua nota no PageSpeed.
 2.  **Falta de Personalização:** Seu site será igual ao de centenas de concorrentes.
-3.  **Vulnerabilidades:** Sites feitos às pressas pulam etapas críticas de segurança e conformidade de dados (LGPD).
+3.  **Vulnerabilidades:** Sites feitos às pressas pulam [etapas](https://www.sitesalphacode.com.br/blog/como-funciona-o-processo-de-criacao-de-um-site/) críticas de segurança e conformidade de dados (LGPD).
 
 ## O Método Alpha: Como Entregamos Performance de Elite
 

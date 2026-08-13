@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # Sinais claros de que seu site está espantando clientes em 2026
 
-Às vezes, o problema do baixo faturamento de uma empresa não está no produto, nem no atendimento, mas sim na primeira impressão digital: o site. Em 2026, seu site precisa agir como um filtro de autoridade. Se ele falhar nisso, ele não está apenas "parado", ele está ativamente trabalhando contra você.
+Às vezes, o problema do baixo faturamento de uma empresa não está no produto, nem no atendimento, mas sim na primeira impressão digital: o [site](https://www.sitesalphacode.com.br/solucoes/). Em 2026, seu site precisa agir como um filtro de autoridade. Se ele falhar nisso, ele não está apenas "parado", ele está ativamente trabalhando contra você.
 
 Aqui estão os sinais vermelhos de que seu site se tornou uma barreira para novos negócios.
 
@@ -19,7 +19,7 @@ Aqui estão os sinais vermelhos de que seu site se tornou uma barreira para novo
 Você tem visitas (através de anúncios ou redes sociais), mas ninguém clica no botão de contato. Isso é um sinal claro de que o conteúdo ou o design do site quebrou a confiança que o usuário tinha antes de clicar.
 
 ## 2. Taxa de Rejeição (Bounce Rate) Altíssima
-Se as pessoas entram no seu site e saem em menos de 10 segundos, algo está muito errado. Geralmente é a **velocidade** (demora para carregar) ou uma **estética amadora** que assusta o visitante logo de cara.
+Se as pessoas entram no seu site e saem em menos de 10 segundos, algo está muito errado. Geralmente é a **[velocidade](https://www.sitesalphacode.com.br/blog/velocidade-site-cada-segundo-custa-conversoes/)** (demora para carregar) ou uma **estética amadora** que assusta o visitante logo de cara.
 
 ## 3. O Cliente pergunta coisas que já estão no site
 Se o seu cliente te chama mas parece confuso sobre o que você faz ou quanto custa, seu site não está sendo claro. Um site de elite deve educar o cliente antes mesmo da primeira conversa.

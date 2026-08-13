@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # Criação de sites para advogados: a estrutura ideal para 2026
 
-No cenário jurídico de 2026, ter apenas um "cartão de visitas digital" não é mais suficiente. Com 87% dos clientes pesquisando advogados no Google antes de realizar o primeiro contato, a **criação de sites para advogados com a estrutura ideal** tornou-se o pilar central de qualquer estratégia de crescimento sustentável.
+No cenário jurídico de 2026, ter apenas um "cartão de visitas digital" não é mais suficiente. Com 87% dos clientes pesquisando [advogados](https://www.sitesalphacode.com.br/solucoes/advogados/) no Google antes de realizar o primeiro contato, a **criação de sites para advogados com a estrutura ideal** tornou-se o pilar central de qualquer estratégia de crescimento sustentável.
 
 Este guia detalha os elementos indispensáveis para um site que não apenas informa, mas converte visitantes em clientes, respeitando rigorosamente o Provimento 205/2021 da OAB.
 
@@ -28,7 +28,7 @@ Sua home deve responder a três perguntas em menos de 5 segundos:
 
 ### Áreas de Atuação (Landing Pages Específicas)
 Não agrupe todas as suas especialidades em uma única página. Crie páginas dedicadas para cada área (ex: Direito de Família, Previdenciário, Digital). 
-- Isso melhora drasticamente o **SEO**, pois permite que você ranqueie para termos específicos.
+- Isso melhora drasticamente o **[SEO](https://www.sitesalphacode.com.br/blog/case-advogada-aline-barbosa/)**, pois permite que você ranqueie para termos específicos.
 - Aumenta a relevância para o usuário que busca uma solução exata.
 
 ### Quem Somos e Equipe

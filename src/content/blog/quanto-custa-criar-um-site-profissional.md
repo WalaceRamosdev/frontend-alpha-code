@@ -19,7 +19,7 @@ Neste artigo, vamos abrir a caixa preta dos custos de desenvolvimento web e te a
 Todo site, independente do tamanho, possui custos fixos anuais que você deve considerar:
 
 1.  **Domínio (.com.br ou .com):** É o seu endereço na web (ex: suaempresa.com.br). O custo médio no Registro.br é de R$ 40,00 a R$ 70,00 por ano.
-2.  **Hospedagem:** É o "aluguel" do servidor onde seu site fica guardado. Para sites profissionais de alta performance, espere investir entre R$ 30,00 e R$ 150,00 por mês.
+2.  **[Hospedagem](https://www.sitesalphacode.com.br/blog/quanto-custa-manter-um-site-mensalmente/):** É o "aluguel" do servidor onde seu site fica guardado. Para [sites profissionais](https://www.sitesalphacode.com.br/solucoes/) de alta performance, espere investir entre R$ 30,00 e R$ 150,00 por mês.
 3.  **Segurança (Certificado SSL):** Essencial para o cadeado verde no navegador. Muitas hospedagens premium já incluem isso, mas pode custar até R$ 200,00/ano em versões corporativas.
 
 ## Faixas de Investimento por Tipo de Projeto

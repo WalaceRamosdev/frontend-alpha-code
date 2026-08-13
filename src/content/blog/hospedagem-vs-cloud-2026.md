@@ -51,7 +51,7 @@ Em 2026, com os **Core Web Vitals** mais exigentes e a **SGE** priorizando sites
 
 **Quando NÃO faz sentido:**
 - Você não tem equipe técnica (configurar VPS exige Linux, SSH, firewall, updates)
-- Você quer performance máxima sem complicação
+- Você quer [performance](https://www.sitesalphacode.com.br/blog/velocidade-site-cada-segundo-custa-conversoes/) máxima sem complicação
 - Você tem picos imprevisíveis de tráfego (VPS tem limite de recursos)
 
 **Problema central:** escalar é manual. Se o tráfego dobrar de um dia para o outro, você precisa contratar upgrade, migrar, reconfigurar. Downtime inevitável.
@@ -90,7 +90,7 @@ A diferença no TTFB e no LCP **direto** afeta o ranqueamento. Em testes A/B rea
 
 ## 3. Os 5 Sinais de Que Sua Hospedagem Atual Está Te Custando Caro
 
-1. **Google Search Console mostra "Core Web Vitals ruins"** em várias páginas
+1. **Google Search Console mostra "Core Web Vitals ruins"** em várias [páginas](https://www.sitesalphacode.com.br/solucoes/)
 2. **PageSpeed Insights marca vermelho no "Tempo de resposta do servidor"**
 3. **Site fica fora do ar** em picos de tráfego (lançamento, Black Friday, viralização)
 4. **Você não consegue instalar dependências modernas** (limitado a PHP/WordPress/MySQL)

@@ -38,7 +38,7 @@ Cada imóvel deve ter:
 - Localização no mapa
 - Valor e condições de pagamento
 - Descrição completa
-- WhatsApp do corretor responsável
+- WhatsApp do [corretor](https://www.sitesalphacode.com.br/blog/case-imobiliaria-urbanik/) responsável
 
 ### Captação de Leads
 Formulário de interesse: "Quero receber mais informações sobre este imóvel". Coleta nome, telefone, e-mail.
@@ -92,7 +92,7 @@ Uma imobiliária em Nova Iguaçu implementou:
 
 1. **Auditoria gratuita:** Analisamos sua presença digital atual
 2. **Estratégia personalizada:** Plano de ação baseado em dados
-3. **Site profissional:** Design que converte visitantes em compradores
+3. **[Site profissional](https://www.sitesalphacode.com.br/solucoes/imobiliarias/):** Design que converte visitantes em compradores
 4. **SEO imobiliário:** Posicionamento para buscas locais
 5. **Gestão contínua:** Acompanhamento e otimização mensal
 

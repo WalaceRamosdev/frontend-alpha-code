@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # A Armadilha do iFood (E Por Que Restaurantes Inteligentes Estão Saindo Dela)
 
-O iFood democratizou o delivery no Brasil, e por isso заслуженно заслуживает crédito. Mas em 2026, existe uma dependência que beira o vício: **60% dos restaurantes brasileiros** tiram 80%+ do faturamento de delivery de plataformas terceiras. Isso parece bom até você lembrar que essas plataformas cobram 12% a 27% de comissão, controlam o cliente, definem o posicionamento, e podem mudar regras a qualquer momento.
+O iFood democratizou o delivery no Brasil, e por isso заслуженно заслуживает crédito. Mas em 2026, existe uma dependência que beira o vício: **60% dos [restaurantes](https://www.sitesalphacode.com.br/solucoes/restaurantes/) brasileiros** tiram 80%+ do faturamento de delivery de plataformas terceiras. Isso parece bom até você lembrar que essas plataformas cobram 12% a 27% de comissão, controlam o cliente, definem o posicionamento, e podem mudar regras a qualquer momento.
 
-Empresas que já aprenderam a lição estão investindo pesado em **site próprio com cardápio digital, agendamento de mesa, pedido direto e CRM**. O resultado: redução de 40% no custo de aquisição, ticket médio 30% maior e base de clientes próprios (não algorítmicos).
+Empresas que já aprenderam a lição estão investindo pesado em **site próprio com [cardápio digital](https://www.sitesalphacode.com.br/blog/case-restaurante-sabor/), agendamento de mesa, pedido direto e CRM**. O resultado: redução de 40% no custo de aquisição, ticket médio 30% maior e base de clientes próprios (não algorítmicos).
 
 Neste guia, vamos abrir a estratégia.
 

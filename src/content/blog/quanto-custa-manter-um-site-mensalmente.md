@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # Quanto custa manter um site mensalmente em 2026?
 
-Muitos empresários focam todo o seu orçamento na etapa de criação do site e acabam sendo pegos de surpresa pelos custos de manutenção. Manter um site profissional no ar em 2026 não é apenas uma questão de "pagar o boleto da hospedagem", mas sim de garantir que seu ativo digital continue seguro, rápido e gerando resultados.
+Muitos empresários focam todo o seu orçamento na etapa de [criação](https://www.sitesalphacode.com.br/blog/quanto-custa-criar-um-site-profissional/) do site e acabam sendo pegos de surpresa pelos custos de manutenção. Manter um [site profissional](https://www.sitesalphacode.com.br/solucoes/) no ar em 2026 não é apenas uma questão de "pagar o boleto da hospedagem", mas sim de garantir que seu ativo digital continue seguro, rápido e gerando resultados.
 
 Neste artigo, vamos detalhar os três pilares de custos fixos que você deve considerar no seu planejamento financeiro.
 

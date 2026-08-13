@@ -20,7 +20,7 @@ O Instagram, apesar de ser uma plataforma poderosa para visibilidade, trazia con
 - **Falta de controle:** O perfil poderia ser suspendido a qualquer momento, e com ele, todo o canal de captação
 - **Conteúdo raso:** O formato de post não permite explicar detalhadamente procedimentos, tratamentos e diferenciais
 - **Zero SEO:** Um perfil no Instagram não aparece nas buscas do Google quando alguém pesquisa "dentista na cidade X"
-- **Percepção de profissionalismo limitada:** Para muitos pacientes que buscam serviços de saúde, um site profissional transmite mais confiança do que uma rede social
+- **Percepção de profissionalismo limitada:** Para muitos pacientes que buscam serviços de saúde, um [site profissional](https://www.sitesalphacode.com.br/solucoes/dentistas/) transmite mais confiança do que uma rede social
 
 Renan percebia que estava deixando dinheiro na mesa. Pacientes que pesquisavam no Google e não encontravam seu site acabavam indo para concorrentes que tinham presença digital mais consolidada.
 
@@ -102,7 +102,7 @@ O projeto seguiu uma metodologia ágil e focada em resultados:
 O Instagram continua sendo uma ferramenta valiosa para o Dr. Renan, mas agora ele não depende exclusivamente dela. O site se tornou a **base sólida** da presença digital, enquanto o Instagram funciona como canal de engajamento.
 
 ### 2. SEO local é o maior aliado do profissional de saúde
-Diferente de SEO genérico, o SEO local permite competir com negócios da mesma região. Para dentistas, isso é especialmente poderoso: o paciente busca serviços perto de casa, e quem aparece nas primeiras posições do Google conquista a confiança antes mesmo do primeiro contato.
+Diferente de SEO genérico, o [SEO local](https://www.sitesalphacode.com.br/blog/marketing-para-dentistas-alem-do-instagram/) permite competir com negócios da mesma região. Para dentistas, isso é especialmente poderoso: o paciente busca serviços perto de casa, e quem aparece nas primeiras posições do Google conquista a confiança antes mesmo do primeiro contato.
 
 ### 3. Velocidade importa mais do que parece
 Um site lento faz com que 53% dos visitantes desistam antes mesmo de carregar completamente. A escolha do Astro.js foi decisiva para garantir uma experiência rápida e agradável, o que impacta diretamente na taxa de conversão.

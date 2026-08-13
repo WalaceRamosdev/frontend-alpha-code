@@ -16,7 +16,7 @@ O **Restaurante Sabor** era um restaurante de comida caseira em Florianópolis, 
 
 > "O iFood estava sugindo nossa margem. Pagávamos 27% de comissão por pedido, e não tínhamos controle da nossa marca. Quando alguém buscava 'restaurante em Florianópolis', nossos concorrentes apareciam e nós não."
 
-O proprietário, **Roberto Nascimento**, percebeu que precisava de uma presença digital própria para:
+O proprietário, **Roberto Nascimento**, percebeu que precisava de uma [presença digital](https://www.sitesalphacode.com.br/solucoes/restaurantes/) própria para:
 - Reduzir dependência do iFood
 - Aumentar pedidos diretos
 - Fortalecer a marca do restaurante
@@ -61,7 +61,7 @@ A Alpha Code desenvolveu uma estratégia focada em **visual apetitoso** e **pedi
 
 **Roberto Nascimento** - Proprietário do Restaurante Sabor
 
-> "A Alpha Code entendeu que um restaurante precisa de um visual apetitoso. O cardápio digital ficou lindo - meus clientes dizem que dão fome só de olhar. E o pedido pelo WhatsApp é muito mais prático que o iFood. Agora tenho controle total da minha marca e dos meus pedidos."
+> "A Alpha Code entendeu que um restaurante precisa de um visual apetitoso. O [cardápio digital](https://www.sitesalphacode.com.br/blog/site-para-restaurante-delivery-2026/) ficou lindo - meus clientes dizem que dão fome só de olhar. E o pedido pelo WhatsApp é muito mais prático que o iFood. Agora tenho controle total da minha marca e dos meus pedidos."
 
 ## Diferencial: Fotos Profissionais
 

@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # A Ilusão do "Só Google" Para Escritórios de Advocacia
 
-Durante anos, a recomendação de marketing para advogados se resumiu a uma frase: *"posicione seu site no Google para palavras-chave de direito + cidade"*. Em 2026, escritórios que seguem **apenas** esse caminho estão deixando 70% das oportunidades na mesa — e mais grave, estão deixando para concorrentes que entendem o ecossistema multicanal.
+Durante anos, a recomendação de marketing para advogados se resumiu a uma frase: *"posicione seu [site](https://www.sitesalphacode.com.br/solucoes/advogados/) no Google para palavras-chave de direito + cidade"*. Em 2026, escritórios que seguem **apenas** esse caminho estão deixando 70% das oportunidades na mesa — e mais grave, estão deixando para concorrentes que entendem o ecossistema multicanal.
 
 Um advogado que aparece **consistentemente** no Google Maps, no YouTube com vídeos técnicos, no LinkedIn com artigos densos, no Instagram com stories humanizados e na caixa de entrada do cliente com newsletter jurídica tem uma probabilidade **5x maior** de ser contratado do que o advogado que só tem um site bem posicionado.
 
@@ -83,7 +83,7 @@ Esse cliente vale 10-20x mais que o cliente que veio por uma indicação única.
 
 ## 3. A Questão do Compliance: O Que o Advogado Pode (e Não Pode) Dizer
 
-Marketing jurídico tem regras. A OAB exige:
+[Marketing jurídico](https://www.sitesalphacode.com.br/blog/site-para-advogados-digitalizacao-advocacia-2026/) tem regras. A OAB exige:
 - **Discreção e sobriedade**: sem promessas de resultado, sem sensacionalismo
 - **Identificação clara**: nome, número da OAB, especialidade
 - **Sem mercantilização**: não comparar preços diretamente, não usar "melhor advogado"

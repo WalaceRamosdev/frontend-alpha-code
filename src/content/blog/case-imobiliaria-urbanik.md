@@ -10,7 +10,7 @@ tags: ["imobiliária", "site profissional", "seo local", "tours virtuais", "what
 
 ## O Desafio da Urbanik
 
-A **Imobiliária Urbanik** era uma empresa tradicional do mercado imobiliário em Niterói, com 15 anos de atuação na região. Apesar de ter um portfólio sólido de imóveis e uma equipe de corretores experientes, a empresa enfrentava um problema crescente:
+A **[Imobiliária](https://www.sitesalphacode.com.br/blog/site-para-imobiliarias-vender-mais-imoveis/) Urbanik** era uma empresa tradicional do mercado imobiliário em Niterói, com 15 anos de atuação na região. Apesar de ter um portfólio sólido de imóveis e uma equipe de corretores experientes, a empresa enfrentava um problema crescente:
 
 **Dependência quase total de portais de anúncios** como ZAP, OLX e QuintoAndar.
 
@@ -55,7 +55,7 @@ Após um diagnóstico gratuito, a Alpha Code desenvolveu uma estratégia complet
 | Visualizações de imóveis/mês | 2.100 | 8.400 | **+300%** |
 | Receita mensal | R$ 85.000 | R$ 142.000 | **+67%** |
 
-> "Em 6 meses, o site se pagou mais de 10 vezes. Agora temos uma marca forte no digital e não dependemos mais de portais para vender imóveis."
+> "Em 6 meses, o [site](https://www.sitesalphacode.com.br/solucoes/imobiliarias/) se pagou mais de 10 vezes. Agora temos uma marca forte no digital e não dependemos mais de portais para vender imóveis."
 
 ## Depoimento do Cliente
 

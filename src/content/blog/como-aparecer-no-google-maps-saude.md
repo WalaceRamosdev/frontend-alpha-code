@@ -12,7 +12,7 @@ draft: false
 
 Quando um paciente em sua cidade sente uma dor ou precisa de um especialista, a primeira coisa que ele faz é pesquisar no Google. Se o seu consultório não aparece no "Mapa" (Google Maps), você está perdendo a oportunidade de ser a solução imediata para esse problema.
 
-O **SEO Local** é, sem dúvida, o investimento com maior taxa de retorno para estabelecimentos físicos. Veja como dominar o Google Meu Negócio.
+O **SEO Local** é, sem dúvida, o investimento com maior taxa de retorno para estabelecimentos físicos. Veja como dominar o [Google Meu Negócio](https://www.sitesalphacode.com.br/blog/google-meu-negocio-2026-como-dominar-maps/).
 
 ## O que é o Perfil da Empresa no Google (Google Meu Negócio)?
 
@@ -36,7 +36,7 @@ Pacientes da saúde buscam segurança. Fotos nítidas da recepção, da fachada 
 Use a ferramenta de postagens do Google para anunciar novidades, dicas de saúde ou novos convênios aceitos. Isso mostra ao algoritmo que o perfil está ativo.
 
 ## Por que integrar com seu Site?
-O Google cruza as informações da sua ficha com a autoridade do seu [Site Institucional](/servicos/site-profissional-saude). Se o seu site for rápido e otimizado para SEO, sua ficha no mapa sobe de posição automaticamente.
+O Google cruza as informações da sua ficha com a autoridade do seu [Site Institucional](/servicos/site-profissional-saude). Se o [seu site](https://www.sitesalphacode.com.br/solucoes/medicos/) for rápido e otimizado para SEO, sua ficha no mapa sobe de posição automaticamente.
 
 ## Conclusão: Seja o líder da sua região
 O Google Meu Negócio é uma ferramenta gratuita, mas sua otimização é técnica. Estar no topo exige consistência e estratégia.

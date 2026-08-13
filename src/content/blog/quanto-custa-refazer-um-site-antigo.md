@@ -35,7 +35,7 @@ Refazer o site é a oportunidade perfeita para um **rebranding**. Se você quer 
 
 ## Estimativas de Investimento (2026)
 
-Em geral, refazer um site profissional exige um investimento muito próximo ao de fazer um do zero, pois o trabalho técnico de "limpeza" e otimização é intenso:
+Em geral, refazer um [site profissional](https://www.sitesalphacode.com.br/solucoes/) exige um [investimento](https://www.sitesalphacode.com.br/blog/quanto-custa-criar-um-site-profissional/) muito próximo ao de fazer um do zero, pois o trabalho técnico de "limpeza" e otimização é intenso:
 
 *   **Reformulação de Landing Page (Foco em Conversão):** R$ 400 a R$ 800.
 *   **Reformulação de Site Institucional (Autoridade):** R$ 800 a R$ 1.500.

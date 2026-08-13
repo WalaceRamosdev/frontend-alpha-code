@@ -286,8 +286,10 @@ const seo = createSEOMeta({
             content="Brasília, Rio de Janeiro, São Paulo, Brasil"
         />
 
+        <SchemaMarkup type="Organization" />
+
         <SchemaMarkup
-            type={schemaType as any}
+            type={schemaType === "Organization" ? "ProfessionalService" : (schemaType as any)}
             name={schemaName || title}
             description={schemaDescription || description}
             faqItems={faqItems}

@@ -11,12 +11,12 @@ ctaType: "fundo"
 
 # 10 erros que fazem um site não gerar clientes em 2026
 
-Ter um site bonito é fácil. Ter um site que **converte visitantes em clientes** é uma ciência. Em 2026, com a atenção humana cada vez mais curta, seu site tem poucos segundos para provar que é a melhor solução.
+Ter um [site](https://www.sitesalphacode.com.br/solucoes/) bonito é fácil. Ter um site que **converte visitantes em clientes** é uma ciência. Em 2026, com a atenção humana cada vez mais curta, seu site tem poucos segundos para provar que é a melhor solução.
 
 Se o seu site está no ar mas o seu WhatsApp continua silencioso, você provavelmente está cometendo um (ou vários) destes 10 erros fatais.
 
 ## 1. Lentidão no Carregamento
-O erro número um. Se o seu site demora mais de 3 segundos para abrir em um 4G instável, o cliente volta para o Google e clica no seu concorrente. Velocidade é a primeira etapa da conversão.
+O erro número um. Se o seu site demora mais de 3 segundos para abrir em um 4G instável, o cliente volta para o [Google](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/) e clica no seu concorrente. Velocidade é a primeira etapa da conversão.
 
 ## 2. Falta de um CTA (Chamada para Ação) Claro
 O que o usuário deve fazer ao entrar no seu site? Se ele tiver que "procurar" como falar com você, ele vai embora. Tenha botões flutuantes de WhatsApp e CTAs estratégicos em todas as seções.

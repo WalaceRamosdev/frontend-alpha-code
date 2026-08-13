@@ -11,7 +11,7 @@ ctaType: "fundo"
 
 # PageSpeed 100 Não É Mais Suficiente (E o Que Realmente Importa em 2026)
 
-Em 2021, ter nota 100 no PageSpeed Insights era troféu. Em 2026, é tabela de entrada. O Google já ranqueia sites com 100, mas também ranqueia sites com 75 se eles oferecerem **experiência superior em Core Web Vitals reais** (aquilo que o usuário sente, não o que a ferramenta mede em lab data).
+Em 2021, ter nota 100 no PageSpeed Insights era troféu. Em 2026, é tabela de entrada. O Google já ranqueia sites com 100, mas também ranqueia sites com 75 se eles oferecerem **experiência superior em [Core Web Vitals](https://www.sitesalphacode.com.br/blog/velocidade-site-cada-segundo-custa-conversoes/) reais** (aquilo que o usuário sente, não o que a ferramenta mede em lab data).
 
 O jogo mudou. E a maioria das agências continua mostrando print de PageSpeed como prova de qualidade — uma métrica que já foi substituída por **INP (Interaction to Next Paint)**, **LCP real em field data** e **CLS acumulado** como sinais decisivos.
 
@@ -115,7 +115,7 @@ Servir seu site a partir de uma **rede edge** (Cloudflare, Vercel, AWS CloudFron
 | **Chrome UX Report (CrUX)** | Field data de usuários reais | Fonte da verdade para ranking |
 | **Lighthouse CI** | Auditoria automatizada em PRs | Prevenir regressões |
 | **WebPageTest** | Waterfall, vídeo, multi-location | Debug profundo |
-| **Search Console > Core Web Vitals** | Performance por URL agrupada | Identificar páginas-problema |
+| **Search Console > Core Web Vitals** | Performance por URL agrupada | Identificar [páginas](https://www.sitesalphacode.com.br/solucoes/)-problema |
 
 **Atenção:** o PageSpeed Insights é **lab data** (simulação). Para ranqueamento, o Google usa **field data** (CrUX). Um site pode ter 95 no PageSpeed e ruim no CrUX (e vice-versa). Otimize sempre mirando o CrUX.
 

@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # Como funciona o processo de criação de um site em 2026?
 
-Muitos clientes ficam ansiosos ao contratar a criação de um site porque não sabem o que acontece depois da assinatura do contrato. "Eles somem por um mês e entregam pronto?". Na **Alpha Code**, acreditamos que a transparência é a base de um projeto de sucesso.
+Muitos clientes ficam ansiosos ao contratar a criação de um [site](https://www.sitesalphacode.com.br/solucoes/) porque não sabem o que acontece depois da assinatura do contrato. "Eles somem por um mês e entregam pronto?". Na **Alpha Code**, acreditamos que a transparência é a base de um projeto de sucesso.
 
-Nosso método foi refinado para ser ágil, colaborativo e focado em um único objetivo: colocar sua empresa no topo do Google. Conheça as 5 etapas da nossa jornada.
+Nosso método foi refinado para ser ágil, colaborativo e focado em um único objetivo: colocar sua empresa no topo do Google. Conheça as 5 [etapas](https://www.sitesalphacode.com.br/blog/quanto-tempo-leva-para-criar-um-site-profissional/) da nossa jornada.
 
 ## 1. Briefing e Imersão Estratégica
 O site não começa no código, começa na conversa.

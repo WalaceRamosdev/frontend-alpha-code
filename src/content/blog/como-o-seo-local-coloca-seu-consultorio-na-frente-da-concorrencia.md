@@ -12,7 +12,7 @@ draft: false
 
 Você já reparou que, ao buscar por "dentista perto de mim" ou "psicólogo em [sua cidade]", o Google mostra um mapa com três destaques principais? Aqueles três lugares não estão ali por sorte. Eles estão ali por causa de uma estratégia técnica chamada **SEO Local**.
 
-Se você atende em um consultório físico ou clínica, o SEO Local é a ferramenta mais poderosa para captar pacientes de forma gratuita e constante. 
+Se você atende em um [consultório](https://www.sitesalphacode.com.br/solucoes/medicos/) físico ou clínica, o SEO Local é a ferramenta mais poderosa para captar pacientes de forma gratuita e constante. 
 
 ## Por que o SEO Local é Vital para Médicos, Psicólogos e Advogados
 
@@ -21,7 +21,7 @@ Diferente do SEO geral, o local foca na intenção de proximidade. Quando algué
 ## Os 3 Pilares para Dominar as Buscas Locais no Google
 
 ### 1. Google Business Profile (O Coração da Estratégia)
-Sua ficha no Google Maps precisa ser impecável. Isso inclui fotos reais da fachada e interior da clínica, horários rigorosamente atualizados e, acima de tudo, uma gestão ativa de avaliações. Conforme o [blog oficial do Google](https://blog.google/), a interação com o cliente na ficha é um dos maiores fatores de ranking.
+Sua ficha no [Google Maps](https://www.sitesalphacode.com.br/blog/google-meu-negocio-2026-como-dominar-maps/) precisa ser impecável. Isso inclui fotos reais da fachada e interior da clínica, horários rigorosamente atualizados e, acima de tudo, uma gestão ativa de avaliações. Conforme o [blog oficial do Google](https://blog.google/), a interação com o cliente na ficha é um dos maiores fatores de ranking.
 
 ### 2. NAP: Consistência de Dados em Todo o Blog
 NAP significa *Name, Address, Phone*. O Google cruza os dados do seu site com os de toda a web (redes sociais, diretórios, guias locais). Se houver divergência, sua autoridade cai. Manter um [Site Institucional](/blog/landing-page-vs-site-institucional-qual-o-melhor-para-converter-leads) com esses dados visíveis no rodapé é obrigatório.

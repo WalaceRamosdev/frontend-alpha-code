@@ -11,9 +11,9 @@ ctaType: "fundo"
 
 # O Atalho Que Faz Sites Pequenos Derrotarem Gigantes no Google
 
-Existe um arquivo invisível, escrito em JSON-LD, escondido no `<head>` de algumas páginas da web, que faz o Google tratar seu site com **superpoderes** em relação à concorrência: destaque em rich snippets, posição zero, citações em respostas de IA, cards expansíveis e muito mais.
+Existe um arquivo invisível, escrito em JSON-LD, escondido no `<head>` de algumas páginas da web, que faz o [Google](https://www.sitesalphacode.com.br/blog/como-aparecer-no-google-maps-guia-definitivo/) tratar seu site com **superpoderes** em relação à concorrência: destaque em rich snippets, posição zero, citações em respostas de IA, cards expansíveis e muito mais.
 
-Esse arquivo se chama **Schema.org** (ou "dados estruturados"), e a estatística mais revoltante de 2026 é esta: **menos de 5% dos sites brasileiros** o implementam corretamente. O restante disputa migalhas de tráfego enquanto uma minoria técnica coleta a parte leonina dos cliques.
+Esse arquivo se chama **Schema.org** (ou "dados estruturados"), e a estatística mais revoltante de 2026 é esta: **menos de 5% dos [site](https://www.sitesalphacode.com.br/solucoes/)s brasileiros** o implementam corretamente. O restante disputa migalhas de tráfego enquanto uma minoria técnica coleta a parte leonina dos cliques.
 
 Neste artigo, vamos desmascarar essa ignorância e mostrar exatamente o que está em jogo.
 

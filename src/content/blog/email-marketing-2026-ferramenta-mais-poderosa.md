@@ -31,7 +31,7 @@ Você pode criar sequências que nutrem leads automaticamente, sem precisar envi
 ### 1. Lead Magnet
 Ofereça algo gratuito em troca do e-book:
 - "Guia gratuito: 10 erros que destroem seu site"
-- "Checklist: como escolher uma agência de sites"
+- "Checklist: como escolher uma [agência de sites](https://www.sitesalphacode.com.br/solucoes/)"
 - "Planilha: simulação de ROI para seu negócio"
 
 ### 2. Sequência de Boas-Vindas (5 e-mails)
@@ -80,7 +80,7 @@ O e-mail marketing funciona ainda melhor quando integrado com seu site:
 
 1. **Pop-up de captação** (após 30 segundos no site)
 2. **Formulário no rodapé**
-3. **Landing pages com opt-in**
+3. **[Landing page](https://www.sitesalphacode.com.br/blog/o-que-e-landing-page-por-que-gera-mais-leads/)s com opt-in**
 4. **Blog com CTA para newsletter**
 
 Essa integração cria um funil automatizado: visitante → lead → cliente.

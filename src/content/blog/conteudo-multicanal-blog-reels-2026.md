@@ -27,7 +27,7 @@ São as **7+ peças** derivadas do conteúdo átrio, cada uma otimizada para um 
 
 ## 2. O Framework Átrio Cascata: 1 Átrio → 7 Cascatas
 
-Vamos tomar como exemplo um átrio hipotético: *"O Guia Definitivo do SEO Local em 2026: Como Dominar o Google Maps na Sua Cidade"*.
+Vamos tomar como exemplo um átrio hipotético: *"O Guia Definitivo do [SEO](https://www.sitesalphacode.com.br/blog/schema-org-2026-vantagem-bilionaria/) Local em 2026: Como Dominar o Google Maps na Sua Cidade"*.
 
 ### Cascata 1 — Carrossel Instagram (8-10 slides)
 - Cada slide = 1 H2 do artigo
@@ -76,7 +76,7 @@ Vamos tomar como exemplo um átrio hipotético: *"O Guia Definitivo do SEO Local
 - Versão resumida do átrio, focada em **resolver 1 problema específico** mencionado no átrio
 - Link interno "leia o guia completo" para o átrio (link juice)
 - **Produção:** 1-2 horas
-- **Distribuição:** Blog + Pinterest + Medium (com canonical para o site)
+- **Distribuição:** Blog + Pinterest + Medium (com [canonical para o site](https://www.sitesalphacode.com.br/solucoes/))
 
 ## 3. O Calendário Editorial Inteligente
 

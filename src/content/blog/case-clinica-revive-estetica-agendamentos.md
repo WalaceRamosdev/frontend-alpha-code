@@ -36,7 +36,7 @@ Otimização completa:
 - Google Meu Negócio com 80+ fotos profissionais
 - Resposta a todas as avaliações (positivas e negativas)
 - Artigos no blog sobre cuidados pós-procedimento
-- Otimização para buscas como "clínica de estética em [cidade]", "preenchimento labial perto de mim"
+- Otimização para buscas como "[clínica de estética](https://www.sitesalphacode.com.br/solucoes/estetica/) em [cidade]", "preenchimento labial perto de mim"
 
 ### 3. Captação via WhatsApp
 - Formulário inteligente que coleta: nome, interesse, melhor horário
@@ -60,7 +60,7 @@ A decisão de implementar galeria de antes/depois e depoimentos em vídeo gerou 
 
 1. **Estética é visual:** O site precisa transmitir o resultado antes mesmo de ler o texto
 2. **WhatsApp fecha:** O tempo médio de resposta de 5 minutos vs 24 horas (ligação) fez toda diferença
-3. **SEO local é rei:** 70% dos agendamentos vieram de buscas no Google Maps
+3. **[SEO local](https://www.sitesalphacode.com.br/blog/case-clinica-estetica-revive/) é rei:** 70% dos agendamentos vieram de buscas no Google Maps
 4. **Avaliações vendem:** De 12 para 89 avaliações em 6 meses — cada uma uma mini-venda
 5. **Consistência vence:** Publicar no blog semanalmente mantém o site vivo no Google
 
