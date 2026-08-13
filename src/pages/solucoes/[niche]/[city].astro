@@ -8,22 +8,22 @@ import RelatedContent from "../../../components/seo/RelatedContent.astro";
 
 export const prerender = true;
 
-const TOP_NICHES = [
-    "advogados",
-    "medicos",
-    "dentistas",
-    "psicologos",
-    "contadores",
-    "arquitetos",
-    "energia-solar",
-    "imobiliarias",
-    "estetica",
-    "escolas",
-    "restaurantes",
-    "pet",
-];
-
 export function getStaticPaths() {
+    const TOP_NICHES = [
+        "advogados",
+        "medicos",
+        "dentistas",
+        "psicologos",
+        "contadores",
+        "arquitetos",
+        "energia-solar",
+        "imobiliarias",
+        "estetica",
+        "escolas",
+        "restaurantes",
+        "pet",
+    ];
+
     const allCities = getAllCities();
     const topNiches = niches.filter((n) => TOP_NICHES.includes(n.slug));
 
@@ -305,7 +305,7 @@ const relatedCities = allCities
                 </p>
                 <h3>O que diferencia nosso site para {nicheName.toLowerCase()} em {cityName}</h3>
                 <ul>
-                    <li><strong>SEO Jurídico/Profissional Avançado:</strong> Estrutura pensada para ranquear termos como "{nicheName.toLowerCase()} em {cityName}", "{serviço} perto de mim" e variações locais.</li>
+                    <li><strong>SEO Jurídico/Profissional Avançado:</strong> Estrutura pensada para ranquear termos como "{nicheName.toLowerCase()} em {cityName}", "seu serviço perto de mim" e variações locais.</li>
                     <li><strong>Design que Converte:</strong> CTAs estratégicos, layout focado na jornada do cliente e WhatsApp integrado em pontos-chave da página.</li>
                     <li><strong>Velocidade de Carregamento:</strong> Sites que abrem em menos de 1 segundo, melhorando a experiência do usuário e o ranqueamento no Google.</li>
                     <li><strong>Schema LocalBusiness:</strong> Dados estruturados otimizados para que o Google entenda sua localização e seus serviços em {cityName}.</li>
