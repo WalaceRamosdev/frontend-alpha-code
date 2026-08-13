@@ -51,6 +51,13 @@ if (heroImage) {
     }
 }
 
+// Responsive srcset for local covers (variants from scripts/optimize-blog-covers.js)
+const isLocalHero = finalHeroImage.startsWith("/assets/blog/");
+const heroBaseName = isLocalHero ? finalHeroImage.replace(/\.webp$/, "") : null;
+const heroSrcset = heroBaseName
+    ? `${heroBaseName}-800.webp 800w, ${heroBaseName}.webp 1200w`
+    : undefined;
+
 const formattedDate = pubDate.toLocaleDateString("pt-BR", {
     day: "2-digit",
     month: "long",
@@ -212,10 +219,14 @@ const breadcrumbSchema = {
                         <div class="hero-image-wrapper">
                             <img
                                 src={finalHeroImage}
+                                srcset={heroSrcset}
+                                sizes="(max-width: 768px) 100vw, 1200px"
                                 alt={title}
                                 class="hero-image"
                                 width="1200"
                                 height="630"
+                                fetchpriority="high"
+                                decoding="async"
                             />
                             <div class="hero-overlay" />
                         </div>

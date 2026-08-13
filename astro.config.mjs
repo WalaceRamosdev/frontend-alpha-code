@@ -53,13 +53,12 @@ export default defineConfig({
         // Não deve ser resolvido estaticamente pelo Rollup.
         external: [/^\/pagefind\//],
         output: {
-          manualChunks(id) {
-            if (id.includes('gsap')) {
-              return 'gsap-vendor';
-            }
-            if (id.includes('node_modules')) {
-              return 'vendor';
-            }
+          manualChunks: {
+            // Bibliotecas pesadas em chunks próprios: só são carregadas
+            // quando a página realmente usa o componente (code splitting real).
+            'react-vendor': ['react', 'react-dom'],
+            'three-vendor': ['three'],
+            'gsap-vendor': ['gsap'],
           },
         },
       },
