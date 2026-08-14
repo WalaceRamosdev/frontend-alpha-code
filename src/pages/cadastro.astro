@@ -23,7 +23,7 @@ export const prerender = false;
     showFooter={false}
     showWhatsApp={false}
 >
-    <link rel="preload" href="/assets/logo3d.svg" as="image" slot="head" />
+    <!-- A textura 3D (logo3d.svg) é carregada lazy pelo Three.js — sem preload para não competir com o LCP -->
     <!-- The split-screen layout is now handled inside the RegisterForm component -->
     <RegisterForm client:load />
 

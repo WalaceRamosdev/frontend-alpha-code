@@ -26,7 +26,7 @@ import ThreeBackground from "../components/ui/ThreeBackground.jsx";
     showFooter={false}
     showWhatsApp={false}
 >
-    <link rel="preload" href="/assets/logo3d.svg" as="image" slot="head" />
+    <!-- A textura 3D (logo3d.svg) é carregada lazy pelo Three.js — sem preload para não competir com o LCP -->
     <div class="auth-page-wrapper">
         <!-- 3D Interactive Background -->
         <ThreeBackground client:only="react" />

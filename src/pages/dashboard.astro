@@ -170,7 +170,7 @@ export const prerender = false;
                             {
                                 isAdmin ? (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code Admin"
                                         id="header-avatar-img"
                                     />
@@ -179,11 +179,11 @@ export const prerender = false;
                                         src={session.user.image}
                                         alt="Profile"
                                         id="header-avatar-img"
-                                        onerror="this.onerror=null;this.src='/assets/logo3d.svg';this.style.objectFit='contain';this.style.padding='4px';"
+                                        onerror="this.onerror=null;this.src='/assets/logo-header.svg';this.style.objectFit='contain';this.style.padding='4px';"
                                     />
                                 ) : (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code"
                                         style="width: 32px; height: 32px; object-fit: contain;"
                                     />
@@ -3481,7 +3481,7 @@ export const prerender = false;
                 transform: translate(-50%, -50%);
                 width: 550px;
                 height: 550px;
-                background-image: url("/assets/logo3d.svg");
+                background-image: url("/assets/logo-header.svg");
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: contain;

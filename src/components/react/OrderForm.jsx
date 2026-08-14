@@ -736,7 +736,7 @@ export default function OrderForm({ user }) {
                 <div className="fixed-overlay loader-overlay">
                     <div className="loader-content">
                         <div className="logo-pulsar">
-                            <img src="/assets/logo3d.svg" className="loading-logo" />
+                            <img src="/assets/logo-header.svg" className="loading-logo" />
                             <div className="glow-ring"></div>
                         </div>
                         <div className="loader-text">
@@ -806,7 +806,7 @@ export default function OrderForm({ user }) {
                 <div className="fixed-overlay">
                     <div className="modal-box checkout-summary-box">
                         <button type="button" onClick={() => setModalOpen(false)} className="close-modal-btn" aria-label="Fechar Modal">&times;</button>
-                        <img src="/assets/logo3d.svg" className="modal-logo" />
+                        <img src="/assets/logo-header.svg" className="modal-logo" />
                         <h2 style={{ textAlign: 'center', width: '100%', marginBottom: '10px' }}>Confirmação do Pedido</h2>
                         <p className="summary-intro">Veja o que estamos preparando para você:</p>
 

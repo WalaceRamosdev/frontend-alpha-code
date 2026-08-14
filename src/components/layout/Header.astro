@@ -39,11 +39,11 @@ const groupedNiches = categories.map(cat => ({
             <!-- LEFT: Logo -->
             <a href="/" class="logo-link">
                 <img loading="eager" fetchpriority="high"
-                    src="/assets/logo3d.svg"
+                    src="/assets/logo-header.svg"
                     alt="Alpha Code Logo"
                     class="nav-logo"
-                    width="150"
-                    height="50"
+                    width="2651"
+                    height="2376"
                 />
             </a>
 
@@ -139,7 +139,7 @@ const groupedNiches = categories.map(cat => ({
                             <div class="profile-avatar-node">
                                 {isAdmin ? (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code Admin"
                                         style="width:100%;height:100%;object-fit:cover;"
                                     />
@@ -147,11 +147,11 @@ const groupedNiches = categories.map(cat => ({
                                     <img loading="lazy"
                                         src={session.user.image}
                                         alt={`Avatar de ${session.user.name || "usuário"}`}
-                                        onerror="this.onerror=null;this.src='/assets/logo3d.svg';this.style.objectFit='contain';this.style.padding='4px';"
+                                        onerror="this.onerror=null;this.src='/assets/logo-header.svg';this.style.objectFit='contain';this.style.padding='4px';"
                                     />
                                 ) : (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code"
                                         style="width: 70%; height: 70%; object-fit: contain;"
                                     />
@@ -599,7 +599,7 @@ const groupedNiches = categories.map(cat => ({
                             <div class="user-avatar">
                                 {isAdmin ? (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code Admin"
                                         style="width:100%;height:100%;object-fit:cover;"
                                     />
@@ -607,11 +607,11 @@ const groupedNiches = categories.map(cat => ({
                                     <img loading="lazy"
                                         src={session.user.image}
                                         alt={session.user.name}
-                                        onerror="this.onerror=null;this.src='/assets/logo3d.svg';this.style.objectFit='contain';this.style.padding='4px';"
+                                        onerror="this.onerror=null;this.src='/assets/logo-header.svg';this.style.objectFit='contain';this.style.padding='4px';"
                                     />
                                 ) : (
                                     <img loading="lazy"
-                                        src="/assets/logo3d.svg"
+                                        src="/assets/logo-header.svg"
                                         alt="Alpha Code"
                                         style="width: 60%; height: 60%; object-fit: contain;"
                                     />
@@ -835,6 +835,7 @@ const groupedNiches = categories.map(cat => ({
 
             .nav-logo {
                 height: 28px !important;
+                aspect-ratio: 2651 / 2376;
             }
 
             .logo-link {
@@ -881,6 +882,7 @@ const groupedNiches = categories.map(cat => ({
         .nav-logo {
             height: 36px;
             width: auto;
+            aspect-ratio: 2651 / 2376;
         }
 
         /* Links de nav dentro do pill */
