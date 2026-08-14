@@ -42,7 +42,9 @@ export default defineConfig({
     }),
   ],
   build: {
-    inlineStylesheets: 'auto',
+    // Inline de TODAS as folhas de estilo: elimina CSS render-blocking externo
+    // (3 requests + parse bloqueante na home). Custo: HTML maior, mas 1 request só.
+    inlineStylesheets: 'always',
   },
   vite: {
     plugins: [tailwindcss()],

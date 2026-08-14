@@ -384,9 +384,10 @@
 </style>
 
 <script>
-    import { gsap } from "gsap";
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    function initPromoModal() {
+    async function initPromoModal() {
+        const { gsap } = await getLazyGsap();
         const modal = document.getElementById("promo-modal");
         const closeBtn = document.getElementById("close-promo");
         const targetDate = new Date("2026-02-14T17:00:00").getTime();
@@ -442,6 +443,19 @@
             // Verifica se a promoção ainda é válida
             const isValid = updateCountdown();
             if (!isValid) return;
+
+            // Sem GSAP: exibe o modal sem animação (fallback)
+            if (!gsap) {
+                modal.style.display = "flex";
+                modal.style.opacity = "1";
+                const content = document.querySelector(".promo-modal-content") as HTMLElement;
+                if (content) {
+                    content.style.opacity = "1";
+                    content.style.transform = "none";
+                }
+                setInterval(updateCountdown, 1000);
+                return;
+            }
 
             // Marcar como mostrado para não exibir novamente nesta sessão
             sessionStorage.setItem("alpha_promo_shown", "true");

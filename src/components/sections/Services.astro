@@ -108,10 +108,7 @@ import Card from "../ui/Card.astro";
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
     function ensureServicesVisible() {
         const servicesEls = document.querySelectorAll("#services .fade-up-services, #services .service-card-anim");
@@ -121,11 +118,17 @@ import Card from "../ui/Card.astro";
         });
     }
 
-    function initServicesAnimation() {
+    async function initServicesAnimation() {
+        const { gsap } = await getLazyGsap();
         const section = document.getElementById("services");
         if (!section) return;
 
         const safetyTimer = setTimeout(ensureServicesVisible, 3000);
+
+        if (!gsap) {
+            ensureServicesVisible();
+            return;
+        }
 
         const header = section.querySelector(".section-header");
         const list = section.querySelector(".services-list");

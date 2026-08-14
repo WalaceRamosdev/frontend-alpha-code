@@ -259,7 +259,9 @@ export const prerender = false;
     </div>
 
     <script>
-        import { gsap } from "gsap";
+        import { getLazyGsap } from "../utils/lazyGsap";
+
+    let gsap: any = null;
 
         const upgradeBtns = document.querySelectorAll(".btn-upgrade");
         const modal = document.getElementById("payment-modal");
@@ -329,7 +331,18 @@ export const prerender = false;
             modal?.classList.remove("active"),
         );
 
-        function startCelebration(plan: string) {
+        async function startCelebration(plan: string) {
+            const lazy = await getLazyGsap();
+            gsap = lazy.gsap;
+            if (!gsap) {
+                document.querySelectorAll(".celebration-icon, .celebration-title, .celebration-msg, .benefits-reveal").forEach((el) => {
+                    (el as HTMLElement).style.opacity = "1";
+                });
+                setTimeout(() => {
+                    window.location.href = "/dashboard";
+                }, 4500);
+                return;
+            }
             const planDisplay = document.getElementById("celebration-plan");
             if (planDisplay) planDisplay.innerText = plan;
 

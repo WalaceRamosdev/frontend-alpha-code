@@ -334,9 +334,19 @@ const links = [
 </style>
 
 <script>
-    import { gsap } from "gsap";
+    import { getLazyGsap } from "../utils/lazyGsap";
 
-    function initLinks() {
+    let gsap: any = null;
+
+    async function initLinks() {
+        const lazy = await getLazyGsap();
+        gsap = lazy.gsap;
+        if (!gsap) {
+            document.querySelectorAll(".profile-header, .link-card, .social-footer").forEach((el) => {
+                (el as HTMLElement).style.opacity = "1";
+            });
+            return;
+        }
         gsap.to(".profile-header", { opacity: 1, y: 0, duration: 0.8 });
         gsap.to(".link-card", {
             opacity: 1,

@@ -383,10 +383,15 @@ const seo = createSEOMeta({
 </style>
 
 <script>
-    import { gsap } from "gsap";
+    import { getLazyGsap } from "../utils/lazyGsap";
+
+    let gsap: any = null;
 
     // Premium entrance animation
-    window.addEventListener("load", () => {
+    window.addEventListener("load", async () => {
+        const lazy = await getLazyGsap();
+        gsap = lazy.gsap;
+        if (!gsap) return;
         const tl = gsap.timeline();
 
         tl.from(".success-icon-container", {

@@ -80,15 +80,34 @@ import Card from "../ui/Card.astro";
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    // GSAP é carregado de forma lazy pelo BaseLayout (window.gsap + gsap:ready).
+    // Sem import estático aqui: evita o chunk de ~69KB no caminho crítico.
+    let _audienceGsapPromise: Promise<any> | null = null;
+    function getAudienceGsap(): Promise<any> {
+        if (!_audienceGsapPromise) {
+            _audienceGsapPromise = (window as any).gsap
+                ? Promise.resolve((window as any).gsap)
+                : new Promise((resolve) => {
+                    if ((window as any).gsap) return resolve((window as any).gsap);
+                    document.addEventListener(
+                        "gsap:ready",
+                        () => resolve((window as any).gsap),
+                        { once: true },
+                    );
+                    setTimeout(() => {
+                        if (!(window as any).gsap) resolve(null);
+                    }, 5000);
+                });
+        }
+        return _audienceGsapPromise;
+    }
 
-    gsap.registerPlugin(ScrollTrigger);
-
-    document.addEventListener("astro:page-load", () => {
-        let mm = gsap.matchMedia();
+    document.addEventListener("astro:page-load", async () => {
+        const gsap = await getAudienceGsap();
         const section = document.getElementById("audience");
-        if (!section) return;
+        if (!section || !gsap) return;
+
+        let mm = gsap.matchMedia();
 
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".audience-grid");

@@ -82,13 +82,7 @@ const seo = createSEOMeta({
         <slot name="head" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         
-        <!-- LCP Critical Preload: definido por página via prop lcpImage; fallback para hero mobile -->
-        <link
-            rel="preload"
-            as="image"
-            href={Astro.props.lcpImage || "/assets/projects/psicologa-mobile.webp"}
-            fetchpriority="high"
-        />
+        <!-- LCP Critical Preload: o Astro gera automaticamente o preload da imagem otimizada (_astro/*.webp) quando uma página usa <Image fetchpriority="high">. O fallback abaixo pré-carregava o arquivo ORIGINAL (203KB), que não é usado pelas <img> otimizadas — removido para evitar download duplicado. -->
         <!-- Preconnect Cloudflare CDN (Font Awesome) — economiza ~20ms no LCP -->
         <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin />
         <!-- Preconnect Unsplash (avatares do hero) -->
@@ -158,7 +152,8 @@ const seo = createSEOMeta({
         
 
 
-        <link rel="icon" type="image/svg+xml" href="/assets/logo3d.svg" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="64x64" href="/assets/favicon-64x64.png" />
         <meta name="generator" content={Astro.generator} />
 
         <!-- RSS Feed -->
@@ -198,16 +193,16 @@ const seo = createSEOMeta({
         <meta name="twitter:description" content={seo["twitter:description"]} />
         <meta name="twitter:image" content={seo["twitter:image"]} />
 
-        <!-- Fonts -->
+        <!-- Fonts: apenas os pesos realmente usados (Outfit 400/600/800/900; Jakarta 400/500/700/800 via body) -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
             rel="preload"
             as="style"
-            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
         />
         <link
-            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
             rel="stylesheet"
             media="print"
             onload="this.media='all'"
@@ -272,7 +267,7 @@ const seo = createSEOMeta({
         </style>
         <noscript>
             <link
-                href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+                href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
                 rel="stylesheet"
             />
         </noscript>

@@ -221,14 +221,13 @@ const isLoggedIn = !!session;
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    gsap.registerPlugin(ScrollTrigger);
+    (async () => {
+        const { gsap } = await getLazyGsap();
+        const section = document.getElementById("plans");
+        if (!section || !gsap) return;
 
-    const section = document.getElementById("plans");
-
-    if (section) {
         const header = section.querySelector(".section-header");
         const grid = section.querySelector(".pricing-grid");
 
@@ -281,7 +280,7 @@ const isLoggedIn = !!session;
                 );
             }
         }
-    }
+    })();
 </script>
 
 <style>

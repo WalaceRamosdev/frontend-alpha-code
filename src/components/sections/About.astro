@@ -172,10 +172,29 @@ import Button from "../ui/Button.astro";
 </section>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
+    // GSAP é carregado lazy pelo BaseLayout (window.gsap + window.ScrollTrigger + gsap:ready).
+    // Sem import estático: evita o chunk de ~69KB no caminho crítico.
+    let _aboutGsap: Promise<{ gsap: any; ScrollTrigger: any }> | null = null;
+    function getAboutGsap(): Promise<{ gsap: any; ScrollTrigger: any }> {
+        if (!_aboutGsap) {
+            _aboutGsap = (window as any).gsap && (window as any).ScrollTrigger
+                ? Promise.resolve({ gsap: (window as any).gsap, ScrollTrigger: (window as any).ScrollTrigger })
+                : new Promise((resolve) => {
+                    if ((window as any).gsap && (window as any).ScrollTrigger) {
+                        return resolve({ gsap: (window as any).gsap, ScrollTrigger: (window as any).ScrollTrigger });
+                    }
+                    document.addEventListener(
+                        "gsap:ready",
+                        () => resolve({ gsap: (window as any).gsap, ScrollTrigger: (window as any).ScrollTrigger }),
+                        { once: true },
+                    );
+                    setTimeout(() => {
+                        if (!(window as any).gsap) resolve({ gsap: null, ScrollTrigger: null });
+                    }, 5000);
+                });
+        }
+        return _aboutGsap;
+    }
 
     function ensureAboutVisible() {
         const aboutEls = document.querySelectorAll("#about .fade-up-about, #about .fade-in-about");
@@ -185,12 +204,18 @@ import Button from "../ui/Button.astro";
         });
     }
 
-    function initAboutAnimation() {
+    async function initAboutAnimation() {
+        const { gsap, ScrollTrigger } = await getAboutGsap();
         const section = document.getElementById("about");
         if (!section) return;
 
         // Safety timeout
         const safetyTimer = setTimeout(ensureAboutVisible, 3000);
+
+        if (!gsap) {
+            ensureAboutVisible();
+            return;
+        }
 
         const tl = gsap.timeline({
             scrollTrigger: {
@@ -235,7 +260,7 @@ import Button from "../ui/Button.astro";
     // Run on initial load and after ViewTransitions navigation
     document.addEventListener("astro:page-load", () => {
         initAboutAnimation();
-        setTimeout(() => ScrollTrigger.refresh(), 100);
+        setTimeout(() => (window as any).ScrollTrigger?.refresh(), 100);
     });
 </script>
 

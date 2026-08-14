@@ -221,9 +221,13 @@
 </style>
 
 <script>
-    import { gsap } from "gsap";
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    function initDomainPromoModal() {
+    let gsap: any = null;
+
+    async function initDomainPromoModal() {
+        const lazy = await getLazyGsap();
+        gsap = lazy.gsap;
         const modal = document.getElementById("domain-promo-modal");
         const closeBtn = document.getElementById("close-domain-promo");
 
@@ -245,6 +249,13 @@
             const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
             modal.style.display = "flex";
+
+            if (!gsap) {
+                modal.style.opacity = "1";
+                const content = modal.querySelector(".domain-modal-content");
+                if (content instanceof HTMLElement) content.style.opacity = "1";
+                return;
+            }
             
             if (prefersReducedMotion) {
                 modal.style.opacity = "1";
@@ -271,13 +282,17 @@
 
         if (closeBtn && modal) {
             closeBtn.addEventListener("click", () => {
-                gsap.to(modal, {
-                    opacity: 0,
-                    duration: 0.3,
-                    onComplete: () => {
-                        modal.style.display = "none";
-                    },
-                });
+                if (gsap) {
+                    gsap.to(modal, {
+                        opacity: 0,
+                        duration: 0.3,
+                        onComplete: () => {
+                            modal.style.display = "none";
+                        },
+                    });
+                } else {
+                    modal.style.display = "none";
+                }
             });
         }
 

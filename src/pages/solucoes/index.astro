@@ -203,10 +203,9 @@ const seo = {
 </BaseLayout>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    gsap.registerPlugin(ScrollTrigger);
+    let gsap: any = null;
 
     // Dados para o preview (Injetados via script por ser interativo)
     const nichesData = {
@@ -295,7 +294,7 @@ const seo = {
             modal.classList.remove('hidden');
             document.body.style.overflow = 'hidden'; // Lock Scroll
             
-            gsap.fromTo(".modal-container", 
+            gsap?.fromTo(".modal-container", 
                 { opacity: 0, scale: 0.9, y: 20 },
                 { opacity: 1, scale: 1, y: 0, duration: 0.4, ease: "power3.out" }
             );
@@ -303,7 +302,7 @@ const seo = {
 
         const closeAll = () => {
             if (!modal) return;
-            gsap.to(".modal-container", {
+            gsap?.to(".modal-container", {
                 opacity: 0, scale: 0.9, y: 20, duration: 0.3, onComplete: () => {
                     modal.classList.add('hidden');
                     document.body.style.overflow = ''; // Unlock Scroll
@@ -337,10 +336,10 @@ const seo = {
         
         setInterval(() => {
             if(!wordEl) return;
-            gsap.to(wordEl, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
+            gsap?.to(wordEl, { opacity: 0, y: -20, duration: 0.3, onComplete: () => {
                 wordIdx = (wordIdx + 1) % words.length;
                 wordEl.innerText = words[wordIdx];
-                gsap.fromTo(wordEl, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 });
+                gsap?.fromTo(wordEl, { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.3 });
             }});
         }, 3500);
 
@@ -381,7 +380,7 @@ const seo = {
                 if (cat === 'all') {
                     sections.forEach(sec => {
                         (sec as HTMLElement).style.display = 'block';
-                        gsap.to(sec, { opacity: 1, duration: 0.3 });
+                        gsap?.to(sec, { opacity: 1, duration: 0.3 });
                     });
                 } else {
                     sections.forEach(sec => {
@@ -389,7 +388,7 @@ const seo = {
                         if (secCat === cat) {
                             (sec as HTMLElement).style.display = 'block';
                             sec.classList.add('active-section'); // Auto-abrir ao filtrar
-                            gsap.to(sec, { opacity: 1, duration: 0.3 });
+                            gsap?.to(sec, { opacity: 1, duration: 0.3 });
                             sec.scrollIntoView({ behavior: 'smooth', block: 'start' });
                         } else if (secCat) {
                             (sec as HTMLElement).style.display = 'none';
@@ -410,7 +409,11 @@ const seo = {
 
     };
 
-    document.addEventListener('astro:page-load', initHub);
+    document.addEventListener('astro:page-load', async () => {
+        const lazy = await getLazyGsap();
+        gsap = lazy.gsap;
+        initHub();
+    });
 </script>
 
 <style>

@@ -299,12 +299,12 @@ import Button from "../ui/Button.astro";
 </style>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    gsap.registerPlugin(ScrollTrigger);
+    document.addEventListener("astro:page-load", async () => {
+        const { gsap } = await getLazyGsap();
+        if (!gsap) return;
 
-    document.addEventListener("astro:page-load", () => {
         gsap.fromTo(
             ".fade-up-inv",
             { opacity: 0, y: 50 },

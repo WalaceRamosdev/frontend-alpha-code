@@ -248,13 +248,13 @@ const relatedServices = getRelatedServices(service.slug);
 </ServiceLayout>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-    gsap.registerPlugin(ScrollTrigger);
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
     // IntersectionObserver for GSAP triggers as requested
-    const animateOnScroll = () => {
+    const animateOnScroll = async () => {
+        const { gsap } = await getLazyGsap();
+        if (!gsap) return;
+
         const fadeElements = document.querySelectorAll(".fade-up-service");
 
         fadeElements.forEach((el) => {

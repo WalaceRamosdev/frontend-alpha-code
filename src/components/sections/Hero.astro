@@ -273,7 +273,29 @@ const {
 </section>
 
 <script>
-    import { gsap } from "gsap";
+    // GSAP é carregado de forma lazy pelo BaseLayout (window.gsap + evento gsap:ready).
+    // Aqui NÃO importamos o GSAP estaticamente — isso evita que o chunk de ~69KB
+    // entre no caminho crítico da página (LCP/FCP).
+    let _gsapPromise: Promise<any> | null = null;
+    function getGsap(): Promise<any> {
+        if (!_gsapPromise) {
+            _gsapPromise = (window as any).gsap
+                ? Promise.resolve((window as any).gsap)
+                : new Promise((resolve) => {
+                    if ((window as any).gsap) return resolve((window as any).gsap);
+                    document.addEventListener(
+                        "gsap:ready",
+                        () => resolve((window as any).gsap),
+                        { once: true },
+                    );
+                    // Safety: se o GSAP não chegar em 5s (ex: erro), pula a animação
+                    setTimeout(() => {
+                        if (!(window as any).gsap) resolve(null);
+                    }, 5000);
+                });
+        }
+        return _gsapPromise;
+    }
 
     // Track autoplay timer so we can clear it on page transitions
     let _heroAutoplayTimer: ReturnType<typeof setInterval> | null = null;
@@ -294,16 +316,17 @@ const {
             clearInterval(_heroAutoplayTimer);
             _heroAutoplayTimer = null;
         }
-        gsap.killTweensOf(
+        (window as any).gsap?.killTweensOf(
             ".hero-text .badge, .hero-title-lcp, .hero-text p, .hero-cta, .trust-indicator, .projects-carousel"
         );
     });
 
-    document.addEventListener("astro:page-load", () => {
+    document.addEventListener("astro:page-load", async () => {
+        const gsap = await getGsap();
         const isMobile = window.innerWidth <= 968;
 
         // Kill any leftover tweens from previous page load
-        gsap.killTweensOf(
+        gsap?.killTweensOf(
             ".hero-text .badge, .hero-title-lcp, .hero-text p, .hero-cta, .trust-indicator, .projects-carousel"
         );
 
@@ -313,6 +336,12 @@ const {
 
         // Safety timeout: if GSAP doesn't complete in 3s, force visibility
         const safetyTimer = setTimeout(ensureHeroVisible, 3000);
+
+        // Sem GSAP disponível: garante visibilidade e não roda animações
+        if (!gsap) {
+            ensureHeroVisible();
+            return;
+        }
 
         const tl = gsap.timeline({
             defaults: { ease: "power3.out", duration: 1 },

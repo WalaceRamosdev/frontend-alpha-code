@@ -2119,11 +2119,15 @@ const areasAtendidas = [
 </style>
 
 <script>
-    import { gsap } from "gsap";
-    import { ScrollTrigger } from "gsap/ScrollTrigger";
-    gsap.registerPlugin(ScrollTrigger);
+    import { getLazyGsap } from "../../utils/lazyGsap";
 
-    document.addEventListener("astro:page-load", () => {
+    let gsap: any = null;
+    let ScrollTrigger: any = null;
+
+    document.addEventListener("astro:page-load", async () => {
+        const lazy = await getLazyGsap();
+        gsap = lazy.gsap;
+        ScrollTrigger = lazy.ScrollTrigger;
         const accordionItems = document.querySelectorAll(".faq-accordion-item");
         
         accordionItems.forEach(item => {
@@ -2155,6 +2159,7 @@ const areasAtendidas = [
             });
         });
 
+        if (!gsap || !ScrollTrigger) return;
         ScrollTrigger.refresh();
 
         gsap.to(".hero-img", {
