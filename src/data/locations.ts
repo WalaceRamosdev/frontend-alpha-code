@@ -96,7 +96,7 @@ export const locations: LocationData[] = [
                 <a href="/local/criacao-de-sites-jardins-sp">Jardins</a>. 
                 Nossa missão é criar uma barreira de entrada digital para seus concorrentes, dominando os resultados de busca em toda a região nobre de São Paulo.</p>
 
-            <p>Pronto para elevar o patamar da sua empresa? Explore nossos <a href="/#projects">Projetos</a>, conheça nossos <a href="/planos">Planos</a> ou fale com um consultor via <a href="https://wa.me/5521999064502">WhatsApp</a>. A Alpha Code é o seu braço tecnológico no Itaim Bibi – SP.</p>
+            <p>Pronto para elevar o patamar da sua empresa? Explore nossos <a href="/#projects">Projetos</a>, conheça nossos <a href="/planos">Planos</a> ou fale com um consultor via <a href="https://wa.me/5521976184472">WhatsApp</a>. A Alpha Code é o seu braço tecnológico no Itaim Bibi – SP.</p>
         `,
         benefits: [
             "Arquitetura focada em empresas do setor financeiro e corporativo.",

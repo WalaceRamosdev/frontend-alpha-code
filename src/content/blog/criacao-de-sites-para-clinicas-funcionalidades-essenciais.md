@@ -72,5 +72,5 @@ Na **Alpha Code**, criamos sites de alta conversão específicos para a área da
 - Conheça nossa solução de [Criação de Sites para Clínicas Odontológicas no RJ](/solucoes/clinica-premium)
 - Veja nossos [Planos e Preços](/planos)
 - Leia mais no nosso [Blog](/blog)
-- [Fale conosco no WhatsApp](https://wa.me/5521999064502)
+- [Fale conosco no WhatsApp](https://wa.me/5521976184472)
 

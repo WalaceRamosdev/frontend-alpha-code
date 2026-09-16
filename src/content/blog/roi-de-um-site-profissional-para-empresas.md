@@ -61,4 +61,4 @@ Na Alpha Code, criamos projetos com foco matemático em ROI.
 
 - Descubra como transformamos sites em máquinas de lucro nas nossas [Soluções de Conversão](/solucoes).
 - Veja nossos [Planos de Investimento](/planos) e escolha o seu nível de escala.
-- [Solicite um diagnóstico gratuito do seu ROI atual](https://wa.me/5521999064502).
+- [Solicite um diagnóstico gratuito do seu ROI atual](https://wa.me/5521976184472).

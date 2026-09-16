@@ -44,4 +44,4 @@ O Google Meu Negócio é uma ferramenta gratuita, mas sua otimização é técni
 ---
 ### Precisa de ajuda para dominar as buscas locais na sua cidade?
 A **Alpha Code** é especialista em otimização de Google Meu Negócio e SEO Local para a área da saúde.
-**[Fale com nosso time e atraia mais pacientes locais hoje.](https://wa.me/5521999064502)**
+**[Fale com nosso time e atraia mais pacientes locais hoje.](https://wa.me/5521976184472)**

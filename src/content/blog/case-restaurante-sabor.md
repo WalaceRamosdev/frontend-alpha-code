@@ -76,5 +76,5 @@ O segredo do sucesso do Sabor foi a **qualidade visual**. A Alpha Code contratou
 Isso fez toda a diferença na experiência do cliente e na taxa de conversão.
 ---
 
-**Quer mais pedidos como o Sabor?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para meu restaurante) e descubra como podemosposicionar seu restaurante no topo do Google.
+**Quer mais pedidos como o Sabor?** [Fale com um especialista](https://wa.me/5521976184472?text=Quero um site profissional para meu restaurante) e descubra como podemosposicionar seu restaurante no topo do Google.
 

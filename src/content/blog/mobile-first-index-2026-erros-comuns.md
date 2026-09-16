@@ -134,4 +134,4 @@ Todo site entregue pela Alpha Code em 2026:
 
 Não entregamos site "que funciona no celular". Entregamos site **desenhado a partir do mobile**, testado em 5+ dispositivos reais, com Core Web Vitals otimizados para CrUX data (não lab), e auditoria mensal de regressão.
 
-[**Agende uma auditoria mobile-first gratuita: envie seu site e receba um relatório de 15 pontos com tudo que precisa ser ajustado.**](https://wa.me/5521999064502)
+[**Agende uma auditoria mobile-first gratuita: envie seu site e receba um relatório de 15 pontos com tudo que precisa ser ajustado.**](https://wa.me/5521976184472)

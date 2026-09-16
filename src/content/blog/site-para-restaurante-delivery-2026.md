@@ -145,4 +145,4 @@ A Alpha Code entrega para restaurantes:
 
 O investimento se paga em 3-6 meses com a economia de comissão e aumento de ticket médio. E o ativo (site + base de clientes) continua gerando valor indefinidamente.
 
-[**Agende uma demonstração gratuita: veja o cardápio digital, o sistema de pedido e o painel admin funcionando ao vivo.**](https://wa.me/5521999064502)
+[**Agende uma demonstração gratuita: veja o cardápio digital, o sistema de pedido e o painel admin funcionando ao vivo.**](https://wa.me/5521976184472)

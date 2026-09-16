@@ -200,4 +200,4 @@ Não entregamos site com "imagem bonita" sem otimização. Entregamos:
 
 O resultado: sites com LCP consistentemente **abaixo de 1.2s** em 4G real.
 
-[**Auditoria gratuita: envie seu site e receba um relatório de 10 pontos sobre o que suas imagens estão custando em ranqueamento e conversão.**](https://wa.me/5521999064502)
+[**Auditoria gratuita: envie seu site e receba um relatório de 10 pontos sobre o que suas imagens estão custando em ranqueamento e conversão.**](https://wa.me/5521976184472)

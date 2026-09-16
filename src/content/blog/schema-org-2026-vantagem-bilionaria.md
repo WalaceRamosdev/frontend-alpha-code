@@ -118,4 +118,4 @@ A recomendação da Alpha Code: cada página de serviço deve ter no mínimo `Lo
 
 A maioria das agências entrega site com **zero Schema** ou com um `Organization` genérico injetado por plugin. A Alpha Code entrega cada página com **camadas de Schema específicas para o nicho e intenção de busca**, validadas pelo Google Search Console, monitoradas e atualizadas a cada mudança estrutural.
 
-[**Auditoria gratuita: envie seu site e receba um relatório de 10 pontos sobre o que falta em Schema.org para você ranquear melhor.**](https://wa.me/5521999064502)
+[**Auditoria gratuita: envie seu site e receba um relatório de 10 pontos sobre o que falta em Schema.org para você ranquear melhor.**](https://wa.me/5521976184472)

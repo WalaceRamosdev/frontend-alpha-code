@@ -51,4 +51,4 @@ Não encare a criação do seu site como um gasto. Encare como a contratação d
 
 Na **Alpha Code**, somos especialistas em transformar negócios invisíveis em autoridades digitais. Nossa metodologia une a precisão tecnológica do Astro com a psicologia de vendas aplicada ao design.
 
-**[Pronto para dominar o Google? Clique aqui e solicite uma análise gratuita do seu negócio.](https://wa.me/5521999064502)**
+**[Pronto para dominar o Google? Clique aqui e solicite uma análise gratuita do seu negócio.](https://wa.me/5521976184472)**

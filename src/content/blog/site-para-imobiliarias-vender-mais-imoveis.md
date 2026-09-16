@@ -102,4 +102,4 @@ O mercado imobiliário é um dos mais competitivos no digital. Mas é também um
 
 ---
 
-**Quer vender mais imóveis com presença digital?** A Alpha Code cria sites para imobiliárias com busca integrada, SEO e captação de leads. [Fale conosco no WhatsApp](https://wa.me/5521999064502).
+**Quer vender mais imóveis com presença digital?** A Alpha Code cria sites para imobiliárias com busca integrada, SEO e captação de leads. [Fale conosco no WhatsApp](https://wa.me/5521976184472).

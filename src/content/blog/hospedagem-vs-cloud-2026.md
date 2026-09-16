@@ -149,4 +149,4 @@ Para clientes Alpha, o site roda em:
 
 O resultado: cliente foca no negócio, Alpha cuida da engenharia. Site sempre no ar, sempre rápido, sempre ranqueando.
 
-[**Solicite uma análise gratuita da sua hospedagem atual e descubra quanto ela está te custando em posições e faturamento.**](https://wa.me/5521999064502)
+[**Solicite uma análise gratuita da sua hospedagem atual e descubra quanto ela está te custando em posições e faturamento.**](https://wa.me/5521976184472)

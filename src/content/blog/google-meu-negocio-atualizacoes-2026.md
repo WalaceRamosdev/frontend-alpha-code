@@ -109,4 +109,4 @@ A boa notícia: a maioria das otimizações são gratuitas. Você só precisa de
 
 ---
 
-**Quer otimizar seu Google Meu Negócio?** A Alpha Code faz a gestão completa do seu perfil + cria um site que converte. [Fale conosco no WhatsApp](https://wa.me/5521999064502).
+**Quer otimizar seu Google Meu Negócio?** A Alpha Code faz a gestão completa do seu perfil + cria um site que converte. [Fale conosco no WhatsApp](https://wa.me/5521976184472).

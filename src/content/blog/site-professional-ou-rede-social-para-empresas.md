@@ -56,4 +56,4 @@ Seu site profissional é o seu quartel-general. É a única propriedade digital 
 ---
 
 **Sua empresa ainda é uma "inquilina" digital?**
-[Fale com a Alpha Code e vamos construir seu território próprio hoje mesmo.](https://wa.me/5521999064502)
+[Fale com a Alpha Code e vamos construir seu território próprio hoje mesmo.](https://wa.me/5521976184472)

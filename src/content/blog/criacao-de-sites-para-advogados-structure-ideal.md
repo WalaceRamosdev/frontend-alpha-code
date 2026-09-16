@@ -66,4 +66,4 @@ Um site bem estruturado trabalha para você 24 horas por dia. Se o seu site atua
 - Veja nossos [Planos e Preços](/planos)
 - Leia nosso artigo sobre [Como o SEO Local coloca seu consultório na frente](/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia)
 
-Precisa de um site que realmente traga resultados? [Entre em contato conosco hoje mesmo.](https://wa.me/5521999064502)
+Precisa de um site que realmente traga resultados? [Entre em contato conosco hoje mesmo.](https://wa.me/5521976184472)

@@ -54,7 +54,7 @@ Na Alpha Code, todos os nossos projetos de [criação de sites profissionais](/b
 
 **Pare de ser invisível.** Fale com um estrategista agora e coloque seu negócio no topo do Google.
 
-[Falar com Especialista via WhatsApp](https://wa.me/5521999064502)
+[Falar com Especialista via WhatsApp](https://wa.me/5521976184472)
 
 ---
 *Confira também: [SEO Local: Como colocar seu consultório na frente da concorrência](/blog/como-o-seo-local-coloca-seu-consultorio-na-frente-da-concorrencia)*

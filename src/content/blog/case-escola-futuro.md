@@ -78,5 +78,5 @@ O segredo do sucesso do Futuro foi a **prova social**. A Alpha Code criou uma se
 Isso gerou confiança imediata nos pais que visitavam o site.
 ---
 
-**Quer mais matrículas como o Futuro?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para minha escola) e descubra como podemosposicionar sua escola no topo do Google.
+**Quer mais matrículas como o Futuro?** [Fale com um especialista](https://wa.me/5521976184472?text=Quero um site profissional para minha escola) e descubra como podemosposicionar sua escola no topo do Google.
 

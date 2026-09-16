@@ -173,4 +173,4 @@ Não é fim do mundo. Plano de recuperação:
 
 Migração de domínio é **enenharia de risco**. A Alpha Code tem protocolo testado em dezenas de projetos, com SLA de downtime mínimo e taxa de recuperação de SEO acima de 95%.
 
-[**Está pensando em mudar de domínio? Solicite uma análise de impacto gratuita antes de tomar a decisão.**](https://wa.me/5521999064502)
+[**Está pensando em mudar de domínio? Solicite uma análise de impacto gratuita antes de tomar a decisão.**](https://wa.me/5521976184472)

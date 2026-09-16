@@ -51,4 +51,4 @@ Se o seu site atual não tem um desses 10 itens, você está deixando dinheiro n
 ---
 
 **Seu site passou no teste?**
-[Clique aqui e solicite um diagnóstico gratuito do seu site atual.](https://wa.me/5521999064502)
+[Clique aqui e solicite um diagnóstico gratuito do seu site atual.](https://wa.me/5521976184472)

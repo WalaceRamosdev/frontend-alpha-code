@@ -116,4 +116,4 @@ O Instagram é uma ferramenta de marketing poderosa — mas não é suficiente p
 
 ---
 
-**Quer atrair mais pacientes de alto valor?** A Alpha Code cria sites para dentistas com foco em procedimentos premium e captação via Google. [Fale conosco no WhatsApp](https://wa.me/5521999064502).
+**Quer atrair mais pacientes de alto valor?** A Alpha Code cria sites para dentistas com foco em procedimentos premium e captação via Google. [Fale conosco no WhatsApp](https://wa.me/5521976184472).

@@ -216,4 +216,4 @@ Não entregamos "site" e "e-mail marketing" como coisas separadas. Entregamos a 
 
 O resultado: **redução de 30-50% no custo de aquisição de clientes** vs mídia paga pura, e **LTV 2-3x maior** por cliente que passa pelo funil de e-mail.
 
-[**Solicite o Diagnóstico de Funil: descubra quanto seu site está deixando de capturar e como transformá-lo em máquina de vendas em 90 dias.**](https://wa.me/5521999064502)
+[**Solicite o Diagnóstico de Funil: descubra quanto seu site está deixando de capturar e como transformá-lo em máquina de vendas em 90 dias.**](https://wa.me/5521976184472)

@@ -68,4 +68,4 @@ Na Alpha Code, nós não apenas "fazemos sites". Nós construímos **máquinas d
 
 - Conheça nossa metodologia de [Criação de Sites Elite](/solucoes).
 - Veja qual dos nossos [Planos de Escala](/planos) se encaixa na sua meta de faturamente deste ano.
-- Ou melhor: [Fale agora com um especialista via WhatsApp](https://wa.me/5521999064502).
+- Ou melhor: [Fale agora com um especialista via WhatsApp](https://wa.me/5521976184472).

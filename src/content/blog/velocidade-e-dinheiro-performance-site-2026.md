@@ -60,4 +60,4 @@ Não deixe que a tecnologia obsoleta seja o gargalo do seu crescimento em 2026.
 ---
 
 **Seu site está rápido o suficiente para vencer a concorrência?**
-[Fale com nosso especialista em performance e peça um diagnóstico gratuito.](https://wa.me/5521999064502)
+[Fale com nosso especialista em performance e peça um diagnóstico gratuito.](https://wa.me/5521976184472)

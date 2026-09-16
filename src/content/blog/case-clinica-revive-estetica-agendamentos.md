@@ -85,4 +85,4 @@ Se você tem uma clínica de estética e sente que está perdendo clientes para 
 
 ---
 
-**Quer resultados como a Clínica Revive?** A Alpha Code cria sites para clínicas de estética com foco em agendamentos. [Fale conosco no WhatsApp](https://wa.me/5521999064502).
+**Quer resultados como a Clínica Revive?** A Alpha Code cria sites para clínicas de estética com foco em agendamentos. [Fale conosco no WhatsApp](https://wa.me/5521976184472).

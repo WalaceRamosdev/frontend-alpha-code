@@ -57,4 +57,4 @@ Na Alpha Code, nós criamos a estrutura digital que clínicas premium exigem.
 - Velocidade de carregamento ultra-rápida (essencial para mobile).
 - Estratégia de SEO focada em tratamentos de alto valor.
 
-[**Fale com nossa consultoria e eleve o padrão da sua presença online.**](https://wa.me/5521999064502)
+[**Fale com nossa consultoria e eleve o padrão da sua presença online.**](https://wa.me/5521976184472)

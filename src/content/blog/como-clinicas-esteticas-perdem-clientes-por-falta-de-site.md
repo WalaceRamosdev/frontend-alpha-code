@@ -59,4 +59,4 @@ Clínicas estéticas não perdem clientes por falta de qualidade técnica, mas p
 ---
 ### Quer transformar sua clínica em uma máquina de agendamentos?
 A Alpha Code é especialista em criar presença digital de luxo para profissionais da saúde e estética.
-**[Fale com um especialista e solicite seu orçamento agora.](https://wa.me/5521999064502)**
+**[Fale com um especialista e solicite seu orçamento agora.](https://wa.me/5521976184472)**

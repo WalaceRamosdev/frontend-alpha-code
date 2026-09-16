@@ -125,4 +125,4 @@ A Search Generative Experience não é o fim do SEO — é o **recomeço**. Prof
 
 Na Alpha Code, não produzimos "artigos para Google". Produzimos **conteúdo que humanos compartilham, IA cita e Google referencia como fonte confiável**.
 
-[**Quer saber se seu site está pronto para a era da SGE? Solicite uma auditoria técnica gratuita de 30 minutos.**](https://wa.me/5521999064502)
+[**Quer saber se seu site está pronto para a era da SGE? Solicite uma auditoria técnica gratuita de 30 minutos.**](https://wa.me/5521976184472)

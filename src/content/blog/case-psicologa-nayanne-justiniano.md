@@ -105,4 +105,4 @@ A história da Dra. Nayanne Justiniano prova que **ter um site profissional não
 
 Se você é psicólogo(a) e ainda depende exclusivamente de indicações para manter seu consultório cheio, saiba que existe um caminho mais inteligente. Um site bem construído, com SEO eficiente e focado em conversão, pode transformar completamente a realidade do seu consultório — assim como fez para a Dra. Nayanne.
 
-**[Quer resultados como a Dra. Nayanne? Fale com a Alpha Code e descubra como um site profissional pode transformar seu consultório.](https://wa.me/5521999064502)**
+**[Quer resultados como a Dra. Nayanne? Fale com a Alpha Code e descubra como um site profissional pode transformar seu consultório.](https://wa.me/5521976184472)**

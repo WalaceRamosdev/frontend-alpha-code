@@ -141,4 +141,4 @@ Não entregamos só "um blog post por mês". Entregamos o **átrio com 7 cascata
 
 Para clientes do plano de conteúdo Alpha, isso significa **5x mais alcance** com o mesmo investimento. E cada cascata reforça o átrio via link building interno, melhorando o SEO do site inteiro.
 
-[**Solicite o Diagnóstico Editorial gratuito: analise sua produção atual e veja quanto conteúdo está sendo desperdiçado.**](https://wa.me/5521999064502)
+[**Solicite o Diagnóstico Editorial gratuito: analise sua produção atual e veja quanto conteúdo está sendo desperdiçado.**](https://wa.me/5521976184472)

@@ -165,4 +165,4 @@ O tráfego não mudou. O **valor extraído** do tráfego mudou. Isso é CRO.
 
 Não terminamos um site e entregamos. **Otimizamos por 90 dias** após o lançamento, com testes A/B quinzenais, análise de comportamento e ajustes contínuos. O resultado: sites que **convertem 3-5x mais** que a média do mercado no primeiro trimestre.
 
-[**Solicite uma Auditoria CRO gratuita: envie sua URL e receba um relatório com 10 oportunidades de otimização priorizadas por impacto.**](https://wa.me/5521999064502)
+[**Solicite uma Auditoria CRO gratuita: envie sua URL e receba um relatório com 10 oportunidades de otimização priorizadas por impacto.**](https://wa.me/5521976184472)

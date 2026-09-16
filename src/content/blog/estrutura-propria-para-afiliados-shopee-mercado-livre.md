@@ -78,4 +78,4 @@ Ter uma estrutura própria não é sobre ter um site "bonitinho". É sobre ter u
 - **Setup de Dados:** Pixel e Tags configurados para escala real.
 - **Segurança de Domínio:** O fim do medo de links banidos.
 
-[**Não espere sua conta ser bloqueada para profissionalizar seu negócio. Agende uma Consultoria Estratégica agora.**](https://wa.me/5521999064502)
+[**Não espere sua conta ser bloqueada para profissionalizar seu negócio. Agende uma Consultoria Estratégica agora.**](https://wa.me/5521976184472)

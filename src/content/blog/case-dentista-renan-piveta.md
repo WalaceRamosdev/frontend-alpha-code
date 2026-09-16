@@ -120,4 +120,4 @@ A transformação digital do Dr. Renan Piveta demonstra que **um site profission
 
 Se você é dentista e sente que está deixando oportunidades passarem por não ter um site profissional, este é o momento de agir. Cada dia sem presença digital no Google é um dia em que potenciais pacientes estão encontrando seus concorrentes.
 
-**[Quer resultados como o Dr. Renan? Fale com a Alpha Code e descubra como um site profissional pode transformar sua clínica odontológica.](https://wa.me/5521999064502)**
+**[Quer resultados como o Dr. Renan? Fale com a Alpha Code e descubra como um site profissional pode transformar sua clínica odontológica.](https://wa.me/5521976184472)**

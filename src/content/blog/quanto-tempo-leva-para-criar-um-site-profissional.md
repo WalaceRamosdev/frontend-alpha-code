@@ -56,4 +56,4 @@ Quanto tempo vale a autoridade da sua marca? Esperar 15 dias por um site que vai
 ---
 
 ### **Cansado de promessas vazias e sites lentos?**
-[Clique aqui e solicite seu cronograma personalizado. Vamos colocar sua empresa no topo do Google em 15 dias.](https://wa.me/5521999064502?text=Vi%20o%20artigo%20sobre%20prazos%20e%20quero%20um%20projeto%20de%20alta%20performance%20para%20minha%20empresa.)
+[Clique aqui e solicite seu cronograma personalizado. Vamos colocar sua empresa no topo do Google em 15 dias.](https://wa.me/5521976184472?text=Vi%20o%20artigo%20sobre%20prazos%20e%20quero%20um%20projeto%20de%20alta%20performance%20para%20minha%20empresa.)

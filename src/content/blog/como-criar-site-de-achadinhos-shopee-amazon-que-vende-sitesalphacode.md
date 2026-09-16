@@ -88,4 +88,4 @@ Se você já tem uma audiência engajada nas redes sociais, o seu próximo passo
 
 Na **Alpha Code**, nós cuidamos de toda a engenharia por trás do seu site de achadinhos: do design premium e intuitivo à velocidade ultrarrápida do Astro.js e configurações completas de Pixel para suas campanhas de tráfego.
 
-[**Profissionalize seu perfil e comece a escalar suas comissões hoje mesmo. Clique aqui para agendar uma consultoria estratégica com o time da Alpha Code.**](https://wa.me/5521999064502)
+[**Profissionalize seu perfil e comece a escalar suas comissões hoje mesmo. Clique aqui para agendar uma consultoria estratégica com o time da Alpha Code.**](https://wa.me/5521976184472)

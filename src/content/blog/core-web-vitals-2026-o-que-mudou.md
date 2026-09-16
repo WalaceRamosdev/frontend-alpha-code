@@ -153,4 +153,4 @@ Em 2026, ter site lento é como ter loja com porta quebrada: o cliente entra, v�
 
 A Alpha Code entrega sites com performance medida em **field data real**, não em screenshot de lab. O resultado: ranqueamento mais alto, mais conversões, menos bounce.
 
-[**Solicite uma auditoria de performance gratuita do seu site atual e descubra o que está te custando posições no Google.**](https://wa.me/5521999064502)
+[**Solicite uma auditoria de performance gratuita do seu site atual e descubra o que está te custando posições no Google.**](https://wa.me/5521976184472)

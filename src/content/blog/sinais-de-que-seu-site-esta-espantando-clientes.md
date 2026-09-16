@@ -47,4 +47,4 @@ Na **Alpha Code**, nós realizamos auditorias profundas para identificar esses s
 ---
 
 **Seu site apresenta algum desses sintomas?**
-[Clique aqui e solicite uma auditoria gratuita da nossa equipe técnica.](https://wa.me/5521999064502)
+[Clique aqui e solicite uma auditoria gratuita da nossa equipe técnica.](https://wa.me/5521976184472)

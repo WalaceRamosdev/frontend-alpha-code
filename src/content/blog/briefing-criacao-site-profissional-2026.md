@@ -174,7 +174,7 @@ A Alpha Code disponibiliza o **template completo de briefing** usado em todos os
 
 [**Baixar template gratuito de Briefing Profissional (PDF, 12 páginas)**](/briefing-template.pdf)
 
-[**Ou solicite uma reunião gratuita de 30 minutos para preencher com a gente.**](https://wa.me/5521999064502)
+[**Ou solicite uma reunião gratuita de 30 minutos para preencher com a gente.**](https://wa.me/5521976184472)
 
 ---
 
@@ -184,4 +184,4 @@ Você não precisa saber fazer um briefing. Você precisa saber o que quer do se
 
 É a primeira etapa do nosso processo — e a razão pela qual 95% dos clientes Alpha dizem que o site entregue **superou expectativas**.
 
-[**Agende sua sessão estratégica gratuita de briefing e descubra como seria o site ideal para o seu negócio.**](https://wa.me/5521999064502)
+[**Agende sua sessão estratégica gratuita de briefing e descubra como seria o site ideal para o seu negócio.**](https://wa.me/5521976184472)

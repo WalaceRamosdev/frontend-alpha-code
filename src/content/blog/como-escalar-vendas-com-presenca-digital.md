@@ -53,4 +53,4 @@ Na Alpha Code, nós não apenas criamos sites; nós desenhamos estratégias de e
 
 - Conheça nossas [Estratégias de Escala Digital](/solucoes).
 - Descubra como nossos [Planos de Performance](/planos) podem automatizar sua aquisição de clientes.
-- [Agende uma consultoria estratégica gratuita](https://wa.me/5521999064502).
+- [Agende uma consultoria estratégica gratuita](https://wa.me/5521976184472).

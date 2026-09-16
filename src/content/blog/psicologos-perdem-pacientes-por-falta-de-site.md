@@ -45,4 +45,4 @@ Psicólogos não precisam "vender" mais. Precisam ser encontrados com clareza e 
 A **Alpha Code** cria sites rápidos, claros e rigorosamente alinhados às normas do CFP. 
 > 👉 Descubra detalhes de como a nossa **[Criação de Sites para Psicólogos](/solucoes/psicologos)** transforma seu consultório em uma máquina de agendamentos.
 
-**[Solicite uma análise gratuita do seu projeto direto no WhatsApp!](https://wa.me/5521999064502)**
+**[Solicite uma análise gratuita do seu projeto direto no WhatsApp!](https://wa.me/5521976184472)**

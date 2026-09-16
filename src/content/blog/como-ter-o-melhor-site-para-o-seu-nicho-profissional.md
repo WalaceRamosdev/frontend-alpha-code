@@ -40,4 +40,4 @@ Se o seu projeto atual está espantando os melhores leads em vez de seduzi-los, 
 
 ### Mude o jogo do seu negócio agora.
 A **Alpha Code** cria sites rápidos e rigorosamente desenhados para dominar nichos com tecnologia de alta perfomance (carregamento em menos de 1 segundo). Pare de perder seus resultados para quem chegou primeiro.
-**[Fale agora com o nosso time de arquitetos digitais em nosso WhatsApp e trace seu plano de ação corporativo.](https://wa.me/5521999064502)**
+**[Fale agora com o nosso time de arquitetos digitais em nosso WhatsApp e trace seu plano de ação corporativo.](https://wa.me/5521976184472)**

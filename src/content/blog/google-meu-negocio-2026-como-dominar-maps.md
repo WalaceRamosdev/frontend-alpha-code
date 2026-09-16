@@ -104,4 +104,4 @@ Na Alpha Code, trabalhamos o **Google Meu Negócio como uma frente integrada de 
 
 Se o seu negócio depende de clientes locais — advogados, médicos, dentistas, restaurantes, prestadores de serviço — seu Perfil de Empresas precisa de uma estratégia de elite, não de um "post aleatório por mês".
 
-[**Agende um Diagnóstico Gratuito de SEO Local e descubra o que está impedindo seu negócio de aparecer no topo do Google Maps da sua cidade.**](https://wa.me/5521999064502)
+[**Agende um Diagnóstico Gratuito de SEO Local e descubra o que está impedindo seu negócio de aparecer no topo do Google Maps da sua cidade.**](https://wa.me/5521976184472)

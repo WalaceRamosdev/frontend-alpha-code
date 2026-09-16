@@ -34,4 +34,4 @@ As redes sociais servem para atrair atenção, mas o seu site é o lugar onde vo
 ---
 ### Sua advocacia merece uma presença digital de elite
 A Alpha Code desenvolve sites exclusivos para advogados e escritórios que buscam o topo do Google.
-**[Fale com nosso consultor jurídico digital.](https://wa.me/5521999064502)**
+**[Fale com nosso consultor jurídico digital.](https://wa.me/5521976184472)**

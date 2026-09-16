@@ -105,4 +105,4 @@ Velocidade não é "feature técnica" — é vantagem competitiva. Cada segundo 
 
 ---
 
-**Seu site está lento?** A Alpha Code cria sites com performance extrema — Astro.js, otimização de imagens, CDN global. [Fale conosco no WhatsApp](https://wa.me/5521999064502) e descubra o que velocidade real faz nos seus resultados.
+**Seu site está lento?** A Alpha Code cria sites com performance extrema — Astro.js, otimização de imagens, CDN global. [Fale conosco no WhatsApp](https://wa.me/5521976184472) e descubra o que velocidade real faz nos seus resultados.

@@ -91,4 +91,4 @@ O e-mail marketing não morreu — evoluiu. Quem usa a estratégia certa, segmen
 
 ---
 
-**Quer implementar e-mail marketing no seu negócio?** A Alpha Code cria a estratégia completa: site + landing page + captação + automação de e-mails. [Fale conosco no WhatsApp](https://wa.me/5521999064502).
+**Quer implementar e-mail marketing no seu negócio?** A Alpha Code cria a estratégia completa: site + landing page + captação + automação de e-mails. [Fale conosco no WhatsApp](https://wa.me/5521976184472).

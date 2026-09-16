@@ -74,5 +74,5 @@ O segredo do sucesso da Revive foi o foco em **SEO local**. A Alpha Code otimizo
 Isso garantiu que a clínica aparecesse nas buscas locais de pacientes que já estavam prontas para agendar.
 ---
 
-**Quer lotar sua agenda como a Revive?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para minha clínica de estética) e descubra como podemosposicionar sua clínica no topo do Google.
+**Quer lotar sua agenda como a Revive?** [Fale com um especialista](https://wa.me/5521976184472?text=Quero um site profissional para minha clínica de estética) e descubra como podemosposicionar sua clínica no topo do Google.
 

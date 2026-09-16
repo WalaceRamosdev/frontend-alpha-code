@@ -44,4 +44,4 @@ Seu posicionamento digital deve refletir a qualidade do seu atendimento. Substit
 ---
 ### Quer transformar sua bio do Instagram em uma máquina de agendamentos?
 A **Alpha Code** cria centrais de links ultra-rápidas e personalizadas para profissionais da saúde.
-**[Clique aqui e peça seu Link Profissional agora mesmo.](https://wa.me/5521999064502)**
+**[Clique aqui e peça seu Link Profissional agora mesmo.](https://wa.me/5521976184472)**

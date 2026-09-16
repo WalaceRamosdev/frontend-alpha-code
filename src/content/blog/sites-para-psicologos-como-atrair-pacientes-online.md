@@ -81,4 +81,4 @@ Se você sente que o seu site atual não transmite a autoridade que sua carreira
 - Veja nossos [Planos e Preços](/planos)
 - Leia sobre [Como aparecer no Google Maps em 2026](/blog/como-aparecer-no-google-maps-saude-sitesalphacode)
 
-Precisa de um site que realmente traga novos pacientes? [Fale com a Alpha Code agora mesmo pelo WhatsApp.](https://wa.me/5521999064502)
+Precisa de um site que realmente traga novos pacientes? [Fale com a Alpha Code agora mesmo pelo WhatsApp.](https://wa.me/5521976184472)

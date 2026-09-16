@@ -42,4 +42,4 @@ Comparado ao custo de aluguel de uma sala comercial ou ao salário de um vendedo
 ---
 
 **Quer um site que se pague sozinho?**
-[Clique aqui e conheça nossos planos de criação com manutenção inclusa.](https://wa.me/5521999064502)
+[Clique aqui e conheça nossos planos de criação com manutenção inclusa.](https://wa.me/5521976184472)

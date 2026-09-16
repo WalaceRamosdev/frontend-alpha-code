@@ -160,4 +160,4 @@ Não entregamos "uma campanha de remarketing". Entregamos **ecossistema de funil
 
 O resultado: **CPA reduzido em 30-50%** vs campanhas de aquisição pura, e **LTV (lifetime value) 2-3x maior** por cliente que retorna via remarketing.
 
-[**Solicite uma auditoria gratuita das suas campanhas atuais de remarketing: descubra quanto dinheiro está sendo desperdiçado em segmentações mal feitas.**](https://wa.me/5521999064502)
+[**Solicite uma auditoria gratuita das suas campanhas atuais de remarketing: descubra quanto dinheiro está sendo desperdiçado em segmentações mal feitas.**](https://wa.me/5521976184472)

@@ -78,5 +78,5 @@ O segredo do sucesso do Amigo foi a **disponibilidade 24h**. A Alpha Code criou 
 Isso gerou confiança imediata nos tutores que precisavam de atendimento de urgência.
 ---
 
-**Quer mais agendamentos como o Amigo?** [Fale com um especialista](https://wa.me/5521999064502?text=Quero um site profissional para meu pet shop ou clínica veterinária) e descubra como podemosposicionar seu negócio pet no topo do Google.
+**Quer mais agendamentos como o Amigo?** [Fale com um especialista](https://wa.me/5521976184472?text=Quero um site profissional para meu pet shop ou clínica veterinária) e descubra como podemosposicionar seu negócio pet no topo do Google.
 

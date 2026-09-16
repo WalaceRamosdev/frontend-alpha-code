@@ -51,4 +51,4 @@ Nós utilizamos o **Astro.js** para garantir a melhor performance do planeta, ma
 - Narrativas que prendem e convertem.
 - Foco total em ROI e crescimento.
 
-[**Pare de ter apenas um site e comece a ter uma máquina de vendas. Agende sua consultoria.**](https://wa.me/5521999064502)
+[**Pare de ter apenas um site e comece a ter uma máquina de vendas. Agende sua consultoria.**](https://wa.me/5521976184472)

@@ -107,4 +107,4 @@ A pergunta não é "preciso de uma landing page?". A pergunta é: "quanto estou 
 
 ---
 
-**Quer uma landing page que converte?** A Alpha Code cria páginas focadas em resultado, com design profissional e estratégia comprovada. [Fale conosco no WhatsApp](https://wa.me/5521999064502) e descubra como funciona.
+**Quer uma landing page que converte?** A Alpha Code cria páginas focadas em resultado, com design profissional e estratégia comprovada. [Fale conosco no WhatsApp](https://wa.me/5521976184472) e descubra como funciona.
