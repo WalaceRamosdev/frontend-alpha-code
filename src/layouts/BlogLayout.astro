@@ -136,9 +136,11 @@ const articleSchema = {
     datePublished: pubDate.toISOString(),
     dateModified: (updatedDate ?? pubDate).toISOString(),
     inLanguage: "pt-BR",
+    wordCount: content.split(/\s+/).length,
     author: {
-        "@type": "Organization",
-        name: "Alpha Code",
+        "@type": "Person",
+        name: author,
+        url: "https://www.sitesalphacode.com.br",
     },
     publisher: {
         "@type": "Organization",
@@ -210,6 +212,11 @@ const reviewSchema = caseClient
     ogImage={finalHeroImage}
     showHeader={true}
     showWhatsApp={true}
+    schemaType="Article"
+    schemaName={title}
+    schemaDescription={description}
+    publishedTime={pubDate.toISOString()}
+    modifiedTime={(updatedDate ?? pubDate).toISOString()}
 >
     <!-- Schema Markup -->
     <script

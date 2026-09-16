@@ -1,0 +1,147 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+export const prerender = true;
+---
+
+<BaseLayout
+    title="Termos de Uso"
+    description="Termos de uso do site e serviços da Alpha Code. Leia os termos que regem a utilização dos nossos serviços de criação de sites profissionais."
+    noIndex={true}
+>
+    <main class="legal-page">
+        <div class="container">
+            <h1>Termos de Uso</h1>
+            <p class="last-updated">Ultima atualização: 16 de setembro de 2026</p>
+
+            <section>
+                <h2>1. Aceitação dos Termos</h2>
+                <p>Ao acessar e utilizar o site <strong>www.sitesalphacode.com.br</strong> e os serviços oferecidos pela Alpha Code, você concorda com estes Termos de Uso. Se não concordar com algum dos termos, não utilize nossos serviços.</p>
+            </section>
+
+            <section>
+                <h2>2. Sobre a Alpha Code</h2>
+                <p>A Alpha Code é uma empresa especializada em criação de sites profissionais, oferecendo soluções de presença digital para empresas de diversos segmentos. Nossos serviços incluem criação de sites, otimização SEO, gestão de Google Meu Negócio e consultoria estratégica de marketing digital.</p>
+            </section>
+
+            <section>
+                <h2>3. Serviços Oferecidos</h2>
+                <p>Nossos serviços incluem, mas não se limitam a:</p>
+                <ul>
+                    <li>Criação de sites institucionais e landing pages</li>
+                    <li>Otimização para mecanismos de busca (SEO)</li>
+                    <li>Gestão de Google Meu Negócio</li>
+                    <li>Consultoria estratégica de marketing digital</li>
+                    <li>Integração com WhatsApp Business e ferramentas de automação</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>4. Propriedade Intelectual</h2>
+                <p>Todo o conteúdo presente neste site, incluindo textos, imagens, gráficos, logotipos, ícones, código-fonte e design, é propriedade da Alpha Code ou de seus licenciadores e é protegido pelas leis de propriedade intelectual brasileiras.</p>
+                <p>Após a entrega do projeto e quitação integral, o cliente recebe os direitos de uso sobre o site desenvolvido. O código-fonte personalizado é transferido ao cliente.</p>
+            </section>
+
+            <section>
+                <h2>5. Obrigações do Cliente</h2>
+                <p>O cliente se compromete a:</p>
+                <ul>
+                    <li>Fornecer informações verdadeiras e atualizadas durante o processo de criação</li>
+                    <li>Respeitar os prazos estabelecidos no briefing</li>
+                    <li>Utilizar os serviços de forma ética e em conformidade com a legislação vigente</li>
+                    <li>Responsabilizar-se pelo conteúdo publicado em seu site (textos, imagens, materiais)</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>6. Pagamentos</h2>
+                <p>Os valores dos serviços são informados em proposta comercial específica. O prazo de pagamento e as condições são definidos no momento da contratação. O atraso no pagamento pode resultar na suspensão dos serviços.</p>
+            </section>
+
+            <section>
+                <h2>7. Garantia</h2>
+                <p>A Alpha Code oferece garantia técnica sobre os serviços prestados, conforme especificado em cada proposta comercial. A garantia não cobre alterações solicitadas pelo cliente após a entrega, problemas causados por terceiros ou mau uso do sistema.</p>
+            </section>
+
+            <section>
+                <h2>8. Limitação de Responsabilidade</h2>
+                <p>A Alpha Code não se responsabiliza por:</p>
+                <ul>
+                    <li>Resultados de ranqueamento em mecanismos de busca (SEO é um processo contínuo)</li>
+                    <li>Indisponibilidade temporária do site por motivos de força maior</li>
+                    <li>Perdas financeiras decorrentes do uso dos serviços</li>
+                    <li>Conteúdo publicado pelo cliente em seu site</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>9. Cancelamento</h2>
+                <p>O cliente pode solicitar o cancelamento dos serviços a qualquer momento, mediante comunicação por escrito. Os valores referentes à etapa já executada não serão reembolsados.</p>
+            </section>
+
+            <section>
+                <h2>10. Legislação Aplicável</h2>
+                <p>Estes Termos de Uso são regidos pelas leis da República Federativa do Brasil. Qualquer controvérsia será resolvida no foro da comarca do Rio de Janeiro/RJ.</p>
+            </section>
+
+            <section>
+                <h2>11. Contato</h2>
+                <p>Em caso de dúvidas sobre estes Termos de Uso, entre em contato conosco:</p>
+                <ul>
+                    <li>E-mail: contato@sitesalphacode.com.br</li>
+                    <li>WhatsApp: (21) 97618-4472</li>
+                </ul>
+            </section>
+        </div>
+    </main>
+</BaseLayout>
+
+<style>
+    .legal-page {
+        padding: 120px 0 80px;
+        min-height: 80vh;
+    }
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 0 24px;
+    }
+    h1 {
+        font-size: clamp(2rem, 5vw, 3rem);
+        font-weight: 800;
+        color: #fff;
+        margin-bottom: 12px;
+        line-height: 1.1;
+    }
+    .last-updated {
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 48px;
+    }
+    section {
+        margin-bottom: 40px;
+    }
+    h2 {
+        font-size: 1.4rem;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 16px;
+        margin-top: 32px;
+    }
+    p, li {
+        color: #acacac;
+        font-size: 1.1rem;
+        line-height: 1.8;
+        margin-bottom: 12px;
+    }
+    strong {
+        color: #fff;
+    }
+    ul {
+        padding-left: 1.5em;
+        margin: 16px 0;
+    }
+    li {
+        margin-bottom: 8px;
+    }
+</style>

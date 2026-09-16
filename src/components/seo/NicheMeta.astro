@@ -22,8 +22,7 @@ const description = niche.metaFormulas.formula2;
 const title = `${niche.title} | Alpha Code`;
 ---
 
-<meta name="description" content={description} />
-<meta property="og:title" content={title} />
-<meta property="og:description" content={description} />
-<meta name="twitter:title" content={title} />
-<meta name="twitter:description" content={description} />
+<meta property="og:title" content={title} slot="head" />
+<meta property="og:description" content={description} slot="head" />
+<meta name="twitter:title" content={title} slot="head" />
+<meta name="twitter:description" content={description} slot="head" />

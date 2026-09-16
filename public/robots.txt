@@ -10,10 +10,12 @@ Disallow: /parceiro-alpha
 Disallow: /faturas
 Disallow: /loja
 Disallow: /manutencao
-Disallow: /compilar-images
+Disallow: /compile-images
 Disallow: /api/
 Disallow: /upgrade
 Disallow: /oferta-exclusiva
+Disallow: /scratch/
+Disallow: /scripts/
 Disallow: /*?ref=*
 Disallow: /*?admin=true
 Disallow: /*?utm_*
@@ -28,4 +30,3 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://www.sitesalphacode.com.br/sitemap-index.xml
-Sitemap: https://www.sitesalphacode.com.br/sitemap-posts.xml

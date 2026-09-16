@@ -98,11 +98,15 @@ export const createSEOMeta = ({
         'og:type': type,
         'og:url': canonicalUrl,
         'og:image': ogImage,
+        'og:image:width': '1200',
+        'og:image:height': '630',
+        'og:image:alt': finalTitle,
         'og:locale': 'pt_BR',
         'og:site_name': 'Alpha Code',
 
         // Twitter Cards
         'twitter:card': 'summary_large_image',
+        'twitter:site': '@alphacode',
         'twitter:creator': '@alphacode',
         'twitter:title': finalTitle,
         'twitter:description': description,

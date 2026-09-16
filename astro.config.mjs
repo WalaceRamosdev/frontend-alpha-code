@@ -49,7 +49,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
     build: {
-      sourcemap: true,
+      sourcemap: false,
       // Desabilita o polyfill automático de module preload (evita JS extra no head)
       modulePreload: {
         polyfill: false,

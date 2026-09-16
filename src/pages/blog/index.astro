@@ -31,6 +31,20 @@ const collectionPageSchema = {
         datePublished: post.data.pubDate.toISOString(),
     })),
 };
+
+const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Blog Alpha Code",
+    description: "Lista de artigos sobre SEO, marketing digital e criação de sites",
+    numberOfItems: posts.length,
+    itemListElement: posts.slice(0, 20).map((post, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        url: `https://www.sitesalphacode.com.br/blog/${post.slug}/`,
+        name: post.data.title,
+    })),
+};
 ---
 
 <BaseLayout
@@ -42,6 +56,12 @@ const collectionPageSchema = {
     <script
         type="application/ld+json"
         set:html={JSON.stringify(collectionPageSchema)}
+        slot="scripts"
+    />
+    <!-- ItemList Schema -->
+    <script
+        type="application/ld+json"
+        set:html={JSON.stringify(itemListSchema)}
         slot="scripts"
     />
     <!-- Simple Blog Header -->
