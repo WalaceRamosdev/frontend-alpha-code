@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="600" height="400" viewBox="0 0 600 400">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a1a2e"/>
+      <stop offset="100%" style="stop-color:#2d1b3d"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4a0a0"/>
+      <stop offset="100%" style="stop-color:#c48b8b"/>
+    </linearGradient>
+  </defs>
+  <rect width="600" height="400" fill="url(#bg)" rx="12"/>
+  <rect x="20" y="20" width="560" height="40" fill="#0d1117" rx="8"/>
+  <circle cx="40" cy="40" r="6" fill="#ff5f56"/>
+  <circle cx="58" cy="40" r="6" fill="#ffbd2e"/>
+  <circle cx="76" cy="40" r="6" fill="#27c93f"/>
+  <rect x="20" y="70" width="560" height="310" fill="#0d1117" rx="0 0 8 8" opacity="0.5"/>
+  <rect x="40" y="90" width="180" height="12" fill="url(#accent)" rx="6" opacity="0.8"/>
+  <rect x="40" y="115" width="320" height="8" fill="#333" rx="4"/>
+  <rect x="40" y="130" width="280" height="8" fill="#333" rx="4"/>
+  <rect x="40" y="175" width="120" height="35" fill="url(#accent)" rx="6"/>
+  <rect x="170" y="175" width="120" height="35" fill="transparent" stroke="#d4a0a0" stroke-width="1.5" rx="6"/>
+  <circle cx="120" cy="280" r="50" fill="#2d1b3d" stroke="#d4a0a0" stroke-width="1"/>
+  <circle cx="290" cy="280" r="50" fill="#2d1b3d" stroke="#d4a0a0" stroke-width="1"/>
+  <circle cx="460" cy="280" r="50" fill="#2d1b3d" stroke="#d4a0a0" stroke-width="1"/>
+  <text x="120" y="345" font-family="Arial,sans-serif" font-size="10" fill="#666" text-anchor="middle">Antes</text>
+  <text x="290" y="345" font-family="Arial,sans-serif" font-size="10" fill="#666" text-anchor="middle">Depois</text>
+  <text x="460" y="345" font-family="Arial,sans-serif" font-size="10" fill="#666" text-anchor="middle">Resultado</text>
+</svg>

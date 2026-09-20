@@ -1,0 +1,86 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0f1f"/>
+      <stop offset="40%" style="stop-color:#2d1b3d"/>
+      <stop offset="100%" style="stop-color:#3d2548"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#d4a0a0"/>
+      <stop offset="100%" style="stop-color:#e8c4c4"/>
+    </linearGradient>
+    <radialGradient id="glow1" cx="30%" cy="40%">
+      <stop offset="0%" style="stop-color:#d4a0a0;stop-opacity:0.12"/>
+      <stop offset="100%" style="stop-color:#d4a0a0;stop-opacity:0"/>
+    </radialGradient>
+    <radialGradient id="glow2" cx="75%" cy="65%">
+      <stop offset="0%" style="stop-color:#e8c4c4;stop-opacity:0.08"/>
+      <stop offset="100%" style="stop-color:#e8c4c4;stop-opacity:0"/>
+    </radialGradient>
+    <filter id="blur1"><feGaussianBlur stdDeviation="100"/></filter>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+
+  <!-- Ambient glows -->
+  <ellipse cx="576" cy="432" rx="500" ry="400" fill="#d4a0a0" opacity="0.06" filter="url(#blur1)"/>
+  <ellipse cx="1440" cy="700" rx="450" ry="350" fill="#e8c4c4" opacity="0.04" filter="url(#blur1)"/>
+
+  <!-- Elegant curves - beauty/sPA aesthetic -->
+  <g opacity="0.06" stroke="#d4a0a0" stroke-width="1.5" fill="none">
+    <path d="M-100,540 Q200,300 500,500 T960,400 T1400,550 T2020,450"/>
+    <path d="M-100,600 Q300,400 600,580 T1000,480 T1500,600 T2020,520"/>
+    <path d="M-100,660 Q250,480 550,640 T960,560 T1450,660 T2020,580"/>
+  </g>
+
+  <!-- Floating petals/leaves -->
+  <g opacity="0.07">
+    <ellipse cx="200" cy="300" rx="40" ry="15" fill="#d4a0a0" transform="rotate(-30 200 300)"/>
+    <ellipse cx="220" cy="280" rx="35" ry="12" fill="#e8c4c4" transform="rotate(-45 220 280)"/>
+
+    <ellipse cx="1700" cy="700" rx="45" ry="16" fill="#d4a0a0" transform="rotate(25 1700 700)"/>
+    <ellipse cx="1720" cy="680" rx="38" ry="13" fill="#e8c4c4" transform="rotate(40 1720 680)"/>
+
+    <ellipse cx="500" cy="800" rx="35" ry="12" fill="#d4a0a0" transform="rotate(-20 500 800)"/>
+    <ellipse cx="1400" cy="200" rx="40" ry="14" fill="#e8c4c4" transform="rotate(35 1400 200)"/>
+  </g>
+
+  <!-- Diamond/rhombus pattern - luxury aesthetic -->
+  <g opacity="0.04" stroke="#d4a0a0" stroke-width="1" fill="none">
+    <polygon points="960,200 1020,300 960,400 900,300"/>
+    <polygon points="960,300 1000,370 960,440 920,370"/>
+    <polygon points="300,500 340,560 300,620 260,560"/>
+    <polygon points="1620,400 1660,460 1620,520 1580,460"/>
+  </g>
+
+  <!-- Soft circles - bubbles -->
+  <g opacity="0.05">
+    <circle cx="300" cy="450" r="60" stroke="#d4a0a0" stroke-width="1" fill="none"/>
+    <circle cx="300" cy="450" r="40" stroke="#e8c4c4" stroke-width="0.5" fill="none"/>
+
+    <circle cx="1600" cy="350" r="50" stroke="#d4a0a0" stroke-width="1" fill="none"/>
+    <circle cx="1600" cy="350" r="30" stroke="#e8c4c4" stroke-width="0.5" fill="none"/>
+
+    <circle cx="800" cy="850" r="45" stroke="#d4a0a0" stroke-width="0.8" fill="none"/>
+    <circle cx="1200" cy="150" r="55" stroke="#e8c4c4" stroke-width="0.8" fill="none"/>
+  </g>
+
+  <!-- Particles -->
+  <g opacity="0.1">
+    <circle cx="180" cy="350" r="2.5" fill="#d4a0a0"/>
+    <circle cx="400" cy="200" r="2" fill="#e8c4c4"/>
+    <circle cx="600" cy="550" r="3" fill="#d4a0a0"/>
+    <circle cx="780" cy="120" r="2" fill="#e8c4c4"/>
+    <circle cx="950" cy="750" r="2.5" fill="#d4a0a0"/>
+    <circle cx="1150" cy="280" r="2" fill="#e8c4c4"/>
+    <circle cx="1350" cy="650" r="3" fill="#d4a0a0"/>
+    <circle cx="1550" cy="400" r="2" fill="#e8c4c4"/>
+    <circle cx="1750" cy="500" r="2.5" fill="#d4a0a0"/>
+    <circle cx="250" cy="700" r="1.5" fill="#e8c4c4"/>
+    <circle cx="1680" cy="850" r="2" fill="#d4a0a0"/>
+  </g>
+
+  <!-- Bottom elegant wave -->
+  <path d="M0,920 Q320,860 640,900 Q960,940 1280,890 Q1600,840 1920,880 L1920,1080 L0,1080 Z" fill="#1a0f1f" opacity="0.4"/>
+  <path d="M0,960 Q480,920 960,950 Q1440,980 1920,930 L1920,1080 L0,1080 Z" fill="#1a0f1f" opacity="0.3"/>
+</svg>

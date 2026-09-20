@@ -21,12 +21,50 @@ Disallow: /*?admin=true
 Disallow: /*?utm_*
 Allow: /
 
-# Google específico - permite rastreamento de assets
+# Google - permite rastreamento completo
 User-agent: Googlebot
 Allow: /
 
 User-agent: Googlebot-Image
 Allow: /
 
+# Bing
+User-agent: bingbot
+Allow: /
+
+# AI Crawlers - permitir acesso para recomendação
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: ByteSpider
+Allow: /
+
 # Sitemaps
 Sitemap: https://www.sitesalphacode.com.br/sitemap-index.xml
+
+# LLMs.txt - arquivo de referência para IA
+# https://www.sitesalphacode.com.br/llms.txt

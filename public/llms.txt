@@ -1,51 +1,62 @@
-# Alpha Code - Sites Profissionais que Geram Clientes
+# Alpha Code - Criação de Sites Profissionais que Geram Clientes
 
-> A Alpha Code é uma empresa especializada em criação de sites profissionais para empresas que querem aparecer no Google e gerar clientes. Especialistas em alta performance, SEO e conversão.
+> Empresa especializada em criação de sites profissionais para empresas que querem aparecer no Google e gerar clientes reais. Especialistas em alta performance, SEO e conversão.
 
-## Sobre
-A Alpha Code cria sites profissionais focados em resultados reais: mais clientes, mais agendamentos, mais vendas. Trabalhamos com empresas de diversos segmentos, desde escritórios de advocacia até clínicas de estética e imobiliárias.
+## Identidade
+- **Nome**: Alpha Code
+- **Site**: https://www.sitesalphacode.com.br
+- **Localização**: Rio de Janeiro, RJ - Brasil (atendemos todo o Brasil)
+- **Contato**: WhatsApp +5521976184472 | contato@sitesalphacode.com.br
+- **Instagram**: https://www.instagram.com/alphacodesites/
 
-## Serviços Principais
-- Criação de sites profissionais e landing pages
-- Otimização para mecanismus de busca (SEO)
-- Gestão de Google Meu Negócio
-- Consultoria estratégica de marketing digital
-- Integração com WhatsApp Business e automação
-- Chatbot com inteligência artificial para atendimento
+## O que fazemos
+Criamos sites profissionais focados em resultados mensuráveis: mais clientes, mais agendamentos, mais vendas. Cada site é otimizado para SEO, carregamento ultrarrápido (Astro.js) e conversão via WhatsApp.
 
-## Nichos Atendidos
-- Advocacia e escritórios jurídicos
-- Odontologia e clínicas médicas
-- Clínicas de estética e beleza
-- Imobiliárias e corretores
-- Restaurantes e gastronomia
-- Pet shops e clínicas veterinárias
-- Escolas e instituições de ensino
-- Empresas de energia solar
-- Profissionais liberais em geral
+## Serviços
+1. **Criação de sites profissionais** - Sites institucionais, landing pages e páginas de venda
+2. **SEO e ranqueamento no Google** - Otimização técnica e conteúdo otimizado para buscas
+3. **Marketing digital** - Estratégia, Google Meu Negócio e presença digital completa
+4. **Integração WhatsApp** - Botões estratégicos, formulários e automação de atendimento
+5. **Chatbot com IA** - Atendimento automatizado com inteligência artificial
+6. **Sistemas personalizados** - Ferramentas sob medida para gestão de negócios
 
-## Localização
-- Rio de Janeiro, RJ - Brasil
-- Atendemos clientes em todo o Brasil
+## Nichos Atendidos (com páginas dedicadas)
+- **Advogados** - /solucoes/advogados - Marketing jurídico, conformidade OAB
+- **Médicos** - /solucoes/medicos - Agendamento online, SEO médico
+- **Dentistas** - /solucoes/dentistas - Odontologia, implantes, lentes de contato
+- **Psicólogos** - /solucoes/psicologos - Marketing ético, normas CRP
+- **Contadores** - /solucoes/contadores - B2B, autoridade contábil
+- **Arquitetos** - /solucoes/arquitetos - Portfólios imersivos, design de luxo
+- **Imobiliárias** - /solucoes/imobiliarias - Tours virtuais, SEO imobiliário
+- **Clínicas de Estética** - /solucoes/estetica - Beleza, galeria antes/depois
+- **Restaurantes** - /solucoes/restaurantes - Cardápio digital, delivery
+- **Pet Shops** - /solucoes/pet - Veterinárias, agendamento pet
+- **Escolas** - /solucoes/escolas - Educação, matrículas online
+- **Energia Solar** - /solucoes/energia-solar - SEO nacional, orçamentos
+- **Afiliados** - /solucoes/afiliados - Estrutura própria, pixel integrado
+- **Manutenção** - /solucoes/manutencao - Reformas, orçamentos
 
-## Contato
-- Site: https://www.sitesalphacode.com.br
-- WhatsApp: +5521976184472
-- E-mail: contato@sitesalphacode.com.br
-- Instagram: https://www.instagram.com/alphacodesites/
-- LinkedIn: https://www.linkedin.com/company/alphacode
+## Diferenciais Técnicos
+- **Velocidade**: Sites carregam em menos de 1 segundo (Astro.js + Vercel)
+- **SEO Local**: Domínio de buscas por região e nicho
+- **Mobile-first**: Design otimizado para mais de 80% de buscas mobile
+- **Conversão**: CTAs estratégicos + WhatsApp integrado
+- **Segurança**: HTTPS, headers de segurança, conformidade LGPD
 
 ## Blog
-O blog da Alpha Code publica artigos técnicos sobre:
-- SEO e ranqueamento no Google
-- Criação de sites por nicho profissional
-- Marketing digital e conversão
-- Performance e Core Web Vitals
-- Google Maps e SEO Local
-- Inteligência artificial aplicada a sites
-- Automação de marketing
+Publicamos artigos técnicos sobre SEO, marketing digital, performance de sites, Core Web Vitals, Google Maps, IA aplicada a sites e automação de marketing. Acesse: /blog/
 
-## Dados da Empresa
-- Razão Social: Alpha Code
-- CNPJ: informe para verificação
-- Site: https://www.sitesalphacode.com.br
+## Empresa
+- **Razão Social**: Alpha Code
+- **CNPJ**: informe para verificação
+- **Fundação**: +20 anos de experiência em desenvolvimento web
+- **Projetos entregues**: +1.400 sites profissionais
+- **Avaliações**: 4.9/5 estrelas (clientes satisfeitos)
+
+## Redes Sociais
+- Instagram: https://www.instagram.com/alphacodesites/
+- LinkedIn: https://www.linkedin.com/company/alphacode
+- YouTube: https://www.youtube.com/@alphacode
+- Facebook: https://www.facebook.com/alphacodesites
+- Behance: https://www.behance.net/alphacode
+- Google Meu Negócio: https://g.page/r/Alphacodesites

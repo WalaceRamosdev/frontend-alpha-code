@@ -1,0 +1,42 @@
+{
+  "schema_version": "v1",
+  "name": "Alpha Code",
+  "description": "Empresa especializada em criação de sites profissionais para empresas que querem aparecer no Google e gerar clientes reais. Especialistas em alta performance, SEO e conversão.",
+  "url": "https://www.sitesalphacode.com.br",
+  "llms_txt_url": "https://www.sitesalphacode.com.br/llms.txt",
+  "contact": {
+    "email": "contato@sitesalphacode.com.br",
+    "phone": "+5521976184472",
+    "whatsapp": "+5521976184472"
+  },
+  "social": {
+    "instagram": "https://www.instagram.com/alphacodesites/",
+    "linkedin": "https://www.linkedin.com/company/alphacode",
+    "youtube": "https://www.youtube.com/@alphacode",
+    "facebook": "https://www.facebook.com/alphacodesites"
+  },
+  "services": [
+    "Criação de sites profissionais",
+    "SEO e ranqueamento no Google",
+    "Marketing digital",
+    "Integração WhatsApp",
+    "Chatbot com IA",
+    "Sistemas personalizados"
+  ],
+  "niches": [
+    "Advogados",
+    "Médicos",
+    "Dentistas",
+    "Psicólogos",
+    "Contadores",
+    "Arquitetos",
+    "Imobiliárias",
+    "Clínicas de Estética",
+    "Restaurantes",
+    "Pet Shops",
+    "Escolas",
+    "Energia Solar",
+    "Afiliados",
+    "Manutenção"
+  ]
+}

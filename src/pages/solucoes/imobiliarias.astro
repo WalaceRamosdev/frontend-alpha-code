@@ -3,6 +3,7 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import Button from "../../components/ui/Button.astro";
 import NicheMeta from "../../components/seo/NicheMeta.astro";
 import RelatedContent from "../../components/seo/RelatedContent.astro";
+import SchemaMarkup from "../../components/seo/SchemaMarkup.astro";
 
 const slug = "imobiliarias";
 
@@ -44,7 +45,7 @@ const faq = [
         <!-- HERO -->
         <section class="hero-lp-v2">
             <div class="hero-bg-container">
-                <img src="/assets/banners/imobiliarias-hero.webp" alt="Imobiliária Premium" class="hero-bg-image" />
+                <img src="/assets/banners/imobiliarias-hero.svg" alt="Imobiliária Premium" class="hero-bg-image" />
                 <div class="hero-overlay"></div>
             </div>
             
@@ -329,6 +330,8 @@ const faq = [
         />
 
     </div>
+
+    <SchemaMarkup type="ProfessionalService" name="Alpha Code - Sites para Imobiliárias" description="Criação de sites profissionais para imobiliárias. Tours virtuais, galeria de imóveis e SEO local imobiliário." serviceType="Criação de Sites para Imobiliárias" areaServed={["Brasil", "Rio de Janeiro", "São Paulo"]} faqItems={faq.map(f => ({ question: f.q, answer: f.a }))} />
 </BaseLayout>
 
 <style>

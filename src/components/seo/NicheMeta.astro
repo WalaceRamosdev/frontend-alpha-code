@@ -11,18 +11,21 @@ const niche = niches.find((n) => n.slug === slug);
 
 if (!niche) return null;
 
-// Selecione a fórmula com base em lógica pseudoaleatória simples ou apenas indexe
-// Para consistência de SEO, geralmente queremos uma por página, mas podemos alternar
-// Vamos usar a fórmula 1 como padrão, ou podemos passá-la adiante.
-// O usuário sugeriu "Meta descrições variadas", então talvez possamos alternar por mês/dia ou usar diferentes descrições em diferentes variações de nicho.
-// No entanto, para uma única página, precisamos de APENAS UMA descrição.
-// Vou usar a fórmula 2 (Benefício + Velocidade + CTA) como padrão, pois é muito eficaz.
-
 const description = niche.metaFormulas.formula2;
 const title = `${niche.title} | Alpha Code`;
+const ogImage = `https://www.sitesalphacode.com.br/assets/og-image-3d.webp`;
+const pageUrl = `https://www.sitesalphacode.com.br/solucoes/${slug}`;
 ---
 
 <meta property="og:title" content={title} slot="head" />
 <meta property="og:description" content={description} slot="head" />
+<meta property="og:image" content={ogImage} slot="head" />
+<meta property="og:url" content={pageUrl} slot="head" />
+<meta property="og:type" content="website" slot="head" />
+<meta property="og:site_name" content="Alpha Code" slot="head" />
 <meta name="twitter:title" content={title} slot="head" />
 <meta name="twitter:description" content={description} slot="head" />
+<meta name="twitter:image" content={ogImage} slot="head" />
+<meta name="twitter:card" content="summary_large_image" slot="head" />
+<meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large" slot="head" />
+<meta name="author" content="Alpha Code" slot="head" />
