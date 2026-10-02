@@ -28,6 +28,7 @@
  * Uso: node scripts/build-search-index.mjs (executado por `npm run build`)
  */
 import { cp, mkdir, readdir, readFile, rm, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createIndex, close } from "pagefind";
@@ -40,6 +41,14 @@ const BLOG_DIR = path.join(ROOT, "src", "content", "blog");
 const SITE_DIR = path.join(ROOT, "dist", "client");
 const STAGING_DIR = path.join(ROOT, ".pagefind-staging");
 const OUTPUT_DIR = path.join(ROOT, "dist", "client", "pagefind");
+
+// O adapter do Vercel copia `dist/client` para `.vercel/output/static` no
+// `astro:build:done`, ou seja, ANTES deste script rodar. Escrever so em
+// `dist/client/pagefind` deixa o indice fora do pacote de deploy e o /pagefind/
+// responde 404 em producao -- o que ja acontecia antes desta mudanca. Por isso
+// o indice tambem e copiado para `.vercel/output/static`, que e o que a Vercel
+// realmente publica.
+const VERCEL_STATIC_DIR = path.join(ROOT, ".vercel", "output", "static");
 
 /* ------------------------------------------------------------------ */
 /* Frontmatter                                                         */
@@ -350,9 +359,29 @@ async function main() {
 
         for (const error of output.errors) throw new Error(`Pagefind: ${error}`);
 
+        // Espelha o indice no pacote que a Vercel publica.
+        let deployed = false;
+        if (existsSync(VERCEL_STATIC_DIR)) {
+            const target = path.join(VERCEL_STATIC_DIR, "pagefind");
+            await rm(target, { recursive: true, force: true });
+            await cp(OUTPUT_DIR, target, { recursive: true });
+            deployed = true;
+        }
+
+        // Sem isso o /pagefind/ pode sumir do deploy sem ninguem perceber,
+        // porque o build continua "verde" e a busca so quebra em producao.
+        if (!existsSync(path.join(OUTPUT_DIR, "pagefind-entry.json"))) {
+            throw new Error(`Pagefind nao gerou ${OUTPUT_DIR}/pagefind-entry.json`);
+        }
+
         console.log(
             `pagefind: ${result.page_count} pagina(s) indexadas ` +
                 `(${staticPages} estaticas + ${written.length} do blog) -> ${output.outputPath}`,
+        );
+        console.log(
+            deployed
+                ? `pagefind: indice copiado para ${path.join(VERCEL_STATIC_DIR, "pagefind")}`
+                : "pagefind: .vercel/output/static nao existe (build local sem adapter Vercel)",
         );
         for (const entry of skipped) console.log(`  ignorado: ${entry}`);
     } finally {
