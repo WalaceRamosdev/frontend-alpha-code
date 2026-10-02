@@ -1,5 +1,7 @@
 ---
-export const prerender = true;
+// SSR: o filtro `pubDate <= now` precisa ser reavaliado a cada requisição,
+// senão `now` fica congelado no build e os artigos agendados nunca aparecem.
+export const prerender = false;
 
 import { getCollection } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";

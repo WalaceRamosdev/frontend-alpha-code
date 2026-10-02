@@ -2,7 +2,9 @@ import rss from "@astrojs/rss";
 import { getCollection } from "astro:content";
 import type { APIContext } from "astro";
 
-export const prerender = true;
+// SSR: o feed precisa reavaliar o filtro de data a cada requisição para
+// que um artigo agendado entre no feed assim que a data passa.
+export const prerender = false;
 
 export async function GET(context: APIContext) {
     const now = new Date();
@@ -10,7 +12,7 @@ export async function GET(context: APIContext) {
         data.draft !== true && data.pubDate <= now
     )).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 
-    return rss({
+    const feed = await rss({
         title: "Alpha Insights | Blog da Alpha Code",
         description:
             "Estratégias de presença digital, SEO local e conversão para profissionais e empresas que buscam o topo do Google.",
@@ -26,4 +28,10 @@ export async function GET(context: APIContext) {
         customData: `<language>pt-BR</language>`,
         stylesheet: "/rss-styles.xsl",
     });
+
+    // Cache curto no edge: o feed é consumido por agregadores em escala de
+    // minutos, então o filtro de data continua valendo sem risco de atraso.
+    feed.headers.set("Cache-Control", "public, max-age=0, s-maxage=300");
+
+    return feed;
 }

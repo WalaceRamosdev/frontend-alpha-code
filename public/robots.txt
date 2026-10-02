@@ -64,7 +64,10 @@ User-agent: ByteSpider
 Allow: /
 
 # Sitemaps
+# O sitemap-index.xml cobre as paginas prerenderizadas. As paginas do blog sao
+# SSR (para publicar artigos na data agendada) e por isso ficam no sitemap-posts.xml.
 Sitemap: https://www.sitesalphacode.com.br/sitemap-index.xml
+Sitemap: https://www.sitesalphacode.com.br/sitemap-posts.xml
 
 # LLMs.txt - arquivo de referência para IA
 # https://www.sitesalphacode.com.br/llms.txt
