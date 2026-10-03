@@ -2,7 +2,7 @@
 title: "WordPress ou site personalizado: comparação completa"
 description: "WordPress ou Site Personalizado? Descubra qual a melhor escolha para a sua empresa em 2026, comparando performance, segurança e conversão."
 pubDate: 2026-04-15T12:30:00-03:00
-heroImage: "/assets/blog/velocidade-e-dinheiro-performance-site-2026-sitesalphacode.webp"
+heroImage: "/assets/blog/wordpress-ou-site-personalizado-comparacao-completa-sitesalphacode.webp"
 categories: ["Comparações de Plataformas"]
 tags: ["criação de sites", "comparações de plataformas", "marketing digital"]
 draft: false
